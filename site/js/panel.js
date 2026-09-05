@@ -5,7 +5,7 @@
 // another language with `refresh()`.
 import { EDGE_KINDS, edgeColor, kindColor } from "./colors.js";
 import { kindLabel, t } from "./i18n.js";
-import { computeMetrics, topSharedNodes } from "./metrics.js";
+import { computeMetrics, linkLift, naturalScope, topSharedNodes } from "./metrics.js";
 
 export class Panel {
   /**
@@ -150,6 +150,7 @@ export class Panel {
           this.el("button", { type: "button", onclick: h.onReset }, t("physics.reset")),
         ),
         this.slider(t("physics.repulsion"), "repulsion", 0, 1000, 5, (v) => h.onPhysics("repulsion", v)),
+        this.slider(t("physics.repulsionRange"), "repulsionRange", 0, 2000, 25, (v) => h.onPhysics("repulsionRange", v), (v) => (v > 0 ? String(v) : "∞")),
         this.slider(t("physics.stiffness"), "stiffness", 0, 0.2, 0.001, (v) => h.onPhysics("stiffness", v), (v) => v.toFixed(3)),
         this.slider(t("physics.restLength"), "restLength", 0, 200, 1, (v) => h.onPhysics("restLength", v)),
         this.slider(t("physics.gravity"), "gravity", 0, 0.2, 0.005, (v) => h.onPhysics("gravity", v), (v) => v.toFixed(3)),
@@ -236,6 +237,7 @@ export class Panel {
       bar("metric.acyclicity", m.acyclicity),
       bar("metric.singleCaller", m.singleCallerRatio),
       bar("metric.dagness", m.dagness),
+      bar("metric.locality", m.locality),
       this.el(
         "div",
         { class: "metric-grid" },
@@ -251,16 +253,18 @@ export class Panel {
         kv("metric.cycles", m.nontrivialSccs),
         kv("metric.selfLoops", m.selfLoops),
         kv("metric.multiCallers", m.multiCallers),
+        kv("metric.nestingEdges", m.nestingEdges),
+        kv("metric.maxLift", m.maxLift),
         kv("metric.dropped", m.dropped),
       ),
     );
     this.sharedList.replaceChildren();
-    for (const n of topSharedNodes(graph)) {
+    for (const { node, cost } of topSharedNodes(graph)) {
       const li = this.el(
         "li",
         {},
-        this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(n)) }, n.name),
-        this.el("span", { class: "muted" }, ` ${t("metric.shared.callers", { count: n.inDegree })}`),
+        this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(node)) }, node.name),
+        this.el("span", { class: "muted" }, ` ${t("metric.shared.callers", { count: node.inDegree, lift: cost })}`),
       );
       this.sharedList.append(li);
     }
@@ -280,13 +284,14 @@ export class Panel {
     const list = (title, items) => {
       const ul = this.el("ul", {});
       for (const { n, l } of items) {
+        const lift = linkLift(graph, l);
         ul.append(
           this.el(
             "li",
             {},
             this.el("i", { class: "edge-dot", style: `background:${edgeColor(l.kind)}`, title: t(`edge.${l.kind}`) }),
             this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(n)) }, n.name),
-            this.el("span", { class: "muted small" }, ` ${t(`edge.${l.kind}`)}${l.inferred ? "*" : ""} · ${n.file}`),
+            this.el("span", { class: "muted small" }, ` ${t(`edge.${l.kind}`)}${l.inferred ? "*" : ""}${lift > 0 ? ` · ${t("selection.lift", { lift })}` : ""} · ${n.file}`),
           ),
         );
       }
@@ -296,10 +301,13 @@ export class Panel {
     const flags = [t("selection.height", { height: node.height })];
     if (node.inCycle) flags.push(t("selection.inCycle"));
     if (node.exported) flags.push(t("selection.exported"));
+    const scope = naturalScope(graph, node);
+    const scopeText = scope.topLevel ? t("selection.scope.top") : scope.nodes.map((x) => x.name).join(", ");
     this.selectionBody.replaceChildren(
       this.el("div", { class: "sel-title" }, this.el("i", { style: `background:${kindColor(node.kind)}` }), this.el("b", {}, node.name), this.el("span", { class: "muted" }, ` ${kindLabel(node.kind)}`)),
       this.el("div", { class: "small mono" }, node.line ? `${node.file}:${node.line}` : node.file),
       this.el("div", { class: "small muted" }, flags.join(", ")),
+      this.el("div", { class: "small muted", title: t("selection.scope.hint") }, `${t("selection.scope")}: ${scopeText}`),
       list(t("selection.callers"), callers),
       list(t("selection.callees"), callees),
     );

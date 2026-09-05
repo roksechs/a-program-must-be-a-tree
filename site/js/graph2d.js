@@ -308,10 +308,6 @@ export class Graph2D {
   show(visible) {
     this.svg.style("display", visible ? null : "none");
   }
-
-  destroy() {
-    this.svg.remove();
-  }
 }
 
 /** Straight edge that stops at the target's radius; self loops become a small arc. */

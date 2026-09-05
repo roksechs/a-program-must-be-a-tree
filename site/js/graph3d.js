@@ -373,10 +373,6 @@ export class Graph3D {
   show(visible) {
     this.canvas.style.display = visible ? null : "none";
   }
-
-  destroy() {
-    this.canvas.remove();
-  }
 }
 
 function drawArrow(ctx, x0, y0, x1, y1, stopBefore, headSize) {

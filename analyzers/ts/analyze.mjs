@@ -259,22 +259,59 @@ export function analyze(options) {
     return symbol ?? null;
   };
 
-  /** Resolve an identifier (or `super`) to the declaration entry it refers to, if any. */
-  const resolveTarget = (node) => {
-    const symbol = symbolOf(node);
-    if (!symbol) return null;
-    for (const decl of symbol.declarations ?? []) {
-      const owner = ownerOf(decl);
-      if (owner) {
-        // Only accept the owner if the symbol's declaration *is* that owner (or its name / a
-        // member of it). Locals declared inside a function body resolve to nothing.
-        if (owner.node === decl || owner.nameNode === decl) return owner;
-        // Members of interfaces and enums resolve to the interface / enum itself.
-        if ((ts.isTypeElement(decl) || ts.isEnumMember(decl)) && declByNode.get(decl.parent) === owner) return owner;
+  /**
+   * `map[key].m(...)`: indexing an object with a key that is not a literal can
+   * yield any of the object's property types, so `m` can be a member of any of
+   * them. The checker gives up on such an access, so the candidates are
+   * collected by hand (class hierarchy analysis over a record, docs/THEORY.md
+   * §3.2).
+   */
+  const recordMembers = (node) => {
+    const access = node.parent;
+    if (!access || !ts.isPropertyAccessExpression(access) || access.name !== node) return [];
+    const object = access.expression;
+    if (!ts.isElementAccessExpression(object) || ts.isStringLiteralLike(object.argumentExpression)) return [];
+    const out = [];
+    try {
+      const record = checker.getTypeAtLocation(object.expression);
+      for (const prop of checker.getPropertiesOfType(record ?? {}) ?? []) {
+        const at = prop.valueDeclaration ?? prop.declarations?.[0];
+        if (!at) continue;
+        const valueType = checker.getTypeOfSymbolAtLocation(prop, at);
+        for (const constituent of valueType?.isUnion?.() ? valueType.types : [valueType]) {
+          for (const decl of constituent?.getProperty?.(node.text)?.declarations ?? []) {
+            const owner = ownerOf(decl);
+            if (owner && (owner.node === decl || owner.nameNode === decl) && !out.includes(owner)) out.push(owner);
+          }
+        }
       }
+    } catch {
+      return [];
     }
-    return null;
+    return out;
   };
+
+  /**
+   * Resolve an identifier (or `super`) to the declaration entries it can refer
+   * to. A symbol usually has one declaration, but a member accessed through a
+   * union type (`(Graph2D | Graph3D).setGraph`) or through a record indexed at
+   * run time has one per constituent, and any of them can be the one that runs.
+   */
+  const resolveTargets = (node) => {
+    const out = [];
+    for (const decl of symbolOf(node)?.declarations ?? []) {
+      const owner = ownerOf(decl);
+      if (!owner || out.includes(owner)) continue;
+      // Only accept the owner if the symbol's declaration *is* that owner (or its name / a
+      // member of it). Locals declared inside a function body resolve to nothing.
+      if (owner.node === decl || owner.nameNode === decl) out.push(owner);
+      // Members of interfaces and enums resolve to the interface / enum itself.
+      else if ((ts.isTypeElement(decl) || ts.isEnumMember(decl)) && declByNode.get(decl.parent) === owner) out.push(owner);
+    }
+    return out.length > 0 ? out : recordMembers(node);
+  };
+  /** The declaration an identifier refers to, or the first candidate of a union. */
+  const resolveTarget = (node) => resolveTargets(node)[0] ?? null;
 
   // ---------------------------------------------------------------------------
   // Class hierarchy: constructor lookup, dispatch (class hierarchy analysis)
@@ -407,6 +444,32 @@ export function analyze(options) {
       edges.set(key, edge);
     }
   };
+  /**
+   * Record one occurrence of `resolved` inside `d` (docs/THEORY.md §3, §5).
+   * `new C(...)` reads the binding `C` and then runs the constructor found by
+   * lookup, so it produces both edges; a call through an interface member is a
+   * type-level dependency plus inferred calls to the implementations; a
+   * dynamically dispatched method call also reaches the overriding methods.
+   */
+  const emitReference = (d, resolved, kind, time, node, inferred) => {
+    let target = resolved;
+    if (isNewTarget(node)) {
+      target = constructorTarget(resolved);
+      if (target !== resolved && resolved !== d) addEdge(d, resolved, "reference", time, inferred);
+    }
+    if (kind === "call" && target.kind === "interface") {
+      // A call through an interface member: the interface is a type-level
+      // dependency, the implementations are the control targets.
+      addEdge(d, target, "type", time, inferred);
+      for (const impl of dispatchTargets({ parent: target.id, name: node.text })) if (impl !== d) addEdge(d, impl, "call", time, true);
+      return;
+    }
+    if (target !== d || kind === "call" || kind === "create") addEdge(d, target, kind, time, inferred);
+    if (kind === "call" && target.kind === "method" && !target.isStatic && isDispatchedCall(node)) {
+      for (const impl of dispatchTargets(target)) if (impl !== d) addEdge(d, impl, "call", time, true);
+    }
+  };
+
   // Structural edges: overriding and interface implementation at member level.
   for (const d of declarations) {
     if (!d.parent || d.name === "constructor") continue;
@@ -437,21 +500,12 @@ export function analyze(options) {
             (ts.isVariableDeclaration(p) || ts.isParameter(p) || ts.isBindingElement(p) || ts.isFunctionDeclaration(p) || ts.isClassDeclaration(p) || ts.isMethodDeclaration(p) || ts.isPropertyDeclaration(p) || ts.isPropertyAssignment(p) || ts.isImportSpecifier(p) || ts.isImportClause(p)) &&
             p.name === node;
           if (!declaresBinding) {
-            let target = resolveTarget(node);
-            let kind = referenceKind(node);
-            if (target && isNewTarget(node)) target = constructorTarget(target);
-            if (target && kind === "call" && target.kind === "interface") {
-              // A call through an interface member: the interface is a type-level
-              // dependency; the implementations are the control targets.
-              addEdge(d, target, "type", time);
-              for (const impl of dispatchTargets({ parent: target.id, name: node.text })) if (impl !== d) addEdge(d, impl, "call", time, true);
-              target = null;
-            }
-            if (target && target !== d) addEdge(d, target, kind, time);
-            else if (target === d && (kind === "call" || kind === "create")) addEdge(d, target, kind, time);
-            if (target && kind === "call" && target.kind === "method" && !target.isStatic && isDispatchedCall(node)) {
-              for (const impl of dispatchTargets(target)) if (impl !== d) addEdge(d, impl, "call", time, true);
-            }
+            const kind = referenceKind(node);
+            // Several candidates mean the occurrence went through a union type or
+            // a record indexed at run time: only one of them runs and which one is
+            // not decided here, so they are all inferred.
+            const found = resolveTargets(node);
+            for (const resolved of found) emitReference(d, resolved, kind, time, node, found.length > 1);
           }
         }
       }

@@ -31,14 +31,18 @@ Declarations are nodes, calls/references between declarations are directed
 edges. Required features, all of which must keep working:
 
 * D3 force-directed graph: repulsion inversely proportional to distance,
-  edges act as springs whose attraction is proportional to length.
+  edges act as springs whose attraction is proportional to length. Those are
+  the only forces that shape the layout; a pull towards the centre packs any
+  graph into a disc, so it stays off by default.
 * Directories and files are drawn as zones (hulls) around their declarations.
   Zones are purely visual: directories and files must never influence the
   physics (no forces, no container-aware seeding).
 * A property panel on the right with: recompute/reheat physics, repulsion
   strength, a single directory / file depth slider (0 = no zones, then one
   directory level per step, the maximum also showing files), and diagnostics
-  that quantify how tree-like the graph is, and one switch per edge kind that
+  that quantify how tree-like the graph is (directed: being called from two
+  unrelated places must score worse than being called once, and worse than
+  being shared between siblings), and one switch per edge kind that
   drives drawing, springs and diagnostics together (the three must never
   disagree, and a change must take effect immediately).
 * A 3D mode where the z axis is the call height: the deepest callers at the
@@ -48,7 +52,7 @@ edges. Required features, all of which must keep working:
 
 ```
 site/            static site (GitHub Pages root)
-  js/            ES modules: model, metrics, simulation, zones, graph2d, graph3d, panel, app, i18n
+  js/            ES modules: model, metrics, dominance, simulation, zones, graph2d, graph3d, panel, app, i18n
   data/          generated datasets, listed in index.json
   vendor/        d3 (copied by `npm run vendor`, do not edit)
 analyzers/ts/    JavaScript / TypeScript analyzer (TypeScript compiler API)

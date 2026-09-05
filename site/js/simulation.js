@@ -12,7 +12,8 @@ export const DEFAULT_PHYSICS = Object.freeze({
   repulsion: 120, // magnitude of the 1/d repulsion
   stiffness: 0.03, // spring constant k in F = k * (d - restLength)
   restLength: 30, // spring rest length in pixels
-  gravity: 0.05, // weak pull towards the origin so disconnected components stay together
+  repulsionRange: 600, // distance beyond which the repulsion is cut off, in pixels
+  gravity: 0, // optional extra pull towards the origin; see createSimulation
   alphaDecay: 0.0228, // d3 default: ~300 ticks per run
 });
 
@@ -65,12 +66,27 @@ export function forceSpring(links, opts) {
   return force;
 }
 
-/** Create the simulation for a graph. */
+/**
+ * Create the simulation for a graph.
+ *
+ * Only two forces shape the layout: the 1/d repulsion and the springs. The
+ * repulsion is cut off past `repulsionRange` so that distant parts of the graph
+ * do not press on each other; without a cut-off, every node pushes every other
+ * node from any distance, and the whole graph inflates until something holds it
+ * back. `forceCenter` is not such a force: it translates all nodes so their
+ * centroid sits at the origin, which moves the picture without deforming it.
+ *
+ * `gravity` adds a real pull towards the origin (forceX/forceY). It packs
+ * everything into a disc of the radius where the pull balances the repulsion,
+ * which hides the shape of the graph, so it is off by default and kept only as
+ * a way to reel in components that drifted off screen.
+ */
 export function createSimulation(graph, physics) {
   const sim = d3
     .forceSimulation(graph.nodes)
-    .force("charge", d3.forceManyBody().strength(-physics.repulsion).theta(0.9))
+    .force("charge", d3.forceManyBody().strength(-physics.repulsion).distanceMax(repulsionRange(physics)).theta(0.9))
     .force("spring", forceSpring(graph.links, physics))
+    .force("center", d3.forceCenter(0, 0))
     .force("x", d3.forceX(0).strength(physics.gravity))
     .force("y", d3.forceY(0).strength(physics.gravity))
     .force("collide", d3.forceCollide().radius((n) => nodeRadius(n) + 2).iterations(1))
@@ -79,9 +95,14 @@ export function createSimulation(graph, physics) {
   return sim;
 }
 
+/** 0 means "no cut-off": the repulsion then reaches across the whole graph. */
+function repulsionRange(physics) {
+  return physics.repulsionRange > 0 ? physics.repulsionRange : Infinity;
+}
+
 /** Push the current physics parameters into an existing simulation. */
 export function applyPhysics(sim, physics) {
-  sim.force("charge").strength(-physics.repulsion);
+  sim.force("charge").strength(-physics.repulsion).distanceMax(repulsionRange(physics));
   // Re-read node radii (degrees may have changed with the active edge kinds).
   sim.force("collide").radius((n) => nodeRadius(n) + 2);
   sim.force("x").strength(physics.gravity);

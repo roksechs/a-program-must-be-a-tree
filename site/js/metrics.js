@@ -1,16 +1,60 @@
 // Diagnostics: how tree-like is the call graph?
 import { connectedComponentCount, stronglyConnectedComponents } from "./model.js";
+import { dominatorTree } from "./dominance.js";
+
+/**
+ * Dominator tree of the active graph, memoised per link set (see dominance.js).
+ */
+export function dominance(graph) {
+  const links = graph.activeLinks ?? graph.links;
+  if (graph.dominanceCache?.links !== links) {
+    graph.dominanceCache = { links, value: dominatorTree(graph.nodes, links) };
+  }
+  return graph.dominanceCache.value;
+}
+
+/**
+ * Where a declaration would live if the program were a tree: the nodes of its
+ * immediate dominator component, or null when its natural scope is the top
+ * level. `lift` is how many scopes it had to be hoisted out of its deepest
+ * caller (0 = it already sits in its only caller).
+ */
+export function naturalScope(graph, node) {
+  const dom = dominance(graph);
+  const parent = dom.idom[dom.comp[node.index]];
+  const links = graph.activeLinks ?? graph.links;
+  let lift = 0;
+  for (let i = 0; i < links.length; i++) {
+    if (links[i].target === node && dom.lifts[i] > lift) lift = dom.lifts[i];
+  }
+  if (parent === -1 || parent === dom.root) return { nodes: [], lift, topLevel: true };
+  return { nodes: graph.nodes.filter((n) => dom.comp[n.index] === parent), lift, topLevel: false };
+}
+
+/** Lift of a link (docs/THEORY.md §7): 0 for a nesting edge, -1 inside a cycle. */
+export function linkLift(graph, link) {
+  const dom = dominance(graph);
+  const links = graph.activeLinks ?? graph.links;
+  const i = links.indexOf(link);
+  return i === -1 ? -1 : dom.lifts[i];
+}
 
 /**
  * Compute tree-likeness metrics for a graph. All ratios are in [0, 1] where 1
  * means "perfectly tree-like" for that criterion.
  *
- * - treeScore: (n - c) / m. A forest has exactly n - c edges, so this is 1 for
- *   a forest and decreases as extra (cross/back) edges are added.
+ * - treeScore (spanning ratio): (n - roots) / m. A directed forest has exactly
+ *   one incoming edge per non-root, so this is 1 iff no declaration has two
+ *   callers. Counting weakly connected components instead would be blind to
+ *   direction: two unrelated callers of one shared node would still score 1.
  * - acyclicity: fraction of nodes that are not part of any cycle.
  * - singleCallerRatio: fraction of nodes with at most one caller. In a tree every
  *   node has exactly one parent.
  * - dagness: 1 - (edges inside non-trivial SCCs, plus self loops) / m.
+ * - locality: mean of 1 / (1 + lift) over the edges of the condensation. An
+ *   edge whose caller is the natural parent of its target has lift 0 and scores
+ *   1; sharing between two siblings scores 1/2; a caller ten levels away from
+ *   the target's natural scope scores 1/11.
  */
 export function computeMetrics(graph) {
   const { nodes } = graph;
@@ -50,13 +94,16 @@ export function computeMetrics(graph) {
   const roots = nodes.filter((x) => x.inDegree === 0).length;
   const leaves = nodes.filter((x) => x.outDegree === 0).length;
   const maxHeight = nodes.reduce((h, x) => Math.max(h, x.height), 0);
-  const surplusEdges = Math.max(0, m - (n - components));
+  // Edges that would have to go for every declaration to have a single caller.
+  const surplusEdges = nodes.reduce((s, x) => s + Math.max(0, x.inDegree - 1), 0);
+  const dom = dominance(graph);
 
-  const treeScore = m === 0 ? 1 : Math.min(1, (n - components) / m);
+  const treeScore = m === 0 ? 1 : Math.min(1, (n - roots) / m);
   const acyclicity = n === 0 ? 1 : 1 - nodesInCycles / n;
   const singleCallerRatio = n === 0 ? 1 : 1 - multiCallers / n;
   const dagness = m === 0 ? 1 : 1 - cycleEdges / m;
-  const overall = (treeScore + acyclicity + singleCallerRatio + dagness) / 4;
+  const locality = dom.locality;
+  const overall = (treeScore + acyclicity + singleCallerRatio + dagness + locality) / 5;
 
   return {
     nodes: n,
@@ -72,20 +119,37 @@ export function computeMetrics(graph) {
     selfLoops,
     nodesInCycles,
     multiCallers,
+    nestingEdges: dom.treeEdges,
+    maxLift: dom.maxLift,
     treeScore,
     acyclicity,
     singleCallerRatio,
     dagness,
+    locality,
     overall,
     dropped: graph.dropped ?? 0,
   };
 }
 
-/** Nodes with the most callers: the usual suspects when a graph is not a tree. */
+/**
+ * The declarations that cost the most tree-likeness: many callers, and callers
+ * far from the declaration's natural scope. The cost of a node is the sum of
+ * the lifts of its incoming edges, so being called twice from the same scope
+ * ranks below being called twice from unrelated parts of the program.
+ */
 export function topSharedNodes(graph, limit = 8) {
+  const dom = dominance(graph);
+  const links = graph.activeLinks ?? graph.links;
+  const cost = new Map();
+  for (let i = 0; i < links.length; i++) {
+    if (dom.lifts[i] <= 0) continue;
+    const t = links[i].target;
+    cost.set(t, (cost.get(t) ?? 0) + dom.lifts[i]);
+  }
   return [...graph.nodes]
     .filter((n) => n.inDegree > 1)
-    .sort((a, b) => b.inDegree - a.inDegree || a.name.localeCompare(b.name))
+    .map((n) => ({ node: n, cost: cost.get(n) ?? 0 }))
+    .sort((a, b) => b.cost - a.cost || b.node.inDegree - a.node.inDegree || a.node.name.localeCompare(b.node.name))
     .slice(0, limit);
 }
 

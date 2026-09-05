@@ -25,7 +25,7 @@ write(
   "self",
   "a-program-must-be-a-tree",
   "this viewer and its analyzer",
-  analyze({ name: "a-program-must-be-a-tree", root, include: ["site/js", "analyzers", "scripts"], language: "javascript" }),
+  analyze({ name: "a-program-must-be-a-tree", root, include: ["site/js", "analyzers", "scripts", "test"], language: "javascript" }),
 );
 
 // 2. d3 packages. Each package ships its ES module sources in src/.
