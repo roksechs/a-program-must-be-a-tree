@@ -1,0 +1,84 @@
+# CLAUDE.md
+
+Guidance for AI assistants and contributors working in this repository.
+
+## Project rules (set by the project owner)
+
+1. **This is an open-source tool.** Everything in the repository must be
+   publishable as-is.
+2. **No credentials, ever.** No API keys, tokens, passwords, private URLs or
+   personal data in code, data files, workflows, docs or commit history. The
+   GitHub Pages deployment uses only the built-in `GITHUB_TOKEN` / OIDC
+   permissions of GitHub Actions; never add secrets to workflows.
+3. **Code and documentation are written in English.** This includes comments,
+   commit messages, README, docs, UI strings and data files. Conversation with
+   the owner may happen in Japanese, but nothing committed is.
+4. **The product is a GitHub Pages site** that visualizes declaration graphs
+   with D3.js. It must work as a static site without a server or build step;
+   d3 is vendored into `site/vendor` so the page has no runtime CDN dependency.
+5. **The viewer must be able to analyze this project itself** as well as
+   well-known open-source projects. Keep `npm run build:data` producing the
+   `self` dataset and keep example datasets working.
+
+## What the tool does
+
+Declarations are nodes, calls/references between declarations are directed
+edges. Required features, all of which must keep working:
+
+* D3 force-directed graph: repulsion inversely proportional to distance,
+  edges act as springs whose attraction is proportional to length.
+* Directories and files are drawn as zones (hulls) around their declarations.
+* A property panel on the right with: recompute/reheat physics, repulsion
+  strength, directory depth (0 up to the deepest directory of the codebase),
+  and diagnostics that quantify how tree-like the graph is.
+* A 3D mode where the z axis is the call height: the deepest callers at the
+  top, declarations that are only called at the bottom.
+
+## Repository layout
+
+```
+site/            static site (GitHub Pages root)
+  js/            ES modules: model, metrics, simulation, zones, graph2d, graph3d, panel, app
+  data/          generated datasets, listed in index.json
+  vendor/        d3 (copied by `npm run vendor`, do not edit)
+analyzers/ts/    JavaScript / TypeScript analyzer (TypeScript compiler API)
+scripts/         vendoring, dataset generation, dev server
+test/            node:test unit tests
+docs/            DESIGN.md (architecture, physics, metrics) and DATA_FORMAT.md
+```
+
+## Conventions
+
+* Plain ES modules in the browser, no bundler, no framework. `d3` is a global
+  loaded from `site/vendor/d3.min.js`; modules that use it carry
+  `/* global d3 */`.
+* The JSON data format in `docs/DATA_FORMAT.md` is the contract between
+  analyzers and the viewer. Extend it additively; the viewer must keep
+  loading older documents.
+* New languages are supported by adding an analyzer under `analyzers/<lang>/`
+  that emits that JSON, not by changing the viewer.
+* Keep dependencies minimal (currently only `d3` and `typescript`, both dev
+  dependencies). Pin exact versions.
+* Update `docs/DESIGN.md` when physics, zone or metric semantics change, and
+  `README.md` when panel controls change.
+
+## Commands
+
+```sh
+npm install
+npm test               # unit tests (node:test)
+npm run vendor         # copy d3 into site/vendor
+npm run build:data     # regenerate site/data/*.json (self + d3 packages + samples)
+npm run serve          # dev server at http://localhost:8080/
+node analyzers/ts/analyze.mjs --name x --root path --include src --out x.json
+```
+
+Run `npm test` and `npm run build:data` before committing changes to the
+analyzer or the model, and check the page in a browser (2D, 3D, depth slider,
+node selection) after changing anything under `site/js`.
+
+## Deployment
+
+`.github/workflows/pages.yml` runs on pushes to `main`: tests, vendoring, data
+generation, then publishes `site/` with `actions/deploy-pages`. Pages must be
+configured with "GitHub Actions" as the source in the repository settings.
