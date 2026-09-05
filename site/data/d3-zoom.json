@@ -3,7 +3,7 @@
   "name": "d3-zoom",
   "root": "node_modules/d3-zoom",
   "language": "javascript",
-  "generatedAt": "2026-09-05T09:50:49.379Z",
+  "generatedAt": "2026-09-05T09:56:42.974Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 6
  },
@@ -43,6 +43,15 @@
    "line": 1,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/transform.js::<module>",
+   "name": "transform",
+   "kind": "module",
+   "file": "src/transform.js",
+   "line": 7,
+   "parent": null,
+   "exported": false
   },
   {
    "id": "src/transform.js::identity",
@@ -136,6 +145,27 @@
   }
  ],
  "edges": [
+  {
+   "source": "src/transform.js::<module>",
+   "target": "src/transform.js::transform",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/transform.js::<module>",
+   "target": "src/transform.js::Transform",
+   "kind": "create",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "src/transform.js::<module>",
+   "target": "src/transform.js::Transform",
+   "kind": "reference",
+   "count": 3,
+   "time": "definition"
+  },
   {
    "source": "src/transform.js::identity",
    "target": "src/transform.js::Transform",

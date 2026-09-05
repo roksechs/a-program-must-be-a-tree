@@ -230,3 +230,31 @@ test("flow analysis lifts callbacks into calls at the place they are invoked", (
   assert.equal(edge("f.js::viaMethod", "f.js::Runner.run").kind, "call");
   assert.equal(edge("f.js::viaMethod", "f.js::Runner").kind, "create");
 });
+
+test("top-level statements belong to a module node", () => {
+  const root = fixture({
+    "m.js": `
+      export function select() {}
+      export function each() {}
+      export function Selection() {}
+      Selection.prototype = { select, each };
+      export function start() {}
+      start();
+    `,
+    "n.js": `
+      export function pure() {}
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
+  assert.equal(byId["m.js::<module>"].kind, "module");
+  assert.equal(byId["m.js::<module>"].name, "m");
+  assert.equal(byId["m.js::<module>"].line, 5);
+  assert.equal(byId["n.js::<module>"], undefined); // nothing but declarations: no module node
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  assert.equal(edge("m.js::<module>", "m.js::select").kind, "reference");
+  assert.equal(edge("m.js::<module>", "m.js::each").time, "definition");
+  assert.equal(edge("m.js::<module>", "m.js::Selection").kind, "reference");
+  assert.equal(edge("m.js::<module>", "m.js::start").kind, "call");
+  assert.equal(edge("m.js::<module>", "m.js::start").time, "definition");
+});

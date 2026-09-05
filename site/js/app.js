@@ -1,7 +1,7 @@
 // Application wiring: loads a dataset, runs the simulation and connects the
 // renderers to the property panel.
 /* global d3 */
-import { CONTROL_KINDS, EDGE_KINDS } from "./kinds.js";
+import { EDGE_KINDS } from "./kinds.js";
 import { Graph2D } from "./graph2d.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
@@ -18,12 +18,10 @@ const state = {
   showLayers: true,
   autoRotate: false,
   zoneDepth: 2,
-  // Per edge kind: whether it is drawn, acts as a spring, and counts in the diagnostics.
-  kinds: {
-    draw: new Set(EDGE_KINDS),
-    springs: new Set(EDGE_KINDS),
-    metrics: new Set(CONTROL_KINDS),
-  },
+  // Enabled edge kinds. An enabled kind is drawn, acts as a spring and counts
+  // for degrees, call heights and the diagnostics; a disabled kind does none
+  // of these. Type-level edges are off by default (erased at run time).
+  kinds: new Set(EDGE_KINDS.filter((k) => k !== "type")),
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
   datasets: [],
@@ -123,22 +121,10 @@ const panel = new Panel(document.getElementById("panel"), state, {
     state.labelMode = mode;
     for (const r of Object.values(renderers)) r.setLabelMode(mode);
   },
-  onKinds: (aspect, kind, enabled) => {
-    const set = state.kinds[aspect];
-    if (enabled) set.add(kind);
-    else set.delete(kind);
-    if (aspect === "draw") {
-      for (const r of Object.values(renderers)) r.setVisibleKinds(set);
-    } else if (aspect === "springs") {
-      state.physics.springKinds = new Set(set);
-      state.sim?.alpha(Math.max(state.sim.alpha(), 0.3)).restart();
-    } else if (aspect === "metrics" && state.graph) {
-      applyActiveKinds(state.graph, set);
-      panel.setMetrics(state.graph);
-      panel.setSelection(renderers[state.view].selected, state.graph);
-      for (const r of Object.values(renderers)) r.restyle();
-      if (state.sim) applyPhysics(state.sim, state.physics);
-    }
+  onKinds: (kind, enabled) => {
+    if (enabled) state.kinds.add(kind);
+    else state.kinds.delete(kind);
+    applyKinds();
   },
   onColorBy: (mode) => {
     state.colorBy = mode;
@@ -159,6 +145,22 @@ const panel = new Panel(document.getElementById("panel"), state, {
   },
   onSelectNode: (node) => renderers[state.view].select(node),
 });
+
+/** Apply the enabled edge kinds to drawing, springs and diagnostics at once. */
+function applyKinds() {
+  for (const r of Object.values(renderers)) r.setVisibleKinds(state.kinds);
+  state.physics.springKinds = new Set(state.kinds);
+  if (state.graph) {
+    applyActiveKinds(state.graph, state.kinds);
+    panel.setMetrics(state.graph);
+    panel.setSelection(renderers[state.view].selected, state.graph);
+    for (const r of Object.values(renderers)) r.restyle();
+  }
+  if (state.sim) {
+    applyPhysics(state.sim, state.physics);
+    state.sim.alpha(Math.max(state.sim.alpha(), 0.3)).restart();
+  }
+}
 
 function setView(view) {
   state.view = view;
@@ -216,8 +218,8 @@ function ensureTicking() {
 function installGraph(doc, label) {
   state.sim?.stop();
   const graph = buildGraph(doc);
-  applyActiveKinds(graph, state.kinds.metrics);
-  state.physics.springKinds = new Set(state.kinds.springs);
+  applyActiveKinds(graph, state.kinds);
+  state.physics.springKinds = new Set(state.kinds);
   state.graph = graph;
   state.maxDepth = graph.maxDepth;
   state.zoneDepth = Math.min(state.zoneDepth, graph.maxDepth);
@@ -227,7 +229,7 @@ function installGraph(doc, label) {
     r.setGraph(graph);
     r.setLabelMode(state.labelMode);
     r.setColorBy(state.colorBy);
-    r.setVisibleKinds(state.kinds.draw);
+    r.setVisibleKinds(state.kinds);
   }
   panel.setMaxDepth(graph.maxDepth, state.zoneDepth);
   panel.setMetrics(graph);

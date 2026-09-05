@@ -3,7 +3,7 @@
   "name": "d3-hierarchy",
   "root": "node_modules/d3-hierarchy",
   "language": "javascript",
-  "generatedAt": "2026-09-05T09:50:49.028Z",
+  "generatedAt": "2026-09-05T09:56:42.658Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 34
  },
@@ -205,6 +205,15 @@
    "line": 1,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/hierarchy/index.js::<module>",
+   "name": "index",
+   "kind": "module",
+   "file": "src/hierarchy/index.js",
+   "line": 75,
+   "parent": null,
+   "exported": false
   },
   {
    "id": "src/hierarchy/index.js::computeHeight",
@@ -648,6 +657,15 @@
    "exported": false
   },
   {
+   "id": "src/tree.js::<module>",
+   "name": "tree",
+   "kind": "module",
+   "file": "src/tree.js",
+   "line": 74,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "src/tree.js::default",
    "name": "tree",
    "kind": "function",
@@ -756,6 +774,15 @@
    "exported": true
   },
   {
+   "id": "src/treemap/resquarify.js::<module>",
+   "name": "resquarify",
+   "kind": "module",
+   "file": "src/treemap/resquarify.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "src/treemap/round.js::default",
    "name": "round",
    "kind": "function",
@@ -781,6 +808,15 @@
    "line": 4,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/treemap/squarify.js::<module>",
+   "name": "squarify",
+   "kind": "module",
+   "file": "src/treemap/squarify.js",
+   "line": 55,
+   "parent": null,
+   "exported": false
   },
   {
    "id": "src/treemap/squarify.js::phi",
@@ -872,6 +908,118 @@
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/ancestors.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/count.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/descendants.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/each.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/eachAfter.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/eachBefore.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/find.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/index.js::hierarchy",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/index.js::Node",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/index.js::node_copy",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/iterator.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/leaves.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/links.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/path.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/sort.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/sum.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/hierarchy/index.js::hierarchy",
@@ -1314,6 +1462,20 @@
    "time": "use"
   },
   {
+   "source": "src/tree.js::<module>",
+   "target": "src/hierarchy/index.js::Node",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/tree.js::<module>",
+   "target": "src/tree.js::TreeNode",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/tree.js::default",
    "target": "src/tree.js::defaultSeparation",
    "kind": "call",
@@ -1414,6 +1576,34 @@
    "time": "use"
   },
   {
+   "source": "src/treemap/resquarify.js::<module>",
+   "target": "src/treemap/dice.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/treemap/resquarify.js::<module>",
+   "target": "src/treemap/slice.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/treemap/resquarify.js::<module>",
+   "target": "src/treemap/squarify.js::phi",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/treemap/resquarify.js::<module>",
+   "target": "src/treemap/squarify.js::squarifyRatio",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "src/treemap/sliceDice.js::default",
    "target": "src/treemap/dice.js::default",
    "kind": "call",
@@ -1440,6 +1630,20 @@
    "source": "src/treemap/sliceDice.js::default",
    "target": "src/treemap/slice.js::default",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/treemap/squarify.js::<module>",
+   "target": "src/treemap/squarify.js::phi",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/treemap/squarify.js::<module>",
+   "target": "src/treemap/squarify.js::squarifyRatio",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },

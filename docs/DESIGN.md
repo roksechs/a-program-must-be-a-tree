@@ -17,7 +17,10 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 ```
 
 * **Analyzers** are independent programs that emit the JSON described in
-  `DATA_FORMAT.md`. The first one covers JavaScript / TypeScript using the
+  `DATA_FORMAT.md`. Besides functions, classes, members, variables and types,
+  the TypeScript analyzer emits one `module` node per file that has top-level
+  code outside any declaration (`X.prototype = {...}`, a call at load time), so
+  references made by such code are not lost. The first one covers JavaScript / TypeScript using the
   TypeScript compiler API, which resolves imports, `this.method()` calls and
   aliases for free. Other languages (Python `ast`, tree-sitter, Go `go/types`,
   ...) can be added without touching the viewer.
@@ -99,19 +102,19 @@ on a 2D canvas; no WebGL dependency is needed for a few thousand nodes.
 The meaning of `call`, `create`, `reference`, `type`, `extends`,
 `implements` and `override`, and why the split follows from erasure and
 evaluation contexts, is derived in `THEORY.md`. The Edges section of the
-panel is a matrix: for every kind the user chooses independently whether it
-is drawn, whether it acts as a spring in the physics, and whether it counts
-for degrees, call heights and the diagnostics. Edges found by analysis
-rather than written at that spot (dispatched overrides, callbacks resolved
-by flow analysis) are dashed.
+panel has one switch per kind: an enabled kind is drawn, acts as a spring in
+the physics and counts for degrees, call heights and the diagnostics; a
+disabled kind does none of these, so the picture, the layout and the numbers
+always describe the same graph. Type-level edges are off by default. Edges
+found by analysis rather than written at that spot (dispatched overrides,
+callbacks resolved by flow analysis) are dashed.
 
 ## Tree-likeness diagnostics
 
 All structural diagnostics, the degrees and the call heights are computed on
-the edge kinds ticked under *Diagnostics* in the Edges section. The default
-is the *control graph*, the edges of kind `call` and `create`, so passing a
-callback or naming a type does not make the graph "less of a tree" unless
-the user asks for those kinds to count.
+the edge kinds enabled in the Edges section, the same set that is drawn and
+that pulls in the physics. Disable `reference` to diagnose the control graph
+(`call` + `create`) of `THEORY.md` §7.
 
 For `n` nodes, `m` control edges and `c` weakly connected components:
 

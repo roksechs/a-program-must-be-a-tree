@@ -3,17 +3,26 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-05T09:50:46.257Z",
+  "generatedAt": "2026-09-05T09:56:40.263Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 15
  },
  "declarations": [
   {
+   "id": "analyzers/ts/analyze.mjs::<module>",
+   "name": "analyze",
+   "kind": "module",
+   "file": "analyzers/ts/analyze.mjs",
+   "line": 663,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "analyzers/ts/analyze.mjs::analyze",
    "name": "analyze",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 181,
+   "line": 193,
    "parent": null,
    "exported": true
   },
@@ -94,7 +103,7 @@
    "name": "memberName",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 151,
+   "line": 163,
    "parent": null,
    "exported": false
   },
@@ -103,7 +112,7 @@
    "name": "parseArgs",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 611,
+   "line": 627,
    "parent": null,
    "exported": false
   },
@@ -112,7 +121,16 @@
    "name": "referenceKind",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 159,
+   "line": 171,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/analyze-examples.mjs::<module>",
+   "name": "analyze-examples",
+   "kind": "module",
+   "file": "scripts/analyze-examples.mjs",
+   "line": 13,
    "parent": null,
    "exported": false
   },
@@ -180,6 +198,15 @@
    "exported": false
   },
   {
+   "id": "scripts/serve.mjs::<module>",
+   "name": "serve",
+   "kind": "module",
+   "file": "scripts/serve.mjs",
+   "line": 19,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "scripts/serve.mjs::port",
    "name": "port",
    "kind": "variable",
@@ -202,6 +229,15 @@
    "name": "types",
    "kind": "variable",
    "file": "scripts/serve.mjs",
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::<module>",
+   "name": "vendor",
+   "kind": "module",
+   "file": "scripts/vendor.mjs",
    "line": 9,
    "parent": null,
    "exported": false
@@ -234,11 +270,29 @@
    "exported": false
   },
   {
+   "id": "site/js/app.js::<module>",
+   "name": "app",
+   "kind": "module",
+   "file": "site/js/app.js",
+   "line": 40,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::applyKinds",
+   "name": "applyKinds",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 150,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "site/js/app.js::applyStaticTranslations",
    "name": "applyStaticTranslations",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 58,
+   "line": 56,
    "parent": null,
    "exported": false
   },
@@ -247,7 +301,7 @@
    "name": "ensureTicking",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 202,
+   "line": 204,
    "parent": null,
    "exported": false
   },
@@ -256,7 +310,7 @@
    "name": "installGraph",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 216,
+   "line": 218,
    "parent": null,
    "exported": false
   },
@@ -265,7 +319,7 @@
    "name": "languageSelect",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 38,
+   "line": 36,
    "parent": null,
    "exported": false
   },
@@ -274,7 +328,7 @@
    "name": "loadDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 252,
+   "line": 254,
    "parent": null,
    "exported": false
   },
@@ -283,7 +337,7 @@
    "name": "loadFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 271,
+   "line": 273,
    "parent": null,
    "exported": false
   },
@@ -292,7 +346,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 286,
+   "line": 288,
    "parent": null,
    "exported": false
   },
@@ -301,7 +355,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 300,
+   "line": 302,
    "parent": null,
    "exported": false
   },
@@ -310,7 +364,7 @@
    "name": "panel",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 100,
+   "line": 98,
    "parent": null,
    "exported": false
   },
@@ -319,7 +373,7 @@
    "name": "rendererCallbacks",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 71,
+   "line": 69,
    "parent": null,
    "exported": false
   },
@@ -328,7 +382,7 @@
    "name": "renderers",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 65,
+   "line": 63,
    "parent": null,
    "exported": false
   },
@@ -337,7 +391,7 @@
    "name": "savedLanguage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 41,
+   "line": 39,
    "parent": null,
    "exported": false
   },
@@ -346,7 +400,7 @@
    "name": "setStatus",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 178,
+   "line": 180,
    "parent": null,
    "exported": false
   },
@@ -355,7 +409,7 @@
    "name": "setView",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 163,
+   "line": 165,
    "parent": null,
    "exported": false
   },
@@ -364,7 +418,7 @@
    "name": "stage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 35,
+   "line": 33,
    "parent": null,
    "exported": false
   },
@@ -382,7 +436,7 @@
    "name": "status",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 37,
+   "line": 35,
    "parent": null,
    "exported": false
   },
@@ -391,7 +445,7 @@
    "name": "statusMessage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 177,
+   "line": 179,
    "parent": null,
    "exported": false
   },
@@ -400,7 +454,7 @@
    "name": "ticking",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 201,
+   "line": 203,
    "parent": null,
    "exported": false
   },
@@ -409,7 +463,7 @@
    "name": "tooltip",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 36,
+   "line": 34,
    "parent": null,
    "exported": false
   },
@@ -418,7 +472,7 @@
    "name": "updateZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 171,
+   "line": 173,
    "parent": null,
    "exported": false
   },
@@ -877,7 +931,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 261,
+   "line": 255,
    "parent": null,
    "exported": false
   },
@@ -886,7 +940,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 265,
+   "line": 259,
    "parent": null,
    "exported": true
   },
@@ -895,7 +949,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 274,
+   "line": 268,
    "parent": null,
    "exported": true
   },
@@ -904,7 +958,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 298,
+   "line": 292,
    "parent": null,
    "exported": true
   },
@@ -922,7 +976,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 262,
+   "line": 256,
    "parent": null,
    "exported": false
   },
@@ -931,7 +985,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 304,
+   "line": 298,
    "parent": null,
    "exported": true
   },
@@ -940,7 +994,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 285,
+   "line": 279,
    "parent": null,
    "exported": true
   },
@@ -949,7 +1003,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 278,
+   "line": 272,
    "parent": null,
    "exported": true
   },
@@ -967,7 +1021,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 291,
+   "line": 285,
    "parent": null,
    "exported": true
   },
@@ -1147,7 +1201,7 @@
    "name": "setDataInfo",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 209,
+   "line": 204,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1156,7 +1210,7 @@
    "name": "setDatasets",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 198,
+   "line": 193,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1165,7 +1219,7 @@
    "name": "setMaxDepth",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 218,
+   "line": 213,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1174,7 +1228,7 @@
    "name": "setMetrics",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 225,
+   "line": 220,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1183,7 +1237,7 @@
    "name": "setSelection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 275,
+   "line": 270,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1192,7 +1246,7 @@
    "name": "setView",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 214,
+   "line": 209,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1307,6 +1361,20 @@
  ],
  "edges": [
   {
+   "source": "analyzers/ts/analyze.mjs::<module>",
+   "target": "analyzers/ts/analyze.mjs::analyze",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::<module>",
+   "target": "analyzers/ts/analyze.mjs::parseArgs",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "analyzers/ts/analyze.mjs::analyze",
    "target": "analyzers/ts/analyze.mjs::ANALYZER_VERSION",
    "kind": "reference",
@@ -1377,6 +1445,62 @@
    "time": "use"
   },
   {
+   "source": "scripts/analyze-examples.mjs::<module>",
+   "target": "analyzers/ts/analyze.mjs::analyze",
+   "kind": "call",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/analyze-examples.mjs::<module>",
+   "target": "scripts/analyze-examples.mjs::d3Packages",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/analyze-examples.mjs::<module>",
+   "target": "scripts/analyze-examples.mjs::dataDir",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/analyze-examples.mjs::<module>",
+   "target": "scripts/analyze-examples.mjs::index",
+   "kind": "reference",
+   "count": 3,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/analyze-examples.mjs::<module>",
+   "target": "scripts/analyze-examples.mjs::root",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/analyze-examples.mjs::<module>",
+   "target": "scripts/analyze-examples.mjs::syntheticTangle",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/analyze-examples.mjs::<module>",
+   "target": "scripts/analyze-examples.mjs::syntheticTree",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/analyze-examples.mjs::<module>",
+   "target": "scripts/analyze-examples.mjs::write",
+   "kind": "call",
+   "count": 4,
+   "time": "definition"
+  },
+  {
    "source": "scripts/analyze-examples.mjs::dataDir",
    "target": "scripts/analyze-examples.mjs::root",
    "kind": "reference",
@@ -1398,6 +1522,55 @@
    "time": "use"
   },
   {
+   "source": "scripts/serve.mjs::<module>",
+   "target": "scripts/serve.mjs::port",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/serve.mjs::<module>",
+   "target": "scripts/serve.mjs::port",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "scripts/serve.mjs::<module>",
+   "target": "scripts/serve.mjs::root",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "scripts/serve.mjs::<module>",
+   "target": "scripts/serve.mjs::types",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::d3Pkg",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::root",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::vendorDir",
+   "kind": "reference",
+   "count": 4,
+   "time": "definition"
+  },
+  {
    "source": "scripts/vendor.mjs::d3Pkg",
    "target": "scripts/vendor.mjs::root",
    "kind": "reference",
@@ -1410,6 +1583,237 @@
    "kind": "reference",
    "count": 1,
    "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::applyStaticTranslations",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::applyStaticTranslations",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::languageSelect",
+   "kind": "reference",
+   "count": 3,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::languageSelect",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::main",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::renderers",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::renderers",
+   "kind": "reference",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::savedLanguage",
+   "kind": "reference",
+   "count": 3,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::setStatus",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::statusMessage",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/graph2d.js::Graph2D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/graph3d.js::Graph3D.draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/graph3d.js::Graph3D.show",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/i18n.js::detectLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/i18n.js::LANGUAGES",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/i18n.js::onLanguageChange",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/i18n.js::setLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/i18n.js::setLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/panel.js::Panel.refresh",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/panel.js::Panel.setView",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/app.js::renderers",
+   "kind": "reference",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 14,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/graph2d.js::Graph2D.restyle",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/graph2d.js::Graph2D.setVisibleKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/model.js::applyActiveKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/panel.js::Panel.setMetrics",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/panel.js::Panel.setSelection",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/simulation.js::applyPhysics",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "site/js/app.js::applyStaticTranslations",
@@ -1728,6 +2132,13 @@
   },
   {
    "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::applyKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
    "target": "site/js/app.js::ensureTicking",
    "kind": "call",
    "count": 1,
@@ -1751,7 +2162,7 @@
    "source": "site/js/app.js::panel",
    "target": "site/js/app.js::renderers",
    "kind": "reference",
-   "count": 10,
+   "count": 7,
    "time": "use"
   },
   {
@@ -1772,19 +2183,12 @@
    "source": "site/js/app.js::panel",
    "target": "site/js/app.js::state",
    "kind": "reference",
-   "count": 30,
+   "count": 20,
    "time": "use"
   },
   {
    "source": "site/js/app.js::panel",
    "target": "site/js/app.js::updateZones",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.restyle",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -1805,13 +2209,6 @@
   },
   {
    "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.setVisibleKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
    "target": "site/js/graph3d.js::Graph3D.setLayerGap",
    "kind": "call",
    "count": 1,
@@ -1826,13 +2223,6 @@
   },
   {
    "source": "site/js/app.js::panel",
-   "target": "site/js/model.js::applyActiveKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
    "target": "site/js/panel.js::Panel.constructor",
    "kind": "create",
    "count": 1,
@@ -1840,23 +2230,9 @@
   },
   {
    "source": "site/js/app.js::panel",
-   "target": "site/js/panel.js::Panel.setMetrics",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/panel.js::Panel.setSelection",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
    "target": "site/js/simulation.js::applyPhysics",
    "kind": "call",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
@@ -2008,16 +2384,9 @@
   },
   {
    "source": "site/js/app.js::state",
-   "target": "site/js/kinds.js::CONTROL_KINDS",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::state",
    "target": "site/js/kinds.js::EDGE_KINDS",
    "kind": "reference",
-   "count": 2,
+   "count": 1,
    "time": "definition"
   },
   {
@@ -2703,7 +3072,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 39,
+   "count": 38,
    "time": "use"
   },
   {
@@ -2717,7 +3086,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 54,
+   "count": 49,
    "time": "use"
   },
   {

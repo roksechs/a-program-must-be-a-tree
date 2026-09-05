@@ -15,8 +15,7 @@ force-directed graph, and measure how close that graph is to a tree.
 * **3D mode** lifts the same layout into three dimensions where the vertical
   axis is the call height: declarations that only get called sit at the
   bottom, the deepest callers sit at the top.
-* **Diagnostics** quantify tree-likeness on the edge kinds you select (by
-  default the control graph: calls and constructions): spanning ratio, acyclicity, single-caller ratio and
+* **Diagnostics** quantify tree-likeness on the enabled edge kinds: spanning ratio, acyclicity, single-caller ratio and
   DAG-ness, plus the usual counts (components, cycles, roots, leaves, longest
   call chain, initialisation cycles) and a list of the most shared
   declarations.
@@ -68,7 +67,7 @@ that writes the same JSON; see the data format document.
 | Data        | bundled datasets, open a local JSON file |
 | Header      | language selector (English / Japanese) |
 | View        | 2D / 3D, label mode, colour by kind or call height, 3D layer gap and planes, auto-rotate, fit |
-| Edges       | per edge kind: draw it, let it act as a spring, count it in the diagnostics (defaults: draw and pull on every kind, diagnose calls and constructions) |
+| Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics (type-level edges are off by default) |
 | Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length, gravity |
 | Zones       | directory / file depth from 0 (none) through every directory level down to the files |
 | Diagnostics | tree score and its components, counts, most shared declarations |

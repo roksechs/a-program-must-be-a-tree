@@ -85,6 +85,7 @@ function isFunctionLike(node) {
  */
 function collectDeclarations(sf, file, baseName) {
   const decls = [];
+  const rest = []; // top-level statements that are not declarations: the module's own code
   const add = (node, name, kind, parent, exported, bodyNodes, nameNode) => {
     const id = parent ? `${parent.id}.${name}` : `${file}::${name}`;
     const entry = { node, id, name, kind, parent: parent?.id ?? null, exported, bodyNodes, nameNode, line: sf.getLineAndCharacterOfPosition(node.getStart(sf)).line + 1 };
@@ -143,7 +144,18 @@ function collectDeclarations(sf, file, baseName) {
       const e = add(stmt, "default", kind, null, true, [stmt.expression], null);
       e.displayName = baseName;
       if (ts.isClassExpression(stmt.expression)) addClassMembers(stmt.expression, e);
+    } else if (!ts.isImportDeclaration(stmt) && !ts.isExportDeclaration(stmt) && !ts.isEmptyStatement(stmt) && !ts.isModuleDeclaration(stmt)) {
+      // Expression statements, control flow, `export default <expr>`, destructuring
+      // declarations: code the module runs when it is loaded.
+      rest.push(stmt);
     }
+  }
+  if (rest.length > 0) {
+    // One node per file for its top-level code (docs/THEORY.md §4: every
+    // occurrence here is definition-time). The source file is its AST node.
+    const e = add(sf, "<module>", "module", null, false, rest, null);
+    e.displayName = baseName;
+    e.line = sf.getLineAndCharacterOfPosition(rest[0].getStart(sf)).line + 1;
   }
   return decls;
 }
@@ -229,7 +241,11 @@ export function analyze(options) {
   const symbolOf = (node) => {
     let symbol;
     try {
-      symbol = checker.getSymbolAtLocation(node);
+      // `{ select }` names the property; the value it carries is the binding `select`.
+      symbol =
+        node.parent && ts.isShorthandPropertyAssignment(node.parent) && node.parent.name === node
+          ? checker.getShorthandAssignmentValueSymbol(node.parent)
+          : checker.getSymbolAtLocation(node);
     } catch {
       return null;
     }

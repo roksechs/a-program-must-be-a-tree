@@ -330,31 +330,21 @@ ol.shared a {
   border-radius: 2px;
 }
 
-.kind-matrix {
-  border-collapse: collapse;
+.kind-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
   font-size: 12px;
-  width: 100%;
 }
 
-.kind-matrix th {
-  font-weight: 500;
-  color: var(--muted);
-  text-align: center;
-  padding: 2px 4px;
+.kind-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.kind-matrix td {
-  padding: 1px 4px;
-  text-align: center;
-}
-
-.kind-matrix td:first-child {
-  text-align: left;
-  white-space: nowrap;
-}
-
-.kind-matrix input {
-  margin: 0;
+.kind-item input {
+  margin: 0 2px 0 0;
 }
 
 .edge-swatch {

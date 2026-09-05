@@ -131,18 +131,13 @@ export class Panel {
       ),
     );
 
-    // Edges: per kind, whether it is drawn, acts as a spring and counts in the diagnostics.
-    const aspects = ["draw", "springs", "metrics"];
-    const matrix = this.el("table", { class: "kind-matrix" });
-    matrix.append(this.el("tr", {}, this.el("th", {}), ...aspects.map((a) => this.el("th", {}, t(`edges.${a}`)))));
+    // Edges: one switch per kind; it drives drawing, springs and diagnostics together.
+    const kindList = this.el("div", { class: "kind-list" });
     for (const kind of EDGE_KINDS) {
-      const row = this.el("tr", {}, this.el("td", {}, this.el("i", { class: "edge-swatch", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
-      for (const a of aspects) {
-        row.append(this.el("td", {}, this.el("input", { type: "checkbox", checked: s.kinds[a].has(kind) ? "" : null, onchange: (e) => h.onKinds(a, kind, e.target.checked) })));
-      }
-      matrix.append(row);
+      const box = this.el("input", { type: "checkbox", checked: s.kinds.has(kind) ? "" : null, onchange: (e) => h.onKinds(kind, e.target.checked) });
+      kindList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
     }
-    this.host.append(this.section(t("section.edges"), matrix, this.el("p", { class: "muted small" }, t("edges.help"))));
+    this.host.append(this.section(t("section.edges"), kindList, this.el("p", { class: "muted small" }, t("edges.help"))));
 
     // Physics
     this.host.append(
