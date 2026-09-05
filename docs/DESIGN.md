@@ -56,8 +56,9 @@ d3-force is used as the integrator. The forces are:
   the custom force keeps the parameters (stiffness, rest length) explicit.
 * **Collision**: keeps circles from overlapping.
 
-That is all: only the repulsion and the springs shape the layout. Two things
-that look like forces but are not:
+That is all. A spring along an edge is the only attraction in the layout, so
+two declarations end up next to each other only when something connects them.
+Two entries in the simulation look like extra forces but are not:
 
 * **Repulsion range** (`distanceMax` on the charge): past that distance the
   repulsion is simply cut off. Without a cut-off every node presses on every
@@ -66,15 +67,15 @@ that look like forces but are not:
 * **Centring** (`d3.forceCenter`): translates all nodes so their centroid sits
   at the origin. A rigid translation deforms nothing.
 
-**Gravity** (`forceX`/`forceY` towards the origin) *is* a real extra force and
-is off by default. With a `1/d` repulsion and a linear pull, the equilibrium is
-a disc of the radius where the two balance, and the nodes spread through it
-almost uniformly: the picture becomes a circle whatever the graph looks like.
-Measured on the `self` dataset, the old default (gravity 0.05) put the median
-node at 0.59 of the outer radius, close to the 0.707 of a uniformly filled
-disc; without it the median sits at 0.44 with the same outer radius, i.e. a
-dense core and real branches. The slider is kept only to reel in components
-that drifted off screen.
+There used to be a third force, a weak `forceX`/`forceY` pull towards the
+origin, meant to keep disconnected components on screen. It was removed: with a
+`1/d` repulsion and a linear pull, the equilibrium is a disc of the radius where
+the two balance and the nodes spread through it almost uniformly, so the picture
+became a circle whatever the graph looked like. Measured on the `self` dataset,
+that pull (strength 0.05) put the median node at 0.59 of the outer radius, close
+to the 0.707 of a uniformly filled disc; without it the median sits at 0.44 at
+the same outer radius, i.e. a dense core and real branches. The repulsion
+cut-off does the job the pull was there for, without shaping anything.
 
 Directories and files have no influence on the physics: no force reads the
 containers, and the initial positions are seeded on a spiral in declaration

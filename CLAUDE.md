@@ -31,9 +31,9 @@ Declarations are nodes, calls/references between declarations are directed
 edges. Required features, all of which must keep working:
 
 * D3 force-directed graph: repulsion inversely proportional to distance,
-  edges act as springs whose attraction is proportional to length. Those are
-  the only forces that shape the layout; a pull towards the centre packs any
-  graph into a disc, so it stays off by default.
+  edges act as springs whose attraction is proportional to length. Those two
+  are the only forces: a spring along an edge is the only attraction, and
+  nothing pulls towards the centre (such a pull packs any graph into a disc).
 * Directories and files are drawn as zones (hulls) around their declarations.
   Zones are purely visual: directories and files must never influence the
   physics (no forces, no container-aware seeding).

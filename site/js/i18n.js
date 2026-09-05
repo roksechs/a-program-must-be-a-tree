@@ -61,8 +61,7 @@ const STRINGS = {
     "physics.repulsionRange": "Repulsion range",
     "physics.stiffness": "Spring stiffness",
     "physics.restLength": "Spring rest length",
-    "physics.gravity": "Gravity",
-    "physics.help": "Repulsion between every pair of nodes is inversely proportional to their distance; every edge is a spring whose pull is proportional to its length. Directories and files never influence the layout. The repulsion range cuts the repulsion off past a distance, which keeps distant parts of the graph from pressing on each other; set it to 0 for no cut-off. Gravity is an extra pull towards the origin: any value above 0 packs the graph into a disc of the radius where it balances the repulsion, so leave it at 0 unless something drifted off screen. Use Recompute when the layout gets stuck in an early configuration.",
+    "physics.help": "Repulsion between every pair of nodes is inversely proportional to their distance; every edge is a spring whose pull is proportional to its length. Those are the only two forces: nothing pulls towards the centre, so declarations end up close together only when edges hold them there. Directories and files never influence the layout. The repulsion range cuts the repulsion off past a distance, which keeps distant parts of the graph from pressing on each other; set it to 0 for no cut-off. Use Recompute when the layout gets stuck in an early configuration.",
 
     "zones.depth": "Directory / file depth",
     "zones.help": "Depth 0 hides all zones; each step reveals one more level of directories, and the maximum also shows the files. Zones are convex hulls around the declarations they contain and have no effect on the physics.",
@@ -193,8 +192,7 @@ const STRINGS = {
     "physics.repulsionRange": "斥力の到達距離",
     "physics.stiffness": "ばね定数",
     "physics.restLength": "ばねの自然長",
-    "physics.gravity": "重力",
-    "physics.help": "すべてのノード対には距離に反比例する斥力が働き、各エッジは長さに比例して引き合うばねとして働きます。ディレクトリやファイルは配置に一切影響しません。斥力の到達距離はその距離より遠い斥力を打ち切る設定で、離れた部分同士が押し合うのを防ぎます (0 で打ち切りなし)。重力は原点に引き寄せる余分な力で、0 より大きくすると斥力と釣り合う半径の円板に押し込められて形が見えなくなるため、画面外に流れたものを引き戻すとき以外は 0 のままにしてください。初期の反復で引っかかった配置になったときは再計算を押してください。",
+    "physics.help": "すべてのノード対には距離に反比例する斥力が働き、各エッジは長さに比例して引き合うばねとして働きます。力はこの 2 つだけで、中心へ引き寄せる力はありません。近くに集まっている宣言は、エッジがそこに留めているからそこにあります。ディレクトリやファイルは配置に一切影響しません。斥力の到達距離はその距離より遠い斥力を打ち切る設定で、離れた部分同士が押し合うのを防ぎます (0 で打ち切りなし)。初期の反復で引っかかった配置になったときは再計算を押してください。",
 
     "zones.depth": "ディレクトリ / ファイル深さ",
     "zones.help": "深さ 0 ですべてのゾーンを非表示、1 段階ごとにディレクトリを 1 階層ずつ表示し、最大でファイルまで表示します。ゾーンは含まれる宣言を囲む凸包で、物理には一切影響しません。",
