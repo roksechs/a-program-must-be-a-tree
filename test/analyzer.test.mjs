@@ -69,7 +69,9 @@ test("analyzer finds declarations and cross-file calls", () => {
   assert.equal(edge("src/main.js::main", "src/util.js::helper").kind, "reference");
   assert.equal(edge("src/main.js::recurse", "src/main.js::recurse").kind, "call");
   assert.equal(edge("src/util.js::twice", "src/util.js::helper").count, 2);
-  assert.equal(edge("src/util.js::Box.make", "src/util.js::Box").kind, "call");
+  // `new Box(v)` is a call of the constructor, not a reference to the class itself.
+  assert.equal(edge("src/util.js::Box.make", "src/util.js::Box.constructor").kind, "call");
+  assert.equal(edge("src/util.js::Box.make", "src/util.js::Box"), undefined);
   assert.equal(edge("src/util.js::default", "src/util.js::twice").kind, "call");
   // Locals never produce edges.
   assert.equal(doc.edges.some((e) => e.target.endsWith("::b")), false);
@@ -82,9 +84,12 @@ test("analyzer records heritage and type references in TypeScript", () => {
       export type Pair = [Shape, Shape];
       export class Base { hello() { return 1; } }
       export class Derived extends Base implements Shape {
+        constructor() { super(); }
         area(): number { return this.hello(); }
         pair(): Pair { return [this, this]; }
       }
+      export class NoCtor {}
+      export function make() { return [new Derived(), new NoCtor()]; }
     `,
   });
   const doc = analyze({ name: "ts", root });
@@ -94,4 +99,21 @@ test("analyzer records heritage and type references in TypeScript", () => {
   assert.equal(edge("a.ts::Derived.area", "a.ts::Base.hello").kind, "call");
   assert.equal(edge("a.ts::Derived.pair", "a.ts::Pair").kind, "type");
   assert.equal(edge("a.ts::Pair", "a.ts::Shape").kind, "type");
+  // super() calls the base constructor; Base has none, so the class itself is the target.
+  assert.equal(edge("a.ts::Derived.constructor", "a.ts::Base").kind, "call");
+  assert.equal(edge("a.ts::make", "a.ts::Derived.constructor").kind, "call");
+  assert.equal(edge("a.ts::make", "a.ts::NoCtor").kind, "call");
+});
+
+test("super() resolves to a declared base constructor", () => {
+  const root = fixture({
+    "b.ts": `
+      export class Base { constructor(public n: number) {} }
+      export class Child extends Base { constructor() { super(1); } }
+    `,
+  });
+  const doc = analyze({ name: "ts", root });
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  assert.equal(edge("b.ts::Child.constructor", "b.ts::Base.constructor").kind, "call");
+  assert.equal(edge("b.ts::Child", "b.ts::Base").kind, "extends");
 });

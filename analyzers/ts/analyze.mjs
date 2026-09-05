@@ -210,6 +210,22 @@ export function analyze(options) {
     }
   }
 
+  // `new X()` and `super()` are calls of X's constructor, so route them to the
+  // constructor declaration when the class declares one.
+  const constructorOf = new Map();
+  for (const d of declarations) {
+    if (d.parent && d.kind === "method" && d.name === "constructor") constructorOf.set(d.parent, d);
+  }
+  const constructorTarget = (classEntry) => {
+    if (!classEntry || classEntry.kind !== "class") return classEntry;
+    return constructorOf.get(classEntry.id) ?? classEntry;
+  };
+  const isNewTarget = (node) => {
+    const p = node.parent;
+    if (ts.isNewExpression(p) && p.expression === node) return true;
+    return ts.isPropertyAccessExpression(p) && p.name === node && ts.isNewExpression(p.parent) && p.parent.expression === p;
+  };
+
   /** Find the declaration entry that owns an AST node (nearest declared ancestor). */
   const ownerOf = (node) => {
     let n = node;
@@ -260,7 +276,17 @@ export function analyze(options) {
 
   for (const d of declarations) {
     const visit = (node) => {
-      if (ts.isIdentifier(node) || ts.isPrivateIdentifier(node)) {
+      if (node.kind === ts.SyntaxKind.SuperKeyword && ts.isCallExpression(node.parent) && node.parent.expression === node) {
+        // super(...) inside a derived constructor calls the base class constructor.
+        let base = null;
+        try {
+          base = resolveTarget(node);
+        } catch {
+          base = null;
+        }
+        const target = constructorTarget(base);
+        if (target && target !== d) addEdge(d, target, "call");
+      } else if (ts.isIdentifier(node) || ts.isPrivateIdentifier(node)) {
         if (node !== d.nameNode) {
           // Skip identifiers that merely name a property being declared or a local binding.
           const p = node.parent;
@@ -268,7 +294,8 @@ export function analyze(options) {
             (ts.isVariableDeclaration(p) || ts.isParameter(p) || ts.isBindingElement(p) || ts.isFunctionDeclaration(p) || ts.isClassDeclaration(p) || ts.isMethodDeclaration(p) || ts.isPropertyDeclaration(p) || ts.isPropertyAssignment(p) || ts.isImportSpecifier(p) || ts.isImportClause(p)) &&
             p.name === node;
           if (!declaresBinding) {
-            const target = resolveTarget(node);
+            let target = resolveTarget(node);
+            if (target && isNewTarget(node)) target = constructorTarget(target);
             if (target && target !== d) addEdge(d, target, referenceKind(node));
             else if (target === d && referenceKind(node) === "call") addEdge(d, target, "call");
           }

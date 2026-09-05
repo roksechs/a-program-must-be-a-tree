@@ -41,7 +41,7 @@ analyzer that produces it (in any language, with any parser).
 |----------|--------|-------|
 | `source` | string | Id of the declaration whose body contains the reference (the caller). |
 | `target` | string | Id of the referenced declaration (the callee). |
-| `kind`   | string | `call` (call or `new` expression), `reference` (value used without calling, e.g. passed as a callback), `extends`, `implements`, `type` (type-only reference). Optional, defaults to `call`. |
+| `kind`   | string | `call` (call, `new` or `super()` expression; `new X()` and `super()` target `X.constructor` when the class declares one, otherwise the class itself), `reference` (value used without calling, e.g. passed as a callback), `extends`, `implements`, `type` (type-only reference). Optional, defaults to `call`. |
 | `count`  | number | Number of occurrences. Optional, defaults to 1. |
 
 Rules:

@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-05T08:56:11.397Z",
+  "generatedAt": "2026-09-05T09:01:27.619Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 14
  },
@@ -103,7 +103,7 @@
    "name": "parseArgs",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 303,
+   "line": 330,
    "parent": null,
    "exported": false
   },
@@ -652,7 +652,7 @@
    "name": "drawArrow",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 361,
+   "line": 369,
    "parent": null,
    "exported": false
   },
@@ -670,7 +670,7 @@
    "name": "bindEvents",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 41,
+   "line": 43,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -688,7 +688,7 @@
    "name": "destroy",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 356,
+   "line": 364,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -697,7 +697,7 @@
    "name": "draw",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 206,
+   "line": 214,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -706,7 +706,7 @@
    "name": "fit",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 340,
+   "line": 348,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -715,7 +715,7 @@
    "name": "hitTest",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 177,
+   "line": 185,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -724,7 +724,7 @@
    "name": "neighbourSet",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 191,
+   "line": 199,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -733,7 +733,7 @@
    "name": "project",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 155,
+   "line": 163,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -742,7 +742,7 @@
    "name": "resize",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 100,
+   "line": 102,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -751,7 +751,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 148,
+   "line": 150,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -760,7 +760,7 @@
    "name": "setColorBy",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 133,
+   "line": 135,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -769,7 +769,7 @@
    "name": "setGraph",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 113,
+   "line": 115,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -778,7 +778,7 @@
    "name": "setLabelMode",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 128,
+   "line": 130,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -787,7 +787,7 @@
    "name": "setLayerGap",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 138,
+   "line": 140,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -796,7 +796,7 @@
    "name": "setShowLayers",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 143,
+   "line": 145,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -805,7 +805,7 @@
    "name": "setZones",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 123,
+   "line": 125,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -814,7 +814,7 @@
    "name": "show",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 352,
+   "line": 360,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -823,7 +823,7 @@
    "name": "tick",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 201,
+   "line": 209,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -832,7 +832,7 @@
    "name": "zOf",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 173,
+   "line": 181,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1650,7 +1650,7 @@
   },
   {
    "source": "site/js/app.js::panel",
-   "target": "site/js/panel.js::Panel",
+   "target": "site/js/panel.js::Panel.constructor",
    "kind": "call",
    "count": 1
   },
@@ -1728,13 +1728,13 @@
   },
   {
    "source": "site/js/app.js::renderers",
-   "target": "site/js/graph2d.js::Graph2D",
+   "target": "site/js/graph2d.js::Graph2D.constructor",
    "kind": "call",
    "count": 1
   },
   {
    "source": "site/js/app.js::renderers",
-   "target": "site/js/graph3d.js::Graph3D",
+   "target": "site/js/graph3d.js::Graph3D.constructor",
    "kind": "call",
    "count": 1
   },

@@ -3,7 +3,7 @@
   "name": "d3-shape",
   "root": "node_modules/d3-shape",
   "language": "javascript",
-  "generatedAt": "2026-09-05T08:56:13.073Z",
+  "generatedAt": "2026-09-05T09:01:29.086Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 60
  },
@@ -1407,7 +1407,7 @@
   },
   {
    "source": "src/curve/bump.js::bumpRadial",
-   "target": "src/curve/bump.js::BumpRadial",
+   "target": "src/curve/bump.js::BumpRadial.constructor",
    "kind": "call",
    "count": 1
   },
@@ -1419,13 +1419,13 @@
   },
   {
    "source": "src/curve/bump.js::bumpX",
-   "target": "src/curve/bump.js::Bump",
+   "target": "src/curve/bump.js::Bump.constructor",
    "kind": "call",
    "count": 1
   },
   {
    "source": "src/curve/bump.js::bumpY",
-   "target": "src/curve/bump.js::Bump",
+   "target": "src/curve/bump.js::Bump.constructor",
    "kind": "call",
    "count": 1
   },

@@ -23,7 +23,9 @@ export class Graph3D {
     this.autoRotate = false;
 
     this.yaw = -0.6;
-    this.pitch = 0.9; // 0 = looking horizontally, PI/2 = top-down
+    // Camera elevation above the ground plane: 0 = looking horizontally,
+    // +PI/2 = straight down from above, -PI/2 = straight up from below.
+    this.pitch = 0.9;
     this.zoomK = 1;
     this.panX = 0;
     this.panY = 0;
@@ -59,7 +61,7 @@ export class Graph3D {
           this.panY += dy;
         } else {
           this.yaw += dx * 0.008;
-          this.pitch = Math.max(0.02, Math.min(Math.PI / 2, this.pitch + dy * 0.006));
+          this.pitch = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitch + dy * 0.006));
         }
         this.draw();
       } else {
@@ -151,7 +153,13 @@ export class Graph3D {
     this.callbacks.onSelect?.(node);
   }
 
-  /** Project a world point (x, y horizontal plane; z up) to screen space. */
+  /**
+   * Project a world point (x, y horizontal plane; z up) to screen space.
+   * The camera orbits the origin: yaw spins it around the vertical axis,
+   * pitch is its elevation. After the yaw rotation X points right and Y away
+   * from the camera; tilting by pitch turns "away" into "up on screen" and
+   * brings higher points closer to a camera that looks down.
+   */
   project(x, y, z) {
     const cy = Math.cos(this.yaw);
     const sy = Math.sin(this.yaw);
@@ -159,12 +167,12 @@ export class Graph3D {
     const Y = x * sy + y * cy;
     const cp = Math.cos(this.pitch);
     const sp = Math.sin(this.pitch);
-    const screenY = Y * sp - z * cp;
-    const depth = Y * cp + z * sp;
-    const scale = (this.focal / (this.focal + depth)) * this.zoomK;
+    const screenUp = Y * sp + z * cp;
+    const depth = Y * cp - z * sp; // distance along the view direction; negative = nearer than the origin
+    const scale = (this.focal / Math.max(this.focal * 0.1, this.focal + depth)) * this.zoomK;
     return {
       x: this.width / 2 + this.panX + X * scale,
-      y: this.height / 2 + this.panY + screenY * scale,
+      y: this.height / 2 + this.panY - screenUp * scale,
       scale,
       depth,
     };
