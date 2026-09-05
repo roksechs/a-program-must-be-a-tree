@@ -1,0 +1,57 @@
+name: Release
+
+# Cuts the tag and the GitHub release for the version in package.json, so a
+# release needs nothing beyond a version bump landing on the default branch.
+# Uses only the built-in GITHUB_TOKEN (contents: write) and the gh CLI that is
+# preinstalled on the runner: no secrets, no third-party actions.
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    # Only the default branch releases, whatever it is called.
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    concurrency:
+      group: release
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # A release is a promise about the code, so it is tested here too rather
+      # than trusting another workflow's run on the same commit.
+      - run: npm test
+      - id: version
+        run: echo "tag=v$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+      - name: Create the tag and the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "$TAG is already released; nothing to do."
+            exit 0
+          fi
+          notes="$(mktemp)"
+          # The CHANGELOG section for this version: everything between its
+          # heading and the next one.
+          if [ -f CHANGELOG.md ]; then
+            awk -v want="## $TAG" '$0 == want { found = 1; next } found && /^## / { exit } found' CHANGELOG.md > "$notes"
+          fi
+          if [ -s "$notes" ]; then
+            gh release create "$TAG" --target "$GITHUB_SHA" --title "$TAG" --notes-file "$notes"
+          else
+            # No section written for this version: let GitHub list the merged
+            # pull requests instead of releasing with empty notes.
+            gh release create "$TAG" --target "$GITHUB_SHA" --title "$TAG" --generate-notes
+          fi
+          echo "Released $TAG"
