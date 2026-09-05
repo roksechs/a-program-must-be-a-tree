@@ -124,6 +124,17 @@ call-height axis would render with no depth cue at all (true of any look-at
 camera, not just this one). A minimum elevation keeps that axis visibly
 foreshortened at every orbit angle.
 
+The camera's focal length is set from the graph's own extent (in `fit()`)
+rather than a fixed world-unit constant. A focal length small next to the
+layout's actual size lets ordinary orbiting bring some node's depth close
+enough to `-focal` that its perspective scale blows up, stretching it the
+way a very wide-angle lens stretches whatever is closest to it; tying focal
+to extent keeps the lens "normal" regardless of how far the `1/d` repulsion
+happens to spread a given graph. Points whose scale would still exceed
+`MAX_MAGNIFICATION` are left undrawn rather than magnified without bound —
+a real camera doesn't render what's pressed against the lens, it just falls
+out of frame.
+
 ## Edge kinds
 
 The meaning of `call`, `create`, `reference`, `type`, `extends`,

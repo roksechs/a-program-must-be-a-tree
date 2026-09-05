@@ -14,6 +14,20 @@ import { hullPath } from "./zones.js";
 // dead spot without stopping the camera from getting close to level.
 const MIN_PITCH = 0.15;
 
+// focal is kept proportional to the graph's own extent (set in fit(), below)
+// rather than a fixed world-unit constant: a focal length that's small next
+// to the content's actual size lets ordinary orbiting bring a node's depth
+// close enough to -focal that its perspective scale blows up, stretching it
+// like a very wide-angle (near-fisheye) lens. Tying focal to extent keeps
+// the lens "normal" regardless of how large the force layout happens to be.
+const FOCAL_EXTENT_RATIO = 1.2;
+
+// Points whose focal-relative depth would magnify them past this factor are
+// clipped (not drawn) instead of being scaled up without bound: a real
+// camera doesn't render what's essentially against the lens, it just falls
+// out of frame.
+const MAX_MAGNIFICATION = 4;
+
 export class Graph3D {
   constructor(host, callbacks) {
     this.host = host;
@@ -41,6 +55,8 @@ export class Graph3D {
     this.zoomK = 1;
     this.panX = 0;
     this.panY = 0;
+    // Placeholder until the first fit(), which sets this from the graph's
+    // own extent (see FOCAL_EXTENT_RATIO).
     this.focal = 1400;
 
     this.canvas = document.createElement("canvas");
@@ -192,12 +208,17 @@ export class Graph3D {
     const sp = Math.sin(this.pitch);
     const screenUp = Y * sp + z * cp;
     const depth = Y * cp - z * sp; // distance along the view direction; negative = nearer than the origin
-    const scale = (this.focal / Math.max(this.focal * 0.1, this.focal + depth)) * this.zoomK;
+    const focalDepth = this.focal + depth;
+    if (focalDepth <= this.focal / MAX_MAGNIFICATION) {
+      return { x: null, y: null, scale: 0, depth, clipped: true };
+    }
+    const scale = (this.focal / focalDepth) * this.zoomK;
     return {
       x: this.width / 2 + this.panX + X * scale,
       y: this.height / 2 + this.panY - screenUp * scale,
       scale,
       depth,
+      clipped: false,
     };
   }
 
@@ -242,8 +263,10 @@ export class Graph3D {
     const sel = this.selected;
     const neighbours = this.neighbourSet();
 
-    // Project all nodes once per frame.
-    const projected = nodes.map((n) => ({ node: n, ...this.project(n.x, n.y, this.zOf(n)) }));
+    // Project all nodes once per frame. Nodes too close to the camera to
+    // project sanely (see MAX_MAGNIFICATION) are left out, the same way a
+    // real camera simply doesn't show what's past its near plane.
+    const projected = nodes.map((n) => ({ node: n, ...this.project(n.x, n.y, this.zOf(n)) })).filter((p) => !p.clipped);
     this.projected = projected;
     const byIndex = new Map(projected.map((p) => [p.node.index, p]));
 
@@ -272,6 +295,7 @@ export class Graph3D {
           this.project(x1, y1, z),
           this.project(x0, y1, z),
         ];
+        if (corners.some((c) => c.clipped)) continue;
         ctx.beginPath();
         ctx.moveTo(corners[0].x, corners[0].y);
         for (let i = 1; i < 4; i++) ctx.lineTo(corners[i].x, corners[i].y);
@@ -313,8 +337,9 @@ export class Graph3D {
       .map((l) => {
         const s = byIndex.get(l.source.index);
         const t = byIndex.get(l.target.index);
-        return { l, s, t, depth: (s.depth + t.depth) / 2 };
+        return s && t ? { l, s, t, depth: (s.depth + t.depth) / 2 } : null;
       })
+      .filter((item) => item !== null)
       .sort((a, b) => b.depth - a.depth);
     for (const { l, s, t } of edgeItems) {
       const active = sel && (l.source === sel || l.target === sel);
@@ -378,6 +403,7 @@ export class Graph3D {
     const ys = this.graph.nodes.map((n) => n.y);
     const extent = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys), this.maxHeight * this.layerGap, 1);
     this.zoomK = Math.max(0.05, Math.min(2, (Math.min(this.width, this.height) * 0.8) / extent));
+    this.focal = extent * FOCAL_EXTENT_RATIO;
     this.draw();
   }
 
