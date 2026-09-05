@@ -411,9 +411,24 @@ export class Graph3D {
     if (!this.graph || this.graph.nodes.length === 0) return;
     const xs = this.graph.nodes.map((n) => n.x);
     const ys = this.graph.nodes.map((n) => n.y);
-    const extent = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys), this.maxHeight * this.layerGap, 1);
+    const minX = Math.min(...xs);
+    const maxX = Math.max(...xs);
+    const minY = Math.min(...ys);
+    const maxY = Math.max(...ys);
+    const extent = Math.max(maxX - minX, maxY - minY, this.maxHeight * this.layerGap, 1);
     this.zoomK = Math.max(0.05, Math.min(2, (Math.min(this.width, this.height) * 0.8) / extent));
     this.focal = extent * FOCAL_EXTENT_RATIO;
+    // Repulsion has no range limit and nothing pulls nodes toward a centre
+    // (by design, see docs/DESIGN.md), so the layout's own bounding box can
+    // sit anywhere in world space — panX/panY = 0 would orbit and zoom
+    // around world origin instead of the graph, leaving it off-screen-centre
+    // and drifting further with each zoom step. Pan by the projected offset
+    // of the bounding box's centre so it lands at screen centre instead.
+    const centre = this.project((minX + maxX) / 2, (minY + maxY) / 2, (this.maxHeight * this.layerGap) / 2);
+    if (!centre.clipped) {
+      this.panX = this.width / 2 - centre.x;
+      this.panY = this.height / 2 - centre.y;
+    }
     this.draw();
   }
 

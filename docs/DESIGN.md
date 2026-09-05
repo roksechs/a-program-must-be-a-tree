@@ -144,6 +144,16 @@ happens to spread a given graph. Points whose scale would still exceed
 a real camera doesn't render what's pressed against the lens, it just falls
 out of frame.
 
+The orbit camera's yaw/pitch pivot is the world origin, but nothing in the
+physics keeps the layout's own bounding box anywhere near it (see "Nothing
+defines a centre" above): `fit()` therefore pans the camera by the box's
+projected screen offset so its centre lands on screen centre, rather than
+assuming the origin already coincides with it. Zooming (mouse wheel)
+rescales that pan by the same factor as the zoom, so whatever point sits at
+screen centre stays there through further zooming instead of sliding away
+from it — the per-node perspective factor cancels out of the ratio, so this
+holds regardless of a node's depth.
+
 ## Edge kinds
 
 The meaning of `call`, `create`, `reference`, `type`, `extends`,
