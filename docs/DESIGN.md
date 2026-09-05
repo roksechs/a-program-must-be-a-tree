@@ -100,10 +100,11 @@ visible parent is skipped so a directory with a single file does not produce
 two identical hulls.
 
 Each zone is the convex hull of its members' positions, padded by expanding
-every point into a small polygon before hulling, and rendered with a closed
-Catmull-Rom curve so it looks rounded. Directories and files use the same
-style; nesting is visible from the hulls themselves. The same code produces the 3D zones by
-hulling the projected screen coordinates.
+every point into a small octagon before hulling and drawn as a plain closed
+polygon (straight segments); the octagon expansion is what keeps corners from
+looking sharp; no curve fit runs on top of it. Directories and files use the
+same style; nesting is visible from the hulls themselves. The same code
+produces the 3D zones by hulling the projected screen coordinates.
 
 This is recomputed every physics tick, so `hullPath` hulls the raw member
 points first and only expands *that* hull's vertices into padded polygons
