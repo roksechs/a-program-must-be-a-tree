@@ -4,6 +4,7 @@
 // projection differs, so switching views never restarts the physics.
 /* global d3 */
 import { edgeColor, heightColor, kindColor, zoneColor } from "./colors.js";
+import { t } from "./i18n.js";
 import { nodeRadius } from "./simulation.js";
 import { hullPath } from "./zones.js";
 
@@ -249,7 +250,7 @@ export class Graph3D {
         ctx.stroke();
         ctx.fillStyle = "rgba(71, 85, 105, 0.7)";
         ctx.font = "11px system-ui, sans-serif";
-        ctx.fillText(`height ${h}`, corners[0].x + 4, corners[0].y - 3);
+        ctx.fillText(t("graph3d.height", { height: h }), corners[0].x + 4, corners[0].y - 3);
       }
     }
 

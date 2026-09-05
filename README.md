@@ -35,6 +35,10 @@ Open the page, pick a dataset from the panel on the right, or open any JSON
 file that follows the data format. `?data=<id>` selects a bundled dataset and
 `?data=https://...` loads a remote one.
 
+The interface is available in English and Japanese. The language follows
+`?lang=en|ja`, then the saved preference, then the browser locale; the selector
+in the header switches it at any time. Translations live in `site/js/i18n.js`.
+
 ## Analyzing your own project
 
 The bundled analyzer handles JavaScript and TypeScript with the TypeScript
@@ -53,6 +57,7 @@ that writes the same JSON; see the data format document.
 | Section     | Controls |
 |-------------|----------|
 | Data        | bundled datasets, open a local JSON file |
+| Header      | language selector (English / Japanese) |
 | View        | 2D / 3D, label mode, colour by kind or call height, 3D layer gap and planes, auto-rotate, fit |
 | Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length, zone cohesion, gravity |
 | Zones       | directory depth from 0 (none) to the deepest directory, file zones on/off |

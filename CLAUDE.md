@@ -11,12 +11,17 @@ Guidance for AI assistants and contributors working in this repository.
    GitHub Pages deployment uses only the built-in `GITHUB_TOKEN` / OIDC
    permissions of GitHub Actions; never add secrets to workflows.
 3. **Code and documentation are written in English.** This includes comments,
-   commit messages, README, docs, UI strings and data files. Conversation with
-   the owner may happen in Japanese, but nothing committed is.
-4. **The product is a GitHub Pages site** that visualizes declaration graphs
+   commit messages, README, docs, data files and the English source strings of
+   the UI. Conversation with the owner may happen in Japanese, but nothing
+   committed is, except translations inside `site/js/i18n.js`.
+4. **The UI is internationalised.** Every user-visible string goes through
+   `t()` from `site/js/i18n.js`; never hard-code UI text in components. When
+   adding a string, add it to every language (English and Japanese today); the
+   unit tests fail when a language misses a key.
+5. **The product is a GitHub Pages site** that visualizes declaration graphs
    with D3.js. It must work as a static site without a server or build step;
    d3 is vendored into `site/vendor` so the page has no runtime CDN dependency.
-5. **The viewer must be able to analyze this project itself** as well as
+6. **The viewer must be able to analyze this project itself** as well as
    well-known open-source projects. Keep `npm run build:data` producing the
    `self` dataset and keep example datasets working.
 
@@ -38,7 +43,7 @@ edges. Required features, all of which must keep working:
 
 ```
 site/            static site (GitHub Pages root)
-  js/            ES modules: model, metrics, simulation, zones, graph2d, graph3d, panel, app
+  js/            ES modules: model, metrics, simulation, zones, graph2d, graph3d, panel, app, i18n
   data/          generated datasets, listed in index.json
   vendor/        d3 (copied by `npm run vendor`, do not edit)
 analyzers/ts/    JavaScript / TypeScript analyzer (TypeScript compiler API)

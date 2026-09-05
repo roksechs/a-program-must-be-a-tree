@@ -42,9 +42,21 @@ body {
   font-weight: 600;
 }
 
-#header a {
+#header .header-right {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+}
+
+#header a {
   text-decoration: none;
+}
+
+#header select {
+  font: inherit;
+  font-size: 12px;
 }
 
 #main {
