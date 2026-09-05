@@ -1,0 +1,368 @@
+{
+ "meta": {
+  "name": "d3-force",
+  "root": "node_modules/d3-force",
+  "language": "javascript",
+  "generatedAt": "2026-09-05T08:31:31.063Z",
+  "analyzer": "analyzers/ts@0.1.0",
+  "files": 12
+ },
+ "declarations": [
+  {
+   "id": "src/center.js::default",
+   "name": "center",
+   "kind": "function",
+   "file": "src/center.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/collide.js::default",
+   "name": "collide",
+   "kind": "function",
+   "file": "src/collide.js",
+   "line": 13,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/collide.js::x",
+   "name": "x",
+   "kind": "function",
+   "file": "src/collide.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/collide.js::y",
+   "name": "y",
+   "kind": "function",
+   "file": "src/collide.js",
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/constant.js::default",
+   "name": "constant",
+   "kind": "function",
+   "file": "src/constant.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/jiggle.js::default",
+   "name": "jiggle",
+   "kind": "function",
+   "file": "src/jiggle.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/lcg.js::a",
+   "name": "a",
+   "kind": "variable",
+   "file": "src/lcg.js",
+   "line": 2,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/lcg.js::c",
+   "name": "c",
+   "kind": "variable",
+   "file": "src/lcg.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/lcg.js::default",
+   "name": "lcg",
+   "kind": "function",
+   "file": "src/lcg.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/lcg.js::m",
+   "name": "m",
+   "kind": "variable",
+   "file": "src/lcg.js",
+   "line": 4,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/link.js::default",
+   "name": "link",
+   "kind": "function",
+   "file": "src/link.js",
+   "line": 14,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/link.js::find",
+   "name": "find",
+   "kind": "function",
+   "file": "src/link.js",
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/link.js::index",
+   "name": "index",
+   "kind": "function",
+   "file": "src/link.js",
+   "line": 4,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/manyBody.js::default",
+   "name": "manyBody",
+   "kind": "function",
+   "file": "src/manyBody.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/radial.js::default",
+   "name": "radial",
+   "kind": "function",
+   "file": "src/radial.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/simulation.js::default",
+   "name": "simulation",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 16,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/simulation.js::initialAngle",
+   "name": "initialAngle",
+   "kind": "variable",
+   "file": "src/simulation.js",
+   "line": 14,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::initialRadius",
+   "name": "initialRadius",
+   "kind": "variable",
+   "file": "src/simulation.js",
+   "line": 13,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::x",
+   "name": "x",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/simulation.js::y",
+   "name": "y",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 9,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/x.js::default",
+   "name": "x",
+   "kind": "function",
+   "file": "src/x.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/y.js::default",
+   "name": "y",
+   "kind": "function",
+   "file": "src/y.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  }
+ ],
+ "edges": [
+  {
+   "source": "src/collide.js::default",
+   "target": "src/collide.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/collide.js::default",
+   "target": "src/collide.js::x",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/collide.js::default",
+   "target": "src/collide.js::y",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/collide.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/collide.js::default",
+   "target": "src/jiggle.js::default",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/jiggle.js::default",
+   "target": "src/jiggle.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/lcg.js::default",
+   "target": "src/lcg.js::a",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/lcg.js::default",
+   "target": "src/lcg.js::c",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/lcg.js::default",
+   "target": "src/lcg.js::m",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/link.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/link.js::default",
+   "target": "src/jiggle.js::default",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/link.js::default",
+   "target": "src/link.js::find",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/link.js::default",
+   "target": "src/link.js::index",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/manyBody.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/manyBody.js::default",
+   "target": "src/jiggle.js::default",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/manyBody.js::default",
+   "target": "src/simulation.js::x",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/manyBody.js::default",
+   "target": "src/simulation.js::y",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/radial.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/radial.js::default",
+   "target": "src/radial.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/lcg.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::initialAngle",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::initialRadius",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/x.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/x.js::default",
+   "target": "src/x.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/y.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/y.js::default",
+   "target": "src/y.js::default",
+   "kind": "call",
+   "count": 1
+  }
+ ]
+}

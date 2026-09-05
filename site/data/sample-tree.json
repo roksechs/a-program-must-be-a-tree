@@ -1,0 +1,488 @@
+{
+ "meta": {
+  "name": "sample-tree",
+  "root": ".",
+  "language": "synthetic",
+  "generatedAt": "2026-09-05T08:31:33.062Z",
+  "analyzer": "synthetic"
+ },
+ "declarations": [
+  {
+   "id": "main",
+   "name": "main",
+   "kind": "function",
+   "file": "src/main.js",
+   "line": 1
+  },
+  {
+   "id": "main_0",
+   "name": "main_0",
+   "kind": "function",
+   "file": "src/module0/main_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_0",
+   "name": "main_0_0",
+   "kind": "function",
+   "file": "src/module0/main_0_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_0_0",
+   "name": "main_0_0_0",
+   "kind": "variable",
+   "file": "src/module0/main_0_0_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_0_1",
+   "name": "main_0_0_1",
+   "kind": "variable",
+   "file": "src/module0/main_0_0_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_0_2",
+   "name": "main_0_0_2",
+   "kind": "variable",
+   "file": "src/module0/main_0_0_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_1",
+   "name": "main_0_1",
+   "kind": "function",
+   "file": "src/module0/main_0_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_1_0",
+   "name": "main_0_1_0",
+   "kind": "variable",
+   "file": "src/module0/main_0_1_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_1_1",
+   "name": "main_0_1_1",
+   "kind": "variable",
+   "file": "src/module0/main_0_1_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_1_2",
+   "name": "main_0_1_2",
+   "kind": "variable",
+   "file": "src/module0/main_0_1_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_2",
+   "name": "main_0_2",
+   "kind": "function",
+   "file": "src/module0/main_0_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_2_0",
+   "name": "main_0_2_0",
+   "kind": "variable",
+   "file": "src/module0/main_0_2_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_2_1",
+   "name": "main_0_2_1",
+   "kind": "variable",
+   "file": "src/module0/main_0_2_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_0_2_2",
+   "name": "main_0_2_2",
+   "kind": "variable",
+   "file": "src/module0/main_0_2_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_1",
+   "name": "main_1",
+   "kind": "function",
+   "file": "src/module1/main_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_0",
+   "name": "main_1_0",
+   "kind": "function",
+   "file": "src/module1/main_1_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_0_0",
+   "name": "main_1_0_0",
+   "kind": "variable",
+   "file": "src/module1/main_1_0_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_0_1",
+   "name": "main_1_0_1",
+   "kind": "variable",
+   "file": "src/module1/main_1_0_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_0_2",
+   "name": "main_1_0_2",
+   "kind": "variable",
+   "file": "src/module1/main_1_0_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_1",
+   "name": "main_1_1",
+   "kind": "function",
+   "file": "src/module1/main_1_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_1_0",
+   "name": "main_1_1_0",
+   "kind": "variable",
+   "file": "src/module1/main_1_1_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_1_1",
+   "name": "main_1_1_1",
+   "kind": "variable",
+   "file": "src/module1/main_1_1_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_1_2",
+   "name": "main_1_1_2",
+   "kind": "variable",
+   "file": "src/module1/main_1_1_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_2",
+   "name": "main_1_2",
+   "kind": "function",
+   "file": "src/module1/main_1_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_2_0",
+   "name": "main_1_2_0",
+   "kind": "variable",
+   "file": "src/module1/main_1_2_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_2_1",
+   "name": "main_1_2_1",
+   "kind": "variable",
+   "file": "src/module1/main_1_2_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_1_2_2",
+   "name": "main_1_2_2",
+   "kind": "variable",
+   "file": "src/module1/main_1_2_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_2",
+   "name": "main_2",
+   "kind": "function",
+   "file": "src/module2/main_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_0",
+   "name": "main_2_0",
+   "kind": "function",
+   "file": "src/module2/main_2_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_0_0",
+   "name": "main_2_0_0",
+   "kind": "variable",
+   "file": "src/module2/main_2_0_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_0_1",
+   "name": "main_2_0_1",
+   "kind": "variable",
+   "file": "src/module2/main_2_0_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_0_2",
+   "name": "main_2_0_2",
+   "kind": "variable",
+   "file": "src/module2/main_2_0_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_1",
+   "name": "main_2_1",
+   "kind": "function",
+   "file": "src/module2/main_2_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_1_0",
+   "name": "main_2_1_0",
+   "kind": "variable",
+   "file": "src/module2/main_2_1_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_1_1",
+   "name": "main_2_1_1",
+   "kind": "variable",
+   "file": "src/module2/main_2_1_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_1_2",
+   "name": "main_2_1_2",
+   "kind": "variable",
+   "file": "src/module2/main_2_1_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_2",
+   "name": "main_2_2",
+   "kind": "function",
+   "file": "src/module2/main_2_2.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_2_0",
+   "name": "main_2_2_0",
+   "kind": "variable",
+   "file": "src/module2/main_2_2_0.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_2_1",
+   "name": "main_2_2_1",
+   "kind": "variable",
+   "file": "src/module2/main_2_2_1.js",
+   "line": 1
+  },
+  {
+   "id": "main_2_2_2",
+   "name": "main_2_2_2",
+   "kind": "variable",
+   "file": "src/module2/main_2_2_2.js",
+   "line": 1
+  }
+ ],
+ "edges": [
+  {
+   "source": "main",
+   "target": "main_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_0",
+   "target": "main_0_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_0_0",
+   "target": "main_0_0_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_0_0",
+   "target": "main_0_0_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_0_0",
+   "target": "main_0_0_2",
+   "kind": "call"
+  },
+  {
+   "source": "main_0",
+   "target": "main_0_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_0_1",
+   "target": "main_0_1_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_0_1",
+   "target": "main_0_1_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_0_1",
+   "target": "main_0_1_2",
+   "kind": "call"
+  },
+  {
+   "source": "main_0",
+   "target": "main_0_2",
+   "kind": "call"
+  },
+  {
+   "source": "main_0_2",
+   "target": "main_0_2_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_0_2",
+   "target": "main_0_2_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_0_2",
+   "target": "main_0_2_2",
+   "kind": "call"
+  },
+  {
+   "source": "main",
+   "target": "main_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_1",
+   "target": "main_1_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_1_0",
+   "target": "main_1_0_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_1_0",
+   "target": "main_1_0_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_1_0",
+   "target": "main_1_0_2",
+   "kind": "call"
+  },
+  {
+   "source": "main_1",
+   "target": "main_1_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_1_1",
+   "target": "main_1_1_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_1_1",
+   "target": "main_1_1_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_1_1",
+   "target": "main_1_1_2",
+   "kind": "call"
+  },
+  {
+   "source": "main_1",
+   "target": "main_1_2",
+   "kind": "call"
+  },
+  {
+   "source": "main_1_2",
+   "target": "main_1_2_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_1_2",
+   "target": "main_1_2_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_1_2",
+   "target": "main_1_2_2",
+   "kind": "call"
+  },
+  {
+   "source": "main",
+   "target": "main_2",
+   "kind": "call"
+  },
+  {
+   "source": "main_2",
+   "target": "main_2_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_2_0",
+   "target": "main_2_0_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_2_0",
+   "target": "main_2_0_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_2_0",
+   "target": "main_2_0_2",
+   "kind": "call"
+  },
+  {
+   "source": "main_2",
+   "target": "main_2_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_2_1",
+   "target": "main_2_1_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_2_1",
+   "target": "main_2_1_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_2_1",
+   "target": "main_2_1_2",
+   "kind": "call"
+  },
+  {
+   "source": "main_2",
+   "target": "main_2_2",
+   "kind": "call"
+  },
+  {
+   "source": "main_2_2",
+   "target": "main_2_2_0",
+   "kind": "call"
+  },
+  {
+   "source": "main_2_2",
+   "target": "main_2_2_1",
+   "kind": "call"
+  },
+  {
+   "source": "main_2_2",
+   "target": "main_2_2_2",
+   "kind": "call"
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "a-program-must-be-a-tree",
+  "version": "0.1.0",
+  "description": "Visualize the declaration/call graph of a codebase as a force-directed graph and measure how tree-like it is.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "analyze": "node analyzers/ts/analyze.mjs",
+    "analyze:self": "node analyzers/ts/analyze.mjs --name self --root . --include site/js analyzers --out site/data/self.json",
+    "analyze:examples": "node scripts/analyze-examples.mjs",
+    "build:data": "npm run analyze:examples",
+    "vendor": "node scripts/vendor.mjs",
+    "test": "node --test test/*.test.mjs",
+    "serve": "node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "d3": "7.9.0",
+    "typescript": "5.9.3"
+  }
+}

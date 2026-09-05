@@ -1,0 +1,230 @@
+{
+ "meta": {
+  "name": "d3-zoom",
+  "root": "node_modules/d3-zoom",
+  "language": "javascript",
+  "generatedAt": "2026-09-05T08:31:33.060Z",
+  "analyzer": "analyzers/ts@0.1.0",
+  "files": 6
+ },
+ "declarations": [
+  {
+   "id": "src/constant.js::default",
+   "name": "constant",
+   "kind": "function",
+   "file": "src/constant.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/event.js::ZoomEvent",
+   "name": "ZoomEvent",
+   "kind": "function",
+   "file": "src/event.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/noevent.js::default",
+   "name": "noevent",
+   "kind": "function",
+   "file": "src/noevent.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/noevent.js::nopropagation",
+   "name": "nopropagation",
+   "kind": "function",
+   "file": "src/noevent.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/transform.js::identity",
+   "name": "identity",
+   "kind": "variable",
+   "file": "src/transform.js",
+   "line": 44,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/transform.js::transform",
+   "name": "transform",
+   "kind": "function",
+   "file": "src/transform.js",
+   "line": 48,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/transform.js::Transform",
+   "name": "Transform",
+   "kind": "function",
+   "file": "src/transform.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/zoom.js::default",
+   "name": "zoom",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 53,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/zoom.js::defaultConstrain",
+   "name": "defaultConstrain",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 42,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/zoom.js::defaultExtent",
+   "name": "defaultExtent",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 17,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/zoom.js::defaultFilter",
+   "name": "defaultFilter",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 13,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/zoom.js::defaultTouchable",
+   "name": "defaultTouchable",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 38,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/zoom.js::defaultTransform",
+   "name": "defaultTransform",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 30,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/zoom.js::defaultWheelDelta",
+   "name": "defaultWheelDelta",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 34,
+   "parent": null,
+   "exported": false
+  }
+ ],
+ "edges": [
+  {
+   "source": "src/transform.js::identity",
+   "target": "src/transform.js::Transform",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/transform.js::transform",
+   "target": "src/transform.js::identity",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/event.js::ZoomEvent",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/noevent.js::default",
+   "kind": "call",
+   "count": 5
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/noevent.js::nopropagation",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/transform.js::identity",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/transform.js::Transform",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::defaultConstrain",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::defaultExtent",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::defaultFilter",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::defaultTouchable",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::defaultTransform",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::defaultWheelDelta",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/zoom.js::defaultTransform",
+   "target": "src/transform.js::identity",
+   "kind": "reference",
+   "count": 1
+  }
+ ]
+}

@@ -1,0 +1,1322 @@
+{
+ "meta": {
+  "name": "d3-hierarchy",
+  "root": "node_modules/d3-hierarchy",
+  "language": "javascript",
+  "generatedAt": "2026-09-05T08:31:32.796Z",
+  "analyzer": "analyzers/ts@0.1.0",
+  "files": 34
+ },
+ "declarations": [
+  {
+   "id": "src/accessors.js::optional",
+   "name": "optional",
+   "kind": "function",
+   "file": "src/accessors.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/accessors.js::required",
+   "name": "required",
+   "kind": "function",
+   "file": "src/accessors.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/array.js::default",
+   "name": "array",
+   "kind": "function",
+   "file": "src/array.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/array.js::shuffle",
+   "name": "shuffle",
+   "kind": "function",
+   "file": "src/array.js",
+   "line": 7,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/cluster.js::default",
+   "name": "cluster",
+   "kind": "function",
+   "file": "src/cluster.js",
+   "line": 33,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/cluster.js::defaultSeparation",
+   "name": "defaultSeparation",
+   "kind": "function",
+   "file": "src/cluster.js",
+   "line": 1,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/cluster.js::leafLeft",
+   "name": "leafLeft",
+   "kind": "function",
+   "file": "src/cluster.js",
+   "line": 21,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/cluster.js::leafRight",
+   "name": "leafRight",
+   "kind": "function",
+   "file": "src/cluster.js",
+   "line": 27,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/cluster.js::maxY",
+   "name": "maxY",
+   "kind": "function",
+   "file": "src/cluster.js",
+   "line": 13,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/cluster.js::maxYReduce",
+   "name": "maxYReduce",
+   "kind": "function",
+   "file": "src/cluster.js",
+   "line": 17,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/cluster.js::meanX",
+   "name": "meanX",
+   "kind": "function",
+   "file": "src/cluster.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/cluster.js::meanXReduce",
+   "name": "meanXReduce",
+   "kind": "function",
+   "file": "src/cluster.js",
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/constant.js::constantZero",
+   "name": "constantZero",
+   "kind": "function",
+   "file": "src/constant.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/constant.js::default",
+   "name": "constant",
+   "kind": "function",
+   "file": "src/constant.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/ancestors.js::default",
+   "name": "ancestors",
+   "kind": "function",
+   "file": "src/hierarchy/ancestors.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/count.js::count",
+   "name": "count",
+   "kind": "function",
+   "file": "src/hierarchy/count.js",
+   "line": 1,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/hierarchy/count.js::default",
+   "name": "count",
+   "kind": "function",
+   "file": "src/hierarchy/count.js",
+   "line": 10,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/descendants.js::default",
+   "name": "descendants",
+   "kind": "function",
+   "file": "src/hierarchy/descendants.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/each.js::default",
+   "name": "each",
+   "kind": "function",
+   "file": "src/hierarchy/each.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/eachAfter.js::default",
+   "name": "eachAfter",
+   "kind": "function",
+   "file": "src/hierarchy/eachAfter.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/eachBefore.js::default",
+   "name": "eachBefore",
+   "kind": "function",
+   "file": "src/hierarchy/eachBefore.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/find.js::default",
+   "name": "find",
+   "kind": "function",
+   "file": "src/hierarchy/find.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/index.js::computeHeight",
+   "name": "computeHeight",
+   "kind": "function",
+   "file": "src/hierarchy/index.js",
+   "line": 62,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/index.js::copyData",
+   "name": "copyData",
+   "kind": "function",
+   "file": "src/hierarchy/index.js",
+   "line": 57,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/hierarchy/index.js::hierarchy",
+   "name": "hierarchy",
+   "kind": "function",
+   "file": "src/hierarchy/index.js",
+   "line": 15,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/index.js::mapChildren",
+   "name": "mapChildren",
+   "kind": "function",
+   "file": "src/hierarchy/index.js",
+   "line": 53,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/hierarchy/index.js::Node",
+   "name": "Node",
+   "kind": "function",
+   "file": "src/hierarchy/index.js",
+   "line": 68,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/index.js::node_copy",
+   "name": "node_copy",
+   "kind": "function",
+   "file": "src/hierarchy/index.js",
+   "line": 45,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/hierarchy/index.js::objectChildren",
+   "name": "objectChildren",
+   "kind": "function",
+   "file": "src/hierarchy/index.js",
+   "line": 49,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/hierarchy/iterator.js::default",
+   "name": "iterator",
+   "kind": "function",
+   "file": "src/hierarchy/iterator.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/leaves.js::default",
+   "name": "leaves",
+   "kind": "function",
+   "file": "src/hierarchy/leaves.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/links.js::default",
+   "name": "links",
+   "kind": "function",
+   "file": "src/hierarchy/links.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/path.js::default",
+   "name": "path",
+   "kind": "function",
+   "file": "src/hierarchy/path.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/path.js::leastCommonAncestor",
+   "name": "leastCommonAncestor",
+   "kind": "function",
+   "file": "src/hierarchy/path.js",
+   "line": 17,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/hierarchy/sort.js::default",
+   "name": "sort",
+   "kind": "function",
+   "file": "src/hierarchy/sort.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/hierarchy/sum.js::default",
+   "name": "sum",
+   "kind": "function",
+   "file": "src/hierarchy/sum.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/lcg.js::a",
+   "name": "a",
+   "kind": "variable",
+   "file": "src/lcg.js",
+   "line": 2,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/lcg.js::c",
+   "name": "c",
+   "kind": "variable",
+   "file": "src/lcg.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/lcg.js::default",
+   "name": "lcg",
+   "kind": "function",
+   "file": "src/lcg.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/lcg.js::m",
+   "name": "m",
+   "kind": "variable",
+   "file": "src/lcg.js",
+   "line": 4,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/enclose.js::default",
+   "name": "enclose",
+   "kind": "function",
+   "file": "src/pack/enclose.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pack/enclose.js::encloseBasis",
+   "name": "encloseBasis",
+   "kind": "function",
+   "file": "src/pack/enclose.js",
+   "line": 68,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/enclose.js::encloseBasis1",
+   "name": "encloseBasis1",
+   "kind": "function",
+   "file": "src/pack/enclose.js",
+   "line": 76,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/enclose.js::encloseBasis2",
+   "name": "encloseBasis2",
+   "kind": "function",
+   "file": "src/pack/enclose.js",
+   "line": 84,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/enclose.js::encloseBasis3",
+   "name": "encloseBasis3",
+   "kind": "function",
+   "file": "src/pack/enclose.js",
+   "line": 96,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/enclose.js::enclosesNot",
+   "name": "enclosesNot",
+   "kind": "function",
+   "file": "src/pack/enclose.js",
+   "line": 49,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/enclose.js::enclosesWeak",
+   "name": "enclosesWeak",
+   "kind": "function",
+   "file": "src/pack/enclose.js",
+   "line": 54,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/enclose.js::enclosesWeakAll",
+   "name": "enclosesWeakAll",
+   "kind": "function",
+   "file": "src/pack/enclose.js",
+   "line": 59,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/enclose.js::extendBasis",
+   "name": "extendBasis",
+   "kind": "function",
+   "file": "src/pack/enclose.js",
+   "line": 20,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/enclose.js::packEncloseRandom",
+   "name": "packEncloseRandom",
+   "kind": "function",
+   "file": "src/pack/enclose.js",
+   "line": 8,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pack/index.js::default",
+   "name": "index",
+   "kind": "function",
+   "file": "src/pack/index.js",
+   "line": 10,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pack/index.js::defaultRadius",
+   "name": "defaultRadius",
+   "kind": "function",
+   "file": "src/pack/index.js",
+   "line": 6,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/index.js::packChildrenRandom",
+   "name": "packChildrenRandom",
+   "kind": "function",
+   "file": "src/pack/index.js",
+   "line": 55,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/index.js::radiusLeaf",
+   "name": "radiusLeaf",
+   "kind": "function",
+   "file": "src/pack/index.js",
+   "line": 47,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/index.js::translateChild",
+   "name": "translateChild",
+   "kind": "function",
+   "file": "src/pack/index.js",
+   "line": 72,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/siblings.js::default",
+   "name": "siblings",
+   "kind": "function",
+   "file": "src/pack/siblings.js",
+   "line": 117,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pack/siblings.js::intersects",
+   "name": "intersects",
+   "kind": "function",
+   "file": "src/pack/siblings.js",
+   "line": 29,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/siblings.js::Node",
+   "name": "Node",
+   "kind": "function",
+   "file": "src/pack/siblings.js",
+   "line": 43,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/siblings.js::packSiblingsRandom",
+   "name": "packSiblingsRandom",
+   "kind": "function",
+   "file": "src/pack/siblings.js",
+   "line": 49,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pack/siblings.js::place",
+   "name": "place",
+   "kind": "function",
+   "file": "src/pack/siblings.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pack/siblings.js::score",
+   "name": "score",
+   "kind": "function",
+   "file": "src/pack/siblings.js",
+   "line": 34,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/partition.js::default",
+   "name": "partition",
+   "kind": "function",
+   "file": "src/partition.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/stratify.js::ambiguous",
+   "name": "ambiguous",
+   "kind": "variable",
+   "file": "src/stratify.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/stratify.js::default",
+   "name": "stratify",
+   "kind": "function",
+   "file": "src/stratify.js",
+   "line": 16,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/stratify.js::defaultId",
+   "name": "defaultId",
+   "kind": "function",
+   "file": "src/stratify.js",
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/stratify.js::defaultParentId",
+   "name": "defaultParentId",
+   "kind": "function",
+   "file": "src/stratify.js",
+   "line": 12,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/stratify.js::imputed",
+   "name": "imputed",
+   "kind": "variable",
+   "file": "src/stratify.js",
+   "line": 6,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/stratify.js::normalize",
+   "name": "normalize",
+   "kind": "function",
+   "file": "src/stratify.js",
+   "line": 118,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/stratify.js::parentof",
+   "name": "parentof",
+   "kind": "function",
+   "file": "src/stratify.js",
+   "line": 128,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/stratify.js::preroot",
+   "name": "preroot",
+   "kind": "variable",
+   "file": "src/stratify.js",
+   "line": 4,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/stratify.js::slash",
+   "name": "slash",
+   "kind": "function",
+   "file": "src/stratify.js",
+   "line": 138,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/tree.js::default",
+   "name": "tree",
+   "kind": "function",
+   "file": "src/tree.js",
+   "line": 100,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/tree.js::defaultSeparation",
+   "name": "defaultSeparation",
+   "kind": "function",
+   "file": "src/tree.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/tree.js::executeShifts",
+   "name": "executeShifts",
+   "kind": "function",
+   "file": "src/tree.js",
+   "line": 40,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/tree.js::moveSubtree",
+   "name": "moveSubtree",
+   "kind": "function",
+   "file": "src/tree.js",
+   "line": 28,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/tree.js::nextAncestor",
+   "name": "nextAncestor",
+   "kind": "function",
+   "file": "src/tree.js",
+   "line": 56,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/tree.js::nextLeft",
+   "name": "nextLeft",
+   "kind": "function",
+   "file": "src/tree.js",
+   "line": 15,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/tree.js::nextRight",
+   "name": "nextRight",
+   "kind": "function",
+   "file": "src/tree.js",
+   "line": 21,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/tree.js::TreeNode",
+   "name": "TreeNode",
+   "kind": "function",
+   "file": "src/tree.js",
+   "line": 60,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/tree.js::treeRoot",
+   "name": "treeRoot",
+   "kind": "function",
+   "file": "src/tree.js",
+   "line": 76,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/treemap/binary.js::default",
+   "name": "binary",
+   "kind": "function",
+   "file": "src/treemap/binary.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/treemap/dice.js::default",
+   "name": "dice",
+   "kind": "function",
+   "file": "src/treemap/dice.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/treemap/index.js::default",
+   "name": "index",
+   "kind": "function",
+   "file": "src/treemap/index.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/treemap/round.js::default",
+   "name": "round",
+   "kind": "function",
+   "file": "src/treemap/round.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/treemap/slice.js::default",
+   "name": "slice",
+   "kind": "function",
+   "file": "src/treemap/slice.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/treemap/sliceDice.js::default",
+   "name": "sliceDice",
+   "kind": "function",
+   "file": "src/treemap/sliceDice.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/treemap/squarify.js::phi",
+   "name": "phi",
+   "kind": "variable",
+   "file": "src/treemap/squarify.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/treemap/squarify.js::squarifyRatio",
+   "name": "squarifyRatio",
+   "kind": "function",
+   "file": "src/treemap/squarify.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  }
+ ],
+ "edges": [
+  {
+   "source": "src/accessors.js::optional",
+   "target": "src/accessors.js::required",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/array.js::shuffle",
+   "target": "src/array.js::shuffle",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/cluster.js::default",
+   "target": "src/cluster.js::defaultSeparation",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/cluster.js::default",
+   "target": "src/cluster.js::leafLeft",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/cluster.js::default",
+   "target": "src/cluster.js::leafRight",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/cluster.js::default",
+   "target": "src/cluster.js::maxY",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/cluster.js::default",
+   "target": "src/cluster.js::meanX",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/cluster.js::maxY",
+   "target": "src/cluster.js::maxYReduce",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/cluster.js::meanX",
+   "target": "src/cluster.js::meanXReduce",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/hierarchy/count.js::default",
+   "target": "src/hierarchy/count.js::count",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/hierarchy/index.js::hierarchy",
+   "target": "src/hierarchy/index.js::computeHeight",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/hierarchy/index.js::hierarchy",
+   "target": "src/hierarchy/index.js::hierarchy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/hierarchy/index.js::hierarchy",
+   "target": "src/hierarchy/index.js::mapChildren",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/hierarchy/index.js::hierarchy",
+   "target": "src/hierarchy/index.js::Node",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/hierarchy/index.js::hierarchy",
+   "target": "src/hierarchy/index.js::objectChildren",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/hierarchy/index.js::node_copy",
+   "target": "src/hierarchy/index.js::copyData",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/hierarchy/index.js::node_copy",
+   "target": "src/hierarchy/index.js::hierarchy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/hierarchy/path.js::default",
+   "target": "src/hierarchy/path.js::leastCommonAncestor",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/hierarchy/sum.js::default",
+   "target": "src/hierarchy/sum.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/lcg.js::default",
+   "target": "src/lcg.js::a",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/lcg.js::default",
+   "target": "src/lcg.js::c",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/lcg.js::default",
+   "target": "src/lcg.js::m",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/pack/enclose.js::default",
+   "target": "src/lcg.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/enclose.js::default",
+   "target": "src/pack/enclose.js::packEncloseRandom",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/enclose.js::encloseBasis",
+   "target": "src/pack/enclose.js::encloseBasis1",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/enclose.js::encloseBasis",
+   "target": "src/pack/enclose.js::encloseBasis2",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/enclose.js::encloseBasis",
+   "target": "src/pack/enclose.js::encloseBasis3",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/enclose.js::enclosesWeakAll",
+   "target": "src/pack/enclose.js::enclosesWeak",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/enclose.js::extendBasis",
+   "target": "src/pack/enclose.js::encloseBasis2",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/pack/enclose.js::extendBasis",
+   "target": "src/pack/enclose.js::encloseBasis3",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/enclose.js::extendBasis",
+   "target": "src/pack/enclose.js::enclosesNot",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/pack/enclose.js::extendBasis",
+   "target": "src/pack/enclose.js::enclosesWeakAll",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/pack/enclose.js::packEncloseRandom",
+   "target": "src/array.js::shuffle",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/enclose.js::packEncloseRandom",
+   "target": "src/pack/enclose.js::encloseBasis",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/enclose.js::packEncloseRandom",
+   "target": "src/pack/enclose.js::enclosesWeak",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/enclose.js::packEncloseRandom",
+   "target": "src/pack/enclose.js::extendBasis",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/index.js::default",
+   "target": "src/accessors.js::optional",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/index.js::default",
+   "target": "src/constant.js::constantZero",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/pack/index.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/index.js::default",
+   "target": "src/lcg.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/index.js::default",
+   "target": "src/pack/index.js::defaultRadius",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/pack/index.js::default",
+   "target": "src/pack/index.js::packChildrenRandom",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/pack/index.js::default",
+   "target": "src/pack/index.js::radiusLeaf",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/pack/index.js::default",
+   "target": "src/pack/index.js::translateChild",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/pack/index.js::packChildrenRandom",
+   "target": "src/pack/index.js::packChildrenRandom",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/index.js::packChildrenRandom",
+   "target": "src/pack/siblings.js::packSiblingsRandom",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/index.js::radiusLeaf",
+   "target": "src/pack/index.js::radiusLeaf",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/siblings.js::default",
+   "target": "src/lcg.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/siblings.js::default",
+   "target": "src/pack/siblings.js::packSiblingsRandom",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/siblings.js::packSiblingsRandom",
+   "target": "src/array.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/siblings.js::packSiblingsRandom",
+   "target": "src/pack/enclose.js::packEncloseRandom",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pack/siblings.js::packSiblingsRandom",
+   "target": "src/pack/siblings.js::intersects",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/pack/siblings.js::packSiblingsRandom",
+   "target": "src/pack/siblings.js::Node",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/pack/siblings.js::packSiblingsRandom",
+   "target": "src/pack/siblings.js::place",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/pack/siblings.js::packSiblingsRandom",
+   "target": "src/pack/siblings.js::score",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/partition.js::default",
+   "target": "src/treemap/dice.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/partition.js::default",
+   "target": "src/treemap/round.js::default",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/accessors.js::optional",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/hierarchy/index.js::computeHeight",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/hierarchy/index.js::Node",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/stratify.js::ambiguous",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/stratify.js::defaultId",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/stratify.js::defaultParentId",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/stratify.js::imputed",
+   "kind": "reference",
+   "count": 3
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/stratify.js::normalize",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/stratify.js::parentof",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/stratify.js::parentof",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/stratify.js::preroot",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/stratify.js::normalize",
+   "target": "src/stratify.js::slash",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/stratify.js::parentof",
+   "target": "src/stratify.js::slash",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/tree.js::default",
+   "target": "src/tree.js::defaultSeparation",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/tree.js::default",
+   "target": "src/tree.js::executeShifts",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/tree.js::default",
+   "target": "src/tree.js::moveSubtree",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/tree.js::default",
+   "target": "src/tree.js::nextAncestor",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/tree.js::default",
+   "target": "src/tree.js::nextLeft",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/tree.js::default",
+   "target": "src/tree.js::nextRight",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/tree.js::default",
+   "target": "src/tree.js::treeRoot",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/tree.js::treeRoot",
+   "target": "src/tree.js::TreeNode",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/treemap/index.js::default",
+   "target": "src/accessors.js::required",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/treemap/index.js::default",
+   "target": "src/constant.js::constantZero",
+   "kind": "reference",
+   "count": 5
+  },
+  {
+   "source": "src/treemap/index.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 5
+  },
+  {
+   "source": "src/treemap/index.js::default",
+   "target": "src/treemap/round.js::default",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/treemap/sliceDice.js::default",
+   "target": "src/treemap/dice.js::default",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/treemap/sliceDice.js::default",
+   "target": "src/treemap/slice.js::default",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/treemap/squarify.js::squarifyRatio",
+   "target": "src/treemap/dice.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/treemap/squarify.js::squarifyRatio",
+   "target": "src/treemap/slice.js::default",
+   "kind": "call",
+   "count": 1
+  }
+ ]
+}

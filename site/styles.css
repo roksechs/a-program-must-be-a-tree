@@ -1,0 +1,382 @@
+:root {
+  --bg: #f8fafc;
+  --panel-bg: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --accent: #2563eb;
+  --panel-width: 320px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel-bg);
+}
+
+#header h1 {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+}
+
+#header a {
+  margin-left: auto;
+  text-decoration: none;
+}
+
+#main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+#stage {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+#stage svg,
+#stage canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  cursor: grab;
+}
+
+#stage svg:active,
+#stage canvas:active {
+  cursor: grabbing;
+}
+
+#tooltip {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.92);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: pre;
+  max-width: 480px;
+}
+
+#panel {
+  width: var(--panel-width);
+  flex: none;
+  overflow-y: auto;
+  border-left: 1px solid var(--border);
+  background: var(--panel-bg);
+  padding: 4px 0 24px;
+}
+
+.panel-section {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-section h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+.panel-section h3 {
+  font-size: 12px;
+  margin: 10px 0 4px;
+  font-weight: 600;
+}
+
+.control {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+.control > span:first-child {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.control input[type="range"] {
+  width: 100%;
+  margin: 0;
+}
+
+.control output {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  min-width: 42px;
+  text-align: right;
+}
+
+.control select,
+.control input[type="file"] {
+  grid-column: 2 / 4;
+  max-width: 100%;
+  font-size: 12px;
+}
+
+.control input[type="checkbox"] {
+  justify-self: start;
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  grid-column: 2 / 4;
+  justify-self: start;
+}
+
+.segmented button {
+  border: 0;
+  background: transparent;
+  padding: 4px 12px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.segmented button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0;
+  flex-wrap: wrap;
+}
+
+.buttons button {
+  font: inherit;
+  font-size: 12px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.buttons button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 12px;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  word-break: break-all;
+}
+
+p.small {
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+
+.metrics .metric-bar {
+  display: grid;
+  grid-template-columns: 96px 1fr 48px;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+  font-size: 12px;
+}
+
+.metric-bar .bar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.metric-bar .bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.metric-bar:first-child .bar i {
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+}
+
+.metric-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 12px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.metric-kv {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.metric-kv span {
+  color: var(--muted);
+}
+
+ol.shared,
+.selection ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12px;
+}
+
+ol.shared li,
+.selection li {
+  margin: 2px 0;
+}
+
+.selection a,
+ol.shared a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.sel-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sel-title i,
+.legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  font-size: 12px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend i.cycle {
+  background: #fff;
+  border: 2px solid #b91c1c;
+}
+
+/* SVG (2D) */
+svg.graph2d {
+  background: var(--bg);
+}
+
+svg .node {
+  cursor: pointer;
+}
+
+svg .node.selected {
+  stroke: #111827;
+  stroke-width: 3px;
+}
+
+svg .node.dimmed,
+svg .label.dimmed {
+  opacity: 0.2;
+}
+
+svg .link {
+  opacity: 0.55;
+}
+
+svg .link.highlight {
+  opacity: 1;
+  stroke: #111827;
+  stroke-width: 2px;
+}
+
+svg .link.dimmed {
+  opacity: 0.08;
+}
+
+svg .label {
+  font-size: 11px;
+  text-anchor: middle;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+svg .zone-label {
+  font-size: 11px;
+  font-weight: 600;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+svg .zone-label-dir {
+  font-size: 12px;
+}
+
+@media (max-width: 800px) {
+  #main {
+    flex-direction: column;
+  }
+  #panel {
+    width: 100%;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    max-height: 45vh;
+  }
+}

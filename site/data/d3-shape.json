@@ -1,0 +1,1943 @@
+{
+ "meta": {
+  "name": "d3-shape",
+  "root": "node_modules/d3-shape",
+  "language": "javascript",
+  "generatedAt": "2026-09-05T08:31:32.468Z",
+  "analyzer": "analyzers/ts@0.1.0",
+  "files": 60
+ },
+ "declarations": [
+  {
+   "id": "src/arc.js::arcEndAngle",
+   "name": "arcEndAngle",
+   "kind": "function",
+   "file": "src/arc.js",
+   "line": 17,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/arc.js::arcInnerRadius",
+   "name": "arcInnerRadius",
+   "kind": "function",
+   "file": "src/arc.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/arc.js::arcOuterRadius",
+   "name": "arcOuterRadius",
+   "kind": "function",
+   "file": "src/arc.js",
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/arc.js::arcPadAngle",
+   "name": "arcPadAngle",
+   "kind": "function",
+   "file": "src/arc.js",
+   "line": 21,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/arc.js::arcStartAngle",
+   "name": "arcStartAngle",
+   "kind": "function",
+   "file": "src/arc.js",
+   "line": 13,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/arc.js::cornerTangents",
+   "name": "cornerTangents",
+   "kind": "function",
+   "file": "src/arc.js",
+   "line": 36,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/arc.js::default",
+   "name": "arc",
+   "kind": "function",
+   "file": "src/arc.js",
+   "line": 77,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/arc.js::intersect",
+   "name": "intersect",
+   "kind": "function",
+   "file": "src/arc.js",
+   "line": 25,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/area.js::default",
+   "name": "area",
+   "kind": "function",
+   "file": "src/area.js",
+   "line": 8,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/areaRadial.js::default",
+   "name": "areaRadial",
+   "kind": "function",
+   "file": "src/areaRadial.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/array.js::default",
+   "name": "array",
+   "kind": "function",
+   "file": "src/array.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/array.js::slice",
+   "name": "slice",
+   "kind": "variable",
+   "file": "src/array.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/constant.js::default",
+   "name": "constant",
+   "kind": "function",
+   "file": "src/constant.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/basis.js::Basis",
+   "name": "Basis",
+   "kind": "function",
+   "file": "src/curve/basis.js",
+   "line": 12,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/basis.js::default",
+   "name": "basis",
+   "kind": "function",
+   "file": "src/curve/basis.js",
+   "line": 49,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/basis.js::point",
+   "name": "point",
+   "kind": "function",
+   "file": "src/curve/basis.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/basisClosed.js::BasisClosed",
+   "name": "BasisClosed",
+   "kind": "function",
+   "file": "src/curve/basisClosed.js",
+   "line": 4,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/basisClosed.js::default",
+   "name": "basisClosed",
+   "kind": "function",
+   "file": "src/curve/basisClosed.js",
+   "line": 50,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/basisOpen.js::BasisOpen",
+   "name": "BasisOpen",
+   "kind": "function",
+   "file": "src/curve/basisOpen.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/basisOpen.js::default",
+   "name": "basisOpen",
+   "kind": "function",
+   "file": "src/curve/basisOpen.js",
+   "line": 37,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/bump.js::Bump",
+   "name": "Bump",
+   "kind": "class",
+   "file": "src/curve/bump.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::Bump.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/bump.js",
+   "line": 11,
+   "parent": "src/curve/bump.js::Bump",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::Bump.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/bump.js",
+   "line": 8,
+   "parent": "src/curve/bump.js::Bump",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::Bump.constructor",
+   "name": "constructor",
+   "kind": "method",
+   "file": "src/curve/bump.js",
+   "line": 4,
+   "parent": "src/curve/bump.js::Bump",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::Bump.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/bump.js",
+   "line": 17,
+   "parent": "src/curve/bump.js::Bump",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::Bump.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/bump.js",
+   "line": 14,
+   "parent": "src/curve/bump.js::Bump",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::Bump.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/bump.js",
+   "line": 21,
+   "parent": "src/curve/bump.js::Bump",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::bumpRadial",
+   "name": "bumpRadial",
+   "kind": "function",
+   "file": "src/curve/bump.js",
+   "line": 73,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/bump.js::BumpRadial",
+   "name": "BumpRadial",
+   "kind": "class",
+   "file": "src/curve/bump.js",
+   "line": 41,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::BumpRadial.constructor",
+   "name": "constructor",
+   "kind": "method",
+   "file": "src/curve/bump.js",
+   "line": 42,
+   "parent": "src/curve/bump.js::BumpRadial",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::BumpRadial.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/bump.js",
+   "line": 48,
+   "parent": "src/curve/bump.js::BumpRadial",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::BumpRadial.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/bump.js",
+   "line": 45,
+   "parent": "src/curve/bump.js::BumpRadial",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::BumpRadial.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/bump.js",
+   "line": 49,
+   "parent": "src/curve/bump.js::BumpRadial",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bump.js::bumpX",
+   "name": "bumpX",
+   "kind": "function",
+   "file": "src/curve/bump.js",
+   "line": 65,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/bump.js::bumpY",
+   "name": "bumpY",
+   "kind": "function",
+   "file": "src/curve/bump.js",
+   "line": 69,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/bundle.js::Bundle",
+   "name": "Bundle",
+   "kind": "function",
+   "file": "src/curve/bundle.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinal.js::Cardinal",
+   "name": "Cardinal",
+   "kind": "function",
+   "file": "src/curve/cardinal.js",
+   "line": 12,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/cardinal.js::point",
+   "name": "point",
+   "kind": "function",
+   "file": "src/curve/cardinal.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/cardinalClosed.js::CardinalClosed",
+   "name": "CardinalClosed",
+   "kind": "function",
+   "file": "src/curve/cardinalClosed.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/cardinalOpen.js::CardinalOpen",
+   "name": "CardinalOpen",
+   "kind": "function",
+   "file": "src/curve/cardinalOpen.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/catmullRom.js::CatmullRom",
+   "name": "CatmullRom",
+   "kind": "function",
+   "file": "src/curve/catmullRom.js",
+   "line": 27,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRom.js::point",
+   "name": "point",
+   "kind": "function",
+   "file": "src/curve/catmullRom.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/catmullRomClosed.js::CatmullRomClosed",
+   "name": "CatmullRomClosed",
+   "kind": "function",
+   "file": "src/curve/catmullRomClosed.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRomOpen.js::CatmullRomOpen",
+   "name": "CatmullRomOpen",
+   "kind": "function",
+   "file": "src/curve/catmullRomOpen.js",
+   "line": 4,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/linear.js::default",
+   "name": "linear",
+   "kind": "function",
+   "file": "src/curve/linear.js",
+   "line": 29,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/linear.js::Linear",
+   "name": "Linear",
+   "kind": "function",
+   "file": "src/curve/linear.js",
+   "line": 1,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/linearClosed.js::default",
+   "name": "linearClosed",
+   "kind": "function",
+   "file": "src/curve/linearClosed.js",
+   "line": 23,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/linearClosed.js::LinearClosed",
+   "name": "LinearClosed",
+   "kind": "function",
+   "file": "src/curve/linearClosed.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::monotoneX",
+   "name": "monotoneX",
+   "kind": "function",
+   "file": "src/curve/monotone.js",
+   "line": 98,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/monotone.js::MonotoneX",
+   "name": "MonotoneX",
+   "kind": "function",
+   "file": "src/curve/monotone.js",
+   "line": 36,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::monotoneY",
+   "name": "monotoneY",
+   "kind": "function",
+   "file": "src/curve/monotone.js",
+   "line": 102,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/monotone.js::MonotoneY",
+   "name": "MonotoneY",
+   "kind": "function",
+   "file": "src/curve/monotone.js",
+   "line": 79,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::point",
+   "name": "point",
+   "kind": "function",
+   "file": "src/curve/monotone.js",
+   "line": 27,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::ReflectContext",
+   "name": "ReflectContext",
+   "kind": "function",
+   "file": "src/curve/monotone.js",
+   "line": 87,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::sign",
+   "name": "sign",
+   "kind": "function",
+   "file": "src/curve/monotone.js",
+   "line": 1,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::slope2",
+   "name": "slope2",
+   "kind": "function",
+   "file": "src/curve/monotone.js",
+   "line": 19,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::slope3",
+   "name": "slope3",
+   "kind": "function",
+   "file": "src/curve/monotone.js",
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/natural.js::controlPoints",
+   "name": "controlPoints",
+   "kind": "function",
+   "file": "src/curve/natural.js",
+   "line": 45,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/natural.js::default",
+   "name": "natural",
+   "kind": "function",
+   "file": "src/curve/natural.js",
+   "line": 63,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/natural.js::Natural",
+   "name": "Natural",
+   "kind": "function",
+   "file": "src/curve/natural.js",
+   "line": 1,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/radial.js::curveRadial",
+   "name": "curveRadial",
+   "kind": "function",
+   "file": "src/curve/radial.js",
+   "line": 27,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/radial.js::curveRadialLinear",
+   "name": "curveRadialLinear",
+   "kind": "variable",
+   "file": "src/curve/radial.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/radial.js::Radial",
+   "name": "Radial",
+   "kind": "function",
+   "file": "src/curve/radial.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/step.js::default",
+   "name": "step",
+   "kind": "function",
+   "file": "src/curve/step.js",
+   "line": 43,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/step.js::Step",
+   "name": "Step",
+   "kind": "function",
+   "file": "src/curve/step.js",
+   "line": 1,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/step.js::stepAfter",
+   "name": "stepAfter",
+   "kind": "function",
+   "file": "src/curve/step.js",
+   "line": 51,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/curve/step.js::stepBefore",
+   "name": "stepBefore",
+   "kind": "function",
+   "file": "src/curve/step.js",
+   "line": 47,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/descending.js::default",
+   "name": "descending",
+   "kind": "function",
+   "file": "src/descending.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/identity.js::default",
+   "name": "identity",
+   "kind": "function",
+   "file": "src/identity.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/line.js::default",
+   "name": "line",
+   "kind": "function",
+   "file": "src/line.js",
+   "line": 7,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/lineRadial.js::default",
+   "name": "lineRadial",
+   "kind": "function",
+   "file": "src/lineRadial.js",
+   "line": 17,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/lineRadial.js::lineRadial",
+   "name": "lineRadial",
+   "kind": "function",
+   "file": "src/lineRadial.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/link.js::link",
+   "name": "link",
+   "kind": "function",
+   "file": "src/link.js",
+   "line": 15,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/link.js::linkHorizontal",
+   "name": "linkHorizontal",
+   "kind": "function",
+   "file": "src/link.js",
+   "line": 60,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/link.js::linkRadial",
+   "name": "linkRadial",
+   "kind": "function",
+   "file": "src/link.js",
+   "line": 68,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/link.js::linkSource",
+   "name": "linkSource",
+   "kind": "function",
+   "file": "src/link.js",
+   "line": 7,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/link.js::linkTarget",
+   "name": "linkTarget",
+   "kind": "function",
+   "file": "src/link.js",
+   "line": 11,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/link.js::linkVertical",
+   "name": "linkVertical",
+   "kind": "function",
+   "file": "src/link.js",
+   "line": 64,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::abs",
+   "name": "abs",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::acos",
+   "name": "acos",
+   "kind": "function",
+   "file": "src/math.js",
+   "line": 14,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::asin",
+   "name": "asin",
+   "kind": "function",
+   "file": "src/math.js",
+   "line": 18,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::atan2",
+   "name": "atan2",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 2,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::cos",
+   "name": "cos",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::epsilon",
+   "name": "epsilon",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 9,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::halfPi",
+   "name": "halfPi",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 11,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::max",
+   "name": "max",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::min",
+   "name": "min",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::pi",
+   "name": "pi",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 10,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::sin",
+   "name": "sin",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::sqrt",
+   "name": "sqrt",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 7,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/math.js::tau",
+   "name": "tau",
+   "kind": "variable",
+   "file": "src/math.js",
+   "line": 12,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/noop.js::default",
+   "name": "noop",
+   "kind": "function",
+   "file": "src/noop.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/offset/diverging.js::default",
+   "name": "diverging",
+   "kind": "function",
+   "file": "src/offset/diverging.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/offset/expand.js::default",
+   "name": "expand",
+   "kind": "function",
+   "file": "src/offset/expand.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/offset/none.js::default",
+   "name": "none",
+   "kind": "function",
+   "file": "src/offset/none.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/offset/silhouette.js::default",
+   "name": "silhouette",
+   "kind": "function",
+   "file": "src/offset/silhouette.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/offset/wiggle.js::default",
+   "name": "wiggle",
+   "kind": "function",
+   "file": "src/offset/wiggle.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/order/appearance.js::default",
+   "name": "appearance",
+   "kind": "function",
+   "file": "src/order/appearance.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/order/appearance.js::peak",
+   "name": "peak",
+   "kind": "function",
+   "file": "src/order/appearance.js",
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/order/ascending.js::default",
+   "name": "ascending",
+   "kind": "function",
+   "file": "src/order/ascending.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/order/ascending.js::sum",
+   "name": "sum",
+   "kind": "function",
+   "file": "src/order/ascending.js",
+   "line": 8,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/order/descending.js::default",
+   "name": "descending",
+   "kind": "function",
+   "file": "src/order/descending.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/order/insideOut.js::default",
+   "name": "insideOut",
+   "kind": "function",
+   "file": "src/order/insideOut.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/order/none.js::default",
+   "name": "none",
+   "kind": "function",
+   "file": "src/order/none.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/order/reverse.js::default",
+   "name": "reverse",
+   "kind": "function",
+   "file": "src/order/reverse.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/path.js::withPath",
+   "name": "withPath",
+   "kind": "function",
+   "file": "src/path.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pie.js::default",
+   "name": "pie",
+   "kind": "function",
+   "file": "src/pie.js",
+   "line": 7,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/point.js::x",
+   "name": "x",
+   "kind": "function",
+   "file": "src/point.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/point.js::y",
+   "name": "y",
+   "kind": "function",
+   "file": "src/point.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pointRadial.js::default",
+   "name": "pointRadial",
+   "kind": "function",
+   "file": "src/pointRadial.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/stack.js::default",
+   "name": "stack",
+   "kind": "function",
+   "file": "src/stack.js",
+   "line": 16,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/stack.js::stackSeries",
+   "name": "stackSeries",
+   "kind": "function",
+   "file": "src/stack.js",
+   "line": 10,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/stack.js::stackValue",
+   "name": "stackValue",
+   "kind": "function",
+   "file": "src/stack.js",
+   "line": 6,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol.js::Symbol",
+   "name": "Symbol",
+   "kind": "function",
+   "file": "src/symbol.js",
+   "line": 39,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/symbol.js::symbolsFill",
+   "name": "symbolsFill",
+   "kind": "variable",
+   "file": "src/symbol.js",
+   "line": 18,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/symbol.js::symbolsStroke",
+   "name": "symbolsStroke",
+   "kind": "variable",
+   "file": "src/symbol.js",
+   "line": 29,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/symbol/asterisk.js::sqrt3",
+   "name": "sqrt3",
+   "kind": "variable",
+   "file": "src/symbol/asterisk.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/diamond.js::tan30",
+   "name": "tan30",
+   "kind": "variable",
+   "file": "src/symbol/diamond.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/diamond.js::tan30_2",
+   "name": "tan30_2",
+   "kind": "variable",
+   "file": "src/symbol/diamond.js",
+   "line": 4,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/star.js::ka",
+   "name": "ka",
+   "kind": "variable",
+   "file": "src/symbol/star.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/star.js::kr",
+   "name": "kr",
+   "kind": "variable",
+   "file": "src/symbol/star.js",
+   "line": 4,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/star.js::kx",
+   "name": "kx",
+   "kind": "variable",
+   "file": "src/symbol/star.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/star.js::ky",
+   "name": "ky",
+   "kind": "variable",
+   "file": "src/symbol/star.js",
+   "line": 6,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/triangle.js::sqrt3",
+   "name": "sqrt3",
+   "kind": "variable",
+   "file": "src/symbol/triangle.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/triangle2.js::sqrt3",
+   "name": "sqrt3",
+   "kind": "variable",
+   "file": "src/symbol/triangle2.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/wye.js::a",
+   "name": "a",
+   "kind": "variable",
+   "file": "src/symbol/wye.js",
+   "line": 6,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/wye.js::c",
+   "name": "c",
+   "kind": "variable",
+   "file": "src/symbol/wye.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/wye.js::k",
+   "name": "k",
+   "kind": "variable",
+   "file": "src/symbol/wye.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/wye.js::s",
+   "name": "s",
+   "kind": "variable",
+   "file": "src/symbol/wye.js",
+   "line": 4,
+   "parent": null,
+   "exported": false
+  }
+ ],
+ "edges": [
+  {
+   "source": "src/arc.js::cornerTangents",
+   "target": "src/math.js::max",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/arc.js::cornerTangents",
+   "target": "src/math.js::sqrt",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/arc.js::arcEndAngle",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/arc.js::arcInnerRadius",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/arc.js::arcOuterRadius",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/arc.js::arcPadAngle",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/arc.js::arcStartAngle",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/arc.js::cornerTangents",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/arc.js::intersect",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 8
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::abs",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::acos",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::asin",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::atan2",
+   "kind": "call",
+   "count": 16
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::cos",
+   "kind": "call",
+   "count": 7
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::epsilon",
+   "kind": "reference",
+   "count": 13
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::halfPi",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::min",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::pi",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::sin",
+   "kind": "call",
+   "count": 10
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::sqrt",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/math.js::tau",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/path.js::withPath",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/arc.js::intersect",
+   "target": "src/math.js::epsilon",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/area.js::default",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/array.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 12
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/linear.js::default",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/line.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/path.js::withPath",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/point.js::x",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/point.js::y",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/areaRadial.js::default",
+   "target": "src/area.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/areaRadial.js::default",
+   "target": "src/curve/radial.js::curveRadial",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/areaRadial.js::default",
+   "target": "src/curve/radial.js::curveRadialLinear",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/areaRadial.js::default",
+   "target": "src/lineRadial.js::lineRadial",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/curve/basis.js::default",
+   "target": "src/curve/basis.js::Basis",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/basisClosed.js::default",
+   "target": "src/curve/basisClosed.js::BasisClosed",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/basisOpen.js::default",
+   "target": "src/curve/basisOpen.js::BasisOpen",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/bump.js::bumpRadial",
+   "target": "src/curve/bump.js::BumpRadial",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/bump.js::BumpRadial.point",
+   "target": "src/pointRadial.js::default",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/curve/bump.js::bumpX",
+   "target": "src/curve/bump.js::Bump",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/bump.js::bumpY",
+   "target": "src/curve/bump.js::Bump",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle",
+   "target": "src/curve/basis.js::Basis",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/catmullRom.js::point",
+   "target": "src/math.js::epsilon",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/curve/linear.js::default",
+   "target": "src/curve/linear.js::Linear",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/linearClosed.js::default",
+   "target": "src/curve/linearClosed.js::LinearClosed",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/monotone.js::monotoneX",
+   "target": "src/curve/monotone.js::MonotoneX",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/monotone.js::monotoneY",
+   "target": "src/curve/monotone.js::MonotoneY",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/monotone.js::MonotoneY",
+   "target": "src/curve/monotone.js::ReflectContext",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/monotone.js::slope3",
+   "target": "src/curve/monotone.js::sign",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/curve/natural.js::default",
+   "target": "src/curve/natural.js::Natural",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/radial.js::curveRadial",
+   "target": "src/curve/radial.js::curveRadial",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/radial.js::curveRadial",
+   "target": "src/curve/radial.js::Radial",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/radial.js::curveRadialLinear",
+   "target": "src/curve/linear.js::default",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/curve/radial.js::curveRadialLinear",
+   "target": "src/curve/radial.js::curveRadial",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/step.js::default",
+   "target": "src/curve/step.js::Step",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/step.js::stepAfter",
+   "target": "src/curve/step.js::Step",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/curve/step.js::stepBefore",
+   "target": "src/curve/step.js::Step",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/array.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 6
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/linear.js::default",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/line.js::default",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/path.js::withPath",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/point.js::x",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/point.js::y",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/lineRadial.js::default",
+   "target": "src/curve/radial.js::curveRadialLinear",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/lineRadial.js::default",
+   "target": "src/line.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/lineRadial.js::default",
+   "target": "src/lineRadial.js::lineRadial",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/lineRadial.js::lineRadial",
+   "target": "src/curve/radial.js::curveRadial",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/array.js::slice",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/link.js::link",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/link.js::linkSource",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/link.js::linkTarget",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/path.js::withPath",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/point.js::x",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/point.js::y",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::linkHorizontal",
+   "target": "src/curve/bump.js::bumpX",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::linkHorizontal",
+   "target": "src/link.js::link",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::linkRadial",
+   "target": "src/curve/bump.js::bumpRadial",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::linkRadial",
+   "target": "src/link.js::link",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::linkVertical",
+   "target": "src/curve/bump.js::bumpY",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/link.js::linkVertical",
+   "target": "src/link.js::link",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/math.js::acos",
+   "target": "src/math.js::pi",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/math.js::asin",
+   "target": "src/math.js::halfPi",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/math.js::halfPi",
+   "target": "src/math.js::pi",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/math.js::tau",
+   "target": "src/math.js::pi",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/offset/expand.js::default",
+   "target": "src/offset/none.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/offset/silhouette.js::default",
+   "target": "src/offset/none.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/offset/wiggle.js::default",
+   "target": "src/offset/none.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/order/appearance.js::default",
+   "target": "src/order/appearance.js::peak",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/order/appearance.js::default",
+   "target": "src/order/none.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/order/ascending.js::default",
+   "target": "src/order/ascending.js::sum",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/order/ascending.js::default",
+   "target": "src/order/none.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/order/descending.js::default",
+   "target": "src/order/ascending.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/order/insideOut.js::default",
+   "target": "src/order/appearance.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/order/insideOut.js::default",
+   "target": "src/order/ascending.js::sum",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/order/reverse.js::default",
+   "target": "src/order/none.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pie.js::default",
+   "target": "src/array.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pie.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 7
+  },
+  {
+   "source": "src/pie.js::default",
+   "target": "src/descending.js::default",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/pie.js::default",
+   "target": "src/identity.js::default",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/pie.js::default",
+   "target": "src/math.js::tau",
+   "kind": "reference",
+   "count": 3
+  },
+  {
+   "source": "src/stack.js::default",
+   "target": "src/array.js::default",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/stack.js::default",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/stack.js::default",
+   "target": "src/offset/none.js::default",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/stack.js::default",
+   "target": "src/order/none.js::default",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/stack.js::default",
+   "target": "src/stack.js::stackSeries",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/stack.js::default",
+   "target": "src/stack.js::stackValue",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/constant.js::default",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/path.js::withPath",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/asterisk.js::sqrt3",
+   "target": "src/math.js::sqrt",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/diamond.js::tan30",
+   "target": "src/math.js::sqrt",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/diamond.js::tan30_2",
+   "target": "src/symbol/diamond.js::tan30",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/star.js::kr",
+   "target": "src/math.js::pi",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/symbol/star.js::kr",
+   "target": "src/math.js::sin",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/symbol/star.js::kx",
+   "target": "src/math.js::sin",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/star.js::kx",
+   "target": "src/math.js::tau",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/star.js::kx",
+   "target": "src/symbol/star.js::kr",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/star.js::ky",
+   "target": "src/math.js::cos",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/star.js::ky",
+   "target": "src/math.js::tau",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/star.js::ky",
+   "target": "src/symbol/star.js::kr",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/triangle.js::sqrt3",
+   "target": "src/math.js::sqrt",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/triangle2.js::sqrt3",
+   "target": "src/math.js::sqrt",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/wye.js::a",
+   "target": "src/symbol/wye.js::k",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/wye.js::k",
+   "target": "src/math.js::sqrt",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symbol/wye.js::s",
+   "target": "src/math.js::sqrt",
+   "kind": "call",
+   "count": 1
+  }
+ ]
+}

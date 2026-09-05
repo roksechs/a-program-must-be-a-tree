@@ -1,0 +1,1068 @@
+{
+ "meta": {
+  "name": "sample-tangle",
+  "root": ".",
+  "language": "synthetic",
+  "generatedAt": "2026-09-05T08:31:33.063Z",
+  "analyzer": "synthetic"
+ },
+ "declarations": [
+  {
+   "id": "d0",
+   "name": "decl0",
+   "kind": "function",
+   "file": "src/core/file0.js",
+   "line": 1
+  },
+  {
+   "id": "d1",
+   "name": "decl1",
+   "kind": "function",
+   "file": "src/core/file1.js",
+   "line": 2
+  },
+  {
+   "id": "d2",
+   "name": "decl2",
+   "kind": "method",
+   "file": "src/core/file2.js",
+   "line": 3
+  },
+  {
+   "id": "d3",
+   "name": "decl3",
+   "kind": "function",
+   "file": "src/core/file3.js",
+   "line": 4
+  },
+  {
+   "id": "d4",
+   "name": "decl4",
+   "kind": "function",
+   "file": "src/util/file4.js",
+   "line": 5
+  },
+  {
+   "id": "d5",
+   "name": "decl5",
+   "kind": "function",
+   "file": "src/util/file5.js",
+   "line": 6
+  },
+  {
+   "id": "d6",
+   "name": "decl6",
+   "kind": "function",
+   "file": "src/util/file6.js",
+   "line": 7
+  },
+  {
+   "id": "d7",
+   "name": "decl7",
+   "kind": "function",
+   "file": "src/core/file0.js",
+   "line": 8
+  },
+  {
+   "id": "d8",
+   "name": "decl8",
+   "kind": "variable",
+   "file": "src/core/file1.js",
+   "line": 9
+  },
+  {
+   "id": "d9",
+   "name": "decl9",
+   "kind": "variable",
+   "file": "src/core/file2.js",
+   "line": 10
+  },
+  {
+   "id": "d10",
+   "name": "decl10",
+   "kind": "variable",
+   "file": "src/core/file3.js",
+   "line": 11
+  },
+  {
+   "id": "d11",
+   "name": "decl11",
+   "kind": "function",
+   "file": "src/util/file4.js",
+   "line": 12
+  },
+  {
+   "id": "d12",
+   "name": "decl12",
+   "kind": "method",
+   "file": "src/util/file5.js",
+   "line": 13
+  },
+  {
+   "id": "d13",
+   "name": "decl13",
+   "kind": "variable",
+   "file": "src/util/file6.js",
+   "line": 14
+  },
+  {
+   "id": "d14",
+   "name": "decl14",
+   "kind": "method",
+   "file": "src/core/file0.js",
+   "line": 15
+  },
+  {
+   "id": "d15",
+   "name": "decl15",
+   "kind": "function",
+   "file": "src/core/file1.js",
+   "line": 16
+  },
+  {
+   "id": "d16",
+   "name": "decl16",
+   "kind": "function",
+   "file": "src/core/file2.js",
+   "line": 17
+  },
+  {
+   "id": "d17",
+   "name": "decl17",
+   "kind": "variable",
+   "file": "src/core/file3.js",
+   "line": 18
+  },
+  {
+   "id": "d18",
+   "name": "decl18",
+   "kind": "variable",
+   "file": "src/util/file4.js",
+   "line": 19
+  },
+  {
+   "id": "d19",
+   "name": "decl19",
+   "kind": "variable",
+   "file": "src/util/file5.js",
+   "line": 20
+  },
+  {
+   "id": "d20",
+   "name": "decl20",
+   "kind": "method",
+   "file": "src/util/file6.js",
+   "line": 21
+  },
+  {
+   "id": "d21",
+   "name": "decl21",
+   "kind": "function",
+   "file": "src/core/file0.js",
+   "line": 22
+  },
+  {
+   "id": "d22",
+   "name": "decl22",
+   "kind": "method",
+   "file": "src/core/file1.js",
+   "line": 23
+  },
+  {
+   "id": "d23",
+   "name": "decl23",
+   "kind": "function",
+   "file": "src/core/file2.js",
+   "line": 24
+  },
+  {
+   "id": "d24",
+   "name": "decl24",
+   "kind": "variable",
+   "file": "src/core/file3.js",
+   "line": 25
+  },
+  {
+   "id": "d25",
+   "name": "decl25",
+   "kind": "class",
+   "file": "src/util/file4.js",
+   "line": 26
+  },
+  {
+   "id": "d26",
+   "name": "decl26",
+   "kind": "function",
+   "file": "src/util/file5.js",
+   "line": 27
+  },
+  {
+   "id": "d27",
+   "name": "decl27",
+   "kind": "class",
+   "file": "src/util/file6.js",
+   "line": 28
+  },
+  {
+   "id": "d28",
+   "name": "decl28",
+   "kind": "function",
+   "file": "src/core/file0.js",
+   "line": 29
+  },
+  {
+   "id": "d29",
+   "name": "decl29",
+   "kind": "function",
+   "file": "src/core/file1.js",
+   "line": 30
+  },
+  {
+   "id": "d30",
+   "name": "decl30",
+   "kind": "function",
+   "file": "src/core/file2.js",
+   "line": 31
+  },
+  {
+   "id": "d31",
+   "name": "decl31",
+   "kind": "method",
+   "file": "src/core/file3.js",
+   "line": 32
+  },
+  {
+   "id": "d32",
+   "name": "decl32",
+   "kind": "class",
+   "file": "src/util/file4.js",
+   "line": 33
+  },
+  {
+   "id": "d33",
+   "name": "decl33",
+   "kind": "variable",
+   "file": "src/util/file5.js",
+   "line": 34
+  },
+  {
+   "id": "d34",
+   "name": "decl34",
+   "kind": "class",
+   "file": "src/util/file6.js",
+   "line": 35
+  },
+  {
+   "id": "d35",
+   "name": "decl35",
+   "kind": "function",
+   "file": "src/core/file0.js",
+   "line": 36
+  },
+  {
+   "id": "d36",
+   "name": "decl36",
+   "kind": "method",
+   "file": "src/core/file1.js",
+   "line": 37
+  },
+  {
+   "id": "d37",
+   "name": "decl37",
+   "kind": "class",
+   "file": "src/core/file2.js",
+   "line": 38
+  },
+  {
+   "id": "d38",
+   "name": "decl38",
+   "kind": "class",
+   "file": "src/core/file3.js",
+   "line": 39
+  },
+  {
+   "id": "d39",
+   "name": "decl39",
+   "kind": "class",
+   "file": "src/util/file4.js",
+   "line": 40
+  },
+  {
+   "id": "d40",
+   "name": "decl40",
+   "kind": "variable",
+   "file": "src/util/file5.js",
+   "line": 41
+  },
+  {
+   "id": "d41",
+   "name": "decl41",
+   "kind": "function",
+   "file": "src/util/file6.js",
+   "line": 42
+  },
+  {
+   "id": "d42",
+   "name": "decl42",
+   "kind": "function",
+   "file": "src/core/file0.js",
+   "line": 43
+  },
+  {
+   "id": "d43",
+   "name": "decl43",
+   "kind": "function",
+   "file": "src/core/file1.js",
+   "line": 44
+  },
+  {
+   "id": "d44",
+   "name": "decl44",
+   "kind": "function",
+   "file": "src/core/file2.js",
+   "line": 45
+  },
+  {
+   "id": "d45",
+   "name": "decl45",
+   "kind": "function",
+   "file": "src/core/file3.js",
+   "line": 46
+  },
+  {
+   "id": "d46",
+   "name": "decl46",
+   "kind": "class",
+   "file": "src/util/file4.js",
+   "line": 47
+  },
+  {
+   "id": "d47",
+   "name": "decl47",
+   "kind": "method",
+   "file": "src/util/file5.js",
+   "line": 48
+  },
+  {
+   "id": "d48",
+   "name": "decl48",
+   "kind": "class",
+   "file": "src/util/file6.js",
+   "line": 49
+  },
+  {
+   "id": "d49",
+   "name": "decl49",
+   "kind": "function",
+   "file": "src/core/file0.js",
+   "line": 50
+  },
+  {
+   "id": "d50",
+   "name": "decl50",
+   "kind": "function",
+   "file": "src/core/file1.js",
+   "line": 51
+  },
+  {
+   "id": "d51",
+   "name": "decl51",
+   "kind": "function",
+   "file": "src/core/file2.js",
+   "line": 52
+  },
+  {
+   "id": "d52",
+   "name": "decl52",
+   "kind": "function",
+   "file": "src/core/file3.js",
+   "line": 53
+  },
+  {
+   "id": "d53",
+   "name": "decl53",
+   "kind": "function",
+   "file": "src/util/file4.js",
+   "line": 54
+  },
+  {
+   "id": "d54",
+   "name": "decl54",
+   "kind": "function",
+   "file": "src/util/file5.js",
+   "line": 55
+  },
+  {
+   "id": "d55",
+   "name": "decl55",
+   "kind": "variable",
+   "file": "src/util/file6.js",
+   "line": 56
+  },
+  {
+   "id": "d56",
+   "name": "decl56",
+   "kind": "variable",
+   "file": "src/core/file0.js",
+   "line": 57
+  },
+  {
+   "id": "d57",
+   "name": "decl57",
+   "kind": "function",
+   "file": "src/core/file1.js",
+   "line": 58
+  },
+  {
+   "id": "d58",
+   "name": "decl58",
+   "kind": "variable",
+   "file": "src/core/file2.js",
+   "line": 59
+  },
+  {
+   "id": "d59",
+   "name": "decl59",
+   "kind": "method",
+   "file": "src/core/file3.js",
+   "line": 60
+  }
+ ],
+ "edges": [
+  {
+   "source": "d0",
+   "target": "d1",
+   "kind": "call"
+  },
+  {
+   "source": "d0",
+   "target": "d2",
+   "kind": "call"
+  },
+  {
+   "source": "d0",
+   "target": "d3",
+   "kind": "call"
+  },
+  {
+   "source": "d3",
+   "target": "d4",
+   "kind": "call"
+  },
+  {
+   "source": "d0",
+   "target": "d5",
+   "kind": "call"
+  },
+  {
+   "source": "d5",
+   "target": "d6",
+   "kind": "call"
+  },
+  {
+   "source": "d5",
+   "target": "d7",
+   "kind": "call"
+  },
+  {
+   "source": "d3",
+   "target": "d8",
+   "kind": "call"
+  },
+  {
+   "source": "d6",
+   "target": "d9",
+   "kind": "call"
+  },
+  {
+   "source": "d3",
+   "target": "d10",
+   "kind": "call"
+  },
+  {
+   "source": "d1",
+   "target": "d11",
+   "kind": "call"
+  },
+  {
+   "source": "d6",
+   "target": "d12",
+   "kind": "call"
+  },
+  {
+   "source": "d1",
+   "target": "d13",
+   "kind": "call"
+  },
+  {
+   "source": "d3",
+   "target": "d14",
+   "kind": "call"
+  },
+  {
+   "source": "d9",
+   "target": "d15",
+   "kind": "call"
+  },
+  {
+   "source": "d11",
+   "target": "d16",
+   "kind": "call"
+  },
+  {
+   "source": "d8",
+   "target": "d17",
+   "kind": "call"
+  },
+  {
+   "source": "d3",
+   "target": "d18",
+   "kind": "call"
+  },
+  {
+   "source": "d4",
+   "target": "d19",
+   "kind": "call"
+  },
+  {
+   "source": "d13",
+   "target": "d20",
+   "kind": "call"
+  },
+  {
+   "source": "d18",
+   "target": "d21",
+   "kind": "call"
+  },
+  {
+   "source": "d17",
+   "target": "d22",
+   "kind": "call"
+  },
+  {
+   "source": "d16",
+   "target": "d23",
+   "kind": "call"
+  },
+  {
+   "source": "d20",
+   "target": "d24",
+   "kind": "call"
+  },
+  {
+   "source": "d10",
+   "target": "d25",
+   "kind": "call"
+  },
+  {
+   "source": "d3",
+   "target": "d26",
+   "kind": "call"
+  },
+  {
+   "source": "d3",
+   "target": "d27",
+   "kind": "call"
+  },
+  {
+   "source": "d15",
+   "target": "d28",
+   "kind": "call"
+  },
+  {
+   "source": "d18",
+   "target": "d29",
+   "kind": "call"
+  },
+  {
+   "source": "d29",
+   "target": "d30",
+   "kind": "call"
+  },
+  {
+   "source": "d13",
+   "target": "d31",
+   "kind": "call"
+  },
+  {
+   "source": "d23",
+   "target": "d32",
+   "kind": "call"
+  },
+  {
+   "source": "d14",
+   "target": "d33",
+   "kind": "call"
+  },
+  {
+   "source": "d1",
+   "target": "d34",
+   "kind": "call"
+  },
+  {
+   "source": "d2",
+   "target": "d35",
+   "kind": "call"
+  },
+  {
+   "source": "d29",
+   "target": "d36",
+   "kind": "call"
+  },
+  {
+   "source": "d36",
+   "target": "d37",
+   "kind": "call"
+  },
+  {
+   "source": "d30",
+   "target": "d38",
+   "kind": "call"
+  },
+  {
+   "source": "d6",
+   "target": "d39",
+   "kind": "call"
+  },
+  {
+   "source": "d15",
+   "target": "d40",
+   "kind": "call"
+  },
+  {
+   "source": "d11",
+   "target": "d41",
+   "kind": "call"
+  },
+  {
+   "source": "d20",
+   "target": "d42",
+   "kind": "call"
+  },
+  {
+   "source": "d36",
+   "target": "d43",
+   "kind": "call"
+  },
+  {
+   "source": "d40",
+   "target": "d44",
+   "kind": "call"
+  },
+  {
+   "source": "d8",
+   "target": "d45",
+   "kind": "call"
+  },
+  {
+   "source": "d14",
+   "target": "d46",
+   "kind": "call"
+  },
+  {
+   "source": "d24",
+   "target": "d47",
+   "kind": "call"
+  },
+  {
+   "source": "d12",
+   "target": "d48",
+   "kind": "call"
+  },
+  {
+   "source": "d19",
+   "target": "d49",
+   "kind": "call"
+  },
+  {
+   "source": "d0",
+   "target": "d50",
+   "kind": "call"
+  },
+  {
+   "source": "d33",
+   "target": "d51",
+   "kind": "call"
+  },
+  {
+   "source": "d19",
+   "target": "d52",
+   "kind": "call"
+  },
+  {
+   "source": "d25",
+   "target": "d53",
+   "kind": "call"
+  },
+  {
+   "source": "d13",
+   "target": "d54",
+   "kind": "call"
+  },
+  {
+   "source": "d32",
+   "target": "d55",
+   "kind": "call"
+  },
+  {
+   "source": "d39",
+   "target": "d56",
+   "kind": "call"
+  },
+  {
+   "source": "d31",
+   "target": "d57",
+   "kind": "call"
+  },
+  {
+   "source": "d35",
+   "target": "d58",
+   "kind": "call"
+  },
+  {
+   "source": "d13",
+   "target": "d59",
+   "kind": "call"
+  },
+  {
+   "source": "d22",
+   "target": "d25",
+   "kind": "call"
+  },
+  {
+   "source": "d14",
+   "target": "d55",
+   "kind": "call"
+  },
+  {
+   "source": "d34",
+   "target": "d55",
+   "kind": "reference"
+  },
+  {
+   "source": "d15",
+   "target": "d32",
+   "kind": "call"
+  },
+  {
+   "source": "d57",
+   "target": "d58",
+   "kind": "call"
+  },
+  {
+   "source": "d48",
+   "target": "d18",
+   "kind": "call"
+  },
+  {
+   "source": "d41",
+   "target": "d2",
+   "kind": "call"
+  },
+  {
+   "source": "d27",
+   "target": "d45",
+   "kind": "call"
+  },
+  {
+   "source": "d2",
+   "target": "d34",
+   "kind": "call"
+  },
+  {
+   "source": "d38",
+   "target": "d40",
+   "kind": "call"
+  },
+  {
+   "source": "d15",
+   "target": "d43",
+   "kind": "call"
+  },
+  {
+   "source": "d2",
+   "target": "d50",
+   "kind": "call"
+  },
+  {
+   "source": "d54",
+   "target": "d44",
+   "kind": "call"
+  },
+  {
+   "source": "d59",
+   "target": "d58",
+   "kind": "call"
+  },
+  {
+   "source": "d47",
+   "target": "d3",
+   "kind": "call"
+  },
+  {
+   "source": "d36",
+   "target": "d14",
+   "kind": "call"
+  },
+  {
+   "source": "d1",
+   "target": "d56",
+   "kind": "call"
+  },
+  {
+   "source": "d21",
+   "target": "d34",
+   "kind": "call"
+  },
+  {
+   "source": "d1",
+   "target": "d24",
+   "kind": "call"
+  },
+  {
+   "source": "d4",
+   "target": "d8",
+   "kind": "reference"
+  },
+  {
+   "source": "d15",
+   "target": "d16",
+   "kind": "call"
+  },
+  {
+   "source": "d25",
+   "target": "d58",
+   "kind": "call"
+  },
+  {
+   "source": "d35",
+   "target": "d21",
+   "kind": "call"
+  },
+  {
+   "source": "d16",
+   "target": "d54",
+   "kind": "call"
+  },
+  {
+   "source": "d33",
+   "target": "d39",
+   "kind": "call"
+  },
+  {
+   "source": "d35",
+   "target": "d16",
+   "kind": "reference"
+  },
+  {
+   "source": "d14",
+   "target": "d6",
+   "kind": "call"
+  },
+  {
+   "source": "d26",
+   "target": "d46",
+   "kind": "call"
+  },
+  {
+   "source": "d49",
+   "target": "d17",
+   "kind": "call"
+  },
+  {
+   "source": "d25",
+   "target": "d21",
+   "kind": "call"
+  },
+  {
+   "source": "d31",
+   "target": "d45",
+   "kind": "call"
+  },
+  {
+   "source": "d16",
+   "target": "d48",
+   "kind": "call"
+  },
+  {
+   "source": "d47",
+   "target": "d52",
+   "kind": "reference"
+  },
+  {
+   "source": "d35",
+   "target": "d30",
+   "kind": "call"
+  },
+  {
+   "source": "d0",
+   "target": "d26",
+   "kind": "reference"
+  },
+  {
+   "source": "d49",
+   "target": "d13",
+   "kind": "call"
+  },
+  {
+   "source": "d58",
+   "target": "d40",
+   "kind": "call"
+  },
+  {
+   "source": "d7",
+   "target": "d29",
+   "kind": "call"
+  },
+  {
+   "source": "d55",
+   "target": "d8",
+   "kind": "reference"
+  },
+  {
+   "source": "d48",
+   "target": "d58",
+   "kind": "call"
+  },
+  {
+   "source": "d7",
+   "target": "d13",
+   "kind": "call"
+  },
+  {
+   "source": "d52",
+   "target": "d52",
+   "kind": "call"
+  },
+  {
+   "source": "d5",
+   "target": "d40",
+   "kind": "call"
+  },
+  {
+   "source": "d37",
+   "target": "d34",
+   "kind": "call"
+  },
+  {
+   "source": "d45",
+   "target": "d45",
+   "kind": "call"
+  },
+  {
+   "source": "d47",
+   "target": "d14",
+   "kind": "call"
+  },
+  {
+   "source": "d35",
+   "target": "d14",
+   "kind": "reference"
+  },
+  {
+   "source": "d25",
+   "target": "d8",
+   "kind": "call"
+  },
+  {
+   "source": "d41",
+   "target": "d13",
+   "kind": "reference"
+  },
+  {
+   "source": "d5",
+   "target": "d48",
+   "kind": "call"
+  },
+  {
+   "source": "d23",
+   "target": "d26",
+   "kind": "reference"
+  },
+  {
+   "source": "d6",
+   "target": "d50",
+   "kind": "reference"
+  },
+  {
+   "source": "d26",
+   "target": "d35",
+   "kind": "call"
+  },
+  {
+   "source": "d43",
+   "target": "d17",
+   "kind": "reference"
+  },
+  {
+   "source": "d57",
+   "target": "d45",
+   "kind": "reference"
+  },
+  {
+   "source": "d51",
+   "target": "d11",
+   "kind": "call"
+  },
+  {
+   "source": "d19",
+   "target": "d55",
+   "kind": "call"
+  },
+  {
+   "source": "d27",
+   "target": "d2",
+   "kind": "call"
+  },
+  {
+   "source": "d26",
+   "target": "d53",
+   "kind": "reference"
+  },
+  {
+   "source": "d41",
+   "target": "d5",
+   "kind": "call"
+  },
+  {
+   "source": "d16",
+   "target": "d15",
+   "kind": "call"
+  },
+  {
+   "source": "d51",
+   "target": "d41",
+   "kind": "call"
+  },
+  {
+   "source": "d41",
+   "target": "d51",
+   "kind": "call"
+  },
+  {
+   "source": "d3",
+   "target": "d49",
+   "kind": "call"
+  },
+  {
+   "source": "d49",
+   "target": "d3",
+   "kind": "call"
+  },
+  {
+   "source": "d10",
+   "target": "d14",
+   "kind": "call"
+  },
+  {
+   "source": "d14",
+   "target": "d10",
+   "kind": "call"
+  },
+  {
+   "source": "d5",
+   "target": "d5",
+   "kind": "call"
+  }
+ ]
+}

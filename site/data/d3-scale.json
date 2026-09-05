@@ -1,0 +1,1487 @@
+{
+ "meta": {
+  "name": "d3-scale",
+  "root": "node_modules/d3-scale",
+  "language": "javascript",
+  "generatedAt": "2026-09-05T08:31:31.996Z",
+  "analyzer": "analyzers/ts@0.1.0",
+  "files": 24
+ },
+ "declarations": [
+  {
+   "id": "src/band.js::band",
+   "name": "band",
+   "kind": "function",
+   "file": "src/band.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/band.js::point",
+   "name": "point",
+   "kind": "function",
+   "file": "src/band.js",
+   "line": 99,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/band.js::pointish",
+   "name": "pointish",
+   "kind": "function",
+   "file": "src/band.js",
+   "line": 85,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/colors.js::colors",
+   "name": "colors",
+   "kind": "function",
+   "file": "src/colors.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/constant.js::constants",
+   "name": "constants",
+   "kind": "function",
+   "file": "src/constant.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/continuous.js::bimap",
+   "name": "bimap",
+   "kind": "function",
+   "file": "src/continuous.js",
+   "line": 26,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/continuous.js::clamper",
+   "name": "clamper",
+   "kind": "function",
+   "file": "src/continuous.js",
+   "line": 18,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/continuous.js::continuous",
+   "name": "continuous",
+   "kind": "function",
+   "file": "src/continuous.js",
+   "line": 123,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/continuous.js::copy",
+   "name": "copy",
+   "kind": "function",
+   "file": "src/continuous.js",
+   "line": 56,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/continuous.js::identity",
+   "name": "identity",
+   "kind": "function",
+   "file": "src/continuous.js",
+   "line": 8,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/continuous.js::normalize",
+   "name": "normalize",
+   "kind": "function",
+   "file": "src/continuous.js",
+   "line": 12,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/continuous.js::polymap",
+   "name": "polymap",
+   "kind": "function",
+   "file": "src/continuous.js",
+   "line": 33,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/continuous.js::transformer",
+   "name": "transformer",
+   "kind": "function",
+   "file": "src/continuous.js",
+   "line": 65,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/continuous.js::unit",
+   "name": "unit",
+   "kind": "variable",
+   "file": "src/continuous.js",
+   "line": 6,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/diverging.js::diverging",
+   "name": "diverging",
+   "kind": "function",
+   "file": "src/diverging.js",
+   "line": 62,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/diverging.js::divergingLog",
+   "name": "divergingLog",
+   "kind": "function",
+   "file": "src/diverging.js",
+   "line": 72,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/diverging.js::divergingPow",
+   "name": "divergingPow",
+   "kind": "function",
+   "file": "src/diverging.js",
+   "line": 92,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/diverging.js::divergingSqrt",
+   "name": "divergingSqrt",
+   "kind": "function",
+   "file": "src/diverging.js",
+   "line": 102,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/diverging.js::divergingSymlog",
+   "name": "divergingSymlog",
+   "kind": "function",
+   "file": "src/diverging.js",
+   "line": 82,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/diverging.js::transformer",
+   "name": "transformer",
+   "kind": "function",
+   "file": "src/diverging.js",
+   "line": 10,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/identity.js::identity",
+   "name": "identity",
+   "kind": "function",
+   "file": "src/identity.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/init.js::initInterpolator",
+   "name": "initInterpolator",
+   "kind": "function",
+   "file": "src/init.js",
+   "line": 10,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/init.js::initRange",
+   "name": "initRange",
+   "kind": "function",
+   "file": "src/init.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/linear.js::linear",
+   "name": "linear",
+   "kind": "function",
+   "file": "src/linear.js",
+   "line": 60,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/linear.js::linearish",
+   "name": "linearish",
+   "kind": "function",
+   "file": "src/linear.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/log.js::log",
+   "name": "log",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 135,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/log.js::loggish",
+   "name": "loggish",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 44,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/log.js::logp",
+   "name": "logp",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 33,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/log.js::pow10",
+   "name": "pow10",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 23,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/log.js::powp",
+   "name": "powp",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 27,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/log.js::reflect",
+   "name": "reflect",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 40,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/log.js::transformExp",
+   "name": "transformExp",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 11,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/log.js::transformExpn",
+   "name": "transformExpn",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 19,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/log.js::transformLog",
+   "name": "transformLog",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 7,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/log.js::transformLogn",
+   "name": "transformLogn",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 15,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/nice.js::nice",
+   "name": "nice",
+   "kind": "function",
+   "file": "src/nice.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/number.js::number",
+   "name": "number",
+   "kind": "function",
+   "file": "src/number.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/ordinal.js::implicit",
+   "name": "implicit",
+   "kind": "variable",
+   "file": "src/ordinal.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/ordinal.js::ordinal",
+   "name": "ordinal",
+   "kind": "function",
+   "file": "src/ordinal.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pow.js::pow",
+   "name": "pow",
+   "kind": "function",
+   "file": "src/pow.js",
+   "line": 36,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pow.js::powish",
+   "name": "powish",
+   "kind": "function",
+   "file": "src/pow.js",
+   "line": 19,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pow.js::sqrt",
+   "name": "sqrt",
+   "kind": "function",
+   "file": "src/pow.js",
+   "line": 48,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/pow.js::transformPow",
+   "name": "transformPow",
+   "kind": "function",
+   "file": "src/pow.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pow.js::transformSqrt",
+   "name": "transformSqrt",
+   "kind": "function",
+   "file": "src/pow.js",
+   "line": 11,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/pow.js::transformSquare",
+   "name": "transformSquare",
+   "kind": "function",
+   "file": "src/pow.js",
+   "line": 15,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/quantile.js::quantile",
+   "name": "quantile",
+   "kind": "function",
+   "file": "src/quantile.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/quantize.js::quantize",
+   "name": "quantize",
+   "kind": "function",
+   "file": "src/quantize.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/radial.js::radial",
+   "name": "radial",
+   "kind": "function",
+   "file": "src/radial.js",
+   "line": 14,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/radial.js::square",
+   "name": "square",
+   "kind": "function",
+   "file": "src/radial.js",
+   "line": 6,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/radial.js::unsquare",
+   "name": "unsquare",
+   "kind": "function",
+   "file": "src/radial.js",
+   "line": 10,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/sequential.js::copy",
+   "name": "copy",
+   "kind": "function",
+   "file": "src/sequential.js",
+   "line": 57,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/sequential.js::sequential",
+   "name": "sequential",
+   "kind": "function",
+   "file": "src/sequential.js",
+   "line": 65,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/sequential.js::sequentialLog",
+   "name": "sequentialLog",
+   "kind": "function",
+   "file": "src/sequential.js",
+   "line": 75,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/sequential.js::sequentialPow",
+   "name": "sequentialPow",
+   "kind": "function",
+   "file": "src/sequential.js",
+   "line": 95,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/sequential.js::sequentialSqrt",
+   "name": "sequentialSqrt",
+   "kind": "function",
+   "file": "src/sequential.js",
+   "line": 105,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/sequential.js::sequentialSymlog",
+   "name": "sequentialSymlog",
+   "kind": "function",
+   "file": "src/sequential.js",
+   "line": 85,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/sequential.js::transformer",
+   "name": "transformer",
+   "kind": "function",
+   "file": "src/sequential.js",
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/sequentialQuantile.js::sequentialQuantile",
+   "name": "sequentialQuantile",
+   "kind": "function",
+   "file": "src/sequentialQuantile.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/symlog.js::symlog",
+   "name": "symlog",
+   "kind": "function",
+   "file": "src/symlog.js",
+   "line": 27,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/symlog.js::symlogish",
+   "name": "symlogish",
+   "kind": "function",
+   "file": "src/symlog.js",
+   "line": 17,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/symlog.js::transformSymexp",
+   "name": "transformSymexp",
+   "kind": "function",
+   "file": "src/symlog.js",
+   "line": 11,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symlog.js::transformSymlog",
+   "name": "transformSymlog",
+   "kind": "function",
+   "file": "src/symlog.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/threshold.js::threshold",
+   "name": "threshold",
+   "kind": "function",
+   "file": "src/threshold.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/tickFormat.js::tickFormat",
+   "name": "tickFormat",
+   "kind": "function",
+   "file": "src/tickFormat.js",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/time.js::calendar",
+   "name": "calendar",
+   "kind": "function",
+   "file": "src/time.js",
+   "line": 15,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/time.js::date",
+   "name": "date",
+   "kind": "function",
+   "file": "src/time.js",
+   "line": 7,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/time.js::number",
+   "name": "number",
+   "kind": "function",
+   "file": "src/time.js",
+   "line": 11,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/time.js::time",
+   "name": "time",
+   "kind": "function",
+   "file": "src/time.js",
+   "line": 69,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "src/utcTime.js::utcTime",
+   "name": "utcTime",
+   "kind": "function",
+   "file": "src/utcTime.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  }
+ ],
+ "edges": [
+  {
+   "source": "src/band.js::band",
+   "target": "src/band.js::band",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/band.js::band",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/band.js::band",
+   "target": "src/ordinal.js::ordinal",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/band.js::point",
+   "target": "src/band.js::band",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/band.js::point",
+   "target": "src/band.js::pointish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/band.js::pointish",
+   "target": "src/band.js::pointish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/continuous.js::bimap",
+   "target": "src/continuous.js::bimap",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/continuous.js::bimap",
+   "target": "src/continuous.js::normalize",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/continuous.js::continuous",
+   "target": "src/continuous.js::identity",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/continuous.js::continuous",
+   "target": "src/continuous.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/continuous.js::normalize",
+   "target": "src/constant.js::constants",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/continuous.js::polymap",
+   "target": "src/continuous.js::normalize",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/continuous.js::polymap",
+   "target": "src/continuous.js::polymap",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/continuous.js::transformer",
+   "target": "src/continuous.js::bimap",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/continuous.js::transformer",
+   "target": "src/continuous.js::clamper",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/continuous.js::transformer",
+   "target": "src/continuous.js::identity",
+   "kind": "reference",
+   "count": 4
+  },
+  {
+   "source": "src/continuous.js::transformer",
+   "target": "src/continuous.js::polymap",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/continuous.js::transformer",
+   "target": "src/continuous.js::unit",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/continuous.js::transformer",
+   "target": "src/number.js::number",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::diverging",
+   "target": "src/continuous.js::identity",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::diverging",
+   "target": "src/diverging.js::diverging",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::diverging",
+   "target": "src/diverging.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::diverging",
+   "target": "src/init.js::initInterpolator",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::diverging",
+   "target": "src/linear.js::linearish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::diverging",
+   "target": "src/sequential.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingLog",
+   "target": "src/diverging.js::divergingLog",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingLog",
+   "target": "src/diverging.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingLog",
+   "target": "src/init.js::initInterpolator",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingLog",
+   "target": "src/log.js::loggish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingLog",
+   "target": "src/sequential.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingPow",
+   "target": "src/diverging.js::divergingPow",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingPow",
+   "target": "src/diverging.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingPow",
+   "target": "src/init.js::initInterpolator",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingPow",
+   "target": "src/pow.js::powish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingPow",
+   "target": "src/sequential.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingSqrt",
+   "target": "src/diverging.js::divergingPow",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingSymlog",
+   "target": "src/diverging.js::divergingSymlog",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingSymlog",
+   "target": "src/diverging.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingSymlog",
+   "target": "src/init.js::initInterpolator",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingSymlog",
+   "target": "src/sequential.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::divergingSymlog",
+   "target": "src/symlog.js::symlogish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/diverging.js::transformer",
+   "target": "src/continuous.js::identity",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/identity.js::identity",
+   "target": "src/identity.js::identity",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/identity.js::identity",
+   "target": "src/linear.js::linearish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/identity.js::identity",
+   "target": "src/number.js::number",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/linear.js::linear",
+   "target": "src/continuous.js::continuous",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/linear.js::linear",
+   "target": "src/continuous.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/linear.js::linear",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/linear.js::linear",
+   "target": "src/linear.js::linear",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/linear.js::linear",
+   "target": "src/linear.js::linearish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/linear.js::linearish",
+   "target": "src/tickFormat.js::tickFormat",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::log",
+   "target": "src/continuous.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::log",
+   "target": "src/continuous.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::log",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::log",
+   "target": "src/log.js::log",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::log",
+   "target": "src/log.js::loggish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::loggish",
+   "target": "src/log.js::loggish",
+   "kind": "call",
+   "count": 3
+  },
+  {
+   "source": "src/log.js::loggish",
+   "target": "src/log.js::logp",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::loggish",
+   "target": "src/log.js::powp",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::loggish",
+   "target": "src/log.js::reflect",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/log.js::loggish",
+   "target": "src/log.js::transformExp",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/log.js::loggish",
+   "target": "src/log.js::transformExpn",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::loggish",
+   "target": "src/log.js::transformLog",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/log.js::loggish",
+   "target": "src/log.js::transformLogn",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::loggish",
+   "target": "src/nice.js::nice",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::powp",
+   "target": "src/log.js::pow10",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/log.js::reflect",
+   "target": "src/log.js::reflect",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/ordinal.js::ordinal",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/ordinal.js::ordinal",
+   "target": "src/ordinal.js::implicit",
+   "kind": "reference",
+   "count": 2
+  },
+  {
+   "source": "src/ordinal.js::ordinal",
+   "target": "src/ordinal.js::ordinal",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pow.js::pow",
+   "target": "src/continuous.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pow.js::pow",
+   "target": "src/continuous.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pow.js::pow",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/pow.js::pow",
+   "target": "src/pow.js::pow",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pow.js::pow",
+   "target": "src/pow.js::powish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pow.js::powish",
+   "target": "src/continuous.js::identity",
+   "kind": "reference",
+   "count": 4
+  },
+  {
+   "source": "src/pow.js::powish",
+   "target": "src/linear.js::linearish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/pow.js::powish",
+   "target": "src/pow.js::powish",
+   "kind": "call",
+   "count": 4
+  },
+  {
+   "source": "src/pow.js::powish",
+   "target": "src/pow.js::transformPow",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/pow.js::powish",
+   "target": "src/pow.js::transformSqrt",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/pow.js::powish",
+   "target": "src/pow.js::transformSquare",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/pow.js::sqrt",
+   "target": "src/pow.js::pow",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/quantile.js::quantile",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/quantile.js::quantile",
+   "target": "src/quantile.js::quantile",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/quantize.js::quantize",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/quantize.js::quantize",
+   "target": "src/linear.js::linearish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/quantize.js::quantize",
+   "target": "src/quantize.js::quantize",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/radial.js::radial",
+   "target": "src/continuous.js::continuous",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/radial.js::radial",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/radial.js::radial",
+   "target": "src/linear.js::linearish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/radial.js::radial",
+   "target": "src/number.js::number",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/radial.js::radial",
+   "target": "src/radial.js::radial",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/radial.js::radial",
+   "target": "src/radial.js::square",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/radial.js::radial",
+   "target": "src/radial.js::square",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/radial.js::radial",
+   "target": "src/radial.js::unsquare",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequential",
+   "target": "src/continuous.js::identity",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequential",
+   "target": "src/init.js::initInterpolator",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequential",
+   "target": "src/linear.js::linearish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequential",
+   "target": "src/sequential.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequential",
+   "target": "src/sequential.js::sequential",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequential",
+   "target": "src/sequential.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialLog",
+   "target": "src/init.js::initInterpolator",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialLog",
+   "target": "src/log.js::loggish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialLog",
+   "target": "src/sequential.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialLog",
+   "target": "src/sequential.js::sequentialLog",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialLog",
+   "target": "src/sequential.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialPow",
+   "target": "src/init.js::initInterpolator",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialPow",
+   "target": "src/pow.js::powish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialPow",
+   "target": "src/sequential.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialPow",
+   "target": "src/sequential.js::sequentialPow",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialPow",
+   "target": "src/sequential.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialSqrt",
+   "target": "src/sequential.js::sequentialPow",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialSymlog",
+   "target": "src/init.js::initInterpolator",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialSymlog",
+   "target": "src/sequential.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialSymlog",
+   "target": "src/sequential.js::sequentialSymlog",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialSymlog",
+   "target": "src/sequential.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::sequentialSymlog",
+   "target": "src/symlog.js::symlogish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/sequential.js::transformer",
+   "target": "src/continuous.js::identity",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/sequentialQuantile.js::sequentialQuantile",
+   "target": "src/continuous.js::identity",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/sequentialQuantile.js::sequentialQuantile",
+   "target": "src/init.js::initInterpolator",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/sequentialQuantile.js::sequentialQuantile",
+   "target": "src/sequentialQuantile.js::sequentialQuantile",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symlog.js::symlog",
+   "target": "src/continuous.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symlog.js::symlog",
+   "target": "src/continuous.js::transformer",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symlog.js::symlog",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/symlog.js::symlog",
+   "target": "src/symlog.js::symlog",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symlog.js::symlog",
+   "target": "src/symlog.js::symlogish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symlog.js::symlogish",
+   "target": "src/linear.js::linearish",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/symlog.js::symlogish",
+   "target": "src/symlog.js::symlogish",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/symlog.js::symlogish",
+   "target": "src/symlog.js::transformSymexp",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/symlog.js::symlogish",
+   "target": "src/symlog.js::transformSymlog",
+   "kind": "call",
+   "count": 2
+  },
+  {
+   "source": "src/threshold.js::threshold",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/threshold.js::threshold",
+   "target": "src/threshold.js::threshold",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/time.js::calendar",
+   "target": "src/continuous.js::continuous",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/time.js::calendar",
+   "target": "src/continuous.js::copy",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/time.js::calendar",
+   "target": "src/nice.js::nice",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/time.js::calendar",
+   "target": "src/time.js::calendar",
+   "kind": "call",
+   "count": 19
+  },
+  {
+   "source": "src/time.js::calendar",
+   "target": "src/time.js::date",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/time.js::calendar",
+   "target": "src/time.js::number",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/time.js::time",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/time.js::time",
+   "target": "src/time.js::calendar",
+   "kind": "call",
+   "count": 1
+  },
+  {
+   "source": "src/utcTime.js::utcTime",
+   "target": "src/init.js::initRange",
+   "kind": "reference",
+   "count": 1
+  },
+  {
+   "source": "src/utcTime.js::utcTime",
+   "target": "src/time.js::calendar",
+   "kind": "call",
+   "count": 1
+  }
+ ]
+}

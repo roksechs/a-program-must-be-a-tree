@@ -1,0 +1,56 @@
+[
+  {
+    "id": "self",
+    "name": "a-program-must-be-a-tree",
+    "description": "this viewer and its analyzer",
+    "file": "data/self.json"
+  },
+  {
+    "id": "d3-force",
+    "name": "d3-force@3.0.0",
+    "description": "D3 module sources",
+    "file": "data/d3-force.json"
+  },
+  {
+    "id": "d3-hierarchy",
+    "name": "d3-hierarchy@3.1.2",
+    "description": "D3 module sources",
+    "file": "data/d3-hierarchy.json"
+  },
+  {
+    "id": "d3-scale",
+    "name": "d3-scale@4.0.2",
+    "description": "D3 module sources",
+    "file": "data/d3-scale.json"
+  },
+  {
+    "id": "d3-selection",
+    "name": "d3-selection@3.0.0",
+    "description": "D3 module sources",
+    "file": "data/d3-selection.json"
+  },
+  {
+    "id": "d3-shape",
+    "name": "d3-shape@3.2.0",
+    "description": "D3 module sources",
+    "file": "data/d3-shape.json"
+  },
+  {
+    "id": "d3-zoom",
+    "name": "d3-zoom@3.0.0",
+    "description": "D3 module sources",
+    "file": "data/d3-zoom.json"
+  },
+  {
+    "id": "sample-tangle",
+    "name": "sample: tangled graph",
+    "description": "synthetic, 60 declarations with cycles and shared helpers",
+    "file": "data/sample-tangle.json"
+  },
+  {
+    "id": "sample-tree",
+    "name": "sample: perfect tree",
+    "description": "synthetic, 40 declarations",
+    "file": "data/sample-tree.json"
+  }
+]
