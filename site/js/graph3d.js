@@ -3,7 +3,7 @@
 // The x/y coordinates come from the same simulation as the 2D view; only the
 // projection differs, so switching views never restarts the physics.
 /* global d3 */
-import { edgeColor, heightColor, kindColor, zoneColor } from "./colors.js";
+import { EDGE_KINDS, edgeColor, heightColor, kindColor, zoneColor } from "./colors.js";
 import { t } from "./i18n.js";
 import { nodeRadius } from "./simulation.js";
 import { hullPath } from "./zones.js";
@@ -18,6 +18,7 @@ export class Graph3D {
     this.hovered = null;
     this.labelMode = "auto";
     this.colorBy = "height";
+    this.visibleKinds = new Set(EDGE_KINDS);
     this.layerGap = 80;
     this.showLayers = true;
     this.autoRotate = false;
@@ -134,6 +135,11 @@ export class Graph3D {
 
   setColorBy(mode) {
     this.colorBy = mode;
+    this.draw();
+  }
+
+  setVisibleKinds(kinds) {
+    this.visibleKinds = new Set(kinds);
     this.draw();
   }
 
@@ -288,6 +294,7 @@ export class Graph3D {
 
     // Edges, far ones first.
     const edgeItems = links
+      .filter((l) => this.visibleKinds.has(l.kind))
       .map((l) => {
         const s = byIndex.get(l.source.index);
         const t = byIndex.get(l.target.index);
@@ -300,6 +307,7 @@ export class Graph3D {
       ctx.strokeStyle = active ? "#111827" : edgeColor(l.kind);
       ctx.globalAlpha = dimmed ? 0.08 : active ? 1 : 0.55;
       ctx.lineWidth = active ? 2 : 1;
+      ctx.setLineDash(l.inferred ? [3, 3] : l.kind === "type" || l.kind === "reference" ? [1, 3] : []);
       if (l.source === l.target) {
         const r = nodeRadius(l.source) * s.scale;
         ctx.beginPath();
@@ -309,6 +317,7 @@ export class Graph3D {
         drawArrow(ctx, s.x, s.y, t.x, t.y, nodeRadius(l.target) * t.scale + 1, 5 * Math.max(0.6, t.scale));
       }
     }
+    ctx.setLineDash([]);
     ctx.globalAlpha = 1;
 
     // Nodes, far ones first.

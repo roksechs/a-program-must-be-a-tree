@@ -1,6 +1,7 @@
 // Application wiring: loads a dataset, runs the simulation and connects the
 // renderers to the property panel.
 /* global d3 */
+import { EDGE_KINDS } from "./colors.js";
 import { Graph2D } from "./graph2d.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
@@ -17,6 +18,7 @@ const state = {
   showLayers: true,
   autoRotate: false,
   zoneDepth: 2,
+  visibleKinds: new Set(EDGE_KINDS),
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
   datasets: [],
@@ -116,6 +118,11 @@ const panel = new Panel(document.getElementById("panel"), state, {
     state.labelMode = mode;
     for (const r of Object.values(renderers)) r.setLabelMode(mode);
   },
+  onKinds: (kind, visible) => {
+    if (visible) state.visibleKinds.add(kind);
+    else state.visibleKinds.delete(kind);
+    for (const r of Object.values(renderers)) r.setVisibleKinds(state.visibleKinds);
+  },
   onColorBy: (mode) => {
     state.colorBy = mode;
     for (const r of Object.values(renderers)) r.setColorBy(mode);
@@ -201,6 +208,7 @@ function installGraph(doc, label) {
     r.setGraph(graph);
     r.setLabelMode(state.labelMode);
     r.setColorBy(state.colorBy);
+    r.setVisibleKinds(state.visibleKinds);
   }
   panel.setMaxDepth(graph.maxDepth, state.zoneDepth);
   panel.setMetrics(graph);

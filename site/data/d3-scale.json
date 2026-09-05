@@ -3,7 +3,7 @@
   "name": "d3-scale",
   "root": "node_modules/d3-scale",
   "language": "javascript",
-  "generatedAt": "2026-09-05T09:01:28.607Z",
+  "generatedAt": "2026-09-05T09:43:04.647Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 24
  },
@@ -635,853 +635,1017 @@
    "source": "src/band.js::band",
    "target": "src/band.js::band",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/band.js::band",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/band.js::band",
    "target": "src/ordinal.js::ordinal",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/band.js::point",
    "target": "src/band.js::band",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/band.js::point",
    "target": "src/band.js::pointish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/band.js::pointish",
    "target": "src/band.js::pointish",
    "kind": "call",
-   "count": 1
-  },
-  {
-   "source": "src/continuous.js::bimap",
-   "target": "src/continuous.js::bimap",
-   "kind": "call",
-   "count": 2
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/continuous.js::bimap",
    "target": "src/continuous.js::normalize",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/continuous.js::continuous",
    "target": "src/continuous.js::identity",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/continuous.js::continuous",
    "target": "src/continuous.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/continuous.js::normalize",
    "target": "src/constant.js::constants",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/continuous.js::polymap",
    "target": "src/continuous.js::normalize",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
-   "source": "src/continuous.js::polymap",
-   "target": "src/continuous.js::polymap",
+   "source": "src/continuous.js::transformer",
+   "target": "src/continuous.js::bimap",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/continuous.js::transformer",
    "target": "src/continuous.js::bimap",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/continuous.js::transformer",
    "target": "src/continuous.js::clamper",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/continuous.js::transformer",
+   "target": "src/continuous.js::identity",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/continuous.js::transformer",
    "target": "src/continuous.js::identity",
    "kind": "reference",
-   "count": 4
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "src/continuous.js::transformer",
+   "target": "src/continuous.js::polymap",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/continuous.js::transformer",
    "target": "src/continuous.js::polymap",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/continuous.js::transformer",
    "target": "src/continuous.js::unit",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/continuous.js::transformer",
    "target": "src/number.js::number",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::diverging",
    "target": "src/continuous.js::identity",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::diverging",
    "target": "src/diverging.js::diverging",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::diverging",
    "target": "src/diverging.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::diverging",
    "target": "src/init.js::initInterpolator",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::diverging",
    "target": "src/linear.js::linearish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::diverging",
    "target": "src/sequential.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingLog",
    "target": "src/diverging.js::divergingLog",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingLog",
    "target": "src/diverging.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingLog",
    "target": "src/init.js::initInterpolator",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingLog",
    "target": "src/log.js::loggish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingLog",
    "target": "src/sequential.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingPow",
    "target": "src/diverging.js::divergingPow",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingPow",
    "target": "src/diverging.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingPow",
    "target": "src/init.js::initInterpolator",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingPow",
    "target": "src/pow.js::powish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingPow",
    "target": "src/sequential.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingSqrt",
    "target": "src/diverging.js::divergingPow",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingSymlog",
    "target": "src/diverging.js::divergingSymlog",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingSymlog",
    "target": "src/diverging.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingSymlog",
    "target": "src/init.js::initInterpolator",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingSymlog",
    "target": "src/sequential.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/diverging.js::divergingSymlog",
    "target": "src/symlog.js::symlogish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/diverging.js::transformer",
+   "target": "src/continuous.js::identity",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/diverging.js::transformer",
    "target": "src/continuous.js::identity",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/identity.js::identity",
    "target": "src/identity.js::identity",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/identity.js::identity",
    "target": "src/linear.js::linearish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/identity.js::identity",
    "target": "src/number.js::number",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/linear.js::linear",
    "target": "src/continuous.js::continuous",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/linear.js::linear",
    "target": "src/continuous.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/linear.js::linear",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/linear.js::linear",
    "target": "src/linear.js::linear",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/linear.js::linear",
    "target": "src/linear.js::linearish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/linear.js::linearish",
    "target": "src/tickFormat.js::tickFormat",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::log",
    "target": "src/continuous.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::log",
    "target": "src/continuous.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::log",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::log",
    "target": "src/log.js::log",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::log",
    "target": "src/log.js::loggish",
    "kind": "call",
-   "count": 1
-  },
-  {
-   "source": "src/log.js::loggish",
-   "target": "src/log.js::loggish",
-   "kind": "call",
-   "count": 3
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::loggish",
    "target": "src/log.js::logp",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/log.js::loggish",
+   "target": "src/log.js::pow10",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/log.js::loggish",
    "target": "src/log.js::powp",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::loggish",
    "target": "src/log.js::reflect",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/log.js::loggish",
    "target": "src/log.js::transformExp",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/log.js::loggish",
    "target": "src/log.js::transformExpn",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::loggish",
    "target": "src/log.js::transformLog",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/log.js::loggish",
    "target": "src/log.js::transformLogn",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::loggish",
    "target": "src/nice.js::nice",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::powp",
    "target": "src/log.js::pow10",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/log.js::reflect",
-   "target": "src/log.js::reflect",
+   "target": "src/log.js::pow10",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/ordinal.js::ordinal",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/ordinal.js::ordinal",
    "target": "src/ordinal.js::implicit",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/ordinal.js::ordinal",
    "target": "src/ordinal.js::ordinal",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pow.js::pow",
    "target": "src/continuous.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pow.js::pow",
    "target": "src/continuous.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pow.js::pow",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pow.js::pow",
    "target": "src/pow.js::pow",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pow.js::pow",
    "target": "src/pow.js::powish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pow.js::powish",
    "target": "src/continuous.js::identity",
    "kind": "reference",
-   "count": 4
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/pow.js::powish",
    "target": "src/linear.js::linearish",
    "kind": "call",
-   "count": 1
-  },
-  {
-   "source": "src/pow.js::powish",
-   "target": "src/pow.js::powish",
-   "kind": "call",
-   "count": 4
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pow.js::powish",
    "target": "src/pow.js::transformPow",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/pow.js::powish",
    "target": "src/pow.js::transformSqrt",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pow.js::powish",
    "target": "src/pow.js::transformSquare",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pow.js::sqrt",
    "target": "src/pow.js::pow",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/quantile.js::quantile",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/quantile.js::quantile",
    "target": "src/quantile.js::quantile",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/quantize.js::quantize",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/quantize.js::quantize",
    "target": "src/linear.js::linearish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/quantize.js::quantize",
    "target": "src/quantize.js::quantize",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/radial.js::radial",
    "target": "src/continuous.js::continuous",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/radial.js::radial",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/radial.js::radial",
    "target": "src/linear.js::linearish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/radial.js::radial",
    "target": "src/number.js::number",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/radial.js::radial",
    "target": "src/radial.js::radial",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/radial.js::radial",
    "target": "src/radial.js::square",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/radial.js::radial",
    "target": "src/radial.js::square",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/radial.js::radial",
    "target": "src/radial.js::unsquare",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequential",
    "target": "src/continuous.js::identity",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequential",
    "target": "src/init.js::initInterpolator",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequential",
    "target": "src/linear.js::linearish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequential",
    "target": "src/sequential.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequential",
    "target": "src/sequential.js::sequential",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequential",
    "target": "src/sequential.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialLog",
    "target": "src/init.js::initInterpolator",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialLog",
    "target": "src/log.js::loggish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialLog",
    "target": "src/sequential.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialLog",
    "target": "src/sequential.js::sequentialLog",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialLog",
    "target": "src/sequential.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialPow",
    "target": "src/init.js::initInterpolator",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialPow",
    "target": "src/pow.js::powish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialPow",
    "target": "src/sequential.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialPow",
    "target": "src/sequential.js::sequentialPow",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialPow",
    "target": "src/sequential.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialSqrt",
    "target": "src/sequential.js::sequentialPow",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialSymlog",
    "target": "src/init.js::initInterpolator",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialSymlog",
    "target": "src/sequential.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialSymlog",
    "target": "src/sequential.js::sequentialSymlog",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialSymlog",
    "target": "src/sequential.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequential.js::sequentialSymlog",
    "target": "src/symlog.js::symlogish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/sequential.js::transformer",
+   "target": "src/continuous.js::identity",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/sequential.js::transformer",
    "target": "src/continuous.js::identity",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/sequentialQuantile.js::sequentialQuantile",
+   "target": "src/continuous.js::identity",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/sequentialQuantile.js::sequentialQuantile",
    "target": "src/continuous.js::identity",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequentialQuantile.js::sequentialQuantile",
    "target": "src/init.js::initInterpolator",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/sequentialQuantile.js::sequentialQuantile",
    "target": "src/sequentialQuantile.js::sequentialQuantile",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/symlog.js::symlog",
    "target": "src/continuous.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/symlog.js::symlog",
    "target": "src/continuous.js::transformer",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/symlog.js::symlog",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/symlog.js::symlog",
    "target": "src/symlog.js::symlog",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/symlog.js::symlog",
    "target": "src/symlog.js::symlogish",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/symlog.js::symlogish",
    "target": "src/linear.js::linearish",
    "kind": "call",
-   "count": 1
-  },
-  {
-   "source": "src/symlog.js::symlogish",
-   "target": "src/symlog.js::symlogish",
-   "kind": "call",
-   "count": 2
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/symlog.js::symlogish",
    "target": "src/symlog.js::transformSymexp",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/symlog.js::symlogish",
    "target": "src/symlog.js::transformSymlog",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/threshold.js::threshold",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/threshold.js::threshold",
    "target": "src/threshold.js::threshold",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/time.js::calendar",
    "target": "src/continuous.js::continuous",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/time.js::calendar",
    "target": "src/continuous.js::copy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/time.js::calendar",
    "target": "src/nice.js::nice",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/time.js::calendar",
    "target": "src/time.js::calendar",
    "kind": "call",
-   "count": 19
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/time.js::calendar",
    "target": "src/time.js::date",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/time.js::calendar",
    "target": "src/time.js::number",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/time.js::time",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/time.js::time",
    "target": "src/time.js::calendar",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/utcTime.js::utcTime",
    "target": "src/init.js::initRange",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/utcTime.js::utcTime",
    "target": "src/time.js::calendar",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   }
  ]
 }

@@ -1,6 +1,6 @@
 // 2D renderer: SVG with zoom/pan, zone hulls, arrowed edges, draggable nodes.
 /* global d3 */
-import { edgeColor, kindColor, zoneColor } from "./colors.js";
+import { EDGE_KINDS, edgeColor, kindColor, zoneColor } from "./colors.js";
 import { nodeRadius } from "./simulation.js";
 import { hullPath, topPoint } from "./zones.js";
 
@@ -20,11 +20,12 @@ export class Graph2D {
     this.hovered = null;
     this.labelMode = "auto";
     this.colorBy = "kind";
+    this.visibleKinds = new Set(EDGE_KINDS);
     this.transform = d3.zoomIdentity;
 
     this.svg = d3.select(host).append("svg").attr("class", "graph2d");
     const defs = this.svg.append("defs");
-    for (const kind of ["call", "reference", "extends", "implements", "type", "selected"]) {
+    for (const kind of [...EDGE_KINDS, "selected"]) {
       defs
         .append("marker")
         .attr("id", `arrow-${kind}`)
@@ -88,8 +89,10 @@ export class Graph2D {
       .merge(link)
       .attr("stroke", (l) => edgeColor(l.kind))
       .attr("stroke-width", (l) => Math.min(4, 1 + Math.log2(l.count)))
+      .attr("stroke-dasharray", (l) => (l.inferred ? "3 3" : l.kind === "type" || l.kind === "reference" ? "1 3" : null))
       .attr("marker-end", (l) => `url(#arrow-${l.kind})`)
-      .attr("fill", "none");
+      .attr("fill", "none")
+      .attr("display", (l) => (this.visibleKinds.has(l.kind) ? null : "none"));
 
     const drag = d3
       .drag()
@@ -199,6 +202,11 @@ export class Graph2D {
   setLabelMode(mode) {
     this.labelMode = mode;
     this.updateLabelVisibility();
+  }
+
+  setVisibleKinds(kinds) {
+    this.visibleKinds = new Set(kinds);
+    this.linkLayer.selectAll("path.link").attr("display", (l) => (this.visibleKinds.has(l.kind) ? null : "none"));
   }
 
   updateLabelVisibility() {

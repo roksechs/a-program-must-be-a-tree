@@ -93,15 +93,17 @@ function collectDeclarations(sf, file, baseName) {
   };
 
   const addClassMembers = (cls, parentEntry) => {
+    parentEntry.classNode = cls;
     for (const m of cls.members) {
+      const isStatic = Boolean(ts.getCombinedModifierFlags(m) & ts.ModifierFlags.Static);
       if (ts.isConstructorDeclaration(m)) {
         add(m, "constructor", "method", parentEntry, false, [m], null);
       } else if (ts.isMethodDeclaration(m) || ts.isGetAccessorDeclaration(m) || ts.isSetAccessorDeclaration(m)) {
         const name = memberName(m.name);
-        if (name) add(m, name, "method", parentEntry, false, [m], m.name);
+        if (name) add(m, name, "method", parentEntry, false, [m], m.name).isStatic = isStatic;
       } else if (ts.isPropertyDeclaration(m) && isFunctionLike(m.initializer)) {
         const name = memberName(m.name);
-        if (name) add(m, name, "method", parentEntry, false, [m.initializer], m.name);
+        if (name) add(m, name, "method", parentEntry, false, [m.initializer], m.name).isStatic = isStatic;
       } else {
         // Plain properties and static blocks are scanned as part of the class itself.
         parentEntry.bodyNodes.push(m);
@@ -157,10 +159,12 @@ function memberName(nameNode) {
 function referenceKind(node) {
   const parent = node.parent;
   if (!parent) return "reference";
-  if ((ts.isCallExpression(parent) || ts.isNewExpression(parent)) && parent.expression === node) return "call";
+  if (ts.isNewExpression(parent) && parent.expression === node) return "create";
+  if (ts.isCallExpression(parent) && parent.expression === node) return "call";
   if (ts.isPropertyAccessExpression(parent) && parent.name === node) {
     const gp = parent.parent;
-    if ((ts.isCallExpression(gp) || ts.isNewExpression(gp)) && gp.expression === parent) return "call";
+    if (ts.isNewExpression(gp) && gp.expression === parent) return "create";
+    if (ts.isCallExpression(gp) && gp.expression === parent) return "call";
   }
   if (ts.isExpressionWithTypeArguments(parent) || (ts.isPropertyAccessExpression(parent) && ts.isExpressionWithTypeArguments(parent.parent))) {
     const clause = ts.findAncestor(parent, ts.isHeritageClause);
@@ -210,22 +214,6 @@ export function analyze(options) {
     }
   }
 
-  // `new X()` and `super()` are calls of X's constructor, so route them to the
-  // constructor declaration when the class declares one.
-  const constructorOf = new Map();
-  for (const d of declarations) {
-    if (d.parent && d.kind === "method" && d.name === "constructor") constructorOf.set(d.parent, d);
-  }
-  const constructorTarget = (classEntry) => {
-    if (!classEntry || classEntry.kind !== "class") return classEntry;
-    return constructorOf.get(classEntry.id) ?? classEntry;
-  };
-  const isNewTarget = (node) => {
-    const p = node.parent;
-    if (ts.isNewExpression(p) && p.expression === node) return true;
-    return ts.isPropertyAccessExpression(p) && p.name === node && ts.isNewExpression(p.parent) && p.parent.expression === p;
-  };
-
   /** Find the declaration entry that owns an AST node (nearest declared ancestor). */
   const ownerOf = (node) => {
     let n = node;
@@ -237,55 +225,194 @@ export function analyze(options) {
     return null;
   };
 
-  /** Resolve an identifier to the declaration entry it refers to, if any. */
-  const resolveTarget = (ident) => {
+  /** Symbol of a node, with import aliases resolved. */
+  const symbolOf = (node) => {
     let symbol;
     try {
-      symbol = checker.getSymbolAtLocation(ident);
+      symbol = checker.getSymbolAtLocation(node);
     } catch {
       return null;
     }
-    if (!symbol) return null;
-    if (symbol.flags & ts.SymbolFlags.Alias) {
+    if (symbol && symbol.flags & ts.SymbolFlags.Alias) {
       try {
         symbol = checker.getAliasedSymbol(symbol);
       } catch {
         return null;
       }
     }
+    return symbol ?? null;
+  };
+
+  /** Resolve an identifier (or `super`) to the declaration entry it refers to, if any. */
+  const resolveTarget = (node) => {
+    const symbol = symbolOf(node);
+    if (!symbol) return null;
     for (const decl of symbol.declarations ?? []) {
       const owner = ownerOf(decl);
       if (owner) {
         // Only accept the owner if the symbol's declaration *is* that owner (or its name / a
         // member of it). Locals declared inside a function body resolve to nothing.
-        if (owner.node === decl || owner.nameNode === decl || (ts.isVariableDeclaration(decl) && owner.node === decl)) return owner;
-        if (decl.parent && declByNode.get(decl.parent) === owner) return owner;
+        if (owner.node === decl || owner.nameNode === decl) return owner;
+        // Members of interfaces and enums resolve to the interface / enum itself.
+        if ((ts.isTypeElement(decl) || ts.isEnumMember(decl)) && declByNode.get(decl.parent) === owner) return owner;
       }
     }
     return null;
   };
 
-  // Pass 2: references.
-  const edges = new Map();
-  const addEdge = (source, target, kind) => {
-    const key = `${source.id} ${target.id} ${kind}`;
-    const e = edges.get(key);
-    if (e) e.count++;
-    else edges.set(key, { source: source.id, target: target.id, kind, count: 1 });
+  // ---------------------------------------------------------------------------
+  // Class hierarchy: constructor lookup, dispatch (class hierarchy analysis)
+  // and the structural override / implements edges. See docs/THEORY.md §3.4, §5.
+  const membersOf = new Map(); // class or interface id -> Map(member name -> entry)
+  for (const d of declarations) {
+    if (!d.parent) continue;
+    if (!membersOf.has(d.parent)) membersOf.set(d.parent, new Map());
+    membersOf.get(d.parent).set(d.name, d);
+  }
+  const heritageName = (expr) => (ts.isPropertyAccessExpression(expr) ? expr.name : expr);
+  const baseOf = new Map(); // class id -> base class entry
+  const interfacesOf = new Map(); // class or interface id -> interface entries it implements / extends
+  for (const d of declarations) {
+    const node = d.kind === "class" ? d.classNode : d.kind === "interface" ? d.node : null;
+    if (!node) continue;
+    for (const clause of node.heritageClauses ?? []) {
+      for (const t of clause.types) {
+        const target = resolveTarget(heritageName(t.expression));
+        if (!target) continue;
+        if (clause.token === ts.SyntaxKind.ExtendsKeyword && d.kind === "class") baseOf.set(d.id, target);
+        else {
+          if (!interfacesOf.has(d.id)) interfacesOf.set(d.id, []);
+          interfacesOf.get(d.id).push(target);
+        }
+      }
+    }
+  }
+  const children = new Map(); // id -> entries that extend or implement it
+  const link = (parentId, child) => {
+    if (!children.has(parentId)) children.set(parentId, []);
+    children.get(parentId).push(child);
+  };
+  for (const [id, base] of baseOf) link(base.id, declarations.find((d) => d.id === id));
+  for (const [id, ifaces] of interfacesOf) for (const i of ifaces) link(i.id, declarations.find((d) => d.id === id));
+  const descendants = (entry) => {
+    const out = [];
+    const seen = new Set([entry.id]);
+    const stack = [entry];
+    while (stack.length) {
+      for (const c of children.get(stack.pop().id) ?? []) {
+        if (seen.has(c.id)) continue;
+        seen.add(c.id);
+        out.push(c);
+        stack.push(c);
+      }
+    }
+    return out;
+  };
+  /** Constructor that `new C()` runs: C's own, else the nearest ancestor's, else the class itself. */
+  const constructorTarget = (classEntry) => {
+    if (!classEntry || classEntry.kind !== "class") return classEntry;
+    let c = classEntry;
+    const seen = new Set();
+    while (c && !seen.has(c.id)) {
+      seen.add(c.id);
+      const ctor = membersOf.get(c.id)?.get("constructor");
+      if (ctor) return ctor;
+      c = baseOf.get(c.id);
+    }
+    return classEntry;
+  };
+  /** Nearest ancestor class or interface (via extends only) that declares `name`. */
+  const inheritedMember = (classEntry, name) => {
+    let c = baseOf.get(classEntry.id);
+    const seen = new Set();
+    while (c && !seen.has(c.id)) {
+      seen.add(c.id);
+      const m = membersOf.get(c.id)?.get(name);
+      if (m) return m;
+      c = baseOf.get(c.id);
+    }
+    return null;
+  };
+  /** Interfaces implemented by a class, including those of its ancestors and interface extension. */
+  const allInterfaces = (entry) => {
+    const out = [];
+    const seen = new Set();
+    const stack = [entry];
+    while (stack.length) {
+      const e = stack.pop();
+      if (seen.has(e.id)) continue;
+      seen.add(e.id);
+      for (const i of interfacesOf.get(e.id) ?? []) {
+        out.push(i);
+        stack.push(i);
+      }
+      const b = baseOf.get(e.id);
+      if (b) stack.push(b);
+    }
+    return out;
+  };
+  /**
+   * Dispatch targets of a non-static member call: the resolved member plus every
+   * overriding member in a subclass (or implementing class of an interface).
+   */
+  const dispatchTargets = (member) => {
+    const out = [];
+    const owner = declarations.find((d) => d.id === member.parent);
+    if (!owner) return out;
+    for (const sub of descendants(owner)) {
+      const m = membersOf.get(sub.id)?.get(member.name);
+      if (m && m !== member) out.push(m);
+    }
+    return out;
+  };
+  const isNewTarget = (node) => {
+    const p = node.parent;
+    if (ts.isNewExpression(p) && p.expression === node) return true;
+    return ts.isPropertyAccessExpression(p) && p.name === node && ts.isNewExpression(p.parent) && p.parent.expression === p;
+  };
+  /** `o.m(...)` where the receiver is not `super`: the call is dispatched dynamically. */
+  const isDispatchedCall = (node) => {
+    const p = node.parent;
+    return ts.isPropertyAccessExpression(p) && p.name === node && ts.isCallExpression(p.parent) && p.parent.expression === p && p.expression.kind !== ts.SyntaxKind.SuperKeyword;
   };
 
+  // ---------------------------------------------------------------------------
+  // Edges. `time` is "definition" when the occurrence is evaluated while the
+  // module initialises, "use" when it runs inside a function or method body.
+  const edges = new Map();
+  const addEdge = (source, target, kind, time, inferred = false) => {
+    const key = `${source.id} ${target.id} ${kind} ${time}`;
+    const e = edges.get(key);
+    if (e) {
+      if (!inferred) e.count++;
+    } else {
+      const edge = { source: source.id, target: target.id, kind, count: 1, time };
+      if (inferred) edge.inferred = true;
+      edges.set(key, edge);
+    }
+  };
+  // Structural edges: overriding and interface implementation at member level.
   for (const d of declarations) {
-    const visit = (node) => {
+    if (!d.parent || d.name === "constructor") continue;
+    const owner = declarations.find((x) => x.id === d.parent);
+    if (!owner || owner.kind !== "class") continue;
+    const base = inheritedMember(owner, d.name);
+    if (base) addEdge(d, base, "override", "definition");
+    for (const iface of allInterfaces(owner)) {
+      const m = membersOf.get(iface.id)?.get(d.name);
+      if (m) addEdge(d, m, "implements", "definition");
+    }
+  }
+
+  // Pass 2: syntactic references (docs/THEORY.md §3, definitions 4-6).
+  const callSites = []; // { owner, node, time } for the flow analysis below
+  for (const d of declarations) {
+    const visit = (node, inFn) => {
+      const time = inFn ? "use" : "definition";
       if (node.kind === ts.SyntaxKind.SuperKeyword && ts.isCallExpression(node.parent) && node.parent.expression === node) {
         // super(...) inside a derived constructor calls the base class constructor.
-        let base = null;
-        try {
-          base = resolveTarget(node);
-        } catch {
-          base = null;
-        }
-        const target = constructorTarget(base);
-        if (target && target !== d) addEdge(d, target, "call");
+        const target = constructorTarget(resolveTarget(node));
+        if (target && target !== d) addEdge(d, target, "call", time);
       } else if (ts.isIdentifier(node) || ts.isPrivateIdentifier(node)) {
         if (node !== d.nameNode) {
           // Skip identifiers that merely name a property being declared or a local binding.
@@ -295,20 +422,174 @@ export function analyze(options) {
             p.name === node;
           if (!declaresBinding) {
             let target = resolveTarget(node);
+            let kind = referenceKind(node);
             if (target && isNewTarget(node)) target = constructorTarget(target);
-            if (target && target !== d) addEdge(d, target, referenceKind(node));
-            else if (target === d && referenceKind(node) === "call") addEdge(d, target, "call");
+            if (target && kind === "call" && target.kind === "interface") {
+              // A call through an interface member: the interface is a type-level
+              // dependency; the implementations are the control targets.
+              addEdge(d, target, "type", time);
+              for (const impl of dispatchTargets({ parent: target.id, name: node.text })) if (impl !== d) addEdge(d, impl, "call", time, true);
+              target = null;
+            }
+            if (target && target !== d) addEdge(d, target, kind, time);
+            else if (target === d && (kind === "call" || kind === "create")) addEdge(d, target, kind, time);
+            if (target && kind === "call" && target.kind === "method" && !target.isStatic && isDispatchedCall(node)) {
+              for (const impl of dispatchTargets(target)) if (impl !== d) addEdge(d, impl, "call", time, true);
+            }
           }
         }
       }
+      if (ts.isCallExpression(node) || ts.isNewExpression(node)) callSites.push({ owner: d, node, time });
+      const childInFn = inFn || ts.isFunctionLike(node) || (ts.isPropertyDeclaration(node) && !(ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Static));
       // Do not descend into nested declarations that are declarations of their own (class members).
       ts.forEachChild(node, (child) => {
         const nested = declByNode.get(child);
         if (nested && nested !== d) return;
-        visit(child);
+        visit(child, childInFn);
       });
     };
-    for (const body of d.bodyNodes) visit(body);
+    for (const body of d.bodyNodes) visit(body, false);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Pass 3: bounded 0-CFA (docs/THEORY.md §3.2). Abstract values are sets of
+  // declared functions, methods and classes. Values flow through local
+  // bindings, parameters of declared callees and return values of declared
+  // functions; property stores and anonymous functions are not modelled, so a
+  // callback handed to an external library stays a `reference`.
+  const env = new Map(); // local symbol -> Set(entry)
+  const returns = new Map(); // entry -> Set(entry)
+  const varValues = new Map(); // variable entry -> Set(entry) (memoised)
+  let changed = false;
+  const union = (into, from) => {
+    for (const v of from) {
+      if (!into.has(v)) {
+        into.add(v);
+        changed = true;
+      }
+    }
+  };
+  const setFor = (map, key) => {
+    let s = map.get(key);
+    if (!s) map.set(key, (s = new Set()));
+    return s;
+  };
+  const fnNodeOf = (e) => (e.bodyNodes.length === 1 && ts.isFunctionLike(e.bodyNodes[0]) ? e.bodyNodes[0] : null);
+  const isCallable = (e) => e.kind === "function" || e.kind === "method";
+  const evaluating = new Set();
+  const evalExpr = (node) => {
+    if (!node) return new Set();
+    if (ts.isParenthesizedExpression(node) || ts.isAsExpression(node) || ts.isTypeAssertionExpression(node) || ts.isNonNullExpression(node) || ts.isSatisfiesExpression?.(node)) return evalExpr(node.expression);
+    if (ts.isIdentifier(node)) {
+      const target = resolveTarget(node);
+      if (target) {
+        if (isCallable(target) || target.kind === "class") return new Set([target]);
+        if (target.kind === "variable") return variableValues(target);
+        return new Set();
+      }
+      const sym = symbolOf(node);
+      return sym && env.has(sym) ? new Set(env.get(sym)) : new Set();
+    }
+    if (ts.isPropertyAccessExpression(node)) {
+      const target = resolveTarget(node.name);
+      return target && (isCallable(target) || target.kind === "class") ? new Set([target]) : new Set();
+    }
+    if (ts.isCallExpression(node)) {
+      const out = new Set();
+      for (const g of calleeValues(node)) if (isCallable(g)) for (const v of returns.get(g) ?? []) out.add(v);
+      return out;
+    }
+    if (ts.isConditionalExpression(node)) return new Set([...evalExpr(node.whenTrue), ...evalExpr(node.whenFalse)]);
+    if (ts.isBinaryExpression(node)) {
+      const op = node.operatorToken.kind;
+      if (op === ts.SyntaxKind.BarBarToken || op === ts.SyntaxKind.QuestionQuestionToken || op === ts.SyntaxKind.AmpersandAmpersandToken) return new Set([...evalExpr(node.left), ...evalExpr(node.right)]);
+      if (op === ts.SyntaxKind.EqualsToken || op === ts.SyntaxKind.CommaToken) return evalExpr(node.right);
+    }
+    return new Set();
+  };
+  const variableValues = (entry) => {
+    if (varValues.has(entry)) return new Set(varValues.get(entry));
+    if (evaluating.has(entry)) return new Set();
+    evaluating.add(entry);
+    const values = evalExpr(entry.bodyNodes[0]);
+    evaluating.delete(entry);
+    varValues.set(entry, values);
+    return new Set(values);
+  };
+  /** Callees of a call or `new`: syntactic targets, dispatch targets and flow-derived values. */
+  const calleeValues = (call) => {
+    const out = new Set();
+    const callee = call.expression;
+    if (ts.isNewExpression(call)) {
+      for (const v of evalExpr(callee)) if (v.kind === "class") out.add(constructorTarget(v));
+      return out;
+    }
+    if (callee.kind === ts.SyntaxKind.SuperKeyword) {
+      const t = constructorTarget(resolveTarget(callee));
+      if (t) out.add(t);
+      return out;
+    }
+    for (const v of evalExpr(callee)) {
+      if (v.kind === "class") continue;
+      out.add(v);
+      if (v.kind === "method" && !v.isStatic && ts.isPropertyAccessExpression(callee)) for (const impl of dispatchTargets(v)) out.add(impl);
+    }
+    return out;
+  };
+  const paramsOf = (entry) => {
+    const fn = fnNodeOf(entry);
+    return fn ? fn.parameters : [];
+  };
+
+  const flowPass = () => {
+    for (const d of declarations) {
+      const fn = fnNodeOf(d);
+      const walk = (node) => {
+        if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer) {
+          const sym = symbolOf(node.name);
+          if (sym) union(setFor(env, sym), evalExpr(node.initializer));
+        } else if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.EqualsToken && ts.isIdentifier(node.left)) {
+          const sym = symbolOf(node.left);
+          if (sym && !resolveTarget(node.left)) union(setFor(env, sym), evalExpr(node.right));
+        } else if (ts.isReturnStatement(node) && node.expression && fn) {
+          // Only returns of the declaration's own function body count; inner anonymous functions are not modelled.
+          let a = node.parent;
+          while (a && a !== fn && !ts.isFunctionLike(a)) a = a.parent;
+          if (a === fn) union(setFor(returns, d), evalExpr(node.expression));
+        } else if (ts.isCallExpression(node) || ts.isNewExpression(node)) {
+          const args = node.arguments ?? [];
+          for (const g of calleeValues(node)) {
+            const params = paramsOf(g);
+            for (let i = 0; i < params.length && i < args.length; i++) {
+              const p = params[i];
+              if (!ts.isIdentifier(p.name) || p.dotDotDotToken) continue;
+              const sym = symbolOf(p.name);
+              if (sym) union(setFor(env, sym), evalExpr(args[i]));
+            }
+          }
+        }
+        ts.forEachChild(node, (child) => {
+          const nested = declByNode.get(child);
+          if (nested && nested !== d) return;
+          walk(child);
+        });
+      };
+      if (fn && ts.isArrowFunction(fn) && !ts.isBlock(fn.body)) union(setFor(returns, d), evalExpr(fn.body));
+      for (const body of d.bodyNodes) walk(body);
+    }
+  };
+  for (let i = 0; i < 50; i++) {
+    changed = false;
+    varValues.clear();
+    flowPass();
+    if (!changed) break;
+  }
+  // Emit the calls the flow analysis found on top of the syntactic ones.
+  for (const { owner, node, time } of callSites) {
+    for (const g of calleeValues(node)) {
+      if (g === owner) continue;
+      addEdge(owner, g, ts.isNewExpression(node) ? "create" : "call", time, true);
+    }
   }
 
   return {

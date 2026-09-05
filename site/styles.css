@@ -324,6 +324,42 @@ ol.shared a {
   border: 2px solid #b91c1c;
 }
 
+.legend i.edge {
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.kind-boxes {
+  grid-column: 2 / 4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-size: 12px;
+}
+
+.kind-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kind-box i {
+  display: inline-block;
+  width: 12px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.edge-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
 /* SVG (2D) */
 svg.graph2d {
   background: var(--bg);

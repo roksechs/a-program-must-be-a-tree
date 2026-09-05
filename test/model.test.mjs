@@ -122,3 +122,47 @@ test("empty graph does not divide by zero", () => {
   assert.equal(m.overall, 1);
   assert.equal(m.components, 0);
 });
+
+test("heights, degrees and metrics use the control graph only", () => {
+  const g = buildGraph({
+    declarations: ["main", "helper", "T", "Base", "Impl"].map((id) => decl(id)),
+    edges: [
+      edge("main", "helper", "call"),
+      edge("main", "T", "type"),
+      edge("main", "Impl", "create"),
+      edge("Impl", "Base", "extends"),
+      edge("helper", "main", "reference"), // value flow, not a call: no cycle
+    ],
+  });
+  assert.equal(g.links.length, 5);
+  assert.equal(g.controlLinks.length, 2);
+  assert.equal(g.byId.get("main").outDegree, 2);
+  assert.equal(g.byId.get("T").inDegree, 0);
+  assert.equal(g.byId.get("main").height, 1);
+  assert.equal(g.byId.get("Base").height, 0);
+  assert.equal(g.byId.get("main").inCycle, false);
+  const m = computeMetrics(g);
+  assert.equal(m.edges, 5);
+  assert.equal(m.controlEdges, 2);
+  assert.equal(m.treeScore, 1);
+  assert.equal(m.nontrivialSccs, 0);
+});
+
+test("initialisation cycles count definition-time dependencies only", () => {
+  const time = (e, t) => ({ ...e, time: t });
+  const g = buildGraph({
+    declarations: ["a", "b", "f", "g", "T"].map((id) => decl(id)),
+    edges: [
+      time(edge("a", "b", "call"), "definition"),
+      time(edge("b", "a", "reference"), "definition"),
+      time(edge("f", "g", "call"), "use"),
+      time(edge("g", "f", "call"), "use"),
+      time(edge("T", "T", "type"), "definition"),
+    ],
+  });
+  const m = computeMetrics(g);
+  assert.equal(m.initCycles, 2); // a and b are read before they are initialised
+  assert.equal(m.nontrivialSccs, 1); // f and g: ordinary mutual recursion on the control graph
+  assert.equal(g.links.find((l) => l.source.id === "a").time, "definition");
+  assert.equal(g.links.find((l) => l.source.id === "f").time, "use");
+});

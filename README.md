@@ -15,9 +15,17 @@ force-directed graph, and measure how close that graph is to a tree.
 * **3D mode** lifts the same layout into three dimensions where the vertical
   axis is the call height: declarations that only get called sit at the
   bottom, the deepest callers sit at the top.
-* **Diagnostics** quantify tree-likeness: spanning ratio, acyclicity,
-  single-caller ratio and DAG-ness, plus the usual counts (components, cycles,
-  roots, leaves, longest call chain) and a list of the most shared declarations.
+* **Diagnostics** quantify tree-likeness on the control graph (calls and
+  constructions): spanning ratio, acyclicity, single-caller ratio and
+  DAG-ness, plus the usual counts (components, cycles, roots, leaves, longest
+  call chain, initialisation cycles) and a list of the most shared
+  declarations.
+* **Edge kinds** follow a small theory (`docs/THEORY.md`): calls, constructions,
+  references (callbacks and other value flows), type-only uses, inheritance,
+  interface implementation and overriding. The analyzer resolves `new` to the
+  constructor that actually runs, dispatches method calls to overriding
+  implementations, and lifts callbacks into calls at the declaration that
+  invokes them with a bounded control-flow analysis.
 
 The viewer is a static page (D3.js, no build step) meant to be served from
 GitHub Pages. Analyzers turn a codebase into a small JSON document
@@ -59,7 +67,7 @@ that writes the same JSON; see the data format document.
 |-------------|----------|
 | Data        | bundled datasets, open a local JSON file |
 | Header      | language selector (English / Japanese) |
-| View        | 2D / 3D, label mode, colour by kind or call height, 3D layer gap and planes, auto-rotate, fit |
+| View        | 2D / 3D, label mode, colour by kind or call height, edge kinds to draw, 3D layer gap and planes, auto-rotate, fit |
 | Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length, gravity |
 | Zones       | directory / file depth from 0 (none) through every directory level down to the files |
 | Diagnostics | tree score and its components, counts, most shared declarations |

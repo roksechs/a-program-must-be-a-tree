@@ -3,7 +3,7 @@
 // changes through callbacks so the app stays in charge of state. All visible
 // strings go through the translator so the panel can be re-rendered in
 // another language with `refresh()`.
-import { kindColor } from "./colors.js";
+import { EDGE_KINDS, edgeColor, kindColor } from "./colors.js";
 import { kindLabel, t } from "./i18n.js";
 import { computeMetrics, topSharedNodes } from "./metrics.js";
 
@@ -114,6 +114,11 @@ export class Panel {
       s.colorBy,
       h.onColorBy,
     );
+    const kindBoxes = this.el("div", { class: "kind-boxes" });
+    for (const kind of EDGE_KINDS) {
+      const box = this.el("input", { type: "checkbox", checked: s.visibleKinds.has(kind) ? "" : null, onchange: (e) => h.onKinds(kind, e.target.checked) });
+      kindBoxes.append(this.el("label", { class: "kind-box" }, box, this.el("i", { style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
+    }
     this.layerGap = this.slider(t("view.layerGap"), "layerGap", 10, 300, 5, h.onLayerGap);
     const layers = this.el("input", { type: "checkbox", checked: s.showLayers ? "" : null, onchange: (e) => h.onShowLayers(e.target.checked) });
     const rotate = this.el("input", { type: "checkbox", checked: s.autoRotate ? "" : null, onchange: (e) => h.onAutoRotate(e.target.checked) });
@@ -123,6 +128,7 @@ export class Panel {
         this.el("div", { class: "control" }, this.el("span", {}, t("view.mode")), viewGroup),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.labels")), labelSelect),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.colourBy")), colorSelect),
+        this.el("div", { class: "control" }, this.el("span", {}, t("view.edges")), kindBoxes),
         this.layerGap,
         this.el("label", { class: "control" }, this.el("span", {}, t("view.layerPlanes")), layers),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.autoRotate")), rotate),
@@ -156,7 +162,15 @@ export class Panel {
     // Diagnostics
     this.metricsBody = this.el("div", { class: "metrics" });
     this.sharedList = this.el("ol", { class: "shared" });
-    this.host.append(this.section(t("section.diagnostics"), this.metricsBody, this.el("h3", {}, t("metric.shared")), this.sharedList));
+    this.host.append(
+      this.section(
+        t("section.diagnostics"),
+        this.el("p", { class: "muted small", style: "margin:0 0 6px" }, t("metric.scope")),
+        this.metricsBody,
+        this.el("h3", {}, t("metric.shared")),
+        this.sharedList,
+      ),
+    );
 
     // Selection
     this.selectionBody = this.el("div", { class: "selection muted small" }, t("selection.empty"));
@@ -168,7 +182,10 @@ export class Panel {
       legend.append(this.el("span", { class: "legend-item" }, this.el("i", { style: `background:${kindColor(kind)}` }), kindLabel(kind)));
     }
     legend.append(this.el("span", { class: "legend-item" }, this.el("i", { class: "cycle" }), t("legend.inCycle")));
-    this.host.append(this.section(t("section.legend"), legend));
+    const edgeLegend = this.el("div", { class: "legend" });
+    for (const kind of EDGE_KINDS) edgeLegend.append(this.el("span", { class: "legend-item" }, this.el("i", { class: "edge", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
+    edgeLegend.append(this.el("span", { class: "legend-item muted" }, t("legend.inferred")));
+    this.host.append(this.section(t("section.legend"), legend, this.el("h3", {}, t("legend.edges")), edgeLegend));
   }
 
   setDatasets(datasets, current) {
@@ -222,6 +239,8 @@ export class Panel {
         { class: "metric-grid" },
         kv("metric.declarations", m.nodes, false),
         kv("metric.edges", m.edges, false),
+        kv("metric.controlEdges", m.controlEdges),
+        kv("metric.initCycles", m.initCycles),
         kv("metric.components", m.components),
         kv("metric.roots", m.roots),
         kv("metric.leaves", m.leaves),
@@ -254,12 +273,20 @@ export class Panel {
       return;
     }
     this.selectionBody.className = "selection";
-    const callers = graph.links.filter((l) => l.target === node).map((l) => l.source);
-    const callees = graph.links.filter((l) => l.source === node).map((l) => l.target);
+    const callers = graph.links.filter((l) => l.target === node).map((l) => ({ n: l.source, l }));
+    const callees = graph.links.filter((l) => l.source === node).map((l) => ({ n: l.target, l }));
     const list = (title, items) => {
       const ul = this.el("ul", {});
-      for (const n of items) {
-        ul.append(this.el("li", {}, this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(n)) }, n.name), this.el("span", { class: "muted small" }, ` ${n.file}`)));
+      for (const { n, l } of items) {
+        ul.append(
+          this.el(
+            "li",
+            {},
+            this.el("i", { class: "edge-dot", style: `background:${edgeColor(l.kind)}`, title: t(`edge.${l.kind}`) }),
+            this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(n)) }, n.name),
+            this.el("span", { class: "muted small" }, ` ${t(`edge.${l.kind}`)}${l.inferred ? "*" : ""} · ${n.file}`),
+          ),
+        );
       }
       if (items.length === 0) ul.append(this.el("li", { class: "muted" }, t("selection.none")));
       return this.el("div", {}, this.el("h3", {}, `${title} (${items.length})`), ul);

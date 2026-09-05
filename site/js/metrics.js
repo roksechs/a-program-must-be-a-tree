@@ -13,7 +13,9 @@ import { connectedComponentCount, stronglyConnectedComponents } from "./model.js
  * - dagness: 1 - (edges inside non-trivial SCCs, plus self loops) / m.
  */
 export function computeMetrics(graph) {
-  const { nodes, links } = graph;
+  const { nodes } = graph;
+  // Structural metrics are defined on the control graph (calls and constructions).
+  const links = graph.controlLinks ?? graph.links;
   const n = nodes.length;
   const m = links.length;
   const components = n > 0 ? connectedComponentCount(nodes, links) : 0;
@@ -58,7 +60,9 @@ export function computeMetrics(graph) {
 
   return {
     nodes: n,
-    edges: m,
+    edges: graph.links.length,
+    controlEdges: m,
+    initCycles: initializationCycles(graph),
     components,
     roots,
     leaves,
@@ -83,4 +87,21 @@ export function topSharedNodes(graph, limit = 8) {
     .filter((n) => n.inDegree > 1)
     .sort((a, b) => b.inDegree - a.inDegree || a.name.localeCompare(b.name))
     .slice(0, limit);
+}
+
+/**
+ * Cycles among definition-time term-level edges. These are evaluated while the
+ * module initialises, so a cycle means a declaration is read before it exists
+ * (docs/THEORY.md §4). Returns the number of declarations involved.
+ */
+export function initializationCycles(graph) {
+  const links = graph.links.filter((l) => l.time === "definition" && l.kind !== "type" && l.kind !== "implements" && l.kind !== "override");
+  if (links.length === 0) return 0;
+  const { comp, compCount } = stronglyConnectedComponents(graph.nodes, links);
+  const size = new Int32Array(compCount);
+  for (const n of graph.nodes) size[comp[n.index]]++;
+  const involved = new Set();
+  for (const n of graph.nodes) if (size[comp[n.index]] > 1) involved.add(n.index);
+  for (const l of links) if (l.source === l.target) involved.add(l.source.index);
+  return involved.size;
 }

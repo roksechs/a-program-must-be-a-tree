@@ -3,7 +3,7 @@
   "name": "d3-shape",
   "root": "node_modules/d3-shape",
   "language": "javascript",
-  "generatedAt": "2026-09-05T09:01:29.086Z",
+  "generatedAt": "2026-09-05T09:43:05.237Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 60
  },
@@ -1175,769 +1175,989 @@
    "source": "src/arc.js::cornerTangents",
    "target": "src/math.js::max",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/arc.js::cornerTangents",
    "target": "src/math.js::sqrt",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/arc.js::arcEndAngle",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/arc.js::arcInnerRadius",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/arc.js::arcOuterRadius",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/arc.js::arcPadAngle",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/arc.js::arcStartAngle",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/arc.js::cornerTangents",
    "kind": "call",
-   "count": 4
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/arc.js::intersect",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 8
+   "count": 8,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::abs",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::acos",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::asin",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::atan2",
    "kind": "call",
-   "count": 16
+   "count": 16,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::cos",
    "kind": "call",
-   "count": 7
+   "count": 7,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::epsilon",
    "kind": "reference",
-   "count": 13
+   "count": 13,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::halfPi",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::min",
    "kind": "call",
-   "count": 3
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::pi",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::sin",
    "kind": "call",
-   "count": 10
+   "count": 10,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::sqrt",
    "kind": "call",
-   "count": 4
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/math.js::tau",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/arc.js::default",
    "target": "src/path.js::withPath",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/arc.js::intersect",
    "target": "src/math.js::epsilon",
    "kind": "reference",
-   "count": 1
-  },
-  {
-   "source": "src/area.js::default",
-   "target": "src/area.js::default",
-   "kind": "call",
-   "count": 3
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/area.js::default",
    "target": "src/array.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/area.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 12
+   "count": 12,
+   "time": "use"
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/linear.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/area.js::default",
    "target": "src/curve/linear.js::default",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/area.js::default",
    "target": "src/line.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/area.js::default",
    "target": "src/path.js::withPath",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/point.js::x",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/area.js::default",
    "target": "src/point.js::x",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/point.js::y",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/area.js::default",
    "target": "src/point.js::y",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/areaRadial.js::default",
    "target": "src/area.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/areaRadial.js::default",
    "target": "src/curve/radial.js::curveRadial",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/areaRadial.js::default",
    "target": "src/curve/radial.js::curveRadialLinear",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/areaRadial.js::default",
    "target": "src/lineRadial.js::lineRadial",
    "kind": "call",
-   "count": 4
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/curve/basis.js::default",
    "target": "src/curve/basis.js::Basis",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/basisClosed.js::default",
    "target": "src/curve/basisClosed.js::BasisClosed",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/basisOpen.js::default",
    "target": "src/curve/basisOpen.js::BasisOpen",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/bump.js::bumpRadial",
    "target": "src/curve/bump.js::BumpRadial.constructor",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/bump.js::BumpRadial.point",
    "target": "src/pointRadial.js::default",
    "kind": "call",
-   "count": 4
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/curve/bump.js::bumpX",
    "target": "src/curve/bump.js::Bump.constructor",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/bump.js::bumpY",
    "target": "src/curve/bump.js::Bump.constructor",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/bundle.js::Bundle",
    "target": "src/curve/basis.js::Basis",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/catmullRom.js::point",
    "target": "src/math.js::epsilon",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/curve/linear.js::default",
    "target": "src/curve/linear.js::Linear",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/linearClosed.js::default",
    "target": "src/curve/linearClosed.js::LinearClosed",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/monotone.js::monotoneX",
    "target": "src/curve/monotone.js::MonotoneX",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/monotone.js::monotoneY",
    "target": "src/curve/monotone.js::MonotoneY",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/monotone.js::MonotoneY",
    "target": "src/curve/monotone.js::ReflectContext",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/monotone.js::slope3",
    "target": "src/curve/monotone.js::sign",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/curve/natural.js::default",
    "target": "src/curve/natural.js::Natural",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/radial.js::curveRadial",
-   "target": "src/curve/radial.js::curveRadial",
+   "target": "src/curve/linear.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/radial.js::curveRadial",
    "target": "src/curve/radial.js::Radial",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/radial.js::curveRadialLinear",
    "target": "src/curve/linear.js::default",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/curve/radial.js::curveRadialLinear",
    "target": "src/curve/radial.js::curveRadial",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/curve/step.js::default",
    "target": "src/curve/step.js::Step",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/step.js::stepAfter",
    "target": "src/curve/step.js::Step",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/curve/step.js::stepBefore",
    "target": "src/curve/step.js::Step",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/line.js::default",
    "target": "src/array.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/line.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 6
+   "count": 6,
+   "time": "use"
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/linear.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/line.js::default",
    "target": "src/curve/linear.js::default",
    "kind": "reference",
-   "count": 1
-  },
-  {
-   "source": "src/line.js::default",
-   "target": "src/line.js::default",
-   "kind": "call",
-   "count": 2
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/line.js::default",
    "target": "src/path.js::withPath",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/point.js::x",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/line.js::default",
    "target": "src/point.js::x",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/point.js::y",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/line.js::default",
    "target": "src/point.js::y",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/lineRadial.js::default",
    "target": "src/curve/radial.js::curveRadialLinear",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/lineRadial.js::default",
    "target": "src/line.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/lineRadial.js::default",
    "target": "src/lineRadial.js::lineRadial",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/lineRadial.js::lineRadial",
    "target": "src/curve/radial.js::curveRadial",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::link",
    "target": "src/array.js::slice",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::link",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/link.js::link",
-   "target": "src/link.js::link",
+   "target": "src/curve/bump.js::bumpRadial",
    "kind": "call",
-   "count": 2
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bump.js::bumpX",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bump.js::bumpY",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/link.js::link",
    "target": "src/link.js::linkSource",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::link",
    "target": "src/link.js::linkTarget",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::link",
    "target": "src/path.js::withPath",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::link",
    "target": "src/point.js::x",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::link",
    "target": "src/point.js::y",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::linkHorizontal",
    "target": "src/curve/bump.js::bumpX",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::linkHorizontal",
    "target": "src/link.js::link",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::linkRadial",
    "target": "src/curve/bump.js::bumpRadial",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::linkRadial",
    "target": "src/link.js::link",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::linkVertical",
    "target": "src/curve/bump.js::bumpY",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/link.js::linkVertical",
    "target": "src/link.js::link",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/math.js::acos",
    "target": "src/math.js::pi",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/math.js::asin",
    "target": "src/math.js::halfPi",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/math.js::halfPi",
    "target": "src/math.js::pi",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/math.js::tau",
    "target": "src/math.js::pi",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/offset/expand.js::default",
    "target": "src/offset/none.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/offset/silhouette.js::default",
    "target": "src/offset/none.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/offset/wiggle.js::default",
    "target": "src/offset/none.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/order/appearance.js::default",
    "target": "src/order/appearance.js::peak",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/order/appearance.js::default",
    "target": "src/order/none.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/order/ascending.js::default",
    "target": "src/order/ascending.js::sum",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/order/ascending.js::default",
    "target": "src/order/none.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/order/descending.js::default",
    "target": "src/order/ascending.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/order/insideOut.js::default",
    "target": "src/order/appearance.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/order/insideOut.js::default",
    "target": "src/order/ascending.js::sum",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/order/reverse.js::default",
    "target": "src/order/none.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pie.js::default",
    "target": "src/array.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pie.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 7
+   "count": 7,
+   "time": "use"
+  },
+  {
+   "source": "src/pie.js::default",
+   "target": "src/descending.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/pie.js::default",
    "target": "src/descending.js::default",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/pie.js::default",
+   "target": "src/identity.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/pie.js::default",
    "target": "src/identity.js::default",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pie.js::default",
    "target": "src/math.js::tau",
    "kind": "reference",
-   "count": 3
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/stack.js::default",
    "target": "src/array.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/stack.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 4
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "src/stack.js::default",
+   "target": "src/offset/none.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/stack.js::default",
    "target": "src/offset/none.js::default",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "src/stack.js::default",
+   "target": "src/order/none.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/stack.js::default",
    "target": "src/order/none.js::default",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/stack.js::default",
    "target": "src/stack.js::stackSeries",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/stack.js::default",
+   "target": "src/stack.js::stackValue",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/stack.js::default",
    "target": "src/stack.js::stackValue",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/symbol.js::Symbol",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 4
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/symbol.js::Symbol",
    "target": "src/path.js::withPath",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/symbol/asterisk.js::sqrt3",
    "target": "src/math.js::sqrt",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/diamond.js::tan30",
    "target": "src/math.js::sqrt",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/diamond.js::tan30_2",
    "target": "src/symbol/diamond.js::tan30",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/star.js::kr",
    "target": "src/math.js::pi",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "definition"
   },
   {
    "source": "src/symbol/star.js::kr",
    "target": "src/math.js::sin",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "definition"
   },
   {
    "source": "src/symbol/star.js::kx",
    "target": "src/math.js::sin",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/star.js::kx",
    "target": "src/math.js::tau",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/star.js::kx",
    "target": "src/symbol/star.js::kr",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/star.js::ky",
    "target": "src/math.js::cos",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/star.js::ky",
    "target": "src/math.js::tau",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/star.js::ky",
    "target": "src/symbol/star.js::kr",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/triangle.js::sqrt3",
    "target": "src/math.js::sqrt",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/triangle2.js::sqrt3",
    "target": "src/math.js::sqrt",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/wye.js::a",
    "target": "src/symbol/wye.js::k",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/wye.js::k",
    "target": "src/math.js::sqrt",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/wye.js::s",
    "target": "src/math.js::sqrt",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "definition"
   }
  ]
 }

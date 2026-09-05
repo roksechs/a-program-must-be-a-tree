@@ -95,12 +95,20 @@ on a 2D canvas; no WebGL dependency is needed for a few thousand nodes.
 
 ## Edge kinds
 
-The meaning of `call`, `reference`, `type` and `extends`, and why the split
-follows from erasure and evaluation contexts, is derived in `THEORY.md`.
+The meaning of `call`, `create`, `reference`, `type`, `extends`,
+`implements` and `override`, and why the split follows from erasure and
+evaluation contexts, is derived in `THEORY.md`. The View section of the panel
+toggles each kind; edges found by analysis rather than written at that spot
+(dispatched overrides, callbacks resolved by flow analysis) are dashed.
 
 ## Tree-likeness diagnostics
 
-For `n` nodes, `m` edges and `c` weakly connected components:
+All structural diagnostics, the degrees and the call heights are computed on
+the *control graph*: the edges of kind `call` and `create`. References, types
+and inheritance are drawn but do not count as callers, so passing a callback
+or naming a type never makes the graph "less of a tree".
+
+For `n` nodes, `m` control edges and `c` weakly connected components:
 
 | metric              | definition | 1 means |
 |---------------------|------------|---------|
@@ -112,12 +120,16 @@ For `n` nodes, `m` edges and `c` weakly connected components:
 
 Also reported: components, roots (uncalled), leaves (calling nothing), longest
 call chain, surplus edges (`m - (n - c)`), number of non-trivial SCCs, self
-loops, and the declarations with the most callers.
+loops, the declarations with the most callers, and *initialisation cycles*:
+declarations on a cycle of definition-time dependencies (evaluated while the
+module loads), which are genuine errors rather than recursion.
 
 ## Roadmap
 
 * Analyzers for Python, Go and Rust (tree-sitter based) and a `--git` mode that
   records the commit the graph was taken from.
+* Model property stores and anonymous functions in the flow analysis
+  (objects of callbacks, event maps).
 * Nested declarations (inner functions) as their own nodes, behind a flag.
 * Collapse a zone into a single node (module-level graph) and expand it again.
 * Highlight the edges that would have to be removed to make the graph a tree

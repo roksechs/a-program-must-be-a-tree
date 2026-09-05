@@ -41,8 +41,10 @@ analyzer that produces it (in any language, with any parser).
 |----------|--------|-------|
 | `source` | string | Id of the declaration whose body contains the reference (the caller). |
 | `target` | string | Id of the referenced declaration (the callee). |
-| `kind`   | string | `call` (call, `new` or `super()` expression; `new X()` and `super()` target `X.constructor` when the class declares one, otherwise the class itself), `reference` (value used without calling, e.g. passed as a callback), `extends`, `implements`, `type` (type-only reference). Optional, defaults to `call`. |
+| `kind`   | string | `call` (application of a function or method, including `super()`), `create` (`new X()`: the constructor that lookup finds for `X`, or `X` itself when no ancestor declares one), `reference` (value used without being applied, e.g. passed as a callback, stored or returned), `type` (type-only use, including a call through an interface member), `extends`, `implements` (class to interface, or member to the interface member it implements), `override` (member to the member it overrides). Optional, defaults to `call`. See `THEORY.md`. |
 | `count`  | number | Number of occurrences. Optional, defaults to 1. |
+| `time`   | string | `definition` when the occurrence is evaluated while the module initialises (top-level initializers, `extends`, static fields), `use` when it runs inside a function or method body. Optional, defaults to `use`. |
+| `inferred` | boolean | `true` when the edge was not written at that place in the source but derived by analysis: a dispatched call to an overriding method, or a callback resolved by flow analysis at the declaration that actually invokes it. Optional. |
 
 The precise meaning of each kind (phase, evaluation context, lookup rules) is
 derived in `THEORY.md`.
@@ -52,7 +54,10 @@ Rules:
 * Both ends of every edge must exist in `declarations`. The viewer drops
   dangling edges and reports them in the diagnostics panel.
 * Self edges (direct recursion) are allowed.
-* Duplicate `(source, target, kind)` triples are merged by summing `count`.
+* Duplicate `(source, target, kind, time)` tuples are merged by summing `count`.
+* The viewer computes degrees, call heights and the tree diagnostics on the
+  *control graph*: edges of kind `call` and `create`. Every other kind is
+  drawn and listed but does not make a declaration a caller.
 
 ## Derived properties (computed by the viewer)
 

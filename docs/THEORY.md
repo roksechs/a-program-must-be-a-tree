@@ -140,9 +140,8 @@ consumer frame lies in some *other* declaration, or in the caller of `D`.
 * `extends` := role *extended*.
 * `reference` := role *escapes* or *projected* without application.
 
-The analyzer currently merges `create` into `call` (the target is the
-constructor); the split is kept in this document because the two have
-different lookup rules.
+The analyzer emits `create` for `new` and resolves its target with the
+lookup rule above (own constructor, then the nearest ancestor's).
 
 ### 3.1 Why the operator position is the right notion
 
@@ -190,11 +189,20 @@ edge is in `⇝̂` because `λ_{D'} ∈ Ĉ(ℓ)` whenever `D'` occurs syntactica
 `ℓ`.
 
 So the three relations nest: `syntactic calls ⊆ ⇝̂ ⊇ ⇝`. The syntactic
-graph the analyzer emits is the cheapest sound *lower* description of
-control transfer plus an exact description of value flow (`reference`); a
-CFA pass would turn each `reference` edge into zero or more `call` edges
-originating elsewhere. That is a possible future analyzer mode, not a change
-to the format: the kinds already have the right meaning.
+graph is the cheapest sound *lower* description of control transfer plus an
+exact description of value flow (`reference`); a CFA pass turns each
+`reference` edge into zero or more `call` edges originating elsewhere.
+
+The TypeScript analyzer runs a bounded 0-CFA after the syntactic pass:
+abstract values are sets of declared functions, methods and classes, and
+they flow through local bindings, through the parameters of declared callees
+(including dispatched method targets) and through the return values of
+declared functions, to a fixed point. A call whose callee evaluates to a
+declared function produces a `call` edge marked `inferred` from the
+declaration that contains the operator position. Property stores, anonymous
+functions and external callees are not modelled, so a callback handed to a
+library function keeps its `reference` edge and nothing else: the analysis
+is sound for what it claims and silent otherwise.
 
 ### 3.3 Tail position and the continuation view
 
@@ -217,8 +225,13 @@ Its target set is a static approximation of dynamic lookup. If the static
 type of `o` is `C`, class hierarchy analysis (Dean, Grove and Chambers 1995)
 gives `{ C'.m | C' ≤ C, C' declares m }`. The TypeScript checker returns the
 member of the static type, i.e. the single most general element of that
-set; emitting the whole set (one `call` edge per overriding implementation,
-which also covers `override` relations) is the precise version.
+set; the analyzer adds one `inferred` `call` edge per overriding
+implementation in a declared subclass. A call through an interface member
+yields a `type` edge to the interface and `call` edges to the implementing
+members. Static members never dispatch. The structural relations are emitted
+separately: `override` from a member to the nearest ancestor member it
+overrides, `implements` from a member to the interface member it
+implements.
 
 ## 4. Time: definition-time and use-time occurrences
 
@@ -241,9 +254,9 @@ initialised (a temporal dead zone error in JavaScript, `undefined` under the
 older `var` semantics). Cycles among use-time occurrences are ordinary
 recursion and are always well-defined because `λ` delays evaluation.
 
-The format does not carry a time flag yet; `extends` is the only kind that
-is definition-time by construction. Adding `time: "definition" | "use"` to
-edges is an additive extension.
+Every edge carries `time: "definition" | "use"`. The viewer reports the
+declarations caught in a cycle of definition-time term-level edges as
+*initialisation cycles*, separately from ordinary recursion.
 
 ## 5. Classes, generators and inheritance
 

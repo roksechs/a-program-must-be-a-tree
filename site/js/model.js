@@ -1,5 +1,6 @@
 // Graph model: normalises an analyzer document (see docs/DATA_FORMAT.md) into
 // the in-memory structures used by the renderers and the diagnostics panel.
+import { CONTROL_KINDS } from "./kinds.js";
 
 /** Split a `/`-separated path into its directory segments and the file name. */
 export function splitPath(file) {
@@ -50,13 +51,18 @@ export function buildGraph(doc) {
       continue;
     }
     const kind = e.kind ?? "call";
-    const key = `${s.id} ${t.id} ${kind}`;
+    const time = e.time === "definition" ? "definition" : "use";
+    const key = `${s.id} ${t.id} ${kind} ${time}`;
     const existing = merged.get(key);
     if (existing) existing.count += e.count ?? 1;
-    else merged.set(key, { source: s, target: t, kind, count: e.count ?? 1 });
+    else merged.set(key, { source: s, target: t, kind, time, inferred: Boolean(e.inferred), count: e.count ?? 1 });
   }
   const links = [...merged.values()];
-  for (const l of links) {
+  // Degrees, heights and the tree diagnostics are defined on the control graph
+  // (calls and constructions), see docs/THEORY.md §7. Other kinds are drawn but
+  // do not make a declaration a "caller".
+  const controlLinks = links.filter((l) => CONTROL_KINDS.has(l.kind));
+  for (const l of controlLinks) {
     l.source.outDegree += 1;
     l.target.inDegree += 1;
   }
@@ -64,9 +70,9 @@ export function buildGraph(doc) {
   const containers = buildContainers(nodes);
   // Deepest container, files included: the zone depth slider runs from 0 to this value.
   const maxDepth = containers.reduce((m, c) => Math.max(m, c.depth), 0);
-  computeHeights(nodes, links);
+  computeHeights(nodes, controlLinks);
 
-  return { nodes, links, containers, maxDepth, dropped, byId };
+  return { nodes, links, controlLinks, containers, maxDepth, dropped, byId };
 }
 
 /**
