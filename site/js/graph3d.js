@@ -120,7 +120,17 @@ export class Graph3D {
       (e) => {
         e.preventDefault();
         const f = Math.exp(-e.deltaY * 0.0015);
-        this.zoomK = Math.max(0.05, Math.min(8, this.zoomK * f));
+        const oldK = this.zoomK;
+        const newK = Math.max(0.05, Math.min(8, oldK * f));
+        // Scale never affects panX/panY themselves, only the world-coordinate
+        // term added to them (see project()), so whatever point currently
+        // sits at screen centre stays there only if pan is rescaled by the
+        // same factor as zoom; otherwise it drifts outward from centre by
+        // (newK - oldK) * panX/oldK each step, compounding over repeated
+        // zooms.
+        this.panX *= newK / oldK;
+        this.panY *= newK / oldK;
+        this.zoomK = newK;
         this.draw();
       },
       { passive: false },
