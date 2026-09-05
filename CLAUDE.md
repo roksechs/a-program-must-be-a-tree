@@ -79,6 +79,7 @@ node selection) after changing anything under `site/js`.
 
 ## Deployment
 
-`.github/workflows/pages.yml` runs on pushes to `main`: tests, vendoring, data
-generation, then publishes `site/` with `actions/deploy-pages`. Pages must be
+`.github/workflows/pages.yml` runs on every push but only deploys from the
+repository's default branch: tests, vendoring, data generation, then publishes
+`site/` with `actions/deploy-pages`. Pages must be
 configured with "GitHub Actions" as the source in the repository settings.

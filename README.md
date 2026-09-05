@@ -80,8 +80,8 @@ npm test
 
 The GitHub Pages workflow (`.github/workflows/pages.yml`) runs the tests,
 vendors d3, regenerates the datasets and publishes `site/` on every push to
-`main`. Enable Pages with "GitHub Actions" as the source in the repository
-settings.
+the repository's default branch. Enable Pages with "GitHub Actions" as the
+source in the repository settings.
 
 ## License
 
