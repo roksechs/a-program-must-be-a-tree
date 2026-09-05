@@ -10,9 +10,10 @@ force-directed graph, and measure how close that graph is to a tree.
   as nested hulls around their members. They are purely visual and never
   influence the layout.
 * **Physics**: every pair of nodes repels with a force inversely proportional to
-  their distance; every edge is a spring whose pull is proportional to its
-  length. Those are the only two forces: nothing pulls towards the centre, so
-  declarations sit close together only when edges hold them there.
+  their distance, at any distance; every edge is a spring whose pull is
+  proportional to its length. Those are the only two forces. No point is a
+  centre and nothing pulls towards one, so declarations sit close together only
+  when edges hold them there.
 * **3D mode** lifts the same layout into three dimensions where the vertical
   axis is the call height: declarations that only get called sit at the
   bottom, the deepest callers sit at the top.
@@ -74,7 +75,7 @@ that writes the same JSON; see the data format document.
 | Header      | language selector (English / Japanese) |
 | View        | 2D / 3D, label mode, colour by kind or call height, 3D layer gap and planes, auto-rotate, fit |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics (type-level edges are off by default) |
-| Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, repulsion range, spring stiffness, rest length |
+| Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
 | Zones       | directory / file depth from 0 (none) through every directory level down to the files |
 | Diagnostics | tree score and its five components, counts, costliest sharing |
 | Selection   | callers and callees of the clicked node, with the lift of each edge, and the declaration's natural scope |

@@ -32,8 +32,9 @@ edges. Required features, all of which must keep working:
 
 * D3 force-directed graph: repulsion inversely proportional to distance,
   edges act as springs whose attraction is proportional to length. Those two
-  are the only forces: a spring along an edge is the only attraction, and
-  nothing pulls towards the centre (such a pull packs any graph into a disc).
+  are the only forces. The repulsion has no range limit, a spring along an edge
+  is the only attraction, and nothing defines a centre or pulls towards one
+  (such a pull packs any graph into a disc). Framing is the camera's job.
 * Directories and files are drawn as zones (hulls) around their declarations.
   Zones are purely visual: directories and files must never influence the
   physics (no forces, no container-aware seeding).

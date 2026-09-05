@@ -56,26 +56,28 @@ d3-force is used as the integrator. The forces are:
   the custom force keeps the parameters (stiffness, rest length) explicit.
 * **Collision**: keeps circles from overlapping.
 
-That is all. A spring along an edge is the only attraction in the layout, so
-two declarations end up next to each other only when something connects them.
-Two entries in the simulation look like extra forces but are not:
+That is all. The repulsion has no range limit — every pair of nodes feels it at
+any distance — and a spring along an edge is the only attraction, so two
+declarations end up next to each other only when something connects them.
+`forceCollide` is not a third force but the hard core of the repulsion, keeping
+circles from overlapping.
 
-* **Repulsion range** (`distanceMax` on the charge): past that distance the
-  repulsion is simply cut off. Without a cut-off every node presses on every
-  other node from any distance, and the accumulated far field inflates the
-  whole graph until something holds it back.
-* **Centring** (`d3.forceCenter`): translates all nodes so their centroid sits
-  at the origin. A rigid translation deforms nothing.
+Nothing defines a centre. Two attempts at one were removed:
 
-There used to be a third force, a weak `forceX`/`forceY` pull towards the
-origin, meant to keep disconnected components on screen. It was removed: with a
-`1/d` repulsion and a linear pull, the equilibrium is a disc of the radius where
-the two balance and the nodes spread through it almost uniformly, so the picture
-became a circle whatever the graph looked like. Measured on the `self` dataset,
-that pull (strength 0.05) put the median node at 0.59 of the outer radius, close
-to the 0.707 of a uniformly filled disc; without it the median sits at 0.44 at
-the same outer radius, i.e. a dense core and real branches. The repulsion
-cut-off does the job the pull was there for, without shaping anything.
+* A weak `forceX`/`forceY` pull towards the origin, meant to keep disconnected
+  components on screen. With a `1/d` repulsion and a linear pull, the
+  equilibrium is a disc of the radius where the two balance and the nodes
+  spread through it almost uniformly, so the picture became a circle whatever
+  the graph looked like. Measured on the `self` dataset, that pull (strength
+  0.05) put the median node at 0.59 of the outer radius, against 0.707 for a
+  uniformly filled disc; without it the median sits at 0.36.
+* `d3.forceCenter`, which translates all nodes each tick so their centroid sits
+  at the origin. It deforms nothing, but it still singles out a point in a
+  plane where no point should be special.
+
+Where the graph sits is therefore a question for the camera, not the physics:
+"Fit to view" (also applied when a run settles) frames whatever the simulation
+produced.
 
 Directories and files have no influence on the physics: no force reads the
 containers, and the initial positions are seeded on a spiral in declaration

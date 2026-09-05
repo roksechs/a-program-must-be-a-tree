@@ -150,7 +150,6 @@ export class Panel {
           this.el("button", { type: "button", onclick: h.onReset }, t("physics.reset")),
         ),
         this.slider(t("physics.repulsion"), "repulsion", 0, 1000, 5, (v) => h.onPhysics("repulsion", v)),
-        this.slider(t("physics.repulsionRange"), "repulsionRange", 0, 2000, 25, (v) => h.onPhysics("repulsionRange", v), (v) => (v > 0 ? String(v) : "∞")),
         this.slider(t("physics.stiffness"), "stiffness", 0, 0.2, 0.001, (v) => h.onPhysics("stiffness", v), (v) => v.toFixed(3)),
         this.slider(t("physics.restLength"), "restLength", 0, 200, 1, (v) => h.onPhysics("restLength", v)),
         this.el("p", { class: "muted small" }, t("physics.help")),
