@@ -52,7 +52,7 @@ site/            static site (GitHub Pages root)
 analyzers/ts/    JavaScript / TypeScript analyzer (TypeScript compiler API)
 scripts/         vendoring, dataset generation, dev server
 test/            node:test unit tests
-docs/            DESIGN.md (architecture, physics, metrics) and DATA_FORMAT.md
+docs/            DESIGN.md (architecture, physics, metrics), DATA_FORMAT.md, THEORY.md (edge semantics)
 ```
 
 ## Conventions

@@ -93,6 +93,11 @@ easy to count.
 The projection is a small hand-written orbit camera (yaw, pitch, perspective)
 on a 2D canvas; no WebGL dependency is needed for a few thousand nodes.
 
+## Edge kinds
+
+The meaning of `call`, `reference`, `type` and `extends`, and why the split
+follows from erasure and evaluation contexts, is derived in `THEORY.md`.
+
 ## Tree-likeness diagnostics
 
 For `n` nodes, `m` edges and `c` weakly connected components:

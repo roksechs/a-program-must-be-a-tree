@@ -44,6 +44,9 @@ analyzer that produces it (in any language, with any parser).
 | `kind`   | string | `call` (call, `new` or `super()` expression; `new X()` and `super()` target `X.constructor` when the class declares one, otherwise the class itself), `reference` (value used without calling, e.g. passed as a callback), `extends`, `implements`, `type` (type-only reference). Optional, defaults to `call`. |
 | `count`  | number | Number of occurrences. Optional, defaults to 1. |
 
+The precise meaning of each kind (phase, evaluation context, lookup rules) is
+derived in `THEORY.md`.
+
 Rules:
 
 * Both ends of every edge must exist in `declarations`. The viewer drops

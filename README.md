@@ -75,7 +75,7 @@ site/            static site published to GitHub Pages
 analyzers/ts/    JavaScript / TypeScript analyzer
 scripts/         data generation, vendoring, dev server
 test/            node:test unit tests
-docs/            design notes and the data format
+docs/            design notes, the data format and the theory behind the edge kinds
 ```
 
 ## Development
