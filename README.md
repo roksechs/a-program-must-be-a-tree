@@ -95,7 +95,11 @@ npm test
 The GitHub Pages workflow (`.github/workflows/pages.yml`) runs the tests,
 vendors d3, regenerates the datasets and publishes `site/` on every push to
 the repository's default branch. Enable Pages with "GitHub Actions" as the
-source in the repository settings.
+source in the repository settings. GitHub creates a `github-pages` environment
+on the first deployment whose allowed deployment branch is pinned to the
+default branch *at that time*; if you rename or switch the default branch
+later, add the new branch under Settings → Environments → github-pages →
+Deployment branches, otherwise the deploy job is rejected without running.
 
 ## License
 
