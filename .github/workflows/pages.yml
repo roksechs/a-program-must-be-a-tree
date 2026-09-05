@@ -28,6 +28,9 @@ jobs:
       - run: npm run vendor
       - run: npm run build:data
       - uses: actions/configure-pages@v5
+        with:
+          # Enable Pages (source: GitHub Actions) on first run if it is not enabled yet.
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
