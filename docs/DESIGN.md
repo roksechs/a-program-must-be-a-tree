@@ -100,10 +100,19 @@ visible parent is skipped so a directory with a single file does not produce
 two identical hulls.
 
 Each zone is the convex hull of its members' positions, padded by expanding
-every point into a small polygon before hulling, and rendered with a closed
-Catmull-Rom curve so it looks rounded. Directories and files use the same
-style; nesting is visible from the hulls themselves. The same code produces the 3D zones by
-hulling the projected screen coordinates.
+every point into a small octagon before hulling and drawn as a plain closed
+polygon (straight segments); the octagon expansion is what keeps corners from
+looking sharp; no curve fit runs on top of it. Directories and files use the
+same style; nesting is visible from the hulls themselves. The same code
+produces the 3D zones by hulling the projected screen coordinates.
+
+This is recomputed every physics tick, so `hullPath` hulls the raw member
+points first and only expands *that* hull's vertices into padded polygons
+before hulling again, instead of padding every member: a directory with
+hundreds of declarations still pads a handful of hull corners, not hundreds
+of points. The result is the same shape (padding an interior point can never
+push it outside the padded hull of the boundary), just cheaper for large
+zones.
 
 ## 3D mode
 
@@ -117,7 +126,23 @@ different layout. A translucent plane is drawn per height so the layers are
 easy to count.
 
 The projection is a small hand-written orbit camera (yaw, pitch, perspective)
-on a 2D canvas; no WebGL dependency is needed for a few thousand nodes.
+on a 2D canvas; no WebGL dependency is needed for a few thousand nodes. Pitch
+is kept away from exactly level: at pitch 0 the camera's forward axis is
+horizontal, so height never contributes to the perspective divide and the
+call-height axis would render with no depth cue at all (true of any look-at
+camera, not just this one). A minimum elevation keeps that axis visibly
+foreshortened at every orbit angle.
+
+The camera's focal length is set from the graph's own extent (in `fit()`)
+rather than a fixed world-unit constant. A focal length small next to the
+layout's actual size lets ordinary orbiting bring some node's depth close
+enough to `-focal` that its perspective scale blows up, stretching it the
+way a very wide-angle lens stretches whatever is closest to it; tying focal
+to extent keeps the lens "normal" regardless of how far the `1/d` repulsion
+happens to spread a given graph. Points whose scale would still exceed
+`MAX_MAGNIFICATION` are left undrawn rather than magnified without bound —
+a real camera doesn't render what's pressed against the lens, it just falls
+out of frame.
 
 ## Edge kinds
 

@@ -78,7 +78,7 @@ that writes the same JSON; see the data format document.
 | Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
 | Zones       | directory / file depth from 0 (none) through every directory level down to the files |
 | Diagnostics | tree score and its five components, counts, costliest sharing |
-| Selection   | callers and callees of the clicked node, with the lift of each edge, and the declaration's natural scope |
+| Selection   | callers and callees of the clicked node, with the lift of each edge, the declaration's natural scope, and a Focus button that centres the camera on it |
 
 ## Repository layout
 

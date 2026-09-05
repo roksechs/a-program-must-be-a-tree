@@ -24,25 +24,34 @@ export function visibleContainers(graph, depth) {
   return result;
 }
 
-let roundedClosedLine = null;
+let closedLine = null;
 
 /**
- * Compute a padded, rounded hull path around a list of [x, y] points.
- * Every point is expanded into a small square of `padding` so that hulls of
- * one or two nodes still have an area.
+ * Compute a padded hull path around a list of [x, y] points. Every point of
+ * the hull is expanded into a small octagon of `padding` so that hulls of
+ * one or two nodes still have an area and corners look eased rather than
+ * sharp, without the cost of an actual curve fit. Recomputed from scratch on
+ * every physics tick, so member points are hulled first and only *those*
+ * vertices (typically far fewer than the membership) get expanded and hulled
+ * again, rather than expanding every member: a zone with hundreds of nodes
+ * still pads a handful of hull corners. The outline itself is drawn as plain
+ * straight segments (curveLinearClosed): the octagon expansion already
+ * softens corners, so a spline fit over it would cost more per tick for
+ * curvature nobody asked for.
  */
 export function hullPath(points, padding) {
   if (points.length === 0) return null;
+  const base = points.length > 2 ? (d3.polygonHull(points) ?? points) : points;
   const expanded = [];
   const p = padding;
-  for (const [x, y] of points) {
+  for (const [x, y] of base) {
     expanded.push([x - p, y - p], [x + p, y - p], [x + p, y + p], [x - p, y + p]);
     expanded.push([x - p * 1.3, y], [x + p * 1.3, y], [x, y - p * 1.3], [x, y + p * 1.3]);
   }
   const hull = d3.polygonHull(expanded);
   if (!hull) return null;
-  roundedClosedLine ??= d3.line().curve(d3.curveCatmullRomClosed.alpha(0.8));
-  return roundedClosedLine(hull);
+  closedLine ??= d3.line().curve(d3.curveLinearClosed);
+  return closedLine(hull);
 }
 /** Topmost point of a hull (used to place the zone label). */
 export function topPoint(points) {

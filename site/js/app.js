@@ -144,6 +144,7 @@ const panel = new Panel(document.getElementById("panel"), state, {
     if (on) ensureTicking();
   },
   onSelectNode: (node) => renderers[state.view].select(node),
+  onFocusNode: (node) => renderers[state.view].focusOn(node),
 });
 
 /** Apply the enabled edge kinds to drawing, springs and diagnostics at once. */

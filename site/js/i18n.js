@@ -111,6 +111,8 @@ const STRINGS = {
     "metric.shared.callers": "{count} callers, lift {lift}",
 
     "selection.empty": "Click a node to see its callers and callees.",
+    "selection.focus": "Focus",
+    "selection.focus.hint": "Centre the camera on this declaration.",
     "selection.height": "height {height}",
     "selection.inCycle": "in a cycle",
     "selection.exported": "exported",
@@ -241,6 +243,8 @@ const STRINGS = {
     "metric.shared.callers": "呼び出し元 {count}、持ち上げ {lift}",
 
     "selection.empty": "ノードをクリックすると呼び出し元と呼び出し先を表示します。",
+    "selection.focus": "フォーカス",
+    "selection.focus.hint": "この宣言にカメラを合わせます。",
     "selection.height": "高さ {height}",
     "selection.inCycle": "循環に含まれる",
     "selection.exported": "エクスポート済み",
