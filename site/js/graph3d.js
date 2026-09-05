@@ -128,6 +128,12 @@ export class Graph3D {
     this.draw();
   }
 
+  /** Degrees or heights changed: recompute the height range and redraw. */
+  restyle() {
+    if (this.graph) this.maxHeight = this.graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
+    this.draw();
+  }
+
   setLabelMode(mode) {
     this.labelMode = mode;
     this.draw();
@@ -281,15 +287,13 @@ export class Graph3D {
       if (!d) continue;
       const path = new Path2D(d);
       const color = d3.color(zoneColor(c));
-      color.opacity = c.isFile ? 0.12 : 0.06;
+      color.opacity = 0.1;
       ctx.fillStyle = color.formatRgb();
       ctx.fill(path);
-      color.opacity = c.isFile ? 0.5 : 0.3;
+      color.opacity = 0.45;
       ctx.strokeStyle = color.formatRgb();
-      ctx.setLineDash(c.isFile ? [] : [6, 4]);
       ctx.lineWidth = 1;
       ctx.stroke(path);
-      ctx.setLineDash([]);
     }
 
     // Edges, far ones first.

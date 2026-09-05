@@ -114,11 +114,6 @@ export class Panel {
       s.colorBy,
       h.onColorBy,
     );
-    const kindBoxes = this.el("div", { class: "kind-boxes" });
-    for (const kind of EDGE_KINDS) {
-      const box = this.el("input", { type: "checkbox", checked: s.visibleKinds.has(kind) ? "" : null, onchange: (e) => h.onKinds(kind, e.target.checked) });
-      kindBoxes.append(this.el("label", { class: "kind-box" }, box, this.el("i", { style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
-    }
     this.layerGap = this.slider(t("view.layerGap"), "layerGap", 10, 300, 5, h.onLayerGap);
     const layers = this.el("input", { type: "checkbox", checked: s.showLayers ? "" : null, onchange: (e) => h.onShowLayers(e.target.checked) });
     const rotate = this.el("input", { type: "checkbox", checked: s.autoRotate ? "" : null, onchange: (e) => h.onAutoRotate(e.target.checked) });
@@ -128,7 +123,6 @@ export class Panel {
         this.el("div", { class: "control" }, this.el("span", {}, t("view.mode")), viewGroup),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.labels")), labelSelect),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.colourBy")), colorSelect),
-        this.el("div", { class: "control" }, this.el("span", {}, t("view.edges")), kindBoxes),
         this.layerGap,
         this.el("label", { class: "control" }, this.el("span", {}, t("view.layerPlanes")), layers),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.autoRotate")), rotate),
@@ -136,6 +130,19 @@ export class Panel {
         this.el("p", { class: "muted small" }, t("view.help")),
       ),
     );
+
+    // Edges: per kind, whether it is drawn, acts as a spring and counts in the diagnostics.
+    const aspects = ["draw", "springs", "metrics"];
+    const matrix = this.el("table", { class: "kind-matrix" });
+    matrix.append(this.el("tr", {}, this.el("th", {}), ...aspects.map((a) => this.el("th", {}, t(`edges.${a}`)))));
+    for (const kind of EDGE_KINDS) {
+      const row = this.el("tr", {}, this.el("td", {}, this.el("i", { class: "edge-swatch", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
+      for (const a of aspects) {
+        row.append(this.el("td", {}, this.el("input", { type: "checkbox", checked: s.kinds[a].has(kind) ? "" : null, onchange: (e) => h.onKinds(a, kind, e.target.checked) })));
+      }
+      matrix.append(row);
+    }
+    this.host.append(this.section(t("section.edges"), matrix, this.el("p", { class: "muted small" }, t("edges.help"))));
 
     // Physics
     this.host.append(
@@ -239,7 +246,7 @@ export class Panel {
         { class: "metric-grid" },
         kv("metric.declarations", m.nodes, false),
         kv("metric.edges", m.edges, false),
-        kv("metric.controlEdges", m.controlEdges),
+        kv("metric.activeEdges", m.activeEdges),
         kv("metric.initCycles", m.initCycles),
         kv("metric.components", m.components),
         kv("metric.roots", m.roots),

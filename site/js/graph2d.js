@@ -163,9 +163,21 @@ export class Graph2D {
 
   setColorBy(mode) {
     this.colorBy = mode;
+    this.restyle();
+  }
+
+  /** Re-apply node radius, colour and cycle marks (degrees or heights changed). */
+  restyle() {
     if (!this.graph) return;
     this.graph.maxHeightCache = this.graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
-    this.nodeLayer.selectAll("circle.node").attr("fill", (n) => this.nodeFill(n));
+    this.nodeLayer
+      .selectAll("circle.node")
+      .attr("r", (n) => nodeRadius(n))
+      .attr("fill", (n) => this.nodeFill(n))
+      .attr("stroke", (n) => (n.inCycle ? "#b91c1c" : "#ffffff"))
+      .attr("stroke-width", (n) => (n.inCycle ? 2 : 1));
+    this.labelLayer.selectAll("text.label").attr("dy", (n) => -nodeRadius(n) - 3);
+    this.tick();
   }
 
   setZones(containers) {
@@ -180,9 +192,8 @@ export class Graph2D {
       .attr("class", (c) => `zone ${c.isFile ? "zone-file" : "zone-dir"}`)
       .attr("fill", (c) => zoneColor(c))
       .attr("stroke", (c) => zoneColor(c))
-      .attr("fill-opacity", (c) => (c.isFile ? 0.14 : 0.07))
-      .attr("stroke-opacity", (c) => (c.isFile ? 0.5 : 0.35))
-      .attr("stroke-dasharray", (c) => (c.isFile ? null : "6 4"))
+      .attr("fill-opacity", 0.1)
+      .attr("stroke-opacity", 0.45)
       .append("title")
       .text((c) => c.path);
 

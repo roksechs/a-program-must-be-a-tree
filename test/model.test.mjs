@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildGraph, computeHeights, connectedComponentCount, stronglyConnectedComponents } from "../site/js/model.js";
+import { applyActiveKinds, buildGraph, computeHeights, connectedComponentCount, stronglyConnectedComponents } from "../site/js/model.js";
 import { computeMetrics, topSharedNodes } from "../site/js/metrics.js";
 
 const decl = (id, file = "src/a.js", kind = "function") => ({ id, name: id, kind, file });
@@ -135,7 +135,7 @@ test("heights, degrees and metrics use the control graph only", () => {
     ],
   });
   assert.equal(g.links.length, 5);
-  assert.equal(g.controlLinks.length, 2);
+  assert.equal(g.activeLinks.length, 2);
   assert.equal(g.byId.get("main").outDegree, 2);
   assert.equal(g.byId.get("T").inDegree, 0);
   assert.equal(g.byId.get("main").height, 1);
@@ -143,9 +143,18 @@ test("heights, degrees and metrics use the control graph only", () => {
   assert.equal(g.byId.get("main").inCycle, false);
   const m = computeMetrics(g);
   assert.equal(m.edges, 5);
-  assert.equal(m.controlEdges, 2);
+  assert.equal(m.activeEdges, 2);
   assert.equal(m.treeScore, 1);
   assert.equal(m.nontrivialSccs, 0);
+  // Switching the diagnosed kinds recomputes degrees, heights and cycles.
+  applyActiveKinds(g, new Set(["call", "reference"]));
+  assert.equal(g.activeLinks.length, 2);
+  assert.equal(g.byId.get("main").inCycle, true);
+  assert.equal(g.byId.get("main").inDegree, 1);
+  assert.equal(g.byId.get("Impl").inDegree, 0);
+  assert.ok(computeMetrics(g).treeScore < 1);
+  applyActiveKinds(g, new Set(["call", "create"]));
+  assert.equal(g.byId.get("main").inCycle, false);
 });
 
 test("initialisation cycles count definition-time dependencies only", () => {

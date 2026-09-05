@@ -14,8 +14,8 @@ import { connectedComponentCount, stronglyConnectedComponents } from "./model.js
  */
 export function computeMetrics(graph) {
   const { nodes } = graph;
-  // Structural metrics are defined on the control graph (calls and constructions).
-  const links = graph.controlLinks ?? graph.links;
+  // Structural metrics are defined on the active edge kinds (see applyActiveKinds).
+  const links = graph.activeLinks ?? graph.links;
   const n = nodes.length;
   const m = links.length;
   const components = n > 0 ? connectedComponentCount(nodes, links) : 0;
@@ -61,7 +61,7 @@ export function computeMetrics(graph) {
   return {
     nodes: n,
     edges: graph.links.length,
-    controlEdges: m,
+    activeEdges: m,
     initCycles: initializationCycles(graph),
     components,
     roots,

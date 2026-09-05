@@ -8,6 +8,7 @@
 /* global d3 */
 
 export const DEFAULT_PHYSICS = Object.freeze({
+  springKinds: null, // Set of edge kinds that act as springs; null = every kind
   repulsion: 120, // magnitude of the 1/d repulsion
   stiffness: 0.03, // spring constant k in F = k * (d - restLength)
   restLength: 30, // spring rest length in pixels
@@ -25,11 +26,12 @@ export function forceSpring(links, opts) {
   let bias = [];
   const force = (alpha) => {
     const k = opts.stiffness * alpha;
+    const kinds = opts.springKinds;
     for (let i = 0; i < links.length; i++) {
       const l = links[i];
       const s = l.source;
       const t = l.target;
-      if (s === t) continue;
+      if (s === t || (kinds && !kinds.has(l.kind))) continue;
       let dx = t.x + t.vx - s.x - s.vx;
       let dy = t.y + t.vy - s.y - s.vy;
       let d = Math.hypot(dx, dy);
@@ -80,6 +82,8 @@ export function createSimulation(graph, physics) {
 /** Push the current physics parameters into an existing simulation. */
 export function applyPhysics(sim, physics) {
   sim.force("charge").strength(-physics.repulsion);
+  // Re-read node radii (degrees may have changed with the active edge kinds).
+  sim.force("collide").radius((n) => nodeRadius(n) + 2);
   sim.force("x").strength(physics.gravity);
   sim.force("y").strength(physics.gravity);
   sim.alphaDecay(physics.alphaDecay);

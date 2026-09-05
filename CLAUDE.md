@@ -38,7 +38,10 @@ edges. Required features, all of which must keep working:
 * A property panel on the right with: recompute/reheat physics, repulsion
   strength, a single directory / file depth slider (0 = no zones, then one
   directory level per step, the maximum also showing files), and diagnostics
-  that quantify how tree-like the graph is.
+  that quantify how tree-like the graph is, and a per-edge-kind matrix that
+  decides whether a kind is drawn, acts as a spring and counts in the
+  diagnostics (the three must stay independent and each must take effect
+  immediately).
 * A 3D mode where the z axis is the call height: the deepest callers at the
   top, declarations that are only called at the bottom.
 

@@ -1,11 +1,11 @@
 // Application wiring: loads a dataset, runs the simulation and connects the
 // renderers to the property panel.
 /* global d3 */
-import { EDGE_KINDS } from "./colors.js";
+import { CONTROL_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph2D } from "./graph2d.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
-import { buildGraph } from "./model.js";
+import { applyActiveKinds, buildGraph } from "./model.js";
 import { Panel } from "./panel.js";
 import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
 import { visibleContainers } from "./zones.js";
@@ -18,7 +18,12 @@ const state = {
   showLayers: true,
   autoRotate: false,
   zoneDepth: 2,
-  visibleKinds: new Set(EDGE_KINDS),
+  // Per edge kind: whether it is drawn, acts as a spring, and counts in the diagnostics.
+  kinds: {
+    draw: new Set(EDGE_KINDS),
+    springs: new Set(EDGE_KINDS),
+    metrics: new Set(CONTROL_KINDS),
+  },
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
   datasets: [],
@@ -118,10 +123,22 @@ const panel = new Panel(document.getElementById("panel"), state, {
     state.labelMode = mode;
     for (const r of Object.values(renderers)) r.setLabelMode(mode);
   },
-  onKinds: (kind, visible) => {
-    if (visible) state.visibleKinds.add(kind);
-    else state.visibleKinds.delete(kind);
-    for (const r of Object.values(renderers)) r.setVisibleKinds(state.visibleKinds);
+  onKinds: (aspect, kind, enabled) => {
+    const set = state.kinds[aspect];
+    if (enabled) set.add(kind);
+    else set.delete(kind);
+    if (aspect === "draw") {
+      for (const r of Object.values(renderers)) r.setVisibleKinds(set);
+    } else if (aspect === "springs") {
+      state.physics.springKinds = new Set(set);
+      state.sim?.alpha(Math.max(state.sim.alpha(), 0.3)).restart();
+    } else if (aspect === "metrics" && state.graph) {
+      applyActiveKinds(state.graph, set);
+      panel.setMetrics(state.graph);
+      panel.setSelection(renderers[state.view].selected, state.graph);
+      for (const r of Object.values(renderers)) r.restyle();
+      if (state.sim) applyPhysics(state.sim, state.physics);
+    }
   },
   onColorBy: (mode) => {
     state.colorBy = mode;
@@ -199,6 +216,8 @@ function ensureTicking() {
 function installGraph(doc, label) {
   state.sim?.stop();
   const graph = buildGraph(doc);
+  applyActiveKinds(graph, state.kinds.metrics);
+  state.physics.springKinds = new Set(state.kinds.springs);
   state.graph = graph;
   state.maxDepth = graph.maxDepth;
   state.zoneDepth = Math.min(state.zoneDepth, graph.maxDepth);
@@ -208,7 +227,7 @@ function installGraph(doc, label) {
     r.setGraph(graph);
     r.setLabelMode(state.labelMode);
     r.setColorBy(state.colorBy);
-    r.setVisibleKinds(state.visibleKinds);
+    r.setVisibleKinds(state.kinds.draw);
   }
   panel.setMaxDepth(graph.maxDepth, state.zoneDepth);
   panel.setMetrics(graph);

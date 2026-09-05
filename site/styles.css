@@ -330,25 +330,40 @@ ol.shared a {
   border-radius: 2px;
 }
 
-.kind-boxes {
-  grid-column: 2 / 4;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
+.kind-matrix {
+  border-collapse: collapse;
   font-size: 12px;
+  width: 100%;
 }
 
-.kind-box {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+.kind-matrix th {
+  font-weight: 500;
+  color: var(--muted);
+  text-align: center;
+  padding: 2px 4px;
 }
 
-.kind-box i {
+.kind-matrix td {
+  padding: 1px 4px;
+  text-align: center;
+}
+
+.kind-matrix td:first-child {
+  text-align: left;
+  white-space: nowrap;
+}
+
+.kind-matrix input {
+  margin: 0;
+}
+
+.edge-swatch {
   display: inline-block;
   width: 12px;
   height: 3px;
   border-radius: 2px;
+  margin-right: 5px;
+  vertical-align: middle;
 }
 
 .edge-dot {

@@ -58,21 +58,37 @@ export function buildGraph(doc) {
     else merged.set(key, { source: s, target: t, kind, time, inferred: Boolean(e.inferred), count: e.count ?? 1 });
   }
   const links = [...merged.values()];
-  // Degrees, heights and the tree diagnostics are defined on the control graph
-  // (calls and constructions), see docs/THEORY.md §7. Other kinds are drawn but
-  // do not make a declaration a "caller".
-  const controlLinks = links.filter((l) => CONTROL_KINDS.has(l.kind));
-  for (const l of controlLinks) {
-    l.source.outDegree += 1;
-    l.target.inDegree += 1;
-  }
-
   const containers = buildContainers(nodes);
   // Deepest container, files included: the zone depth slider runs from 0 to this value.
   const maxDepth = containers.reduce((m, c) => Math.max(m, c.depth), 0);
-  computeHeights(nodes, controlLinks);
 
-  return { nodes, links, controlLinks, containers, maxDepth, dropped, byId };
+  const graph = { nodes, links, activeLinks: [], containers, maxDepth, dropped, byId };
+  // Degrees, heights and the tree diagnostics are defined on a chosen set of
+  // edge kinds; the default is the control graph (calls and constructions),
+  // see docs/THEORY.md §7. The panel lets the user change the set.
+  applyActiveKinds(graph, CONTROL_KINDS);
+  return graph;
+}
+
+/**
+ * Select the edge kinds that count for degrees, call heights, cycle marks and
+ * the diagnostics. Recomputes the per-node fields in place and returns the
+ * active links.
+ */
+export function applyActiveKinds(graph, kinds) {
+  const active = graph.links.filter((l) => kinds.has(l.kind));
+  graph.activeLinks = active;
+  graph.activeKinds = new Set(kinds);
+  for (const n of graph.nodes) {
+    n.inDegree = 0;
+    n.outDegree = 0;
+  }
+  for (const l of active) {
+    l.source.outDegree += 1;
+    l.target.inDegree += 1;
+  }
+  computeHeights(graph.nodes, active);
+  return active;
 }
 
 /**

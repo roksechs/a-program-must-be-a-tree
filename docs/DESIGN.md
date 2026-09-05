@@ -76,7 +76,8 @@ two identical hulls.
 
 Each zone is the convex hull of its members' positions, padded by expanding
 every point into a small polygon before hulling, and rendered with a closed
-Catmull-Rom curve so it looks rounded. The same code produces the 3D zones by
+Catmull-Rom curve so it looks rounded. Directories and files use the same
+style; nesting is visible from the hulls themselves. The same code produces the 3D zones by
 hulling the projected screen coordinates.
 
 ## 3D mode
@@ -97,16 +98,20 @@ on a 2D canvas; no WebGL dependency is needed for a few thousand nodes.
 
 The meaning of `call`, `create`, `reference`, `type`, `extends`,
 `implements` and `override`, and why the split follows from erasure and
-evaluation contexts, is derived in `THEORY.md`. The View section of the panel
-toggles each kind; edges found by analysis rather than written at that spot
-(dispatched overrides, callbacks resolved by flow analysis) are dashed.
+evaluation contexts, is derived in `THEORY.md`. The Edges section of the
+panel is a matrix: for every kind the user chooses independently whether it
+is drawn, whether it acts as a spring in the physics, and whether it counts
+for degrees, call heights and the diagnostics. Edges found by analysis
+rather than written at that spot (dispatched overrides, callbacks resolved
+by flow analysis) are dashed.
 
 ## Tree-likeness diagnostics
 
 All structural diagnostics, the degrees and the call heights are computed on
-the *control graph*: the edges of kind `call` and `create`. References, types
-and inheritance are drawn but do not count as callers, so passing a callback
-or naming a type never makes the graph "less of a tree".
+the edge kinds ticked under *Diagnostics* in the Edges section. The default
+is the *control graph*, the edges of kind `call` and `create`, so passing a
+callback or naming a type does not make the graph "less of a tree" unless
+the user asks for those kinds to count.
 
 For `n` nodes, `m` control edges and `c` weakly connected components:
 
