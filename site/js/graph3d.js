@@ -407,6 +407,22 @@ export class Graph3D {
     this.draw();
   }
 
+  /**
+   * Centre the camera on one node without touching yaw/pitch: zoom in a
+   * little if it's currently zoomed out, then pan by the node's current
+   * screen offset from centre so it lands there exactly.
+   */
+  focusOn(node) {
+    if (!node) return;
+    this.zoomK = Math.min(8, Math.max(this.zoomK, 1.2));
+    const p = this.project(node.x, node.y, this.zOf(node));
+    if (!p.clipped) {
+      this.panX += this.width / 2 - p.x;
+      this.panY += this.height / 2 - p.y;
+    }
+    this.draw();
+  }
+
   show(visible) {
     this.canvas.style.display = visible ? null : "none";
   }

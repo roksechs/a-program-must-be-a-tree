@@ -305,6 +305,14 @@ export class Graph2D {
     this.svg.transition().duration(400).call(this.zoom.transform, t);
   }
 
+  /** Centre the camera on one node, zooming in a little if it's currently zoomed out. */
+  focusOn(node) {
+    if (!node) return;
+    const k = Math.min(8, Math.max(this.transform.k, 1.5));
+    const t = d3.zoomIdentity.scale(k).translate(-node.x, -node.y);
+    this.svg.transition().duration(400).call(this.zoom.transform, t);
+  }
+
   show(visible) {
     this.svg.style("display", visible ? null : "none");
   }

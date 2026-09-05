@@ -298,6 +298,17 @@ ol.shared a {
   gap: 6px;
 }
 
+.focus-button {
+  font: inherit;
+  font-size: 11px;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
 .sel-title i,
 .legend i {
   display: inline-block;

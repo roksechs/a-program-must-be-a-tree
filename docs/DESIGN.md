@@ -105,6 +105,14 @@ Catmull-Rom curve so it looks rounded. Directories and files use the same
 style; nesting is visible from the hulls themselves. The same code produces the 3D zones by
 hulling the projected screen coordinates.
 
+This is recomputed every physics tick, so `hullPath` hulls the raw member
+points first and only expands *that* hull's vertices into padded polygons
+before hulling again, instead of padding every member: a directory with
+hundreds of declarations still pads a handful of hull corners, not hundreds
+of points. The result is the same shape (padding an interior point can never
+push it outside the padded hull of the boundary), just cheaper for large
+zones.
+
 ## 3D mode
 
 The vertical axis is the **call height** of a node: the graph is condensed

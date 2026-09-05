@@ -11,7 +11,7 @@ export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onView, onPhysics, onReheat, onReset, onFit, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode }
+   * @param {object} handlers { onDataset, onFile, onView, onPhysics, onReheat, onReset, onFit, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -302,7 +302,14 @@ export class Panel {
     const scope = naturalScope(graph, node);
     const scopeText = scope.topLevel ? t("selection.scope.top") : scope.nodes.map((x) => x.name).join(", ");
     this.selectionBody.replaceChildren(
-      this.el("div", { class: "sel-title" }, this.el("i", { style: `background:${kindColor(node.kind)}` }), this.el("b", {}, node.name), this.el("span", { class: "muted" }, ` ${kindLabel(node.kind)}`)),
+      this.el(
+        "div",
+        { class: "sel-title" },
+        this.el("i", { style: `background:${kindColor(node.kind)}` }),
+        this.el("b", {}, node.name),
+        this.el("span", { class: "muted" }, ` ${kindLabel(node.kind)}`),
+        this.el("button", { type: "button", class: "focus-button", title: t("selection.focus.hint"), onclick: () => this.h.onFocusNode(node) }, t("selection.focus")),
+      ),
       this.el("div", { class: "small mono" }, node.line ? `${node.file}:${node.line}` : node.file),
       this.el("div", { class: "small muted" }, flags.join(", ")),
       this.el("div", { class: "small muted", title: t("selection.scope.hint") }, `${t("selection.scope")}: ${scopeText}`),

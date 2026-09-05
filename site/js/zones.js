@@ -28,14 +28,19 @@ let roundedClosedLine = null;
 
 /**
  * Compute a padded, rounded hull path around a list of [x, y] points.
- * Every point is expanded into a small square of `padding` so that hulls of
- * one or two nodes still have an area.
+ * Every point of the hull is expanded into a small square of `padding` so
+ * that hulls of one or two nodes still have an area. Recomputed from scratch
+ * on every physics tick, so member points are hulled first and only *those*
+ * vertices (typically far fewer than the membership) get expanded and hulled
+ * again, rather than expanding every member: a zone with hundreds of nodes
+ * still pads a handful of hull corners.
  */
 export function hullPath(points, padding) {
   if (points.length === 0) return null;
+  const base = points.length > 2 ? (d3.polygonHull(points) ?? points) : points;
   const expanded = [];
   const p = padding;
-  for (const [x, y] of points) {
+  for (const [x, y] of base) {
     expanded.push([x - p, y - p], [x + p, y - p], [x + p, y + p], [x - p, y + p]);
     expanded.push([x - p * 1.3, y], [x + p * 1.3, y], [x, y - p * 1.3], [x, y + p * 1.3]);
   }
