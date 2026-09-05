@@ -1,6 +1,6 @@
 {
   "name": "a-program-must-be-a-tree",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Visualize the declaration/call graph of a codebase as a force-directed graph and measure how tree-like it is.",
   "license": "MIT",
   "private": true,
