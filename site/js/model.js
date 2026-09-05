@@ -62,7 +62,8 @@ export function buildGraph(doc) {
   }
 
   const containers = buildContainers(nodes);
-  const maxDepth = containers.reduce((m, c) => Math.max(m, c.isFile ? c.depth - 1 : c.depth), 0);
+  // Deepest container, files included: the zone depth slider runs from 0 to this value.
+  const maxDepth = containers.reduce((m, c) => Math.max(m, c.depth), 0);
   computeHeights(nodes, links);
 
   return { nodes, links, containers, maxDepth, dropped, byId };

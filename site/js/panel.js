@@ -144,7 +144,6 @@ export class Panel {
         this.slider(t("physics.repulsion"), "repulsion", 0, 1000, 5, (v) => h.onPhysics("repulsion", v)),
         this.slider(t("physics.stiffness"), "stiffness", 0, 0.2, 0.001, (v) => h.onPhysics("stiffness", v), (v) => v.toFixed(3)),
         this.slider(t("physics.restLength"), "restLength", 0, 200, 1, (v) => h.onPhysics("restLength", v)),
-        this.slider(t("physics.cohesion"), "cohesion", 0, 1, 0.01, (v) => h.onPhysics("cohesion", v), (v) => v.toFixed(2)),
         this.slider(t("physics.gravity"), "gravity", 0, 0.2, 0.005, (v) => h.onPhysics("gravity", v), (v) => v.toFixed(3)),
         this.el("p", { class: "muted small" }, t("physics.help")),
       ),
@@ -152,15 +151,7 @@ export class Panel {
 
     // Zones
     this.depthSlider = this.slider(t("zones.depth"), "zoneDepth", 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => `${v} / ${s.maxDepth}`);
-    const files = this.el("input", { type: "checkbox", checked: s.showFiles ? "" : null, onchange: (e) => h.onZones(undefined, e.target.checked) });
-    this.host.append(
-      this.section(
-        t("section.zones"),
-        this.depthSlider,
-        this.el("label", { class: "control" }, this.el("span", {}, t("zones.files")), files),
-        this.el("p", { class: "muted small" }, t("zones.help")),
-      ),
-    );
+    this.host.append(this.section(t("section.zones"), this.depthSlider, this.el("p", { class: "muted small" }, t("zones.help"))));
 
     // Diagnostics
     this.metricsBody = this.el("div", { class: "metrics" });

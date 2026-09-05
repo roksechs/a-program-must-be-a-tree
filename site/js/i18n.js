@@ -52,13 +52,11 @@ const STRINGS = {
     "physics.repulsion": "Repulsion (1/d)",
     "physics.stiffness": "Spring stiffness",
     "physics.restLength": "Spring rest length",
-    "physics.cohesion": "Zone cohesion",
     "physics.gravity": "Gravity",
-    "physics.help": "Repulsion between every pair of nodes is inversely proportional to their distance; every edge is a spring whose pull is proportional to its length. Use Recompute when the layout gets stuck in an early configuration.",
+    "physics.help": "Repulsion between every pair of nodes is inversely proportional to their distance; every edge is a spring whose pull is proportional to its length. Directories and files never influence the layout. Use Recompute when the layout gets stuck in an early configuration.",
 
-    "zones.depth": "Directory depth",
-    "zones.files": "File zones",
-    "zones.help": "Depth 0 hides directory zones; the maximum shows every directory in the codebase. Zones are convex hulls around the declarations they contain.",
+    "zones.depth": "Directory / file depth",
+    "zones.help": "Depth 0 hides all zones; each step reveals one more level of directories, and the maximum also shows the files. Zones are convex hulls around the declarations they contain and have no effect on the physics.",
 
     "metric.treeScore": "Tree score",
     "metric.treeScore.hint": "Average of the four ratios below.",
@@ -159,13 +157,11 @@ const STRINGS = {
     "physics.repulsion": "斥力 (1/d)",
     "physics.stiffness": "ばね定数",
     "physics.restLength": "ばねの自然長",
-    "physics.cohesion": "ゾーン凝集力",
     "physics.gravity": "重力",
-    "physics.help": "すべてのノード対には距離に反比例する斥力が働き、各エッジは長さに比例して引き合うばねとして働きます。初期の反復で引っかかった配置になったときは再計算を押してください。",
+    "physics.help": "すべてのノード対には距離に反比例する斥力が働き、各エッジは長さに比例して引き合うばねとして働きます。ディレクトリやファイルは配置に一切影響しません。初期の反復で引っかかった配置になったときは再計算を押してください。",
 
-    "zones.depth": "ディレクトリ深さ",
-    "zones.files": "ファイルのゾーン",
-    "zones.help": "深さ 0 でディレクトリのゾーンを非表示、最大でコードベースの全ディレクトリを表示します。ゾーンは含まれる宣言を囲む凸包です。",
+    "zones.depth": "ディレクトリ / ファイル深さ",
+    "zones.help": "深さ 0 ですべてのゾーンを非表示、1 段階ごとにディレクトリを 1 階層ずつ表示し、最大でファイルまで表示します。ゾーンは含まれる宣言を囲む凸包で、物理には一切影響しません。",
 
     "metric.treeScore": "木スコア",
     "metric.treeScore.hint": "下の 4 つの比率の平均。",

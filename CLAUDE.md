@@ -33,9 +33,12 @@ edges. Required features, all of which must keep working:
 * D3 force-directed graph: repulsion inversely proportional to distance,
   edges act as springs whose attraction is proportional to length.
 * Directories and files are drawn as zones (hulls) around their declarations.
+  Zones are purely visual: directories and files must never influence the
+  physics (no forces, no container-aware seeding).
 * A property panel on the right with: recompute/reheat physics, repulsion
-  strength, directory depth (0 up to the deepest directory of the codebase),
-  and diagnostics that quantify how tree-like the graph is.
+  strength, a single directory / file depth slider (0 = no zones, then one
+  directory level per step, the maximum also showing files), and diagnostics
+  that quantify how tree-like the graph is.
 * A 3D mode where the z axis is the call height: the deepest callers at the
   top, declarations that are only called at the bottom.
 

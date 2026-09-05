@@ -74,6 +74,10 @@ export class Graph2D {
     this.graph = graph;
     this.selected = null;
     this.hovered = null;
+    // Zones belong to the previous graph until the app calls setZones again.
+    this.zones = [];
+    this.zoneLayer.selectAll("*").remove();
+    this.zoneLabelLayer.selectAll("*").remove();
 
     const link = this.linkLayer.selectAll("path.link").data(graph.links, (l) => `${l.source.id}->${l.target.id}:${l.kind}`);
     link.exit().remove();

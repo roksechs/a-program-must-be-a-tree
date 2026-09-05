@@ -114,6 +114,8 @@ export class Graph3D {
     this.graph = graph;
     this.selected = null;
     this.hovered = null;
+    // Zones belong to the previous graph until the app calls setZones again.
+    this.zones = [];
     this.maxHeight = graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
     this.draw();
   }
@@ -256,10 +258,11 @@ export class Graph3D {
 
     // Zones: hull of the projected member positions.
     for (const c of this.zones) {
-      const pts = c.nodes.map((n) => {
+      const pts = [];
+      for (const n of c.nodes) {
         const p = byIndex.get(n.index);
-        return [p.x, p.y];
-      });
+        if (p && p.node === n) pts.push([p.x, p.y]);
+      }
       const d = hullPath(pts, (c.isFile ? 12 : 20 + 4 * c.depth) * this.zoomK);
       if (!d) continue;
       const path = new Path2D(d);

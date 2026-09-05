@@ -30,7 +30,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 |-----------------|------|
 | `model.js`      | Normalises the document: nodes, merged links, containers (directory tree derived from file paths), SCCs and call heights. |
 | `metrics.js`    | Tree-likeness diagnostics. |
-| `simulation.js` | d3-force setup, the spring and cohesion forces, seeding of initial positions. |
+| `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
 | `graph2d.js`    | SVG renderer: zoom/pan, drag, arrows, hulls, labels, selection. |
 | `graph3d.js`    | Canvas renderer: same x/y, z = call height, orbit camera, layer planes. |
@@ -50,26 +50,29 @@ d3-force is used as the integrator. The forces are:
   edge, `F = k * (d - restLength)`, split between the endpoints by their degree
   so a hub is not thrown around by one neighbour. `d3.forceLink` is close, but
   the custom force keeps the parameters (stiffness, rest length) explicit.
-* **Cohesion** (optional, slider): each node is pulled towards the centroid of
-  the containers currently drawn as zones. Deeper containers pull harder. This
-  keeps hulls compact and mostly non-overlapping; set it to 0 for a purely
-  edge-driven layout.
 * **Gravity**: weak `forceX`/`forceY` towards the origin so disconnected
   components stay on screen.
 * **Collision**: keeps circles from overlapping.
 
+Directories and files have no influence on the physics: no force reads the
+containers, and the initial positions are seeded on a spiral in declaration
+order without looking at file paths. The layout therefore reflects the call
+graph alone, and the zones merely show where the declarations of a file or
+directory ended up.
+
 "Recompute" resets the simulation alpha to 1 (reheat), "Reset positions"
-re-seeds the coordinates from a file-based spiral first. Dragging a node pins
-it while the pointer is down.
+re-seeds the coordinates first. Dragging a node pins it while the pointer is
+down.
 
 ## Zones
 
 Containers are derived from file paths: every directory prefix is a container,
-the file itself is the innermost one. The depth slider chooses how many levels
-of directories are drawn (0 = none, max = deepest directory in the dataset);
-file zones can be toggled separately. A container whose node set is identical
-to its visible parent is skipped so a directory with a single file does not
-produce two identical hulls.
+the file itself is the innermost one. A single depth slider chooses how many
+levels are drawn: 0 draws nothing, 1 the top-level directories, and so on down
+to the files, which count as one level below their directory (a file at the
+repository root has depth 1). A container whose node set is identical to its
+visible parent is skipped so a directory with a single file does not produce
+two identical hulls.
 
 Each zone is the convex hull of its members' positions, padded by expanding
 every point into a small polygon before hulling, and rendered with a closed

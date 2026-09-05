@@ -16,8 +16,7 @@ const state = {
   layerGap: 80,
   showLayers: true,
   autoRotate: false,
-  zoneDepth: 1,
-  showFiles: true,
+  zoneDepth: 2,
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
   datasets: [],
@@ -26,7 +25,6 @@ const state = {
   sim: null,
 };
 
-const containersRef = { current: [] };
 const stage = document.getElementById("stage");
 const tooltip = document.getElementById("tooltip");
 const status = document.getElementById("status");
@@ -110,11 +108,9 @@ const panel = new Panel(document.getElementById("panel"), state, {
     state.sim.alpha(1).restart();
   },
   onFit: () => renderers[state.view].fit(),
-  onZones: (depth, showFiles) => {
-    if (depth !== undefined) state.zoneDepth = depth;
-    if (showFiles !== undefined) state.showFiles = showFiles;
+  onZones: (depth) => {
+    state.zoneDepth = depth;
     updateZones();
-    state.sim?.alpha(Math.max(state.sim.alpha(), 0.2)).restart();
   },
   onLabels: (mode) => {
     state.labelMode = mode;
@@ -150,8 +146,8 @@ function setView(view) {
 
 function updateZones() {
   if (!state.graph) return;
-  containersRef.current = visibleContainers(state.graph, state.zoneDepth, state.showFiles);
-  for (const r of Object.values(renderers)) r.setZones(containersRef.current);
+  const containers = visibleContainers(state.graph, state.zoneDepth);
+  for (const r of Object.values(renderers)) r.setZones(containers);
 }
 
 let statusMessage = { key: "app.loading", params: {} };
@@ -212,7 +208,7 @@ function installGraph(doc, label) {
   panel.setDataInfo({ label, nodes: graph.nodes.length, edges: graph.links.length, files: graph.containers.filter((c) => c.isFile).length });
   updateZones();
 
-  const sim = createSimulation(graph, state.physics, containersRef);
+  const sim = createSimulation(graph, state.physics);
   let fitted = false;
   sim.on("tick", () => {
     renderers[state.view].tick();

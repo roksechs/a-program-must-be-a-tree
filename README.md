@@ -7,7 +7,8 @@ force-directed graph, and measure how close that graph is to a tree.
 * **Edges** are directed references: `A -> B` means the body of `A` calls or
   uses `B`.
 * **Zones** are the files and directories that contain the declarations, drawn
-  as nested hulls around their members.
+  as nested hulls around their members. They are purely visual and never
+  influence the layout.
 * **Physics**: every pair of nodes repels with a force inversely proportional to
   their distance; every edge is a spring whose pull is proportional to its
   length.
@@ -59,8 +60,8 @@ that writes the same JSON; see the data format document.
 | Data        | bundled datasets, open a local JSON file |
 | Header      | language selector (English / Japanese) |
 | View        | 2D / 3D, label mode, colour by kind or call height, 3D layer gap and planes, auto-rotate, fit |
-| Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length, zone cohesion, gravity |
-| Zones       | directory depth from 0 (none) to the deepest directory, file zones on/off |
+| Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length, gravity |
+| Zones       | directory / file depth from 0 (none) through every directory level down to the files |
 | Diagnostics | tree score and its components, counts, most shared declarations |
 | Selection   | callers and callees of the clicked node |
 

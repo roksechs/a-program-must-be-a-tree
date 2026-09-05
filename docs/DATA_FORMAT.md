@@ -54,8 +54,9 @@ Rules:
 ## Derived properties (computed by the viewer)
 
 * **Containers.** Every directory prefix of `file`, plus the file itself, is a
-  container. Directory depth 0 is the root; the viewer lets the user choose up
-  to which depth directories are drawn as zones.
+  container. A top-level directory has depth 1 and a file sits one level below
+  its directory; the viewer lets the user choose up to which depth containers
+  are drawn as zones. Containers are never used by the physics.
 * **Call height.** The graph is condensed into strongly connected components
   (SCCs); the height of a node is the longest path from its SCC to a sink SCC in
   the condensation DAG. Leaves (callees only) have height 0 and sit at the

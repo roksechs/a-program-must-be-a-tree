@@ -25,7 +25,7 @@ test("containers follow the directory hierarchy", () => {
   });
   const paths = g.containers.map((c) => c.path).sort();
   assert.deepEqual(paths, ["root.js", "src", "src/core", "src/core/x.js", "src/core/y.js", "src/util", "src/util/z.js"]);
-  assert.equal(g.maxDepth, 2);
+  assert.equal(g.maxDepth, 3); // src / core / x.js
   const src = g.containers.find((c) => c.path === "src");
   assert.equal(src.nodes.length, 3);
   assert.equal(src.depth, 1);
