@@ -42,9 +42,21 @@ body {
   font-weight: 600;
 }
 
-#header a {
+#header .header-right {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+}
+
+#header a {
   text-decoration: none;
+}
+
+#header select {
+  font: inherit;
+  font-size: 12px;
 }
 
 #main {
@@ -310,6 +322,47 @@ ol.shared a {
 .legend i.cycle {
   background: #fff;
   border: 2px solid #b91c1c;
+}
+
+.legend i.edge {
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.kind-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  font-size: 12px;
+}
+
+.kind-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kind-item input {
+  margin: 0 2px 0 0;
+}
+
+.edge-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 3px;
+  border-radius: 2px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.edge-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
 }
 
 /* SVG (2D) */

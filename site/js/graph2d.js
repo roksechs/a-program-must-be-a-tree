@@ -1,6 +1,6 @@
 // 2D renderer: SVG with zoom/pan, zone hulls, arrowed edges, draggable nodes.
 /* global d3 */
-import { edgeColor, kindColor, zoneColor } from "./colors.js";
+import { EDGE_KINDS, edgeColor, kindColor, zoneColor } from "./colors.js";
 import { nodeRadius } from "./simulation.js";
 import { hullPath, topPoint } from "./zones.js";
 
@@ -20,11 +20,12 @@ export class Graph2D {
     this.hovered = null;
     this.labelMode = "auto";
     this.colorBy = "kind";
+    this.visibleKinds = new Set(EDGE_KINDS);
     this.transform = d3.zoomIdentity;
 
     this.svg = d3.select(host).append("svg").attr("class", "graph2d");
     const defs = this.svg.append("defs");
-    for (const kind of ["call", "reference", "extends", "implements", "type", "selected"]) {
+    for (const kind of [...EDGE_KINDS, "selected"]) {
       defs
         .append("marker")
         .attr("id", `arrow-${kind}`)
@@ -74,6 +75,10 @@ export class Graph2D {
     this.graph = graph;
     this.selected = null;
     this.hovered = null;
+    // Zones belong to the previous graph until the app calls setZones again.
+    this.zones = [];
+    this.zoneLayer.selectAll("*").remove();
+    this.zoneLabelLayer.selectAll("*").remove();
 
     const link = this.linkLayer.selectAll("path.link").data(graph.links, (l) => `${l.source.id}->${l.target.id}:${l.kind}`);
     link.exit().remove();
@@ -84,8 +89,10 @@ export class Graph2D {
       .merge(link)
       .attr("stroke", (l) => edgeColor(l.kind))
       .attr("stroke-width", (l) => Math.min(4, 1 + Math.log2(l.count)))
+      .attr("stroke-dasharray", (l) => (l.inferred ? "3 3" : l.kind === "type" || l.kind === "reference" ? "1 3" : null))
       .attr("marker-end", (l) => `url(#arrow-${l.kind})`)
-      .attr("fill", "none");
+      .attr("fill", "none")
+      .attr("display", (l) => (this.visibleKinds.has(l.kind) ? null : "none"));
 
     const drag = d3
       .drag()
@@ -156,9 +163,21 @@ export class Graph2D {
 
   setColorBy(mode) {
     this.colorBy = mode;
+    this.restyle();
+  }
+
+  /** Re-apply node radius, colour and cycle marks (degrees or heights changed). */
+  restyle() {
     if (!this.graph) return;
     this.graph.maxHeightCache = this.graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
-    this.nodeLayer.selectAll("circle.node").attr("fill", (n) => this.nodeFill(n));
+    this.nodeLayer
+      .selectAll("circle.node")
+      .attr("r", (n) => nodeRadius(n))
+      .attr("fill", (n) => this.nodeFill(n))
+      .attr("stroke", (n) => (n.inCycle ? "#b91c1c" : "#ffffff"))
+      .attr("stroke-width", (n) => (n.inCycle ? 2 : 1));
+    this.labelLayer.selectAll("text.label").attr("dy", (n) => -nodeRadius(n) - 3);
+    this.tick();
   }
 
   setZones(containers) {
@@ -173,9 +192,8 @@ export class Graph2D {
       .attr("class", (c) => `zone ${c.isFile ? "zone-file" : "zone-dir"}`)
       .attr("fill", (c) => zoneColor(c))
       .attr("stroke", (c) => zoneColor(c))
-      .attr("fill-opacity", (c) => (c.isFile ? 0.14 : 0.07))
-      .attr("stroke-opacity", (c) => (c.isFile ? 0.5 : 0.35))
-      .attr("stroke-dasharray", (c) => (c.isFile ? null : "6 4"))
+      .attr("fill-opacity", 0.1)
+      .attr("stroke-opacity", 0.45)
       .append("title")
       .text((c) => c.path);
 
@@ -195,6 +213,11 @@ export class Graph2D {
   setLabelMode(mode) {
     this.labelMode = mode;
     this.updateLabelVisibility();
+  }
+
+  setVisibleKinds(kinds) {
+    this.visibleKinds = new Set(kinds);
+    this.linkLayer.selectAll("path.link").attr("display", (l) => (this.visibleKinds.has(l.kind) ? null : "none"));
   }
 
   updateLabelVisibility() {

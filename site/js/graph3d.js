@@ -3,7 +3,8 @@
 // The x/y coordinates come from the same simulation as the 2D view; only the
 // projection differs, so switching views never restarts the physics.
 /* global d3 */
-import { edgeColor, heightColor, kindColor, zoneColor } from "./colors.js";
+import { EDGE_KINDS, edgeColor, heightColor, kindColor, zoneColor } from "./colors.js";
+import { t } from "./i18n.js";
 import { nodeRadius } from "./simulation.js";
 import { hullPath } from "./zones.js";
 
@@ -17,12 +18,15 @@ export class Graph3D {
     this.hovered = null;
     this.labelMode = "auto";
     this.colorBy = "height";
+    this.visibleKinds = new Set(EDGE_KINDS);
     this.layerGap = 80;
     this.showLayers = true;
     this.autoRotate = false;
 
     this.yaw = -0.6;
-    this.pitch = 0.9; // 0 = looking horizontally, PI/2 = top-down
+    // Camera elevation above the ground plane: 0 = looking horizontally,
+    // +PI/2 = straight down from above, -PI/2 = straight up from below.
+    this.pitch = 0.9;
     this.zoomK = 1;
     this.panX = 0;
     this.panY = 0;
@@ -58,7 +62,7 @@ export class Graph3D {
           this.panY += dy;
         } else {
           this.yaw += dx * 0.008;
-          this.pitch = Math.max(0.02, Math.min(Math.PI / 2, this.pitch + dy * 0.006));
+          this.pitch = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitch + dy * 0.006));
         }
         this.draw();
       } else {
@@ -113,12 +117,20 @@ export class Graph3D {
     this.graph = graph;
     this.selected = null;
     this.hovered = null;
+    // Zones belong to the previous graph until the app calls setZones again.
+    this.zones = [];
     this.maxHeight = graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
     this.draw();
   }
 
   setZones(containers) {
     this.zones = containers;
+    this.draw();
+  }
+
+  /** Degrees or heights changed: recompute the height range and redraw. */
+  restyle() {
+    if (this.graph) this.maxHeight = this.graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
     this.draw();
   }
 
@@ -129,6 +141,11 @@ export class Graph3D {
 
   setColorBy(mode) {
     this.colorBy = mode;
+    this.draw();
+  }
+
+  setVisibleKinds(kinds) {
+    this.visibleKinds = new Set(kinds);
     this.draw();
   }
 
@@ -148,7 +165,13 @@ export class Graph3D {
     this.callbacks.onSelect?.(node);
   }
 
-  /** Project a world point (x, y horizontal plane; z up) to screen space. */
+  /**
+   * Project a world point (x, y horizontal plane; z up) to screen space.
+   * The camera orbits the origin: yaw spins it around the vertical axis,
+   * pitch is its elevation. After the yaw rotation X points right and Y away
+   * from the camera; tilting by pitch turns "away" into "up on screen" and
+   * brings higher points closer to a camera that looks down.
+   */
   project(x, y, z) {
     const cy = Math.cos(this.yaw);
     const sy = Math.sin(this.yaw);
@@ -156,12 +179,12 @@ export class Graph3D {
     const Y = x * sy + y * cy;
     const cp = Math.cos(this.pitch);
     const sp = Math.sin(this.pitch);
-    const screenY = Y * sp - z * cp;
-    const depth = Y * cp + z * sp;
-    const scale = (this.focal / (this.focal + depth)) * this.zoomK;
+    const screenUp = Y * sp + z * cp;
+    const depth = Y * cp - z * sp; // distance along the view direction; negative = nearer than the origin
+    const scale = (this.focal / Math.max(this.focal * 0.1, this.focal + depth)) * this.zoomK;
     return {
       x: this.width / 2 + this.panX + X * scale,
-      y: this.height / 2 + this.panY + screenY * scale,
+      y: this.height / 2 + this.panY - screenUp * scale,
       scale,
       depth,
     };
@@ -249,33 +272,33 @@ export class Graph3D {
         ctx.stroke();
         ctx.fillStyle = "rgba(71, 85, 105, 0.7)";
         ctx.font = "11px system-ui, sans-serif";
-        ctx.fillText(`height ${h}`, corners[0].x + 4, corners[0].y - 3);
+        ctx.fillText(t("graph3d.height", { height: h }), corners[0].x + 4, corners[0].y - 3);
       }
     }
 
     // Zones: hull of the projected member positions.
     for (const c of this.zones) {
-      const pts = c.nodes.map((n) => {
+      const pts = [];
+      for (const n of c.nodes) {
         const p = byIndex.get(n.index);
-        return [p.x, p.y];
-      });
+        if (p && p.node === n) pts.push([p.x, p.y]);
+      }
       const d = hullPath(pts, (c.isFile ? 12 : 20 + 4 * c.depth) * this.zoomK);
       if (!d) continue;
       const path = new Path2D(d);
       const color = d3.color(zoneColor(c));
-      color.opacity = c.isFile ? 0.12 : 0.06;
+      color.opacity = 0.1;
       ctx.fillStyle = color.formatRgb();
       ctx.fill(path);
-      color.opacity = c.isFile ? 0.5 : 0.3;
+      color.opacity = 0.45;
       ctx.strokeStyle = color.formatRgb();
-      ctx.setLineDash(c.isFile ? [] : [6, 4]);
       ctx.lineWidth = 1;
       ctx.stroke(path);
-      ctx.setLineDash([]);
     }
 
     // Edges, far ones first.
     const edgeItems = links
+      .filter((l) => this.visibleKinds.has(l.kind))
       .map((l) => {
         const s = byIndex.get(l.source.index);
         const t = byIndex.get(l.target.index);
@@ -288,6 +311,7 @@ export class Graph3D {
       ctx.strokeStyle = active ? "#111827" : edgeColor(l.kind);
       ctx.globalAlpha = dimmed ? 0.08 : active ? 1 : 0.55;
       ctx.lineWidth = active ? 2 : 1;
+      ctx.setLineDash(l.inferred ? [3, 3] : l.kind === "type" || l.kind === "reference" ? [1, 3] : []);
       if (l.source === l.target) {
         const r = nodeRadius(l.source) * s.scale;
         ctx.beginPath();
@@ -297,6 +321,7 @@ export class Graph3D {
         drawArrow(ctx, s.x, s.y, t.x, t.y, nodeRadius(l.target) * t.scale + 1, 5 * Math.max(0.6, t.scale));
       }
     }
+    ctx.setLineDash([]);
     ctx.globalAlpha = 1;
 
     // Nodes, far ones first.

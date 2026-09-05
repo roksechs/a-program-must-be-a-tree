@@ -3,7 +3,7 @@
   "name": "d3-hierarchy",
   "root": "node_modules/d3-hierarchy",
   "language": "javascript",
-  "generatedAt": "2026-09-05T08:31:32.796Z",
+  "generatedAt": "2026-09-05T09:56:42.658Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 34
  },
@@ -205,6 +205,15 @@
    "line": 1,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/hierarchy/index.js::<module>",
+   "name": "index",
+   "kind": "module",
+   "file": "src/hierarchy/index.js",
+   "line": 75,
+   "parent": null,
+   "exported": false
   },
   {
    "id": "src/hierarchy/index.js::computeHeight",
@@ -648,6 +657,15 @@
    "exported": false
   },
   {
+   "id": "src/tree.js::<module>",
+   "name": "tree",
+   "kind": "module",
+   "file": "src/tree.js",
+   "line": 74,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "src/tree.js::default",
    "name": "tree",
    "kind": "function",
@@ -756,6 +774,15 @@
    "exported": true
   },
   {
+   "id": "src/treemap/resquarify.js::<module>",
+   "name": "resquarify",
+   "kind": "module",
+   "file": "src/treemap/resquarify.js",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "src/treemap/round.js::default",
    "name": "round",
    "kind": "function",
@@ -783,6 +810,15 @@
    "exported": true
   },
   {
+   "id": "src/treemap/squarify.js::<module>",
+   "name": "squarify",
+   "kind": "module",
+   "file": "src/treemap/squarify.js",
+   "line": 55,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "src/treemap/squarify.js::phi",
    "name": "phi",
    "kind": "variable",
@@ -806,517 +842,824 @@
    "source": "src/accessors.js::optional",
    "target": "src/accessors.js::required",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
-   "source": "src/array.js::shuffle",
-   "target": "src/array.js::shuffle",
+   "source": "src/cluster.js::default",
+   "target": "src/cluster.js::defaultSeparation",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/cluster.js::default",
    "target": "src/cluster.js::defaultSeparation",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/cluster.js::default",
    "target": "src/cluster.js::leafLeft",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/cluster.js::default",
    "target": "src/cluster.js::leafRight",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/cluster.js::default",
    "target": "src/cluster.js::maxY",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/cluster.js::default",
    "target": "src/cluster.js::meanX",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/cluster.js::maxY",
    "target": "src/cluster.js::maxYReduce",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/cluster.js::meanX",
    "target": "src/cluster.js::meanXReduce",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/hierarchy/count.js::default",
    "target": "src/hierarchy/count.js::count",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/ancestors.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/count.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/descendants.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/each.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/eachAfter.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/eachBefore.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/find.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/index.js::hierarchy",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/index.js::Node",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/index.js::node_copy",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/iterator.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/leaves.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/links.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/path.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/sort.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/hierarchy/index.js::<module>",
+   "target": "src/hierarchy/sum.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/hierarchy/index.js::hierarchy",
    "target": "src/hierarchy/index.js::computeHeight",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/hierarchy/index.js::hierarchy",
-   "target": "src/hierarchy/index.js::hierarchy",
+   "target": "src/hierarchy/index.js::mapChildren",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/hierarchy/index.js::hierarchy",
    "target": "src/hierarchy/index.js::mapChildren",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/hierarchy/index.js::hierarchy",
    "target": "src/hierarchy/index.js::Node",
+   "kind": "create",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "src/hierarchy/index.js::hierarchy",
+   "target": "src/hierarchy/index.js::objectChildren",
    "kind": "call",
-   "count": 2
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/hierarchy/index.js::hierarchy",
    "target": "src/hierarchy/index.js::objectChildren",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/hierarchy/index.js::node_copy",
    "target": "src/hierarchy/index.js::copyData",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/hierarchy/index.js::node_copy",
    "target": "src/hierarchy/index.js::hierarchy",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/hierarchy/path.js::default",
    "target": "src/hierarchy/path.js::leastCommonAncestor",
    "kind": "call",
-   "count": 1
-  },
-  {
-   "source": "src/hierarchy/sum.js::default",
-   "target": "src/hierarchy/sum.js::default",
-   "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/lcg.js::default",
    "target": "src/lcg.js::a",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/lcg.js::default",
    "target": "src/lcg.js::c",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/lcg.js::default",
    "target": "src/lcg.js::m",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::default",
    "target": "src/lcg.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::default",
    "target": "src/pack/enclose.js::packEncloseRandom",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::encloseBasis",
    "target": "src/pack/enclose.js::encloseBasis1",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::encloseBasis",
    "target": "src/pack/enclose.js::encloseBasis2",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::encloseBasis",
    "target": "src/pack/enclose.js::encloseBasis3",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::enclosesWeakAll",
    "target": "src/pack/enclose.js::enclosesWeak",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::extendBasis",
    "target": "src/pack/enclose.js::encloseBasis2",
    "kind": "call",
-   "count": 4
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::extendBasis",
    "target": "src/pack/enclose.js::encloseBasis3",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::extendBasis",
    "target": "src/pack/enclose.js::enclosesNot",
    "kind": "call",
-   "count": 4
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::extendBasis",
    "target": "src/pack/enclose.js::enclosesWeakAll",
    "kind": "call",
-   "count": 3
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::packEncloseRandom",
    "target": "src/array.js::shuffle",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::packEncloseRandom",
    "target": "src/pack/enclose.js::encloseBasis",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::packEncloseRandom",
    "target": "src/pack/enclose.js::enclosesWeak",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/enclose.js::packEncloseRandom",
    "target": "src/pack/enclose.js::extendBasis",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/index.js::default",
    "target": "src/accessors.js::optional",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/index.js::default",
    "target": "src/constant.js::constantZero",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/pack/index.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/index.js::default",
    "target": "src/lcg.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/index.js::default",
    "target": "src/pack/index.js::defaultRadius",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/index.js::default",
    "target": "src/pack/index.js::packChildrenRandom",
    "kind": "call",
-   "count": 3
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/pack/index.js::default",
    "target": "src/pack/index.js::radiusLeaf",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/pack/index.js::default",
    "target": "src/pack/index.js::translateChild",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/pack/index.js::packChildrenRandom",
-   "target": "src/pack/index.js::packChildrenRandom",
+   "target": "src/constant.js::constantZero",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/pack/index.js::packChildrenRandom",
    "target": "src/pack/siblings.js::packSiblingsRandom",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/index.js::radiusLeaf",
-   "target": "src/pack/index.js::radiusLeaf",
+   "target": "src/pack/index.js::defaultRadius",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/pack/siblings.js::default",
    "target": "src/lcg.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/siblings.js::default",
    "target": "src/pack/siblings.js::packSiblingsRandom",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/siblings.js::packSiblingsRandom",
    "target": "src/array.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/siblings.js::packSiblingsRandom",
    "target": "src/pack/enclose.js::packEncloseRandom",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pack/siblings.js::packSiblingsRandom",
    "target": "src/pack/siblings.js::intersects",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/pack/siblings.js::packSiblingsRandom",
    "target": "src/pack/siblings.js::Node",
-   "kind": "call",
-   "count": 4
+   "kind": "create",
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/pack/siblings.js::packSiblingsRandom",
    "target": "src/pack/siblings.js::place",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/pack/siblings.js::packSiblingsRandom",
    "target": "src/pack/siblings.js::score",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/partition.js::default",
    "target": "src/treemap/dice.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/partition.js::default",
    "target": "src/treemap/round.js::default",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/accessors.js::optional",
    "kind": "call",
-   "count": 3
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/hierarchy/index.js::computeHeight",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/hierarchy/index.js::Node",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/stratify.js::ambiguous",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/stratify.js::defaultId",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/stratify.js::defaultId",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/stratify.js::defaultParentId",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/stratify.js::defaultParentId",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/stratify.js::imputed",
    "kind": "reference",
-   "count": 3
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/stratify.js::normalize",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/stratify.js::parentof",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/stratify.js::parentof",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::default",
    "target": "src/stratify.js::preroot",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::normalize",
    "target": "src/stratify.js::slash",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/stratify.js::parentof",
    "target": "src/stratify.js::slash",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/tree.js::<module>",
+   "target": "src/hierarchy/index.js::Node",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/tree.js::<module>",
+   "target": "src/tree.js::TreeNode",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/tree.js::default",
+   "target": "src/tree.js::defaultSeparation",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/tree.js::default",
    "target": "src/tree.js::defaultSeparation",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/tree.js::default",
    "target": "src/tree.js::executeShifts",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/tree.js::default",
    "target": "src/tree.js::moveSubtree",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/tree.js::default",
    "target": "src/tree.js::nextAncestor",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/tree.js::default",
    "target": "src/tree.js::nextLeft",
    "kind": "call",
-   "count": 3
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/tree.js::default",
    "target": "src/tree.js::nextRight",
    "kind": "call",
-   "count": 3
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/tree.js::default",
    "target": "src/tree.js::treeRoot",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/tree.js::treeRoot",
    "target": "src/tree.js::TreeNode",
-   "kind": "call",
-   "count": 3
+   "kind": "create",
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/treemap/index.js::default",
    "target": "src/accessors.js::required",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/treemap/index.js::default",
+   "target": "src/constant.js::constantZero",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/treemap/index.js::default",
    "target": "src/constant.js::constantZero",
    "kind": "reference",
-   "count": 5
+   "count": 5,
+   "time": "use"
   },
   {
    "source": "src/treemap/index.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 5
+   "count": 5,
+   "time": "use"
   },
   {
    "source": "src/treemap/index.js::default",
    "target": "src/treemap/round.js::default",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/treemap/resquarify.js::<module>",
+   "target": "src/treemap/dice.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/treemap/resquarify.js::<module>",
+   "target": "src/treemap/slice.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/treemap/resquarify.js::<module>",
+   "target": "src/treemap/squarify.js::phi",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/treemap/resquarify.js::<module>",
+   "target": "src/treemap/squarify.js::squarifyRatio",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/treemap/sliceDice.js::default",
+   "target": "src/treemap/dice.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/treemap/sliceDice.js::default",
    "target": "src/treemap/dice.js::default",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/treemap/sliceDice.js::default",
+   "target": "src/treemap/slice.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/treemap/sliceDice.js::default",
    "target": "src/treemap/slice.js::default",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/treemap/squarify.js::<module>",
+   "target": "src/treemap/squarify.js::phi",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/treemap/squarify.js::<module>",
+   "target": "src/treemap/squarify.js::squarifyRatio",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/treemap/squarify.js::squarifyRatio",
    "target": "src/treemap/dice.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/treemap/squarify.js::squarifyRatio",
    "target": "src/treemap/slice.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   }
  ]
 }

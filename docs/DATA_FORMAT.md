@@ -29,7 +29,7 @@ analyzer that produces it (in any language, with any parser).
 |------------|-----------------|-------|
 | `id`       | string          | Unique within the document. Convention: `<file>::<qualified name>`. |
 | `name`     | string          | Display name (unqualified). |
-| `kind`     | string          | One of `function`, `method`, `class`, `variable`, `interface`, `type`, `enum`, `module`, or any other string. Unknown kinds are rendered with a neutral colour. |
+| `kind`     | string          | One of `function`, `method`, `class`, `variable`, `interface`, `type`, `enum`, `module`, or any other string. Unknown kinds are rendered with a neutral colour. A `module` declaration stands for the top-level code of a file (statements outside any declaration, e.g. `X.prototype = {...}` or a call at load time); the TypeScript analyzer emits one per file that has such code, with id `<file>::<module>`. |
 | `file`     | string          | Path relative to `meta.root`, using `/` separators. The directory hierarchy is derived from this path and drawn as nested zones. |
 | `line`     | number          | 1-based line of the declaration (optional). |
 | `parent`   | string or null  | Id of the enclosing declaration (e.g. the class of a method). Optional. |
@@ -41,21 +41,30 @@ analyzer that produces it (in any language, with any parser).
 |----------|--------|-------|
 | `source` | string | Id of the declaration whose body contains the reference (the caller). |
 | `target` | string | Id of the referenced declaration (the callee). |
-| `kind`   | string | `call` (call or `new` expression), `reference` (value used without calling, e.g. passed as a callback), `extends`, `implements`, `type` (type-only reference). Optional, defaults to `call`. |
+| `kind`   | string | `call` (application of a function or method, including `super()`), `create` (`new X()`: the constructor that lookup finds for `X`, or `X` itself when no ancestor declares one), `reference` (value used without being applied, e.g. passed as a callback, stored or returned), `type` (type-only use, including a call through an interface member), `extends`, `implements` (class to interface, or member to the interface member it implements), `override` (member to the member it overrides). Optional, defaults to `call`. See `THEORY.md`. |
 | `count`  | number | Number of occurrences. Optional, defaults to 1. |
+| `time`   | string | `definition` when the occurrence is evaluated while the module initialises (top-level initializers, `extends`, static fields), `use` when it runs inside a function or method body. Optional, defaults to `use`. |
+| `inferred` | boolean | `true` when the edge was not written at that place in the source but derived by analysis: a dispatched call to an overriding method, or a callback resolved by flow analysis at the declaration that actually invokes it. Optional. |
+
+The precise meaning of each kind (phase, evaluation context, lookup rules) is
+derived in `THEORY.md`.
 
 Rules:
 
 * Both ends of every edge must exist in `declarations`. The viewer drops
   dangling edges and reports them in the diagnostics panel.
 * Self edges (direct recursion) are allowed.
-* Duplicate `(source, target, kind)` triples are merged by summing `count`.
+* Duplicate `(source, target, kind, time)` tuples are merged by summing `count`.
+* The viewer computes degrees, call heights and the tree diagnostics on the
+  *control graph*: edges of kind `call` and `create`. Every other kind is
+  drawn and listed but does not make a declaration a caller.
 
 ## Derived properties (computed by the viewer)
 
 * **Containers.** Every directory prefix of `file`, plus the file itself, is a
-  container. Directory depth 0 is the root; the viewer lets the user choose up
-  to which depth directories are drawn as zones.
+  container. A top-level directory has depth 1 and a file sits one level below
+  its directory; the viewer lets the user choose up to which depth containers
+  are drawn as zones. Containers are never used by the physics.
 * **Call height.** The graph is condensed into strongly connected components
   (SCCs); the height of a node is the longest path from its SCC to a sink SCC in
   the condensation DAG. Leaves (callees only) have height 0 and sit at the

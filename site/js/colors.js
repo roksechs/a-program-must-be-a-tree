@@ -1,5 +1,6 @@
 // Colour scales shared by the renderers and the legend.
 /* global d3 */
+export { EDGE_KINDS, CONTROL_KINDS } from "./kinds.js";
 
 export const KIND_COLORS = {
   function: "#4c78a8",
@@ -27,9 +28,11 @@ export function zoneColor(container) {
 
 export const EDGE_COLORS = {
   call: "#6b7280",
+  create: "#d97706",
   reference: "#a1a1aa",
   extends: "#e45756",
   implements: "#b279a2",
+  override: "#0e7490",
   type: "#c4b5fd",
 };
 

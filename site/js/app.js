@@ -1,9 +1,11 @@
 // Application wiring: loads a dataset, runs the simulation and connects the
 // renderers to the property panel.
 /* global d3 */
+import { EDGE_KINDS } from "./kinds.js";
 import { Graph2D } from "./graph2d.js";
 import { Graph3D } from "./graph3d.js";
-import { buildGraph } from "./model.js";
+import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
+import { applyActiveKinds, buildGraph } from "./model.js";
 import { Panel } from "./panel.js";
 import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
 import { visibleContainers } from "./zones.js";
@@ -15,8 +17,11 @@ const state = {
   layerGap: 80,
   showLayers: true,
   autoRotate: false,
-  zoneDepth: 1,
-  showFiles: true,
+  zoneDepth: 2,
+  // Enabled edge kinds. An enabled kind is drawn, acts as a spring and counts
+  // for degrees, call heights and the diagnostics; a disabled kind does none
+  // of these. Type-level edges are off by default (erased at run time).
+  kinds: new Set(EDGE_KINDS.filter((k) => k !== "type")),
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
   datasets: [],
@@ -25,10 +30,35 @@ const state = {
   sim: null,
 };
 
-const containersRef = { current: [] };
 const stage = document.getElementById("stage");
 const tooltip = document.getElementById("tooltip");
 const status = document.getElementById("status");
+const languageSelect = document.getElementById("language");
+
+// Language: ?lang= query, then the saved preference, then the browser locale.
+let savedLanguage = null;
+try {
+  savedLanguage = localStorage.getItem("lang");
+} catch {
+  savedLanguage = null;
+}
+setLanguage(detectLanguage(location.search, savedLanguage, navigator.language));
+for (const l of LANGUAGES) {
+  const opt = document.createElement("option");
+  opt.value = l.code;
+  opt.textContent = l.label;
+  languageSelect.append(opt);
+}
+languageSelect.value = getLanguage();
+languageSelect.addEventListener("change", () => setLanguage(languageSelect.value));
+
+/** Re-translate the static parts of the page (header, document language). */
+function applyStaticTranslations() {
+  document.documentElement.lang = getLanguage();
+  for (const el of document.querySelectorAll("[data-i18n]")) el.textContent = t(el.dataset.i18n);
+  languageSelect.value = getLanguage();
+}
+applyStaticTranslations();
 
 const renderers = {
   "2d": new Graph2D(stage, rendererCallbacks()),
@@ -50,7 +80,14 @@ function rendererCallbacks() {
         return;
       }
       tooltip.hidden = false;
-      tooltip.textContent = `${node.name}  (${node.kind})  ${node.file}${node.line ? ":" + node.line : ""}  in ${node.inDegree} / out ${node.outDegree} / height ${node.height}`;
+      tooltip.textContent = t("app.tooltip", {
+        name: node.name,
+        kind: node.kind,
+        location: node.line ? `${node.file}:${node.line}` : node.file,
+        in: node.inDegree,
+        out: node.outDegree,
+        height: node.height,
+      });
       const rect = stage.getBoundingClientRect();
       tooltip.style.left = `${event.clientX - rect.left + 12}px`;
       tooltip.style.top = `${event.clientY - rect.top + 12}px`;
@@ -76,15 +113,18 @@ const panel = new Panel(document.getElementById("panel"), state, {
     state.sim.alpha(1).restart();
   },
   onFit: () => renderers[state.view].fit(),
-  onZones: (depth, showFiles) => {
-    if (depth !== undefined) state.zoneDepth = depth;
-    if (showFiles !== undefined) state.showFiles = showFiles;
+  onZones: (depth) => {
+    state.zoneDepth = depth;
     updateZones();
-    state.sim?.alpha(Math.max(state.sim.alpha(), 0.2)).restart();
   },
   onLabels: (mode) => {
     state.labelMode = mode;
     for (const r of Object.values(renderers)) r.setLabelMode(mode);
+  },
+  onKinds: (kind, enabled) => {
+    if (enabled) state.kinds.add(kind);
+    else state.kinds.delete(kind);
+    applyKinds();
   },
   onColorBy: (mode) => {
     state.colorBy = mode;
@@ -106,6 +146,22 @@ const panel = new Panel(document.getElementById("panel"), state, {
   onSelectNode: (node) => renderers[state.view].select(node),
 });
 
+/** Apply the enabled edge kinds to drawing, springs and diagnostics at once. */
+function applyKinds() {
+  for (const r of Object.values(renderers)) r.setVisibleKinds(state.kinds);
+  state.physics.springKinds = new Set(state.kinds);
+  if (state.graph) {
+    applyActiveKinds(state.graph, state.kinds);
+    panel.setMetrics(state.graph);
+    panel.setSelection(renderers[state.view].selected, state.graph);
+    for (const r of Object.values(renderers)) r.restyle();
+  }
+  if (state.sim) {
+    applyPhysics(state.sim, state.physics);
+    state.sim.alpha(Math.max(state.sim.alpha(), 0.3)).restart();
+  }
+}
+
 function setView(view) {
   state.view = view;
   panel.setView(view);
@@ -116,13 +172,31 @@ function setView(view) {
 
 function updateZones() {
   if (!state.graph) return;
-  containersRef.current = visibleContainers(state.graph, state.zoneDepth, state.showFiles);
-  for (const r of Object.values(renderers)) r.setZones(containersRef.current);
+  const containers = visibleContainers(state.graph, state.zoneDepth);
+  for (const r of Object.values(renderers)) r.setZones(containers);
 }
 
-function setStatus(text) {
-  status.textContent = text;
+let statusMessage = { key: "app.loading", params: {} };
+function setStatus(key, params = {}) {
+  statusMessage = { key, params };
+  status.textContent = t(key, params);
 }
+
+onLanguageChange(() => {
+  try {
+    localStorage.setItem("lang", getLanguage());
+  } catch {
+    // Storage may be unavailable (private mode); the ?lang= parameter still works.
+  }
+  const url = new URL(location.href);
+  url.searchParams.set("lang", getLanguage());
+  history.replaceState(null, "", url);
+  applyStaticTranslations();
+  setStatus(statusMessage.key, statusMessage.params);
+  panel.refresh();
+  panel.setView(state.view);
+  renderers["3d"].draw();
+});
 
 // The 3D view redraws on an animation frame while auto-rotating even after the
 // simulation has cooled down.
@@ -144,6 +218,8 @@ function ensureTicking() {
 function installGraph(doc, label) {
   state.sim?.stop();
   const graph = buildGraph(doc);
+  applyActiveKinds(graph, state.kinds);
+  state.physics.springKinds = new Set(state.kinds);
   state.graph = graph;
   state.maxDepth = graph.maxDepth;
   state.zoneDepth = Math.min(state.zoneDepth, graph.maxDepth);
@@ -153,14 +229,15 @@ function installGraph(doc, label) {
     r.setGraph(graph);
     r.setLabelMode(state.labelMode);
     r.setColorBy(state.colorBy);
+    r.setVisibleKinds(state.kinds);
   }
   panel.setMaxDepth(graph.maxDepth, state.zoneDepth);
   panel.setMetrics(graph);
   panel.setSelection(null, graph);
-  panel.setDataInfo(`${label}: ${graph.nodes.length} declarations, ${graph.links.length} edges, ${graph.containers.filter((c) => c.isFile).length} files`);
+  panel.setDataInfo({ label, nodes: graph.nodes.length, edges: graph.links.length, files: graph.containers.filter((c) => c.isFile).length });
   updateZones();
 
-  const sim = createSimulation(graph, state.physics, containersRef);
+  const sim = createSimulation(graph, state.physics);
   let fitted = false;
   sim.on("tick", () => {
     renderers[state.view].tick();
@@ -171,7 +248,7 @@ function installGraph(doc, label) {
   });
   sim.on("end", () => renderers[state.view].fit());
   state.sim = sim;
-  setStatus(`${graph.nodes.length} declarations · ${graph.links.length} edges`);
+  setStatus("app.status", { nodes: graph.nodes.length, edges: graph.links.length });
 }
 
 async function loadDataset(id) {
@@ -179,7 +256,7 @@ async function loadDataset(id) {
   if (!ds) return;
   state.datasetId = id;
   panel.setDatasets(state.datasets, id);
-  setStatus(`loading ${ds.name}…`);
+  setStatus("app.loadingDataset", { name: ds.name });
   try {
     const res = await fetch(ds.file);
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
@@ -189,7 +266,7 @@ async function loadDataset(id) {
     url.searchParams.set("data", id);
     history.replaceState(null, "", url);
   } catch (err) {
-    setStatus(`failed to load ${ds.file}: ${err.message}`);
+    setStatus("app.loadFailed", { file: ds.file, message: err.message });
   }
 }
 
@@ -202,14 +279,14 @@ function loadFile(file) {
       panel.setDatasets(state.datasets, "__custom__");
       installGraph(doc, file.name);
     } catch (err) {
-      setStatus(`could not parse ${file.name}: ${err.message}`);
+      setStatus("app.parseFailed", { file: file.name, message: err.message });
     }
   };
   reader.readAsText(file);
 }
 
 async function loadRemote(url) {
-  setStatus(`loading ${url}…`);
+  setStatus("app.loadingDataset", { name: url });
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
@@ -218,7 +295,7 @@ async function loadRemote(url) {
     panel.setDatasets(state.datasets, "__custom__");
     installGraph(doc, url);
   } catch (err) {
-    setStatus(`failed to load ${url}: ${err.message}`);
+    setStatus("app.loadFailed", { file: url, message: err.message });
   }
 }
 
@@ -235,7 +312,7 @@ async function main() {
   } else if (state.datasets.length > 0) {
     await loadDataset(state.datasets[0].id);
   } else {
-    setStatus("no datasets found: open a JSON file from the panel");
+    setStatus("app.noDatasets");
   }
 }
 

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildGraph, computeHeights, connectedComponentCount, stronglyConnectedComponents } from "../site/js/model.js";
+import { applyActiveKinds, buildGraph, computeHeights, connectedComponentCount, stronglyConnectedComponents } from "../site/js/model.js";
 import { computeMetrics, topSharedNodes } from "../site/js/metrics.js";
 
 const decl = (id, file = "src/a.js", kind = "function") => ({ id, name: id, kind, file });
@@ -25,7 +25,7 @@ test("containers follow the directory hierarchy", () => {
   });
   const paths = g.containers.map((c) => c.path).sort();
   assert.deepEqual(paths, ["root.js", "src", "src/core", "src/core/x.js", "src/core/y.js", "src/util", "src/util/z.js"]);
-  assert.equal(g.maxDepth, 2);
+  assert.equal(g.maxDepth, 3); // src / core / x.js
   const src = g.containers.find((c) => c.path === "src");
   assert.equal(src.nodes.length, 3);
   assert.equal(src.depth, 1);
@@ -121,4 +121,57 @@ test("empty graph does not divide by zero", () => {
   const m = computeMetrics(buildGraph({ declarations: [], edges: [] }));
   assert.equal(m.overall, 1);
   assert.equal(m.components, 0);
+});
+
+test("heights, degrees and metrics use the control graph only", () => {
+  const g = buildGraph({
+    declarations: ["main", "helper", "T", "Base", "Impl"].map((id) => decl(id)),
+    edges: [
+      edge("main", "helper", "call"),
+      edge("main", "T", "type"),
+      edge("main", "Impl", "create"),
+      edge("Impl", "Base", "extends"),
+      edge("helper", "main", "reference"), // value flow, not a call: no cycle
+    ],
+  });
+  assert.equal(g.links.length, 5);
+  assert.equal(g.activeLinks.length, 2);
+  assert.equal(g.byId.get("main").outDegree, 2);
+  assert.equal(g.byId.get("T").inDegree, 0);
+  assert.equal(g.byId.get("main").height, 1);
+  assert.equal(g.byId.get("Base").height, 0);
+  assert.equal(g.byId.get("main").inCycle, false);
+  const m = computeMetrics(g);
+  assert.equal(m.edges, 5);
+  assert.equal(m.activeEdges, 2);
+  assert.equal(m.treeScore, 1);
+  assert.equal(m.nontrivialSccs, 0);
+  // Switching the diagnosed kinds recomputes degrees, heights and cycles.
+  applyActiveKinds(g, new Set(["call", "reference"]));
+  assert.equal(g.activeLinks.length, 2);
+  assert.equal(g.byId.get("main").inCycle, true);
+  assert.equal(g.byId.get("main").inDegree, 1);
+  assert.equal(g.byId.get("Impl").inDegree, 0);
+  assert.ok(computeMetrics(g).treeScore < 1);
+  applyActiveKinds(g, new Set(["call", "create"]));
+  assert.equal(g.byId.get("main").inCycle, false);
+});
+
+test("initialisation cycles count definition-time dependencies only", () => {
+  const time = (e, t) => ({ ...e, time: t });
+  const g = buildGraph({
+    declarations: ["a", "b", "f", "g", "T"].map((id) => decl(id)),
+    edges: [
+      time(edge("a", "b", "call"), "definition"),
+      time(edge("b", "a", "reference"), "definition"),
+      time(edge("f", "g", "call"), "use"),
+      time(edge("g", "f", "call"), "use"),
+      time(edge("T", "T", "type"), "definition"),
+    ],
+  });
+  const m = computeMetrics(g);
+  assert.equal(m.initCycles, 2); // a and b are read before they are initialised
+  assert.equal(m.nontrivialSccs, 1); // f and g: ordinary mutual recursion on the control graph
+  assert.equal(g.links.find((l) => l.source.id === "a").time, "definition");
+  assert.equal(g.links.find((l) => l.source.id === "f").time, "use");
 });

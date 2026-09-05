@@ -1,5 +1,6 @@
 // Graph model: normalises an analyzer document (see docs/DATA_FORMAT.md) into
 // the in-memory structures used by the renderers and the diagnostics panel.
+import { CONTROL_KINDS } from "./kinds.js";
 
 /** Split a `/`-separated path into its directory segments and the file name. */
 export function splitPath(file) {
@@ -50,22 +51,44 @@ export function buildGraph(doc) {
       continue;
     }
     const kind = e.kind ?? "call";
-    const key = `${s.id} ${t.id} ${kind}`;
+    const time = e.time === "definition" ? "definition" : "use";
+    const key = `${s.id} ${t.id} ${kind} ${time}`;
     const existing = merged.get(key);
     if (existing) existing.count += e.count ?? 1;
-    else merged.set(key, { source: s, target: t, kind, count: e.count ?? 1 });
+    else merged.set(key, { source: s, target: t, kind, time, inferred: Boolean(e.inferred), count: e.count ?? 1 });
   }
   const links = [...merged.values()];
-  for (const l of links) {
+  const containers = buildContainers(nodes);
+  // Deepest container, files included: the zone depth slider runs from 0 to this value.
+  const maxDepth = containers.reduce((m, c) => Math.max(m, c.depth), 0);
+
+  const graph = { nodes, links, activeLinks: [], containers, maxDepth, dropped, byId };
+  // Degrees, heights and the tree diagnostics are defined on a chosen set of
+  // edge kinds; the default is the control graph (calls and constructions),
+  // see docs/THEORY.md §7. The panel lets the user change the set.
+  applyActiveKinds(graph, CONTROL_KINDS);
+  return graph;
+}
+
+/**
+ * Select the edge kinds that count for degrees, call heights, cycle marks and
+ * the diagnostics. Recomputes the per-node fields in place and returns the
+ * active links.
+ */
+export function applyActiveKinds(graph, kinds) {
+  const active = graph.links.filter((l) => kinds.has(l.kind));
+  graph.activeLinks = active;
+  graph.activeKinds = new Set(kinds);
+  for (const n of graph.nodes) {
+    n.inDegree = 0;
+    n.outDegree = 0;
+  }
+  for (const l of active) {
     l.source.outDegree += 1;
     l.target.inDegree += 1;
   }
-
-  const containers = buildContainers(nodes);
-  const maxDepth = containers.reduce((m, c) => Math.max(m, c.isFile ? c.depth - 1 : c.depth), 0);
-  computeHeights(nodes, links);
-
-  return { nodes, links, containers, maxDepth, dropped, byId };
+  computeHeights(graph.nodes, active);
+  return active;
 }
 
 /**

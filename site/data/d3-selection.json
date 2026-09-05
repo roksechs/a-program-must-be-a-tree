@@ -3,7 +3,7 @@
   "name": "d3-selection",
   "root": "node_modules/d3-selection",
   "language": "javascript",
-  "generatedAt": "2026-09-05T08:31:31.502Z",
+  "generatedAt": "2026-09-05T09:56:41.180Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 54
  },
@@ -72,6 +72,15 @@
    "exported": true
   },
   {
+   "id": "src/local.js::<module>",
+   "name": "local",
+   "kind": "module",
+   "file": "src/local.js",
+   "line": 11,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "src/local.js::local",
    "name": "local",
    "kind": "function",
@@ -124,6 +133,15 @@
    "line": 3,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/namespaces.js::<module>",
+   "name": "namespaces",
+   "kind": "module",
+   "file": "src/namespaces.js",
+   "line": 3,
+   "parent": null,
+   "exported": false
   },
   {
    "id": "src/namespaces.js::xhtml",
@@ -250,6 +268,15 @@
    "line": 1,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/selection/classed.js::<module>",
+   "name": "classed",
+   "kind": "module",
+   "file": "src/selection/classed.js",
+   "line": 14,
+   "parent": null,
+   "exported": false
   },
   {
    "id": "src/selection/classed.js::classArray",
@@ -468,6 +495,15 @@
    "exported": true
   },
   {
+   "id": "src/selection/enter.js::<module>",
+   "name": "enter",
+   "kind": "module",
+   "file": "src/selection/enter.js",
+   "line": 16,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "src/selection/enter.js::default",
    "name": "enter",
    "kind": "function",
@@ -536,6 +572,15 @@
    "kind": "function",
    "file": "src/selection/html.js",
    "line": 1,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/selection/index.js::<module>",
+   "name": "index",
+   "kind": "module",
+   "file": "src/selection/index.js",
+   "line": 51,
    "parent": null,
    "exported": false
   },
@@ -1058,631 +1103,1256 @@
    "source": "src/create.js::default",
    "target": "src/creator.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/create.js::default",
    "target": "src/select.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/creator.js::creatorInherit",
    "target": "src/namespaces.js::xhtml",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "src/creator.js::default",
+   "target": "src/creator.js::creatorFixed",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/creator.js::default",
    "target": "src/creator.js::creatorFixed",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/creator.js::default",
+   "target": "src/creator.js::creatorInherit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/creator.js::default",
    "target": "src/creator.js::creatorInherit",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/creator.js::default",
    "target": "src/namespace.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/local.js::<module>",
+   "target": "src/local.js::local",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/local.js::<module>",
+   "target": "src/local.js::Local",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
   },
   {
    "source": "src/local.js::local",
    "target": "src/local.js::Local",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/local.js::Local",
    "target": "src/local.js::nextId",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/namespaces.js::<module>",
+   "target": "src/namespaces.js::xhtml",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/pointer.js::default",
    "target": "src/sourceEvent.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pointers.js::default",
    "target": "src/pointer.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/pointers.js::default",
    "target": "src/sourceEvent.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/select.js::default",
    "target": "src/selection/index.js::root",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/select.js::default",
    "target": "src/selection/index.js::Selection",
-   "kind": "call",
-   "count": 2
+   "kind": "create",
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/selectAll.js::default",
    "target": "src/array.js::array",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selectAll.js::default",
    "target": "src/selection/index.js::root",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selectAll.js::default",
    "target": "src/selection/index.js::Selection",
-   "kind": "call",
-   "count": 2
+   "kind": "create",
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/selection/append.js::default",
    "target": "src/creator.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/attr.js::default",
    "target": "src/namespace.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/attr.js::default",
+   "target": "src/selection/attr.js::attrConstant",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/attr.js::default",
    "target": "src/selection/attr.js::attrConstant",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/attr.js::default",
+   "target": "src/selection/attr.js::attrConstantNS",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/attr.js::default",
    "target": "src/selection/attr.js::attrConstantNS",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/attr.js::default",
+   "target": "src/selection/attr.js::attrFunction",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/attr.js::default",
    "target": "src/selection/attr.js::attrFunction",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/attr.js::default",
+   "target": "src/selection/attr.js::attrFunctionNS",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/attr.js::default",
    "target": "src/selection/attr.js::attrFunctionNS",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/attr.js::default",
+   "target": "src/selection/attr.js::attrRemove",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/attr.js::default",
    "target": "src/selection/attr.js::attrRemove",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/attr.js::default",
+   "target": "src/selection/attr.js::attrRemoveNS",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/attr.js::default",
    "target": "src/selection/attr.js::attrRemoveNS",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/classed.js::<module>",
+   "target": "src/selection/classed.js::ClassList",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/selection/classed.js::classedAdd",
    "target": "src/selection/classed.js::classList",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/classed.js::classedFalse",
    "target": "src/selection/classed.js::classedRemove",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/classed.js::classedFunction",
+   "target": "src/selection/classed.js::classedAdd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/classed.js::classedFunction",
    "target": "src/selection/classed.js::classedAdd",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/classed.js::classedFunction",
+   "target": "src/selection/classed.js::classedRemove",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/classed.js::classedFunction",
    "target": "src/selection/classed.js::classedRemove",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/classed.js::classedRemove",
    "target": "src/selection/classed.js::classList",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/classed.js::classedTrue",
    "target": "src/selection/classed.js::classedAdd",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/classed.js::classList",
    "target": "src/selection/classed.js::ClassList",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/classed.js::ClassList",
    "target": "src/selection/classed.js::classArray",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/classed.js::default",
    "target": "src/selection/classed.js::classArray",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/classed.js::default",
+   "target": "src/selection/classed.js::classedFalse",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/classed.js::default",
    "target": "src/selection/classed.js::classedFalse",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/classed.js::default",
+   "target": "src/selection/classed.js::classedFunction",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/classed.js::default",
    "target": "src/selection/classed.js::classedFunction",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/classed.js::default",
+   "target": "src/selection/classed.js::classedTrue",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/classed.js::default",
    "target": "src/selection/classed.js::classedTrue",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/classed.js::default",
    "target": "src/selection/classed.js::classList",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/clone.js::default",
    "target": "src/selection/clone.js::selection_cloneDeep",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/clone.js::default",
    "target": "src/selection/clone.js::selection_cloneShallow",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/data.js::bindIndex",
    "target": "src/selection/enter.js::EnterNode",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/data.js::bindKey",
    "target": "src/selection/enter.js::EnterNode",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/data.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/data.js::default",
    "target": "src/selection/data.js::arraylike",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/data.js::default",
+   "target": "src/selection/data.js::bindIndex",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/data.js::default",
    "target": "src/selection/data.js::bindIndex",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/data.js::default",
+   "target": "src/selection/data.js::bindKey",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/data.js::default",
    "target": "src/selection/data.js::bindKey",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/data.js::default",
    "target": "src/selection/data.js::datum",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/data.js::default",
    "target": "src/selection/index.js::Selection",
+   "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/dispatch.js::default",
+   "target": "src/selection/dispatch.js::dispatchConstant",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/dispatch.js::default",
    "target": "src/selection/dispatch.js::dispatchConstant",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/dispatch.js::default",
+   "target": "src/selection/dispatch.js::dispatchFunction",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/dispatch.js::default",
    "target": "src/selection/dispatch.js::dispatchFunction",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/dispatch.js::dispatchConstant",
    "target": "src/selection/dispatch.js::dispatchEvent",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/dispatch.js::dispatchEvent",
    "target": "src/window.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/dispatch.js::dispatchFunction",
    "target": "src/selection/dispatch.js::dispatchEvent",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/enter.js::<module>",
+   "target": "src/selection/enter.js::EnterNode",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
   },
   {
    "source": "src/selection/enter.js::default",
    "target": "src/selection/index.js::Selection",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/enter.js::default",
    "target": "src/selection/sparse.js::default",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/exit.js::default",
    "target": "src/selection/index.js::Selection",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/exit.js::default",
    "target": "src/selection/sparse.js::default",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/filter.js::default",
    "target": "src/matcher.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/filter.js::default",
    "target": "src/selection/index.js::Selection",
+   "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/html.js::default",
+   "target": "src/selection/html.js::htmlConstant",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/html.js::default",
    "target": "src/selection/html.js::htmlConstant",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/html.js::default",
+   "target": "src/selection/html.js::htmlFunction",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/html.js::default",
    "target": "src/selection/html.js::htmlFunction",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/html.js::default",
    "target": "src/selection/html.js::htmlRemove",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/append.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/attr.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/call.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/classed.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/clone.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/data.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/datum.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/dispatch.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/each.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/empty.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/enter.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/exit.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/filter.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/html.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/index.js::selection",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/index.js::Selection",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/index.js::selection_selection",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/insert.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/iterator.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/join.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/lower.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/merge.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/node.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/nodes.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/on.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/order.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/property.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/raise.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/remove.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/select.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/selectAll.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/selectChild.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/selectChildren.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/size.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/sort.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/style.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/selection/index.js::<module>",
+   "target": "src/selection/text.js::default",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/selection/index.js::selection",
    "target": "src/selection/index.js::root",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/index.js::selection",
    "target": "src/selection/index.js::Selection",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/insert.js::default",
    "target": "src/creator.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/insert.js::default",
    "target": "src/selection/insert.js::constantNull",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/insert.js::default",
    "target": "src/selector.js::default",
    "kind": "call",
-   "count": 1
-  },
-  {
-   "source": "src/selection/join.js::default",
-   "target": "src/selection/join.js::default",
-   "kind": "call",
-   "count": 3
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/lower.js::default",
    "target": "src/selection/lower.js::lower",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/merge.js::default",
    "target": "src/selection/index.js::Selection",
+   "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/on.js::default",
+   "target": "src/selection/on.js::onAdd",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/on.js::default",
    "target": "src/selection/on.js::onAdd",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/on.js::default",
+   "target": "src/selection/on.js::onRemove",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/on.js::default",
    "target": "src/selection/on.js::onRemove",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/on.js::default",
    "target": "src/selection/on.js::parseTypenames",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/on.js::onAdd",
    "target": "src/selection/on.js::contextListener",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/property.js::default",
+   "target": "src/selection/property.js::propertyConstant",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/property.js::default",
    "target": "src/selection/property.js::propertyConstant",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/property.js::default",
+   "target": "src/selection/property.js::propertyFunction",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/property.js::default",
    "target": "src/selection/property.js::propertyFunction",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/property.js::default",
+   "target": "src/selection/property.js::propertyRemove",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/property.js::default",
    "target": "src/selection/property.js::propertyRemove",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/raise.js::default",
    "target": "src/selection/raise.js::raise",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/remove.js::default",
    "target": "src/selection/remove.js::remove",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/select.js::default",
    "target": "src/selection/index.js::Selection",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/select.js::default",
    "target": "src/selector.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectAll.js::arrayAll",
    "target": "src/array.js::array",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectAll.js::default",
    "target": "src/selection/index.js::Selection",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectAll.js::default",
    "target": "src/selection/selectAll.js::arrayAll",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectAll.js::default",
    "target": "src/selectorAll.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectChild.js::childFind",
    "target": "src/selection/selectChild.js::find",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectChild.js::default",
    "target": "src/matcher.js::childMatcher",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectChild.js::default",
    "target": "src/selection/selectChild.js::childFind",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectChild.js::default",
    "target": "src/selection/selectChild.js::childFirst",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectChildren.js::childrenFilter",
    "target": "src/selection/selectChildren.js::filter",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectChildren.js::default",
    "target": "src/matcher.js::childMatcher",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectChildren.js::default",
    "target": "src/selection/selectChildren.js::children",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/selectChildren.js::default",
    "target": "src/selection/selectChildren.js::childrenFilter",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/sort.js::default",
    "target": "src/selection/index.js::Selection",
+   "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/sort.js::default",
+   "target": "src/selection/sort.js::ascending",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/sort.js::default",
    "target": "src/selection/sort.js::ascending",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
-   "source": "src/selection/sort.js::default",
-   "target": "src/selection/sort.js::default",
+   "source": "src/selection/style.js::default",
+   "target": "src/selection/style.js::styleConstant",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/style.js::default",
    "target": "src/selection/style.js::styleConstant",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/style.js::default",
+   "target": "src/selection/style.js::styleFunction",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/style.js::default",
    "target": "src/selection/style.js::styleFunction",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/style.js::default",
+   "target": "src/selection/style.js::styleRemove",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/style.js::default",
    "target": "src/selection/style.js::styleRemove",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/style.js::default",
    "target": "src/selection/style.js::styleValue",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/style.js::styleValue",
    "target": "src/window.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/text.js::default",
+   "target": "src/selection/text.js::textConstant",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/text.js::default",
    "target": "src/selection/text.js::textConstant",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/text.js::default",
+   "target": "src/selection/text.js::textFunction",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/text.js::default",
    "target": "src/selection/text.js::textFunction",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/text.js::default",
    "target": "src/selection/text.js::textRemove",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selector.js::default",
    "target": "src/selector.js::none",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selectorAll.js::default",
    "target": "src/selectorAll.js::empty",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   }
  ]
 }

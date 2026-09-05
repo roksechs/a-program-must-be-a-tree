@@ -3,7 +3,7 @@
   "name": "d3-zoom",
   "root": "node_modules/d3-zoom",
   "language": "javascript",
-  "generatedAt": "2026-09-05T08:31:33.060Z",
+  "generatedAt": "2026-09-05T09:56:42.974Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 6
  },
@@ -43,6 +43,15 @@
    "line": 1,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/transform.js::<module>",
+   "name": "transform",
+   "kind": "module",
+   "file": "src/transform.js",
+   "line": 7,
+   "parent": null,
+   "exported": false
   },
   {
    "id": "src/transform.js::identity",
@@ -137,94 +146,138 @@
  ],
  "edges": [
   {
+   "source": "src/transform.js::<module>",
+   "target": "src/transform.js::transform",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/transform.js::<module>",
+   "target": "src/transform.js::Transform",
+   "kind": "create",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "src/transform.js::<module>",
+   "target": "src/transform.js::Transform",
+   "kind": "reference",
+   "count": 3,
+   "time": "definition"
+  },
+  {
    "source": "src/transform.js::identity",
    "target": "src/transform.js::Transform",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/transform.js::transform",
    "target": "src/transform.js::identity",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 4
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/event.js::ZoomEvent",
-   "kind": "call",
-   "count": 1
+   "kind": "create",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/noevent.js::default",
    "kind": "call",
-   "count": 5
+   "count": 5,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/noevent.js::nopropagation",
    "kind": "call",
-   "count": 3
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/transform.js::identity",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/transform.js::Transform",
+   "kind": "create",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::defaultConstrain",
    "kind": "call",
-   "count": 3
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/zoom.js::defaultConstrain",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/zoom.js::defaultExtent",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/zoom.js::defaultFilter",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/zoom.js::defaultTouchable",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/zoom.js::defaultTransform",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",
    "target": "src/zoom.js::defaultWheelDelta",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::defaultTransform",
    "target": "src/transform.js::identity",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   }
  ]
 }

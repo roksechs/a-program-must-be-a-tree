@@ -1,7 +1,10 @@
 // Property panel: builds the right-hand side controls and diagnostics.
 // The panel is deliberately framework-free: it renders plain DOM and reports
-// changes through callbacks so the app stays in charge of state.
-import { kindColor } from "./colors.js";
+// changes through callbacks so the app stays in charge of state. All visible
+// strings go through the translator so the panel can be re-rendered in
+// another language with `refresh()`.
+import { EDGE_KINDS, edgeColor, kindColor } from "./colors.js";
+import { kindLabel, t } from "./i18n.js";
 import { computeMetrics, topSharedNodes } from "./metrics.js";
 
 export class Panel {
@@ -14,6 +17,12 @@ export class Panel {
     this.host = host;
     this.state = state;
     this.h = handlers;
+    // Remembered so the panel can be rebuilt (e.g. after a language change).
+    this.datasets = [];
+    this.currentDataset = null;
+    this.dataInfo = null;
+    this.graph = null;
+    this.selected = null;
     this.render();
   }
 
@@ -53,6 +62,24 @@ export class Panel {
     return row;
   }
 
+  select(options, current, onChange) {
+    const sel = this.el("select", { onchange: (e) => onChange(e.target.value) });
+    for (const [value, label] of options) sel.append(this.el("option", { value, selected: current === value ? "" : null }, label));
+    return sel;
+  }
+
+  /** Rebuild the DOM and re-apply everything the app has told the panel so far. */
+  refresh() {
+    this.render();
+    this.setDatasets(this.datasets, this.currentDataset);
+    if (this.dataInfo) this.setDataInfo(this.dataInfo);
+    if (this.graph) {
+      this.setMaxDepth(this.state.maxDepth, this.state.zoneDepth);
+      this.setMetrics(this.graph);
+      this.setSelection(this.selected, this.graph);
+    }
+  }
+
   render() {
     const s = this.state;
     const h = this.h;
@@ -61,114 +88,126 @@ export class Panel {
     // Data
     this.datasetSelect = this.el("select", { onchange: (e) => h.onDataset(e.target.value) });
     const fileInput = this.el("input", { type: "file", accept: ".json,application/json", onchange: (e) => e.target.files[0] && h.onFile(e.target.files[0]) });
-    this.dataInfo = this.el("p", { class: "muted small" });
+    this.dataInfoEl = this.el("p", { class: "muted small" });
     this.host.append(
       this.section(
-        "Data",
-        this.el("label", { class: "control" }, this.el("span", {}, "Dataset"), this.datasetSelect),
-        this.el("label", { class: "control" }, this.el("span", {}, "Open JSON"), fileInput),
-        this.dataInfo,
+        t("section.data"),
+        this.el("label", { class: "control" }, this.el("span", {}, t("data.dataset")), this.datasetSelect),
+        this.el("label", { class: "control" }, this.el("span", {}, t("data.openJson")), fileInput),
+        this.dataInfoEl,
       ),
     );
 
     // View
     const viewGroup = this.el("div", { class: "segmented" });
     for (const v of ["2d", "3d"]) {
-      const b = this.el("button", { type: "button", class: s.view === v ? "active" : "", onclick: () => h.onView(v) }, v.toUpperCase());
-      viewGroup.append(b);
+      viewGroup.append(this.el("button", { type: "button", "data-view": v, class: s.view === v ? "active" : "", onclick: () => h.onView(v) }, v.toUpperCase()));
     }
     this.viewGroup = viewGroup;
-    const labelSelect = this.el("select", { onchange: (e) => h.onLabels(e.target.value) });
-    for (const m of ["auto", "all", "none"]) labelSelect.append(this.el("option", { value: m, selected: s.labelMode === m ? "" : null }, m));
-    const colorSelect = this.el("select", { onchange: (e) => h.onColorBy(e.target.value) });
-    for (const m of ["kind", "height"]) colorSelect.append(this.el("option", { value: m, selected: s.colorBy === m ? "" : null }, m));
-    this.layerGap = this.slider("Layer gap (3D)", "layerGap", 10, 300, 5, h.onLayerGap);
+    const labelSelect = this.select(
+      ["auto", "all", "none"].map((m) => [m, t(`view.labels.${m}`)]),
+      s.labelMode,
+      h.onLabels,
+    );
+    const colorSelect = this.select(
+      ["kind", "height"].map((m) => [m, t(`view.colour.${m}`)]),
+      s.colorBy,
+      h.onColorBy,
+    );
+    this.layerGap = this.slider(t("view.layerGap"), "layerGap", 10, 300, 5, h.onLayerGap);
     const layers = this.el("input", { type: "checkbox", checked: s.showLayers ? "" : null, onchange: (e) => h.onShowLayers(e.target.checked) });
     const rotate = this.el("input", { type: "checkbox", checked: s.autoRotate ? "" : null, onchange: (e) => h.onAutoRotate(e.target.checked) });
     this.host.append(
       this.section(
-        "View",
-        this.el("div", { class: "control" }, this.el("span", {}, "Mode"), viewGroup),
-        this.el("label", { class: "control" }, this.el("span", {}, "Labels"), labelSelect),
-        this.el("label", { class: "control" }, this.el("span", {}, "Colour by"), colorSelect),
+        t("section.view"),
+        this.el("div", { class: "control" }, this.el("span", {}, t("view.mode")), viewGroup),
+        this.el("label", { class: "control" }, this.el("span", {}, t("view.labels")), labelSelect),
+        this.el("label", { class: "control" }, this.el("span", {}, t("view.colourBy")), colorSelect),
         this.layerGap,
-        this.el("label", { class: "control" }, this.el("span", {}, "Layer planes (3D)"), layers),
-        this.el("label", { class: "control" }, this.el("span", {}, "Auto-rotate (3D)"), rotate),
-        this.el("div", { class: "buttons" }, this.el("button", { type: "button", onclick: h.onFit }, "Fit to view")),
-        this.el("p", { class: "muted small" }, "2D: drag nodes, wheel to zoom, drag background to pan. 3D: drag to orbit, shift+drag to pan, wheel to zoom. Click a node to inspect it."),
+        this.el("label", { class: "control" }, this.el("span", {}, t("view.layerPlanes")), layers),
+        this.el("label", { class: "control" }, this.el("span", {}, t("view.autoRotate")), rotate),
+        this.el("div", { class: "buttons" }, this.el("button", { type: "button", onclick: h.onFit }, t("view.fit"))),
+        this.el("p", { class: "muted small" }, t("view.help")),
       ),
     );
+
+    // Edges: one switch per kind; it drives drawing, springs and diagnostics together.
+    const kindList = this.el("div", { class: "kind-list" });
+    for (const kind of EDGE_KINDS) {
+      const box = this.el("input", { type: "checkbox", checked: s.kinds.has(kind) ? "" : null, onchange: (e) => h.onKinds(kind, e.target.checked) });
+      kindList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
+    }
+    this.host.append(this.section(t("section.edges"), kindList, this.el("p", { class: "muted small" }, t("edges.help"))));
 
     // Physics
     this.host.append(
       this.section(
-        "Physics",
+        t("section.physics"),
         this.el(
           "div",
           { class: "buttons" },
-          this.el("button", { type: "button", class: "primary", onclick: h.onReheat }, "Recompute (reheat)"),
-          this.el("button", { type: "button", onclick: h.onReset }, "Reset positions"),
+          this.el("button", { type: "button", class: "primary", onclick: h.onReheat }, t("physics.reheat")),
+          this.el("button", { type: "button", onclick: h.onReset }, t("physics.reset")),
         ),
-        this.slider("Repulsion (1/d)", "repulsion", 0, 1000, 5, (v) => h.onPhysics("repulsion", v)),
-        this.slider("Spring stiffness", "stiffness", 0, 0.2, 0.001, (v) => h.onPhysics("stiffness", v), (v) => v.toFixed(3)),
-        this.slider("Spring rest length", "restLength", 0, 200, 1, (v) => h.onPhysics("restLength", v)),
-        this.slider("Zone cohesion", "cohesion", 0, 1, 0.01, (v) => h.onPhysics("cohesion", v), (v) => v.toFixed(2)),
-        this.slider("Gravity", "gravity", 0, 0.2, 0.005, (v) => h.onPhysics("gravity", v), (v) => v.toFixed(3)),
-        this.el("p", { class: "muted small" }, "Repulsion between every pair of nodes is inversely proportional to their distance; every edge is a spring whose pull is proportional to its length. Use Recompute when the layout gets stuck in an early configuration."),
+        this.slider(t("physics.repulsion"), "repulsion", 0, 1000, 5, (v) => h.onPhysics("repulsion", v)),
+        this.slider(t("physics.stiffness"), "stiffness", 0, 0.2, 0.001, (v) => h.onPhysics("stiffness", v), (v) => v.toFixed(3)),
+        this.slider(t("physics.restLength"), "restLength", 0, 200, 1, (v) => h.onPhysics("restLength", v)),
+        this.slider(t("physics.gravity"), "gravity", 0, 0.2, 0.005, (v) => h.onPhysics("gravity", v), (v) => v.toFixed(3)),
+        this.el("p", { class: "muted small" }, t("physics.help")),
       ),
     );
 
     // Zones
-    this.depthSlider = this.slider("Directory depth", "zoneDepth", 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => `${v} / ${s.maxDepth}`);
-    const files = this.el("input", { type: "checkbox", checked: s.showFiles ? "" : null, onchange: (e) => h.onZones(undefined, e.target.checked) });
-    this.host.append(
-      this.section(
-        "Zones",
-        this.depthSlider,
-        this.el("label", { class: "control" }, this.el("span", {}, "File zones"), files),
-        this.el("p", { class: "muted small" }, "Depth 0 hides directory zones; the maximum shows every directory in the codebase. Zones are convex hulls around the declarations they contain."),
-      ),
-    );
+    this.depthSlider = this.slider(t("zones.depth"), "zoneDepth", 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => `${v} / ${s.maxDepth}`);
+    this.host.append(this.section(t("section.zones"), this.depthSlider, this.el("p", { class: "muted small" }, t("zones.help"))));
 
     // Diagnostics
     this.metricsBody = this.el("div", { class: "metrics" });
     this.sharedList = this.el("ol", { class: "shared" });
     this.host.append(
       this.section(
-        "Diagnostics: is it a tree?",
+        t("section.diagnostics"),
+        this.el("p", { class: "muted small", style: "margin:0 0 6px" }, t("metric.scope")),
         this.metricsBody,
-        this.el("h3", {}, "Most shared declarations"),
+        this.el("h3", {}, t("metric.shared")),
         this.sharedList,
       ),
     );
 
     // Selection
-    this.selectionBody = this.el("div", { class: "selection muted small" }, "Click a node to see its callers and callees.");
-    this.host.append(this.section("Selection", this.selectionBody));
+    this.selectionBody = this.el("div", { class: "selection muted small" }, t("selection.empty"));
+    this.host.append(this.section(t("section.selection"), this.selectionBody));
 
     // Legend
     const legend = this.el("div", { class: "legend" });
     for (const kind of ["function", "method", "class", "variable", "interface", "enum", "module"]) {
-      legend.append(this.el("span", { class: "legend-item" }, this.el("i", { style: `background:${kindColor(kind)}` }), kind));
+      legend.append(this.el("span", { class: "legend-item" }, this.el("i", { style: `background:${kindColor(kind)}` }), kindLabel(kind)));
     }
-    legend.append(this.el("span", { class: "legend-item" }, this.el("i", { class: "cycle" }), "in a cycle"));
-    this.host.append(this.section("Legend", legend));
+    legend.append(this.el("span", { class: "legend-item" }, this.el("i", { class: "cycle" }), t("legend.inCycle")));
+    const edgeLegend = this.el("div", { class: "legend" });
+    for (const kind of EDGE_KINDS) edgeLegend.append(this.el("span", { class: "legend-item" }, this.el("i", { class: "edge", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
+    edgeLegend.append(this.el("span", { class: "legend-item muted" }, t("legend.inferred")));
+    this.host.append(this.section(t("section.legend"), legend, this.el("h3", {}, t("legend.edges")), edgeLegend));
   }
 
   setDatasets(datasets, current) {
+    this.datasets = datasets;
+    this.currentDataset = current;
     this.datasetSelect.replaceChildren();
     for (const d of datasets) {
       this.datasetSelect.append(this.el("option", { value: d.id, selected: d.id === current ? "" : null }, d.name));
     }
-    this.datasetSelect.append(this.el("option", { value: "__custom__", disabled: "", selected: current === "__custom__" ? "" : null }, "(local file)"));
+    this.datasetSelect.append(this.el("option", { value: "__custom__", disabled: "", selected: current === "__custom__" ? "" : null }, t("data.localFile")));
   }
 
-  setDataInfo(text) {
-    this.dataInfo.textContent = text;
+  /** @param {object} info { label, nodes, edges, files } */
+  setDataInfo(info) {
+    this.dataInfo = info;
+    this.dataInfoEl.textContent = t("app.dataInfo", info);
   }
 
   setView(view) {
-    for (const b of this.viewGroup.children) b.classList.toggle("active", b.textContent.toLowerCase() === view);
+    for (const b of this.viewGroup.children) b.classList.toggle("active", b.dataset.view === view);
   }
 
   setMaxDepth(maxDepth, value) {
@@ -179,70 +218,90 @@ export class Panel {
   }
 
   setMetrics(graph) {
+    this.graph = graph;
     const m = computeMetrics(graph);
     const pct = (v) => `${(v * 100).toFixed(1)}%`;
-    const bar = (label, v, hint) =>
+    const bar = (key, v) =>
       this.el(
         "div",
-        { class: "metric-bar", title: hint },
-        this.el("span", { class: "metric-label" }, label),
+        { class: "metric-bar", title: t(`${key}.hint`) },
+        this.el("span", { class: "metric-label" }, t(key)),
         this.el("span", { class: "bar" }, this.el("i", { style: `width:${Math.max(0, Math.min(1, v)) * 100}%` })),
         this.el("span", { class: "metric-value" }, pct(v)),
       );
-    const kv = (label, v, hint) => this.el("div", { class: "metric-kv", title: hint }, this.el("span", {}, label), this.el("b", {}, String(v)));
+    const kv = (key, v, hint = true) => this.el("div", { class: "metric-kv", title: hint ? t(`${key}.hint`) : null }, this.el("span", {}, t(key)), this.el("b", {}, String(v)));
     this.metricsBody.replaceChildren(
-      bar("Tree score", m.overall, "Average of the four ratios below."),
-      bar("Spanning ratio", m.treeScore, "(nodes - components) / edges. Exactly 1 for a forest; lower when declarations are reached by more than one path."),
-      bar("Acyclicity", m.acyclicity, "Share of declarations that are not part of any call cycle."),
-      bar("Single caller", m.singleCallerRatio, "Share of declarations with at most one caller."),
-      bar("DAG-ness", m.dagness, "Share of edges that do not participate in a cycle."),
+      bar("metric.treeScore", m.overall),
+      bar("metric.spanning", m.treeScore),
+      bar("metric.acyclicity", m.acyclicity),
+      bar("metric.singleCaller", m.singleCallerRatio),
+      bar("metric.dagness", m.dagness),
       this.el(
         "div",
         { class: "metric-grid" },
-        kv("Declarations", m.nodes),
-        kv("Edges", m.edges),
-        kv("Components", m.components, "Weakly connected components."),
-        kv("Roots", m.roots, "Declarations nobody calls."),
-        kv("Leaves", m.leaves, "Declarations that call nothing."),
-        kv("Max height", m.maxHeight, "Longest call chain (layers in 3D)."),
-        kv("Surplus edges", m.surplusEdges, "Edges beyond what a forest would need."),
-        kv("Cycles (SCCs)", m.nontrivialSccs, "Non-trivial strongly connected components."),
-        kv("Self loops", m.selfLoops, "Directly recursive declarations."),
-        kv("Multi-caller nodes", m.multiCallers, "Declarations called from more than one place."),
-        kv("Dropped edges", m.dropped, "Edges whose endpoints were not declared."),
+        kv("metric.declarations", m.nodes, false),
+        kv("metric.edges", m.edges, false),
+        kv("metric.activeEdges", m.activeEdges),
+        kv("metric.initCycles", m.initCycles),
+        kv("metric.components", m.components),
+        kv("metric.roots", m.roots),
+        kv("metric.leaves", m.leaves),
+        kv("metric.maxHeight", m.maxHeight),
+        kv("metric.surplus", m.surplusEdges),
+        kv("metric.cycles", m.nontrivialSccs),
+        kv("metric.selfLoops", m.selfLoops),
+        kv("metric.multiCallers", m.multiCallers),
+        kv("metric.dropped", m.dropped),
       ),
     );
     this.sharedList.replaceChildren();
     for (const n of topSharedNodes(graph)) {
-      const li = this.el("li", {}, this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(n)) }, n.name), this.el("span", { class: "muted" }, ` ${n.inDegree} callers`));
+      const li = this.el(
+        "li",
+        {},
+        this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(n)) }, n.name),
+        this.el("span", { class: "muted" }, ` ${t("metric.shared.callers", { count: n.inDegree })}`),
+      );
       this.sharedList.append(li);
     }
-    if (this.sharedList.children.length === 0) this.sharedList.append(this.el("li", { class: "muted" }, "none: every declaration has at most one caller"));
+    if (this.sharedList.children.length === 0) this.sharedList.append(this.el("li", { class: "muted" }, t("metric.shared.none")));
   }
 
   setSelection(node, graph) {
+    this.selected = node;
     if (!node) {
       this.selectionBody.className = "selection muted small";
-      this.selectionBody.replaceChildren("Click a node to see its callers and callees.");
+      this.selectionBody.replaceChildren(t("selection.empty"));
       return;
     }
     this.selectionBody.className = "selection";
-    const callers = graph.links.filter((l) => l.target === node).map((l) => l.source);
-    const callees = graph.links.filter((l) => l.source === node).map((l) => l.target);
+    const callers = graph.links.filter((l) => l.target === node).map((l) => ({ n: l.source, l }));
+    const callees = graph.links.filter((l) => l.source === node).map((l) => ({ n: l.target, l }));
     const list = (title, items) => {
       const ul = this.el("ul", {});
-      for (const n of items) {
-        ul.append(this.el("li", {}, this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(n)) }, n.name), this.el("span", { class: "muted small" }, ` ${n.file}`)));
+      for (const { n, l } of items) {
+        ul.append(
+          this.el(
+            "li",
+            {},
+            this.el("i", { class: "edge-dot", style: `background:${edgeColor(l.kind)}`, title: t(`edge.${l.kind}`) }),
+            this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(n)) }, n.name),
+            this.el("span", { class: "muted small" }, ` ${t(`edge.${l.kind}`)}${l.inferred ? "*" : ""} · ${n.file}`),
+          ),
+        );
       }
-      if (items.length === 0) ul.append(this.el("li", { class: "muted" }, "none"));
+      if (items.length === 0) ul.append(this.el("li", { class: "muted" }, t("selection.none")));
       return this.el("div", {}, this.el("h3", {}, `${title} (${items.length})`), ul);
     };
+    const flags = [t("selection.height", { height: node.height })];
+    if (node.inCycle) flags.push(t("selection.inCycle"));
+    if (node.exported) flags.push(t("selection.exported"));
     this.selectionBody.replaceChildren(
-      this.el("div", { class: "sel-title" }, this.el("i", { style: `background:${kindColor(node.kind)}` }), this.el("b", {}, node.name), this.el("span", { class: "muted" }, ` ${node.kind}`)),
+      this.el("div", { class: "sel-title" }, this.el("i", { style: `background:${kindColor(node.kind)}` }), this.el("b", {}, node.name), this.el("span", { class: "muted" }, ` ${kindLabel(node.kind)}`)),
       this.el("div", { class: "small mono" }, node.line ? `${node.file}:${node.line}` : node.file),
-      this.el("div", { class: "small muted" }, `height ${node.height}${node.inCycle ? ", in a cycle" : ""}${node.exported ? ", exported" : ""}`),
-      list("Callers", callers),
-      list("Callees", callees),
+      this.el("div", { class: "small muted" }, flags.join(", ")),
+      list(t("selection.callers"), callers),
+      list(t("selection.callees"), callees),
     );
   }
 }

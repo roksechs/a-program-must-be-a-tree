@@ -3,7 +3,7 @@
   "name": "d3-force",
   "root": "node_modules/d3-force",
   "language": "javascript",
-  "generatedAt": "2026-09-05T08:31:31.063Z",
+  "generatedAt": "2026-09-05T09:56:40.704Z",
   "analyzer": "analyzers/ts@0.1.0",
   "files": 12
  },
@@ -210,159 +210,158 @@
  "edges": [
   {
    "source": "src/collide.js::default",
-   "target": "src/collide.js::default",
-   "kind": "call",
-   "count": 1
-  },
-  {
-   "source": "src/collide.js::default",
    "target": "src/collide.js::x",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/collide.js::default",
    "target": "src/collide.js::y",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/collide.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/collide.js::default",
    "target": "src/jiggle.js::default",
    "kind": "call",
-   "count": 2
-  },
-  {
-   "source": "src/jiggle.js::default",
-   "target": "src/jiggle.js::default",
-   "kind": "call",
-   "count": 1
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/lcg.js::default",
    "target": "src/lcg.js::a",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/lcg.js::default",
    "target": "src/lcg.js::c",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/lcg.js::default",
    "target": "src/lcg.js::m",
    "kind": "reference",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/link.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 3
+   "count": 3,
+   "time": "use"
   },
   {
    "source": "src/link.js::default",
    "target": "src/jiggle.js::default",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/link.js::default",
    "target": "src/link.js::find",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "src/link.js::default",
+   "target": "src/link.js::index",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/link.js::default",
    "target": "src/link.js::index",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/manyBody.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 2
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/manyBody.js::default",
    "target": "src/jiggle.js::default",
    "kind": "call",
-   "count": 4
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/manyBody.js::default",
    "target": "src/simulation.js::x",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/manyBody.js::default",
    "target": "src/simulation.js::y",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/radial.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 4
-  },
-  {
-   "source": "src/radial.js::default",
-   "target": "src/radial.js::default",
-   "kind": "call",
-   "count": 1
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/simulation.js::default",
    "target": "src/lcg.js::default",
    "kind": "call",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/simulation.js::default",
    "target": "src/simulation.js::initialAngle",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/simulation.js::default",
    "target": "src/simulation.js::initialRadius",
    "kind": "reference",
-   "count": 1
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/x.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 4
-  },
-  {
-   "source": "src/x.js::default",
-   "target": "src/x.js::default",
-   "kind": "call",
-   "count": 1
+   "count": 4,
+   "time": "use"
   },
   {
    "source": "src/y.js::default",
    "target": "src/constant.js::default",
    "kind": "call",
-   "count": 4
-  },
-  {
-   "source": "src/y.js::default",
-   "target": "src/y.js::default",
-   "kind": "call",
-   "count": 1
+   "count": 4,
+   "time": "use"
   }
  ]
 }
