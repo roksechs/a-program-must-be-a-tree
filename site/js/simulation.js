@@ -12,7 +12,6 @@ export const DEFAULT_PHYSICS = Object.freeze({
   repulsion: 120, // magnitude of the 1/d repulsion
   stiffness: 0.03, // spring constant k in F = k * (d - restLength)
   restLength: 30, // spring rest length in pixels
-  gravity: 0.05, // weak pull towards the origin so disconnected components stay together
   alphaDecay: 0.0228, // d3 default: ~300 ticks per run
 });
 
@@ -65,14 +64,24 @@ export function forceSpring(links, opts) {
   return force;
 }
 
-/** Create the simulation for a graph. */
+/**
+ * Create the simulation for a graph.
+ *
+ * Two forces, and nothing else: the 1/d repulsion and the springs. The
+ * repulsion has no range limit, every pair of nodes feels it however far apart
+ * they are, and the only attraction is a spring along an edge, so where two
+ * declarations end up next to each other, it is because they are related.
+ *
+ * Nothing defines a centre either: no point in the plane is privileged, and
+ * where the graph as a whole sits is a question for the camera ("Fit to view"),
+ * not for the physics. The one remaining entry is `forceCollide`, the hard core
+ * of the repulsion, which keeps circles from overlapping.
+ */
 export function createSimulation(graph, physics) {
   const sim = d3
     .forceSimulation(graph.nodes)
     .force("charge", d3.forceManyBody().strength(-physics.repulsion).theta(0.9))
     .force("spring", forceSpring(graph.links, physics))
-    .force("x", d3.forceX(0).strength(physics.gravity))
-    .force("y", d3.forceY(0).strength(physics.gravity))
     .force("collide", d3.forceCollide().radius((n) => nodeRadius(n) + 2).iterations(1))
     .alphaDecay(physics.alphaDecay)
     .velocityDecay(0.4);
@@ -84,8 +93,6 @@ export function applyPhysics(sim, physics) {
   sim.force("charge").strength(-physics.repulsion);
   // Re-read node radii (degrees may have changed with the active edge kinds).
   sim.force("collide").radius((n) => nodeRadius(n) + 2);
-  sim.force("x").strength(physics.gravity);
-  sim.force("y").strength(physics.gravity);
   sim.alphaDecay(physics.alphaDecay);
 }
 

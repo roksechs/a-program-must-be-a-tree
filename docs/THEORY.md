@@ -268,8 +268,11 @@ an object is a fixed point `fix(gen_C)`. Under this reading:
   control dependency on `B` (the prototype chain is built when the class
   statement runs). Cycles among `extends` edges are initialisation errors
   by section 4.
-* `new C(ē)` takes the fixed point and applies the constructor: a use-time
-  `create` (or `call`) whose target is the constructor found by lookup.
+* `new C(ē)` evaluates `C`, takes the fixed point and applies the
+  constructor: a use-time `reference` to the binding `C` (the generator is
+  read as a value) together with a `create` whose target is the constructor
+  found by lookup. When the lookup lands on `C` itself, because neither `C`
+  nor any ancestor declares a constructor, the `create` alone is recorded.
 * `super(ē)` inside `C.constructor` applies `ctor_B`: a `call` to the
   nearest ancestor that declares a constructor.
 * `implements I` contributes nothing to the generator: it is type-level.
@@ -284,7 +287,7 @@ an object is a fixed point `fix(gen_C)`. Under this reading:
 | `f(a)`                                     | `f a`, operator                 | `call`      | `f`                                     |
 | `o.m(a)`                                   | `(o.m) a`                       | `call`      | method `m` (static type, or CHA set)    |
 | `ns.f(a)`                                  | `(ns.f) a`                      | `call`      | `f`; `ns` is a `reference`              |
-| `new C(a)`                                 | `new C (a)`                     | `call` (`create`) | constructor of `C` by lookup       |
+| `new C(a)`                                 | `new C (a)`                     | `create` + `reference` | constructor of `C` by lookup, and `C` itself |
 | `super(a)`                                 | `super (a)`                     | `call`      | ancestor constructor                    |
 | `g(f)`, `arr.map(f)`, `setTimeout(f)`      | operand                         | `reference` | `f`                                     |
 | `const h = f`, `obj.x = f`, `return f`     | bound / stored / returned       | `reference` | `f`                                     |
@@ -335,6 +338,30 @@ dominator tree. Every edge of `H` that is not a dominator-tree edge is a
 the other, so it has to live at a common ancestor scope. The diagnostics
 count these as surplus edges and list their targets as the most shared
 declarations.
+
+**Definition 11 (lift).** For an edge `a -> b` of `H`, let `idom(b)` be the
+immediate dominator of `b` and `depth` the depth in the dominator tree. Then
+
+```
+lift(a -> b) = depth(a) - depth(idom(b))
+```
+
+Since `idom(b)` dominates every predecessor of `b`, the lift is always
+defined and non-negative, and it is `0` exactly when `a = idom(b)`, i.e.
+when the edge is a nesting edge. Otherwise the lift counts the scopes `b`
+had to be hoisted out of `a` to stay reachable from its other users: `1`
+when two siblings share `b`, and more when the users sit in unrelated
+parts of the tree. Sharing between siblings and sharing across the whole
+program are both "one extra caller" to a degree count, but they cost very
+different amounts of nesting, and the lift is what tells them apart. The
+diagnostics average `1 / (1 + lift)` over the edges of `H` (*locality*) and
+rank shared declarations by the sum of the lifts of their incoming edges.
+
+Note also that in-degree alone is direction-blind in a subtler way: `A -> S
+<- B` has as many edges as a two-node forest has (`n - c` with `c` the
+number of *weakly* connected components), so a spanning ratio built on weak
+components calls it a tree. Counting roots instead of components — a
+directed forest has exactly one incoming edge per non-root — does not.
 
 `G_ctl` is acyclic iff the program's control structure needs no `letrec`
 among functions; `G_uses` restricted to definition-time edges is acyclic iff

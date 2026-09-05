@@ -69,9 +69,9 @@ test("analyzer finds declarations and cross-file calls", () => {
   assert.equal(edge("src/main.js::main", "src/util.js::helper").kind, "reference");
   assert.equal(edge("src/main.js::recurse", "src/main.js::recurse").kind, "call");
   assert.equal(edge("src/util.js::twice", "src/util.js::helper").count, 2);
-  // `new Box(v)` is a call of the constructor, not a reference to the class itself.
+  // `new Box(v)` reads the binding `Box` and runs the constructor it finds.
   assert.equal(edge("src/util.js::Box.make", "src/util.js::Box.constructor").kind, "create");
-  assert.equal(edge("src/util.js::Box.make", "src/util.js::Box"), undefined);
+  assert.equal(edge("src/util.js::Box.make", "src/util.js::Box").kind, "reference");
   assert.equal(edge("src/util.js::default", "src/util.js::twice").kind, "call");
   // Locals never produce edges.
   assert.equal(doc.edges.some((e) => e.target.endsWith("::b")), false);
@@ -130,7 +130,9 @@ test("constructor lookup follows the inheritance chain", () => {
   const doc = analyze({ name: "ts", root });
   const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
   assert.equal(edge("c.ts::make", "c.ts::Base.constructor").kind, "create");
-  assert.equal(edge("c.ts::make", "c.ts::Leaf"), undefined);
+  // The constructor that runs belongs to Base, but the binding that is read is Leaf.
+  assert.equal(edge("c.ts::make", "c.ts::Leaf").kind, "reference");
+  assert.equal(edge("c.ts::make", "c.ts::Mid"), undefined);
 });
 
 test("method calls are dispatched to overriding implementations (CHA)", () => {
@@ -257,4 +259,28 @@ test("top-level statements belong to a module node", () => {
   assert.equal(edge("m.js::<module>", "m.js::Selection").kind, "reference");
   assert.equal(edge("m.js::<module>", "m.js::start").kind, "call");
   assert.equal(edge("m.js::<module>", "m.js::start").time, "definition");
+});
+
+test("a call through a union type or a record index reaches every candidate", () => {
+  const root = fixture({
+    "e.ts": `
+      export class Svg { draw() { return "svg"; } }
+      export class Canvas { draw() { return "canvas"; } }
+      const renderers = { svg: new Svg(), canvas: new Canvas() };
+      export function drawAll() { return Object.values(renderers).map((r) => r.draw()); }
+      export function drawOne(view: string) { return renderers[view].draw(); }
+    `,
+  });
+  const doc = analyze({ name: "ts", root });
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  for (const [source, cls] of [
+    ["e.ts::drawAll", "Svg"],
+    ["e.ts::drawAll", "Canvas"],
+    ["e.ts::drawOne", "Svg"],
+    ["e.ts::drawOne", "Canvas"],
+  ]) {
+    const e = edge(source, `e.ts::${cls}.draw`);
+    assert.equal(e.kind, "call", `${source} -> ${cls}.draw`);
+    assert.equal(e.inferred, true); // one of them runs; which one is not decided here
+  }
 });

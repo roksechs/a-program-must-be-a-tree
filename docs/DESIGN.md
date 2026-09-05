@@ -33,6 +33,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 |-----------------|------|
 | `model.js`      | Normalises the document: nodes, merged links, containers (directory tree derived from file paths), SCCs and call heights. |
 | `metrics.js`    | Tree-likeness diagnostics. |
+| `dominance.js`  | Dominator tree of the condensed graph: the deepest nesting the program admits, and the lift of every edge. |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
 | `graph2d.js`    | SVG renderer: zoom/pan, drag, arrows, hulls, labels, selection. |
@@ -53,9 +54,30 @@ d3-force is used as the integrator. The forces are:
   edge, `F = k * (d - restLength)`, split between the endpoints by their degree
   so a hub is not thrown around by one neighbour. `d3.forceLink` is close, but
   the custom force keeps the parameters (stiffness, rest length) explicit.
-* **Gravity**: weak `forceX`/`forceY` towards the origin so disconnected
-  components stay on screen.
 * **Collision**: keeps circles from overlapping.
+
+That is all. The repulsion has no range limit — every pair of nodes feels it at
+any distance — and a spring along an edge is the only attraction, so two
+declarations end up next to each other only when something connects them.
+`forceCollide` is not a third force but the hard core of the repulsion, keeping
+circles from overlapping.
+
+Nothing defines a centre. Two attempts at one were removed:
+
+* A weak `forceX`/`forceY` pull towards the origin, meant to keep disconnected
+  components on screen. With a `1/d` repulsion and a linear pull, the
+  equilibrium is a disc of the radius where the two balance and the nodes
+  spread through it almost uniformly, so the picture became a circle whatever
+  the graph looked like. Measured on the `self` dataset, that pull (strength
+  0.05) put the median node at 0.59 of the outer radius, against 0.707 for a
+  uniformly filled disc; without it the median sits at 0.36.
+* `d3.forceCenter`, which translates all nodes each tick so their centroid sits
+  at the origin. It deforms nothing, but it still singles out a point in a
+  plane where no point should be special.
+
+Where the graph sits is therefore a question for the camera, not the physics:
+"Fit to view" (also applied when a run settles) frames whatever the simulation
+produced.
 
 Directories and files have no influence on the physics: no force reads the
 containers, and the initial positions are seeded on a spiral in declaration
@@ -107,7 +129,15 @@ the physics and counts for degrees, call heights and the diagnostics; a
 disabled kind does none of these, so the picture, the layout and the numbers
 always describe the same graph. Type-level edges are off by default. Edges
 found by analysis rather than written at that spot (dispatched overrides,
-callbacks resolved by flow analysis) are dashed.
+callbacks resolved by flow analysis, and the candidates of a call through a
+union type or a record indexed at run time) are dashed.
+
+A declaration counts as a root only when nothing reaches it, so the analyzer
+has to resolve the indirect calls a codebase actually uses, or perfectly live
+code shows up as dead. Two cases matter in practice: `obj.m()` where `obj` has
+a union type resolves to one member per constituent, and `map[key].m()`, where
+the checker gives up entirely, is resolved against the property types of
+`map`. Both emit an edge to every candidate, marked inferred.
 
 ## Tree-likeness diagnostics
 
@@ -120,15 +150,39 @@ For `n` nodes, `m` control edges and `c` weakly connected components:
 
 | metric              | definition | 1 means |
 |---------------------|------------|---------|
-| Spanning ratio      | `(n - c) / m` | the edge set is exactly a spanning forest |
+| Spanning ratio      | `(n - r) / m`, `r` = roots | no declaration has a second caller |
 | Acyclicity          | `1 - (nodes in a cycle) / n` | no recursion, direct or mutual |
 | Single caller ratio | `1 - (nodes with > 1 caller) / n` | every declaration has one parent |
 | DAG-ness            | `1 - (edges inside SCCs) / m` | no edge closes a cycle |
-| Tree score          | mean of the four | a forest |
+| Locality            | mean of `1 / (1 + lift)` over the edges of the condensation | every edge is a nesting edge |
+| Tree score          | mean of the five | a forest |
+
+The spanning ratio counts *roots*, not weakly connected components. With
+components it would be blind to direction: `A -> S <- B` has `n - c = 2 = m`
+and would score 1 although `S` has two callers. A directed forest has exactly
+one incoming edge per non-root, so `(n - r) / m` is 1 only when no declaration
+is shared.
+
+Locality answers the other half of the question — *who* shares a declaration.
+The graph is condensed, a virtual root is made the parent of every component
+without callers, and the dominator tree of the result is computed (Cooper,
+Harvey and Kennedy 2001). For an edge `a -> b`, the lift
+`depth(a) - depth(idom(b))` is the number of scopes `b` had to be hoisted out
+of `a` to remain reachable from its other users (Definition 11 in
+`THEORY.md`): 0 for a nesting edge, 1 when two siblings share `b`, more when
+the callers sit in unrelated parts of the program. Being called twice from the
+same scope and being called twice from opposite ends of the codebase are the
+same number of extra callers but very different amounts of tangle, and the
+lift is what separates them. The same numbers drive the "most costly sharing"
+list, which ranks declarations by the sum of the lifts of their incoming
+edges, and the selection panel, which names the *natural scope* of a
+declaration: the immediate dominator, i.e. where it could live if the program
+were a tree.
 
 Also reported: components, roots (uncalled), leaves (calling nothing), longest
-call chain, surplus edges (`m - (n - c)`), number of non-trivial SCCs, self
-loops, the declarations with the most callers, and *initialisation cycles*:
+call chain, surplus edges (extra incoming edges, `sum of max(0, indeg - 1)`),
+nesting edges (lift 0), the largest lift, the number of non-trivial SCCs, self
+loops, the costliest shared declarations, and *initialisation cycles*:
 declarations on a cycle of definition-time dependencies (evaluated while the
 module loads), which are genuine errors rather than recursion.
 
@@ -141,6 +195,6 @@ module loads), which are genuine errors rather than recursion.
 * Nested declarations (inner functions) as their own nodes, behind a flag.
 * Collapse a zone into a single node (module-level graph) and expand it again.
 * Highlight the edges that would have to be removed to make the graph a tree
-  (feedback arc set / minimum extra-caller edges).
+  (the edges with a lift above 0 are already known; draw them apart).
 * Persist panel settings in the URL so a view can be shared.
 * Optional WebGL renderer for very large graphs.

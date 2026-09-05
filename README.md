@@ -10,15 +10,22 @@ force-directed graph, and measure how close that graph is to a tree.
   as nested hulls around their members. They are purely visual and never
   influence the layout.
 * **Physics**: every pair of nodes repels with a force inversely proportional to
-  their distance; every edge is a spring whose pull is proportional to its
-  length.
+  their distance, at any distance; every edge is a spring whose pull is
+  proportional to its length. Those are the only two forces. No point is a
+  centre and nothing pulls towards one, so declarations sit close together only
+  when edges hold them there.
 * **3D mode** lifts the same layout into three dimensions where the vertical
   axis is the call height: declarations that only get called sit at the
   bottom, the deepest callers sit at the top.
-* **Diagnostics** quantify tree-likeness on the enabled edge kinds: spanning ratio, acyclicity, single-caller ratio and
-  DAG-ness, plus the usual counts (components, cycles, roots, leaves, longest
-  call chain, initialisation cycles) and a list of the most shared
-  declarations.
+* **Diagnostics** quantify tree-likeness on the enabled edge kinds: spanning
+  ratio, acyclicity, single-caller ratio, DAG-ness and locality. They are
+  directed: `A -> S <- B` is not a tree, and sharing a declaration between two
+  siblings costs less than calling it from an unrelated part of the program.
+  The distance is measured in the dominator tree — the deepest nesting the
+  program admits — which also gives every declaration a *natural scope*: where
+  it could live if the program were a tree. Plus the usual counts (components,
+  cycles, roots, leaves, longest call chain, initialisation cycles) and a list
+  of the declarations whose sharing costs the most.
 * **Edge kinds** follow a small theory (`docs/THEORY.md`): calls, constructions,
   references (callbacks and other value flows), type-only uses, inheritance,
   interface implementation and overriding. The analyzer resolves `new` to the
@@ -68,16 +75,16 @@ that writes the same JSON; see the data format document.
 | Header      | language selector (English / Japanese) |
 | View        | 2D / 3D, label mode, colour by kind or call height, 3D layer gap and planes, auto-rotate, fit |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics (type-level edges are off by default) |
-| Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length, gravity |
+| Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
 | Zones       | directory / file depth from 0 (none) through every directory level down to the files |
-| Diagnostics | tree score and its components, counts, most shared declarations |
-| Selection   | callers and callees of the clicked node |
+| Diagnostics | tree score and its five components, counts, costliest sharing |
+| Selection   | callers and callees of the clicked node, with the lift of each edge, and the declaration's natural scope |
 
 ## Repository layout
 
 ```
 site/            static site published to GitHub Pages
-  js/            ES modules: model, metrics, simulation, zones, renderers, panel, app
+  js/            ES modules: model, metrics, dominance, simulation, zones, renderers, panel, app
   data/          generated datasets (index.json lists them)
   vendor/        d3 (copied by `npm run vendor`)
 analyzers/ts/    JavaScript / TypeScript analyzer

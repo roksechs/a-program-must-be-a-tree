@@ -3,9 +3,9 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-05T09:56:40.263Z",
+  "generatedAt": "2026-09-05T12:09:06.710Z",
   "analyzer": "analyzers/ts@0.1.0",
-  "files": 15
+  "files": 21
  },
  "declarations": [
   {
@@ -13,7 +13,7 @@
    "name": "analyze",
    "kind": "module",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 663,
+   "line": 717,
    "parent": null,
    "exported": false
   },
@@ -112,7 +112,7 @@
    "name": "parseArgs",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 627,
+   "line": 681,
    "parent": null,
    "exported": false
   },
@@ -540,6 +540,15 @@
    "exported": false
   },
   {
+   "id": "site/js/dominance.js::dominatorTree",
+   "name": "dominatorTree",
+   "kind": "function",
+   "file": "site/js/dominance.js",
+   "line": 35,
+   "parent": null,
+   "exported": true
+  },
+  {
    "id": "site/js/graph2d.js::Graph2D",
    "name": "Graph2D",
    "kind": "class",
@@ -563,15 +572,6 @@
    "kind": "method",
    "file": "site/js/graph2d.js",
    "line": 14,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.destroy",
-   "name": "destroy",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 312,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -706,7 +706,7 @@
    "name": "linkPath",
    "kind": "function",
    "file": "site/js/graph2d.js",
-   "line": 318,
+   "line": 314,
    "parent": null,
    "exported": false
   },
@@ -724,7 +724,7 @@
    "name": "drawArrow",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 382,
+   "line": 378,
    "parent": null,
    "exported": false
   },
@@ -752,15 +752,6 @@
    "kind": "method",
    "file": "site/js/graph3d.js",
    "line": 12,
-   "parent": "site/js/graph3d.js::Graph3D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph3d.js::Graph3D.destroy",
-   "name": "destroy",
-   "kind": "method",
-   "file": "site/js/graph3d.js",
-   "line": 377,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -931,7 +922,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 255,
+   "line": 277,
    "parent": null,
    "exported": false
   },
@@ -940,7 +931,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 259,
+   "line": 281,
    "parent": null,
    "exported": true
   },
@@ -949,7 +940,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 268,
+   "line": 290,
    "parent": null,
    "exported": true
   },
@@ -958,7 +949,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 292,
+   "line": 314,
    "parent": null,
    "exported": true
   },
@@ -976,7 +967,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 256,
+   "line": 278,
    "parent": null,
    "exported": false
   },
@@ -985,7 +976,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 298,
+   "line": 320,
    "parent": null,
    "exported": true
   },
@@ -994,7 +985,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 279,
+   "line": 301,
    "parent": null,
    "exported": true
   },
@@ -1003,7 +994,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 272,
+   "line": 294,
    "parent": null,
    "exported": true
   },
@@ -1021,7 +1012,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 285,
+   "line": 307,
    "parent": null,
    "exported": true
   },
@@ -1048,7 +1039,16 @@
    "name": "computeMetrics",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 15,
+   "line": 59,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/metrics.js::dominance",
+   "name": "dominance",
+   "kind": "function",
+   "file": "site/js/metrics.js",
+   "line": 8,
    "parent": null,
    "exported": true
   },
@@ -1057,7 +1057,25 @@
    "name": "initializationCycles",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 97,
+   "line": 161,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/metrics.js::linkLift",
+   "name": "linkLift",
+   "kind": "function",
+   "file": "site/js/metrics.js",
+   "line": 35,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/metrics.js::naturalScope",
+   "name": "naturalScope",
+   "kind": "function",
+   "file": "site/js/metrics.js",
+   "line": 22,
    "parent": null,
    "exported": true
   },
@@ -1066,7 +1084,7 @@
    "name": "topSharedNodes",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 85,
+   "line": 140,
    "parent": null,
    "exported": true
   },
@@ -1201,7 +1219,7 @@
    "name": "setDataInfo",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 204,
+   "line": 205,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1210,7 +1228,7 @@
    "name": "setDatasets",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 193,
+   "line": 194,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1219,7 +1237,7 @@
    "name": "setMaxDepth",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 213,
+   "line": 214,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1228,7 +1246,7 @@
    "name": "setMetrics",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 220,
+   "line": 221,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1237,7 +1255,7 @@
    "name": "setSelection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 270,
+   "line": 274,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1246,7 +1264,7 @@
    "name": "setView",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 209,
+   "line": 210,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1264,7 +1282,7 @@
    "name": "applyPhysics",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 83,
+   "line": 104,
    "parent": null,
    "exported": true
   },
@@ -1273,7 +1291,7 @@
    "name": "createSimulation",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 69,
+   "line": 84,
    "parent": null,
    "exported": true
   },
@@ -1291,7 +1309,7 @@
    "name": "forceSpring",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 24,
+   "line": 25,
    "parent": null,
    "exported": true
   },
@@ -1300,25 +1318,25 @@
    "name": "nodeRadius",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 93,
+   "line": 114,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "site/js/simulation.js::repulsionRange",
+   "name": "repulsionRange",
+   "kind": "function",
+   "file": "site/js/simulation.js",
+   "line": 99,
+   "parent": null,
+   "exported": false
   },
   {
    "id": "site/js/simulation.js::seedPositions",
    "name": "seedPositions",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 103,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/zones.js::centroid",
-   "name": "centroid",
-   "kind": "function",
-   "file": "site/js/zones.js",
-   "line": 49,
+   "line": 124,
    "parent": null,
    "exported": true
   },
@@ -1345,7 +1363,7 @@
    "name": "topPoint",
    "kind": "function",
    "file": "site/js/zones.js",
-   "line": 60,
+   "line": 48,
    "parent": null,
    "exported": true
   },
@@ -1357,6 +1375,123 @@
    "line": 13,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "test/analyzer.test.mjs::<module>",
+   "name": "analyzer.test",
+   "kind": "module",
+   "file": "test/analyzer.test.mjs",
+   "line": 17,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/analyzer.test.mjs::fixture",
+   "name": "fixture",
+   "kind": "function",
+   "file": "test/analyzer.test.mjs",
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dominance.test.mjs::<module>",
+   "name": "dominance.test",
+   "kind": "module",
+   "file": "test/dominance.test.mjs",
+   "line": 12,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dominance.test.mjs::decl",
+   "name": "decl",
+   "kind": "function",
+   "file": "test/dominance.test.mjs",
+   "line": 7,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dominance.test.mjs::edge",
+   "name": "edge",
+   "kind": "function",
+   "file": "test/dominance.test.mjs",
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dominance.test.mjs::graph",
+   "name": "graph",
+   "kind": "function",
+   "file": "test/dominance.test.mjs",
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dominance.test.mjs::lift",
+   "name": "lift",
+   "kind": "function",
+   "file": "test/dominance.test.mjs",
+   "line": 10,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/i18n.test.mjs::<module>",
+   "name": "i18n.test",
+   "kind": "module",
+   "file": "test/i18n.test.mjs",
+   "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/model.test.mjs::<module>",
+   "name": "model.test",
+   "kind": "module",
+   "file": "test/model.test.mjs",
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/model.test.mjs::decl",
+   "name": "decl",
+   "kind": "function",
+   "file": "test/model.test.mjs",
+   "line": 6,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/model.test.mjs::edge",
+   "name": "edge",
+   "kind": "function",
+   "file": "test/model.test.mjs",
+   "line": 7,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/zones.test.mjs::<module>",
+   "name": "zones.test",
+   "kind": "module",
+   "file": "test/zones.test.mjs",
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/zones.test.mjs::decl",
+   "name": "decl",
+   "kind": "function",
+   "file": "test/zones.test.mjs",
+   "line": 7,
+   "parent": null,
+   "exported": false
   }
  ],
  "edges": [
@@ -1673,7 +1808,16 @@
    "target": "site/js/graph2d.js::Graph2D.resize",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/graph2d.js::Graph2D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::<module>",
@@ -1681,6 +1825,22 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/graph3d.js::Graph3D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::<module>",
@@ -1778,14 +1938,32 @@
    "target": "site/js/graph2d.js::Graph2D.restyle",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::applyKinds",
    "target": "site/js/graph2d.js::Graph2D.setVisibleKinds",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/graph3d.js::Graph3D.restyle",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::applyKinds",
+   "target": "site/js/graph3d.js::Graph3D.setVisibleKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::applyKinds",
@@ -1901,31 +2079,99 @@
   },
   {
    "source": "site/js/app.js::installGraph",
+   "target": "site/js/graph2d.js::Graph2D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::installGraph",
    "target": "site/js/graph2d.js::Graph2D.setColorBy",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph2d.js::Graph2D.setGraph",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph2d.js::Graph2D.setLabelMode",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph2d.js::Graph2D.setVisibleKinds",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::installGraph",
+   "target": "site/js/graph2d.js::Graph2D.tick",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::installGraph",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::installGraph",
+   "target": "site/js/graph3d.js::Graph3D.setColorBy",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::installGraph",
+   "target": "site/js/graph3d.js::Graph3D.setGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::installGraph",
+   "target": "site/js/graph3d.js::Graph3D.setLabelMode",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::installGraph",
+   "target": "site/js/graph3d.js::Graph3D.setVisibleKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::installGraph",
+   "target": "site/js/graph3d.js::Graph3D.tick",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::installGraph",
@@ -2195,17 +2441,67 @@
   },
   {
    "source": "site/js/app.js::panel",
+   "target": "site/js/graph2d.js::Graph2D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/graph2d.js::Graph2D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::panel",
    "target": "site/js/graph2d.js::Graph2D.setColorBy",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::panel",
    "target": "site/js/graph2d.js::Graph2D.setLabelMode",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/graph3d.js::Graph3D.setColorBy",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/graph3d.js::Graph3D.setLabelMode",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::panel",
@@ -2220,6 +2516,13 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/panel.js::Panel",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "site/js/app.js::panel",
@@ -2282,7 +2585,16 @@
    "target": "site/js/graph2d.js::Graph2D.select",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::rendererCallbacks",
@@ -2314,8 +2626,22 @@
   },
   {
    "source": "site/js/app.js::renderers",
+   "target": "site/js/graph2d.js::Graph2D",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::renderers",
    "target": "site/js/graph2d.js::Graph2D.constructor",
    "kind": "create",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::renderers",
+   "target": "site/js/graph3d.js::Graph3D",
+   "kind": "reference",
    "count": 1,
    "time": "definition"
   },
@@ -2370,10 +2696,51 @@
   },
   {
    "source": "site/js/app.js::setView",
+   "target": "site/js/graph2d.js::Graph2D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::setView",
+   "target": "site/js/graph2d.js::Graph2D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::setView",
    "target": "site/js/graph2d.js::Graph2D.show",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::setView",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::setView",
+   "target": "site/js/graph3d.js::Graph3D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::setView",
+   "target": "site/js/graph3d.js::Graph3D.show",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::setView",
@@ -2415,7 +2782,16 @@
    "target": "site/js/graph2d.js::Graph2D.setZones",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::updateZones",
+   "target": "site/js/graph3d.js::Graph3D.setZones",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::updateZones",
@@ -2441,6 +2817,13 @@
   {
    "source": "site/js/colors.js::zoneColor",
    "target": "site/js/colors.js::zoneScale",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/dominance.js::dominatorTree",
+   "target": "site/js/model.js::stronglyConnectedComponents",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2930,6 +3313,13 @@
   },
   {
    "source": "site/js/metrics.js::computeMetrics",
+   "target": "site/js/metrics.js::dominance",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/metrics.js::computeMetrics",
    "target": "site/js/metrics.js::initializationCycles",
    "kind": "call",
    "count": 1,
@@ -2950,8 +3340,36 @@
    "time": "use"
   },
   {
+   "source": "site/js/metrics.js::dominance",
+   "target": "site/js/dominance.js::dominatorTree",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/metrics.js::initializationCycles",
    "target": "site/js/model.js::stronglyConnectedComponents",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/metrics.js::linkLift",
+   "target": "site/js/metrics.js::dominance",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/metrics.js::naturalScope",
+   "target": "site/js/metrics.js::dominance",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/metrics.js::topSharedNodes",
+   "target": "site/js/metrics.js::dominance",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -3072,7 +3490,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 38,
+   "count": 39,
    "time": "use"
   },
   {
@@ -3107,7 +3525,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.slider",
    "kind": "call",
-   "count": 6,
+   "count": 7,
    "time": "use"
   },
   {
@@ -3198,14 +3616,28 @@
    "source": "site/js/panel.js::Panel.setSelection",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 9,
+   "count": 13,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setSelection",
+   "target": "site/js/metrics.js::linkLift",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setSelection",
+   "target": "site/js/metrics.js::naturalScope",
+   "kind": "call",
+   "count": 1,
    "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setSelection",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 14,
+   "count": 15,
    "time": "use"
   },
   {
@@ -3218,6 +3650,13 @@
   {
    "source": "site/js/simulation.js::applyPhysics",
    "target": "site/js/simulation.js::nodeRadius",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/simulation.js::applyPhysics",
+   "target": "site/js/simulation.js::repulsionRange",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -3237,6 +3676,13 @@
    "time": "use"
   },
   {
+   "source": "site/js/simulation.js::createSimulation",
+   "target": "site/js/simulation.js::repulsionRange",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/zones.js::hullPath",
    "target": "site/js/zones.js::roundedClosedLine",
    "kind": "call",
@@ -3248,6 +3694,244 @@
    "target": "site/js/zones.js::roundedClosedLine",
    "kind": "reference",
    "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/analyzer.test.mjs::<module>",
+   "target": "analyzers/ts/analyze.mjs::analyze",
+   "kind": "call",
+   "count": 8,
+   "time": "use"
+  },
+  {
+   "source": "test/analyzer.test.mjs::<module>",
+   "target": "test/analyzer.test.mjs::fixture",
+   "kind": "call",
+   "count": 8,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/dominance.js::dominatorTree",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/metrics.js::computeMetrics",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/metrics.js::naturalScope",
+   "kind": "call",
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/metrics.js::topSharedNodes",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "test/dominance.test.mjs::edge",
+   "kind": "call",
+   "count": 32,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "test/dominance.test.mjs::graph",
+   "kind": "call",
+   "count": 6,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "test/dominance.test.mjs::lift",
+   "kind": "call",
+   "count": 5,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::graph",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::graph",
+   "target": "test/dominance.test.mjs::decl",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::lift",
+   "target": "site/js/metrics.js::linkLift",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/i18n.test.mjs::<module>",
+   "target": "site/js/i18n.js::detectLanguage",
+   "kind": "call",
+   "count": 5,
+   "time": "use"
+  },
+  {
+   "source": "test/i18n.test.mjs::<module>",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/i18n.test.mjs::<module>",
+   "target": "site/js/i18n.js::kindLabel",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/i18n.test.mjs::<module>",
+   "target": "site/js/i18n.js::LANGUAGES",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/i18n.test.mjs::<module>",
+   "target": "site/js/i18n.js::missingKeys",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/i18n.test.mjs::<module>",
+   "target": "site/js/i18n.js::onLanguageChange",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/i18n.test.mjs::<module>",
+   "target": "site/js/i18n.js::setLanguage",
+   "kind": "call",
+   "count": 10,
+   "time": "use"
+  },
+  {
+   "source": "test/i18n.test.mjs::<module>",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 5,
+   "time": "use"
+  },
+  {
+   "source": "test/model.test.mjs::<module>",
+   "target": "site/js/metrics.js::computeMetrics",
+   "kind": "call",
+   "count": 6,
+   "time": "use"
+  },
+  {
+   "source": "test/model.test.mjs::<module>",
+   "target": "site/js/metrics.js::topSharedNodes",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/model.test.mjs::<module>",
+   "target": "site/js/model.js::applyActiveKinds",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/model.test.mjs::<module>",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 10,
+   "time": "use"
+  },
+  {
+   "source": "test/model.test.mjs::<module>",
+   "target": "site/js/model.js::computeHeights",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/model.test.mjs::<module>",
+   "target": "site/js/model.js::connectedComponentCount",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/model.test.mjs::<module>",
+   "target": "site/js/model.js::stronglyConnectedComponents",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/model.test.mjs::<module>",
+   "target": "test/model.test.mjs::decl",
+   "kind": "call",
+   "count": 13,
+   "time": "use"
+  },
+  {
+   "source": "test/model.test.mjs::<module>",
+   "target": "test/model.test.mjs::edge",
+   "kind": "call",
+   "count": 34,
+   "time": "use"
+  },
+  {
+   "source": "test/zones.test.mjs::<module>",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "test/zones.test.mjs::<module>",
+   "target": "site/js/simulation.js::DEFAULT_PHYSICS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/zones.test.mjs::<module>",
+   "target": "site/js/simulation.js::seedPositions",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/zones.test.mjs::<module>",
+   "target": "site/js/zones.js::visibleContainers",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "test/zones.test.mjs::<module>",
+   "target": "test/zones.test.mjs::decl",
+   "kind": "call",
+   "count": 10,
    "time": "use"
   }
  ]

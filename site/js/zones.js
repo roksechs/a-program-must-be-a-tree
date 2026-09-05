@@ -44,18 +44,6 @@ export function hullPath(points, padding) {
   roundedClosedLine ??= d3.line().curve(d3.curveCatmullRomClosed.alpha(0.8));
   return roundedClosedLine(hull);
 }
-
-/** Centroid of a list of [x, y] points. */
-export function centroid(points) {
-  let x = 0;
-  let y = 0;
-  for (const [px, py] of points) {
-    x += px;
-    y += py;
-  }
-  return [x / points.length, y / points.length];
-}
-
 /** Topmost point of a hull (used to place the zone label). */
 export function topPoint(points) {
   let best = points[0];

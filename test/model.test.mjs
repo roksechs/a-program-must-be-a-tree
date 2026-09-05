@@ -84,6 +84,7 @@ test("metrics of a perfect tree are all 1", () => {
   assert.equal(m.acyclicity, 1);
   assert.equal(m.singleCallerRatio, 1);
   assert.equal(m.dagness, 1);
+  assert.equal(m.locality, 1);
   assert.equal(m.overall, 1);
   assert.equal(m.roots, 1);
   assert.equal(m.leaves, 3);
@@ -111,9 +112,12 @@ test("metrics degrade with shared callees and cycles", () => {
   assert.equal(m.multiCallers, 2);
   assert.equal(m.singleCallerRatio, 0.5);
   assert.equal(m.dagness, 1 - 2 / 5);
+  // "shared" is reached from b, one scope below where it has to live; "a" is
+  // reached from its natural parent only, so it costs nothing.
+  assert.equal(m.locality, (1 + 1 + 1 / 2) / 3);
   assert.deepEqual(
-    topSharedNodes(g).map((n) => n.id),
-    ["a", "shared"],
+    topSharedNodes(g).map((s) => s.node.id),
+    ["shared", "a"],
   );
 });
 
@@ -152,7 +156,13 @@ test("heights, degrees and metrics use the control graph only", () => {
   assert.equal(g.byId.get("main").inCycle, true);
   assert.equal(g.byId.get("main").inDegree, 1);
   assert.equal(g.byId.get("Impl").inDegree, 0);
-  assert.ok(computeMetrics(g).treeScore < 1);
+  // main and helper now form a cycle: still one caller each, so the spanning
+  // ratio stays 1 and the cyclicity metrics carry the penalty.
+  const cyclic = computeMetrics(g);
+  assert.equal(cyclic.treeScore, 1);
+  assert.ok(cyclic.acyclicity < 1);
+  assert.ok(cyclic.dagness < 1);
+  assert.ok(cyclic.overall < 1);
   applyActiveKinds(g, new Set(["call", "create"]));
   assert.equal(g.byId.get("main").inCycle, false);
 });
