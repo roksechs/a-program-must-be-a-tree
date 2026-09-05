@@ -91,6 +91,7 @@ analyzers/ts/    JavaScript / TypeScript analyzer
 scripts/         data generation, vendoring, dev server
 test/            node:test unit tests
 docs/            design notes, the data format and the theory behind the edge kinds
+CHANGELOG.md     release notes, one section per version
 ```
 
 ## Development
@@ -102,7 +103,18 @@ npm test
 The GitHub Pages workflow (`.github/workflows/pages.yml`) runs the tests,
 vendors d3, regenerates the datasets and publishes `site/` on every push to
 the repository's default branch. Enable Pages with "GitHub Actions" as the
-source in the repository settings. GitHub creates a `github-pages` environment
+source in the repository settings.
+
+Releasing is a version bump. `.github/workflows/release.yml` reads the version
+in `package.json` on every push to the default branch and, when no release
+carries that tag yet, creates the tag and the GitHub release from the matching
+`CHANGELOG.md` section (falling back to GitHub's generated notes). So:
+
+```sh
+npm version minor --no-git-tag-version   # write the CHANGELOG section too
+```
+
+and merge. It uses only the built-in `GITHUB_TOKEN`; no secrets are involved. GitHub creates a `github-pages` environment
 on the first deployment whose allowed deployment branch is pinned to the
 default branch *at that time*; if you rename or switch the default branch
 later, add the new branch under Settings → Environments → github-pages →

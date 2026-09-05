@@ -100,3 +100,10 @@ repository's default branch: tests, vendoring, data generation, then publishes
 configured with "GitHub Actions" as the source in the repository settings, and
 the `github-pages` environment must allow deployments from the default branch
 (its allowed-branch list is pinned when the environment is first created).
+
+`.github/workflows/release.yml` cuts the tag and the GitHub release for the
+version in `package.json` when it reaches the default branch, taking the notes
+from the matching `CHANGELOG.md` section. Bumping the version and writing that
+section is therefore the whole release procedure. Like the Pages workflow it
+uses only the built-in `GITHUB_TOKEN` (`contents: write`) and no third-party
+actions.
