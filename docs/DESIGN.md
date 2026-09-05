@@ -117,7 +117,12 @@ different layout. A translucent plane is drawn per height so the layers are
 easy to count.
 
 The projection is a small hand-written orbit camera (yaw, pitch, perspective)
-on a 2D canvas; no WebGL dependency is needed for a few thousand nodes.
+on a 2D canvas; no WebGL dependency is needed for a few thousand nodes. Pitch
+is kept away from exactly level: at pitch 0 the camera's forward axis is
+horizontal, so height never contributes to the perspective divide and the
+call-height axis would render with no depth cue at all (true of any look-at
+camera, not just this one). A minimum elevation keeps that axis visibly
+foreshortened at every orbit angle.
 
 ## Edge kinds
 

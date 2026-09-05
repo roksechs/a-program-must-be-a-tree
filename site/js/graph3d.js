@@ -8,6 +8,12 @@ import { t } from "./i18n.js";
 import { nodeRadius } from "./simulation.js";
 import { hullPath } from "./zones.js";
 
+// Smallest camera elevation magnitude, in radians, that pitch is allowed to
+// reach. Exactly 0 is a perfectly level view, where the height axis carries
+// no perspective at all (see the constructor); this keeps it just off that
+// dead spot without stopping the camera from getting close to level.
+const MIN_PITCH = 0.15;
+
 export class Graph3D {
   constructor(host, callbacks) {
     this.host = host;
@@ -26,6 +32,11 @@ export class Graph3D {
     this.yaw = -0.6;
     // Camera elevation above the ground plane: 0 = looking horizontally,
     // +PI/2 = straight down from above, -PI/2 = straight up from below.
+    // Kept away from exactly 0: a perfectly level camera looks along a
+    // horizontal forward axis, so height never contributes to depth and the
+    // call-height axis would render with no perspective at all (a real
+    // pinhole camera has the same dead spot). MIN_PITCH keeps some of it
+    // visible at every elevation.
     this.pitch = 0.9;
     this.zoomK = 1;
     this.panX = 0;
@@ -62,7 +73,7 @@ export class Graph3D {
           this.panY += dy;
         } else {
           this.yaw += dx * 0.008;
-          this.pitch = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitch + dy * 0.006));
+          this.pitch = clampPitch(this.pitch + dy * 0.006);
         }
         this.draw();
       } else {
@@ -373,6 +384,13 @@ export class Graph3D {
   show(visible) {
     this.canvas.style.display = visible ? null : "none";
   }
+}
+
+/** Clamp to [-PI/2, PI/2] while keeping the magnitude at or above MIN_PITCH. */
+function clampPitch(pitch) {
+  const bounded = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, pitch));
+  if (Math.abs(bounded) >= MIN_PITCH) return bounded;
+  return bounded < 0 ? -MIN_PITCH : MIN_PITCH;
 }
 
 function drawArrow(ctx, x0, y0, x1, y1, stopBefore, headSize) {
