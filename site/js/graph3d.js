@@ -57,17 +57,15 @@ export class Graph3D {
     // some of it visible at every elevation.
     this.pitch = 0.9;
     this.zoomK = 1;
-    // Extra screen-space pan on top of the camera orbiting `target` below
-    // (e.g. from a shift-drag); kept separate so rotating never has to touch
-    // it, and so wheel-zoom (see bindEvents) only ever has to rescale this.
-    this.panX = 0;
-    this.panY = 0;
     // World point the camera orbits and looks at (yaw/pitch pivot around
     // this, not the origin) and which always projects to screen centre
     // (see project()) — set from the graph's own bounding box in fit(), or
     // a node's position in focusOn(), since nothing about the physics
     // guarantees the layout sits near world origin (see docs/DESIGN.md,
-    // "Nothing defines a centre").
+    // "Nothing defines a centre"). A shift-drag pan (see bindEvents) moves
+    // this point in world space rather than adding a screen-space offset,
+    // so the point under the pointer keeps tracking it and orbiting always
+    // pivots on screen centre, panned or not.
     this.targetX = 0;
     this.targetY = 0;
     this.targetZ = 0;
@@ -108,12 +106,24 @@ export class Graph3D {
         dragging.y = e.clientY;
         if (Math.abs(dx) + Math.abs(dy) > 1) moved = true;
         if (dragging.pan) {
-          // Panning deliberately moves the view away from whatever target
-          // is centred; stop following a focused node so this pan sticks
+          // Move `target` itself in world space by the screen-space drag,
+          // instead of adding a separate screen-space offset: that keeps
+          // orbiting pivoting on screen centre even after panning (see the
+          // constructor). Stop following a focused node so the pan sticks
           // instead of being overridden on the next frame.
           this.focusedNode = null;
-          this.panX += dx;
-          this.panY += dy;
+          const scale = this.zoomK; // scale at the target's own depth (project(): depth 0)
+          const ddx = dx / scale;
+          const ddy = -dy / scale; // +1 = one world unit of screen "up"
+          const cy = Math.cos(this.yaw);
+          const sy = Math.sin(this.yaw);
+          const cp = Math.cos(this.pitch);
+          const sp = Math.sin(this.pitch);
+          // World-space "right" and "up" directions for one unit of screen
+          // "right"/"up": the inverse of project()'s yaw then pitch rotation.
+          this.targetX -= ddx * cy + ddy * sy * sp;
+          this.targetY -= -ddx * sy + ddy * cy * sp;
+          this.targetZ -= ddy * cp;
         } else {
           this.yaw += dx * 0.008;
           this.pitch = clampPitch(this.pitch + dy * 0.006);
@@ -147,17 +157,7 @@ export class Graph3D {
       (e) => {
         e.preventDefault();
         const f = Math.exp(-e.deltaY * 0.0015);
-        const oldK = this.zoomK;
-        const newK = Math.max(0.05, Math.min(8, oldK * f));
-        // Scale never affects panX/panY themselves, only the world-coordinate
-        // term added to them (see project()), so whatever point currently
-        // sits at screen centre stays there only if pan is rescaled by the
-        // same factor as zoom; otherwise it drifts outward from centre by
-        // (newK - oldK) * panX/oldK each step, compounding over repeated
-        // zooms.
-        this.panX *= newK / oldK;
-        this.panY *= newK / oldK;
-        this.zoomK = newK;
+        this.zoomK = Math.max(0.05, Math.min(8, this.zoomK * f));
         this.draw();
       },
       { passive: false },
@@ -258,8 +258,8 @@ export class Graph3D {
     }
     const scale = (this.focal / focalDepth) * this.zoomK;
     return {
-      x: this.width / 2 + this.panX + X * scale,
-      y: this.height / 2 + this.panY - screenUp * scale,
+      x: this.width / 2 + X * scale,
+      y: this.height / 2 - screenUp * scale,
       scale,
       depth,
       clipped: false,
@@ -457,8 +457,6 @@ export class Graph3D {
 
   fit() {
     this.zoomK = 1;
-    this.panX = 0;
-    this.panY = 0;
     this.focusedNode = null;
     this.targetX = 0;
     this.targetY = 0;
@@ -497,8 +495,6 @@ export class Graph3D {
   focusOn(node) {
     if (!node) return;
     this.zoomK = Math.min(8, Math.max(this.zoomK, 1.2));
-    this.panX = 0;
-    this.panY = 0;
     this.focusedNode = node;
     this.targetX = node.x;
     this.targetY = node.y;
