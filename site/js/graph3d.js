@@ -71,6 +71,13 @@ export class Graph3D {
     this.targetX = 0;
     this.targetY = 0;
     this.targetZ = 0;
+    // Node target is following, if any (see focusOn()). Node positions keep
+    // changing under the physics — settling, or reheated by dragging another
+    // node or changing physics params — so a one-off snapshot into target
+    // goes stale almost immediately; draw() re-reads this node's live
+    // position into target every frame instead, so orbiting always pivots
+    // on where the node actually is right now.
+    this.focusedNode = null;
     // Placeholder until the first fit(), which sets this from the graph's
     // own extent (see FOCAL_EXTENT_RATIO).
     this.focal = 1400;
@@ -101,6 +108,10 @@ export class Graph3D {
         dragging.y = e.clientY;
         if (Math.abs(dx) + Math.abs(dy) > 1) moved = true;
         if (dragging.pan) {
+          // Panning deliberately moves the view away from whatever target
+          // is centred; stop following a focused node so this pan sticks
+          // instead of being overridden on the next frame.
+          this.focusedNode = null;
           this.panX += dx;
           this.panY += dy;
         } else {
@@ -170,6 +181,7 @@ export class Graph3D {
     this.graph = graph;
     this.selected = null;
     this.hovered = null;
+    this.focusedNode = null;
     // Zones belong to the previous graph until the app calls setZones again.
     this.zones = [];
     this.maxHeight = graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
@@ -291,6 +303,11 @@ export class Graph3D {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, this.width, this.height);
     if (!this.graph) return;
+    if (this.focusedNode) {
+      this.targetX = this.focusedNode.x;
+      this.targetY = this.focusedNode.y;
+      this.targetZ = this.zOf(this.focusedNode);
+    }
     const { nodes, links } = this.graph;
     const sel = this.selected;
     const neighbours = this.neighbourSet();
@@ -430,6 +447,7 @@ export class Graph3D {
     this.zoomK = 1;
     this.panX = 0;
     this.panY = 0;
+    this.focusedNode = null;
     this.targetX = 0;
     this.targetY = 0;
     this.targetZ = 0;
@@ -458,14 +476,18 @@ export class Graph3D {
   /**
    * Centre the camera on one node without touching yaw/pitch: zoom in a
    * little if it's currently zoomed out, then re-point the orbit target at
-   * the node so it lands exactly at screen centre and stays there through
-   * any further rotation, not just while the camera holds still.
+   * the node so it lands exactly at screen centre. draw() keeps re-reading
+   * the node's live position into target every frame (see focusedNode)
+   * rather than a one-off snapshot, so it stays centred through further
+   * rotation and through the physics moving it, not just while both hold
+   * still.
    */
   focusOn(node) {
     if (!node) return;
     this.zoomK = Math.min(8, Math.max(this.zoomK, 1.2));
     this.panX = 0;
     this.panY = 0;
+    this.focusedNode = node;
     this.targetX = node.x;
     this.targetY = node.y;
     this.targetZ = this.zOf(node);
