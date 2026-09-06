@@ -127,11 +127,15 @@ easy to count.
 
 The projection is a small hand-written orbit camera (yaw, pitch, perspective)
 on a 2D canvas; no WebGL dependency is needed for a few thousand nodes. Pitch
-is kept away from exactly level: at pitch 0 the camera's forward axis is
-horizontal, so height never contributes to the perspective divide and the
-call-height axis would render with no depth cue at all (true of any look-at
-camera, not just this one). A minimum elevation keeps that axis visibly
-foreshortened at every orbit angle.
+is unbounded, not clamped to a single hemisphere: dragging past straight
+up/down continues the orbit into a full vertical loop rather than stopping,
+the same way yaw already spins all the way around. It is kept away from
+every *level* orientation (pitch a multiple of `PI`, not just 0): at those
+elevations the camera's forward axis is horizontal, so height never
+contributes to the perspective divide and the call-height axis would render
+with no depth cue at all (true of any look-at camera, not just this one). A
+minimum elevation keeps that axis visibly foreshortened everywhere else on
+the loop.
 
 The camera's focal length is set from the graph's own extent (in `fit()`)
 rather than a fixed world-unit constant. A focal length small next to the
@@ -144,15 +148,19 @@ happens to spread a given graph. Points whose scale would still exceed
 a real camera doesn't render what's pressed against the lens, it just falls
 out of frame.
 
-The orbit camera's yaw/pitch pivot is the world origin, but nothing in the
-physics keeps the layout's own bounding box anywhere near it (see "Nothing
-defines a centre" above): `fit()` therefore pans the camera by the box's
-projected screen offset so its centre lands on screen centre, rather than
-assuming the origin already coincides with it. Zooming (mouse wheel)
-rescales that pan by the same factor as the zoom, so whatever point sits at
-screen centre stays there through further zooming instead of sliding away
-from it — the per-node perspective factor cancels out of the ratio, so this
-holds regardless of a node's depth.
+The orbit camera doesn't pivot on the world origin; it pivots on an explicit
+`target` point that always projects to screen centre regardless of yaw or
+pitch. Nothing in the physics keeps the layout's own bounding box anywhere
+near the origin (see "Nothing defines a centre" above), so `fit()` points
+`target` at the box's own centre instead of assuming the origin already
+coincides with it, and `focusOn()` points it at a node instead. Because
+rotation is relative to `target`, dragging to orbit never drifts whatever
+it's aimed at away from screen centre — only an explicit pan (shift-drag)
+moves it, as a screen-space offset on top of the orbit. Zooming (mouse
+wheel) rescales that offset by the same factor as the zoom, so whatever
+point sits at screen centre stays there through further zooming instead of
+sliding away from it — the per-node perspective factor cancels out of the
+ratio, so this holds regardless of a node's depth.
 
 ## Edge kinds
 
