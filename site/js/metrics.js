@@ -195,6 +195,29 @@ export function convergentOperations(graph, minWidth = 2) {
 }
 
 /**
+ * Declarations nothing calls, constructs, references, writes to or depends
+ * on the type of. Counted over every edge kind regardless of which ones are
+ * currently toggled on (`graph.links`, not `graph.activeLinks`): a
+ * declaration only reached through a kind the user has hidden is still
+ * used. A `module` node (a file's own top-level code) is excluded — nothing
+ * is ever expected to point at one. A local declaration (docs/THEORY.md
+ * Definition 9a/10 — an options-object callback such as
+ * `{ onFit: () => {…} }`, or a named local under `--nested`) is excluded
+ * too: its id is `<parent id>/<name>` (docs/DATA_FORMAT.md), i.e. a "/"
+ * *after* the file's `::` — not the "/" every nested file path already has
+ * before it — and bounded 0-CFA (docs/THEORY.md §3.2) does not trace a call
+ * reaching such a declaration through a stored reference
+ * (`this.callbacks.onFit()`), so it reads as unused even when something
+ * invokes it dynamically.
+ */
+export function unreferencedDeclarations(graph) {
+  const inDegree = new Map(graph.nodes.map((n) => [n, 0]));
+  for (const l of graph.links) inDegree.set(l.target, (inDegree.get(l.target) ?? 0) + 1);
+  const isLocal = (id) => (id.split("::")[1] ?? "").includes("/");
+  return graph.nodes.filter((n) => n.kind !== "module" && !isLocal(n.id) && inDegree.get(n) === 0);
+}
+
+/**
  * Cycles among definition-time term-level edges. These are evaluated while the
  * module initialises, so a cycle means a declaration is read before it exists
  * (docs/THEORY.md §4). Returns the number of declarations involved.

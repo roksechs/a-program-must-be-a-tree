@@ -6,18 +6,27 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
-### A test catches dead code, and removes what it found
+### `metrics.js` can tell you what nothing calls, and removes what it found
 
-* `test/dead-code.test.mjs` runs the analyzer on the viewer, the analyzer and
-  the scripts and tests themselves, and fails on any top-level function/class
-  or class member nothing calls, constructs, references or writes to —
-  exactly what a removed caller leaves behind. It also flags a CSS custom
-  property declared in `site/*.css` but never read with `var(...)`. Written
-  after two rounds of hand-hunting turned up leftovers from the `graph2d.js`
-  removal below: `Graph3D.show()`, `zones.js`'s `topPoint`, and 14 unused
-  CSS custom properties (2 orphaned by that removal, 12 pre-existing —
-  most of a Material Design 3 color-role/shape/elevation/state set that was
-  never fully consumed).
+* "Is anything unreferenced" is a question about the graph, so the graph
+  model answers it: `unreferencedDeclarations(graph)` (`metrics.js`) returns
+  every top-level function/class or class member with zero incoming edges of
+  any kind — a `module` node and a local declaration (an options-object
+  callback such as `{ onFit: () => {…} }`) are excluded, since the analyzer
+  cannot trace a call reaching the latter through a stored reference.
+  `test/dead-code.test.mjs` runs it against the viewer, the analyzer and the
+  scripts/tests themselves; a second check in the same file flags a CSS
+  custom property declared in `site/*.css` but never read with `var(...)`.
+* Written after two rounds of hand-hunting turned up leftovers from the
+  `graph2d.js` removal below: `Graph3D.show()`, `zones.js`'s `topPoint`, and
+  14 unused CSS custom properties (2 orphaned by that removal, 12
+  pre-existing — most of a Material Design 3 color-role/shape/elevation/state
+  set that was never fully consumed). The first version of the check lived
+  only in the test and excluded local declarations by checking `id.includes
+  ("/")` on the *whole* id — wrong, since every id under a subdirectory
+  already has one from its file path; the test itself (using a fixture file
+  under `src/a.js`) caught the bug once the check moved to `metrics.js` and
+  got real unit tests of its own.
 
 ### Analyzer: a function-valued object literal property is a declaration
 

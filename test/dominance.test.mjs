@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { buildGraph } from "../site/js/model.js";
 import { dominatorTree } from "../site/js/dominance.js";
-import { computeMetrics, convergentOperations, linkLift, naturalScope, topSharedNodes } from "../site/js/metrics.js";
+import { computeMetrics, convergentOperations, linkLift, naturalScope, topSharedNodes, unreferencedDeclarations } from "../site/js/metrics.js";
 
 const decl = (id) => ({ id, name: id, kind: "function", file: "src/a.js" });
 const edge = (source, target, kind = "call") => ({ source, target, kind });
@@ -128,4 +128,35 @@ test("convergentOperations requires at least minWidth converging steps", () => {
   );
   assert.equal(convergentOperations(g).length, 1);
   assert.equal(convergentOperations(g, 3).length, 0);
+});
+
+test("unreferencedDeclarations finds a declaration with no incoming edge, ignoring module nodes and local declarations", () => {
+  const g = buildGraph({
+    declarations: [
+      { id: "src/a.js::main", name: "main", kind: "function", file: "src/a.js" },
+      { id: "src/a.js::used", name: "used", kind: "function", file: "src/a.js" },
+      { id: "src/a.js::dead", name: "dead", kind: "function", file: "src/a.js" },
+      { id: "src/a.js::module", name: "module", kind: "module", file: "src/a.js" }, // never itself a target
+      { id: "src/b.js::main/onClick", name: "onClick", kind: "function", file: "src/b.js" }, // local declaration, never counted
+    ],
+    edges: [{ source: "src/a.js::main", target: "src/a.js::used", kind: "call" }],
+  });
+  assert.deepEqual(
+    unreferencedDeclarations(g).map((n) => n.id),
+    ["src/a.js::main", "src/a.js::dead"],
+  );
+});
+
+test("unreferencedDeclarations counts every edge kind, not just the currently active ones", () => {
+  const g = buildGraph({
+    declarations: [
+      { id: "a", name: "a", kind: "function", file: "src/a.js" },
+      { id: "b", name: "b", kind: "function", file: "src/a.js" },
+    ],
+    edges: [{ source: "a", target: "b", kind: "reference" }], // not in the default control graph (call/create)
+  });
+  assert.deepEqual(
+    unreferencedDeclarations(g).map((n) => n.id),
+    ["a"],
+  );
 });

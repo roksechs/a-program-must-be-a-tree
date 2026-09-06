@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-06T22:46:10.939Z",
+  "generatedAt": "2026-09-06T23:17:09.722Z",
   "analyzer": "analyzers/ts@0.4.0",
   "files": 24
  },
@@ -1480,7 +1480,7 @@
    "name": "initializationCycles",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 202,
+   "line": 225,
    "parent": null,
    "exported": true
   },
@@ -1508,6 +1508,15 @@
    "kind": "function",
    "file": "site/js/metrics.js",
    "line": 140,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/metrics.js::unreferencedDeclarations",
+   "name": "unreferencedDeclarations",
+   "kind": "function",
+   "file": "site/js/metrics.js",
+   "line": 213,
    "parent": null,
    "exported": true
   },
@@ -1894,7 +1903,7 @@
    "name": "dead-code.test",
    "kind": "module",
    "file": "test/dead-code.test.mjs",
-   "line": 12,
+   "line": 17,
    "parent": null,
    "exported": false
   },
@@ -1903,7 +1912,7 @@
    "name": "CSS_DECL",
    "kind": "variable",
    "file": "test/dead-code.test.mjs",
-   "line": 32,
+   "line": 28,
    "parent": null,
    "exported": false
   },
@@ -1912,7 +1921,7 @@
    "name": "CSS_USE",
    "kind": "variable",
    "file": "test/dead-code.test.mjs",
-   "line": 33,
+   "line": 29,
    "parent": null,
    "exported": false
   },
@@ -1921,7 +1930,7 @@
    "name": "root",
    "kind": "variable",
    "file": "test/dead-code.test.mjs",
-   "line": 10,
+   "line": 15,
    "parent": null,
    "exported": false
   },
@@ -4693,6 +4702,20 @@
   },
   {
    "source": "test/dead-code.test.mjs::<module>",
+   "target": "site/js/metrics.js::unreferencedDeclarations",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
    "target": "test/dead-code.test.mjs::CSS_DECL",
    "kind": "reference",
    "count": 1,
@@ -4745,6 +4768,20 @@
    "target": "site/js/metrics.js::topSharedNodes",
    "kind": "call",
    "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/metrics.js::unreferencedDeclarations",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 2,
    "time": "use"
   },
   {

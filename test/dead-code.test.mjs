@@ -1,31 +1,27 @@
 // Catches exactly the kind of leftover a refactor forgets to remove: a
 // method, function or CSS custom property whose only caller/user was
 // deleted along with the code that called it (e.g. graph2d.js's removal
-// left Graph3D.show(), zones.js's topPoint and two CSS tokens behind).
+// left Graph3D.show(), zones.js's topPoint and two CSS tokens behind). The
+// declaration check is the viewer's own model (model.js, metrics.js) run on
+// the project's own source: this is a graph-shape question, so the graph
+// model already answers it — nothing here is reimplemented.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { analyze } from "../analyzers/ts/analyze.mjs";
+import { buildGraph } from "../site/js/model.js";
+import { unreferencedDeclarations } from "../site/js/metrics.js";
 
 const root = new URL("..", import.meta.url).pathname;
 
 test("no unused top-level declaration or class member in the viewer or analyzer", () => {
   const doc = analyze({ name: "self", root, include: ["site/js", "analyzers", "scripts", "test"], language: "javascript" });
-  const inDegree = new Map(doc.declarations.map((d) => [d.id, 0]));
-  for (const e of doc.edges) if (inDegree.has(e.target)) inDegree.set(e.target, inDegree.get(e.target) + 1);
-  // A "module" declaration (a file's top-level code) is never itself called.
-  // A local declaration (id contains "/", docs/THEORY.md Definition 9a/10 —
-  // e.g. an options-object callback such as `{ onFit: () => {...} }`) is
-  // excluded too: the analyzer does not trace a call that reaches it through
-  // a stored reference (`this.callbacks.onFit()`), so it shows as unused
-  // even when something invokes it dynamically. Everything else — a
-  // top-level function/class or a class member (`.`-parented) — has no such
-  // excuse: something must call, construct, reference or write to it.
-  const dead = doc.declarations.filter((d) => d.kind !== "module" && !d.id.includes("/") && inDegree.get(d.id) === 0);
+  const graph = buildGraph(doc);
+  const dead = unreferencedDeclarations(graph);
   assert.deepEqual(
-    dead.map((d) => d.id),
+    dead.map((n) => n.id),
     [],
-    "unused declaration(s) — delete them, or if this is a false positive (called only through a dynamic/stored reference the analyzer can't trace), extend the exclusion above",
+    "unused declaration(s) — delete them, or if this is a false positive (called only through a dynamic/stored reference the analyzer can't trace), extend unreferencedDeclarations in metrics.js",
   );
 });
 
