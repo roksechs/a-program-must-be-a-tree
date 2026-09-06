@@ -28,10 +28,17 @@ export function zoneColor(container) {
   return zoneScale(top);
 }
 
+// `call` stays a muted, low-saturation grey on purpose — it is the majority
+// kind in almost every real codebase, and a graph where the single most
+// common edge is also the loudest colour would drown out everything else.
+// Every other kind needs to read as clearly *not* that neutral grey even in
+// a quick glance, which `reference` (a near-identical light grey until this
+// change, and typically the second most common kind by a wide margin — the
+// two together can be nearly the whole graph) did not.
 export const EDGE_COLORS = {
   call: "#6b7280",
   create: "#d97706",
-  reference: "#a1a1aa",
+  reference: "#22c55e",
   write: "#db2777",
   extends: "#e45756",
   implements: "#b279a2",

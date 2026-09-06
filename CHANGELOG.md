@@ -89,6 +89,13 @@ The section for a version becomes the notes of its GitHub release
   below its legend swatch (the paler kinds, `reference` especially, nearly
   vanished). Both renderers now default to full opacity and only dim an
   edge once some other node is selected.
+* `reference`'s colour was a light grey almost identical to `call`'s. `call`
+  is deliberately a muted, low-saturation grey — it is the majority kind in
+  almost every real codebase, and the most common edge kind also being the
+  loudest colour would drown out everything else — but `reference` is
+  typically the *second* most common kind by a wide margin, so the two greys
+  together could be nearly the whole graph, reading as one undifferentiated
+  colour no matter how the opacity above was fixed. `reference` is now green.
 
 ### The article
 
