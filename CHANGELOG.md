@@ -6,6 +6,19 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### A test catches dead code, and removes what it found
+
+* `test/dead-code.test.mjs` runs the analyzer on the viewer, the analyzer and
+  the scripts and tests themselves, and fails on any top-level function/class
+  or class member nothing calls, constructs, references or writes to —
+  exactly what a removed caller leaves behind. It also flags a CSS custom
+  property declared in `site/*.css` but never read with `var(...)`. Written
+  after two rounds of hand-hunting turned up leftovers from the `graph2d.js`
+  removal below: `Graph3D.show()`, `zones.js`'s `topPoint`, and 14 unused
+  CSS custom properties (2 orphaned by that removal, 12 pre-existing —
+  most of a Material Design 3 color-role/shape/elevation/state set that was
+  never fully consumed).
+
 ### Analyzer: a function-valued object literal property is a declaration
 
 * `f({ onFit: () => {…}, onLabels(mode) {…} })` — a handler/options object

@@ -53,9 +53,3 @@ export function hullPath(points, padding) {
   closedLine ??= d3.line().curve(d3.curveLinearClosed);
   return closedLine(hull);
 }
-/** Topmost point of a hull (used to place the zone label). */
-export function topPoint(points) {
-  let best = points[0];
-  for (const p of points) if (p[1] < best[1]) best = p;
-  return best;
-}

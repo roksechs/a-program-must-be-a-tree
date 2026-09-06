@@ -58,6 +58,20 @@ would only have been a second, heavier way to draw the same picture; a
 figure that wants a flat, label-readable layout asks for `view: top`
 instead and gets `graph3d.js`'s Top view.
 
+### Keeping the codebase itself tidy
+
+`test/dead-code.test.mjs` runs the analyzer on `site/js`, `analyzers`,
+`scripts` and `test` themselves and fails if any top-level function/class or
+class member has zero incoming edges of any kind — exactly what a removed
+caller leaves behind (deleting `graph2d.js` orphaned `Graph3D.show()` and
+`zones.js`'s `topPoint`, caught this way). Local declarations (id contains
+`/`, an options-object callback such as `{ onFit: () => {…} }`) are excluded:
+the analyzer does not trace a call reaching them through a stored reference
+(`this.callbacks.onFit()`), so they read as unused even when something
+invokes them dynamically. The same file also flags a CSS custom property
+that is declared in `site/*.css` but never read with `var(...)` anywhere in
+`site/*.css`.
+
 ## Physics
 
 d3-force is used as the integrator. The forces are:

@@ -3,8 +3,8 @@
   "name": "d3-force",
   "root": "node_modules/d3-force",
   "language": "javascript",
-  "generatedAt": "2026-09-06T13:13:49.251Z",
-  "analyzer": "analyzers/ts@0.3.0",
+  "generatedAt": "2026-09-06T22:46:12.749Z",
+  "analyzer": "analyzers/ts@0.4.0",
   "files": 12
  },
  "declarations": [

@@ -3,8 +3,8 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-06T13:13:48.821Z",
-  "analyzer": "analyzers/ts@0.3.0",
+  "generatedAt": "2026-09-06T22:46:12.287Z",
+  "analyzer": "analyzers/ts@0.4.0",
   "files": 24
  },
  "declarations": [
@@ -1129,7 +1129,7 @@
    "name": "article",
    "kind": "module",
    "file": "site/js/article.js",
-   "line": 23,
+   "line": 22,
    "parent": null,
    "exported": false
   },
@@ -1138,7 +1138,7 @@
    "name": "applyStaticTranslations",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 33,
+   "line": 32,
    "parent": null,
    "exported": false
   },
@@ -1147,7 +1147,7 @@
    "name": "chapterIds",
    "kind": "variable",
    "file": "site/js/article.js",
-   "line": 51,
+   "line": 50,
    "parent": null,
    "exported": false
   },
@@ -1156,7 +1156,7 @@
    "name": "chaptersEl",
    "kind": "variable",
    "file": "site/js/article.js",
-   "line": 16,
+   "line": 15,
    "parent": null,
    "exported": false
   },
@@ -1174,7 +1174,7 @@
    "name": "callbacks",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 143,
+   "line": 140,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1183,7 +1183,7 @@
    "name": "onDragEnd",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 151,
+   "line": 148,
    "parent": "site/js/article.js::createFigure/callbacks",
    "exported": false
   },
@@ -1192,7 +1192,7 @@
    "name": "onDragStart",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 150,
+   "line": 147,
    "parent": "site/js/article.js::createFigure/callbacks",
    "exported": false
   },
@@ -1201,7 +1201,7 @@
    "name": "onHover",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 152,
+   "line": 149,
    "parent": "site/js/article.js::createFigure/callbacks",
    "exported": false
   },
@@ -1210,7 +1210,7 @@
    "name": "onSelect",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 145,
+   "line": 142,
    "parent": "site/js/article.js::createFigure/callbacks",
    "exported": false
   },
@@ -1219,7 +1219,7 @@
    "name": "deselect",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 290,
+   "line": 277,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1228,7 +1228,7 @@
    "name": "load",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 238,
+   "line": 227,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1237,7 +1237,7 @@
    "name": "metricsRow",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 181,
+   "line": 170,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1246,7 +1246,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 125,
+   "line": 122,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1255,7 +1255,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 128,
+   "line": 123,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1264,7 +1264,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 129,
+   "line": 124,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1273,7 +1273,7 @@
    "name": "resize",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 289,
+   "line": 276,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1282,16 +1282,16 @@
    "name": "retranslate",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 212,
+   "line": 201,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
   {
-   "id": "site/js/article.js::createFigure/setView",
-   "name": "setView",
+   "id": "site/js/article.js::createFigure/settle",
+   "name": "settle",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 173,
+   "line": 135,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1300,7 +1300,7 @@
    "name": "showMetrics",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 185,
+   "line": 174,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1309,7 +1309,7 @@
    "name": "showSelection",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 198,
+   "line": 187,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1318,7 +1318,7 @@
    "name": "toggleRename",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 225,
+   "line": 215,
    "parent": "site/js/article.js::createFigure",
    "exported": false
   },
@@ -1327,7 +1327,7 @@
    "name": "datasets",
    "kind": "variable",
    "file": "site/js/article.js",
-   "line": 52,
+   "line": 51,
    "parent": null,
    "exported": false
   },
@@ -1336,7 +1336,7 @@
    "name": "el",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 40,
+   "line": 39,
    "parent": null,
    "exported": false
   },
@@ -1345,7 +1345,7 @@
    "name": "fetchText",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 55,
+   "line": 54,
    "parent": null,
    "exported": false
   },
@@ -1354,7 +1354,7 @@
    "name": "figures",
    "kind": "variable",
    "file": "site/js/article.js",
-   "line": 53,
+   "line": 52,
    "parent": null,
    "exported": false
   },
@@ -1363,7 +1363,7 @@
    "name": "languageSelect",
    "kind": "variable",
    "file": "site/js/article.js",
-   "line": 19,
+   "line": 18,
    "parent": null,
    "exported": false
   },
@@ -1372,7 +1372,7 @@
    "name": "value",
    "kind": "variable",
    "file": "site/js/article.js",
-   "line": 30,
+   "line": 29,
    "parent": "site/js/article.js::languageSelect",
    "exported": false
   },
@@ -1381,7 +1381,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 316,
+   "line": 303,
    "parent": null,
    "exported": false
   },
@@ -1390,7 +1390,7 @@
    "name": "renderChapters",
    "kind": "function",
    "file": "site/js/article.js",
-   "line": 61,
+   "line": 60,
    "parent": null,
    "exported": false
   },
@@ -1399,7 +1399,7 @@
    "name": "savedLanguage",
    "kind": "variable",
    "file": "site/js/article.js",
-   "line": 22,
+   "line": 21,
    "parent": null,
    "exported": false
   },
@@ -1408,7 +1408,7 @@
    "name": "status",
    "kind": "variable",
    "file": "site/js/article.js",
-   "line": 18,
+   "line": 17,
    "parent": null,
    "exported": false
   },
@@ -1417,7 +1417,7 @@
    "name": "tocEl",
    "kind": "variable",
    "file": "site/js/article.js",
-   "line": 17,
+   "line": 16,
    "parent": null,
    "exported": false
   },
@@ -1530,200 +1530,11 @@
    "exported": false
   },
   {
-   "id": "site/js/graph2d.js::Graph2D",
-   "name": "Graph2D",
-   "kind": "class",
-   "file": "site/js/graph2d.js",
-   "line": 8,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.applyHighlight",
-   "name": "applyHighlight",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 263,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.constructor",
-   "name": "constructor",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 13,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.fit",
-   "name": "fit",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 304,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.focusOn",
-   "name": "focusOn",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 318,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.neighbourSet",
-   "name": "neighbourSet",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 246,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.nodeFill",
-   "name": "nodeFill",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 160,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.refreshLabels",
-   "name": "refreshLabels",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 223,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.resize",
-   "name": "resize",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 65,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.restyle",
-   "name": "restyle",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 174,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.select",
-   "name": "select",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 256,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.setColorBy",
-   "name": "setColorBy",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 168,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.setGraph",
-   "name": "setGraph",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 73,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.setLabelMode",
-   "name": "setLabelMode",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 217,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.setVisibleKinds",
-   "name": "setVisibleKinds",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 227,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.setZones",
-   "name": "setZones",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 187,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.show",
-   "name": "show",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 325,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.tick",
-   "name": "tick",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 279,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "name": "updateLabelVisibility",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 232,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::linkPath",
-   "name": "linkPath",
-   "kind": "function",
-   "file": "site/js/graph2d.js",
-   "line": 336,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::ZONE_PADDING",
-   "name": "ZONE_PADDING",
-   "kind": "variable",
-   "file": "site/js/graph2d.js",
-   "line": 6,
-   "parent": null,
-   "exported": false
-  },
-  {
    "id": "site/js/graph3d.js::clampPitch",
    "name": "clampPitch",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 595,
+   "line": 591,
    "parent": null,
    "exported": false
   },
@@ -1732,7 +1543,7 @@
    "name": "drawArrow",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 608,
+   "line": 604,
    "parent": null,
    "exported": false
   },
@@ -1922,15 +1733,6 @@
    "kind": "method",
    "file": "site/js/graph3d.js",
    "line": 233,
-   "parent": "site/js/graph3d.js::Graph3D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph3d.js::Graph3D.show",
-   "name": "show",
-   "kind": "method",
-   "file": "site/js/graph3d.js",
-   "line": 583,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2637,15 +2439,6 @@
    "exported": true
   },
   {
-   "id": "site/js/zones.js::topPoint",
-   "name": "topPoint",
-   "kind": "function",
-   "file": "site/js/zones.js",
-   "line": 57,
-   "parent": null,
-   "exported": true
-  },
-  {
    "id": "site/js/zones.js::visibleContainers",
    "name": "visibleContainers",
    "kind": "function",
@@ -2831,6 +2624,42 @@
    "kind": "variable",
    "file": "test/article.test.mjs",
    "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dead-code.test.mjs::<module>",
+   "name": "dead-code.test",
+   "kind": "module",
+   "file": "test/dead-code.test.mjs",
+   "line": 12,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dead-code.test.mjs::CSS_DECL",
+   "name": "CSS_DECL",
+   "kind": "variable",
+   "file": "test/dead-code.test.mjs",
+   "line": 32,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dead-code.test.mjs::CSS_USE",
+   "name": "CSS_USE",
+   "kind": "variable",
+   "file": "test/dead-code.test.mjs",
+   "line": 33,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dead-code.test.mjs::root",
+   "name": "root",
+   "kind": "variable",
+   "file": "test/dead-code.test.mjs",
+   "line": 10,
    "parent": null,
    "exported": false
   },
@@ -4079,14 +3908,6 @@
   },
   {
    "source": "site/js/app.js::<module>",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "definition",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::<module>",
    "target": "site/js/graph3d.js::Graph3D.draw",
    "kind": "call",
    "count": 1,
@@ -5076,22 +4897,6 @@
   },
   {
    "source": "site/js/article.js::<module>",
-   "target": "site/js/graph2d.js::Graph2D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "definition",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::<module>",
    "target": "site/js/graph3d.js::Graph3D.resize",
    "kind": "call",
    "count": 1,
@@ -5195,7 +5000,7 @@
    "source": "site/js/article.js::createFigure",
    "target": "site/js/article.js::createFigure/callbacks",
    "kind": "call",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
@@ -5216,30 +5021,8 @@
    "source": "site/js/article.js::createFigure",
    "target": "site/js/article.js::el",
    "kind": "call",
-   "count": 13,
+   "count": 12,
    "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph2d.js::Graph2D",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph2d.js::Graph2D.constructor",
-   "kind": "create",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph2d.js::Graph2D.show",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
   },
   {
    "source": "site/js/article.js::createFigure",
@@ -5254,14 +5037,6 @@
    "kind": "create",
    "count": 1,
    "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.show",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
   },
   {
    "source": "site/js/article.js::createFigure",
@@ -5293,35 +5068,17 @@
   },
   {
    "source": "site/js/article.js::createFigure/callbacks/onSelect",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/callbacks/onSelect",
    "target": "site/js/graph3d.js::Graph3D.select",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/deselect",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/deselect",
    "target": "site/js/graph3d.js::Graph3D.select",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/load",
@@ -5332,131 +5089,59 @@
   },
   {
    "source": "site/js/article.js::createFigure/load",
-   "target": "site/js/graph2d.js::Graph2D.fit",
+   "target": "site/js/article.js::createFigure/settle",
    "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/load",
-   "target": "site/js/graph2d.js::Graph2D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/load",
-   "target": "site/js/graph2d.js::Graph2D.setColorBy",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/load",
-   "target": "site/js/graph2d.js::Graph2D.setGraph",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/load",
-   "target": "site/js/graph2d.js::Graph2D.setLabelMode",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/load",
-   "target": "site/js/graph2d.js::Graph2D.setVisibleKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/load",
-   "target": "site/js/graph2d.js::Graph2D.setZones",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/load",
-   "target": "site/js/graph2d.js::Graph2D.tick",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/load",
-   "target": "site/js/graph3d.js::Graph3D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/load",
    "target": "site/js/graph3d.js::Graph3D.resize",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/load",
    "target": "site/js/graph3d.js::Graph3D.setColorBy",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/load",
    "target": "site/js/graph3d.js::Graph3D.setGraph",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/load",
    "target": "site/js/graph3d.js::Graph3D.setLabelMode",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/load",
    "target": "site/js/graph3d.js::Graph3D.setVisibleKinds",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/load",
    "target": "site/js/graph3d.js::Graph3D.setZones",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/load",
    "target": "site/js/graph3d.js::Graph3D.tick",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/load",
@@ -5523,13 +5208,6 @@
   },
   {
    "source": "site/js/article.js::createFigure/onclick",
-   "target": "site/js/article.js::createFigure/setView",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure/onclick",
    "target": "site/js/article.js::createFigure/toggleRename",
    "kind": "call",
    "count": 1,
@@ -5537,35 +5215,24 @@
   },
   {
    "source": "site/js/article.js::createFigure/onclick",
-   "target": "site/js/graph2d.js::Graph2D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/onclick",
    "target": "site/js/graph3d.js::Graph3D.fit",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
-   "source": "site/js/article.js::createFigure/resize",
-   "target": "site/js/graph2d.js::Graph2D.resize",
+   "source": "site/js/article.js::createFigure/onclick",
+   "target": "site/js/graph3d.js::Graph3D.viewTop",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/resize",
    "target": "site/js/graph3d.js::Graph3D.resize",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/retranslate",
@@ -5606,56 +5273,22 @@
    "source": "site/js/article.js::createFigure/retranslate",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 5,
+   "count": 6,
    "time": "use"
   },
   {
-   "source": "site/js/article.js::createFigure/setView",
-   "target": "site/js/graph2d.js::Graph2D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/setView",
-   "target": "site/js/graph2d.js::Graph2D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/setView",
-   "target": "site/js/graph2d.js::Graph2D.show",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/setView",
+   "source": "site/js/article.js::createFigure/settle",
    "target": "site/js/graph3d.js::Graph3D.fit",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
-   "source": "site/js/article.js::createFigure/setView",
-   "target": "site/js/graph3d.js::Graph3D.resize",
+   "source": "site/js/article.js::createFigure/settle",
+   "target": "site/js/graph3d.js::Graph3D.viewTop",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure/setView",
-   "target": "site/js/graph3d.js::Graph3D.show",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure/showMetrics",
@@ -5702,13 +5335,6 @@
   {
    "source": "site/js/article.js::createFigure/toggleRename",
    "target": "site/js/article.js::createFigure/retranslate",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure/toggleRename",
-   "target": "site/js/graph2d.js::Graph2D.refreshLabels",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -5898,212 +5524,6 @@
   {
    "source": "site/js/dominance.js::dominatorTree",
    "target": "site/js/model.js::stronglyConnectedComponents",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.applyHighlight",
-   "target": "site/js/graph2d.js::Graph2D.neighbourSet",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/colors.js::edgeColor",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/graph2d.js::Graph2D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 2,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/graph3d.js::Graph3D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/kinds.js::EDGE_KINDS",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/panel.js::Panel.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.nodeFill",
-   "target": "site/js/colors.js::kindColor",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.restyle",
-   "target": "site/js/graph2d.js::Graph2D.nodeFill",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.restyle",
-   "target": "site/js/graph2d.js::Graph2D.tick",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.select",
-   "target": "site/js/graph2d.js::Graph2D.applyHighlight",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.select",
-   "target": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setColorBy",
-   "target": "site/js/graph2d.js::Graph2D.restyle",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/colors.js::edgeColor",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/graph2d.js::Graph2D.applyHighlight",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/graph2d.js::Graph2D.focusOn",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/graph2d.js::Graph2D.nodeFill",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "kind": "call",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setLabelMode",
-   "target": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setZones",
-   "target": "site/js/colors.js::zoneColor",
-   "kind": "call",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setZones",
-   "target": "site/js/graph2d.js::Graph2D.tick",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.tick",
-   "target": "site/js/graph2d.js::linkPath",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.tick",
-   "target": "site/js/graph2d.js::ZONE_PADDING",
-   "kind": "reference",
-   "count": 4,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.tick",
-   "target": "site/js/zones.js::hullPath",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.tick",
-   "target": "site/js/zones.js::topPoint",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "target": "site/js/graph2d.js::Graph2D.neighbourSet",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::linkPath",
-   "target": "site/js/colors.js::edgeBowOffset",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -7072,6 +6492,34 @@
    "target": "test/article.test.mjs::content",
    "kind": "reference",
    "count": 5,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "analyzers/ts/analyze.mjs::analyze",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "test/dead-code.test.mjs::CSS_DECL",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "test/dead-code.test.mjs::CSS_USE",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "test/dead-code.test.mjs::root",
+   "kind": "reference",
+   "count": 1,
    "time": "use"
   },
   {

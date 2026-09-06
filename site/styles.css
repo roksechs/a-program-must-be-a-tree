@@ -8,17 +8,10 @@
   --md-primary: #2f5fd8;
   --md-primary-rgb: 47, 95, 216;
   --md-on-primary: #ffffff;
-  --md-primary-container: #dbe1ff;
-  --md-on-primary-container: #001a41;
   --md-secondary: #575e71;
   --md-secondary-container: #dbe2f9;
   --md-error: #ba1a1a;
-  --md-on-error-container: #410002;
-  --md-error-container: #ffdad6;
 
-  --md-surface: #faf9fd;
-  --md-surface-dim: #dad9e0;
-  --md-surface-bright: #faf9fd;
   --md-surface-container-lowest: #ffffff;
   --md-surface-container-low: #f4f3f9;
   --md-surface-container: #eeedf4;
@@ -30,25 +23,20 @@
   --md-outline-variant: #c7c5d0;
   --md-inverse-surface: #303036;
   --md-inverse-on-surface: #f2f0f6;
-  --md-scrim: #000000;
 
   /* Shape scale (corner radius). */
   --shape-xs: 4px;
   --shape-sm: 8px;
   --shape-md: 12px;
   --shape-lg: 16px;
-  --shape-xl: 28px;
   --shape-full: 999px;
 
-  /* Elevation (tonal shadow), levels 0-3 used here. */
+  /* Elevation (tonal shadow). */
   --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
   --elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
-  --elevation-3: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
 
-  /* State-layer opacities (overlay of on-<surface> colour on interaction). */
+  /* State-layer opacity (overlay of on-<surface> colour on interaction). */
   --state-hover: 0.08;
-  --state-focus: 0.1;
-  --state-pressed: 0.1;
 
   /* Back-compat aliases: article.css and the panel markup already use these
      names; point them at the M3 roles above instead of re-plumbing callers. */
@@ -71,17 +59,10 @@
     --md-primary: #b0c6ff;
     --md-primary-rgb: 176, 198, 255;
     --md-on-primary: #002c71;
-    --md-primary-container: #00429e;
-    --md-on-primary-container: #dbe1ff;
     --md-secondary: #bfc6dc;
     --md-secondary-container: #3f4759;
     --md-error: #ffb4ab;
-    --md-on-error-container: #ffdad6;
-    --md-error-container: #93000a;
 
-    --md-surface: #131318;
-    --md-surface-dim: #131318;
-    --md-surface-bright: #39393f;
     --md-surface-container-lowest: #0e0e13;
     --md-surface-container-low: #1b1b21;
     --md-surface-container: #1f1f25;
