@@ -19,6 +19,14 @@ The section for a version becomes the notes of its GitHub release
   First chapters: the hook, structure and meaning, the model, and binding
   versus store.
 
+### Hosting
+
+* `npm run build:site` runs the tests, vendors d3 and regenerates the
+  datasets: the one build command a static host needs. `.node-version` pins
+  Node 22 for hosts that read it. The README documents the Cloudflare Pages
+  settings (build command, output directory `site`), which gives every pull
+  request a preview URL.
+
 ### Analyzer: assignments that declare
 
 * A top-level assignment through a path of names is a **declaration**, not

@@ -106,6 +106,13 @@ configured with "GitHub Actions" as the source in the repository settings, and
 the `github-pages` environment must allow deployments from the default branch
 (its allowed-branch list is pinned when the environment is first created).
 
+The site can equally be served by **Cloudflare Pages** connected to this
+repository through its GitHub integration (no tokens in the repository): build
+command `npm run build:site` (tests, vendoring, data generation), output
+directory `site`, Node version from `.node-version`. Cloudflare then builds
+every branch and gives each pull request its own preview URL, which GitHub
+Pages cannot do. Nothing in the site depends on which host serves it.
+
 `.github/workflows/release.yml` cuts the tag and the GitHub release for the
 version in `package.json` when it reaches the default branch, taking the notes
 from the matching `CHANGELOG.md` section. Bumping the version and writing that

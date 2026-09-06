@@ -33,8 +33,8 @@ force-directed graph, and measure how close that graph is to a tree.
   implementations, and lifts callbacks into calls at the declaration that
   invokes them with a bounded control-flow analysis.
 
-The viewer is a static page (D3.js, no build step) meant to be served from
-GitHub Pages. Analyzers turn a codebase into a small JSON document
+The viewer is a static page (D3.js, no build step) served from GitHub Pages or
+Cloudflare Pages, see Deployment. Analyzers turn a codebase into a small JSON document
 (see [docs/DATA_FORMAT.md](docs/DATA_FORMAT.md)) that the viewer loads.
 
 ## Quick start
@@ -83,7 +83,7 @@ that writes the same JSON; see the data format document.
 ## Repository layout
 
 ```
-site/            static site published to GitHub Pages
+site/            static site (the root a static host publishes)
   js/            ES modules: model, metrics, dominance, simulation, zones, renderers, panel, app
   data/          generated datasets (index.json lists them)
   vendor/        d3 (copied by `npm run vendor`)
@@ -106,6 +106,25 @@ The GitHub Pages workflow (`.github/workflows/pages.yml`) runs the tests,
 vendors d3, regenerates the datasets and publishes `site/` on every push to
 the repository's default branch. Enable Pages with "GitHub Actions" as the
 source in the repository settings.
+
+### Cloudflare Pages
+
+Cloudflare Pages builds every branch and gives each pull request a preview
+URL, which GitHub Pages cannot. Connect the repository in the Cloudflare
+dashboard (Workers & Pages → Create → Pages → Connect to Git; the GitHub
+integration means no tokens live in this repository) with these settings:
+
+| setting | value |
+|---|---|
+| Production branch | `main` |
+| Build command | `npm run build:site` |
+| Build output directory | `site` |
+| Node version | read from `.node-version` (22); or set the `NODE_VERSION` variable |
+
+`npm run build:site` is the same sequence as the GitHub workflow: tests,
+vendoring, data generation. Preview deployments are on by default for every
+other branch; the Cloudflare GitHub app comments the preview URL on each pull
+request. The article lives at `/article.html` on either host.
 
 Releasing is a version bump. `.github/workflows/release.yml` reads the version
 in `package.json` on every push to the default branch and, when no release

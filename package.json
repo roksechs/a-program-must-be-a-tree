@@ -12,6 +12,7 @@
     "build:data": "npm run analyze:examples",
     "vendor": "node scripts/vendor.mjs",
     "test": "node --test test/*.test.mjs",
+    "build:site": "npm test && npm run vendor && npm run build:data",
     "serve": "node scripts/serve.mjs"
   },
   "devDependencies": {
