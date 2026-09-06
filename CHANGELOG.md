@@ -27,6 +27,10 @@ The section for a version becomes the notes of its GitHub release
   settings (build command, output directory `site`), which gives every pull
   request a preview URL, and `wrangler.jsonc` lets a Cloudflare Workers
   project serve `site/` as static assets with the same build.
+* `npm run check:branch` and `.github/workflows/branch-name.yml`: a branch
+  whose Cloudflare preview alias would not fit a 63-character hostname label
+  (38 characters of alias for this worker name) fails CI, with the longest
+  name that would fit.
 
 ### Analyzer: assignments that declare
 

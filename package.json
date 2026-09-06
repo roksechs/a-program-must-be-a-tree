@@ -13,6 +13,7 @@
     "vendor": "node scripts/vendor.mjs",
     "test": "node --test test/*.test.mjs",
     "build:site": "npm test && npm run vendor && npm run build:data",
+    "check:branch": "node scripts/check-branch-name.mjs",
     "serve": "node scripts/serve.mjs"
   },
   "devDependencies": {

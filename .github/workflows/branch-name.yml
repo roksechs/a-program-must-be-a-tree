@@ -1,0 +1,24 @@
+name: Branch name fits a Cloudflare preview URL
+
+# A non-production branch gets a preview alias
+# <alias>-<worker name>.<account>.workers.dev only when that label fits 63
+# characters; otherwise it is reachable only through a version id. Say so
+# when the branch is created rather than when somebody looks for the preview.
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/check-branch-name.mjs
