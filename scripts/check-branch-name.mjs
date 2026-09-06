@@ -1,12 +1,13 @@
 #!/usr/bin/env node
-// Fails when a branch name cannot get a Cloudflare preview URL of its own.
+// Fails when a branch name is too long for a readable Cloudflare preview URL.
 //
 // Cloudflare Workers Builds gives every non-production branch a preview alias
 // `<alias>-<worker name>.<account>.workers.dev`, where the alias is the branch
 // name lowercased with runs of anything but a-z and 0-9 replaced by hyphens.
-// A DNS label is at most 63 characters, so a long branch name silently gets no
-// alias at all, and the branch is reachable only through a version id. This
-// check runs in CI so that a branch learns this when it is created, not when
+// A DNS label is at most 63 characters; when the alias does not fit, Cloudflare
+// truncates it and appends a hash (`claude-diagnosis-scope-class-para-4231`),
+// so the URL exists but cannot be guessed from the branch name. This check
+// runs in CI so that a branch learns this when it is created, not when
 // somebody looks for its preview.
 //
 // Usage: node scripts/check-branch-name.mjs [branch]
@@ -37,7 +38,7 @@ export function checkBranchName(branch, workerName, { productionBranch = "main" 
   const label = `${alias}-${workerName}`;
   if (alias.length === 0) return { ok: false, alias, label, allowed, reason: "the branch name has no letters or digits" };
   if (label.length > MAX_LABEL) {
-    return { ok: false, alias, label, allowed, reason: `"${label}" is ${label.length} characters; a hostname label holds ${MAX_LABEL}, so the alias may be at most ${allowed} characters and "${alias}" is ${alias.length}` };
+    return { ok: false, alias, label, allowed, reason: `"${label}" is ${label.length} characters; a hostname label holds ${MAX_LABEL}, so the alias may be at most ${allowed} characters and "${alias}" is ${alias.length}. Cloudflare will truncate it and append a hash, so the preview URL cannot be read off the branch name` };
   }
   return { ok: true, alias, label, allowed, reason: `preview alias "${alias}" fits` };
 }
@@ -56,7 +57,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   if (result.ok) {
     console.log(`branch "${branch}": ${result.reason}`);
   } else {
-    const message = `branch "${branch}" gets no Cloudflare preview alias: ${result.reason}. Use a branch name whose alias is at most ${result.allowed} characters, e.g. "${result.alias.slice(0, result.allowed).replace(/-+$/, "")}".`;
+    const message = `branch "${branch}" is too long for a readable Cloudflare preview URL: ${result.reason}. Use a branch name whose alias is at most ${result.allowed} characters, e.g. "${result.alias.slice(0, result.allowed).replace(/-+$/, "")}".`;
     // A GitHub Actions error annotation when running there, a plain line otherwise.
     console.error(process.env.GITHUB_ACTIONS ? `::error::${message}` : message);
     process.exit(1);

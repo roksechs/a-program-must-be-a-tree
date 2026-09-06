@@ -133,13 +133,16 @@ the deploy command is `npx wrangler deploy`; `wrangler.jsonc` at the
 repository root declares `site/` as the Worker's static assets, so no Worker
 code is involved. Every non-production branch is uploaded as a version with a
 preview URL (`<version id prefix>-a-program-must-be-a-tree.<account>.workers.dev`,
-behind Cloudflare Access by default) and, when the name fits, a branch alias
+behind Cloudflare Access by default) and a branch alias
 `<alias>-a-program-must-be-a-tree.<account>.workers.dev`: the alias is the
-branch name lowercased with runs of other characters replaced by hyphens, and
-the whole label must fit 63 characters, so the alias may be at most 38
-characters for this worker name. `npm run check:branch` (also run by
+branch name lowercased with runs of other characters replaced by hyphens. The
+whole label must fit 63 characters, so the alias may be at most 38 characters
+for this worker name; a longer one is truncated and given a hash suffix
+(`claude-diagnosis-scope-class-para-4231`), which exists but cannot be read
+off the branch name. `npm run check:branch` (also run by
 `.github/workflows/branch-name.yml` on every pull request and push) fails for
-a branch name that would get no alias.
+a branch name that would be truncated. Both URLs are also posted by the
+Cloudflare bot in a comment on the pull request.
 
 Releasing is a version bump. `.github/workflows/release.yml` reads the version
 in `package.json` on every push to the default branch and, when no release

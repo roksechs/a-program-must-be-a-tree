@@ -30,7 +30,8 @@ The section for a version becomes the notes of its GitHub release
 * `npm run check:branch` and `.github/workflows/branch-name.yml`: a branch
   whose Cloudflare preview alias would not fit a 63-character hostname label
   (38 characters of alias for this worker name) fails CI, with the longest
-  name that would fit.
+  name that would fit; Cloudflare would otherwise truncate the alias and add
+  a hash, making the preview URL unguessable from the branch name.
 
 ### Analyzer: assignments that declare
 
