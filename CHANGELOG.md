@@ -6,6 +6,24 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Diagnostics: `convergentOperations`, a new shared-declaration finding
+
+* `metrics.js` gains `convergentOperations(graph, minWidth = 2)`: finds a
+  declaration that directly calls several distinct declarations which all
+  independently call the same shared node — the shape a single logical
+  operation takes once it has been decomposed into several steps instead of
+  one, rather than a coincidence of unrelated code needing the same thing.
+  Running it on this project found `installGraph()` calling five setters
+  that each separately trigger `Graph3D#draw` (and the article page's
+  `createFigure()` doing the same, worse, across nine) — real, previously
+  unnoticed instances of exactly the pattern `nodeRadius()` turned out to be
+  a different kind of. Like every other shared-declaration finding this tool
+  surfaces, it only narrows down where to look: it cannot tell a costly,
+  stateful convergence worth collapsing into one operation from a cheap,
+  pure one that is completely harmless to reach from several siblings, and
+  it can be misled by an anonymous callback's calls all being attributed to
+  the declaration that encloses the object literal defining it.
+
 ### Viewer: node radius is a model field, not a borrowed function
 
 * `nodeRadius()` lived in `simulation.js` — a physics concern — and both

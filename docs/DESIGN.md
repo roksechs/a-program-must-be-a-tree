@@ -298,6 +298,27 @@ loops, the costliest shared declarations, and *initialisation cycles*:
 declarations on a cycle of definition-time dependencies (evaluated while the
 module loads), which are genuine errors rather than recursion.
 
+`convergentOperations(graph, minWidth = 2)` finds a different shape than lift
+does: a declaration `x` that directly calls several distinct declarations
+(`via`), every one of which independently calls the same shared node `y` —
+`x -> via[i] -> y` for every `i`. This is what a single logical operation
+looks like once it has been decomposed into several independent steps instead
+of one, e.g. `installGraph()` calling five setters that each separately
+trigger `Graph3D#draw`, where one call to a single `load()`-shaped method
+would do; the pattern was found this way (by running the analyzer on this
+project itself) before the fix that collapsed it existed. It is read straight
+off call-graph topology and knows nothing about `y` itself, so it cannot tell
+a genuinely costly, stateful `y` (worth consolidating at `x`) from a cheap,
+pure one (harmless to reach from several siblings, same as any other shared
+utility) — that judgement is the same one every shared declaration already
+needs (see "Edge kinds" above on `nodeRadius`). Nor can it see through an
+anonymous callback: a handler object's several one-line arrow functions (each
+firing on a different, unrelated user action) are attributed to whichever
+named declaration encloses the object literal, which can make independent
+handlers look like one converging operation. Both are read errors for a
+person to make, same as any other finding this tool surfaces, not something
+the metric resolves on its own.
+
 ## Roadmap
 
 * Analyzers for Python, Go and Rust (tree-sitter based) and a `--git` mode that

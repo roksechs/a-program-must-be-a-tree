@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { buildGraph } from "../site/js/model.js";
 import { dominatorTree } from "../site/js/dominance.js";
-import { computeMetrics, linkLift, naturalScope, topSharedNodes } from "../site/js/metrics.js";
+import { computeMetrics, convergentOperations, linkLift, naturalScope, topSharedNodes } from "../site/js/metrics.js";
 
 const decl = (id) => ({ id, name: id, kind: "function", file: "src/a.js" });
 const edge = (source, target, kind = "call") => ({ source, target, kind });
@@ -92,4 +92,40 @@ test("the most costly sharing is ranked by lift, not by caller count", () => {
   );
   assert.equal(top[0].cost, 4); // two callers, two scopes out each
   assert.equal(top[1].cost, 3); // three callers, one scope out each
+});
+
+test("convergentOperations finds an operation decomposed into several steps that all reach the same node", () => {
+  // installGraph()-shaped: one caller directly invokes three different
+  // declarations, every one of which separately calls the same shared node.
+  const g = graph(
+    ["install", "setGraph", "setLabels", "setColor", "unrelated", "draw"],
+    [
+      edge("install", "setGraph"),
+      edge("install", "setLabels"),
+      edge("install", "setColor"),
+      edge("install", "unrelated"), // does not itself reach draw: not part of the convergence
+      edge("setGraph", "draw"),
+      edge("setLabels", "draw"),
+      edge("setColor", "draw"),
+    ],
+  );
+  const found = convergentOperations(g);
+  assert.equal(found.length, 1);
+  assert.equal(found[0].x.id, "install");
+  assert.equal(found[0].y.id, "draw");
+  assert.deepEqual(
+    found[0].via.map((n) => n.id).sort(),
+    ["setColor", "setGraph", "setLabels"],
+  );
+});
+
+test("convergentOperations requires at least minWidth converging steps", () => {
+  // Only two of the three paths converge; default minWidth (2) still finds
+  // it, but raising it to 3 should not.
+  const g = graph(
+    ["x", "a", "b", "c", "y"],
+    [edge("x", "a"), edge("x", "b"), edge("x", "c"), edge("a", "y"), edge("b", "y")],
+  );
+  assert.equal(convergentOperations(g).length, 1);
+  assert.equal(convergentOperations(g, 3).length, 0);
 });

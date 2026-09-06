@@ -154,6 +154,47 @@ export function topSharedNodes(graph, limit = 8) {
 }
 
 /**
+ * Convergent operations: a declaration `x` that directly calls several
+ * distinct declarations (`via`), all of which independently call the same
+ * shared node `y`. This is the shape a single logical operation takes when
+ * it has been decomposed into several independent steps instead of one: `x`
+ * calling five setters that each separately trigger a shared re-render is
+ * indistinguishable, structurally, from `x` genuinely needing five unrelated
+ * things done. The pattern is found from call-graph topology alone (`x` ->
+ * `via[i]` -> `y` for every `i`) and says nothing about whether `y` is worth
+ * consolidating: an expensive, stateful `y` (a full re-render) converged on
+ * this way is the redundant-work pattern worth collapsing into one operation
+ * at `x`'s level; a cheap, pure `y` (a translation lookup) converged on the
+ * same way is harmless. Telling those two apart needs the same reading a
+ * person already gives any shared declaration — this only narrows down
+ * where to look, and at which caller the fix belongs (the highest point
+ * that actually causes the convergence, not `y` itself and not `via`'s
+ * members individually).
+ */
+export function convergentOperations(graph, minWidth = 2) {
+  const links = graph.activeLinks ?? graph.links;
+  const callersOf = new Map();
+  const calleesOf = new Map();
+  for (const l of links) {
+    if (l.source === l.target) continue;
+    if (!callersOf.has(l.target)) callersOf.set(l.target, new Set());
+    callersOf.get(l.target).add(l.source);
+    if (!calleesOf.has(l.source)) calleesOf.set(l.source, new Set());
+    calleesOf.get(l.source).add(l.target);
+  }
+  const results = [];
+  for (const [y, callers] of callersOf) {
+    if (callers.size < minWidth) continue;
+    for (const [x, callees] of calleesOf) {
+      if (x === y) continue;
+      const via = [...callers].filter((c) => c !== x && callees.has(c));
+      if (via.length >= minWidth) results.push({ x, y, via });
+    }
+  }
+  return results.sort((a, b) => b.via.length - a.via.length || a.x.name.localeCompare(b.x.name));
+}
+
+/**
  * Cycles among definition-time term-level edges. These are evaluated while the
  * module initialises, so a cycle means a declaration is read before it exists
  * (docs/THEORY.md §4). Returns the number of declarations involved.
