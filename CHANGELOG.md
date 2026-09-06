@@ -6,6 +6,24 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Analyzer and viewer: `write` edges
+
+* An occurrence that is the target of an assignment (`x = e`), a compound
+  assignment (`x += e`, ...) or `x++` / `x--` is a **write**, recorded with
+  the edge **reversed** — from the variable to whoever writes it — since the
+  variable's next value depends on the writer, not the other way around
+  (`THEORY.md` §3.5). Compound assignment and `++`/`--` also read the old
+  value, so they keep the ordinary `reference` edge for that half; plain
+  `x = e` does not. A plain function or class stays a `binding` (`THEORY.md`
+  §4.1), the degenerate case of a slot with exactly one writer, at
+  definition time — `write` is what a variable with more than one becomes.
+* `write` is a new toggle in the Edges section, off by default like `type`:
+  mixing a reversed edge into the control or uses graph without noticing
+  would misread the dominator tree, so it stays its own lens.
+* `reference` and `write` edges between the same pair now draw as a
+  quadratic curve (2D and 3D) instead of a straight line, so the read and
+  write halves of a compound assignment never overlap.
+
 ### The article
 
 * `article.html`: a long-form page that re-reads familiar design principles

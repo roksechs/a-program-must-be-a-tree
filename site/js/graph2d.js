@@ -1,6 +1,6 @@
 // 2D renderer: SVG with zoom/pan, zone hulls, arrowed edges, draggable nodes.
 /* global d3 */
-import { EDGE_KINDS, edgeColor, kindColor, zoneColor } from "./colors.js";
+import { EDGE_KINDS, curveOffset, edgeColor, kindColor, zoneColor } from "./colors.js";
 import { nodeRadius } from "./simulation.js";
 import { hullPath, topPoint } from "./zones.js";
 
@@ -323,7 +323,12 @@ export class Graph2D {
   }
 }
 
-/** Straight edge that stops at the target's radius; self loops become a small arc. */
+/**
+ * Edge that stops at the target's radius: straight for most kinds, a
+ * quadratic bow for `reference` and `write` so the read and write halves of
+ * a compound assignment (same pair, opposite direction) never overlap. Self
+ * loops become a small arc.
+ */
 function linkPath(l) {
   const s = l.source;
   const t = l.target;
@@ -340,5 +345,9 @@ function linkPath(l) {
   const sy = s.y + (dy / d) * rs;
   const tx = t.x - (dx / d) * rt;
   const ty = t.y - (dy / d) * rt;
-  return `M${sx},${sy}L${tx},${ty}`;
+  const offset = curveOffset(l.kind);
+  if (offset === 0) return `M${sx},${sy}L${tx},${ty}`;
+  const mx = (sx + tx) / 2 + (-dy / d) * offset;
+  const my = (sy + ty) / 2 + (dx / d) * offset;
+  return `M${sx},${sy}Q${mx},${my} ${tx},${ty}`;
 }

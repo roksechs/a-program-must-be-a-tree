@@ -234,6 +234,67 @@ separately: `override` from a member to the nearest ancestor member it
 overrides, `implements` from a member to the interface member it
 implements.
 
+### 3.5 Assignment targets: read and write
+
+An occurrence in an ordinary evaluation-context hole has its *value* used
+by the consumer frame (Definition 5): the frame reads the occurrence. An
+assignment is different: `x = e` does not read `x`, it *replaces* the
+binding's contents, and `x` names which binding — a distinct kind of
+occurrence the grammar of §3 has no hole for. Extend it with one production:
+
+```
+E ::= ... (as in §3)
+    | x = E                                  (assignment: the right side is the hole)
+```
+
+**Definition 5a (target position).** An occurrence `p` of a variable `x`
+in `body(D)` is a *target* when `p` is the left-hand side of `x = e`
+(assignment) or `x ⊕= e` for an arithmetic or logical operator `⊕`
+(compound assignment: `+=`, `-=`, `*=`, ...), or the operand of `x++` or
+`x--`. Plain assignment (`x = e`) *only writes*: the previous value of `x`
+plays no part in the new one. Compound assignment and `++`/`--` *read and
+write*: `x ⊕= e` reduces to `x = x ⊕ e`, so the occurrence both supplies the
+old value and receives the new one.
+
+**Definition 6a (write).** For a target occurrence of `D'` in `D`:
+
+* `write` := the target role, whether plain or compound. Unlike every other
+  kind in Definition 6, its edge runs **from `D'` to `D`**, not from `D` to
+  `D'`.
+* if the target is a compound assignment (or `++`/`--`), the analyzer
+  *also* emits the ordinary `reference` edge `D → D'` (Definition 6), since
+  the old value is read too.
+
+The direction reverses because a `write` edge records a different
+dependency than every other kind. `call`, `create` and `reference` all
+point from the side whose *correctness* depends on the other: `D` cannot
+run without knowing what `D'` does or currently holds, so `D → D'`. A write
+inverts which side is which: `D`'s correctness does not depend on
+`total`'s value at all (it only assigns one) — `total`'s *next* value is
+determined by what `D` computed. The dependency points at whoever produces
+the value, which for a write is `D`, not `D'`. This is the reverse of the
+default because assignment is the one construct in the calculus where the
+declaration in the hole is a consumer of nothing and a producer of
+everything.
+
+A plain function, method or class is the degenerate case of a slot written
+exactly once, at definition time, by the declaration itself — which is
+exactly why §4.1 already treats it as a `binding` rather than a `write`:
+with a single writer, a separate read edge would name the same declaration
+every time and add nothing. A mutable variable with more than one writer at
+use-time is the case where the distinction starts to carry information: the
+value `total` holds at any point depends on which writer last ran, an
+ordering the write edges alone do not fix (they say *who can* determine the
+value, not *when*).
+
+Worked example:
+
+```js
+function addItem(item) { total += item.price; }   // write: total -> addItem
+                                                    // reference: addItem -> total (the += also reads)
+function checkout()    { return total; }           // reference: checkout -> total (read only, no write)
+```
+
 ## 4. Time: definition-time and use-time occurrences
 
 Term-level occurrences differ in *when* the consumer frame runs.
@@ -356,6 +417,8 @@ an object is a fixed point `fix(gen_C)`. Under this reading:
 | `g(f)`, `arr.map(f)`, `setTimeout(f)`      | operand                         | `reference` | `f`                                     |
 | `const h = f`, `obj.x = f`, `return f`     | bound / stored / returned       | `reference` | `f`                                     |
 | `f.bind(o)`, `f.call(o)`                   | `(f.bind) o`: `f` is a receiver | `reference` | `f` (the bound function escapes)        |
+| `x = e`, `x` a declared variable           | assignment target (§3.5)        | `write`     | `x`, edge reversed: `x → D`             |
+| `x += e`, `x++`, `x--`                     | assignment target, compound (§3.5) | `write` + `reference` | `x → D` (write) and `D → x` (the read half) |
 | `x: T`, `<T>x`, `x as T`, `Array<T>`       | type position                   | `type`      | `T`                                     |
 | `class C extends B`                        | `extends B`                     | `extends`   | `B`                                     |
 | `class C implements I`, `interface I extends J` | type position              | `type` (`implements`) | `I`, `J`                      |
@@ -388,6 +451,13 @@ Let `K` be a set of kinds and `G_K` the subgraph of edges whose kind is in
   the right graph for coupling metrics and for the acyclic dependencies
   principle (Martin 1996).
 * **Full graph** `G_all`: adds `type`. It is what the viewer draws.
+
+`write` (§3.5) is deliberately outside all three: its edges run from a
+variable to whoever writes it, the reverse of `call`, `create` and
+`reference`, so folding it into `G_ctl` or `G_uses` would mix two opposite
+notions of dependency into one graph and corrupt the dominator tree built
+from it. `write` is its own lens, off by default in the viewer's Edges
+section like `type`, toggled and read on its own.
 
 **Definition 10 (tree-likeness).** Take `G_ctl` (or `G_uses`), condense its
 strongly connected components (each non-trivial component is a `letrec`
@@ -449,6 +519,9 @@ kind(p) =
   create      if F(p) is new p (...)                              (section 3, 5)
   extends     if F(p) is a class heritage clause (term-level)     (section 5)
   reference   otherwise: p escapes or is merely projected         (section 3)
+  write       if p is the target of x = e, x += e (etc.) or
+              x++ / x--; edge reversed to D' -> D; compound
+              forms also keep the reference edge D -> D'         (section 3.5)
 
 time(p) =
   definition  if no λ separates p from the root of body(D)        (section 4)

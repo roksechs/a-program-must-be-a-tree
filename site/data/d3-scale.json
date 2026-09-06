@@ -3,8 +3,8 @@
   "name": "d3-scale",
   "root": "node_modules/d3-scale",
   "language": "javascript",
-  "generatedAt": "2026-09-06T02:54:10.854Z",
-  "analyzer": "analyzers/ts@0.2.0",
+  "generatedAt": "2026-09-06T08:23:45.566Z",
+  "analyzer": "analyzers/ts@0.3.0",
   "files": 24
  },
  "declarations": [

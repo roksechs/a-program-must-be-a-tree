@@ -206,7 +206,11 @@ the checker gives up entirely, is resolved against the property types of
 All structural diagnostics, the degrees and the call heights are computed on
 the edge kinds enabled in the Edges section, the same set that is drawn and
 that pulls in the physics. Disable `reference` to diagnose the control graph
-(`call` + `create`) of `THEORY.md` §7.
+(`call` + `create`) of `THEORY.md` §7. `write` edges run backwards (a
+variable to whoever assigns it) and are off by default for exactly that
+reason: mixing a reversed edge into these diagnostics without noticing would
+misread the dominator tree, so `write` is left as its own lens (`THEORY.md`
+§3.5, §7).
 
 For `n` nodes, `m` control edges and `c` weakly connected components:
 

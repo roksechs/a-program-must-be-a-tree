@@ -30,6 +30,7 @@ export const EDGE_COLORS = {
   call: "#6b7280",
   create: "#d97706",
   reference: "#a1a1aa",
+  write: "#db2777",
   extends: "#e45756",
   implements: "#b279a2",
   override: "#0e7490",
@@ -38,6 +39,16 @@ export const EDGE_COLORS = {
 
 export function edgeColor(kind) {
   return EDGE_COLORS[kind] ?? EDGE_COLORS.call;
+}
+
+// Perpendicular offset (world units) an edge kind's curve bows by, so a
+// `write` edge (variable -> writer) and the `reference` edge for the same
+// pair (writer -> variable, the read half of a compound assignment) never
+// draw on top of each other. Everything else stays a straight line.
+const CURVE_OFFSET = { reference: 8, write: -16 };
+
+export function curveOffset(kind) {
+  return CURVE_OFFSET[kind] ?? 0;
 }
 
 /** Height (call depth) colour, used in 3D mode. */

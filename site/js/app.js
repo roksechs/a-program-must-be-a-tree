@@ -1,7 +1,7 @@
 // Application wiring: loads a dataset, runs the simulation and connects the
 // renderers to the property panel.
 /* global d3 */
-import { EDGE_KINDS } from "./kinds.js";
+import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph2D } from "./graph2d.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
@@ -20,8 +20,9 @@ const state = {
   zoneDepth: 2,
   // Enabled edge kinds. An enabled kind is drawn, acts as a spring and counts
   // for degrees, call heights and the diagnostics; a disabled kind does none
-  // of these. Type-level edges are off by default (erased at run time).
-  kinds: new Set(EDGE_KINDS.filter((k) => k !== "type")),
+  // of these. Type-level edges are off by default (erased at run time);
+  // write edges are off by default (reversed direction, THEORY.md §7).
+  kinds: new Set(EDGE_KINDS.filter((k) => !DEFAULT_OFF_KINDS.has(k))),
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
   datasets: [],

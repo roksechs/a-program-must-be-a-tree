@@ -3,8 +3,8 @@
   "name": "d3-selection",
   "root": "node_modules/d3-selection",
   "language": "javascript",
-  "generatedAt": "2026-09-06T02:54:10.545Z",
-  "analyzer": "analyzers/ts@0.2.0",
+  "generatedAt": "2026-09-06T08:23:45.050Z",
+  "analyzer": "analyzers/ts@0.3.0",
   "files": 54
  },
  "declarations": [
@@ -1370,6 +1370,13 @@
    "source": "src/local.js::Local",
    "target": "src/local.js::nextId",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/local.js::nextId",
+   "target": "src/local.js::Local",
+   "kind": "write",
    "count": 1,
    "time": "use"
   },

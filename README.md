@@ -27,11 +27,13 @@ force-directed graph, and measure how close that graph is to a tree.
   cycles, roots, leaves, longest call chain, initialisation cycles) and a list
   of the declarations whose sharing costs the most.
 * **Edge kinds** follow a small theory (`docs/THEORY.md`): calls, constructions,
-  references (callbacks and other value flows), type-only uses, inheritance,
-  interface implementation and overriding. The analyzer resolves `new` to the
-  constructor that actually runs, dispatches method calls to overriding
-  implementations, and lifts callbacks into calls at the declaration that
-  invokes them with a bounded control-flow analysis.
+  references (callbacks and other value flows), writes (a variable's edge to
+  whoever assigns it, reversed since the variable's next value depends on the
+  writer), type-only uses, inheritance, interface implementation and
+  overriding. The analyzer resolves `new` to the constructor that actually
+  runs, dispatches method calls to overriding implementations, and lifts
+  callbacks into calls at the declaration that invokes them with a bounded
+  control-flow analysis.
 
 The viewer is a static page (D3.js, no build step) served from GitHub Pages or
 Cloudflare Pages, see Deployment. Analyzers turn a codebase into a small JSON document
@@ -74,7 +76,7 @@ that writes the same JSON; see the data format document.
 | Data        | bundled datasets, open a local JSON file |
 | Header      | language selector (English / Japanese) |
 | View        | 2D / 3D, label mode, colour by kind or call height, 3D layer gap and planes, auto-rotate, fit |
-| Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics (type-level edges are off by default) |
+| Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics (type-level and write edges are off by default) |
 | Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
 | Zones       | directory / file depth from 0 (none) through every directory level down to the files |
 | Diagnostics | tree score and its five components, counts, costliest sharing |

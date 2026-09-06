@@ -413,3 +413,32 @@ test("a call through a union type or a record index reaches every candidate", ()
     assert.equal(e.inferred, true); // one of them runs; which one is not decided here
   }
 });
+
+test("assignment targets record a reversed write edge (docs/THEORY.md §3.5)", () => {
+  const root = fixture({
+    "g.js": `
+      let total = 0;
+      export function addItem(price) { total += price; }
+      export function setTotal(price) { total = price; }
+      export function incTotal() { total++; }
+      export function checkout() { return total; }
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const edges = (s, t) => doc.edges.filter((e) => e.source === s && e.target === t);
+  // Compound assignment (+=): write, reversed, plus the ordinary read.
+  assert.equal(edges("g.js::total", "g.js::addItem").length, 1);
+  assert.equal(edges("g.js::total", "g.js::addItem")[0].kind, "write");
+  assert.equal(edges("g.js::addItem", "g.js::total").length, 1);
+  assert.equal(edges("g.js::addItem", "g.js::total")[0].kind, "reference");
+  // Plain assignment (=): write only, no read edge.
+  assert.equal(edges("g.js::total", "g.js::setTotal").length, 1);
+  assert.equal(edges("g.js::total", "g.js::setTotal")[0].kind, "write");
+  assert.equal(edges("g.js::setTotal", "g.js::total").length, 0);
+  // ++: write and read, like compound assignment.
+  assert.equal(edges("g.js::total", "g.js::incTotal")[0].kind, "write");
+  assert.equal(edges("g.js::incTotal", "g.js::total")[0].kind, "reference");
+  // Read only: no write edge at all.
+  assert.equal(edges("g.js::total", "g.js::checkout").length, 0);
+  assert.equal(edges("g.js::checkout", "g.js::total")[0].kind, "reference");
+});

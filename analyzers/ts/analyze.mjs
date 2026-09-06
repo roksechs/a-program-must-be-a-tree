@@ -16,7 +16,7 @@ import { extname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 
-export const ANALYZER_VERSION = "0.2.0";
+export const ANALYZER_VERSION = "0.3.0";
 const EXTENSIONS = new Set([".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".mts", ".cts"]);
 const DEFAULT_EXCLUDES = ["node_modules", ".git", "dist", "build", "coverage", "vendor"];
 
@@ -228,6 +228,46 @@ function referenceKind(node) {
   }
   if (ts.isTypeReferenceNode(parent) || ts.isTypeQueryNode(parent) || ts.findAncestor(node, ts.isTypeNode)) return "type";
   return "reference";
+}
+
+// Assignment operators, plain (`=`) and compound (`+=`, `-=`, ...): docs/THEORY.md §3.5.
+const COMPOUND_ASSIGN_OPS = new Set([
+  ts.SyntaxKind.PlusEqualsToken,
+  ts.SyntaxKind.MinusEqualsToken,
+  ts.SyntaxKind.AsteriskEqualsToken,
+  ts.SyntaxKind.SlashEqualsToken,
+  ts.SyntaxKind.PercentEqualsToken,
+  ts.SyntaxKind.AsteriskAsteriskEqualsToken,
+  ts.SyntaxKind.LessThanLessThanEqualsToken,
+  ts.SyntaxKind.GreaterThanGreaterThanEqualsToken,
+  ts.SyntaxKind.GreaterThanGreaterThanGreaterThanEqualsToken,
+  ts.SyntaxKind.AmpersandEqualsToken,
+  ts.SyntaxKind.BarEqualsToken,
+  ts.SyntaxKind.CaretEqualsToken,
+  ts.SyntaxKind.AmpersandAmpersandEqualsToken,
+  ts.SyntaxKind.BarBarEqualsToken,
+  ts.SyntaxKind.QuestionQuestionEqualsToken,
+]);
+
+/**
+ * Is `node` the target of an assignment (docs/THEORY.md §3.5, Definition 5a)?
+ * Plain `x = e` only writes; compound assignment and `++`/`--` read the old
+ * value too, since `x ⊕= e` is `x = x ⊕ e`.
+ */
+function writeInfo(node) {
+  const p = node.parent;
+  if (ts.isBinaryExpression(p) && p.left === node) {
+    if (p.operatorToken.kind === ts.SyntaxKind.EqualsToken) return { write: true, alsoRead: false };
+    if (COMPOUND_ASSIGN_OPS.has(p.operatorToken.kind)) return { write: true, alsoRead: true };
+  }
+  if (
+    (ts.isPrefixUnaryExpression(p) || ts.isPostfixUnaryExpression(p)) &&
+    p.operand === node &&
+    (p.operator === ts.SyntaxKind.PlusPlusToken || p.operator === ts.SyntaxKind.MinusMinusToken)
+  ) {
+    return { write: true, alsoRead: true };
+  }
+  return { write: false, alsoRead: true };
 }
 
 /**
@@ -798,7 +838,19 @@ export function analyze(options) {
       for (const impl of dispatchTargets({ parent: target.id, name: node.text })) if (impl !== d) addEdge(d, impl, "call", time, true);
       return;
     }
-    if (target !== d || kind === "call" || kind === "create") addEdge(d, target, kind, time, inferred);
+    if (kind === "reference") {
+      // Assignment target (docs/THEORY.md §3.5): the edge reverses, since the
+      // variable's next value depends on its writer, not the other way
+      // around. Compound assignment and `++`/`--` also read the old value,
+      // so they keep the ordinary edge for that half.
+      const w = writeInfo(node);
+      if (w.write && target !== d) addEdge(target, d, "write", time, inferred);
+      if (!w.write || w.alsoRead) {
+        if (target !== d) addEdge(d, target, kind, time, inferred);
+      }
+    } else if (target !== d || kind === "call" || kind === "create") {
+      addEdge(d, target, kind, time, inferred);
+    }
     if (kind === "call" && target.kind === "method" && !target.isStatic && isDispatchedCall(node)) {
       for (const impl of dispatchTargets(target)) if (impl !== d) addEdge(d, impl, "call", time, true);
     }

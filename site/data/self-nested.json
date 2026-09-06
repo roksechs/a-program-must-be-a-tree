@@ -3,9 +3,9 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-06T02:54:09.847Z",
-  "analyzer": "analyzers/ts@0.2.0",
-  "files": 21
+  "generatedAt": "2026-09-06T08:23:44.093Z",
+  "analyzer": "analyzers/ts@0.3.0",
+  "files": 24
  },
  "declarations": [
   {
@@ -13,7 +13,7 @@
    "name": "analyze",
    "kind": "module",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 1093,
+   "line": 1145,
    "parent": null,
    "exported": false
   },
@@ -22,7 +22,7 @@
    "name": "analyze",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 238,
+   "line": 278,
    "parent": null,
    "exported": true
   },
@@ -31,7 +31,7 @@
    "name": "addEdge",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 770,
+   "line": 810,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -40,7 +40,7 @@
    "name": "allInterfaces",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 724,
+   "line": 764,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -49,7 +49,7 @@
    "name": "attach",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 383,
+   "line": 423,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -58,7 +58,7 @@
    "name": "attachNew",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 392,
+   "line": 432,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -67,7 +67,7 @@
    "name": "bind",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 538,
+   "line": 578,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -76,7 +76,7 @@
    "name": "bindProperties",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 522,
+   "line": 562,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -85,7 +85,7 @@
    "name": "bindSlot",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 468,
+   "line": 508,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -94,7 +94,7 @@
    "name": "record",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 472,
+   "line": 512,
    "parent": "analyzers/ts/analyze.mjs::analyze/bindSlot",
    "exported": false
   },
@@ -103,7 +103,7 @@
    "name": "calleeValues",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 958,
+   "line": 1010,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -112,7 +112,7 @@
    "name": "constructorTarget",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 699,
+   "line": 739,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -121,7 +121,7 @@
    "name": "denote",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 408,
+   "line": 448,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -130,7 +130,7 @@
    "name": "descendants",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 684,
+   "line": 724,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -139,7 +139,7 @@
    "name": "dispatchTargets",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 745,
+   "line": 785,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -148,7 +148,7 @@
    "name": "emitReference",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 788,
+   "line": 828,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -157,7 +157,7 @@
    "name": "evalExpr",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 921,
+   "line": 973,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -166,7 +166,7 @@
    "name": "flowPass",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 982,
+   "line": 1034,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -175,7 +175,7 @@
    "name": "walk",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 985,
+   "line": 1037,
    "parent": "analyzers/ts/analyze.mjs::analyze/flowPass",
    "exported": false
   },
@@ -184,7 +184,7 @@
    "name": "fnNodeOf",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 918,
+   "line": 970,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -193,7 +193,7 @@
    "name": "inheritedMember",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 712,
+   "line": 752,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -202,7 +202,7 @@
    "name": "instanceMembersNamed",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 828,
+   "line": 880,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -211,7 +211,7 @@
    "name": "isCallable",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 919,
+   "line": 971,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -220,7 +220,7 @@
    "name": "isDispatchedCall",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 761,
+   "line": 801,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -229,7 +229,7 @@
    "name": "isNewTarget",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 755,
+   "line": 795,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -238,7 +238,7 @@
    "name": "link",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 678,
+   "line": 718,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -247,7 +247,7 @@
    "name": "memberNamed",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 821,
+   "line": 873,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -256,7 +256,7 @@
    "name": "nest",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 622,
+   "line": 662,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -265,7 +265,7 @@
    "name": "walk",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 625,
+   "line": 665,
    "parent": "analyzers/ts/analyze.mjs::analyze/nest",
    "exported": false
   },
@@ -274,7 +274,7 @@
    "name": "ownerOf",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 281,
+   "line": 321,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -283,7 +283,7 @@
    "name": "paramsOf",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 977,
+   "line": 1029,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -292,7 +292,7 @@
    "name": "recordMembers",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 320,
+   "line": 360,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -301,7 +301,7 @@
    "name": "registerMember",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 376,
+   "line": 416,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -310,7 +310,7 @@
    "name": "resolveTargets",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 351,
+   "line": 391,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -319,7 +319,7 @@
    "name": "setFor",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 913,
+   "line": 965,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -328,7 +328,7 @@
    "name": "slotName",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 380,
+   "line": 420,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -337,7 +337,7 @@
    "name": "symbolOf",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 292,
+   "line": 332,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -346,7 +346,7 @@
    "name": "union",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 905,
+   "line": 957,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -355,7 +355,7 @@
    "name": "variableValues",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 948,
+   "line": 1000,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -364,7 +364,7 @@
    "name": "visit",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 843,
+   "line": 895,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -373,7 +373,7 @@
    "name": "walk",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 600,
+   "line": 640,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -411,6 +411,15 @@
    "file": "analyzers/ts/analyze.mjs",
    "line": 112,
    "parent": "analyzers/ts/analyze.mjs::collectDeclarations",
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/analyze.mjs::COMPOUND_ASSIGN_OPS",
+   "name": "COMPOUND_ASSIGN_OPS",
+   "kind": "variable",
+   "file": "analyzers/ts/analyze.mjs",
+   "line": 234,
+   "parent": null,
    "exported": false
   },
   {
@@ -499,7 +508,7 @@
    "name": "parseArgs",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 1054,
+   "line": 1106,
    "parent": null,
    "exported": false
   },
@@ -508,7 +517,7 @@
    "name": "next",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 1058,
+   "line": 1110,
    "parent": "analyzers/ts/analyze.mjs::parseArgs",
    "exported": false
   },
@@ -536,6 +545,15 @@
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
    "line": 82,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/analyze.mjs::writeInfo",
+   "name": "writeInfo",
+   "kind": "function",
+   "file": "analyzers/ts/analyze.mjs",
+   "line": 257,
    "parent": null,
    "exported": false
   },
@@ -715,7 +733,7 @@
    "name": "app",
    "kind": "module",
    "file": "site/js/app.js",
-   "line": 40,
+   "line": 41,
    "parent": null,
    "exported": false
   },
@@ -724,7 +742,7 @@
    "name": "applyKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 151,
+   "line": 152,
    "parent": null,
    "exported": false
   },
@@ -733,7 +751,7 @@
    "name": "applyStaticTranslations",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 56,
+   "line": 57,
    "parent": null,
    "exported": false
   },
@@ -742,7 +760,7 @@
    "name": "ensureTicking",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 205,
+   "line": 206,
    "parent": null,
    "exported": false
   },
@@ -751,7 +769,7 @@
    "name": "frame",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 208,
+   "line": 209,
    "parent": "site/js/app.js::ensureTicking",
    "exported": false
   },
@@ -760,7 +778,7 @@
    "name": "installGraph",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 219,
+   "line": 220,
    "parent": null,
    "exported": false
   },
@@ -769,7 +787,7 @@
    "name": "languageSelect",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 36,
+   "line": 37,
    "parent": null,
    "exported": false
   },
@@ -778,7 +796,7 @@
    "name": "value",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 52,
+   "line": 53,
    "parent": "site/js/app.js::languageSelect",
    "exported": false
   },
@@ -787,7 +805,7 @@
    "name": "loadDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 255,
+   "line": 256,
    "parent": null,
    "exported": false
   },
@@ -796,7 +814,7 @@
    "name": "loadFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 274,
+   "line": 275,
    "parent": null,
    "exported": false
   },
@@ -805,7 +823,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 289,
+   "line": 290,
    "parent": null,
    "exported": false
   },
@@ -814,7 +832,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 303,
+   "line": 304,
    "parent": null,
    "exported": false
   },
@@ -823,7 +841,7 @@
    "name": "panel",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 98,
+   "line": 99,
    "parent": null,
    "exported": false
   },
@@ -832,7 +850,7 @@
    "name": "rendererCallbacks",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 69,
+   "line": 70,
    "parent": null,
    "exported": false
   },
@@ -841,7 +859,7 @@
    "name": "renderers",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 63,
+   "line": 64,
    "parent": null,
    "exported": false
   },
@@ -850,7 +868,7 @@
    "name": "savedLanguage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 39,
+   "line": 40,
    "parent": null,
    "exported": false
   },
@@ -859,7 +877,7 @@
    "name": "setStatus",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 181,
+   "line": 182,
    "parent": null,
    "exported": false
   },
@@ -868,7 +886,7 @@
    "name": "setView",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 166,
+   "line": 167,
    "parent": null,
    "exported": false
   },
@@ -877,7 +895,7 @@
    "name": "stage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 33,
+   "line": 34,
    "parent": null,
    "exported": false
   },
@@ -895,7 +913,7 @@
    "name": "status",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 35,
+   "line": 36,
    "parent": null,
    "exported": false
   },
@@ -904,7 +922,7 @@
    "name": "statusMessage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 180,
+   "line": 181,
    "parent": null,
    "exported": false
   },
@@ -913,7 +931,7 @@
    "name": "ticking",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 204,
+   "line": 205,
    "parent": null,
    "exported": false
   },
@@ -922,7 +940,7 @@
    "name": "tooltip",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 34,
+   "line": 35,
    "parent": null,
    "exported": false
   },
@@ -931,9 +949,243 @@
    "name": "updateZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 174,
+   "line": 175,
    "parent": null,
    "exported": false
+  },
+  {
+   "id": "site/js/article.js::<module>",
+   "name": "article",
+   "kind": "module",
+   "file": "site/js/article.js",
+   "line": 23,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::applyStaticTranslations",
+   "name": "applyStaticTranslations",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 33,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::chapterIds",
+   "name": "chapterIds",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 51,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::chaptersEl",
+   "name": "chaptersEl",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 16,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure",
+   "name": "createFigure",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 104,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/callbacks",
+   "name": "callbacks",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 143,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/load",
+   "name": "load",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 238,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/metricsRow",
+   "name": "metricsRow",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 181,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/retranslate",
+   "name": "retranslate",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 212,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/setView",
+   "name": "setView",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 173,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/showMetrics",
+   "name": "showMetrics",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 185,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/showSelection",
+   "name": "showSelection",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 198,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/toggleRename",
+   "name": "toggleRename",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 225,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::datasets",
+   "name": "datasets",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 52,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::el",
+   "name": "el",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 40,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::fetchText",
+   "name": "fetchText",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 55,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::figures",
+   "name": "figures",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 53,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::languageSelect",
+   "name": "languageSelect",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 19,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::languageSelect.value",
+   "name": "value",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 30,
+   "parent": "site/js/article.js::languageSelect",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::main",
+   "name": "main",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 316,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::renderChapters",
+   "name": "renderChapters",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 61,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::savedLanguage",
+   "name": "savedLanguage",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 22,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::status",
+   "name": "status",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 18,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::tocEl",
+   "name": "tocEl",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 17,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/colors.js::CURVE_OFFSET",
+   "name": "CURVE_OFFSET",
+   "kind": "variable",
+   "file": "site/js/colors.js",
+   "line": 48,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/colors.js::curveOffset",
+   "name": "curveOffset",
+   "kind": "function",
+   "file": "site/js/colors.js",
+   "line": 50,
+   "parent": null,
+   "exported": true
   },
   {
    "id": "site/js/colors.js::EDGE_COLORS",
@@ -949,7 +1201,7 @@
    "name": "edgeColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 39,
+   "line": 40,
    "parent": null,
    "exported": true
   },
@@ -958,7 +1210,7 @@
    "name": "heightColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 44,
+   "line": 55,
    "parent": null,
    "exported": true
   },
@@ -1030,7 +1282,7 @@
    "name": "applyHighlight",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 254,
+   "line": 259,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -1048,7 +1300,7 @@
    "name": "fit",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 295,
+   "line": 300,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -1057,7 +1309,7 @@
    "name": "focusOn",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 309,
+   "line": 314,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -1066,7 +1318,7 @@
    "name": "neighbourSet",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 237,
+   "line": 242,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -1076,6 +1328,15 @@
    "kind": "method",
    "file": "site/js/graph2d.js",
    "line": 156,
+   "parent": "site/js/graph2d.js::Graph2D",
+   "exported": false
+  },
+  {
+   "id": "site/js/graph2d.js::Graph2D.refreshLabels",
+   "name": "refreshLabels",
+   "kind": "method",
+   "file": "site/js/graph2d.js",
+   "line": 219,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -1102,7 +1363,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 247,
+   "line": 252,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -1138,7 +1399,7 @@
    "name": "setVisibleKinds",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 218,
+   "line": 223,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -1156,7 +1417,7 @@
    "name": "show",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 316,
+   "line": 321,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -1165,7 +1426,7 @@
    "name": "tick",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 270,
+   "line": 275,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -1174,7 +1435,7 @@
    "name": "updateLabelVisibility",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 223,
+   "line": 228,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -1183,7 +1444,7 @@
    "name": "linkPath",
    "kind": "function",
    "file": "site/js/graph2d.js",
-   "line": 322,
+   "line": 332,
    "parent": null,
    "exported": false
   },
@@ -1201,7 +1462,7 @@
    "name": "clampPitch",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 509,
+   "line": 521,
    "parent": null,
    "exported": false
   },
@@ -1210,7 +1471,7 @@
    "name": "drawArrow",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 516,
+   "line": 535,
    "parent": null,
    "exported": false
   },
@@ -1273,7 +1534,7 @@
    "name": "fit",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 446,
+   "line": 458,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1282,7 +1543,7 @@
    "name": "focusOn",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 485,
+   "line": 497,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1408,7 +1669,7 @@
    "name": "show",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 497,
+   "line": 509,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1453,7 +1714,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 277,
+   "line": 307,
    "parent": null,
    "exported": false
   },
@@ -1462,7 +1723,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 281,
+   "line": 311,
    "parent": null,
    "exported": true
   },
@@ -1471,7 +1732,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 290,
+   "line": 320,
    "parent": null,
    "exported": true
   },
@@ -1480,7 +1741,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 314,
+   "line": 344,
    "parent": null,
    "exported": true
   },
@@ -1498,7 +1759,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 278,
+   "line": 308,
    "parent": null,
    "exported": false
   },
@@ -1507,7 +1768,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 320,
+   "line": 350,
    "parent": null,
    "exported": true
   },
@@ -1516,7 +1777,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 301,
+   "line": 331,
    "parent": null,
    "exported": true
   },
@@ -1525,7 +1786,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 294,
+   "line": 324,
    "parent": null,
    "exported": true
   },
@@ -1543,7 +1804,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 307,
+   "line": 337,
    "parent": null,
    "exported": true
   },
@@ -1552,7 +1813,16 @@
    "name": "CONTROL_KINDS",
    "kind": "variable",
    "file": "site/js/kinds.js",
-   "line": 7,
+   "line": 11,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/kinds.js::DEFAULT_OFF_KINDS",
+   "name": "DEFAULT_OFF_KINDS",
+   "kind": "variable",
+   "file": "site/js/kinds.js",
+   "line": 8,
    "parent": null,
    "exported": true
   },
@@ -1564,6 +1834,78 @@
    "line": 4,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "site/js/markdown.js::escapeHtml",
+   "name": "escapeHtml",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 11,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/markdown.js::ESCAPES",
+   "name": "ESCAPES",
+   "kind": "variable",
+   "file": "site/js/markdown.js",
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/markdown.js::parseDirective",
+   "name": "parseDirective",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 16,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/markdown.js::renderInline",
+   "name": "renderInline",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 30,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/markdown.js::renderMarkdown",
+   "name": "renderMarkdown",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 47,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/markdown.js::renderMarkdown/flush",
+   "name": "flush",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 53,
+   "parent": "site/js/markdown.js::renderMarkdown",
+   "exported": false
+  },
+  {
+   "id": "site/js/markdown.js::renderTable",
+   "name": "renderTable",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 138,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/markdown.js::renderTable/cells",
+   "name": "cells",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 139,
+   "parent": "site/js/markdown.js::renderTable",
+   "exported": false
   },
   {
    "id": "site/js/metrics.js::computeMetrics",
@@ -2088,6 +2430,15 @@
    "exported": false
   },
   {
+   "id": "test/analyzer.test.mjs::<module>/edges",
+   "name": "edges",
+   "kind": "function",
+   "file": "test/analyzer.test.mjs",
+   "line": 428,
+   "parent": "test/analyzer.test.mjs::<module>",
+   "exported": false
+  },
+  {
    "id": "test/analyzer.test.mjs::<module>/flatEdge",
    "name": "flatEdge",
    "kind": "function",
@@ -2101,6 +2452,24 @@
    "name": "fixture",
    "kind": "function",
    "file": "test/analyzer.test.mjs",
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/article.test.mjs::<module>",
+   "name": "article.test",
+   "kind": "module",
+   "file": "test/article.test.mjs",
+   "line": 10,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/article.test.mjs::content",
+   "name": "content",
+   "kind": "variable",
+   "file": "test/article.test.mjs",
    "line": 8,
    "parent": null,
    "exported": false
@@ -2596,7 +2965,7 @@
    "source": "analyzers/ts/analyze.mjs::analyze/emitReference",
    "target": "analyzers/ts/analyze.mjs::analyze/addEdge",
    "kind": "call",
-   "count": 5,
+   "count": 7,
    "time": "use"
   },
   {
@@ -2623,6 +2992,13 @@
   {
    "source": "analyzers/ts/analyze.mjs::analyze/emitReference",
    "target": "analyzers/ts/analyze.mjs::analyze/isNewTarget",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/emitReference",
+   "target": "analyzers/ts/analyze.mjs::writeInfo",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -3083,6 +3459,13 @@
    "time": "use"
   },
   {
+   "source": "analyzers/ts/analyze.mjs::writeInfo",
+   "target": "analyzers/ts/analyze.mjs::COMPOUND_ASSIGN_OPS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "scripts/analyze-examples.mjs::<module>",
    "target": "analyzers/ts/analyze.mjs::analyze",
    "kind": "call",
@@ -3317,7 +3700,7 @@
    "source": "site/js/app.js::<module>",
    "target": "site/js/app.js::savedLanguage",
    "kind": "reference",
-   "count": 3,
+   "count": 1,
    "time": "definition"
   },
   {
@@ -3587,7 +3970,7 @@
    "source": "site/js/app.js::ensureTicking",
    "target": "site/js/app.js::ticking",
    "kind": "reference",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
@@ -3602,13 +3985,6 @@
    "target": "site/js/app.js::state",
    "kind": "reference",
    "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::ensureTicking/frame",
-   "target": "site/js/app.js::ticking",
-   "kind": "reference",
-   "count": 1,
    "time": "use"
   },
   {
@@ -4252,15 +4628,15 @@
    "time": "definition"
   },
   {
-   "source": "site/js/app.js::setStatus",
-   "target": "site/js/app.js::status",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
+   "source": "site/js/app.js::savedLanguage",
+   "target": "site/js/app.js::<module>",
+   "kind": "write",
+   "count": 2,
+   "time": "definition"
   },
   {
    "source": "site/js/app.js::setStatus",
-   "target": "site/js/app.js::statusMessage",
+   "target": "site/js/app.js::status",
    "kind": "reference",
    "count": 1,
    "time": "use"
@@ -4350,6 +4726,13 @@
   },
   {
    "source": "site/js/app.js::state",
+   "target": "site/js/kinds.js::DEFAULT_OFF_KINDS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::state",
    "target": "site/js/kinds.js::EDGE_KINDS",
    "kind": "reference",
    "count": 1,
@@ -4361,6 +4744,27 @@
    "kind": "reference",
    "count": 1,
    "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::statusMessage",
+   "target": "site/js/app.js::setStatus",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::ticking",
+   "target": "site/js/app.js::ensureTicking",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::ticking",
+   "target": "site/js/app.js::ensureTicking/frame",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "site/js/app.js::updateZones",
@@ -4396,6 +4800,841 @@
    "source": "site/js/app.js::updateZones",
    "target": "site/js/zones.js::visibleContainers",
    "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::applyStaticTranslations",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::el",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::figures",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::languageSelect",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::languageSelect",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::languageSelect.value",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::main",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::renderChapters",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::savedLanguage",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/graph2d.js::Graph2D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/graph2d.js::Graph2D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "definition",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/graph3d.js::Graph3D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "definition",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::detectLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::LANGUAGES",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::onLanguageChange",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::setLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::setLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/panel.js::Panel.select",
+   "kind": "call",
+   "count": 1,
+   "time": "definition",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::applyStaticTranslations",
+   "target": "site/js/article.js::languageSelect",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::applyStaticTranslations",
+   "target": "site/js/article.js::languageSelect.value",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::applyStaticTranslations",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::applyStaticTranslations",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::chapterIds",
+   "target": "site/js/article.js::main",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/article.js::createFigure/callbacks",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/article.js::createFigure/load",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/article.js::createFigure/retranslate",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/article.js::createFigure/setView",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/article.js::createFigure/toggleRename",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/article.js::el",
+   "kind": "call",
+   "count": 13,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph2d.js::Graph2D",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph2d.js::Graph2D.constructor",
+   "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph2d.js::Graph2D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph2d.js::Graph2D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph2d.js::Graph2D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph2d.js::Graph2D.show",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.constructor",
+   "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.show",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/kinds.js::EDGE_KINDS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/callbacks",
+   "target": "site/js/article.js::createFigure/showSelection",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/callbacks",
+   "target": "site/js/graph2d.js::Graph2D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/callbacks",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/callbacks",
+   "target": "site/js/i18n.js::kindLabel",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/callbacks",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/article.js::createFigure/retranslate",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph2d.js::Graph2D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph2d.js::Graph2D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph2d.js::Graph2D.setColorBy",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph2d.js::Graph2D.setGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph2d.js::Graph2D.setLabelMode",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph2d.js::Graph2D.setVisibleKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph2d.js::Graph2D.setZones",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph2d.js::Graph2D.tick",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph3d.js::Graph3D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph3d.js::Graph3D.setColorBy",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph3d.js::Graph3D.setGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph3d.js::Graph3D.setLabelMode",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph3d.js::Graph3D.setVisibleKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph3d.js::Graph3D.setZones",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/graph3d.js::Graph3D.tick",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/model.js::applyActiveKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/simulation.js::createSimulation",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/simulation.js::DEFAULT_PHYSICS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/simulation.js::seedPositions",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/load",
+   "target": "site/js/zones.js::visibleContainers",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/metricsRow",
+   "target": "site/js/article.js::el",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/metricsRow",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/retranslate",
+   "target": "site/js/article.js::createFigure/showMetrics",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/retranslate",
+   "target": "site/js/article.js::createFigure/showSelection",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/retranslate",
+   "target": "site/js/article.js::datasets",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/retranslate",
+   "target": "site/js/graph3d.js::Graph3D.draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/retranslate",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/retranslate",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 5,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/setView",
+   "target": "site/js/graph2d.js::Graph2D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/setView",
+   "target": "site/js/graph2d.js::Graph2D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/setView",
+   "target": "site/js/graph2d.js::Graph2D.show",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/setView",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/setView",
+   "target": "site/js/graph3d.js::Graph3D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/setView",
+   "target": "site/js/graph3d.js::Graph3D.show",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/showMetrics",
+   "target": "site/js/article.js::createFigure/metricsRow",
+   "kind": "call",
+   "count": 6,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/showMetrics",
+   "target": "site/js/metrics.js::computeMetrics",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/showSelection",
+   "target": "site/js/article.js::el",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/showSelection",
+   "target": "site/js/i18n.js::kindLabel",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/showSelection",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 5,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/showSelection",
+   "target": "site/js/metrics.js::naturalScope",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/toggleRename",
+   "target": "site/js/article.js::createFigure/retranslate",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/toggleRename",
+   "target": "site/js/graph2d.js::Graph2D.refreshLabels",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::datasets",
+   "target": "site/js/article.js::main",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::languageSelect.value",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::main",
+   "target": "site/js/article.js::applyStaticTranslations",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::main",
+   "target": "site/js/article.js::renderChapters",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::main",
+   "target": "site/js/article.js::status",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::main",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::chapterIds",
+   "kind": "reference",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::chaptersEl",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::createFigure",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::el",
+   "kind": "call",
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::fetchText",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::figures",
+   "kind": "reference",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::status",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::tocEl",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/markdown.js::renderMarkdown",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::savedLanguage",
+   "target": "site/js/article.js::<module>",
+   "kind": "write",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/colors.js::curveOffset",
+   "target": "site/js/colors.js::CURVE_OFFSET",
+   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -4642,6 +5881,13 @@
   },
   {
    "source": "site/js/graph2d.js::linkPath",
+   "target": "site/js/colors.js::curveOffset",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph2d.js::linkPath",
    "target": "site/js/simulation.js::nodeRadius",
    "kind": "call",
    "count": 3,
@@ -4719,6 +5965,13 @@
   },
   {
    "source": "site/js/graph3d.js::Graph3D.draw",
+   "target": "site/js/colors.js::curveOffset",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.draw",
    "target": "site/js/colors.js::edgeColor",
    "kind": "call",
    "count": 1,
@@ -4763,14 +6016,14 @@
    "source": "site/js/graph3d.js::Graph3D.draw",
    "target": "site/js/graph3d.js::Graph3D.project",
    "kind": "call",
-   "count": 5,
+   "count": 6,
    "time": "use"
   },
   {
    "source": "site/js/graph3d.js::Graph3D.draw",
    "target": "site/js/graph3d.js::Graph3D.zOf",
    "kind": "call",
-   "count": 2,
+   "count": 4,
    "time": "use"
   },
   {
@@ -4914,6 +6167,13 @@
    "time": "use"
   },
   {
+   "source": "site/js/i18n.js::current",
+   "target": "site/js/i18n.js::setLanguage",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/i18n.js::detectLanguage",
    "target": "site/js/i18n.js::STRINGS",
    "kind": "reference",
@@ -4959,7 +6219,7 @@
    "source": "site/js/i18n.js::setLanguage",
    "target": "site/js/i18n.js::current",
    "kind": "reference",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
@@ -4987,6 +6247,83 @@
    "source": "site/js/i18n.js::t",
    "target": "site/js/i18n.js::STRINGS",
    "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::escapeHtml",
+   "target": "site/js/markdown.js::ESCAPES",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderInline",
+   "target": "site/js/markdown.js::escapeHtml",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::escapeHtml",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::parseDirective",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::renderInline",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::renderMarkdown",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::renderMarkdown/flush",
+   "kind": "call",
+   "count": 9,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::renderTable",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown/flush",
+   "target": "site/js/markdown.js::renderInline",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderTable",
+   "target": "site/js/markdown.js::renderInline",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderTable",
+   "target": "site/js/markdown.js::renderTable/cells",
+   "kind": "call",
    "count": 2,
    "time": "use"
   },
@@ -5439,6 +6776,13 @@
    "time": "use"
   },
   {
+   "source": "site/js/zones.js::closedLine",
+   "target": "site/js/zones.js::hullPath",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/zones.js::hullPath",
    "target": "site/js/zones.js::closedLine",
    "kind": "call",
@@ -5456,7 +6800,7 @@
    "source": "test/analyzer.test.mjs::<module>",
    "target": "analyzers/ts/analyze.mjs::analyze",
    "kind": "call",
-   "count": 14,
+   "count": 15,
    "time": "use"
   },
   {
@@ -5464,6 +6808,13 @@
    "target": "test/analyzer.test.mjs::<module>/edge",
    "kind": "call",
    "count": 75,
+   "time": "use"
+  },
+  {
+   "source": "test/analyzer.test.mjs::<module>",
+   "target": "test/analyzer.test.mjs::<module>/edges",
+   "kind": "call",
+   "count": 11,
    "time": "use"
   },
   {
@@ -5477,7 +6828,42 @@
    "source": "test/analyzer.test.mjs::<module>",
    "target": "test/analyzer.test.mjs::fixture",
    "kind": "call",
-   "count": 13,
+   "count": 14,
+   "time": "use"
+  },
+  {
+   "source": "test/article.test.mjs::<module>",
+   "target": "site/js/i18n.js::LANGUAGES",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/article.test.mjs::<module>",
+   "target": "site/js/markdown.js::parseDirective",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/article.test.mjs::<module>",
+   "target": "site/js/markdown.js::renderInline",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/article.test.mjs::<module>",
+   "target": "site/js/markdown.js::renderMarkdown",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "test/article.test.mjs::<module>",
+   "target": "test/article.test.mjs::content",
+   "kind": "reference",
+   "count": 5,
    "time": "use"
   },
   {
