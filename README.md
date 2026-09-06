@@ -117,12 +117,13 @@ integration means no tokens live in this repository) with these settings:
 | setting | value |
 |---|---|
 | Production branch | `main` |
-| Build command | `npm run build:site` |
+| Build command | `npm test && npm run vendor && npm run build:data` |
 | Build output directory | `site` |
 | Node version | read from `.node-version` (22); or set the `NODE_VERSION` variable |
 
-`npm run build:site` is the same sequence as the GitHub workflow: tests,
-vendoring, data generation. Preview deployments are on by default for every
+That is the same sequence as the GitHub workflow (`npm run build:site` is its
+shorthand, but the build command is spelled out so it also works on branches
+that predate the script). Preview deployments are on by default for every
 other branch; the Cloudflare GitHub app comments the preview URL on each pull
 request. The article lives at `/article.html` on either host.
 

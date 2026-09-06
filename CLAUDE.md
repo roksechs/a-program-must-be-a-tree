@@ -108,7 +108,8 @@ the `github-pages` environment must allow deployments from the default branch
 
 The site can equally be served by **Cloudflare Pages** connected to this
 repository through its GitHub integration (no tokens in the repository): build
-command `npm run build:site` (tests, vendoring, data generation), output
+command `npm test && npm run vendor && npm run build:data` (spelled out so it
+works on every branch; `npm run build:site` is its shorthand), output
 directory `site`, Node version from `.node-version`. Cloudflare then builds
 every branch and gives each pull request its own preview URL, which GitHub
 Pages cannot do. Nothing in the site depends on which host serves it.
