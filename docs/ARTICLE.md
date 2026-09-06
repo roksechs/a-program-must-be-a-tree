@@ -252,10 +252,28 @@ with the largest lift, cycles, shared leaves pushed down).
 
 ## Production decisions
 
-* **Prose is content, not UI.** Paragraphs live in per-language documents
-  (`site/content/article.en.json`, `article.ja.json`), loaded as data; UI
-  labels go through `t()` as everywhere else. A unit test checks that both
-  documents carry the same section ids, keeping the spirit of the i18n rule.
+* **Prose is content, not UI.** Chapters live as Markdown, one file per
+  chapter per language (`site/content/ja/<nn>-<slug>.md`,
+  `site/content/en/<nn>-<slug>.md`), fetched by the page at run time; UI
+  labels go through `t()` as everywhere else. A unit test checks that every
+  chapter file exists in every language, keeping the spirit of the i18n rule.
+  Japanese is drafted first, because the owner reviews in Japanese; English
+  follows once a chapter is settled. An HTML comment at the top of a chapter
+  (`<!-- graph: sample-bindings; view: 3d; labels: all -->`) tells the page
+  which dataset and view to mount beside it.
+
+## Status
+
+| piece | state |
+|---|---|
+| plan (this file) | written |
+| analyzer prerequisites (§4.1 rule, `--nested`) | done |
+| datasets for chapters 0, 2b | `sample-tree`, `sample-tangle`, `sample-bindings` exist |
+| chapter texts | **2b drafted in Japanese** (`site/content/ja/02b-binding-or-store.md`); nothing else written |
+| page scaffold (`site/article.html`, content loader, embedded live graphs) | **not started** |
+| English chapters | not started |
+| Clean-Architecture sample app (chapter 10) | not started |
+| history measurement tooling (chapter 17) | not started |
 * **Real numbers only.** Every live graph imports the viewer's own modules;
   no re-implementation of a metric for the page.
 * **Datasets to add**: the Clean-Architecture sample app; historical
