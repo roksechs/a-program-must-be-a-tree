@@ -78,6 +78,17 @@ function isFunctionLike(node) {
   );
 }
 
+/** The expression inside any parentheses. */
+function unwrap(e) {
+  while (e && ts.isParenthesizedExpression(e)) e = e.expression;
+  return e;
+}
+
+/** `a`, `a.b`, `a.b.c`: a path of names (docs/THEORY.md §4.1). */
+function isPathExpr(e) {
+  return ts.isIdentifier(e) || (ts.isPropertyAccessExpression(e) && isPathExpr(e.expression));
+}
+
 /**
  * Collect the declarations written as such in one source file. Returns
  * { decls, rest, assignments, add, addClassMembers, sf, file, baseName }: `decls`
@@ -249,7 +260,7 @@ export function analyze(options) {
   // Pass 1: declarations written as such.
   const declByNode = new Map();
   const declarations = [];
-  const ids = new Set();
+  const entryById = new Map();
   const fileCtx = []; // per file: module code, pending property assignments, `add`
   for (const sf of program.getSourceFiles()) {
     if (!fileSet.has(sf.fileName)) continue;
@@ -261,7 +272,7 @@ export function analyze(options) {
       d.file = file;
       declByNode.set(d.node, d);
       declarations.push(d);
-      ids.add(d.id);
+      entryById.set(d.id, d);
     }
   }
   const ctxOf = new Map(fileCtx.map((c) => [c.file, c]));
@@ -350,8 +361,6 @@ export function analyze(options) {
     }
     return out.length > 0 ? out : recordMembers(node);
   };
-  /** The declaration an identifier refers to, or the first candidate of a union. */
-  const resolveTarget = (node) => resolveTargets(node)[0] ?? null;
 
   // ---------------------------------------------------------------------------
   // Pass 1b: bindings made by assignment (docs/THEORY.md §4-5). A definition-time
@@ -375,7 +384,7 @@ export function analyze(options) {
     e.file = ctx.file;
     declByNode.set(e.node, e);
     declarations.push(e);
-    ids.add(e.id);
+    entryById.set(e.id, e);
     if (e.parent && !e.local) registerMember(e.parent, e.name, e);
     return e;
   };
@@ -385,24 +394,26 @@ export function analyze(options) {
   };
   const globals = new Map(); // qualified name bound on an undeclared global ("d3.scale") -> entry
   const consumed = new Set(); // identifiers that name an alias target: not occurrences
-  const unwrap = (e) => {
-    while (e && ts.isParenthesizedExpression(e)) e = e.expression;
-    return e;
-  };
-  const isPathExpr = (e) => ts.isIdentifier(e) || (ts.isPropertyAccessExpression(e) && isPathExpr(e.expression));
-  const fileOf = (node) => relative(root, node.getSourceFile().fileName).split(sep).join("/");
   /**
-   * What a receiver expression denotes: `entry` (a declared class, function or
-   * variable; null for an undeclared global, whose qualified `path` is kept),
-   * `viaPrototype` for `X.prototype`, `moduleNs` for `exports` / `module.exports`.
-   * A variable initialised with a path (`var proto = C.prototype`) denotes what
-   * the path denotes. A local or a parameter denotes a value, not a name: null.
+   * What an expression denotes when it is a name (docs/THEORY.md §4.1): the one
+   * resolver of the analyzer. `entry` is the declared class, function or
+   * variable (null for an undeclared global, whose qualified `path` is kept);
+   * `viaPrototype` marks `X.prototype`, `moduleNs` marks `exports` /
+   * `module.exports`, `typed` a member the checker found through the receiver's
+   * static type rather than by name. Identifiers and `super` go through the
+   * checker; a variable initialised with a path (`var proto = C.prototype`)
+   * denotes what the path denotes; a local or a parameter denotes a value, not
+   * a name: null.
    */
   const denote = (expr, depth = 0) => {
     expr = unwrap(expr);
     if (!expr || depth > 8) return null;
+    if (expr.kind === ts.SyntaxKind.SuperKeyword) {
+      const t = resolveTargets(expr)[0] ?? null;
+      return t ? { entry: t, path: "super" } : null;
+    }
     if (ts.isIdentifier(expr)) {
-      const target = resolveTarget(expr);
+      const target = resolveTargets(expr)[0] ?? null;
       if (target) {
         if (target.kind === "variable" && ts.isVariableDeclaration(target.node) && target.node.initializer) {
           let init = unwrap(target.node.initializer);
@@ -426,19 +437,24 @@ export function analyze(options) {
     }
     if (ts.isPropertyAccessExpression(expr)) {
       const name = expr.name.text;
-      if (name === "exports" && ts.isIdentifier(expr.expression) && expr.expression.text === "module" && !resolveTarget(expr.expression)) return { entry: null, moduleNs: true, path: "module.exports" };
+      if (name === "exports" && ts.isIdentifier(expr.expression) && expr.expression.text === "module" && resolveTargets(expr.expression).length === 0) return { entry: null, moduleNs: true, path: "module.exports" };
       const r = denote(expr.expression, depth + 1);
-      if (!r) return null;
-      if (r.moduleNs) {
-        const e = declarations.find((x) => x.id === `${fileOf(expr)}::${name}`);
+      if (r?.moduleNs) {
+        const file = relative(root, expr.getSourceFile().fileName).split(sep).join("/");
+        const e = entryById.get(`${file}::${name}`);
         return e ? { entry: e, path: name } : null;
       }
-      const path = `${r.path}.${name}`;
-      if (name === "prototype" && !r.viaPrototype) return { entry: r.entry, global: r.global, viaPrototype: true, path };
-      const member = r.entry ? membersOf.get(r.entry.id)?.get(name) : null;
-      if (member) return { entry: member, path };
-      if (r.global && !r.viaPrototype) return { entry: globals.get(path) ?? null, global: true, path };
-      return null;
+      if (r) {
+        const path = `${r.path}.${name}`;
+        if (name === "prototype" && !r.viaPrototype) return { entry: r.entry, global: r.global, viaPrototype: true, path };
+        const member = r.entry ? membersOf.get(r.entry.id)?.get(name) : null;
+        if (member) return { entry: member, path };
+        if (r.global && !r.viaPrototype) return { entry: globals.get(path) ?? null, global: true, path };
+      }
+      // Not a path of names, or a name nothing was bound to: the member the
+      // checker finds through the receiver's static type, if any.
+      const t = resolveTargets(expr.name)[0] ?? null;
+      return t ? { entry: t, path: t.name, typed: true } : null;
     }
     return null;
   };
@@ -462,8 +478,8 @@ export function analyze(options) {
       else if (qualified) globals.set(qualified, e);
       return e;
     };
-    if (ts.isIdentifier(value)) {
-      const t = resolveTarget(value);
+    if (isPathExpr(value)) {
+      const t = denote(value)?.entry ?? null;
       if (t && (t.kind === "function" || t.kind === "class" || t.kind === "method")) {
         if (late) return null;
         // `proto.add = add`: an alias. The function gains the member role; no new node.
@@ -480,7 +496,7 @@ export function analyze(options) {
         return t;
       }
     }
-    if (ids.has(id)) return null;
+    if (entryById.has(id)) return null;
     if (isFunctionLike(value)) {
       const kind = ts.isClassExpression(value) ? "class" : owner && (owner.kind === "class" || owner.kind === "function" || owner.kind === "method") ? "method" : "function";
       const e = record(ctx.add(value, name, kind, owner, exported, [value], nameNode));
@@ -497,7 +513,12 @@ export function analyze(options) {
     if (ts.isObjectLiteralExpression(value)) bindProperties(ctx, e, value, { exported });
     return e;
   };
-  /** Bind every property of an object literal as a slot of `owner` (`X.prototype = {...}`, `Object.assign(ns, {...})`). */
+  /**
+   * Bind every property of an object literal as a slot of `owner`
+   * (`X.prototype = {...}`, `Object.assign(ns, {...})`). `bindSlot` and
+   * `bindProperties` are one recursive pair: a slot bound to an object literal
+   * is a namespace whose properties are slots in turn (`ns.sub = { f() {} }`).
+   */
   const bindProperties = (ctx, owner, literal, opts) => {
     for (const prop of literal.properties) {
       const name = memberName(prop.name);
@@ -505,7 +526,7 @@ export function analyze(options) {
       if (ts.isPropertyAssignment(prop)) bindSlot(ctx, owner, name, prop.initializer, prop.name, opts);
       else if (ts.isShorthandPropertyAssignment(prop)) bindSlot(ctx, owner, name, prop.name, prop.name, opts);
       else if (ts.isMethodDeclaration(prop) || ts.isGetAccessorDeclaration(prop) || ts.isSetAccessorDeclaration(prop)) {
-        if (ids.has(owner ? `${owner.id}.${name}` : `${ctx.file}::${name}`)) continue;
+        if (entryById.has(owner ? `${owner.id}.${name}` : `${ctx.file}::${name}`)) continue;
         const e = ctx.add(prop, name, owner ? "method" : "function", owner, Boolean(opts.exported), [prop], prop.name);
         e.isStatic = !opts.viaPrototype;
         attach(ctx, e);
@@ -636,7 +657,6 @@ export function analyze(options) {
   // ---------------------------------------------------------------------------
   // Class hierarchy: constructor lookup, dispatch (class hierarchy analysis)
   // and the structural override / implements edges. See docs/THEORY.md §3.4, §5.
-  const heritageName = (expr) => (ts.isPropertyAccessExpression(expr) ? expr.name : expr);
   const baseOf = new Map(); // class id -> base class entry
   const interfacesOf = new Map(); // class or interface id -> interface entries it implements / extends
   for (const d of declarations) {
@@ -644,7 +664,7 @@ export function analyze(options) {
     if (!node) continue;
     for (const clause of node.heritageClauses ?? []) {
       for (const t of clause.types) {
-        const target = resolveTarget(heritageName(t.expression));
+        const target = denote(t.expression)?.entry ?? null;
         if (!target) continue;
         if (clause.token === ts.SyntaxKind.ExtendsKeyword && d.kind === "class") baseOf.set(d.id, target);
         else {
@@ -659,8 +679,8 @@ export function analyze(options) {
     if (!children.has(parentId)) children.set(parentId, []);
     children.get(parentId).push(child);
   };
-  for (const [id, base] of baseOf) link(base.id, declarations.find((d) => d.id === id));
-  for (const [id, ifaces] of interfacesOf) for (const i of ifaces) link(i.id, declarations.find((d) => d.id === id));
+  for (const [id, base] of baseOf) link(base.id, entryById.get(id));
+  for (const [id, ifaces] of interfacesOf) for (const i of ifaces) link(i.id, entryById.get(id));
   const descendants = (entry) => {
     const out = [];
     const seen = new Set([entry.id]);
@@ -724,7 +744,7 @@ export function analyze(options) {
    */
   const dispatchTargets = (member) => {
     const out = [];
-    const owner = declarations.find((d) => d.id === member.parent);
+    const owner = entryById.get(member.parent);
     if (!owner) return out;
     for (const sub of descendants(owner)) {
       const m = membersOf.get(sub.id)?.get(slotName(member));
@@ -787,7 +807,7 @@ export function analyze(options) {
   // Structural edges: overriding and interface implementation at member level.
   for (const d of declarations) {
     if (!d.parent || slotName(d) === "constructor") continue;
-    const owner = declarations.find((x) => x.id === d.parent);
+    const owner = entryById.get(d.parent);
     if (!owner || owner.kind !== "class") continue;
     const base = inheritedMember(owner, slotName(d));
     if (base) addEdge(d, base, "override", "definition");
@@ -801,7 +821,7 @@ export function analyze(options) {
   const memberNamed = (ownerId, name) => {
     const own = membersOf.get(ownerId)?.get(name);
     if (own) return own;
-    const owner = declarations.find((x) => x.id === ownerId);
+    const owner = entryById.get(ownerId);
     return owner ? inheritedMember(owner, name) : null;
   };
   /** Every instance member called `name`, whatever its class: the field-based approximation of an untyped `o.name(...)`. */
@@ -811,7 +831,7 @@ export function analyze(options) {
       const m = members.get(name);
       // Instance members only: class methods, prototype bindings and the functions aliased into them.
       if (!m || m.isStatic !== false || m.kind === "variable") continue;
-      const owner = declarations.find((x) => x.id === ownerId);
+      const owner = entryById.get(ownerId);
       if (owner && owner.kind !== "interface" && !out.includes(m)) out.push(m);
     }
     return out;
@@ -824,7 +844,7 @@ export function analyze(options) {
       const time = inFn ? "use" : "definition";
       if (node.kind === ts.SyntaxKind.SuperKeyword && ts.isCallExpression(node.parent) && node.parent.expression === node) {
         // super(...) inside a derived constructor calls the base class constructor.
-        const target = constructorTarget(resolveTarget(node));
+        const target = constructorTarget(denote(node)?.entry ?? null);
         if (target && target !== d) addEdge(d, target, "call", time);
       } else if (ts.isIdentifier(node) || ts.isPrivateIdentifier(node)) {
         if (node !== d.nameNode) {
@@ -901,19 +921,16 @@ export function analyze(options) {
   const evalExpr = (node) => {
     if (!node) return new Set();
     if (ts.isParenthesizedExpression(node) || ts.isAsExpression(node) || ts.isTypeAssertionExpression(node) || ts.isNonNullExpression(node) || ts.isSatisfiesExpression?.(node)) return evalExpr(node.expression);
-    if (ts.isIdentifier(node)) {
-      const target = resolveTarget(node);
+    if (ts.isIdentifier(node) || ts.isPropertyAccessExpression(node)) {
+      const r = denote(node);
+      const target = r && !r.viaPrototype ? r.entry : null;
       if (target) {
         if (isCallable(target) || target.kind === "class") return new Set([target]);
         if (target.kind === "variable") return variableValues(target);
         return new Set();
       }
-      const sym = symbolOf(node);
+      const sym = ts.isIdentifier(node) ? symbolOf(node) : null;
       return sym && env.has(sym) ? new Set(env.get(sym)) : new Set();
-    }
-    if (ts.isPropertyAccessExpression(node)) {
-      const target = resolveTarget(node.name) ?? denote(node)?.entry ?? null;
-      return target && (isCallable(target) || target.kind === "class") ? new Set([target]) : new Set();
     }
     if (ts.isCallExpression(node)) {
       const out = new Set();
@@ -946,7 +963,7 @@ export function analyze(options) {
       return out;
     }
     if (callee.kind === ts.SyntaxKind.SuperKeyword) {
-      const t = constructorTarget(resolveTarget(callee));
+      const t = constructorTarget(denote(callee)?.entry ?? null);
       if (t) out.add(t);
       return out;
     }
@@ -971,7 +988,7 @@ export function analyze(options) {
           if (sym) union(setFor(env, sym), evalExpr(node.initializer));
         } else if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.EqualsToken && ts.isIdentifier(node.left)) {
           const sym = symbolOf(node.left);
-          if (sym && !resolveTarget(node.left)) union(setFor(env, sym), evalExpr(node.right));
+          if (sym && !denote(node.left)?.entry) union(setFor(env, sym), evalExpr(node.right));
         } else if (ts.isReturnStatement(node) && node.expression && fn) {
           // Only returns of the declaration's own function body count; inner anonymous functions are not modelled.
           let a = node.parent;

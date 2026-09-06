@@ -306,9 +306,41 @@ Findings:
   Comparing it with v4 still needs a union analysis across the split
   `d3-*` repositories.
 
-Analyzer additions this still implies: nested declarations as nodes (behind
-a flag), for the single-file era; and, for chapter 17 (B), a `--git` mode
-that samples tags and a way to analyze several repositories as one graph.
+Analyzer additions this still implies, for chapter 17 (B): a `--git` mode
+that samples tags, and a way to analyze several repositories as one graph.
+(Nested declarations as nodes now exist, as `--nested`; see the field note.)
+
+## Field note for chapters 14–15: the analyzer reviewed by its own tool
+
+The change that taught the analyzer to read property assignments was itself
+reviewed with the diagnostics, and the episode is the argument of chapters
+14 and 15 in miniature.
+
+* **At the granularity the shipped tool saw, nothing had happened.** The
+  whole repository went from 171 to 172 nodes and 263 to 266 control edges;
+  the tree score moved from 0.456 to 0.455. Almost all of the new code was
+  closures inside the one function `analyze()`, which the tool drew as a
+  single node. A diff cannot show lift; a tool that stops at module level
+  cannot either.
+* **At closure granularity the change was large.** With local functions as
+  nodes (`--nested`, added for this reason), `analyze()` went from 34 to 47
+  closures, its surplus edges from 16 to 37, its single-caller ratio from
+  0.71 to 0.55, and it gained a second cycle (`bindSlot` ↔ `bindProperties`,
+  a deliberate recursive pair). The tool named the cause: a second name
+  resolver (`denote`, three callers) next to the first (`resolveTarget`, six
+  callers), with every pass calling both; and two helpers whose natural scope
+  was `denote` itself.
+* **The refactor the numbers asked for barely moved the numbers.** Merging
+  the two resolvers into one left `denote` with nine callers; the surplus
+  fell from 61 to 60 edges at file level. Sharing measured by in-degree does
+  not reward "one concept, one entry point" — that gain is meaning, not
+  structure — and the article should say so rather than pretend the metric
+  vindicated the cleanup. What the metric did do was point at the right
+  place before any reviewer had read the diff.
+
+Each of the locally reasonable choices (follow the file's flat-closure
+style, add a small helper, reuse the existing resolver) was fine on its own.
+The tool saw their sum. That is the whole thesis.
 
 ## Open questions
 

@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-06T02:37:15.326Z",
+  "generatedAt": "2026-09-06T02:41:47.971Z",
   "analyzer": "analyzers/ts@0.2.0",
   "files": 21
  },
@@ -13,7 +13,7 @@
    "name": "analyze",
    "kind": "module",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 1076,
+   "line": 1093,
    "parent": null,
    "exported": false
   },
@@ -22,7 +22,7 @@
    "name": "analyze",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 227,
+   "line": 238,
    "parent": null,
    "exported": true
   },
@@ -31,7 +31,7 @@
    "name": "addEdge",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 750,
+   "line": 770,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -40,7 +40,7 @@
    "name": "allInterfaces",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 704,
+   "line": 724,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -49,7 +49,7 @@
    "name": "attach",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 374,
+   "line": 383,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -58,7 +58,7 @@
    "name": "attachNew",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 383,
+   "line": 392,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -67,7 +67,7 @@
    "name": "bind",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 517,
+   "line": 538,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -76,7 +76,7 @@
    "name": "bindProperties",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 501,
+   "line": 522,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -85,7 +85,7 @@
    "name": "bindSlot",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 452,
+   "line": 468,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -94,7 +94,7 @@
    "name": "record",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 456,
+   "line": 472,
    "parent": "analyzers/ts/analyze.mjs::analyze/bindSlot",
    "exported": false
   },
@@ -103,7 +103,7 @@
    "name": "calleeValues",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 941,
+   "line": 958,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -112,7 +112,7 @@
    "name": "constructorTarget",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 679,
+   "line": 699,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -121,7 +121,7 @@
    "name": "denote",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 401,
+   "line": 408,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -130,7 +130,7 @@
    "name": "descendants",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 664,
+   "line": 684,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -139,7 +139,7 @@
    "name": "dispatchTargets",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 725,
+   "line": 745,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -148,7 +148,7 @@
    "name": "emitReference",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 768,
+   "line": 788,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -157,16 +157,7 @@
    "name": "evalExpr",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 901,
-   "parent": "analyzers/ts/analyze.mjs::analyze",
-   "exported": false
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::analyze/fileOf",
-   "name": "fileOf",
-   "kind": "function",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 393,
+   "line": 921,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -175,7 +166,7 @@
    "name": "flowPass",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 965,
+   "line": 982,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -184,7 +175,7 @@
    "name": "walk",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 968,
+   "line": 985,
    "parent": "analyzers/ts/analyze.mjs::analyze/flowPass",
    "exported": false
   },
@@ -193,16 +184,7 @@
    "name": "fnNodeOf",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 898,
-   "parent": "analyzers/ts/analyze.mjs::analyze",
-   "exported": false
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::analyze/heritageName",
-   "name": "heritageName",
-   "kind": "function",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 639,
+   "line": 918,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -211,7 +193,7 @@
    "name": "inheritedMember",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 692,
+   "line": 712,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -220,7 +202,7 @@
    "name": "instanceMembersNamed",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 808,
+   "line": 828,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -229,7 +211,7 @@
    "name": "isCallable",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 899,
+   "line": 919,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -238,7 +220,7 @@
    "name": "isDispatchedCall",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 741,
+   "line": 761,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -247,16 +229,7 @@
    "name": "isNewTarget",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 735,
-   "parent": "analyzers/ts/analyze.mjs::analyze",
-   "exported": false
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::analyze/isPathExpr",
-   "name": "isPathExpr",
-   "kind": "function",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 392,
+   "line": 755,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -265,7 +238,7 @@
    "name": "link",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 658,
+   "line": 678,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -274,7 +247,7 @@
    "name": "memberNamed",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 801,
+   "line": 821,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -283,7 +256,7 @@
    "name": "nest",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 601,
+   "line": 622,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -292,7 +265,7 @@
    "name": "walk",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 604,
+   "line": 625,
    "parent": "analyzers/ts/analyze.mjs::analyze/nest",
    "exported": false
   },
@@ -301,7 +274,7 @@
    "name": "ownerOf",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 270,
+   "line": 281,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -310,7 +283,7 @@
    "name": "paramsOf",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 960,
+   "line": 977,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -319,7 +292,7 @@
    "name": "recordMembers",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 309,
+   "line": 320,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -328,16 +301,7 @@
    "name": "registerMember",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 367,
-   "parent": "analyzers/ts/analyze.mjs::analyze",
-   "exported": false
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::analyze/resolveTarget",
-   "name": "resolveTarget",
-   "kind": "function",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 354,
+   "line": 376,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -346,7 +310,7 @@
    "name": "resolveTargets",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 340,
+   "line": 351,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -355,7 +319,7 @@
    "name": "setFor",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 893,
+   "line": 913,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -364,7 +328,7 @@
    "name": "slotName",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 371,
+   "line": 380,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -373,7 +337,7 @@
    "name": "symbolOf",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 281,
+   "line": 292,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -382,16 +346,7 @@
    "name": "union",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 885,
-   "parent": "analyzers/ts/analyze.mjs::analyze",
-   "exported": false
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::analyze/unwrap",
-   "name": "unwrap",
-   "kind": "function",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 388,
+   "line": 905,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -400,7 +355,7 @@
    "name": "variableValues",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 931,
+   "line": 948,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -409,7 +364,7 @@
    "name": "visit",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 823,
+   "line": 843,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -418,7 +373,7 @@
    "name": "walk",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 579,
+   "line": 600,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false
   },
@@ -436,7 +391,7 @@
    "name": "collectDeclarations",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 90,
+   "line": 101,
    "parent": null,
    "exported": false
   },
@@ -445,7 +400,7 @@
    "name": "add",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 94,
+   "line": 105,
    "parent": "analyzers/ts/analyze.mjs::collectDeclarations",
    "exported": false
   },
@@ -454,7 +409,7 @@
    "name": "addClassMembers",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 101,
+   "line": 112,
    "parent": "analyzers/ts/analyze.mjs::collectDeclarations",
    "exported": false
   },
@@ -495,6 +450,15 @@
    "exported": false
   },
   {
+   "id": "analyzers/ts/analyze.mjs::isPathExpr",
+   "name": "isPathExpr",
+   "kind": "function",
+   "file": "analyzers/ts/analyze.mjs",
+   "line": 88,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "analyzers/ts/analyze.mjs::listSourceFiles",
    "name": "listSourceFiles",
    "kind": "function",
@@ -526,7 +490,7 @@
    "name": "memberName",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 196,
+   "line": 207,
    "parent": null,
    "exported": false
   },
@@ -535,7 +499,7 @@
    "name": "parseArgs",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 1037,
+   "line": 1054,
    "parent": null,
    "exported": false
   },
@@ -544,7 +508,7 @@
    "name": "next",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 1041,
+   "line": 1058,
    "parent": "analyzers/ts/analyze.mjs::parseArgs",
    "exported": false
   },
@@ -553,7 +517,7 @@
    "name": "referenceKind",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 204,
+   "line": 215,
    "parent": null,
    "exported": false
   },
@@ -562,7 +526,16 @@
    "name": "topLevelAssignment",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 174,
+   "line": 185,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/analyze.mjs::unwrap",
+   "name": "unwrap",
+   "kind": "function",
+   "file": "analyzers/ts/analyze.mjs",
+   "line": 82,
    "parent": null,
    "exported": false
   },
@@ -2320,14 +2293,14 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze",
-   "target": "analyzers/ts/analyze.mjs::analyze/flowPass",
+   "target": "analyzers/ts/analyze.mjs::analyze/denote",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze",
-   "target": "analyzers/ts/analyze.mjs::analyze/heritageName",
+   "target": "analyzers/ts/analyze.mjs::analyze/flowPass",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2356,13 +2329,6 @@
   {
    "source": "analyzers/ts/analyze.mjs::analyze",
    "target": "analyzers/ts/analyze.mjs::analyze/registerMember",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze",
-   "target": "analyzers/ts/analyze.mjs::analyze/resolveTarget",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2446,7 +2412,7 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/bind",
-   "target": "analyzers/ts/analyze.mjs::analyze/unwrap",
+   "target": "analyzers/ts/analyze.mjs::unwrap",
    "kind": "call",
    "count": 2,
    "time": "use"
@@ -2502,6 +2468,13 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/bindSlot",
+   "target": "analyzers/ts/analyze.mjs::analyze/denote",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/bindSlot",
    "target": "analyzers/ts/analyze.mjs::analyze/registerMember",
    "kind": "call",
    "count": 1,
@@ -2509,21 +2482,21 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/bindSlot",
-   "target": "analyzers/ts/analyze.mjs::analyze/resolveTarget",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze/bindSlot",
-   "target": "analyzers/ts/analyze.mjs::analyze/unwrap",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze/bindSlot",
    "target": "analyzers/ts/analyze.mjs::isFunctionLike",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/bindSlot",
+   "target": "analyzers/ts/analyze.mjs::isPathExpr",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/bindSlot",
+   "target": "analyzers/ts/analyze.mjs::unwrap",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2551,6 +2524,13 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/calleeValues",
+   "target": "analyzers/ts/analyze.mjs::analyze/denote",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/calleeValues",
    "target": "analyzers/ts/analyze.mjs::analyze/dispatchTargets",
    "kind": "call",
    "count": 1,
@@ -2564,13 +2544,6 @@
    "time": "use"
   },
   {
-   "source": "analyzers/ts/analyze.mjs::analyze/calleeValues",
-   "target": "analyzers/ts/analyze.mjs::analyze/resolveTarget",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
    "source": "analyzers/ts/analyze.mjs::analyze/denote",
    "target": "analyzers/ts/analyze.mjs::analyze/denote",
    "kind": "call",
@@ -2579,23 +2552,9 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/denote",
-   "target": "analyzers/ts/analyze.mjs::analyze/fileOf",
+   "target": "analyzers/ts/analyze.mjs::analyze/resolveTargets",
    "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze/denote",
-   "target": "analyzers/ts/analyze.mjs::analyze/isPathExpr",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze/denote",
-   "target": "analyzers/ts/analyze.mjs::analyze/resolveTarget",
-   "kind": "call",
-   "count": 2,
+   "count": 4,
    "time": "use"
   },
   {
@@ -2607,7 +2566,14 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/denote",
-   "target": "analyzers/ts/analyze.mjs::analyze/unwrap",
+   "target": "analyzers/ts/analyze.mjs::isPathExpr",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/denote",
+   "target": "analyzers/ts/analyze.mjs::unwrap",
    "kind": "call",
    "count": 2,
    "time": "use"
@@ -2686,13 +2652,6 @@
    "source": "analyzers/ts/analyze.mjs::analyze/evalExpr",
    "target": "analyzers/ts/analyze.mjs::analyze/isCallable",
    "kind": "call",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze/evalExpr",
-   "target": "analyzers/ts/analyze.mjs::analyze/resolveTarget",
-   "kind": "call",
    "count": 2,
    "time": "use"
   },
@@ -2754,6 +2713,13 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/flowPass/walk",
+   "target": "analyzers/ts/analyze.mjs::analyze/denote",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/flowPass/walk",
    "target": "analyzers/ts/analyze.mjs::analyze/evalExpr",
    "kind": "call",
    "count": 4,
@@ -2769,13 +2735,6 @@
   {
    "source": "analyzers/ts/analyze.mjs::analyze/flowPass/walk",
    "target": "analyzers/ts/analyze.mjs::analyze/paramsOf",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze/flowPass/walk",
-   "target": "analyzers/ts/analyze.mjs::analyze/resolveTarget",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2799,13 +2758,6 @@
    "target": "analyzers/ts/analyze.mjs::analyze/union",
    "kind": "call",
    "count": 4,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze/isPathExpr",
-   "target": "analyzers/ts/analyze.mjs::analyze/isPathExpr",
-   "kind": "call",
-   "count": 1,
    "time": "use"
   },
   {
@@ -2852,16 +2804,16 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/nest/walk",
-   "target": "analyzers/ts/analyze.mjs::analyze/unwrap",
+   "target": "analyzers/ts/analyze.mjs::isFunctionLike",
    "kind": "call",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/nest/walk",
-   "target": "analyzers/ts/analyze.mjs::isFunctionLike",
+   "target": "analyzers/ts/analyze.mjs::unwrap",
    "kind": "call",
-   "count": 1,
+   "count": 2,
    "time": "use"
   },
   {
@@ -2874,13 +2826,6 @@
   {
    "source": "analyzers/ts/analyze.mjs::analyze/recordMembers",
    "target": "analyzers/ts/analyze.mjs::analyze/ownerOf",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze/resolveTarget",
-   "target": "analyzers/ts/analyze.mjs::analyze/resolveTargets",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2931,7 +2876,7 @@
    "source": "analyzers/ts/analyze.mjs::analyze/visit",
    "target": "analyzers/ts/analyze.mjs::analyze/denote",
    "kind": "call",
-   "count": 1,
+   "count": 2,
    "time": "use"
   },
   {
@@ -2958,13 +2903,6 @@
   {
    "source": "analyzers/ts/analyze.mjs::analyze/visit",
    "target": "analyzers/ts/analyze.mjs::analyze/memberNamed",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze/visit",
-   "target": "analyzers/ts/analyze.mjs::analyze/resolveTarget",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -3006,13 +2944,6 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/walk",
-   "target": "analyzers/ts/analyze.mjs::analyze/unwrap",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze/walk",
    "target": "analyzers/ts/analyze.mjs::analyze/walk",
    "kind": "call",
    "count": 1,
@@ -3021,6 +2952,13 @@
   {
    "source": "analyzers/ts/analyze.mjs::analyze/walk",
    "target": "analyzers/ts/analyze.mjs::isFunctionLike",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/walk",
+   "target": "analyzers/ts/analyze.mjs::unwrap",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -3093,6 +3031,13 @@
    "target": "analyzers/ts/analyze.mjs::memberName",
    "kind": "call",
    "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::isPathExpr",
+   "target": "analyzers/ts/analyze.mjs::isPathExpr",
+   "kind": "call",
+   "count": 1,
    "time": "use"
   },
   {

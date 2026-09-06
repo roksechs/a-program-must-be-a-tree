@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-06T02:37:14.497Z",
+  "generatedAt": "2026-09-06T02:41:47.098Z",
   "analyzer": "analyzers/ts@0.2.0",
   "files": 21
  },
@@ -13,7 +13,7 @@
    "name": "analyze",
    "kind": "module",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 1076,
+   "line": 1093,
    "parent": null,
    "exported": false
   },
@@ -22,7 +22,7 @@
    "name": "analyze",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 227,
+   "line": 238,
    "parent": null,
    "exported": true
   },
@@ -40,7 +40,7 @@
    "name": "collectDeclarations",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 90,
+   "line": 101,
    "parent": null,
    "exported": false
   },
@@ -81,6 +81,15 @@
    "exported": false
   },
   {
+   "id": "analyzers/ts/analyze.mjs::isPathExpr",
+   "name": "isPathExpr",
+   "kind": "function",
+   "file": "analyzers/ts/analyze.mjs",
+   "line": 88,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "analyzers/ts/analyze.mjs::listSourceFiles",
    "name": "listSourceFiles",
    "kind": "function",
@@ -103,7 +112,7 @@
    "name": "memberName",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 196,
+   "line": 207,
    "parent": null,
    "exported": false
   },
@@ -112,7 +121,7 @@
    "name": "parseArgs",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 1037,
+   "line": 1054,
    "parent": null,
    "exported": false
   },
@@ -121,7 +130,7 @@
    "name": "referenceKind",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 204,
+   "line": 215,
    "parent": null,
    "exported": false
   },
@@ -130,7 +139,16 @@
    "name": "topLevelAssignment",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 174,
+   "line": 185,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/analyze.mjs::unwrap",
+   "name": "unwrap",
+   "kind": "function",
+   "file": "analyzers/ts/analyze.mjs",
+   "line": 82,
    "parent": null,
    "exported": false
   },
@@ -1595,6 +1613,13 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze",
+   "target": "analyzers/ts/analyze.mjs::isPathExpr",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze",
    "target": "analyzers/ts/analyze.mjs::listSourceFiles",
    "kind": "call",
    "count": 1,
@@ -1612,6 +1637,13 @@
    "target": "analyzers/ts/analyze.mjs::referenceKind",
    "kind": "call",
    "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze",
+   "target": "analyzers/ts/analyze.mjs::unwrap",
+   "kind": "call",
+   "count": 8,
    "time": "use"
   },
   {
@@ -1640,6 +1672,13 @@
    "target": "analyzers/ts/analyze.mjs::topLevelAssignment",
    "kind": "call",
    "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::isPathExpr",
+   "target": "analyzers/ts/analyze.mjs::isPathExpr",
+   "kind": "call",
+   "count": 1,
    "time": "use"
   },
   {

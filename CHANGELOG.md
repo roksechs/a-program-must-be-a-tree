@@ -25,6 +25,8 @@ The section for a version becomes the notes of its GitHub release
   repository in that view.
 * Measured effect: moment 2.29.0 goes from 313 to 807 control edges; d3
   v3.5.17 from 203 `module` nodes to 25.
+* One name resolver inside the analyzer instead of two; `class C extends
+  ns.Base` now resolves through the path `ns.Base` like any other name.
 
 ## v0.2.0
 
