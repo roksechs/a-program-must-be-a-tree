@@ -233,8 +233,46 @@ with the largest lift, cycles, shared leaves pushed down).
   Yourdon on cohesion and coupling; Fowler (attributing Roberts) on the Rule
   of Three; Chidamber & Kemerer on LCOM; Miller and Cowan on working memory.
 
+## Feasibility of chapter 17 (B): first measurements
+
+The analyzer was run on release tags of moment and d3 (about one second per
+tag, so sampling every release is cheap). Control graph = `call` + `create`;
+uses graph adds `reference` and `extends`.
+
+| repository | tag | files | declarations | control tree score | control locality | uses tree score | uses locality | surplus edges |
+|---|---|---|---|---|---|---|---|---|
+| moment | 2.0.0 – 2.9.0 | 1 | 1 | — | — | — | — | — |
+| moment | 2.10.6 | 85 | 308 | 0.313 | 0.556 | 0.463 | 0.634 | 215 |
+| moment | 2.20.0 | 102 | 381 | 0.286 | 0.550 | 0.441 | 0.613 | 299 |
+| moment | 2.29.0 | 107 | 415 | 0.279 | 0.545 | 0.429 | 0.605 | 338 |
+| d3 | v3.0.0 | 204 | 609 | 0.507 | 0.650 | 0.450 | 0.644 | 203 |
+| d3 | v3.5.17 | 274 | 758 | 0.556 | 0.694 | 0.498 | 0.710 | 183 |
+
+Findings:
+
+* **moment from 2.10 on is usable as the "castle" series** (2015–2020, ES
+  module sources under `src/lib`). Every ratio declines monotonically while
+  surplus edges grow faster than the declaration count (0.70, 0.78, 0.81
+  surplus per declaration). The decline is modest; the article must say so.
+* **moment before 2.10 is invisible**: the whole library is one IIFE in one
+  file, so the analyzer sees one `module` node and no edges. Measuring that
+  era needs nested declarations as nodes (an existing roadmap item).
+* **d3 v3 parses but is not yet comparable to v4.** Its public API is written
+  as property assignments (`d3.scale.linear = function () {...}`), which are
+  module-level code rather than declarations, so 176 of 609 nodes are
+  `module` nodes and the public surface is not in the graph. Comparing the
+  v3 monolith with the v4 packages (all ES module exports) requires the
+  analyzer to model property-assigned function expressions as declarations;
+  otherwise the two eras are measured with different rulers. The v4 side
+  also needs a union analysis across the split `d3-*` repositories.
+
+Analyzer additions this implies: nested declarations as nodes (behind a
+flag), and property-assigned functions (`ns.f = function`, `proto.m = ...`)
+as declarations.
+
 ## Open questions
 
-* Chapter 17 (B): confirm the analyzer produces usable graphs on the oldest
-  tags of the candidate repositories before committing to them.
 * Page location and name under `site/`.
+* Whether the d3 comparison is worth the two analyzer additions above, or
+  whether another documented restructuring (one that stayed in one
+  repository and one module style) makes a cleaner chapter 17 (B).
