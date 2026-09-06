@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-06T12:02:33.983Z",
+  "generatedAt": "2026-09-06T13:13:47.464Z",
   "analyzer": "analyzers/ts@0.3.0",
   "files": 24
  },
@@ -13,7 +13,7 @@
    "name": "analyze",
    "kind": "module",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 1145,
+   "line": 1171,
    "parent": null,
    "exported": false
   },
@@ -130,7 +130,7 @@
    "name": "parseArgs",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 1106,
+   "line": 1132,
    "parent": null,
    "exported": false
   },
@@ -423,6 +423,150 @@
    "exported": false
   },
   {
+   "id": "site/js/app.js::panel/onAutoRotate",
+   "name": "onAutoRotate",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 136,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onColorBy",
+   "name": "onColorBy",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 124,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onDataset",
+   "name": "onDataset",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 92,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onFile",
+   "name": "onFile",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 93,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onFit",
+   "name": "onFit",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 109,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onFocusNode",
+   "name": "onFocusNode",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 142,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onKinds",
+   "name": "onKinds",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 119,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onLabels",
+   "name": "onLabels",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 115,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onLayerGap",
+   "name": "onLayerGap",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 128,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onPhysics",
+   "name": "onPhysics",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 94,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onReheat",
+   "name": "onReheat",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 103,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onReset",
+   "name": "onReset",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 104,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onSelectNode",
+   "name": "onSelectNode",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 141,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onShowLayers",
+   "name": "onShowLayers",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 132,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onTop",
+   "name": "onTop",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 110,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onZones",
+   "name": "onZones",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 111,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
    "id": "site/js/app.js::renderer",
    "name": "renderer",
    "kind": "variable",
@@ -438,6 +582,42 @@
    "file": "site/js/app.js",
    "line": 65,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::rendererCallbacks/onDragEnd",
+   "name": "onDragEnd",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 69,
+   "parent": "site/js/app.js::rendererCallbacks",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::rendererCallbacks/onDragStart",
+   "name": "onDragStart",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 68,
+   "parent": "site/js/app.js::rendererCallbacks",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::rendererCallbacks/onHover",
+   "name": "onHover",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 70,
+   "parent": "site/js/app.js::rendererCallbacks",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::rendererCallbacks/onSelect",
+   "name": "onSelect",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 67,
+   "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
   {
@@ -564,6 +744,87 @@
    "file": "site/js/article.js",
    "line": 104,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/deselect",
+   "name": "deselect",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 290,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 125,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 128,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 129,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onDragEnd",
+   "name": "onDragEnd",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 151,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onDragStart",
+   "name": "onDragStart",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 150,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onHover",
+   "name": "onHover",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 152,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onSelect",
+   "name": "onSelect",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 145,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/resize",
+   "name": "resize",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 289,
+   "parent": "site/js/article.js::createFigure",
    "exported": false
   },
   {
@@ -1395,6 +1656,15 @@
    "exported": true
   },
   {
+   "id": "site/js/metrics.js::convergentOperations",
+   "name": "convergentOperations",
+   "kind": "function",
+   "file": "site/js/metrics.js",
+   "line": 174,
+   "parent": null,
+   "exported": true
+  },
+  {
    "id": "site/js/metrics.js::dominance",
    "name": "dominance",
    "kind": "function",
@@ -1408,7 +1678,7 @@
    "name": "initializationCycles",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 161,
+   "line": 202,
    "parent": null,
    "exported": true
   },
@@ -1548,6 +1818,51 @@
    "exported": false
   },
   {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 89,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 90,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 113,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 114,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 136,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
    "id": "site/js/panel.js::Panel.section",
    "name": "section",
    "kind": "method",
@@ -1563,6 +1878,15 @@
    "file": "site/js/panel.js",
    "line": 65,
    "parent": "site/js/panel.js::Panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.select/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 66,
+   "parent": "site/js/panel.js::Panel.select",
    "exported": false
   },
   {
@@ -1602,6 +1926,15 @@
    "exported": false
   },
   {
+   "id": "site/js/panel.js::Panel.setMetrics/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 259,
+   "parent": "site/js/panel.js::Panel.setMetrics",
+   "exported": false
+  },
+  {
    "id": "site/js/panel.js::Panel.setSelection",
    "name": "setSelection",
    "kind": "method",
@@ -1611,12 +1944,39 @@
    "exported": false
   },
   {
+   "id": "site/js/panel.js::Panel.setSelection/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 286,
+   "parent": "site/js/panel.js::Panel.setSelection",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setSelection/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 306,
+   "parent": "site/js/panel.js::Panel.setSelection",
+   "exported": false
+  },
+  {
    "id": "site/js/panel.js::Panel.slider",
    "name": "slider",
    "kind": "method",
    "file": "site/js/panel.js",
    "line": 44,
    "parent": "site/js/panel.js::Panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.slider/oninput",
+   "name": "oninput",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 53,
+   "parent": "site/js/panel.js::Panel.slider",
    "exported": false
   },
   {
@@ -1869,7 +2229,7 @@
    "source": "analyzers/ts/analyze.mjs::analyze",
    "target": "analyzers/ts/analyze.mjs::isFunctionLike",
    "kind": "call",
-   "count": 3,
+   "count": 4,
    "time": "use"
   },
   {
@@ -1890,7 +2250,7 @@
    "source": "analyzers/ts/analyze.mjs::analyze",
    "target": "analyzers/ts/analyze.mjs::memberName",
    "kind": "call",
-   "count": 1,
+   "count": 3,
    "time": "use"
   },
   {
@@ -1904,7 +2264,7 @@
    "source": "analyzers/ts/analyze.mjs::analyze",
    "target": "analyzers/ts/analyze.mjs::unwrap",
    "kind": "call",
-   "count": 8,
+   "count": 10,
    "time": "use"
   },
   {
@@ -2689,115 +3049,10 @@
   },
   {
    "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::applyKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::ensureTicking",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::loadDataset",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::loadFile",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::renderer",
-   "kind": "reference",
-   "count": 9,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
    "target": "site/js/app.js::state",
    "kind": "reference",
    "count": 1,
    "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 16,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::updateZones",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.focusOn",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.setColorBy",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.setLabelMode",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.setLayerGap",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.setShowLayers",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.viewTop",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
   },
   {
    "source": "site/js/app.js::panel",
@@ -2814,15 +3069,239 @@
    "time": "definition"
   },
   {
-   "source": "site/js/app.js::panel",
+   "source": "site/js/app.js::panel/onAutoRotate",
+   "target": "site/js/app.js::ensureTicking",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onAutoRotate",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onAutoRotate",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onColorBy",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onColorBy",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onColorBy",
+   "target": "site/js/graph3d.js::Graph3D.setColorBy",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onDataset",
+   "target": "site/js/app.js::loadDataset",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onFile",
+   "target": "site/js/app.js::loadFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onFit",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onFit",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onFocusNode",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onFocusNode",
+   "target": "site/js/graph3d.js::Graph3D.focusOn",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onKinds",
+   "target": "site/js/app.js::applyKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onKinds",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLabels",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLabels",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLabels",
+   "target": "site/js/graph3d.js::Graph3D.setLabelMode",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLayerGap",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLayerGap",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLayerGap",
+   "target": "site/js/graph3d.js::Graph3D.setLayerGap",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onPhysics",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onPhysics",
    "target": "site/js/simulation.js::applyPhysics",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::panel",
+   "source": "site/js/app.js::panel/onReheat",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onReset",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onReset",
    "target": "site/js/simulation.js::seedPositions",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onSelectNode",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onSelectNode",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onShowLayers",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onShowLayers",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onShowLayers",
+   "target": "site/js/graph3d.js::Graph3D.setShowLayers",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onTop",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onTop",
+   "target": "site/js/graph3d.js::Graph3D.viewTop",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onZones",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onZones",
+   "target": "site/js/app.js::updateZones",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2856,42 +3335,56 @@
    "time": "definition"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/app.js::panel",
+   "source": "site/js/app.js::rendererCallbacks/onDragEnd",
+   "target": "site/js/app.js::state",
    "kind": "reference",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
+   "source": "site/js/app.js::rendererCallbacks/onDragStart",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onHover",
    "target": "site/js/app.js::stage",
    "kind": "reference",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::rendererCallbacks",
+   "source": "site/js/app.js::rendererCallbacks/onHover",
    "target": "site/js/app.js::tooltip",
    "kind": "reference",
    "count": 5,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
+   "source": "site/js/app.js::rendererCallbacks/onHover",
    "target": "site/js/i18n.js::t",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
+   "source": "site/js/app.js::rendererCallbacks/onSelect",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onSelect",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onSelect",
    "target": "site/js/panel.js::Panel.setSelection",
    "kind": "call",
    "count": 1,
@@ -3214,14 +3707,6 @@
   },
   {
    "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure",
    "target": "site/js/graph2d.js::Graph2D.setColorBy",
    "kind": "call",
    "count": 1,
@@ -3315,14 +3800,6 @@
   },
   {
    "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::createFigure",
    "target": "site/js/graph3d.js::Graph3D.setColorBy",
    "kind": "call",
    "count": 1,
@@ -3388,14 +3865,14 @@
    "source": "site/js/article.js::createFigure",
    "target": "site/js/i18n.js::kindLabel",
    "kind": "call",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
    "source": "site/js/article.js::createFigure",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 13,
+   "count": 12,
    "time": "use"
   },
   {
@@ -3460,6 +3937,84 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/deselect",
+   "target": "site/js/graph2d.js::Graph2D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/deselect",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/onclick",
+   "target": "site/js/graph2d.js::Graph2D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/onclick",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/onHover",
+   "target": "site/js/i18n.js::kindLabel",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/onHover",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/onSelect",
+   "target": "site/js/graph2d.js::Graph2D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/onSelect",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/resize",
+   "target": "site/js/graph2d.js::Graph2D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::createFigure/resize",
+   "target": "site/js/graph3d.js::Graph3D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/article.js::datasets",
@@ -4616,14 +5171,14 @@
    "source": "test/analyzer.test.mjs::<module>",
    "target": "analyzers/ts/analyze.mjs::analyze",
    "kind": "call",
-   "count": 15,
+   "count": 17,
    "time": "use"
   },
   {
    "source": "test/analyzer.test.mjs::<module>",
    "target": "test/analyzer.test.mjs::fixture",
    "kind": "call",
-   "count": 14,
+   "count": 16,
    "time": "use"
   },
   {
@@ -4677,6 +5232,13 @@
   },
   {
    "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/metrics.js::convergentOperations",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
    "target": "site/js/metrics.js::naturalScope",
    "kind": "call",
    "count": 4,
@@ -4693,14 +5255,14 @@
    "source": "test/dominance.test.mjs::<module>",
    "target": "test/dominance.test.mjs::edge",
    "kind": "call",
-   "count": 32,
+   "count": 44,
    "time": "use"
   },
   {
    "source": "test/dominance.test.mjs::<module>",
    "target": "test/dominance.test.mjs::graph",
    "kind": "call",
-   "count": 6,
+   "count": 8,
    "time": "use"
   },
   {

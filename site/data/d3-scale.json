@@ -3,7 +3,7 @@
   "name": "d3-scale",
   "root": "node_modules/d3-scale",
   "language": "javascript",
-  "generatedAt": "2026-09-06T12:02:35.968Z",
+  "generatedAt": "2026-09-06T13:13:50.416Z",
   "analyzer": "analyzers/ts@0.3.0",
   "files": 24
  },
@@ -250,6 +250,24 @@
    "line": 44,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/log.js::loggish/ceil",
+   "name": "ceil",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 128,
+   "parent": "src/log.js::loggish",
+   "exported": false
+  },
+  {
+   "id": "src/log.js::loggish/floor",
+   "name": "floor",
+   "kind": "function",
+   "file": "src/log.js",
+   "line": 127,
+   "parent": "src/log.js::loggish",
+   "exported": false
   },
   {
    "id": "src/log.js::logp",
@@ -1104,6 +1122,22 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/log.js::loggish/ceil",
+   "target": "src/log.js::pow10",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/log.js::loggish/floor",
+   "target": "src/log.js::pow10",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/log.js::powp",

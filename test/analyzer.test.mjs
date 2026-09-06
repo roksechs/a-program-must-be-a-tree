@@ -371,6 +371,50 @@ test("local functions become declarations behind the nested option", () => {
   assert.equal(edge("n.js::outer", "n.js::helper"), undefined);
 });
 
+test("a function-valued object literal property is a declaration even without the nested option", () => {
+  const root = fixture({
+    "h.js": `
+      export function helper(v) { return v; }
+      export function install(target) {
+        target.wire({
+          onFit: () => helper(1),
+          onLabels(mode) { return helper(mode); },
+        });
+      }
+    `,
+  });
+  const doc = analyze({ name: "js", root }); // default: no { nested: true }
+  const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+
+  assert.equal(byId["h.js::install/onFit"].kind, "function");
+  assert.equal(byId["h.js::install/onFit"].parent, "h.js::install");
+  assert.equal(byId["h.js::install/onLabels"].kind, "function");
+  assert.equal(byId["h.js::install/onLabels"].parent, "h.js::install");
+
+  // The calls to helper() belong to the handler that makes them, not to
+  // install() itself - the whole point: install merely constructs and hands
+  // off the object, it never calls helper directly.
+  assert.equal(edge("h.js::install/onFit", "h.js::helper").kind, "call");
+  assert.equal(edge("h.js::install/onLabels", "h.js::helper").kind, "call");
+  assert.equal(edge("h.js::install", "h.js::helper"), undefined);
+});
+
+test("an object literal property already bound to a name is not declared twice", () => {
+  const root = fixture({
+    "b.js": `
+      export const helper = () => 1;
+      export function install(target) {
+        target.wire({ onFit: helper });
+      }
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  assert.equal(doc.declarations.some((d) => d.id === "b.js::install/onFit"), false);
+  const edge = doc.edges.find((e) => e.source === "b.js::install" && e.target === "b.js::helper");
+  assert.equal(edge.kind, "reference"); // helper is handed off, not declared again
+});
+
 test("CommonJS exports are declarations of the module", () => {
   const root = fixture({
     "cjs.js": `

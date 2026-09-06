@@ -3,7 +3,7 @@
   "name": "d3-force",
   "root": "node_modules/d3-force",
   "language": "javascript",
-  "generatedAt": "2026-09-06T12:02:35.143Z",
+  "generatedAt": "2026-09-06T13:13:49.251Z",
   "analyzer": "analyzers/ts@0.3.0",
   "files": 12
  },
@@ -151,6 +151,114 @@
    "line": 16,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/simulation.js::default/alpha",
+   "name": "alpha",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 101,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/alphaDecay",
+   "name": "alphaDecay",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 109,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/alphaMin",
+   "name": "alphaMin",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 105,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/alphaTarget",
+   "name": "alphaTarget",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 113,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/find",
+   "name": "find",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 129,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/force",
+   "name": "force",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 125,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/nodes",
+   "name": "nodes",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 97,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/on",
+   "name": "on",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 152,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/randomSource",
+   "name": "randomSource",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 121,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/restart",
+   "name": "restart",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 89,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/stop",
+   "name": "stop",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 93,
+   "parent": "src/simulation.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/simulation.js::default/velocityDecay",
+   "name": "velocityDecay",
+   "kind": "function",
+   "file": "src/simulation.js",
+   "line": 117,
+   "parent": "src/simulation.js::default",
+   "exported": false
   },
   {
    "id": "src/simulation.js::initialAngle",

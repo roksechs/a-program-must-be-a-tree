@@ -16,7 +16,7 @@ import { extname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 
-export const ANALYZER_VERSION = "0.3.0";
+export const ANALYZER_VERSION = "0.4.0";
 const EXTENSIONS = new Set([".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".mts", ".cts"]);
 const DEFAULT_EXCLUDES = ["node_modules", ".git", "dist", "build", "coverage", "vendor"];
 
@@ -652,47 +652,73 @@ export function analyze(options) {
     for (const body of d.bodyNodes) walk(body, false);
   }
 
-  // Pass 1d (option `nested`): local functions as declarations. A named function
-  // inside a body is the local definition that Definition 10 of docs/THEORY.md
-  // speaks of; with the option on it becomes a node whose parent is the
-  // enclosing declaration (id `<parent>/<name>`), so a large function made of
-  // closures can be diagnosed the way a module is. Off by default: the default
-  // graph is the module-level `letrec`.
-  if (options.nested) {
-    const nest = (d) => {
-      const ctx = ctxOf.get(d.file);
-      const found = [];
-      const walk = (node) => {
-        let e = null;
-        if (node !== d.node && ts.isFunctionDeclaration(node) && node.name) {
-          e = ctx.add(node, node.name.text, "function", d, false, [node], node.name, "/");
-        } else if (node !== d.node && ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer && isFunctionLike(unwrap(node.initializer))) {
-          const init = unwrap(node.initializer);
-          e = ctx.add(node, node.name.text, ts.isClassExpression(init) ? "class" : "function", d, false, [init], node.name, "/");
+  // Pass 1d: local declarations. Two kinds share one walk, but only one of
+  // them needs the `nested` option:
+  //
+  //  - A function-like value written as a property of an object literal
+  //    (`{ onFit: () => {…} }`) is unconditionally a declaration. ECMAScript
+  //    names it by NamedEvaluation exactly as it would a variable initialiser
+  //    (`{ onFit: … }.onFit.name === "onFit"`, same rule as `const onFit =
+  //    () => {}`), so it was never truly anonymous - only unnamed by the
+  //    older, narrower pattern this walk used to match. And unlike a store
+  //    (`el.cb = fn`, `el` a value, docs/THEORY.md §4.2 Definition 9a) it
+  //    cannot be read back through an alias someone else holds: when the
+  //    literal itself has no path of its own (typically because it is a bare
+  //    call argument, `new Panel(host, state, { onFit, onLabels, … })`), the
+  //    only way to reach the value at all is the one place that constructed
+  //    it, so nothing is lost by naming it there. Its parent is therefore the
+  //    declaration doing the constructing, id `<parent>/<key>` - the same
+  //    shape as the local declarations below, because the reasoning is the
+  //    same: a name with exactly one possible home.
+  //  - A named local function, a `const x = () => {}`, or a local class is
+  //    *additionally* promoted to its own node under the `nested` option:
+  //    Definition 10 of docs/THEORY.md. Off by default, because unlike the
+  //    case above this closure's body never leaves the declaration that
+  //    wrote it - the default graph is the module-level `letrec`, and this
+  //    is only ever more of that one declaration's own code.
+  const nestLocal = (d) => {
+    const ctx = ctxOf.get(d.file);
+    const found = [];
+    const walk = (node) => {
+      let e = null;
+      if (node !== d.node && ts.isPropertyAssignment(node) && isFunctionLike(unwrap(node.initializer))) {
+        const init = unwrap(node.initializer);
+        const name = memberName(node.name);
+        if (name && !declByNode.has(init)) {
+          e = ctx.add(node, name, ts.isClassExpression(init) ? "class" : "function", d, false, [init], node.name, "/");
           if (ts.isClassExpression(init)) ctx.addClassMembers(init, e);
-        } else if (node !== d.node && ts.isClassDeclaration(node) && node.name) {
-          e = ctx.add(node, node.name.text, "class", d, false, [], node.name, "/");
-          if (node.heritageClauses) e.bodyNodes.push(...node.heritageClauses);
-          ctx.addClassMembers(node, e);
         }
-        if (e) {
-          e.local = true;
-          attach(ctx, e);
-          attachNew(ctx);
-          found.push(e);
-          return; // its own body is walked when it is nested in turn
-        }
-        ts.forEachChild(node, (child) => {
-          const nested = declByNode.get(child);
-          if (nested && nested !== d) return;
-          walk(child);
-        });
-      };
-      for (const body of d.bodyNodes) walk(body);
-      for (const e of found) nest(e);
+      } else if (node !== d.node && ts.isObjectLiteralExpression(node.parent) && (ts.isMethodDeclaration(node) || ts.isGetAccessorDeclaration(node) || ts.isSetAccessorDeclaration(node))) {
+        const name = memberName(node.name);
+        if (name) e = ctx.add(node, name, "function", d, false, [node], node.name, "/");
+      } else if (options.nested && node !== d.node && ts.isFunctionDeclaration(node) && node.name) {
+        e = ctx.add(node, node.name.text, "function", d, false, [node], node.name, "/");
+      } else if (options.nested && node !== d.node && ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer && isFunctionLike(unwrap(node.initializer))) {
+        const init = unwrap(node.initializer);
+        e = ctx.add(node, node.name.text, ts.isClassExpression(init) ? "class" : "function", d, false, [init], node.name, "/");
+        if (ts.isClassExpression(init)) ctx.addClassMembers(init, e);
+      } else if (options.nested && node !== d.node && ts.isClassDeclaration(node) && node.name) {
+        e = ctx.add(node, node.name.text, "class", d, false, [], node.name, "/");
+        if (node.heritageClauses) e.bodyNodes.push(...node.heritageClauses);
+        ctx.addClassMembers(node, e);
+      }
+      if (e) {
+        e.local = true;
+        attach(ctx, e);
+        attachNew(ctx);
+        found.push(e);
+        return; // its own body is walked when it is nested in turn
+      }
+      ts.forEachChild(node, (child) => {
+        const nested = declByNode.get(child);
+        if (nested && nested !== d) return;
+        walk(child);
+      });
     };
-    for (const d of [...declarations]) nest(d);
-  }
+    for (const body of d.bodyNodes) walk(body);
+    for (const e of found) nestLocal(e);
+  };
+  for (const d of [...declarations]) nestLocal(d);
 
   // ---------------------------------------------------------------------------
   // Class hierarchy: constructor lookup, dispatch (class hierarchy analysis)

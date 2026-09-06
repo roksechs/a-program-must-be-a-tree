@@ -311,20 +311,31 @@ off call-graph topology and knows nothing about `y` itself, so it cannot tell
 a genuinely costly, stateful `y` (worth consolidating at `x`) from a cheap,
 pure one (harmless to reach from several siblings, same as any other shared
 utility) — that judgement is the same one every shared declaration already
-needs (see "Edge kinds" above on `nodeRadius`). Nor can it see through an
-anonymous callback: a handler object's several one-line arrow functions (each
-firing on a different, unrelated user action) are attributed to whichever
-named declaration encloses the object literal, which can make independent
-handlers look like one converging operation. Both are read errors for a
+needs (see "Edge kinds" above on `nodeRadius`). That is a read error for a
 person to make, same as any other finding this tool surfaces, not something
 the metric resolves on its own.
+
+A different, sharper false positive this same finder turned up while running
+on this project itself: a handler object's several one-line arrow functions
+(each firing on a different, unrelated user action, e.g. a property panel's
+`{ onFit, onLabels, onColorBy, … }`) used to be attributed to whichever named
+declaration merely constructed the object literal, making genuinely
+independent handlers look like one converging operation. That was not a
+judgement call left to a person — it was the analyzer failing to name
+something that has a name (docs/THEORY.md §4.1, Definition 9a's "local
+declaration": a function-valued object literal property, passed straight
+into a call with no name of its own in between, is declared and parented to
+the calling declaration, the same as a `--nested` local, because ECMAScript
+already names it by NamedEvaluation and the value never escapes anywhere
+else to be found by control-flow analysis instead). Fixed at the analyzer
+level, not by the metric: `panel -> {onFit, onLabels, …} -> draw` no longer
+appears, because `onFit` and friends are now their own declarations with
+their own, correctly separate, calls to `draw`.
 
 ## Roadmap
 
 * Analyzers for Python, Go and Rust (tree-sitter based) and a `--git` mode that
   records the commit the graph was taken from.
-* Model property stores and anonymous functions in the flow analysis
-  (objects of callbacks, event maps).
 * Collapse a zone into a single node (module-level graph) and expand it again.
 * Highlight the edges that would have to be removed to make the graph a tree
   (the edges with a lift above 0 are already known; draw them apart).

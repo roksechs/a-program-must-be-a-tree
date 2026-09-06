@@ -6,6 +6,37 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Analyzer: a function-valued object literal property is a declaration
+
+* `f({ onFit: () => {…}, onLabels(mode) {…} })` — a handler/options object
+  built inline and passed straight into a call, never assigned to a name in
+  between — used to have its properties' bodies silently folded into
+  whichever declaration made the call, because the analyzer only recognised
+  a function value as nameable when it was the initializer of a variable
+  declaration. `onFit` and `onLabels` here are exactly as named as that
+  case: ECMAScript's own NamedEvaluation gives an object literal's
+  function-valued property the property key as its name
+  (`{ m(){} }.m.name === "m"`), the same rule a `const m = () => {}` relies
+  on, so they were never truly anonymous. And unlike a genuine property
+  *store* (`el.cb = fn` where `el` is a value that can escape and be read
+  back by anyone who later holds it), a bare object literal passed as an
+  argument has exactly one reader, syntactically visible at the call site —
+  so nothing is lost by declaring it. `onFit`/`onLabels` are now their own
+  declarations, `<calling declaration>/<property name>`, the same shape as a
+  `--nested` local declaration and — because the value is handed to another
+  declaration entirely and invoked back by it later, not merely more of the
+  caller's own code — unconditional rather than gated behind `--nested`
+  (docs/THEORY.md §4.1, Definition 9a).
+* This was not a cosmetic fix: on this project's own `self` dataset it
+  changes 203 declarations/431 edges to 243/459, and it changes real
+  third-party code too — analyzing bundled d3 packages picks up 12 more
+  declarations in `d3-force` alone (22 → 34) and 5 more in `d3-zoom`, all
+  previously-invisible event-handler bodies. `analyzers/ts@0.4.0`.
+* Directly fixes the false positive `convergentOperations` (below) found in
+  this project's own property panel wiring: `panel -> {onFit, onLabels,
+  onColorBy, …} -> draw` no longer appears, because those handlers are no
+  longer folded into the `panel` variable that merely constructs them.
+
 ### Diagnostics: `convergentOperations`, a new shared-declaration finding
 
 * `metrics.js` gains `convergentOperations(graph, minWidth = 2)`: finds a
@@ -20,9 +51,12 @@ The section for a version becomes the notes of its GitHub release
   a different kind of. Like every other shared-declaration finding this tool
   surfaces, it only narrows down where to look: it cannot tell a costly,
   stateful convergence worth collapsing into one operation from a cheap,
-  pure one that is completely harmless to reach from several siblings, and
-  it can be misled by an anonymous callback's calls all being attributed to
-  the declaration that encloses the object literal defining it.
+  pure one that is completely harmless to reach from several siblings — that
+  judgement is still a person's to make. Running it also turned up a real
+  false positive of a different kind, from the analyzer misattributing an
+  object literal's callback properties (`panel -> {onFit, onLabels, …} ->
+  draw`) rather than from any ambiguity `convergentOperations` itself has to
+  weigh; see the analyzer fix above, which removes it.
 
 ### Viewer: node radius is a model field, not a borrowed function
 

@@ -3,7 +3,7 @@
   "name": "d3-zoom",
   "root": "node_modules/d3-zoom",
   "language": "javascript",
-  "generatedAt": "2026-09-06T12:02:36.854Z",
+  "generatedAt": "2026-09-06T13:13:51.982Z",
   "analyzer": "analyzers/ts@0.3.0",
   "files": 6
  },
@@ -192,6 +192,51 @@
    "exported": true
   },
   {
+   "id": "src/zoom.js::default/emit",
+   "name": "emit",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 217,
+   "parent": "src/zoom.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/zoom.js::default/end",
+   "name": "end",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 210,
+   "parent": "src/zoom.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/zoom.js::default/event",
+   "name": "event",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 191,
+   "parent": "src/zoom.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/zoom.js::default/start",
+   "name": "start",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 195,
+   "parent": "src/zoom.js::default",
+   "exported": false
+  },
+  {
+   "id": "src/zoom.js::default/zoom",
+   "name": "zoom",
+   "kind": "function",
+   "file": "src/zoom.js",
+   "line": 202,
+   "parent": "src/zoom.js::default",
+   "exported": false
+  },
+  {
    "id": "src/zoom.js::defaultConstrain",
    "name": "defaultConstrain",
    "kind": "function",
@@ -312,13 +357,6 @@
   },
   {
    "source": "src/zoom.js::default",
-   "target": "src/event.js::ZoomEvent",
-   "kind": "create",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "src/zoom.js::default",
    "target": "src/noevent.js::default",
    "kind": "call",
    "count": 5,
@@ -424,6 +462,42 @@
    "source": "src/zoom.js::default",
    "target": "src/zoom.js::defaultWheelDelta",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default/emit",
+   "target": "src/event.js::ZoomEvent",
+   "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default/end",
+   "target": "src/zoom.js::default/emit",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default/start",
+   "target": "src/zoom.js::default/emit",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default/zoom",
+   "target": "src/transform.js::Transform.invert",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/zoom.js::default/zoom",
+   "target": "src/zoom.js::default/emit",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },

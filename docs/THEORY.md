@@ -200,10 +200,16 @@ they flow through local bindings, through the parameters of declared callees
 (including dispatched method targets) and through the return values of
 declared functions, to a fixed point. A call whose callee evaluates to a
 declared function produces a `call` edge marked `inferred` from the
-declaration that contains the operator position. Property stores, anonymous
-functions and external callees are not modelled, so a callback handed to a
-library function keeps its `reference` edge and nothing else: the analysis
-is sound for what it claims and silent otherwise.
+declaration that contains the operator position. Property stores (§4.1,
+Definition 9a) and external callees are not modelled, so a callback stored
+into an object that escapes, or handed to a function this analyzer never
+sees the body of, keeps its `reference` edge and nothing else. A
+function-like value that names a slot — a variable initializer or an object
+literal property, escaping or not — is declared (Definition 9a) and enters
+the CFA exactly like any other function; only a value that never occupies a
+named slot at all, such as a bare `arr.map(x => f(x))` argument, has no
+declaration to flow as. The analysis is sound for what it claims and silent
+otherwise.
 
 ### 3.3 Tail position and the continuation view
 
@@ -356,13 +362,40 @@ can be the target of an edge. Hence:
   enclosing body has run: the initialisation hazard above in another
   costume. It is a declaration flagged `late`, with a `reference` edge from
   the declaration that installs it.
-* *Store*: `P` denotes a value. Nothing is declared. The closure escapes
+* *Store*: `P` denotes a value that can escape — a parameter, `this`, a local
+  that outlives this statement. Nothing is declared. The closure escapes
   into the slot (Fact 3), the enclosing declaration keeps the closure's
   body and gets the edges its body makes, and whoever eventually applies
-  the value is found by control-flow analysis (§3.2), never by name.
+  the value is found by control-flow analysis (§3.2), never by name — because
+  any code that later gets hold of the same object can read `P.m` back, so no
+  single declaration is "the" one that will call it.
+* *Local declaration*: `P` denotes a value with no path *and no escape* — a
+  bare object literal passed whole, as an argument, straight into a call or
+  constructor, never assigned to a name in between (`f({ m: e })`, not
+  `const o = { m: e }; f(o)`). Unlike a store, this value has exactly one
+  reader, syntactically visible at the call itself: whichever parameter of
+  the callee receives it. Its function-valued properties are therefore
+  declared after all, named by the property key — ECMAScript's own
+  NamedEvaluation already gives them that name at just this position
+  (`{ m(){} }.m.name === "m"`, the same rule a variable initializer uses,
+  so this was never truly the "anonymous function" §3.2 disclaims) — parented
+  to whichever declaration performs the call, id `<parent>/<m>`. This is the
+  same shape as a `--nested` local declaration (Definition 10) and, unlike
+  it, is not gated behind that option: a `--nested` local never leaves the
+  declaration that wrote it, while a value handed to another declaration this
+  way is invoked back by *that* declaration, at a genuinely different time —
+  folding it into the caller, the module-level `letrec`'s usual
+  simplification, would misattribute every call the handler itself makes to
+  whoever merely constructed it.
 
 Treating the late case as a declaration rather than a store is a design
-decision, not a consequence of the calculus; the flag keeps it visible.
+decision, not a consequence of the calculus; the flag keeps it visible. The
+same is true of local declarations: nothing forces the choice, but leaving a
+handed-off closure's calls attributed to its installer is worse than the
+inaccuracy `--nested` accepts by default, because the installer is not simply
+approximating "this closure's code" the way a flattened module-level view
+approximates a function's own internals — it is a different declaration
+entirely, doing a different thing, that just happens to run first.
 
 "Namespace" is thus the name we give an object whose slots are only ever
 written at definition time, and the class/object distinction of section 5 is
@@ -431,6 +464,7 @@ an object is a fixed point `fix(gen_C)`. Under this reading:
 | `d3.scale.linear = …`, `d3` undeclared     | binding on a global             | none        | declares `d3.scale.linear`, parent `d3.scale` once that is bound |
 | `app.h = function () {…}` inside a body    | late binding (Definition 9a)    | `reference` | member `h` flagged `late`; installer → `h` |
 | `el.cb = function () {…}`, `el` a value    | store: the closure escapes      | none        | no declaration; the body belongs to the enclosing declaration |
+| `f({ m: function () {…} })`, argument      | local declaration (Definition 9a) | none      | declares `m`, parent = the declaration calling `f` |
 | `o.m(a)`, `o` untyped                      | `(o.m) a`                       | `call`      | `m` by name path or `this`, else every instance member `m` (inferred) |
 
 `f.bind(o)` deserves a note: `f` is the receiver of a projection whose result
