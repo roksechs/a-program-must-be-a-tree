@@ -45,15 +45,21 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `dominance.js`  | Dominator tree of the condensed graph: the deepest nesting the program admits, and the lift of every edge. |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
-| `graph2d.js`    | SVG renderer: zoom/pan, drag, arrows, hulls, labels, selection. |
-| `graph3d.js`    | Canvas renderer: same x/y, z = call height, orbit camera, layer planes. |
+| `graph2d.js`    | SVG renderer: zoom/pan, drag, arrows, hulls, labels, selection. Used by the article's live figures, not the main viewer (see below). |
+| `graph3d.js`    | Canvas renderer: same x/y, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The main viewer's only renderer. |
 | `panel.js`      | Property panel (controls + diagnostics + selection details). |
 | `app.js`        | Data loading and wiring. |
 | `markdown.js`   | Small Markdown renderer for the article chapters (escaped, no raw HTML; `<!-- key: value -->` comments are page directives). |
 | `article.js`    | The article page (`article.html`): chapters from `content/<lang>/`, each with the live graphs its directives ask for, rendered by the same modules on the same datasets as the viewer. |
 
-Both renderers read the same node objects, so switching between 2D and 3D does
-not restart the simulation and the user does not lose the layout.
+The main viewer (`index.html`) only ever renders in 3D: a 2D renderer without
+perspective is exactly `graph3d.js`'s own Top view (`viewTop()`), so keeping a
+second SVG renderer wired into the main viewer alongside it would be two ways
+to draw the same picture, and the SVG one is the heavier of the two once a
+graph has any size. `graph2d.js` remains for the article's live figures, which
+still contrast the two renderings side by side as a teaching device; both
+renderers read the same node objects, so a figure switching between them does
+not restart the simulation or lose the layout.
 
 ## Physics
 
@@ -87,8 +93,13 @@ Nothing defines a centre. Two attempts at one were removed:
   plane where no point should be special.
 
 Where the graph sits is therefore a question for the camera, not the physics:
-"Fit to view" (also applied when a run settles) frames whatever the simulation
-produced.
+"Fit to view" frames whatever the simulation produced, and the app applies it
+on its own the same way after a fresh load and when a run settles — but only
+until the user orbits, pans, zooms or focuses a node by hand
+(`Graph3D#userAdjusted`). A run can now take a while to settle (see
+`alphaDecay` above), long enough for the user to have framed their own view of
+it in the meantime, so an automatic fit at whatever moment it happens to end
+must not override a camera they already took hold of.
 
 Directories and files have no influence on the physics: no force reads the
 containers, and the initial positions are seeded on a spiral in declaration
@@ -99,6 +110,19 @@ directory ended up.
 "Recompute" resets the simulation alpha to 1 (reheat), "Reset positions"
 re-seeds the coordinates first. Dragging a node pins it while the pointer is
 down.
+
+Changing a physics parameter or an edge kind's toggle applies immediately —
+the spring set and the force strengths are updated right away — but does not
+itself reheat: a layout the user has been looking at should not be flung back
+into motion just for touching a slider or a checkbox while exploring which
+edge kinds to look at. If the simulation is still cooling from a previous run
+the new values simply take effect on its very next tick; the explicit
+"Recompute (reheat)" button is how to ask for a fresh layout under the
+current parameters. `alphaDecay` is also tuned well below d3's own default
+(0.0228, ~300 ticks) so a run stays warm for roughly 1200 ticks instead —
+long enough, on a graph of any size, for repulsion and every edge kind's
+springs to actually settle into a stable shape rather than cooling on top of
+one that is still rearranging itself.
 
 ## Zones
 
@@ -189,10 +213,21 @@ evaluation contexts, is derived in `THEORY.md`. The Edges section of the
 panel has one switch per kind: an enabled kind is drawn, acts as a spring in
 the physics and counts for degrees, call heights and the diagnostics; a
 disabled kind does none of these, so the picture, the layout and the numbers
-always describe the same graph. Type-level edges are off by default. Edges
-found by analysis rather than written at that spot (dispatched overrides,
-callbacks resolved by flow analysis, and the candidates of a call through a
-union type or a record indexed at run time) are dashed.
+always describe the same graph. Every kind starts enabled (see `write`,
+below, for the one worth turning back off on some graphs). Edges found by
+analysis rather than written at that spot (dispatched overrides, callbacks
+resolved by flow analysis, and the candidates of a call through a union type
+or a record indexed at run time) are dashed.
+
+Two edges of different kinds between the same pair of nodes never draw on
+top of each other: every kind bows a different amount away from the straight
+line between its endpoints (`colors.js`'s `edgeBowOffset`, evenly spread and
+centred on zero across `EDGE_KINDS`), a generalisation of the read/write bow
+described below. Left overlapping, two differently-coloured, semi-transparent
+strokes on the same pixels blend into a colour that matches neither kind's
+legend swatch — which is what an edge kind sharing a pair with a much more
+common one (`call`, typically) used to look like before every kind got its
+own offset.
 
 A declaration counts as a root only when nothing reaches it, so the analyzer
 has to resolve the indirect calls a codebase actually uses, or perfectly live
@@ -207,10 +242,11 @@ All structural diagnostics, the degrees and the call heights are computed on
 the edge kinds enabled in the Edges section, the same set that is drawn and
 that pulls in the physics. Disable `reference` to diagnose the control graph
 (`call` + `create`) of `THEORY.md` §7. `write` edges run backwards (a
-variable to whoever assigns it) and are off by default for exactly that
-reason: mixing a reversed edge into these diagnostics without noticing would
-misread the dominator tree, so `write` is left as its own lens (`THEORY.md`
-§3.5, §7).
+variable to whoever assigns it), which starts enabled like every other kind
+but is the one worth turning back off if it confuses a dominator-tree-based
+reading of the diagnostics: mixing a reversed edge into these numbers without
+noticing would misread the tree, so `write` is its own lens (`THEORY.md`
+§3.5, §7) that the toggle makes it easy to set aside.
 
 For `n` nodes, `m` control edges and `c` weakly connected components:
 

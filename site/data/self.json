@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-06T08:23:42.661Z",
+  "generatedAt": "2026-09-06T09:56:14.993Z",
   "analyzer": "analyzers/ts@0.3.0",
   "files": 24
  },
@@ -319,7 +319,7 @@
    "name": "app",
    "kind": "module",
    "file": "site/js/app.js",
-   "line": 41,
+   "line": 40,
    "parent": null,
    "exported": false
   },
@@ -328,7 +328,7 @@
    "name": "applyKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 152,
+   "line": 146,
    "parent": null,
    "exported": false
   },
@@ -337,7 +337,7 @@
    "name": "applyStaticTranslations",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 57,
+   "line": 56,
    "parent": null,
    "exported": false
   },
@@ -346,7 +346,7 @@
    "name": "ensureTicking",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 206,
+   "line": 193,
    "parent": null,
    "exported": false
   },
@@ -355,7 +355,7 @@
    "name": "installGraph",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 220,
+   "line": 207,
    "parent": null,
    "exported": false
   },
@@ -364,7 +364,7 @@
    "name": "languageSelect",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 37,
+   "line": 36,
    "parent": null,
    "exported": false
   },
@@ -373,7 +373,7 @@
    "name": "value",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 53,
+   "line": 52,
    "parent": "site/js/app.js::languageSelect",
    "exported": false
   },
@@ -382,7 +382,7 @@
    "name": "loadDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 256,
+   "line": 249,
    "parent": null,
    "exported": false
   },
@@ -391,7 +391,7 @@
    "name": "loadFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 275,
+   "line": 268,
    "parent": null,
    "exported": false
   },
@@ -400,7 +400,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 290,
+   "line": 283,
    "parent": null,
    "exported": false
   },
@@ -409,7 +409,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 304,
+   "line": 297,
    "parent": null,
    "exported": false
   },
@@ -418,7 +418,16 @@
    "name": "panel",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 99,
+   "line": 91,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::renderer",
+   "name": "renderer",
+   "kind": "variable",
+   "file": "site/js/app.js",
+   "line": 63,
    "parent": null,
    "exported": false
   },
@@ -427,16 +436,7 @@
    "name": "rendererCallbacks",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 70,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/app.js::renderers",
-   "name": "renderers",
-   "kind": "variable",
-   "file": "site/js/app.js",
-   "line": 64,
+   "line": 65,
    "parent": null,
    "exported": false
   },
@@ -445,7 +445,7 @@
    "name": "savedLanguage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 40,
+   "line": 39,
    "parent": null,
    "exported": false
   },
@@ -454,16 +454,7 @@
    "name": "setStatus",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 182,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/app.js::setView",
-   "name": "setView",
-   "kind": "function",
-   "file": "site/js/app.js",
-   "line": 167,
+   "line": 170,
    "parent": null,
    "exported": false
   },
@@ -472,7 +463,7 @@
    "name": "stage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 34,
+   "line": 33,
    "parent": null,
    "exported": false
   },
@@ -481,7 +472,7 @@
    "name": "state",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 13,
+   "line": 12,
    "parent": null,
    "exported": false
   },
@@ -490,7 +481,7 @@
    "name": "status",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 36,
+   "line": 35,
    "parent": null,
    "exported": false
   },
@@ -499,7 +490,7 @@
    "name": "statusMessage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 181,
+   "line": 169,
    "parent": null,
    "exported": false
   },
@@ -508,7 +499,7 @@
    "name": "ticking",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 205,
+   "line": 192,
    "parent": null,
    "exported": false
   },
@@ -517,7 +508,7 @@
    "name": "tooltip",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 35,
+   "line": 34,
    "parent": null,
    "exported": false
   },
@@ -526,7 +517,7 @@
    "name": "updateZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 175,
+   "line": 163,
    "parent": null,
    "exported": false
   },
@@ -675,22 +666,22 @@
    "exported": false
   },
   {
-   "id": "site/js/colors.js::CURVE_OFFSET",
-   "name": "CURVE_OFFSET",
+   "id": "site/js/colors.js::BOW_STEP",
+   "name": "BOW_STEP",
    "kind": "variable",
    "file": "site/js/colors.js",
-   "line": 48,
+   "line": 53,
    "parent": null,
    "exported": false
   },
   {
-   "id": "site/js/colors.js::curveOffset",
-   "name": "curveOffset",
-   "kind": "function",
+   "id": "site/js/colors.js::EDGE_BOW",
+   "name": "EDGE_BOW",
+   "kind": "variable",
    "file": "site/js/colors.js",
-   "line": 50,
+   "line": 54,
    "parent": null,
-   "exported": true
+   "exported": false
   },
   {
    "id": "site/js/colors.js::EDGE_COLORS",
@@ -698,6 +689,15 @@
    "kind": "variable",
    "file": "site/js/colors.js",
    "line": 29,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/colors.js::edgeBowOffset",
+   "name": "edgeBowOffset",
+   "kind": "function",
+   "file": "site/js/colors.js",
+   "line": 66,
    "parent": null,
    "exported": true
   },
@@ -715,7 +715,7 @@
    "name": "heightColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 55,
+   "line": 76,
    "parent": null,
    "exported": true
   },
@@ -778,7 +778,7 @@
    "name": "applyHighlight",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 259,
+   "line": 264,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -796,7 +796,7 @@
    "name": "fit",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 300,
+   "line": 305,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -805,7 +805,7 @@
    "name": "focusOn",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 314,
+   "line": 319,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -814,7 +814,7 @@
    "name": "neighbourSet",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 242,
+   "line": 247,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -823,7 +823,7 @@
    "name": "nodeFill",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 156,
+   "line": 161,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -832,7 +832,7 @@
    "name": "refreshLabels",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 219,
+   "line": 224,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -850,7 +850,7 @@
    "name": "restyle",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 170,
+   "line": 175,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -859,7 +859,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 252,
+   "line": 257,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -868,7 +868,7 @@
    "name": "setColorBy",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 164,
+   "line": 169,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -886,7 +886,7 @@
    "name": "setLabelMode",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 213,
+   "line": 218,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -895,7 +895,7 @@
    "name": "setVisibleKinds",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 223,
+   "line": 228,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -904,7 +904,7 @@
    "name": "setZones",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 183,
+   "line": 188,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -913,7 +913,7 @@
    "name": "show",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 321,
+   "line": 326,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -922,7 +922,7 @@
    "name": "tick",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 275,
+   "line": 280,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -931,7 +931,7 @@
    "name": "updateLabelVisibility",
    "kind": "method",
    "file": "site/js/graph2d.js",
-   "line": 228,
+   "line": 233,
    "parent": "site/js/graph2d.js::Graph2D",
    "exported": false
   },
@@ -940,7 +940,7 @@
    "name": "linkPath",
    "kind": "function",
    "file": "site/js/graph2d.js",
-   "line": 332,
+   "line": 337,
    "parent": null,
    "exported": false
   },
@@ -958,7 +958,7 @@
    "name": "clampPitch",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 521,
+   "line": 601,
    "parent": null,
    "exported": false
   },
@@ -967,7 +967,7 @@
    "name": "drawArrow",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 535,
+   "line": 614,
    "parent": null,
    "exported": false
   },
@@ -994,7 +994,7 @@
    "name": "bindEvents",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 94,
+   "line": 108,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1012,7 +1012,7 @@
    "name": "draw",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 302,
+   "line": 365,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1021,7 +1021,7 @@
    "name": "fit",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 458,
+   "line": 521,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1030,7 +1030,7 @@
    "name": "focusOn",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 497,
+   "line": 559,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1039,7 +1039,7 @@
    "name": "hitTest",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 273,
+   "line": 336,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1048,7 +1048,7 @@
    "name": "neighbourSet",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 287,
+   "line": 350,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1057,7 +1057,7 @@
    "name": "project",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 243,
+   "line": 299,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1066,7 +1066,7 @@
    "name": "resize",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 167,
+   "line": 222,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1075,7 +1075,7 @@
    "name": "restyle",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 197,
+   "line": 253,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1084,7 +1084,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 227,
+   "line": 283,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1093,7 +1093,7 @@
    "name": "setColorBy",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 207,
+   "line": 263,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1102,7 +1102,7 @@
    "name": "setGraph",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 180,
+   "line": 235,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1111,7 +1111,7 @@
    "name": "setLabelMode",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 202,
+   "line": 258,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1120,7 +1120,7 @@
    "name": "setLayerGap",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 217,
+   "line": 273,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1129,7 +1129,7 @@
    "name": "setShowLayers",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 222,
+   "line": 278,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1138,7 +1138,7 @@
    "name": "setVisibleKinds",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 212,
+   "line": 268,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1147,7 +1147,7 @@
    "name": "setZones",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 191,
+   "line": 247,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1156,7 +1156,7 @@
    "name": "show",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 509,
+   "line": 589,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1165,7 +1165,16 @@
    "name": "tick",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 297,
+   "line": 360,
+   "parent": "site/js/graph3d.js::Graph3D",
+   "exported": false
+  },
+  {
+   "id": "site/js/graph3d.js::Graph3D.viewTop",
+   "name": "viewTop",
+   "kind": "method",
+   "file": "site/js/graph3d.js",
+   "line": 582,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1174,7 +1183,7 @@
    "name": "zOf",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 269,
+   "line": 332,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1300,7 +1309,7 @@
    "name": "CONTROL_KINDS",
    "kind": "variable",
    "file": "site/js/kinds.js",
-   "line": 11,
+   "line": 13,
    "parent": null,
    "exported": true
   },
@@ -1309,7 +1318,7 @@
    "name": "DEFAULT_OFF_KINDS",
    "kind": "variable",
    "file": "site/js/kinds.js",
-   "line": 8,
+   "line": 10,
    "parent": null,
    "exported": true
   },
@@ -1561,7 +1570,7 @@
    "name": "setDataInfo",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 203,
+   "line": 202,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1570,7 +1579,7 @@
    "name": "setDatasets",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 192,
+   "line": 191,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1579,7 +1588,7 @@
    "name": "setMaxDepth",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 212,
+   "line": 207,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1588,7 +1597,7 @@
    "name": "setMetrics",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 219,
+   "line": 214,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1597,16 +1606,7 @@
    "name": "setSelection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 272,
-   "parent": "site/js/panel.js::Panel",
-   "exported": false
-  },
-  {
-   "id": "site/js/panel.js::Panel.setView",
-   "name": "setView",
-   "kind": "method",
-   "file": "site/js/panel.js",
-   "line": 208,
+   "line": 267,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1624,7 +1624,7 @@
    "name": "applyPhysics",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 92,
+   "line": 97,
    "parent": null,
    "exported": true
   },
@@ -1633,7 +1633,7 @@
    "name": "createSimulation",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 80,
+   "line": 85,
    "parent": null,
    "exported": true
   },
@@ -1651,7 +1651,7 @@
    "name": "forceSpring",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 23,
+   "line": 28,
    "parent": null,
    "exported": true
   },
@@ -1660,7 +1660,7 @@
    "name": "nodeRadius",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 100,
+   "line": 105,
    "parent": null,
    "exported": true
   },
@@ -1669,7 +1669,7 @@
    "name": "seedPositions",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 110,
+   "line": 115,
    "parent": null,
    "exported": true
   },
@@ -2172,19 +2172,12 @@
    "source": "site/js/app.js::<module>",
    "target": "site/js/app.js::panel",
    "kind": "reference",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
    "source": "site/js/app.js::<module>",
-   "target": "site/js/app.js::renderers",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::<module>",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
    "count": 3,
    "time": "use"
@@ -2205,13 +2198,6 @@
   },
   {
    "source": "site/js/app.js::<module>",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::<module>",
    "target": "site/js/app.js::statusMessage",
    "kind": "reference",
    "count": 2,
@@ -2219,26 +2205,10 @@
   },
   {
    "source": "site/js/app.js::<module>",
-   "target": "site/js/graph2d.js::Graph2D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::<module>",
    "target": "site/js/graph2d.js::Graph2D.select",
    "kind": "call",
    "count": 1,
    "time": "definition",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::<module>",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
    "inferred": true
   },
   {
@@ -2253,8 +2223,7 @@
    "target": "site/js/graph3d.js::Graph3D.resize",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::<module>",
@@ -2269,15 +2238,7 @@
    "target": "site/js/graph3d.js::Graph3D.select",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::<module>",
-   "target": "site/js/graph3d.js::Graph3D.show",
-   "kind": "call",
-   "count": 1,
-   "time": "definition"
+   "time": "use"
   },
   {
    "source": "site/js/app.js::<module>",
@@ -2337,13 +2298,6 @@
    "inferred": true
   },
   {
-   "source": "site/js/app.js::<module>",
-   "target": "site/js/panel.js::Panel.setView",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
    "source": "site/js/app.js::applyKinds",
    "target": "site/js/app.js::panel",
    "kind": "reference",
@@ -2352,7 +2306,7 @@
   },
   {
    "source": "site/js/app.js::applyKinds",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
    "count": 3,
    "time": "use"
@@ -2361,40 +2315,22 @@
    "source": "site/js/app.js::applyKinds",
    "target": "site/js/app.js::state",
    "kind": "reference",
-   "count": 14,
+   "count": 11,
    "time": "use"
-  },
-  {
-   "source": "site/js/app.js::applyKinds",
-   "target": "site/js/graph2d.js::Graph2D.restyle",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::applyKinds",
-   "target": "site/js/graph2d.js::Graph2D.setVisibleKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
   },
   {
    "source": "site/js/app.js::applyKinds",
    "target": "site/js/graph3d.js::Graph3D.restyle",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::applyKinds",
    "target": "site/js/graph3d.js::Graph3D.setVisibleKinds",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::applyKinds",
@@ -2454,7 +2390,7 @@
   },
   {
    "source": "site/js/app.js::ensureTicking",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
    "count": 1,
    "time": "use"
@@ -2463,7 +2399,7 @@
    "source": "site/js/app.js::ensureTicking",
    "target": "site/js/app.js::state",
    "kind": "reference",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
@@ -2489,9 +2425,9 @@
   },
   {
    "source": "site/js/app.js::installGraph",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
-   "count": 4,
+   "count": 8,
    "time": "use"
   },
   {
@@ -2505,7 +2441,7 @@
    "source": "site/js/app.js::installGraph",
    "target": "site/js/app.js::state",
    "kind": "reference",
-   "count": 17,
+   "count": 14,
    "time": "use"
   },
   {
@@ -2517,99 +2453,45 @@
   },
   {
    "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.setColorBy",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.setGraph",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.setLabelMode",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.setVisibleKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.tick",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.fit",
    "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.setColorBy",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.setGraph",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.setLabelMode",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.setVisibleKinds",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.tick",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
@@ -2851,16 +2733,9 @@
   },
   {
    "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
-   "count": 8,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::setView",
-   "kind": "call",
-   "count": 1,
+   "count": 9,
    "time": "use"
   },
   {
@@ -2874,7 +2749,7 @@
    "source": "site/js/app.js::panel",
    "target": "site/js/app.js::state",
    "kind": "reference",
-   "count": 21,
+   "count": 16,
    "time": "use"
   },
   {
@@ -2886,83 +2761,38 @@
   },
   {
    "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.focusOn",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.setColorBy",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.setLabelMode",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
    "target": "site/js/graph3d.js::Graph3D.fit",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::panel",
    "target": "site/js/graph3d.js::Graph3D.focusOn",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::panel",
    "target": "site/js/graph3d.js::Graph3D.select",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::panel",
    "target": "site/js/graph3d.js::Graph3D.setColorBy",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::panel",
    "target": "site/js/graph3d.js::Graph3D.setLabelMode",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::panel",
@@ -2974,6 +2804,13 @@
   {
    "source": "site/js/app.js::panel",
    "target": "site/js/graph3d.js::Graph3D.setShowLayers",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/graph3d.js::Graph3D.viewTop",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -3007,15 +2844,36 @@
    "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/app.js::panel",
+   "source": "site/js/app.js::renderer",
+   "target": "site/js/app.js::rendererCallbacks",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::renderer",
+   "target": "site/js/app.js::stage",
    "kind": "reference",
    "count": 1,
-   "time": "use"
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::renderer",
+   "target": "site/js/graph3d.js::Graph3D",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::renderer",
+   "target": "site/js/graph3d.js::Graph3D.constructor",
+   "kind": "create",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::panel",
    "kind": "reference",
    "count": 1,
    "time": "use"
@@ -3043,22 +2901,6 @@
   },
   {
    "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/graph3d.js::Graph3D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::rendererCallbacks",
    "target": "site/js/i18n.js::t",
    "kind": "call",
    "count": 1,
@@ -3070,48 +2912,6 @@
    "kind": "call",
    "count": 1,
    "time": "use"
-  },
-  {
-   "source": "site/js/app.js::renderers",
-   "target": "site/js/app.js::rendererCallbacks",
-   "kind": "call",
-   "count": 2,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::renderers",
-   "target": "site/js/app.js::stage",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::renderers",
-   "target": "site/js/graph2d.js::Graph2D",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::renderers",
-   "target": "site/js/graph2d.js::Graph2D.constructor",
-   "kind": "create",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::renderers",
-   "target": "site/js/graph3d.js::Graph3D",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::renderers",
-   "target": "site/js/graph3d.js::Graph3D.constructor",
-   "kind": "create",
-   "count": 1,
-   "time": "definition"
   },
   {
    "source": "site/js/app.js::savedLanguage",
@@ -3130,82 +2930,6 @@
   {
    "source": "site/js/app.js::setStatus",
    "target": "site/js/i18n.js::t",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/app.js::panel",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/app.js::renderers",
-   "kind": "reference",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph2d.js::Graph2D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph2d.js::Graph2D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph2d.js::Graph2D.show",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph3d.js::Graph3D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph3d.js::Graph3D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph3d.js::Graph3D.show",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/panel.js::Panel.setView",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -3247,7 +2971,7 @@
   },
   {
    "source": "site/js/app.js::updateZones",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
    "count": 1,
    "time": "use"
@@ -3261,19 +2985,10 @@
   },
   {
    "source": "site/js/app.js::updateZones",
-   "target": "site/js/graph2d.js::Graph2D.setZones",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::updateZones",
    "target": "site/js/graph3d.js::Graph3D.setZones",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::updateZones",
@@ -3889,8 +3604,15 @@
    "time": "definition"
   },
   {
-   "source": "site/js/colors.js::curveOffset",
-   "target": "site/js/colors.js::CURVE_OFFSET",
+   "source": "site/js/colors.js::EDGE_BOW",
+   "target": "site/js/colors.js::BOW_STEP",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/colors.js::edgeBowOffset",
+   "target": "site/js/colors.js::EDGE_BOW",
    "kind": "reference",
    "count": 1,
    "time": "use"
@@ -4047,6 +3769,13 @@
   },
   {
    "source": "site/js/graph2d.js::Graph2D.setGraph",
+   "target": "site/js/graph2d.js::Graph2D.focusOn",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph2d.js::Graph2D.setGraph",
    "target": "site/js/graph2d.js::Graph2D.nodeFill",
    "kind": "call",
    "count": 1,
@@ -4056,7 +3785,7 @@
    "source": "site/js/graph2d.js::Graph2D.setGraph",
    "target": "site/js/graph2d.js::Graph2D.select",
    "kind": "call",
-   "count": 1,
+   "count": 2,
    "time": "use"
   },
   {
@@ -4131,7 +3860,7 @@
   },
   {
    "source": "site/js/graph2d.js::linkPath",
-   "target": "site/js/colors.js::curveOffset",
+   "target": "site/js/colors.js::edgeBowOffset",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -4166,16 +3895,23 @@
   },
   {
    "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::Graph3D.focusOn",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
    "target": "site/js/graph3d.js::Graph3D.hitTest",
    "kind": "call",
-   "count": 2,
+   "count": 3,
    "time": "use"
   },
   {
    "source": "site/js/graph3d.js::Graph3D.bindEvents",
    "target": "site/js/graph3d.js::Graph3D.select",
    "kind": "call",
-   "count": 1,
+   "count": 2,
    "time": "use"
   },
   {
@@ -4201,7 +3937,7 @@
   },
   {
    "source": "site/js/graph3d.js::Graph3D.draw",
-   "target": "site/js/colors.js::curveOffset",
+   "target": "site/js/colors.js::edgeBowOffset",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -4397,6 +4133,13 @@
   },
   {
    "source": "site/js/graph3d.js::Graph3D.tick",
+   "target": "site/js/graph3d.js::Graph3D.draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.viewTop",
    "target": "site/js/graph3d.js::Graph3D.draw",
    "kind": "call",
    "count": 1,
@@ -4735,7 +4478,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 49,
+   "count": 46,
    "time": "use"
   },
   {

@@ -1,5 +1,7 @@
 // Colour scales shared by the renderers and the legend.
 /* global d3 */
+import { EDGE_KINDS } from "./kinds.js";
+
 export { EDGE_KINDS, CONTROL_KINDS } from "./kinds.js";
 
 export const KIND_COLORS = {
@@ -41,12 +43,17 @@ export function edgeColor(kind) {
   return EDGE_COLORS[kind] ?? EDGE_COLORS.call;
 }
 
-// How far `reference` and `write` bow away from the straight line, so a
-// `write` edge (variable -> writer) and the `reference` edge for the same
-// pair (writer -> variable, the read half of a compound assignment) fan out
-// instead of drawing on top of each other. Every other kind is 0: the plain
-// line through both centres.
-const EDGE_BOW = { reference: 8, write: -16 };
+// How far each kind bows away from the straight line, so two edges of
+// different kinds between the same pair of nodes (e.g. the `write` and
+// `reference` halves of a compound assignment, or a `call` and an
+// `override` between the same two declarations) fan out instead of drawing
+// on top of each other — which, at the renderers' partial edge opacity,
+// would blend into a colour that matches neither kind and looks like it
+// doesn't match the legend at all. Every kind gets its own offset, evenly
+// spread and centred on 0 (so no kind is left running straight through
+// both centres, indistinguishable from a kind that overlaps it).
+const BOW_STEP = 6;
+const EDGE_BOW = Object.fromEntries(EDGE_KINDS.map((kind, i) => [kind, (i - (EDGE_KINDS.length - 1) / 2) * BOW_STEP]));
 
 /**
  * The bow's control point offset (world units, x/y only): the perpendicular

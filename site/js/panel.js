@@ -11,7 +11,7 @@ export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onView, onPhysics, onReheat, onReset, onFit, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
+   * @param {object} handlers { onDataset, onFile, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -99,11 +99,6 @@ export class Panel {
     );
 
     // View
-    const viewGroup = this.el("div", { class: "segmented" });
-    for (const v of ["2d", "3d"]) {
-      viewGroup.append(this.el("button", { type: "button", "data-view": v, class: s.view === v ? "active" : "", onclick: () => h.onView(v) }, v.toUpperCase()));
-    }
-    this.viewGroup = viewGroup;
     const labelSelect = this.select(
       ["auto", "all", "none"].map((m) => [m, t(`view.labels.${m}`)]),
       s.labelMode,
@@ -120,13 +115,17 @@ export class Panel {
     this.host.append(
       this.section(
         t("section.view"),
-        this.el("div", { class: "control" }, this.el("span", {}, t("view.mode")), viewGroup),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.labels")), labelSelect),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.colourBy")), colorSelect),
         this.layerGap,
         this.el("label", { class: "control" }, this.el("span", {}, t("view.layerPlanes")), layers),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.autoRotate")), rotate),
-        this.el("div", { class: "buttons" }, this.el("button", { type: "button", onclick: h.onFit }, t("view.fit"))),
+        this.el(
+          "div",
+          { class: "buttons" },
+          this.el("button", { type: "button", onclick: h.onFit }, t("view.fit")),
+          this.el("button", { type: "button", onclick: h.onTop }, t("view.top")),
+        ),
         this.el("p", { class: "muted small" }, t("view.help")),
       ),
     );
@@ -203,10 +202,6 @@ export class Panel {
   setDataInfo(info) {
     this.dataInfo = info;
     this.dataInfoEl.textContent = t("app.dataInfo", info);
-  }
-
-  setView(view) {
-    for (const b of this.viewGroup.children) b.classList.toggle("active", b.dataset.view === view);
   }
 
   setMaxDepth(maxDepth, value) {

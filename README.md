@@ -14,9 +14,11 @@ force-directed graph, and measure how close that graph is to a tree.
   proportional to its length. Those are the only two forces. No point is a
   centre and nothing pulls towards one, so declarations sit close together only
   when edges hold them there.
-* **3D mode** lifts the same layout into three dimensions where the vertical
-  axis is the call height: declarations that only get called sit at the
-  bottom, the deepest callers sit at the top.
+* **The view** lifts the flat x/y layout the physics computes into three
+  dimensions, where the vertical axis is the call height: declarations that
+  only get called sit at the bottom, the deepest callers sit at the top. A
+  Top view preset looks straight down that axis with no perspective — the
+  same x/y layout a 2D-only rendering would show.
 * **Diagnostics** quantify tree-likeness on the enabled edge kinds: spanning
   ratio, acyclicity, single-caller ratio, DAG-ness and locality. They are
   directed: `A -> S <- B` is not a tree, and sharing a declaration between two
@@ -75,8 +77,8 @@ that writes the same JSON; see the data format document.
 |-------------|----------|
 | Data        | bundled datasets, open a local JSON file |
 | Header      | language selector (English / Japanese) |
-| View        | 2D / 3D, label mode, colour by kind or call height, 3D layer gap and planes, auto-rotate, fit |
-| Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics (type-level and write edges are off by default) |
+| View        | label mode, colour by kind or call height, layer gap and planes, auto-rotate, fit, top view (perspective-free, straight down the height axis) |
+| Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |
 | Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
 | Zones       | directory / file depth from 0 (none) through every directory level down to the files |
 | Diagnostics | tree score and its five components, counts, costliest sharing |

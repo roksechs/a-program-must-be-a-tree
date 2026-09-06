@@ -1,8 +1,7 @@
 // Application wiring: loads a dataset, runs the simulation and connects the
-// renderers to the property panel.
+// renderer to the property panel.
 /* global d3 */
 import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
-import { Graph2D } from "./graph2d.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
@@ -11,7 +10,6 @@ import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "
 import { visibleContainers } from "./zones.js";
 
 const state = {
-  view: "2d",
   labelMode: "auto",
   colorBy: "kind",
   layerGap: 80,
@@ -20,8 +18,9 @@ const state = {
   zoneDepth: 2,
   // Enabled edge kinds. An enabled kind is drawn, acts as a spring and counts
   // for degrees, call heights and the diagnostics; a disabled kind does none
-  // of these. Type-level edges are off by default (erased at run time);
-  // write edges are off by default (reversed direction, THEORY.md §7).
+  // of these. Every kind starts enabled (see kinds.js); `write`'s reversed
+  // direction (THEORY.md §7) is the one worth turning back off if it confuses
+  // a dominator-tree-based reading of the diagnostics.
   kinds: new Set(EDGE_KINDS.filter((k) => !DEFAULT_OFF_KINDS.has(k))),
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
@@ -61,18 +60,11 @@ function applyStaticTranslations() {
 }
 applyStaticTranslations();
 
-const renderers = {
-  "2d": new Graph2D(stage, rendererCallbacks()),
-  "3d": new Graph3D(stage, rendererCallbacks()),
-};
-renderers["3d"].show(false);
+const renderer = new Graph3D(stage, rendererCallbacks());
 
 function rendererCallbacks() {
   return {
-    onSelect: (node) => {
-      for (const r of Object.values(renderers)) if (r.selected !== node) r.select?.(node);
-      panel.setSelection(node, state.graph);
-    },
+    onSelect: (node) => panel.setSelection(node, state.graph),
     onDragStart: () => state.sim?.alphaTarget(0.3).restart(),
     onDragEnd: () => state.sim?.alphaTarget(0),
     onHover: (node, event) => {
@@ -99,13 +91,14 @@ function rendererCallbacks() {
 const panel = new Panel(document.getElementById("panel"), state, {
   onDataset: (id) => loadDataset(id),
   onFile: (file) => loadFile(file),
-  onView: (view) => setView(view),
   onPhysics: (key, value) => {
     state.physics[key] = value;
-    if (state.sim) {
-      applyPhysics(state.sim, state.physics);
-      state.sim.alpha(Math.max(state.sim.alpha(), 0.3)).restart();
-    }
+    // Apply the new parameter without forcing a reheat: a settled layout the
+    // user has been looking at should not be flung back into motion just for
+    // touching a slider. If the simulation is still warm the new value takes
+    // effect on its very next tick either way; "Recompute (reheat)" is the
+    // explicit way to ask for a fresh layout.
+    if (state.sim) applyPhysics(state.sim, state.physics);
   },
   onReheat: () => state.sim?.alpha(1).restart(),
   onReset: () => {
@@ -113,14 +106,15 @@ const panel = new Panel(document.getElementById("panel"), state, {
     seedPositions(state.graph);
     state.sim.alpha(1).restart();
   },
-  onFit: () => renderers[state.view].fit(),
+  onFit: () => renderer.fit(),
+  onTop: () => renderer.viewTop(),
   onZones: (depth) => {
     state.zoneDepth = depth;
     updateZones();
   },
   onLabels: (mode) => {
     state.labelMode = mode;
-    for (const r of Object.values(renderers)) r.setLabelMode(mode);
+    renderer.setLabelMode(mode);
   },
   onKinds: (kind, enabled) => {
     if (enabled) state.kinds.add(kind);
@@ -129,53 +123,47 @@ const panel = new Panel(document.getElementById("panel"), state, {
   },
   onColorBy: (mode) => {
     state.colorBy = mode;
-    for (const r of Object.values(renderers)) r.setColorBy(mode);
+    renderer.setColorBy(mode);
   },
   onLayerGap: (gap) => {
     state.layerGap = gap;
-    renderers["3d"].setLayerGap(gap);
+    renderer.setLayerGap(gap);
   },
   onShowLayers: (show) => {
     state.showLayers = show;
-    renderers["3d"].setShowLayers(show);
+    renderer.setShowLayers(show);
   },
   onAutoRotate: (on) => {
     state.autoRotate = on;
-    renderers["3d"].autoRotate = on;
+    renderer.autoRotate = on;
     if (on) ensureTicking();
   },
-  onSelectNode: (node) => renderers[state.view].select(node),
-  onFocusNode: (node) => renderers[state.view].focusOn(node),
+  onSelectNode: (node) => renderer.select(node),
+  onFocusNode: (node) => renderer.focusOn(node),
 });
 
 /** Apply the enabled edge kinds to drawing, springs and diagnostics at once. */
 function applyKinds() {
-  for (const r of Object.values(renderers)) r.setVisibleKinds(state.kinds);
+  renderer.setVisibleKinds(state.kinds);
   state.physics.springKinds = new Set(state.kinds);
   if (state.graph) {
     applyActiveKinds(state.graph, state.kinds);
     panel.setMetrics(state.graph);
-    panel.setSelection(renderers[state.view].selected, state.graph);
-    for (const r of Object.values(renderers)) r.restyle();
+    panel.setSelection(renderer.selected, state.graph);
+    renderer.restyle();
   }
-  if (state.sim) {
-    applyPhysics(state.sim, state.physics);
-    state.sim.alpha(Math.max(state.sim.alpha(), 0.3)).restart();
-  }
-}
-
-function setView(view) {
-  state.view = view;
-  panel.setView(view);
-  for (const [k, r] of Object.entries(renderers)) r.show(k === view);
-  renderers[view].resize();
-  renderers[view].fit();
+  // Drawing, degrees and diagnostics above already reflect the new kinds
+  // immediately; the spring set (below) takes effect on the simulation's own
+  // schedule instead of being forced with a reheat, so switching a kind on or
+  // off while exploring a graph never flings a layout the user just settled
+  // back into motion (see onPhysics for the same reasoning).
+  if (state.sim) applyPhysics(state.sim, state.physics);
 }
 
 function updateZones() {
   if (!state.graph) return;
   const containers = visibleContainers(state.graph, state.zoneDepth);
-  for (const r of Object.values(renderers)) r.setZones(containers);
+  renderer.setZones(containers);
 }
 
 let statusMessage = { key: "app.loading", params: {} };
@@ -196,22 +184,21 @@ onLanguageChange(() => {
   applyStaticTranslations();
   setStatus(statusMessage.key, statusMessage.params);
   panel.refresh();
-  panel.setView(state.view);
-  renderers["3d"].draw();
+  renderer.draw();
 });
 
-// The 3D view redraws on an animation frame while auto-rotating even after the
+// The view redraws on an animation frame while auto-rotating even after the
 // simulation has cooled down.
 let ticking = false;
 function ensureTicking() {
   if (ticking) return;
   ticking = true;
   const frame = () => {
-    if (!state.autoRotate || state.view !== "3d") {
+    if (!state.autoRotate) {
       ticking = false;
       return;
     }
-    renderers["3d"].tick();
+    renderer.tick();
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
@@ -227,12 +214,10 @@ function installGraph(doc, label) {
   state.zoneDepth = Math.min(state.zoneDepth, graph.maxDepth);
   seedPositions(graph);
 
-  for (const r of Object.values(renderers)) {
-    r.setGraph(graph);
-    r.setLabelMode(state.labelMode);
-    r.setColorBy(state.colorBy);
-    r.setVisibleKinds(state.kinds);
-  }
+  renderer.setGraph(graph);
+  renderer.setLabelMode(state.labelMode);
+  renderer.setColorBy(state.colorBy);
+  renderer.setVisibleKinds(state.kinds);
   panel.setMaxDepth(graph.maxDepth, state.zoneDepth);
   panel.setMetrics(graph);
   panel.setSelection(null, graph);
@@ -242,13 +227,21 @@ function installGraph(doc, label) {
   const sim = createSimulation(graph, state.physics);
   let fitted = false;
   sim.on("tick", () => {
-    renderers[state.view].tick();
+    renderer.tick();
     if (!fitted && sim.alpha() < 0.6) {
       fitted = true;
-      renderers[state.view].fit();
+      renderer.fit();
     }
   });
-  sim.on("end", () => renderers[state.view].fit());
+  // Framing the settled layout is a convenience for a hands-off view, not a
+  // standing claim on the camera: once the user has orbited, panned, zoomed
+  // or focused a node by hand (renderer.userAdjusted), a run finishing —
+  // which, at this graph's own pace, can land at any moment the user happens
+  // to be looking at something they set up themselves — must not yank the
+  // camera back to the overview.
+  sim.on("end", () => {
+    if (!renderer.userAdjusted) renderer.fit();
+  });
   state.sim = sim;
   setStatus("app.status", { nodes: graph.nodes.length, edges: graph.links.length });
 }
@@ -318,12 +311,10 @@ async function main() {
   }
 }
 
-window.addEventListener("resize", () => {
-  for (const r of Object.values(renderers)) r.resize();
-});
+window.addEventListener("resize", () => renderer.resize());
 
 d3.select(window).on("keydown", (event) => {
-  if (event.key === "Escape") renderers[state.view].select(null);
+  if (event.key === "Escape") renderer.select(null);
 });
 
 main();

@@ -17,16 +17,20 @@ The section for a version becomes the notes of its GitHub release
   `x = e` does not. A plain function or class stays a `binding` (`THEORY.md`
   §4.1), the degenerate case of a slot with exactly one writer, at
   definition time — `write` is what a variable with more than one becomes.
-* `write` is a new toggle in the Edges section, off by default like `type`:
-  mixing a reversed edge into the control or uses graph without noticing
-  would misread the dominator tree, so it stays its own lens.
-* `reference` and `write` edges now bow into a quadratic curve instead of
-  running straight, through one shared function (`colors.js`'s
-  `edgeBowOffset`) both renderers call: the perpendicular obtained by
-  rotating a seed vector around the segment's own axis, which has no height
-  component regardless of the two ends' heights, so 2D (no height axis at
-  all) and 3D bow through the same offset. The read and write halves of a
-  compound assignment fan out instead of overlapping.
+* `write` is a new toggle in the Edges section, alongside every other kind
+  (every kind, including `write` and `type`, starts enabled — see "Every edge
+  kind enabled by default", below): mixing a reversed edge into the control
+  or uses graph without noticing would misread the dominator tree, so a graph
+  where that matters can turn `write` back off as its own lens.
+* Every edge kind now bows into its own quadratic curve instead of running
+  straight, through one shared function (`colors.js`'s `edgeBowOffset`) both
+  renderers call: the perpendicular obtained by rotating a seed vector around
+  the segment's own axis, which has no height component regardless of the two
+  ends' heights, so 2D (no height axis at all) and 3D bow through the same
+  offset. Originally just `reference` and `write`, so the read and write
+  halves of a compound assignment would fan out instead of overlapping; now
+  every kind gets its own offset (see below), for the same reason applied to
+  every pair of kinds that can share two nodes.
 
 ### Viewer: 3D camera fixes, double-click focus, Material Design 3
 
@@ -44,6 +48,39 @@ The section for a version becomes the notes of its GitHub release
   scale, elevation and state-layer tokens in `site/styles.css`, with a
   `prefers-color-scheme: dark` palette. `article.css` follows the same
   tokens for code blocks, tables and the live-graph figures.
+
+### Viewer: main view is 3D-only, physics tuning, less eager auto-behaviour
+
+* The main viewer no longer has a 2D/3D switch: it always renders in 3D, with
+  a new "Top view" camera preset (orthographic, looking straight down the
+  height axis) for the case a 2D rendering used to cover — a plain top-down
+  x/y layout is what 3D looks like without perspective, so the SVG renderer
+  was drawing the same picture a second, heavier way. `graph2d.js` still
+  exists for the article's live figures, which keep contrasting the two
+  renderings side by side as a teaching device.
+* Every edge kind starts enabled (`kinds.js`'s `DEFAULT_OFF_KINDS` is now
+  empty, was `{type, write}`), so the viewer opens showing the full graph.
+* Orbit dragging only engages Pointer Lock once the cursor actually reaches
+  the window edge, not on the first pixel of every drag: acquiring the lock
+  hides the system cursor, which the browser announces with its own "press
+  Esc to exit" banner, and showing that for every ordinary small orbit made
+  it far too naggy. Large drags (viewing the graph from underneath, say)
+  still reach past the screen's edge exactly as before.
+* Toggling an edge kind or changing a physics slider no longer forces a
+  reheat (`alpha` up to 0.3): the new spring set or parameter still applies
+  immediately, but a layout the user has been looking at is no longer flung
+  back into motion just for exploring which edges to look at. "Recompute
+  (reheat)" remains the explicit way to ask for a fresh layout.
+* `alphaDecay` is tuned down (0.0228 → 0.006, d3's default of ~300 ticks per
+  run to roughly 1200), so a layout of any size has time to actually settle
+  under every edge kind's springs and the repulsion, instead of cooling on
+  top of one that is still rearranging itself.
+* The automatic "Fit to view" after a fresh load or a settled run now backs
+  off the moment the user orbits, pans, zooms or focuses a node by hand
+  (`Graph3D#userAdjusted`) — a run can take a while to settle, and a camera
+  the user framed themselves in the meantime was getting silently reset to
+  the overview the instant physics happened to finish.
+* Spring stiffness's default is raised (0.03 → 0.05).
 
 ### The article
 

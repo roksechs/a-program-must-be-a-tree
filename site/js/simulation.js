@@ -10,9 +10,14 @@
 export const DEFAULT_PHYSICS = Object.freeze({
   springKinds: null, // Set of edge kinds that act as springs; null = every kind
   repulsion: 120, // magnitude of the 1/d repulsion
-  stiffness: 0.03, // spring constant k in F = k * (d - restLength)
+  stiffness: 0.05, // spring constant k in F = k * (d - restLength)
   restLength: 30, // spring rest length in pixels
-  alphaDecay: 0.0228, // d3 default: ~300 ticks per run
+  // d3's default (0.0228, ~300 ticks per run) cools before a graph of any
+  // size has actually settled, especially once every edge kind's springs and
+  // a larger repulsion (above) are all pulling and pushing at once. A slower
+  // decay keeps the layout warm for roughly 1200 ticks instead, long enough
+  // to reach a stable shape rather than freezing a half-arranged one.
+  alphaDecay: 0.006,
 });
 
 /**

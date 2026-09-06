@@ -56,7 +56,23 @@ export class Graph3D {
     // all (a real pinhole camera has the same dead spot). MIN_PITCH keeps
     // some of it visible at every elevation.
     this.pitch = 0.9;
+    // True while showing the "Top view" preset: a perspective-free look
+    // straight down the height axis (see viewTop()), which is what a purely
+    // 2D top-down rendering of this same x/y layout would look like — the
+    // graph's own physics never uses height, so seen from directly above and
+    // without perspective it is exactly the layout a 2D-only renderer would
+    // draw. Orbiting away from it (see bindEvents) turns it back off, since
+    // it is a specific camera pose, not a general drawing mode.
+    this.orthographic = false;
     this.zoomK = 1;
+    // Set once the user orbits, pans or zooms by hand. The app only calls
+    // fit() on its own initiative (a fresh load, or a run settling) while
+    // this is false — otherwise a camera the user has been deliberately
+    // framing would get yanked back to the overview the moment physics
+    // happens to finish, at whatever moment that lands on (see app.js).
+    // fit() and viewTop() themselves clear it, since asking for one of those
+    // is itself telling the app to manage the camera again.
+    this.userAdjusted = false;
     // World point the camera orbits and looks at (yaw/pitch pivot around
     // this, not the origin) and which always projects to screen centre
     // (see project()) — set from the graph's own bounding box in fit(), or
@@ -111,17 +127,25 @@ export class Graph3D {
         // Pointer lock removes that ceiling by reporting relative movement
         // (movementX/Y) instead of an absolute, screen-bounded position, the
         // same trick orbit/first-person controls in web-based 3D tools use.
-        // Requested here (once actual movement starts), not on pointerdown,
-        // so a plain click never triggers it; panning never does either,
-        // since it's a direct 1:1 drag. `pointerlockchange` below cleans up
-        // if the lock ends some other way (Escape) mid-drag.
-        if (!dragging.pan && document.pointerLockElement !== c) c.requestPointerLock?.();
+        // Only requested once the cursor actually reaches the window edge —
+        // not on every orbit drag — because acquiring it hides the system
+        // cursor and the browser announces that with its own "press Esc to
+        // exit" banner; doing that for every ordinary small drag would show
+        // it constantly. Panning never requests it, since it's a direct 1:1
+        // drag. `pointerlockchange` below cleans up if the lock ends some
+        // other way (Escape) mid-drag.
+        const edge = 2;
+        const atEdge = e.clientX <= edge || e.clientY <= edge || e.clientX >= window.innerWidth - edge || e.clientY >= window.innerHeight - edge;
+        if (!dragging.pan && atEdge && document.pointerLockElement !== c) c.requestPointerLock?.();
         const locked = document.pointerLockElement === c;
         const dx = locked ? e.movementX : e.clientX - dragging.x;
         const dy = locked ? e.movementY : e.clientY - dragging.y;
         dragging.x = e.clientX;
         dragging.y = e.clientY;
-        if (Math.abs(dx) + Math.abs(dy) > 1) moved = true;
+        if (Math.abs(dx) + Math.abs(dy) > 1) {
+          moved = true;
+          this.userAdjusted = true;
+        }
         if (dragging.pan) {
           // Move `target` itself in world space by the screen-space drag,
           // instead of adding a separate screen-space offset: that keeps
@@ -144,6 +168,8 @@ export class Graph3D {
         } else {
           this.yaw += dx * 0.008;
           this.pitch = clampPitch(this.pitch + dy * 0.006);
+          // Orbiting is a deliberate move away from the flat top-down pose.
+          this.orthographic = false;
         }
         this.draw();
       } else {
@@ -186,6 +212,7 @@ export class Graph3D {
         e.preventDefault();
         const f = Math.exp(-e.deltaY * 0.0015);
         this.zoomK = Math.max(0.05, Math.min(8, this.zoomK * f));
+        this.userAdjusted = true;
         this.draw();
       },
       { passive: false },
@@ -210,6 +237,7 @@ export class Graph3D {
     this.selected = null;
     this.hovered = null;
     this.focusedNode = null;
+    this.userAdjusted = false;
     // Zones belong to the previous graph until the app calls setZones again.
     this.zones = [];
     this.maxHeight = graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
@@ -280,6 +308,13 @@ export class Graph3D {
     const sp = Math.sin(this.pitch);
     const screenUp = Y * sp + rz * cp;
     const depth = Y * cp - rz * sp; // distance along the view direction; negative = nearer than target
+    // Orthographic (Top view, see viewTop()): every point scales the same
+    // regardless of depth, exactly like a 2D top-down drawing of the x/y
+    // layout — there is no near plane to clip against either.
+    if (this.orthographic) {
+      const scale = this.zoomK;
+      return { x: this.width / 2 + X * scale, y: this.height / 2 - screenUp * scale, scale, depth, clipped: false };
+    }
     const focalDepth = this.focal + depth;
     if (focalDepth <= this.focal / MAX_MAGNIFICATION) {
       return { x: null, y: null, scale: 0, depth, clipped: true };
@@ -347,8 +382,11 @@ export class Graph3D {
     this.projected = projected;
     const byIndex = new Map(projected.map((p) => [p.node.index, p]));
 
-    // Layer planes: a translucent rectangle per call height.
-    if (this.showLayers && nodes.length > 0) {
+    // Layer planes: a translucent rectangle per call height. Meaningless in
+    // Top view — looking straight down the height axis, every layer's
+    // rectangle projects to the exact same screen quad, so they would only
+    // stack into a single smear instead of showing anything.
+    if (this.showLayers && !this.orthographic && nodes.length > 0) {
       let x0 = Infinity;
       let x1 = -Infinity;
       let y0 = Infinity;
@@ -486,6 +524,10 @@ export class Graph3D {
   fit() {
     this.zoomK = 1;
     this.focusedNode = null;
+    this.userAdjusted = false;
+    // The general "get me unstuck" reset, so it returns to the normal
+    // perspective view too, the same as orbiting away from Top view does.
+    this.orthographic = false;
     this.targetX = 0;
     this.targetY = 0;
     this.targetZ = 0;
@@ -527,6 +569,31 @@ export class Graph3D {
     this.targetX = node.x;
     this.targetY = node.y;
     this.targetZ = this.zOf(node);
+    // Unlike fit()/viewTop(), this points the camera at one specific thing
+    // rather than resetting it to a standard framing, so it counts as the
+    // user taking hold of the camera too — an automatic fit() later (see
+    // app.js) should not pull the view away from the node just focused.
+    this.userAdjusted = true;
+    this.draw();
+  }
+
+  /**
+   * Look straight down the height axis with no perspective: yaw stops
+   * mattering once pitch points straight down, so only pitch needs setting,
+   * to exactly PI/2 rather than through clampPitch — PI/2 is the view with
+   * the *most* height contribution, not one of the level dead spots
+   * clampPitch pushes away from (see MIN_PITCH). Orbiting away from here
+   * (bindEvents) turns `orthographic` back off, and so does fit() — the two
+   * ways out of Top view mirror the two ways in (bindEvents' orbit, this
+   * method). Unlike fit(), this is a specific pose the user asked for, not a
+   * "manage the camera for me" reset, so it sets `userAdjusted` instead of
+   * clearing it — the same reasoning as focusOn(): an automatic fit() later
+   * must not silently drop the user back into perspective.
+   */
+  viewTop() {
+    this.pitch = Math.PI / 2;
+    this.orthographic = true;
+    this.userAdjusted = true;
     this.draw();
   }
 
