@@ -215,6 +215,11 @@ export class Graph2D {
     this.updateLabelVisibility();
   }
 
+  /** Re-read the node names into the labels (names can change without the graph changing). */
+  refreshLabels() {
+    this.labelLayer.selectAll("text.label").text((n) => n.name);
+  }
+
   setVisibleKinds(kinds) {
     this.visibleKinds = new Set(kinds);
     this.linkLayer.selectAll("path.link").attr("display", (l) => (this.visibleKinds.has(l.kind) ? null : "none"));

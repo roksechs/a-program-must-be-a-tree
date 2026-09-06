@@ -269,9 +269,8 @@ with the largest lift, cycles, shared leaves pushed down).
 | plan (this file) | written |
 | analyzer prerequisites (§4.1 rule, `--nested`) | done |
 | datasets for chapters 0, 2b | `sample-tree`, `sample-tangle`, `sample-bindings` exist |
-| chapter texts | **2b drafted in Japanese** (`site/content/ja/02b-binding-or-store.md`); nothing else written |
-| page scaffold (`site/article.html`, content loader, embedded live graphs) | **not started** |
-| English chapters | not started |
+| chapter texts | 0, 1, 2 and 2b written in Japanese and English (`site/content/{ja,en}/`) |
+| page scaffold (`site/article.html`, `js/article.js`, `js/markdown.js`) | done: chapters load per language, live graphs per directive, 2D/3D, readout, selection with natural scope, rename experiment |
 | Clean-Architecture sample app (chapter 10) | not started |
 | history measurement tooling (chapter 17) | not started |
 * **Real numbers only.** Every live graph imports the viewer's own modules;

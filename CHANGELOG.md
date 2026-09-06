@@ -6,6 +6,19 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### The article
+
+* `article.html`: a long-form page that re-reads familiar design principles
+  as measurements on the call graph. Chapters are Markdown files under
+  `site/content/<lang>/`, listed in `chapters.json`, and every chapter must
+  exist in every language (the tests check). A chapter's
+  `<!-- graph: … -->` directives mount live graphs beside it, rendered by the
+  viewer's own modules on the bundled datasets, with a 2D/3D switch, the
+  diagnostics readout, node selection with its natural scope, and a "rename
+  every identifier" experiment that shows the numbers do not depend on names.
+  First chapters: the hook, structure and meaning, the model, and binding
+  versus store.
+
 ### Analyzer: assignments that declare
 
 * A top-level assignment through a path of names is a **declaration**, not

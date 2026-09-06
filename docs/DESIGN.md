@@ -49,6 +49,8 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `graph3d.js`    | Canvas renderer: same x/y, z = call height, orbit camera, layer planes. |
 | `panel.js`      | Property panel (controls + diagnostics + selection details). |
 | `app.js`        | Data loading and wiring. |
+| `markdown.js`   | Small Markdown renderer for the article chapters (escaped, no raw HTML; `<!-- key: value -->` comments are page directives). |
+| `article.js`    | The article page (`article.html`): chapters from `content/<lang>/`, each with the live graphs its directives ask for, rendered by the same modules on the same datasets as the viewer. |
 
 Both renderers read the same node objects, so switching between 2D and 3D does
 not restart the simulation and the user does not lose the layout.
