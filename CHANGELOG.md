@@ -25,7 +25,8 @@ The section for a version becomes the notes of its GitHub release
   datasets: the one build command a static host needs. `.node-version` pins
   Node 22 for hosts that read it. The README documents the Cloudflare Pages
   settings (build command, output directory `site`), which gives every pull
-  request a preview URL.
+  request a preview URL, and `wrangler.jsonc` lets a Cloudflare Workers
+  project serve `site/` as static assets with the same build.
 
 ### Analyzer: assignments that declare
 

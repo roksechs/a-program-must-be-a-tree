@@ -127,6 +127,13 @@ that predate the script). Preview deployments are on by default for every
 other branch; the Cloudflare GitHub app comments the preview URL on each pull
 request. The article lives at `/article.html` on either host.
 
+If the project was created as a **Workers** project instead (Workers & Pages →
+Create → Workers → Import a repository), the same build command applies and
+the deploy command is `npx wrangler deploy`; `wrangler.jsonc` at the
+repository root declares `site/` as the Worker's static assets, so no Worker
+code is involved. Preview URLs then come from the `preview` branch alias of
+the Worker, again commented on the pull request.
+
 Releasing is a version bump. `.github/workflows/release.yml` reads the version
 in `package.json` on every push to the default branch and, when no release
 carries that tag yet, creates the tag and the GitHub release from the matching
