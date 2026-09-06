@@ -148,6 +148,13 @@ export class Graph3D {
     };
     c.addEventListener("pointerup", end);
     c.addEventListener("pointercancel", () => (dragging = null));
+    c.addEventListener("dblclick", (e) => {
+      const n = this.hitTest(e.offsetX, e.offsetY);
+      if (n) {
+        this.select(n);
+        this.focusOn(n);
+      }
+    });
     c.addEventListener("pointerleave", () => {
       this.hovered = null;
       this.callbacks.onHover?.(null);

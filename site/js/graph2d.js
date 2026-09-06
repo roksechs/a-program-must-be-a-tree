@@ -127,6 +127,11 @@ export class Graph2D {
         event.stopPropagation();
         this.select(n === this.selected ? null : n);
       })
+      .on("dblclick", (event, n) => {
+        event.stopPropagation();
+        this.select(n);
+        this.focusOn(n);
+      })
       .on("mouseenter", (event, n) => {
         this.hovered = n;
         this.callbacks.onHover?.(n, event);
