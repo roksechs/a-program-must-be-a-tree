@@ -93,13 +93,13 @@ Nothing defines a centre. Two attempts at one were removed:
   plane where no point should be special.
 
 Where the graph sits is therefore a question for the camera, not the physics:
-"Fit to view" frames whatever the simulation produced, and the app applies it
-on its own the same way after a fresh load and when a run settles — but only
-until the user orbits, pans, zooms or focuses a node by hand
-(`Graph3D#userAdjusted`). A run can now take a while to settle (see
-`alphaDecay` above), long enough for the user to have framed their own view of
-it in the meantime, so an automatic fit at whatever moment it happens to end
-must not override a camera they already took hold of.
+"Fit to view" frames whatever the simulation produced. Nothing calls it on the
+app's own initiative — not a fresh load, not a run settling — only the button
+itself, Top view, and orbiting away from Top view ever move the camera. A run
+can take a while to settle (see `alphaDecay` above), long enough for the user
+to have framed their own view of it by hand in the meantime; an automatic fit
+firing at whatever moment that happens to end would override a camera they
+already took hold of, so there is no automatic fit to fire.
 
 Directories and files have no influence on the physics: no force reads the
 containers, and the initial positions are seeded on a spiral in declaration

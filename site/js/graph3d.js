@@ -65,14 +65,6 @@ export class Graph3D {
     // it is a specific camera pose, not a general drawing mode.
     this.orthographic = false;
     this.zoomK = 1;
-    // Set once the user orbits, pans or zooms by hand. The app only calls
-    // fit() on its own initiative (a fresh load, or a run settling) while
-    // this is false — otherwise a camera the user has been deliberately
-    // framing would get yanked back to the overview the moment physics
-    // happens to finish, at whatever moment that lands on (see app.js).
-    // fit() and viewTop() themselves clear it, since asking for one of those
-    // is itself telling the app to manage the camera again.
-    this.userAdjusted = false;
     // World point the camera orbits and looks at (yaw/pitch pivot around
     // this, not the origin) and which always projects to screen centre
     // (see project()) — set from the graph's own bounding box in fit(), or
@@ -142,10 +134,7 @@ export class Graph3D {
         const dy = locked ? e.movementY : e.clientY - dragging.y;
         dragging.x = e.clientX;
         dragging.y = e.clientY;
-        if (Math.abs(dx) + Math.abs(dy) > 1) {
-          moved = true;
-          this.userAdjusted = true;
-        }
+        if (Math.abs(dx) + Math.abs(dy) > 1) moved = true;
         if (dragging.pan) {
           // Move `target` itself in world space by the screen-space drag,
           // instead of adding a separate screen-space offset: that keeps
@@ -212,7 +201,6 @@ export class Graph3D {
         e.preventDefault();
         const f = Math.exp(-e.deltaY * 0.0015);
         this.zoomK = Math.max(0.05, Math.min(8, this.zoomK * f));
-        this.userAdjusted = true;
         this.draw();
       },
       { passive: false },
@@ -237,7 +225,6 @@ export class Graph3D {
     this.selected = null;
     this.hovered = null;
     this.focusedNode = null;
-    this.userAdjusted = false;
     // Zones belong to the previous graph until the app calls setZones again.
     this.zones = [];
     this.maxHeight = graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
@@ -531,7 +518,6 @@ export class Graph3D {
   fit() {
     this.zoomK = 1;
     this.focusedNode = null;
-    this.userAdjusted = false;
     // The general "get me unstuck" reset, so it returns to the normal
     // perspective view too, the same as orbiting away from Top view does.
     this.orthographic = false;
@@ -576,11 +562,6 @@ export class Graph3D {
     this.targetX = node.x;
     this.targetY = node.y;
     this.targetZ = this.zOf(node);
-    // Unlike fit()/viewTop(), this points the camera at one specific thing
-    // rather than resetting it to a standard framing, so it counts as the
-    // user taking hold of the camera too — an automatic fit() later (see
-    // app.js) should not pull the view away from the node just focused.
-    this.userAdjusted = true;
     this.draw();
   }
 
@@ -592,15 +573,11 @@ export class Graph3D {
    * clampPitch pushes away from (see MIN_PITCH). Orbiting away from here
    * (bindEvents) turns `orthographic` back off, and so does fit() — the two
    * ways out of Top view mirror the two ways in (bindEvents' orbit, this
-   * method). Unlike fit(), this is a specific pose the user asked for, not a
-   * "manage the camera for me" reset, so it sets `userAdjusted` instead of
-   * clearing it — the same reasoning as focusOn(): an automatic fit() later
-   * must not silently drop the user back into perspective.
+   * method).
    */
   viewTop() {
     this.pitch = Math.PI / 2;
     this.orthographic = true;
-    this.userAdjusted = true;
     this.draw();
   }
 

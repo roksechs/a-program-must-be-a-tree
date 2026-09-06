@@ -218,39 +218,17 @@ function installGraph(doc, label) {
   renderer.setLabelMode(state.labelMode);
   renderer.setColorBy(state.colorBy);
   renderer.setVisibleKinds(state.kinds);
-  // Frame the seeded layout before the very first draw, not just once the
-  // simulation has spread it out: the placeholder camera state (a fixed
-  // focal length meant for whatever the previous graph's extent was, or the
-  // constructor's guess for a graph that hasn't loaded yet) doesn't match a
-  // freshly seeded layout's much smaller extent, and with physics now
-  // cooling far more slowly (see DEFAULT_PHYSICS.alphaDecay) that mismatched
-  // first frame stayed on screen long enough to read as its own view, then
-  // visibly snapped to "Fit to view" once alpha crossed the threshold below.
-  renderer.fit();
   panel.setMaxDepth(graph.maxDepth, state.zoneDepth);
   panel.setMetrics(graph);
   panel.setSelection(null, graph);
   panel.setDataInfo({ label, nodes: graph.nodes.length, edges: graph.links.length, files: graph.containers.filter((c) => c.isFile).length });
   updateZones();
 
+  // The camera is never moved on its own — not on load, not while the
+  // simulation is running, not once it settles. "Fit to view" is the only
+  // way the view reframes; the user asks for it, or does not.
   const sim = createSimulation(graph, state.physics);
-  let fitted = false;
-  sim.on("tick", () => {
-    renderer.tick();
-    if (!fitted && sim.alpha() < 0.6) {
-      fitted = true;
-      if (!renderer.userAdjusted) renderer.fit();
-    }
-  });
-  // Framing the settled layout is a convenience for a hands-off view, not a
-  // standing claim on the camera: once the user has orbited, panned, zoomed
-  // or focused a node by hand (renderer.userAdjusted), a run finishing —
-  // which, at this graph's own pace, can land at any moment the user happens
-  // to be looking at something they set up themselves — must not yank the
-  // camera back to the overview.
-  sim.on("end", () => {
-    if (!renderer.userAdjusted) renderer.fit();
-  });
+  sim.on("tick", () => renderer.tick());
   state.sim = sim;
   setStatus("app.status", { nodes: graph.nodes.length, edges: graph.links.length });
 }

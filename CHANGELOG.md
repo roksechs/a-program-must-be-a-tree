@@ -75,11 +75,12 @@ The section for a version becomes the notes of its GitHub release
   run to roughly 1200), so a layout of any size has time to actually settle
   under every edge kind's springs and the repulsion, instead of cooling on
   top of one that is still rearranging itself.
-* The automatic "Fit to view" after a fresh load or a settled run now backs
-  off the moment the user orbits, pans, zooms or focuses a node by hand
-  (`Graph3D#userAdjusted`) — a run can take a while to settle, and a camera
-  the user framed themselves in the meantime was getting silently reset to
-  the overview the instant physics happened to finish.
+* "Fit to view" no longer fires on its own — not after a fresh load, not
+  once a run settles. It used to do both, which meant the camera could jump
+  back to the overview by itself at any moment a run happened to finish
+  settling (now a while off, see `alphaDecay` above), overriding a view the
+  user had already framed by hand in the meantime. Framing the camera is
+  the "Fit to view" button's job alone now; nothing calls it automatically.
 * Spring stiffness's default is raised (0.03 → 0.05).
 * Edges rendered at a permanent 55% opacity even with nothing selected —
   `dimmed`/`active` already covered every case where a *selected* node
@@ -88,14 +89,6 @@ The section for a version becomes the notes of its GitHub release
   below its legend swatch (the paler kinds, `reference` especially, nearly
   vanished). Both renderers now default to full opacity and only dim an
   edge once some other node is selected.
-* A freshly loaded graph's first frame used to render with a placeholder
-  camera state sized for whatever the previous graph's extent was (or the
-  constructor's guess, on the very first load) rather than the newly seeded
-  layout's actual, much smaller extent — visibly wrong (flattened, close to
-  the Top view above) until physics spread the graph out enough for the
-  existing auto-fit to trigger. `installGraph()` now fits the camera to the
-  seeded layout immediately, before the first draw, instead of waiting for
-  that.
 
 ### The article
 
