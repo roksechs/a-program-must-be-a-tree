@@ -80,6 +80,41 @@ from phase and consumer frame; the control, uses and full graphs; call
 height. Tiny code snippet beside a live graph. Links to `THEORY.md` for the
 derivation.
 
+**2b. What counts as a declaration: `ns.f = function` versus
+`el.onclick = function`.** The two statements have the same shape, and the
+words we reach for to separate them ("namespace", "instance", "callback")
+are meaning, not structure. The structural facts are two:
+
+* **When does the assignment run?** At module load, once, unconditionally
+  (definition-time, §4 of `THEORY.md`: part of the module's `letrec`), or
+  during execution, as a consequence of some call, possibly many times or
+  never (use-time)?
+* **Can other code name the target?** Is the receiver a pure path of names
+  rooted in a module-level binding (`d3.scale`, `Moment.prototype`,
+  `exports`), so that a call site elsewhere can write `d3.scale.linear(...)`
+  and mean exactly this function? Or is it a runtime value — a parameter, a
+  local, an element, a call result — that no static name reaches, so the
+  function can only be found by following the flow of values?
+
+A node in the graph is something an occurrence can target, and Definition 1
+requires a *name*. So: definition-time + nameable is a declaration (`ns.f`,
+`X.prototype.m`, `exports.f`; the ES5 spelling of `export` and of a class
+method). A runtime-valued receiver is a store: the closure escapes into a
+slot, the enclosing declaration gets a `reference` edge, and calls to it are
+found by flow analysis, never by name (`el.onclick`). The gray zone is a
+nameable slot written at use-time (`app.handler = function` inside
+`init()`): a *late binding*, nameable but existing only after `init` runs.
+It is recorded as a declaration with a `reference` edge from its installer
+and flagged, because it is the initialisation hazard of §4 in another
+costume. Which cell a statement falls in survives renaming every identifier;
+"namespace" is the name we give to an object whose properties are only ever
+written at definition time.
+
+This is also the class/object question of §5 in operational form: what is
+put on the prototype (or class, or namespace) is declared once at load; what
+is put on the instance (`this.cb = function` in a constructor, one closure
+per `new`) is stored at construction.
+
 ### Part II — Reading the familiar principles precisely
 
 **3. DRY and "don't reinvent the wheel".** Hunt & Thomas: every piece of
@@ -273,8 +308,13 @@ Findings:
   also needs a union analysis across the split `d3-*` repositories.
 
 Analyzer additions this implies: nested declarations as nodes (behind a
-flag), and property-assigned functions (`ns.f = function`, `proto.m = ...`)
-as declarations.
+flag), and property-assigned functions as declarations under the rule of
+chapter 2b — a definition-time assignment through a pure name path is a
+binding (`ns.f = function`: a static member; `X.prototype.m = function`: an
+instance member; `proto.m = m`: an alias, no new node, `m` gains the member
+role), a use-time assignment through a name path is a flagged late binding,
+and an assignment to a runtime value is a store. Call sites the checker
+cannot type are resolved by literal name path, as ordinary `call` edges.
 
 ## Open questions
 
