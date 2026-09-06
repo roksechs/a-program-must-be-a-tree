@@ -3,7 +3,7 @@
 // The x/y coordinates come from the same simulation as the 2D view; only the
 // projection differs, so switching views never restarts the physics.
 /* global d3 */
-import { EDGE_KINDS, edgeColor, edgeSpreadAngle, heightColor, kindColor, zoneColor } from "./colors.js";
+import { EDGE_KINDS, edgeBowOffset, edgeColor, heightColor, kindColor, zoneColor } from "./colors.js";
 import { t } from "./i18n.js";
 import { nodeRadius } from "./simulation.js";
 import { hullPath } from "./zones.js";
@@ -403,31 +403,19 @@ export class Graph3D {
         ctx.arc(s.x + r, s.y - r, r, 0, Math.PI * 2);
         ctx.stroke();
       } else {
-        // `reference` and `write` rotate the segment a small angle around its
-        // own (world-space) midpoint before projecting, so the read and write
-        // halves of a compound assignment fan out instead of overlapping;
-        // every other kind uses angle 0 and keeps the plain line.
-        let ps = s;
-        let pt = t;
-        const angle = edgeSpreadAngle(l.kind);
-        if (angle !== 0) {
-          const mx = (l.source.x + l.target.x) / 2;
-          const my = (l.source.y + l.target.y) / 2;
-          const ca = Math.cos(angle);
-          const sa = Math.sin(angle);
-          const rotate = (n) => {
-            const dx = n.x - mx;
-            const dy = n.y - my;
-            return { x: mx + dx * ca - dy * sa, y: my + dx * sa + dy * ca };
-          };
-          const rs = rotate(l.source);
-          const rt = rotate(l.target);
-          const ps2 = this.project(rs.x, rs.y, this.zOf(l.source));
-          const pt2 = this.project(rt.x, rt.y, this.zOf(l.target));
-          if (!ps2.clipped) ps = ps2;
-          if (!pt2.clipped) pt = pt2;
+        // `reference` and `write` bow through edgeBowOffset (colors.js, the
+        // same function Graph2D uses), so the read and write halves of a
+        // compound assignment never draw on top of each other.
+        let control = null;
+        const bow = edgeBowOffset(l.source, l.target, l.kind);
+        if (bow) {
+          const mx = (l.source.x + l.target.x) / 2 + bow.x;
+          const my = (l.source.y + l.target.y) / 2 + bow.y;
+          const mz = (this.zOf(l.source) + this.zOf(l.target)) / 2;
+          const p = this.project(mx, my, mz);
+          if (!p.clipped) control = p;
         }
-        drawArrow(ctx, ps.x, ps.y, pt.x, pt.y, nodeRadius(l.target) * pt.scale + 1, 5 * Math.max(0.6, pt.scale));
+        drawArrow(ctx, s.x, s.y, t.x, t.y, nodeRadius(l.target) * t.scale + 1, 5 * Math.max(0.6, t.scale), control);
       }
     }
     ctx.setLineDash([]);
@@ -537,17 +525,24 @@ function clampPitch(pitch) {
   return nearestLevel + (offset < 0 ? -MIN_PITCH : MIN_PITCH);
 }
 
-function drawArrow(ctx, x0, y0, x1, y1, stopBefore, headSize) {
-  const dx = x1 - x0;
-  const dy = y1 - y0;
-  const d = Math.hypot(dx, dy) || 1;
-  const ux = dx / d;
-  const uy = dy / d;
+/**
+ * `control`, when given, is a projected point the line bows through (a
+ * quadratic curve, via colors.js's edgeBowOffset) instead of running
+ * straight. The arrowhead uses the curve's own end tangent
+ * (control -> x1,y1), not the start -> end line.
+ */
+function drawArrow(ctx, x0, y0, x1, y1, stopBefore, headSize, control) {
+  const tangentX = control ? x1 - control.x : x1 - x0;
+  const tangentY = control ? y1 - control.y : y1 - y0;
+  const d = Math.hypot(tangentX, tangentY) || 1;
+  const ux = tangentX / d;
+  const uy = tangentY / d;
   const ex = x1 - ux * stopBefore;
   const ey = y1 - uy * stopBefore;
   ctx.beginPath();
   ctx.moveTo(x0, y0);
-  ctx.lineTo(ex, ey);
+  if (control) ctx.quadraticCurveTo(control.x, control.y, ex, ey);
+  else ctx.lineTo(ex, ey);
   ctx.stroke();
   ctx.beginPath();
   ctx.moveTo(ex, ey);

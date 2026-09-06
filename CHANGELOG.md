@@ -20,10 +20,13 @@ The section for a version becomes the notes of its GitHub release
 * `write` is a new toggle in the Edges section, off by default like `type`:
   mixing a reversed edge into the control or uses graph without noticing
   would misread the dominator tree, so it stays its own lens.
-* `reference` and `write` edges are now rotated a small angle around their
-  own midpoint (2D and 3D) instead of running straight through both node
-  centres, so the read and write halves of a compound assignment fan out
-  instead of overlapping.
+* `reference` and `write` edges now bow into a quadratic curve instead of
+  running straight, through one shared function (`colors.js`'s
+  `edgeBowOffset`) both renderers call: the perpendicular obtained by
+  rotating a seed vector around the segment's own axis, which has no height
+  component regardless of the two ends' heights, so 2D (no height axis at
+  all) and 3D bow through the same offset. The read and write halves of a
+  compound assignment fan out instead of overlapping.
 
 ### The article
 

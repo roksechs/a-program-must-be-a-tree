@@ -1,6 +1,6 @@
 // 2D renderer: SVG with zoom/pan, zone hulls, arrowed edges, draggable nodes.
 /* global d3 */
-import { EDGE_KINDS, edgeColor, edgeSpreadAngle, kindColor, zoneColor } from "./colors.js";
+import { EDGE_KINDS, edgeBowOffset, edgeColor, kindColor, zoneColor } from "./colors.js";
 import { nodeRadius } from "./simulation.js";
 import { hullPath, topPoint } from "./zones.js";
 
@@ -324,12 +324,10 @@ export class Graph2D {
 }
 
 /**
- * Straight edge that stops at the target's radius. `reference` and `write`
- * rotate the whole segment a small angle around its own midpoint first, so
- * the read and write halves of a compound assignment (same pair, opposite
- * direction) fan out instead of drawing on top of each other; every other
- * kind uses angle 0 and gets the plain line through both centres. Self loops
- * become a small arc.
+ * Edge that stops at the target's radius: straight for most kinds, a
+ * quadratic bow through `edgeBowOffset` (colors.js, shared with Graph3D) for
+ * `reference` and `write`, so the read and write halves of a compound
+ * assignment never overlap. Self loops become a small arc.
  */
 function linkPath(l) {
   const s = l.source;
@@ -338,18 +336,18 @@ function linkPath(l) {
     const r = nodeRadius(s);
     return `M${s.x + r},${s.y} A${r * 1.4},${r * 1.4} 0 1,1 ${s.x},${s.y - r}`;
   }
-  const angle = edgeSpreadAngle(l.kind);
-  const mx = (s.x + t.x) / 2;
-  const my = (s.y + t.y) / 2;
-  const half = Math.hypot(t.x - s.x, t.y - s.y) / 2 || 1;
-  const baseAngle = Math.atan2(t.y - s.y, t.x - s.x) + angle;
-  const dx = Math.cos(baseAngle);
-  const dy = Math.sin(baseAngle);
+  const dx = t.x - s.x;
+  const dy = t.y - s.y;
+  const d = Math.hypot(dx, dy) || 1;
   const rs = nodeRadius(s);
   const rt = nodeRadius(t) + 1;
-  const sx = mx - dx * half + dx * rs;
-  const sy = my - dy * half + dy * rs;
-  const tx = mx + dx * half - dx * rt;
-  const ty = my + dy * half - dy * rt;
-  return `M${sx},${sy}L${tx},${ty}`;
+  const sx = s.x + (dx / d) * rs;
+  const sy = s.y + (dy / d) * rs;
+  const tx = t.x - (dx / d) * rt;
+  const ty = t.y - (dy / d) * rt;
+  const bow = edgeBowOffset(s, t, l.kind);
+  if (!bow) return `M${sx},${sy}L${tx},${ty}`;
+  const mx = (sx + tx) / 2 + bow.x;
+  const my = (sy + ty) / 2 + bow.y;
+  return `M${sx},${sy}Q${mx},${my} ${tx},${ty}`;
 }
