@@ -8,10 +8,12 @@ import { t } from "./i18n.js";
 import { nodeRadius } from "./simulation.js";
 import { hullPath } from "./zones.js";
 
-// Smallest camera elevation magnitude, in radians, that pitch is allowed to
-// reach. Exactly 0 is a perfectly level view, where the height axis carries
-// no perspective at all (see the constructor); this keeps it just off that
-// dead spot without stopping the camera from getting close to level.
+// Smallest distance, in radians, that pitch is kept away from a level view.
+// Camera elevation is periodic every PI, not just 2*PI (see clampPitch), and
+// at each of those points the height axis carries no perspective at all (see
+// the constructor); this keeps pitch just off every one of those dead spots
+// without stopping the camera from getting close to level, or from orbiting
+// all the way through a full vertical loop.
 const MIN_PITCH = 0.15;
 
 // focal is kept proportional to the graph's own extent (set in fit(), below)
@@ -45,16 +47,30 @@ export class Graph3D {
 
     this.yaw = -0.6;
     // Camera elevation above the ground plane: 0 = looking horizontally,
-    // +PI/2 = straight down from above, -PI/2 = straight up from below.
-    // Kept away from exactly 0: a perfectly level camera looks along a
-    // horizontal forward axis, so height never contributes to depth and the
-    // call-height axis would render with no perspective at all (a real
-    // pinhole camera has the same dead spot). MIN_PITCH keeps some of it
-    // visible at every elevation.
+    // +PI/2 = straight down from above, -PI/2 = straight up from below, and
+    // it keeps going past there — orbiting over the top or under the bottom
+    // continues the loop rather than stopping, so every angle is reachable.
+    // Kept away from exactly level (a multiple of PI): at those elevations
+    // the camera's forward axis is horizontal, so height never contributes
+    // to depth and the call-height axis would render with no perspective at
+    // all (a real pinhole camera has the same dead spot). MIN_PITCH keeps
+    // some of it visible at every elevation.
     this.pitch = 0.9;
     this.zoomK = 1;
+    // Extra screen-space pan on top of the camera orbiting `target` below
+    // (e.g. from a shift-drag); kept separate so rotating never has to touch
+    // it, and so wheel-zoom (see bindEvents) only ever has to rescale this.
     this.panX = 0;
     this.panY = 0;
+    // World point the camera orbits and looks at (yaw/pitch pivot around
+    // this, not the origin) and which always projects to screen centre
+    // (see project()) — set from the graph's own bounding box in fit(), or
+    // a node's position in focusOn(), since nothing about the physics
+    // guarantees the layout sits near world origin (see docs/DESIGN.md,
+    // "Nothing defines a centre").
+    this.targetX = 0;
+    this.targetY = 0;
+    this.targetZ = 0;
     // Placeholder until the first fit(), which sets this from the graph's
     // own extent (see FOCAL_EXTENT_RATIO).
     this.focal = 1400;
@@ -204,20 +220,26 @@ export class Graph3D {
 
   /**
    * Project a world point (x, y horizontal plane; z up) to screen space.
-   * The camera orbits the origin: yaw spins it around the vertical axis,
-   * pitch is its elevation. After the yaw rotation X points right and Y away
-   * from the camera; tilting by pitch turns "away" into "up on screen" and
-   * brings higher points closer to a camera that looks down.
+   * The camera orbits `target`, not the origin: yaw spins it around the
+   * vertical axis through target, pitch is its elevation. After the yaw
+   * rotation X points right and Y away from the camera; tilting by pitch
+   * turns "away" into "up on screen" and brings higher points closer to a
+   * camera that looks down. Because rotation applies to the offset from
+   * target, target itself always projects to screen centre (X = Y = 0)
+   * regardless of yaw/pitch — orbiting never drifts it away from centre.
    */
   project(x, y, z) {
+    const rx = x - this.targetX;
+    const ry = y - this.targetY;
+    const rz = z - this.targetZ;
     const cy = Math.cos(this.yaw);
     const sy = Math.sin(this.yaw);
-    const X = x * cy - y * sy;
-    const Y = x * sy + y * cy;
+    const X = rx * cy - ry * sy;
+    const Y = rx * sy + ry * cy;
     const cp = Math.cos(this.pitch);
     const sp = Math.sin(this.pitch);
-    const screenUp = Y * sp + z * cp;
-    const depth = Y * cp - z * sp; // distance along the view direction; negative = nearer than the origin
+    const screenUp = Y * sp + rz * cp;
+    const depth = Y * cp - rz * sp; // distance along the view direction; negative = nearer than target
     const focalDepth = this.focal + depth;
     if (focalDepth <= this.focal / MAX_MAGNIFICATION) {
       return { x: null, y: null, scale: 0, depth, clipped: true };
@@ -408,6 +430,9 @@ export class Graph3D {
     this.zoomK = 1;
     this.panX = 0;
     this.panY = 0;
+    this.targetX = 0;
+    this.targetY = 0;
+    this.targetZ = 0;
     if (!this.graph || this.graph.nodes.length === 0) return;
     const xs = this.graph.nodes.map((n) => n.x);
     const ys = this.graph.nodes.map((n) => n.y);
@@ -420,31 +445,30 @@ export class Graph3D {
     this.focal = extent * FOCAL_EXTENT_RATIO;
     // Repulsion has no range limit and nothing pulls nodes toward a centre
     // (by design, see docs/DESIGN.md), so the layout's own bounding box can
-    // sit anywhere in world space — panX/panY = 0 would orbit and zoom
-    // around world origin instead of the graph, leaving it off-screen-centre
-    // and drifting further with each zoom step. Pan by the projected offset
-    // of the bounding box's centre so it lands at screen centre instead.
-    const centre = this.project((minX + maxX) / 2, (minY + maxY) / 2, (this.maxHeight * this.layerGap) / 2);
-    if (!centre.clipped) {
-      this.panX = this.width / 2 - centre.x;
-      this.panY = this.height / 2 - centre.y;
-    }
+    // sit anywhere in world space. Point the camera's orbit target at the
+    // box's own centre — since target always projects to screen centre (see
+    // project()) — instead of leaving it at the origin, or both zooming and
+    // rotating would drift the graph away from screen centre.
+    this.targetX = (minX + maxX) / 2;
+    this.targetY = (minY + maxY) / 2;
+    this.targetZ = (this.maxHeight * this.layerGap) / 2;
     this.draw();
   }
 
   /**
    * Centre the camera on one node without touching yaw/pitch: zoom in a
-   * little if it's currently zoomed out, then pan by the node's current
-   * screen offset from centre so it lands there exactly.
+   * little if it's currently zoomed out, then re-point the orbit target at
+   * the node so it lands exactly at screen centre and stays there through
+   * any further rotation, not just while the camera holds still.
    */
   focusOn(node) {
     if (!node) return;
     this.zoomK = Math.min(8, Math.max(this.zoomK, 1.2));
-    const p = this.project(node.x, node.y, this.zOf(node));
-    if (!p.clipped) {
-      this.panX += this.width / 2 - p.x;
-      this.panY += this.height / 2 - p.y;
-    }
+    this.panX = 0;
+    this.panY = 0;
+    this.targetX = node.x;
+    this.targetY = node.y;
+    this.targetZ = this.zOf(node);
     this.draw();
   }
 
@@ -453,11 +477,18 @@ export class Graph3D {
   }
 }
 
-/** Clamp to [-PI/2, PI/2] while keeping the magnitude at or above MIN_PITCH. */
+/**
+ * Push pitch away from the nearest level orientation (a multiple of PI —
+ * see MIN_PITCH) by at least MIN_PITCH, without otherwise bounding its
+ * range: unlike a clamp to [-PI/2, PI/2], this lets the camera complete a
+ * full vertical loop, orbiting up over the top or down under the bottom and
+ * on around, instead of stopping at straight up/down.
+ */
 function clampPitch(pitch) {
-  const bounded = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, pitch));
-  if (Math.abs(bounded) >= MIN_PITCH) return bounded;
-  return bounded < 0 ? -MIN_PITCH : MIN_PITCH;
+  const nearestLevel = Math.round(pitch / Math.PI) * Math.PI;
+  const offset = pitch - nearestLevel;
+  if (Math.abs(offset) >= MIN_PITCH) return pitch;
+  return nearestLevel + (offset < 0 ? -MIN_PITCH : MIN_PITCH);
 }
 
 function drawArrow(ctx, x0, y0, x1, y1, stopBefore, headSize) {
