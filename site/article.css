@@ -86,16 +86,16 @@ body.article-page {
 .prose code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.9em;
-  background: #eef2f7;
+  background: var(--md-surface-container-high);
   padding: 1px 5px;
-  border-radius: 3px;
+  border-radius: var(--shape-xs);
 }
 
 .prose pre {
-  background: #0f172a;
-  color: #e2e8f0;
+  background: var(--md-inverse-surface);
+  color: var(--md-inverse-on-surface);
   padding: 12px 14px;
-  border-radius: 6px;
+  border-radius: var(--shape-md);
   overflow-x: auto;
   font-size: 13px;
   line-height: 1.6;
@@ -151,7 +151,7 @@ body.article-page {
 }
 
 .prose th {
-  background: #f1f5f9;
+  background: var(--md-surface-container);
   font-weight: 600;
 }
 
@@ -172,8 +172,8 @@ body.article-page {
 .live {
   margin: 0;
   background: var(--panel-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--shape-lg);
+  box-shadow: var(--elevation-1);
   overflow: hidden;
 }
 
@@ -201,10 +201,11 @@ body.article-page {
   position: absolute;
   z-index: 2;
   pointer-events: none;
-  background: rgba(15, 23, 42, 0.92);
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
+  background: var(--md-inverse-surface);
+  color: var(--md-inverse-on-surface);
+  padding: 6px 10px;
+  border-radius: var(--shape-sm);
+  box-shadow: var(--elevation-2);
   font-size: 12px;
   white-space: pre;
   max-width: 420px;
@@ -224,20 +225,12 @@ body.article-page {
   grid-column: auto;
 }
 
+/* Button colour/shape/state come from styles.css's shared
+   `.buttons button, .live .bar button` rule (M3 outlined/filled pill); only
+   the smaller size needed inside a figure's toolbar is set here. */
 .live .bar button {
-  font: inherit;
   font-size: 12px;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
-  background: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.live .bar button[aria-pressed="true"] {
-  background: var(--text);
-  color: #fff;
-  border-color: var(--text);
+  padding: 4px 12px;
 }
 
 .live .bar .spacer {

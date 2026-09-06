@@ -28,6 +28,23 @@ The section for a version becomes the notes of its GitHub release
   all) and 3D bow through the same offset. The read and write halves of a
   compound assignment fan out instead of overlapping.
 
+### Viewer: 3D camera fixes, double-click focus, Material Design 3
+
+* Double-clicking a node selects and focuses it, in both the 2D and the 3D
+  renderer.
+* Shift-drag panning in 3D used to add a screen-space offset, so the orbit
+  pivot drifted away from screen centre after panning. Panning now moves the
+  orbit target itself, in world space, so orbiting still pivots exactly on
+  screen centre no matter how far the view has been panned.
+* Orbit dragging in 3D now uses the Pointer Lock API instead of tracking the
+  cursor's absolute position, so rotating past a physical screen or trackpad
+  edge no longer stops the drag — a full rotation, including viewing the
+  graph from underneath, is always reachable.
+* The whole site is restyled to Material Design 3: colour roles, shape
+  scale, elevation and state-layer tokens in `site/styles.css`, with a
+  `prefers-color-scheme: dark` palette. `article.css` follows the same
+  tokens for code blocks, tables and the live-graph figures.
+
 ### The article
 
 * `article.html`: a long-form page that re-reads familiar design principles

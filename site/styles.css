@@ -1,14 +1,103 @@
+/* Material Design 3 tokens (color, type, shape, elevation, state), applied to
+   this project's own markup/classes with plain CSS — no Material Web
+   Components, keeping the "no runtime dependency beyond vendored d3" rule. */
+
 :root {
-  --bg: #f8fafc;
-  --panel-bg: #ffffff;
-  --border: #e2e8f0;
-  --text: #0f172a;
-  --muted: #64748b;
-  --accent: #2563eb;
-  --panel-width: 320px;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Color roles (M3 light scheme), built around this project's existing
+     brand blue instead of M3's default purple. */
+  --md-primary: #2f5fd8;
+  --md-primary-rgb: 47, 95, 216;
+  --md-on-primary: #ffffff;
+  --md-primary-container: #dbe1ff;
+  --md-on-primary-container: #001a41;
+  --md-secondary: #575e71;
+  --md-secondary-container: #dbe2f9;
+  --md-on-secondary-container: #141b2c;
+  --md-error: #ba1a1a;
+  --md-on-error-container: #410002;
+  --md-error-container: #ffdad6;
+
+  --md-surface: #faf9fd;
+  --md-surface-dim: #dad9e0;
+  --md-surface-bright: #faf9fd;
+  --md-surface-container-lowest: #ffffff;
+  --md-surface-container-low: #f4f3f9;
+  --md-surface-container: #eeedf4;
+  --md-surface-container-high: #e8e7ee;
+  --md-surface-container-highest: #e2e2e9;
+  --md-on-surface: #1b1b21;
+  --md-on-surface-rgb: 27, 27, 33;
+  --md-on-surface-variant: #46464f;
+  --md-outline: #767680;
+  --md-outline-variant: #c7c5d0;
+  --md-inverse-surface: #303036;
+  --md-inverse-on-surface: #f2f0f6;
+  --md-scrim: #000000;
+
+  /* Shape scale (corner radius). */
+  --shape-xs: 4px;
+  --shape-sm: 8px;
+  --shape-md: 12px;
+  --shape-lg: 16px;
+  --shape-xl: 28px;
+  --shape-full: 999px;
+
+  /* Elevation (tonal shadow), levels 0-3 used here. */
+  --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --elevation-3: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+
+  /* State-layer opacities (overlay of on-<surface> colour on interaction). */
+  --state-hover: 0.08;
+  --state-focus: 0.1;
+  --state-pressed: 0.1;
+
+  /* Back-compat aliases: article.css and the panel markup already use these
+     names; point them at the M3 roles above instead of re-plumbing callers. */
+  --bg: var(--md-surface-container-low);
+  --panel-bg: var(--md-surface-container-lowest);
+  --border: var(--md-outline-variant);
+  --text: var(--md-on-surface);
+  --muted: var(--md-on-surface-variant);
+  --accent: var(--md-primary);
+  --panel-width: 336px;
+
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 14px;
   color: var(--text);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-primary: #b0c6ff;
+    --md-primary-rgb: 176, 198, 255;
+    --md-on-primary: #002c71;
+    --md-primary-container: #00429e;
+    --md-on-primary-container: #dbe1ff;
+    --md-secondary: #bfc6dc;
+    --md-secondary-container: #3f4759;
+    --md-on-secondary-container: #dbe2f9;
+    --md-error: #ffb4ab;
+    --md-on-error-container: #ffdad6;
+    --md-error-container: #93000a;
+
+    --md-surface: #131318;
+    --md-surface-dim: #131318;
+    --md-surface-bright: #39393f;
+    --md-surface-container-lowest: #0e0e13;
+    --md-surface-container-low: #1b1b21;
+    --md-surface-container: #1f1f25;
+    --md-surface-container-high: #29292f;
+    --md-surface-container-highest: #34343a;
+    --md-on-surface: #e4e2e9;
+    --md-on-surface-rgb: 228, 226, 233;
+    --md-on-surface-variant: #c7c5d0;
+    --md-outline: #91909a;
+    --md-outline-variant: #46464f;
+    --md-inverse-surface: #e4e2e9;
+    --md-inverse-on-surface: #303036;
+  }
 }
 
 * {
@@ -27,31 +116,47 @@ body {
   flex-direction: column;
 }
 
+/* Top app bar (M3): surface tone, no hard rule, a soft elevation instead. */
 #header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 16px;
-  padding: 8px 16px;
-  border-bottom: 1px solid var(--border);
+  padding: 10px 20px;
   background: var(--panel-bg);
+  box-shadow: var(--elevation-1);
+  position: relative;
+  z-index: 1;
 }
 
 #header h1 {
+  /* Title Medium */
   font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
   margin: 0;
-  font-weight: 600;
+  letter-spacing: 0.15px;
 }
 
 #header .header-right {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   font-size: 13px;
 }
 
 #header a {
+  color: var(--md-primary);
   text-decoration: none;
+  border-radius: var(--shape-xs);
+}
+
+#header a.muted {
+  color: var(--muted);
+}
+
+#header a:hover {
+  text-decoration: underline;
 }
 
 #header select {
@@ -70,6 +175,7 @@ body {
   flex: 1;
   min-width: 0;
   overflow: hidden;
+  background: var(--bg);
 }
 
 #stage svg,
@@ -89,41 +195,47 @@ body {
   position: absolute;
   z-index: 2;
   pointer-events: none;
-  background: rgba(15, 23, 42, 0.92);
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
+  background: var(--md-inverse-surface);
+  color: var(--md-inverse-on-surface);
+  padding: 6px 10px;
+  border-radius: var(--shape-sm);
+  box-shadow: var(--elevation-2);
   font-size: 12px;
   white-space: pre;
   max-width: 480px;
 }
 
+/* Right-hand panel: a tonal surface, no vertical rule — separated by tone
+   and elevation instead of a hard border. */
 #panel {
   width: var(--panel-width);
   flex: none;
   overflow-y: auto;
-  border-left: 1px solid var(--border);
-  background: var(--panel-bg);
+  background: var(--md-surface-container-low);
+  box-shadow: var(--elevation-1);
   padding: 4px 0 24px;
 }
 
 .panel-section {
-  padding: 10px 14px;
+  padding: 14px 16px;
   border-bottom: 1px solid var(--border);
 }
 
 .panel-section h2 {
+  /* Label Large, the M3 section-header treatment */
   font-size: 12px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin: 0 0 8px;
+  letter-spacing: 0.1em;
+  color: var(--md-primary);
+  margin: 0 0 10px;
 }
 
 .panel-section h3 {
-  font-size: 12px;
-  margin: 10px 0 4px;
-  font-weight: 600;
+  font-size: 12.5px;
+  margin: 12px 0 6px;
+  font-weight: 500;
+  color: var(--md-on-surface-variant);
 }
 
 .control {
@@ -131,7 +243,7 @@ body {
   grid-template-columns: 110px 1fr auto;
   align-items: center;
   gap: 8px;
-  margin: 6px 0;
+  margin: 8px 0;
 }
 
 .control > span:first-child {
@@ -162,10 +274,83 @@ body {
   justify-self: start;
 }
 
+/* Native form controls, M3-flavoured. */
+input[type="checkbox"] {
+  accent-color: var(--md-primary);
+  width: 18px;
+  height: 18px;
+  border-radius: var(--shape-xs);
+  cursor: pointer;
+}
+
+select,
+input[type="file"] {
+  font: inherit;
+  color: var(--text);
+  background: var(--md-surface-container-lowest);
+  border: 1px solid var(--md-outline);
+  border-radius: var(--shape-xs);
+  padding: 6px 8px;
+}
+
+select:hover,
+input[type="file"]:hover {
+  border-color: var(--md-on-surface);
+}
+
+select:focus-visible,
+input[type="file"]:focus-visible {
+  outline: 2px solid var(--md-primary);
+  outline-offset: 1px;
+}
+
+/* Range slider (M3 slider: a thick track, a small handle). */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: var(--shape-full);
+  background: var(--md-secondary-container);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: var(--shape-full);
+  background: var(--md-secondary-container);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -7px;
+  border-radius: var(--shape-full);
+  background: var(--md-primary);
+  border: none;
+  box-shadow: var(--elevation-1);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--shape-full);
+  background: var(--md-primary);
+  border: none;
+  box-shadow: var(--elevation-1);
+}
+
+/* Segmented button (M3): outlined pill, selected segment gets the tonal fill. */
 .segmented {
   display: inline-flex;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: 1px solid var(--md-outline);
+  border-radius: var(--shape-full);
   overflow: hidden;
   grid-column: 2 / 4;
   justify-self: start;
@@ -174,37 +359,89 @@ body {
 .segmented button {
   border: 0;
   background: transparent;
-  padding: 4px 12px;
+  color: var(--text);
+  padding: 6px 16px;
   cursor: pointer;
   font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  position: relative;
+}
+
+.segmented button + button {
+  border-left: 1px solid var(--md-outline);
+}
+
+.segmented button:hover {
+  background: rgba(var(--md-on-surface-rgb), var(--state-hover));
 }
 
 .segmented button.active {
-  background: var(--accent);
-  color: #fff;
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
 }
 
+.segmented button.active:hover {
+  background: var(--md-secondary-container);
+}
+
+/* Buttons: primary action = filled, everything else = outlined, both pill
+   shaped per M3's default button shape. */
 .buttons {
   display: flex;
-  gap: 8px;
-  margin: 6px 0;
+  gap: 10px;
+  margin: 8px 0;
   flex-wrap: wrap;
 }
 
-.buttons button {
+.buttons button,
+.live .bar button {
   font: inherit;
-  font-size: 12px;
-  padding: 5px 10px;
-  border: 1px solid var(--border);
-  background: #fff;
-  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border: 1px solid var(--md-outline);
+  background: transparent;
+  color: var(--md-primary);
+  border-radius: var(--shape-full);
   cursor: pointer;
+  transition: background-color 0.1s ease;
 }
 
-.buttons button.primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
+.buttons button:hover,
+.live .bar button:hover {
+  background: rgba(var(--md-primary-rgb), var(--state-hover));
+}
+
+.buttons button.primary,
+.live .bar button[aria-pressed="true"] {
+  background: var(--md-primary);
+  border-color: var(--md-primary);
+  color: var(--md-on-primary);
+  box-shadow: var(--elevation-1);
+}
+
+.buttons button.primary:hover,
+.live .bar button[aria-pressed="true"]:hover {
+  background: var(--md-primary);
+  box-shadow: var(--elevation-2);
+}
+
+.focus-button {
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border: 1px solid var(--md-outline);
+  background: transparent;
+  color: var(--md-primary);
+  border-radius: var(--shape-full);
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.focus-button:hover {
+  background: rgba(var(--md-primary-rgb), var(--state-hover));
 }
 
 .muted {
@@ -230,25 +467,26 @@ p.small {
   grid-template-columns: 96px 1fr 48px;
   align-items: center;
   gap: 8px;
-  margin: 4px 0;
+  margin: 6px 0;
   font-size: 12px;
 }
 
 .metric-bar .bar {
-  height: 8px;
-  background: #e2e8f0;
-  border-radius: 4px;
+  height: 6px;
+  background: var(--md-surface-container-highest);
+  border-radius: var(--shape-full);
   overflow: hidden;
 }
 
 .metric-bar .bar i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius: var(--shape-full);
+  background: var(--md-secondary);
 }
 
 .metric-bar:first-child .bar i {
-  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  background: var(--md-primary);
 }
 
 .metric-value {
@@ -259,8 +497,8 @@ p.small {
 .metric-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px 12px;
-  margin-top: 8px;
+  gap: 4px 12px;
+  margin-top: 10px;
   font-size: 12px;
 }
 
@@ -283,13 +521,19 @@ ol.shared,
 
 ol.shared li,
 .selection li {
-  margin: 2px 0;
+  margin: 3px 0;
 }
 
 .selection a,
 ol.shared a {
-  color: var(--accent);
+  color: var(--md-primary);
   text-decoration: none;
+  border-radius: var(--shape-xs);
+}
+
+.selection a:hover,
+ol.shared a:hover {
+  text-decoration: underline;
 }
 
 .sel-title {
@@ -298,29 +542,18 @@ ol.shared a {
   gap: 6px;
 }
 
-.focus-button {
-  font: inherit;
-  font-size: 11px;
-  padding: 3px 8px;
-  border: 1px solid var(--border);
-  background: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-left: auto;
-}
-
 .sel-title i,
 .legend i {
   display: inline-block;
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: var(--shape-full);
 }
 
 .legend {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 12px;
+  gap: 8px 14px;
   font-size: 12px;
 }
 
@@ -331,20 +564,20 @@ ol.shared a {
 }
 
 .legend i.cycle {
-  background: #fff;
-  border: 2px solid #b91c1c;
+  background: transparent;
+  border: 2px solid var(--md-error);
 }
 
 .legend i.edge {
   width: 16px;
   height: 3px;
-  border-radius: 2px;
+  border-radius: var(--shape-full);
 }
 
 .kind-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4px 12px;
+  gap: 6px 12px;
   font-size: 12px;
 }
 
@@ -362,7 +595,7 @@ ol.shared a {
   display: inline-block;
   width: 12px;
   height: 3px;
-  border-radius: 2px;
+  border-radius: var(--shape-full);
   margin-right: 5px;
   vertical-align: middle;
 }
@@ -371,7 +604,7 @@ ol.shared a {
   display: inline-block;
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: var(--shape-full);
   margin-right: 5px;
   vertical-align: middle;
 }
@@ -386,7 +619,7 @@ svg .node {
 }
 
 svg .node.selected {
-  stroke: #111827;
+  stroke: var(--md-primary);
   stroke-width: 3px;
 }
 
@@ -401,7 +634,7 @@ svg .link {
 
 svg .link.highlight {
   opacity: 1;
-  stroke: #111827;
+  stroke: var(--md-on-surface);
   stroke-width: 2px;
 }
 
@@ -414,7 +647,7 @@ svg .label {
   text-anchor: middle;
   pointer-events: none;
   paint-order: stroke;
-  stroke: #fff;
+  stroke: var(--md-surface-container-lowest);
   stroke-width: 3px;
   stroke-linejoin: round;
 }
@@ -424,7 +657,7 @@ svg .zone-label {
   font-weight: 600;
   pointer-events: none;
   paint-order: stroke;
-  stroke: #fff;
+  stroke: var(--md-surface-container-lowest);
   stroke-width: 3px;
   stroke-linejoin: round;
 }
@@ -439,8 +672,6 @@ svg .zone-label-dir {
   }
   #panel {
     width: 100%;
-    border-left: 0;
-    border-top: 1px solid var(--border);
     max-height: 45vh;
   }
 }
