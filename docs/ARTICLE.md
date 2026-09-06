@@ -272,49 +272,43 @@ with the largest lift, cycles, shared leaves pushed down).
 
 The analyzer was run on release tags of moment and d3 (about one second per
 tag, so sampling every release is cheap). Control graph = `call` + `create`;
-uses graph adds `reference` and `extends`.
+uses graph adds `reference` and `extends`. The numbers below are from the
+analyzer *after* it learned to read property assignments as declarations
+(`THEORY.md` §4.1, the rule of chapter 2b); the first run, before that, saw
+only 313 control edges in moment 2.29.0 instead of 807, because its API
+methods are attached with `proto.add = add` and called through dispatch.
 
-| repository | tag | files | declarations | control tree score | control locality | uses tree score | uses locality | surplus edges |
-|---|---|---|---|---|---|---|---|---|
-| moment | 2.0.0 – 2.9.0 | 1 | 1 | — | — | — | — | — |
-| moment | 2.10.6 | 85 | 308 | 0.313 | 0.556 | 0.463 | 0.634 | 215 |
-| moment | 2.20.0 | 102 | 381 | 0.286 | 0.550 | 0.441 | 0.613 | 299 |
-| moment | 2.29.0 | 107 | 415 | 0.279 | 0.545 | 0.429 | 0.605 | 338 |
-| d3 | v3.0.0 | 204 | 609 | 0.507 | 0.650 | 0.450 | 0.644 | 203 |
-| d3 | v3.5.17 | 274 | 758 | 0.556 | 0.694 | 0.498 | 0.710 | 183 |
+| repository | tag | files | declarations | control tree score | control locality | uses tree score | uses locality | surplus edges | surplus per declaration |
+|---|---|---|---|---|---|---|---|---|---|
+| moment | 2.0.0 – 2.9.0 | 1 | 1 | — | — | — | — | — | — |
+| moment | 2.10.6 | 85 | 354 | 0.331 | 0.554 | 0.385 | 0.583 | 327 | 0.92 |
+| moment | 2.20.0 | 102 | 418 | 0.283 | 0.541 | 0.340 | 0.562 | 501 | 1.20 |
+| moment | 2.29.0 | 107 | 453 | 0.265 | 0.542 | 0.318 | 0.564 | 593 | 1.31 |
+| d3 | v3.0.0 | 204 | 714 | 0.446 | 0.602 | 0.412 | 0.601 | 366 | 0.51 |
+| d3 | v3.5.17 | 274 | 859 | 0.435 | 0.606 | 0.422 | 0.622 | 402 | 0.47 |
 
 Findings:
 
 * **moment from 2.10 on is usable as the "castle" series** (2015–2020, ES
-  module sources under `src/lib`). Every ratio declines monotonically while
-  surplus edges grow faster than the declaration count (0.70, 0.78, 0.81
-  surplus per declaration). The decline is modest; the article must say so.
-* **The moment numbers are contaminated by the same gap.** Of the 143
-  functions with no caller in the control graph at 2.29.0, 103 are API
-  methods attached by assignment (`proto.add = add` in
-  `src/lib/moment/prototype.js`) and called only through dispatch the
-  analyzer does not see. Until property-assigned functions are modelled, the
-  series above understates connectivity and its decline is not to be quoted.
+  module sources under `src/lib`). The tree score falls monotonically and
+  surplus edges grow faster than the declaration count (0.92, 1.20, 1.31
+  surplus per declaration); locality stays flat, i.e. the extra sharing is
+  between siblings rather than across the codebase. The 33 prototype
+  methods that still have no caller at 2.29.0 (`subtract`, `isBetween`, ...)
+  are the public API, called by users of the library: genuine roots.
 * **moment before 2.10 is invisible**: the whole library is one IIFE in one
   file, so the analyzer sees one `module` node and no edges. Measuring that
   era needs nested declarations as nodes (an existing roadmap item).
-* **d3 v3 parses but is not yet comparable to v4.** Its public API is written
-  as property assignments (`d3.scale.linear = function () {...}`), which are
-  module-level code rather than declarations, so 176 of 609 nodes are
-  `module` nodes and the public surface is not in the graph. Comparing the
-  v3 monolith with the v4 packages (all ES module exports) requires the
-  analyzer to model property-assigned function expressions as declarations;
-  otherwise the two eras are measured with different rulers. The v4 side
-  also needs a union analysis across the split `d3-*` repositories.
+* **d3 v3 is now measured with the same ruler as ES modules.** Its
+  property-assigned API (`d3.scale.linear = function`) yields real
+  declarations with qualified names, and the `module` nodes fell from 203 to
+  25 at v3.5.17. Within 3.x the monolith held steady rather than decaying.
+  Comparing it with v4 still needs a union analysis across the split
+  `d3-*` repositories.
 
-Analyzer additions this implies: nested declarations as nodes (behind a
-flag), and property-assigned functions as declarations under the rule of
-chapter 2b — a definition-time assignment through a pure name path is a
-binding (`ns.f = function`: a static member; `X.prototype.m = function`: an
-instance member; `proto.m = m`: an alias, no new node, `m` gains the member
-role), a use-time assignment through a name path is a flagged late binding,
-and an assignment to a runtime value is a store. Call sites the checker
-cannot type are resolved by literal name path, as ordinary `call` edges.
+Analyzer additions this still implies: nested declarations as nodes (behind
+a flag), for the single-file era; and, for chapter 17 (B), a `--git` mode
+that samples tags and a way to analyze several repositories as one graph.
 
 ## Open questions
 

@@ -4,6 +4,24 @@ The section for a version becomes the notes of its GitHub release
 (`.github/workflows/release.yml`), which is cut when the version in
 `package.json` reaches the default branch.
 
+## Unreleased
+
+### Analyzer: assignments that declare
+
+* A top-level assignment through a path of names is a **declaration**, not
+  module code: `ns.f = function` a static member, `C.prototype.m = function`
+  an instance member, `proto.m = m` an alias (`m` gains the member role, no
+  new node), `exports.f = …` an export, `d3.scale = {}` a binding on an
+  undeclared global with its qualified name. The same assignment inside a
+  function body is a flagged **late binding** when the receiver is a
+  module-level name and a plain store when it is a value (`THEORY.md` §4.1).
+* Calls on receivers the type checker cannot type are resolved by name
+  path (`d3.scale.linear()`), by `this` inside a member, or to every
+  instance member of that name (field-based, marked `inferred`).
+* Declarations gain optional `late` and `aliases` fields (`DATA_FORMAT.md`).
+* Measured effect: moment 2.29.0 goes from 313 to 807 control edges; d3
+  v3.5.17 from 203 `module` nodes to 25.
+
 ## v0.2.0
 
 ### Diagnostics: directed, and aware of distance

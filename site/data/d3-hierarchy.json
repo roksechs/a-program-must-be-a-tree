@@ -3,8 +3,8 @@
   "name": "d3-hierarchy",
   "root": "node_modules/d3-hierarchy",
   "language": "javascript",
-  "generatedAt": "2026-09-05T12:09:09.328Z",
-  "analyzer": "analyzers/ts@0.1.0",
+  "generatedAt": "2026-09-06T02:24:31.419Z",
+  "analyzer": "analyzers/ts@0.2.0",
   "files": 34
  },
  "declarations": [
@@ -140,8 +140,11 @@
    "kind": "function",
    "file": "src/hierarchy/ancestors.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.ancestors"
+   ]
   },
   {
    "id": "src/hierarchy/count.js::count",
@@ -158,8 +161,11 @@
    "kind": "function",
    "file": "src/hierarchy/count.js",
    "line": 10,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.count"
+   ]
   },
   {
    "id": "src/hierarchy/descendants.js::default",
@@ -167,8 +173,11 @@
    "kind": "function",
    "file": "src/hierarchy/descendants.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.descendants"
+   ]
   },
   {
    "id": "src/hierarchy/each.js::default",
@@ -176,8 +185,11 @@
    "kind": "function",
    "file": "src/hierarchy/each.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.each"
+   ]
   },
   {
    "id": "src/hierarchy/eachAfter.js::default",
@@ -185,8 +197,11 @@
    "kind": "function",
    "file": "src/hierarchy/eachAfter.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.eachAfter"
+   ]
   },
   {
    "id": "src/hierarchy/eachBefore.js::default",
@@ -194,8 +209,11 @@
    "kind": "function",
    "file": "src/hierarchy/eachBefore.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.eachBefore"
+   ]
   },
   {
    "id": "src/hierarchy/find.js::default",
@@ -203,17 +221,11 @@
    "kind": "function",
    "file": "src/hierarchy/find.js",
    "line": 1,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "src/hierarchy/index.js::<module>",
-   "name": "index",
-   "kind": "module",
-   "file": "src/hierarchy/index.js",
-   "line": 75,
-   "parent": null,
-   "exported": false
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.find"
+   ]
   },
   {
    "id": "src/hierarchy/index.js::computeHeight",
@@ -257,8 +269,11 @@
    "kind": "function",
    "file": "src/hierarchy/index.js",
    "line": 68,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.constructor"
+   ]
   },
   {
    "id": "src/hierarchy/index.js::node_copy",
@@ -266,8 +281,11 @@
    "kind": "function",
    "file": "src/hierarchy/index.js",
    "line": 45,
-   "parent": null,
-   "exported": false
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": false,
+   "aliases": [
+    "Node.copy"
+   ]
   },
   {
    "id": "src/hierarchy/index.js::objectChildren",
@@ -284,8 +302,11 @@
    "kind": "function",
    "file": "src/hierarchy/iterator.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.[Symbol.iterator]"
+   ]
   },
   {
    "id": "src/hierarchy/leaves.js::default",
@@ -293,8 +314,11 @@
    "kind": "function",
    "file": "src/hierarchy/leaves.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.leaves"
+   ]
   },
   {
    "id": "src/hierarchy/links.js::default",
@@ -302,8 +326,11 @@
    "kind": "function",
    "file": "src/hierarchy/links.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.links"
+   ]
   },
   {
    "id": "src/hierarchy/path.js::default",
@@ -311,8 +338,11 @@
    "kind": "function",
    "file": "src/hierarchy/path.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.path"
+   ]
   },
   {
    "id": "src/hierarchy/path.js::leastCommonAncestor",
@@ -329,8 +359,11 @@
    "kind": "function",
    "file": "src/hierarchy/sort.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.sort"
+   ]
   },
   {
    "id": "src/hierarchy/sum.js::default",
@@ -338,8 +371,11 @@
    "kind": "function",
    "file": "src/hierarchy/sum.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/hierarchy/index.js::Node",
+   "exported": true,
+   "aliases": [
+    "Node.sum"
+   ]
   },
   {
    "id": "src/lcg.js::a",
@@ -889,6 +925,14 @@
    "time": "use"
   },
   {
+   "source": "src/cluster.js::default",
+   "target": "src/hierarchy/eachAfter.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "src/cluster.js::maxY",
    "target": "src/cluster.js::maxYReduce",
    "kind": "reference",
@@ -910,116 +954,19 @@
    "time": "use"
   },
   {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/ancestors.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/count.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/descendants.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/each.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
+   "source": "src/hierarchy/count.js::default",
    "target": "src/hierarchy/eachAfter.js::default",
-   "kind": "reference",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use"
   },
   {
-   "source": "src/hierarchy/index.js::<module>",
+   "source": "src/hierarchy/index.js::hierarchy",
    "target": "src/hierarchy/eachBefore.js::default",
-   "kind": "reference",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/find.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/index.js::hierarchy",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/index.js::Node",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/index.js::node_copy",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/iterator.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/leaves.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/links.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/path.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/sort.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/hierarchy/index.js::<module>",
-   "target": "src/hierarchy/sum.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/hierarchy/index.js::hierarchy",
@@ -1067,6 +1014,14 @@
   },
   {
    "source": "src/hierarchy/index.js::node_copy",
+   "target": "src/hierarchy/eachBefore.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/hierarchy/index.js::node_copy",
    "target": "src/hierarchy/index.js::copyData",
    "kind": "reference",
    "count": 1,
@@ -1080,8 +1035,53 @@
    "time": "use"
   },
   {
+   "source": "src/hierarchy/leaves.js::default",
+   "target": "src/hierarchy/eachBefore.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/hierarchy/links.js::default",
+   "target": "src/hierarchy/each.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "src/hierarchy/path.js::default",
    "target": "src/hierarchy/path.js::leastCommonAncestor",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/hierarchy/path.js::leastCommonAncestor",
+   "target": "src/hierarchy/ancestors.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/hierarchy/sort.js::default",
+   "target": "src/hierarchy/eachBefore.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/hierarchy/sort.js::default",
+   "target": "src/hierarchy/sort.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/hierarchy/sum.js::default",
+   "target": "src/hierarchy/eachAfter.js::default",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -1228,6 +1228,22 @@
   },
   {
    "source": "src/pack/index.js::default",
+   "target": "src/hierarchy/eachAfter.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/pack/index.js::default",
+   "target": "src/hierarchy/eachBefore.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/pack/index.js::default",
    "target": "src/lcg.js::default",
    "kind": "call",
    "count": 1,
@@ -1342,6 +1358,14 @@
   },
   {
    "source": "src/partition.js::default",
+   "target": "src/hierarchy/eachBefore.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/partition.js::default",
    "target": "src/treemap/dice.js::default",
    "kind": "call",
    "count": 1,
@@ -1360,6 +1384,14 @@
    "kind": "call",
    "count": 3,
    "time": "use"
+  },
+  {
+   "source": "src/stratify.js::default",
+   "target": "src/hierarchy/eachBefore.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/stratify.js::default",
@@ -1465,15 +1497,31 @@
    "source": "src/tree.js::<module>",
    "target": "src/hierarchy/index.js::Node",
    "kind": "reference",
-   "count": 1,
+   "count": 2,
    "time": "definition"
   },
   {
    "source": "src/tree.js::<module>",
    "target": "src/tree.js::TreeNode",
    "kind": "reference",
-   "count": 1,
+   "count": 2,
    "time": "definition"
+  },
+  {
+   "source": "src/tree.js::default",
+   "target": "src/hierarchy/eachAfter.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/tree.js::default",
+   "target": "src/hierarchy/eachBefore.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/tree.js::default",
@@ -1567,6 +1615,14 @@
    "kind": "call",
    "count": 5,
    "time": "use"
+  },
+  {
+   "source": "src/treemap/index.js::default",
+   "target": "src/hierarchy/eachBefore.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/treemap/index.js::default",

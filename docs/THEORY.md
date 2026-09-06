@@ -26,6 +26,7 @@ Declaration   D  ::= x = e                          (variable, function when e i
 Term          e  ::= x | c                          (variables, constants)
                    | λy.e | e e                     (functions, application)
                    | { m = e } | e.m                (records, projection)
+                   | e.m := e                       (field assignment)
                    | new e (ē) | super (ē)          (construction, base constructor call)
                    | let y = e in e | e : τ         (binding, type ascription)
                    | return e                       (tail position marker inside a λ)
@@ -258,6 +259,56 @@ Every edge carries `time: "definition" | "use"`. The viewer reports the
 declarations caught in a cycle of definition-time term-level edges as
 *initialisation cycles*, separately from ordinary recursion.
 
+### 4.1 Field assignment: binding or store
+
+A statement `P.m := e` writes a function (or any value) into a slot. Whether
+that *declares* something is not a matter of what `P` is called ("a
+namespace", "an instance") but of two structural facts, both invariant under
+renaming every identifier:
+
+* **When does it run?** At definition time (no `λ` between the statement and
+  the root of the module) or at use time (inside some body)?
+* **Can other code name the target?** Is `P` a *path of names* — an
+  identifier bound at module level, or an undeclared global, followed by
+  projections, `C.prototype` included — so that another declaration can
+  write `P.m` and mean exactly this slot? Or does `P` denote a value that
+  only exists at run time (a parameter, a local, an element, a call result,
+  `this`), which no static name reaches?
+
+Definition 1 requires an occurrence to carry a *name*, so only a nameable slot
+can be the target of an edge. Hence:
+
+**Definition 9a (binding, late binding, store).**
+
+* *Binding*: `P.m := e` at definition time with `P` a path of names. The
+  statement extends the `letrec` of section 1 with a declaration named `m`
+  whose parent is what `P` denotes (a class for `C.prototype`, a namespace
+  object or function otherwise, none for an undeclared global, whose
+  qualified name is kept). `ns.f = function` is the ES5 spelling of
+  `export function f`; `C.prototype.m = function` of a method (section 5).
+  When `e` is the name of a declared function, the statement is an *alias*,
+  like `import`: no occurrence and no new node, the function gains the
+  member role. Any other value is a variable binding; an object literal is a
+  namespace whose function-valued properties are bindings in turn.
+* *Late binding*: the same statement at use time. The slot is nameable, so
+  call sites `P.m(ē)` elsewhere resolve to it, but it exists only after the
+  enclosing body has run: the initialisation hazard above in another
+  costume. It is a declaration flagged `late`, with a `reference` edge from
+  the declaration that installs it.
+* *Store*: `P` denotes a value. Nothing is declared. The closure escapes
+  into the slot (Fact 3), the enclosing declaration keeps the closure's
+  body and gets the edges its body makes, and whoever eventually applies
+  the value is found by control-flow analysis (§3.2), never by name.
+
+Treating the late case as a declaration rather than a store is a design
+decision, not a consequence of the calculus; the flag keeps it visible.
+
+"Namespace" is thus the name we give an object whose slots are only ever
+written at definition time, and the class/object distinction of section 5 is
+the same split: what is put on the prototype is bound once when the class
+statement runs, what is put on the instance (`this.m := λ` in a constructor)
+is stored once per construction.
+
 ## 5. Classes, generators and inheritance
 
 Following Cook (1989) and Cook and Palsberg (1989), a class is a
@@ -279,6 +330,19 @@ an object is a fixed point `fix(gen_C)`. Under this reading:
 * An overriding method `C.m` is *selected* by dispatch, never named; the
   relation `C.m overrides B.m` is structural and belongs with `extends`,
   not with calls.
+* `C.prototype.m = λȳ.e` after the class (or constructor function) statement
+  is `m = λȳ.e` of `gen_C` written incrementally: the module's definition-time
+  statements assemble the generator, and the member is declared exactly as
+  if it stood in the class body (Definition 9a). `C.prototype.m = f` for a
+  declared `f` names an existing `λ`: an alias, `f` becomes the member.
+  `C.m = λ` is a static field of the class value. `this.m = λ` inside the
+  constructor runs once per `fix(gen_C)`: one closure per object, stored,
+  not declared.
+* When the receiver of `o.m(ē)` has no static type (untyped JavaScript), the
+  target set is approximated by name: the slot `P.m` when `o` is a path of
+  names, `C.m` when `o` is `this` inside a member of `C`, and otherwise every
+  instance member called `m` in the program — the field-based call graph of
+  Feldthaus et al. (2013), an over-approximation and therefore `inferred`.
 
 ## 6. Mapping real syntax onto the calculus
 
@@ -298,6 +362,13 @@ an object is a fixed point `fix(gen_C)`. Under this reading:
 | `import { f } from "m"`                    | alias, no occurrence            | none        | (resolved through the alias)            |
 | `import type { T } from "m"`               | alias, no occurrence            | none        |                                         |
 | `typeof f` in a type                       | type position                   | `type`      | `f`                                     |
+| `ns.f = function () {…}` at top level      | binding (Definition 9a)         | none        | declares `f` with parent `ns`           |
+| `C.prototype.m = function () {…}`          | `m = λ` of `gen_C` (section 5)  | none        | declares member `m` of `C`              |
+| `C.prototype.m = f`, `exports.f = f`       | alias, no occurrence            | none        | `f` gains the member / export role      |
+| `d3.scale.linear = …`, `d3` undeclared     | binding on a global             | none        | declares `d3.scale.linear`, parent `d3.scale` once that is bound |
+| `app.h = function () {…}` inside a body    | late binding (Definition 9a)    | `reference` | member `h` flagged `late`; installer → `h` |
+| `el.cb = function () {…}`, `el` a value    | store: the closure escapes      | none        | no declaration; the body belongs to the enclosing declaration |
+| `o.m(a)`, `o` untyped                      | `(o.m) a`                       | `call`      | `m` by name path or `this`, else every instance member `m` (inferred) |
 
 `f.bind(o)` deserves a note: `f` is the receiver of a projection whose result
 is applied, but the function that is applied is `bind`, not `f`; `f` escapes
@@ -382,6 +453,11 @@ kind(p) =
 time(p) =
   definition  if no λ separates p from the root of body(D)        (section 4)
   use         otherwise
+
+declares(P.m := e) =
+  binding     if definition-time and P is a path of names          (section 4.1)
+  late        if use-time and P is a path of names                 (a declaration flagged late)
+  store       if P denotes a value: a reference, no declaration
 ```
 
 Two facts justify the split. Erasure (Fact 1) separates `type` from the
@@ -409,6 +485,9 @@ found by control-flow analysis.
   using static class hierarchy analysis*, ECOOP 1995; D. Grove,
   C. Chambers, *A framework for call graph construction algorithms*,
   TOPLAS 2001.
+* A. Feldthaus, M. Schäfer, M. Sridharan, J. Dolby, F. Tip, *Efficient
+  construction of approximate call graphs for JavaScript*, ICSE 2013 (the
+  field-based call graph).
 * W. R. Cook, *A denotational semantics of inheritance*, PhD 1989;
   W. R. Cook, J. Palsberg, *A denotational semantics of inheritance and its
   correctness*, OOPSLA 1989.

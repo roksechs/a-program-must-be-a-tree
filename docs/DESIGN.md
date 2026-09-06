@@ -19,8 +19,13 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 * **Analyzers** are independent programs that emit the JSON described in
   `DATA_FORMAT.md`. Besides functions, classes, members, variables and types,
   the TypeScript analyzer emits one `module` node per file that has top-level
-  code outside any declaration (`X.prototype = {...}`, a call at load time), so
-  references made by such code are not lost. The first one covers JavaScript / TypeScript using the
+  code outside any declaration (a call at load time), so references made by
+  such code are not lost. A top-level assignment through a path of names
+  (`ns.f = function`, `C.prototype.m = f`, `exports.f = …`, `d3.scale = {}`)
+  is not module code but a declaration — the ES5 spelling of an export or a
+  method — while the same assignment inside a function body is a flagged
+  *late binding* when the receiver is a module-level name and a mere store
+  when it is a value (`THEORY.md` §4.1). The first one covers JavaScript / TypeScript using the
   TypeScript compiler API, which resolves imports, `this.method()` calls and
   aliases for free. Other languages (Python `ast`, tree-sitter, Go `go/types`,
   ...) can be added without touching the viewer.

@@ -27,13 +27,15 @@ analyzer that produces it (in any language, with any parser).
 
 | field      | type            | notes |
 |------------|-----------------|-------|
-| `id`       | string          | Unique within the document. Convention: `<file>::<qualified name>`. |
+| `id`       | string          | Unique within the document. Convention: `<file>::<qualified name>`; a member is `<parent id>.<name>`, so a member bound by assignment in another file carries its parent's file in its id while `file` says where it was written. A binding on an undeclared global (`d3.scale = {}`) is `<file>::<full path>`. |
 | `name`     | string          | Display name (unqualified). |
 | `kind`     | string          | One of `function`, `method`, `class`, `variable`, `interface`, `type`, `enum`, `module`, or any other string. Unknown kinds are rendered with a neutral colour. A `module` declaration stands for the top-level code of a file (statements outside any declaration, e.g. `X.prototype = {...}` or a call at load time); the TypeScript analyzer emits one per file that has such code, with id `<file>::<module>`. |
 | `file`     | string          | Path relative to `meta.root`, using `/` separators. The directory hierarchy is derived from this path and drawn as nested zones. |
 | `line`     | number          | 1-based line of the declaration (optional). |
-| `parent`   | string or null  | Id of the enclosing declaration (e.g. the class of a method). Optional. |
+| `parent`   | string or null  | Id of the enclosing declaration: the class of a method, or the class, namespace object or function a member was bound to by assignment (`C.prototype.m = …`, `ns.f = …`; `THEORY.md` §4.1). A function aliased into a slot (`proto.add = add`) keeps its own id and gets the slot's owner as parent. Optional. |
 | `exported` | boolean         | Whether the declaration is visible outside its file. Optional. |
+| `late`     | boolean         | `true` for a *late binding*: a slot assigned inside a function body (`app.handler = function` in `init()`), which other code can name but which exists only after that body has run. Optional. |
+| `aliases`  | string[]        | Qualified slot names this declaration was aliased into (`["Moment.add"]` for `proto.add = add`). Optional. |
 
 ## `edges[]`
 
@@ -44,7 +46,7 @@ analyzer that produces it (in any language, with any parser).
 | `kind`   | string | `call` (application of a function or method, including `super()`), `create` (`new X()`: the constructor that lookup finds for `X`, or `X` itself when no ancestor declares one), `reference` (value used without being applied, e.g. passed as a callback, stored or returned), `type` (type-only use, including a call through an interface member), `extends`, `implements` (class to interface, or member to the interface member it implements), `override` (member to the member it overrides). Optional, defaults to `call`. See `THEORY.md`. |
 | `count`  | number | Number of occurrences. Optional, defaults to 1. |
 | `time`   | string | `definition` when the occurrence is evaluated while the module initialises (top-level initializers, `extends`, static fields), `use` when it runs inside a function or method body. Optional, defaults to `use`. |
-| `inferred` | boolean | `true` when the edge was not written at that place in the source but derived by analysis: a dispatched call to an overriding method, or a callback resolved by flow analysis at the declaration that actually invokes it. Optional. |
+| `inferred` | boolean | `true` when the edge was not written at that place in the source but derived by analysis: a dispatched call to an overriding method, a callback resolved by flow analysis at the declaration that actually invokes it, or a call on a receiver the type checker cannot type, resolved to every instance member of that name. Optional. |
 
 The precise meaning of each kind (phase, evaluation context, lookup rules) is
 derived in `THEORY.md`.

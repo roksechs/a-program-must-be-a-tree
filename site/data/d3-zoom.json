@@ -3,8 +3,8 @@
   "name": "d3-zoom",
   "root": "node_modules/d3-zoom",
   "language": "javascript",
-  "generatedAt": "2026-09-05T12:09:09.753Z",
-  "analyzer": "analyzers/ts@0.1.0",
+  "generatedAt": "2026-09-06T02:24:31.762Z",
+  "analyzer": "analyzers/ts@0.2.0",
   "files": 6
  },
  "declarations": [
@@ -49,7 +49,7 @@
    "name": "transform",
    "kind": "module",
    "file": "src/transform.js",
-   "line": 7,
+   "line": 46,
    "parent": null,
    "exported": false
   },
@@ -77,8 +77,110 @@
    "kind": "function",
    "file": "src/transform.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/transform.js::Transform",
+   "exported": true,
+   "aliases": [
+    "Transform.constructor"
+   ]
+  },
+  {
+   "id": "src/transform.js::Transform.apply",
+   "name": "apply",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 15,
+   "parent": "src/transform.js::Transform",
+   "exported": false
+  },
+  {
+   "id": "src/transform.js::Transform.applyX",
+   "name": "applyX",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 18,
+   "parent": "src/transform.js::Transform",
+   "exported": false
+  },
+  {
+   "id": "src/transform.js::Transform.applyY",
+   "name": "applyY",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 21,
+   "parent": "src/transform.js::Transform",
+   "exported": false
+  },
+  {
+   "id": "src/transform.js::Transform.invert",
+   "name": "invert",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 24,
+   "parent": "src/transform.js::Transform",
+   "exported": false
+  },
+  {
+   "id": "src/transform.js::Transform.invertX",
+   "name": "invertX",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 27,
+   "parent": "src/transform.js::Transform",
+   "exported": false
+  },
+  {
+   "id": "src/transform.js::Transform.invertY",
+   "name": "invertY",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 30,
+   "parent": "src/transform.js::Transform",
+   "exported": false
+  },
+  {
+   "id": "src/transform.js::Transform.rescaleX",
+   "name": "rescaleX",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 33,
+   "parent": "src/transform.js::Transform",
+   "exported": false
+  },
+  {
+   "id": "src/transform.js::Transform.rescaleY",
+   "name": "rescaleY",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 36,
+   "parent": "src/transform.js::Transform",
+   "exported": false
+  },
+  {
+   "id": "src/transform.js::Transform.scale",
+   "name": "scale",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 9,
+   "parent": "src/transform.js::Transform",
+   "exported": false
+  },
+  {
+   "id": "src/transform.js::Transform.toString",
+   "name": "toString",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 39,
+   "parent": "src/transform.js::Transform",
+   "exported": false
+  },
+  {
+   "id": "src/transform.js::Transform.translate",
+   "name": "translate",
+   "kind": "method",
+   "file": "src/transform.js",
+   "line": 12,
+   "parent": "src/transform.js::Transform",
+   "exported": false
   },
   {
    "id": "src/zoom.js::default",
@@ -149,21 +251,14 @@
    "source": "src/transform.js::<module>",
    "target": "src/transform.js::transform",
    "kind": "reference",
-   "count": 1,
+   "count": 2,
    "time": "definition"
   },
   {
    "source": "src/transform.js::<module>",
    "target": "src/transform.js::Transform",
-   "kind": "create",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "src/transform.js::<module>",
-   "target": "src/transform.js::Transform",
    "kind": "reference",
-   "count": 3,
+   "count": 2,
    "time": "definition"
   },
   {
@@ -177,6 +272,34 @@
    "source": "src/transform.js::transform",
    "target": "src/transform.js::identity",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/transform.js::Transform.rescaleX",
+   "target": "src/transform.js::Transform.invertX",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/transform.js::Transform.rescaleY",
+   "target": "src/transform.js::Transform.invertY",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/transform.js::Transform.scale",
+   "target": "src/transform.js::Transform",
+   "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/transform.js::Transform.translate",
+   "target": "src/transform.js::Transform",
+   "kind": "create",
    "count": 1,
    "time": "use"
   },
@@ -221,6 +344,38 @@
    "kind": "create",
    "count": 3,
    "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/transform.js::Transform.apply",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/transform.js::Transform.invert",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/transform.js::Transform.scale",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/transform.js::Transform.translate",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/zoom.js::default",
@@ -271,6 +426,30 @@
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/zoom.js::defaultConstrain",
+   "target": "src/transform.js::Transform.invertX",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/zoom.js::defaultConstrain",
+   "target": "src/transform.js::Transform.invertY",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/zoom.js::defaultConstrain",
+   "target": "src/transform.js::Transform.translate",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/zoom.js::defaultTransform",
