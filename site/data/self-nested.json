@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-06T09:56:15.796Z",
+  "generatedAt": "2026-09-06T11:03:00.142Z",
   "analyzer": "analyzers/ts@0.3.0",
   "files": 24
  },
@@ -805,7 +805,7 @@
    "name": "loadDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 249,
+   "line": 236,
    "parent": null,
    "exported": false
   },
@@ -814,7 +814,7 @@
    "name": "loadFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 268,
+   "line": 255,
    "parent": null,
    "exported": false
   },
@@ -823,7 +823,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 283,
+   "line": 270,
    "parent": null,
    "exported": false
   },
@@ -832,7 +832,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 297,
+   "line": 284,
    "parent": null,
    "exported": false
   },
@@ -1165,7 +1165,7 @@
    "name": "BOW_STEP",
    "kind": "variable",
    "file": "site/js/colors.js",
-   "line": 53,
+   "line": 62,
    "parent": null,
    "exported": false
   },
@@ -1174,7 +1174,7 @@
    "name": "EDGE_BOW",
    "kind": "variable",
    "file": "site/js/colors.js",
-   "line": 54,
+   "line": 63,
    "parent": null,
    "exported": false
   },
@@ -1183,7 +1183,7 @@
    "name": "EDGE_COLORS",
    "kind": "variable",
    "file": "site/js/colors.js",
-   "line": 29,
+   "line": 38,
    "parent": null,
    "exported": true
   },
@@ -1192,7 +1192,7 @@
    "name": "edgeBowOffset",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 66,
+   "line": 75,
    "parent": null,
    "exported": true
   },
@@ -1201,7 +1201,7 @@
    "name": "edgeColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 40,
+   "line": 49,
    "parent": null,
    "exported": true
   },
@@ -1210,7 +1210,7 @@
    "name": "heightColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 76,
+   "line": 85,
    "parent": null,
    "exported": true
   },
@@ -1219,7 +1219,7 @@
    "name": "KIND_COLORS",
    "kind": "variable",
    "file": "site/js/colors.js",
-   "line": 5,
+   "line": 7,
    "parent": null,
    "exported": true
   },
@@ -1228,7 +1228,7 @@
    "name": "kindColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 17,
+   "line": 19,
    "parent": null,
    "exported": true
   },
@@ -1237,7 +1237,7 @@
    "name": "zoneColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 24,
+   "line": 26,
    "parent": null,
    "exported": true
   },
@@ -1246,7 +1246,7 @@
    "name": "zoneScale",
    "kind": "variable",
    "file": "site/js/colors.js",
-   "line": 21,
+   "line": 23,
    "parent": null,
    "exported": false
   },
@@ -1462,7 +1462,7 @@
    "name": "clampPitch",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 601,
+   "line": 596,
    "parent": null,
    "exported": false
   },
@@ -1471,7 +1471,7 @@
    "name": "drawArrow",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 614,
+   "line": 609,
    "parent": null,
    "exported": false
   },
@@ -1498,7 +1498,7 @@
    "name": "bindEvents",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 108,
+   "line": 100,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1507,7 +1507,7 @@
    "name": "end",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 184,
+   "line": 173,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -1525,7 +1525,7 @@
    "name": "draw",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 365,
+   "line": 352,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1534,7 +1534,7 @@
    "name": "fit",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 521,
+   "line": 518,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1543,7 +1543,7 @@
    "name": "focusOn",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 559,
+   "line": 558,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1552,7 +1552,7 @@
    "name": "hitTest",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 336,
+   "line": 323,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1561,7 +1561,7 @@
    "name": "neighbourSet",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 350,
+   "line": 337,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1570,7 +1570,7 @@
    "name": "project",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 299,
+   "line": 286,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1579,7 +1579,7 @@
    "name": "resize",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 222,
+   "line": 210,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1588,7 +1588,7 @@
    "name": "restyle",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 253,
+   "line": 240,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1597,7 +1597,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 283,
+   "line": 270,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1606,7 +1606,7 @@
    "name": "setColorBy",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 263,
+   "line": 250,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1615,7 +1615,7 @@
    "name": "setGraph",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 235,
+   "line": 223,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1624,7 +1624,7 @@
    "name": "setLabelMode",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 258,
+   "line": 245,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1633,7 +1633,7 @@
    "name": "setLayerGap",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 273,
+   "line": 260,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1642,7 +1642,7 @@
    "name": "setShowLayers",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 278,
+   "line": 265,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1651,7 +1651,7 @@
    "name": "setVisibleKinds",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 268,
+   "line": 255,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1660,7 +1660,7 @@
    "name": "setZones",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 247,
+   "line": 234,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1669,7 +1669,7 @@
    "name": "show",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 589,
+   "line": 584,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1678,7 +1678,7 @@
    "name": "tick",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 360,
+   "line": 347,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1687,7 +1687,7 @@
    "name": "viewTop",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 582,
+   "line": 578,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1696,7 +1696,7 @@
    "name": "zOf",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 332,
+   "line": 319,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -3941,7 +3941,7 @@
    "source": "site/js/app.js::installGraph",
    "target": "site/js/app.js::renderer",
    "kind": "reference",
-   "count": 8,
+   "count": 5,
    "time": "use"
   },
   {
@@ -3963,13 +3963,6 @@
    "target": "site/js/app.js::updateZones",
    "kind": "call",
    "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph3d.js::Graph3D.fit",
-   "kind": "call",
-   "count": 2,
    "time": "use"
   },
   {
@@ -5349,6 +5342,20 @@
   {
    "source": "site/js/colors.js::EDGE_BOW",
    "target": "site/js/colors.js::BOW_STEP",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/colors.js::EDGE_BOW",
+   "target": "site/js/kinds.js::EDGE_KINDS",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/colors.js::EDGE_BOW",
+   "target": "site/js/kinds.js::EDGE_KINDS",
    "kind": "reference",
    "count": 1,
    "time": "use"
