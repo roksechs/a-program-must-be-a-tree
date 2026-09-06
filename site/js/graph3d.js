@@ -98,10 +98,27 @@ export class Graph3D {
       moved = false;
       c.setPointerCapture(e.pointerId);
     });
+    document.addEventListener("pointerlockchange", () => {
+      // Escape (or anything else) can end the lock without a pointerup;
+      // without this the next real pointerup would use a stale `dragging`.
+      if (document.pointerLockElement !== c && dragging && !dragging.pan) dragging = null;
+    });
     c.addEventListener("pointermove", (e) => {
       if (dragging) {
-        const dx = e.clientX - dragging.x;
-        const dy = e.clientY - dragging.y;
+        // Orbiting needs to accept a drag larger than the screen: reaching a
+        // pitch on the far side of level (looking up from underneath, say)
+        // can take more pixels of movement than fit on the actual display.
+        // Pointer lock removes that ceiling by reporting relative movement
+        // (movementX/Y) instead of an absolute, screen-bounded position, the
+        // same trick orbit/first-person controls in web-based 3D tools use.
+        // Requested here (once actual movement starts), not on pointerdown,
+        // so a plain click never triggers it; panning never does either,
+        // since it's a direct 1:1 drag. `pointerlockchange` below cleans up
+        // if the lock ends some other way (Escape) mid-drag.
+        if (!dragging.pan && document.pointerLockElement !== c) c.requestPointerLock?.();
+        const locked = document.pointerLockElement === c;
+        const dx = locked ? e.movementX : e.clientX - dragging.x;
+        const dy = locked ? e.movementY : e.clientY - dragging.y;
         dragging.x = e.clientX;
         dragging.y = e.clientY;
         if (Math.abs(dx) + Math.abs(dy) > 1) moved = true;
@@ -145,9 +162,13 @@ export class Graph3D {
         this.select(n === this.selected ? null : n);
       }
       dragging = null;
+      if (document.pointerLockElement === c) document.exitPointerLock();
     };
     c.addEventListener("pointerup", end);
-    c.addEventListener("pointercancel", () => (dragging = null));
+    c.addEventListener("pointercancel", () => {
+      dragging = null;
+      if (document.pointerLockElement === c) document.exitPointerLock();
+    });
     c.addEventListener("dblclick", (e) => {
       const n = this.hitTest(e.offsetX, e.offsetY);
       if (n) {
