@@ -20,9 +20,10 @@ The section for a version becomes the notes of its GitHub release
 * `write` is a new toggle in the Edges section, off by default like `type`:
   mixing a reversed edge into the control or uses graph without noticing
   would misread the dominator tree, so it stays its own lens.
-* `reference` and `write` edges between the same pair now draw as a
-  quadratic curve (2D and 3D) instead of a straight line, so the read and
-  write halves of a compound assignment never overlap.
+* `reference` and `write` edges are now rotated a small angle around their
+  own midpoint (2D and 3D) instead of running straight through both node
+  centres, so the read and write halves of a compound assignment fan out
+  instead of overlapping.
 
 ### The article
 
