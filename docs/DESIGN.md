@@ -45,21 +45,18 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `dominance.js`  | Dominator tree of the condensed graph: the deepest nesting the program admits, and the lift of every edge. |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
-| `graph2d.js`    | SVG renderer: zoom/pan, drag, arrows, hulls, labels, selection. Used by the article's live figures, not the main viewer (see below). |
-| `graph3d.js`    | Canvas renderer: same x/y, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The main viewer's only renderer. |
+| `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer, used by both the main viewer and the article's live figures. |
 | `panel.js`      | Property panel (controls + diagnostics + selection details). |
 | `app.js`        | Data loading and wiring. |
 | `markdown.js`   | Small Markdown renderer for the article chapters (escaped, no raw HTML; `<!-- key: value -->` comments are page directives). |
 | `article.js`    | The article page (`article.html`): chapters from `content/<lang>/`, each with the live graphs its directives ask for, rendered by the same modules on the same datasets as the viewer. |
 
-The main viewer (`index.html`) only ever renders in 3D: a 2D renderer without
-perspective is exactly `graph3d.js`'s own Top view (`viewTop()`), so keeping a
-second SVG renderer wired into the main viewer alongside it would be two ways
-to draw the same picture, and the SVG one is the heavier of the two once a
-graph has any size. `graph2d.js` remains for the article's live figures, which
-still contrast the two renderings side by side as a teaching device; both
-renderers read the same node objects, so a figure switching between them does
-not restart the simulation or lose the layout.
+Both the main viewer (`index.html`) and the article's live figures render
+only in 3D. A 2D renderer without perspective is exactly `graph3d.js`'s own
+Top view (`viewTop()`), so a separate SVG renderer (`graph2d.js`, removed)
+would only have been a second, heavier way to draw the same picture; a
+figure that wants a flat, label-readable layout asks for `view: top`
+instead and gets `graph3d.js`'s Top view.
 
 ## Physics
 

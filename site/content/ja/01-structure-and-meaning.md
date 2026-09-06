@@ -1,6 +1,6 @@
 # 構造と意味
 
-<!-- graph: d3-force; view: 2d; labels: all; zones: 1 -->
+<!-- graph: d3-force; view: top; labels: all; zones: 1 -->
 
 この記事は、一つの区別を繰り返し使います。あまり明示されることのない区別で、私自身も長く混ぜて使っていました。
 

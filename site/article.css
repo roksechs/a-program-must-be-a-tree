@@ -184,7 +184,6 @@ body.article-page {
   background: var(--bg);
 }
 
-.live .stage svg,
 .live .stage canvas {
   position: absolute;
   inset: 0;
@@ -192,7 +191,6 @@ body.article-page {
   cursor: grab;
 }
 
-.live .stage svg:active,
 .live .stage canvas:active {
   cursor: grabbing;
 }
@@ -219,10 +217,6 @@ body.article-page {
   padding: 8px 10px;
   border-top: 1px solid var(--border);
   font-size: 12px;
-}
-
-.live .bar .segmented {
-  grid-column: auto;
 }
 
 /* Button colour/shape/state come from styles.css's shared

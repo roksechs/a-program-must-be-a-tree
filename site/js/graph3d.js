@@ -462,9 +462,9 @@ export class Graph3D {
         ctx.arc(s.x + r, s.y - r, r, 0, Math.PI * 2);
         ctx.stroke();
       } else {
-        // `reference` and `write` bow through edgeBowOffset (colors.js, the
-        // same function Graph2D uses), so the read and write halves of a
-        // compound assignment never draw on top of each other.
+        // `reference` and `write` bow through edgeBowOffset (colors.js), so
+        // the read and write halves of a compound assignment never draw on
+        // top of each other.
         let control = null;
         const bow = edgeBowOffset(l.source, l.target, l.kind);
         if (bow) {

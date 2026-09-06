@@ -1,6 +1,6 @@
 # Structure and meaning
 
-<!-- graph: d3-force; view: 2d; labels: all; zones: 1 -->
+<!-- graph: d3-force; view: top; labels: all; zones: 1 -->
 
 This article uses one distinction over and over. It is rarely made explicit, and I mixed the two sides up for a long time myself.
 

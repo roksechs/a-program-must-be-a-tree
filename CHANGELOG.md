@@ -123,9 +123,10 @@ The section for a version becomes the notes of its GitHub release
   a new "Top view" camera preset (orthographic, looking straight down the
   height axis) for the case a 2D rendering used to cover — a plain top-down
   x/y layout is what 3D looks like without perspective, so the SVG renderer
-  was drawing the same picture a second, heavier way. `graph2d.js` still
-  exists for the article's live figures, which keep contrasting the two
-  renderings side by side as a teaching device.
+  was drawing the same picture a second, heavier way. `graph2d.js` is
+  removed: the article's live figures now render with `graph3d.js` too, and
+  a figure that wants the flat top-down layout asks for it with the
+  directive `view: top` instead of `view: 2d`.
 * Every edge kind starts enabled (`kinds.js`'s `DEFAULT_OFF_KINDS` is now
   empty, was `{type, write}`), so the viewer opens showing the full graph.
 * Orbit dragging only engages Pointer Lock once the cursor actually reaches

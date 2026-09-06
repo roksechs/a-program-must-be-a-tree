@@ -4,7 +4,6 @@
 // every number on the page is the real implementation's output.
 /* global d3 */
 import { EDGE_KINDS } from "./kinds.js";
-import { Graph2D } from "./graph2d.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, kindLabel, onLanguageChange, setLanguage, t } from "./i18n.js";
 import { renderMarkdown } from "./markdown.js";
@@ -98,13 +97,14 @@ async function renderChapters() {
 
 /**
  * A live graph beside a chapter. Directive keys: graph (dataset id), view
- * (2d | 3d), labels (auto | all | none), zones (container depth), pitch (3D
- * camera elevation), kinds (comma-separated edge kinds; default all but type).
+ * (top | 3d, default 3d), labels (auto | all | none), zones (container
+ * depth), pitch (3D camera elevation), kinds (comma-separated edge kinds;
+ * default all but type).
  */
 function createFigure(d) {
   const state = {
     dataset: d.graph,
-    view: d.view === "3d" ? "3d" : "2d",
+    top: d.view === "top",
     labels: d.labels ?? "auto",
     zoneDepth: d.zones != null ? Number(d.zones) : null,
     pitch: d.pitch != null ? Number(d.pitch) : 0.5,
@@ -119,32 +119,29 @@ function createFigure(d) {
   const stage = el("div", { class: "stage" }, tooltip);
   const readout = el("div", { class: "readout" });
   const selection = el("div", { class: "selection" });
-  const viewButtons = {};
-  const seg = el("div", { class: "segmented" });
-  for (const v of ["2d", "3d"]) {
-    viewButtons[v] = el("button", { type: "button", class: state.view === v ? "active" : "", onclick: () => setView(v) }, v.toUpperCase());
-    seg.append(viewButtons[v]);
-  }
-  const fitBtn = el("button", { type: "button", onclick: () => renderers[state.view].fit() });
+  const fitBtn = el("button", { type: "button", onclick: () => renderer.fit() });
+  const topBtn = el("button", { type: "button", onclick: () => renderer.viewTop() });
   const renameBtn = el("button", { type: "button", "aria-pressed": "false", onclick: () => toggleRename() });
   const openLink = el("a", { class: "muted", target: "_blank", rel: "noopener" });
-  const bar = el("div", { class: "bar" }, seg, fitBtn, renameBtn, el("span", { class: "spacer" }), openLink);
+  const bar = el("div", { class: "bar" }, fitBtn, topBtn, renameBtn, el("span", { class: "spacer" }), openLink);
   const caption = el("figcaption");
   const fig = el("figure", { class: "live" }, stage, readout, selection, bar, caption);
 
-  const renderers = {
-    "2d": new Graph2D(stage, callbacks()),
-    "3d": new Graph3D(stage, callbacks()),
-  };
-  renderers["3d"].pitch = state.pitch;
-  renderers["3d"].colorBy = "kind";
-  renderers[state.view === "2d" ? "3d" : "2d"].show(false);
+  const renderer = new Graph3D(stage, callbacks());
+  renderer.pitch = state.pitch;
+  renderer.colorBy = "kind";
+
+  /** Settle the camera after the layout has moved: frame it, then flatten to Top view if the directive asked for it. */
+  function settle() {
+    renderer.fit();
+    if (state.top) renderer.viewTop();
+  }
 
   function callbacks() {
     return {
       onSelect: (node) => {
         state.selected = node;
-        for (const r of Object.values(renderers)) if (r.selected !== node) r.select?.(node);
+        if (renderer.selected !== node) renderer.select?.(node);
         showSelection();
       },
       onDragStart: () => state.sim?.alphaTarget(0.3).restart(),
@@ -168,14 +165,6 @@ function createFigure(d) {
         tooltip.style.top = `${event.clientY - rect.top + 12}px`;
       },
     };
-  }
-
-  function setView(view) {
-    state.view = view;
-    for (const [k, r] of Object.entries(renderers)) r.show(k === view);
-    for (const [k, b] of Object.entries(viewButtons)) b.classList.toggle("active", k === view);
-    renderers[view].resize();
-    renderers[view].fit();
   }
 
   function metricsRow(key, value) {
@@ -211,6 +200,7 @@ function createFigure(d) {
 
   function retranslate() {
     fitBtn.textContent = t("view.fit");
+    topBtn.textContent = t("view.top");
     renameBtn.textContent = t(state.renamed ? "article.restore" : "article.rename");
     openLink.textContent = t("article.openInViewer");
     openLink.href = `index.html?data=${encodeURIComponent(state.dataset)}&lang=${getLanguage()}`;
@@ -218,7 +208,7 @@ function createFigure(d) {
     caption.textContent = state.renamed ? t("article.renamed") : t("article.dataset", { name: ds ? ds.name : state.dataset });
     showMetrics();
     showSelection();
-    renderers["3d"].draw();
+    renderer.draw();
   }
 
   /** Rename every declaration to a1, a2, ... and back. Nothing structural changes, so no number moves. */
@@ -231,7 +221,6 @@ function createFigure(d) {
     });
     renameBtn.setAttribute("aria-pressed", String(state.renamed));
     readout.classList.toggle("changed", state.renamed);
-    renderers["2d"].refreshLabels();
     retranslate();
   }
 
@@ -243,32 +232,30 @@ function createFigure(d) {
       applyActiveKinds(graph, state.kinds);
       seedPositions(graph);
       state.graph = graph;
-      for (const r of Object.values(renderers)) {
-        r.setGraph(graph);
-        r.setLabelMode(state.labels);
-        r.setColorBy("kind");
-        r.setVisibleKinds(state.kinds);
-        r.setZones(visibleContainers(graph, state.zoneDepth ?? Math.min(1, graph.maxDepth)));
-      }
+      renderer.setGraph(graph);
+      renderer.setLabelMode(state.labels);
+      renderer.setColorBy("kind");
+      renderer.setVisibleKinds(state.kinds);
+      renderer.setZones(visibleContainers(graph, state.zoneDepth ?? Math.min(1, graph.maxDepth)));
       const physics = { ...DEFAULT_PHYSICS, springKinds: new Set(state.kinds) };
       const sim = createSimulation(graph, physics);
       sim.stop();
       let fitted = false;
       sim.on("tick", () => {
-        renderers[state.view].tick();
+        renderer.tick();
         if (!fitted && sim.alpha() < 0.6) {
           fitted = true;
-          renderers[state.view].fit();
+          settle();
         }
       });
-      sim.on("end", () => renderers[state.view].fit());
+      sim.on("end", () => settle());
       state.sim = sim;
       retranslate();
       // Run the physics only while the figure is on screen.
       const observer = new IntersectionObserver((entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
-            renderers[state.view].resize();
+            renderer.resize();
             if (!state.started) {
               state.started = true;
               sim.alpha(1).restart();
@@ -286,8 +273,8 @@ function createFigure(d) {
   return {
     el: fig,
     retranslate,
-    resize: () => renderers[state.view].resize(),
-    deselect: () => renderers[state.view].select(null),
+    resize: () => renderer.resize(),
+    deselect: () => renderer.select(null),
   };
 }
 
