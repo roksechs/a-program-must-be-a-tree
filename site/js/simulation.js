@@ -87,7 +87,7 @@ export function createSimulation(graph, physics) {
     .forceSimulation(graph.nodes)
     .force("charge", d3.forceManyBody().strength(-physics.repulsion).theta(0.9))
     .force("spring", forceSpring(graph.links, physics))
-    .force("collide", d3.forceCollide().radius((n) => nodeRadius(n) + 2).iterations(1))
+    .force("collide", d3.forceCollide().radius((n) => n.radius + 2).iterations(1))
     .alphaDecay(physics.alphaDecay)
     .velocityDecay(0.4);
   return sim;
@@ -96,14 +96,10 @@ export function createSimulation(graph, physics) {
 /** Push the current physics parameters into an existing simulation. */
 export function applyPhysics(sim, physics) {
   sim.force("charge").strength(-physics.repulsion);
-  // Re-read node radii (degrees may have changed with the active edge kinds).
-  sim.force("collide").radius((n) => nodeRadius(n) + 2);
+  // Re-read node radii (degrees, and so radius, may have changed with the
+  // active edge kinds - see model.js's applyActiveKinds).
+  sim.force("collide").radius((n) => n.radius + 2);
   sim.alphaDecay(physics.alphaDecay);
-}
-
-/** Node radius grows slowly with the number of callers so hubs stand out. */
-export function nodeRadius(n) {
-  return 4 + Math.sqrt(n.inDegree + n.outDegree) * 1.2;
 }
 
 /**

@@ -71,13 +71,23 @@ d3-force is used as the integrator. The forces are:
   edge, `F = k * (d - restLength)`, split between the endpoints by their degree
   so a hub is not thrown around by one neighbour. `d3.forceLink` is close, but
   the custom force keeps the parameters (stiffness, rest length) explicit.
-* **Collision**: keeps circles from overlapping.
+* **Collision**: keeps circles from overlapping, using each node's `radius`.
 
 That is all. The repulsion has no range limit — every pair of nodes feels it at
 any distance — and a spring along an edge is the only attraction, so two
 declarations end up next to each other only when something connects them.
 `forceCollide` is not a third force but the hard core of the repulsion, keeping
 circles from overlapping.
+
+A node's `radius` (`4 + sqrt(inDegree + outDegree) * 1.2`, so busier
+declarations stand out) is a field on the node itself, set in `model.js`
+alongside `inDegree`/`outDegree`/`height` whenever the active edge kinds
+change — not a function either renderer or the physics calls. All three need
+the exact same number (the physics so its collision radius matches what gets
+drawn, both renderers so a node's circle, its label offset and where an edge
+stops before it all agree), so it belongs to whichever module already owns a
+node's other derived numbers, not to whichever of the three happened to
+declare a `nodeRadius()` function first and have the other two import it.
 
 Nothing defines a centre. Two attempts at one were removed:
 

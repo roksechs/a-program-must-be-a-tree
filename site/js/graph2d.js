@@ -1,7 +1,6 @@
 // 2D renderer: SVG with zoom/pan, zone hulls, arrowed edges, draggable nodes.
 /* global d3 */
 import { EDGE_KINDS, edgeBowOffset, edgeColor, kindColor, zoneColor } from "./colors.js";
-import { nodeRadius } from "./simulation.js";
 import { hullPath, topPoint } from "./zones.js";
 
 const ZONE_PADDING = { file: 14, dir: 26 };
@@ -118,7 +117,7 @@ export class Graph2D {
       .append("circle")
       .attr("class", "node")
       .merge(node)
-      .attr("r", (n) => nodeRadius(n))
+      .attr("r", (n) => n.radius)
       .attr("fill", (n) => this.nodeFill(n))
       .attr("stroke", (n) => (n.inCycle ? "#b91c1c" : "#ffffff"))
       .attr("stroke-width", (n) => (n.inCycle ? 2 : 1))
@@ -152,7 +151,7 @@ export class Graph2D {
       .attr("class", "label")
       .merge(label)
       .text((n) => n.name)
-      .attr("dy", (n) => -nodeRadius(n) - 3);
+      .attr("dy", (n) => -n.radius - 3);
 
     this.updateLabelVisibility();
     this.applyHighlight();
@@ -177,11 +176,11 @@ export class Graph2D {
     this.graph.maxHeightCache = this.graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
     this.nodeLayer
       .selectAll("circle.node")
-      .attr("r", (n) => nodeRadius(n))
+      .attr("r", (n) => n.radius)
       .attr("fill", (n) => this.nodeFill(n))
       .attr("stroke", (n) => (n.inCycle ? "#b91c1c" : "#ffffff"))
       .attr("stroke-width", (n) => (n.inCycle ? 2 : 1));
-    this.labelLayer.selectAll("text.label").attr("dy", (n) => -nodeRadius(n) - 3);
+    this.labelLayer.selectAll("text.label").attr("dy", (n) => -n.radius - 3);
     this.tick();
   }
 
@@ -338,14 +337,14 @@ function linkPath(l) {
   const s = l.source;
   const t = l.target;
   if (s === t) {
-    const r = nodeRadius(s);
+    const r = s.radius;
     return `M${s.x + r},${s.y} A${r * 1.4},${r * 1.4} 0 1,1 ${s.x},${s.y - r}`;
   }
   const dx = t.x - s.x;
   const dy = t.y - s.y;
   const d = Math.hypot(dx, dy) || 1;
-  const rs = nodeRadius(s);
-  const rt = nodeRadius(t) + 1;
+  const rs = s.radius;
+  const rt = t.radius + 1;
   const sx = s.x + (dx / d) * rs;
   const sy = s.y + (dy / d) * rs;
   const tx = t.x - (dx / d) * rt;

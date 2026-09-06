@@ -6,6 +6,22 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Viewer: node radius is a model field, not a borrowed function
+
+* `nodeRadius()` lived in `simulation.js` — a physics concern — and both
+  renderers imported it purely because it happened to be exported from
+  there, not because rendering has anything to do with physics. It is now
+  `n.radius`, computed in `model.js` alongside `inDegree`/`outDegree`/
+  `height` whenever the active edge kinds change, the same place that
+  already owns every other number derived from a node's degree. This is not
+  a cosmetic move: analyzing this project on itself, the 5-7 calls to
+  `nodeRadius()` were real edges in its own call graph (`multiCallers` and
+  `surplusEdges` both drop, `treeScore` rises slightly) — sharing a
+  low-level formula across unrelated modules because it was convenient to
+  import, rather than because those modules had a common concept to depend
+  on, was exactly the kind of exposure the project's own diagnostics exist
+  to surface.
+
 ### Analyzer and viewer: `write` edges
 
 * An occurrence that is the target of an assignment (`x = e`), a compound

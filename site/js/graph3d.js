@@ -5,7 +5,6 @@
 /* global d3 */
 import { EDGE_KINDS, edgeBowOffset, edgeColor, heightColor, kindColor, zoneColor } from "./colors.js";
 import { t } from "./i18n.js";
-import { nodeRadius } from "./simulation.js";
 import { hullPath } from "./zones.js";
 
 // Smallest distance, in radians, that pitch is kept away from a level view.
@@ -324,7 +323,7 @@ export class Graph3D {
     let best = null;
     let bestD = Infinity;
     for (const p of this.projected) {
-      const r = nodeRadius(p.node) * p.scale + 3;
+      const r = p.node.radius * p.scale + 3;
       const d = Math.hypot(p.x - px, p.y - py);
       if (d <= r && p.depth < bestD) {
         best = p.node;
@@ -458,7 +457,7 @@ export class Graph3D {
       ctx.lineWidth = active ? 2 : 1;
       ctx.setLineDash(l.inferred ? [3, 3] : l.kind === "type" || l.kind === "reference" ? [1, 3] : []);
       if (l.source === l.target) {
-        const r = nodeRadius(l.source) * s.scale;
+        const r = l.source.radius * s.scale;
         ctx.beginPath();
         ctx.arc(s.x + r, s.y - r, r, 0, Math.PI * 2);
         ctx.stroke();
@@ -475,7 +474,7 @@ export class Graph3D {
           const p = this.project(mx, my, mz);
           if (!p.clipped) control = p;
         }
-        drawArrow(ctx, s.x, s.y, t.x, t.y, nodeRadius(l.target) * t.scale + 1, 5 * Math.max(0.6, t.scale), control);
+        drawArrow(ctx, s.x, s.y, t.x, t.y, l.target.radius * t.scale + 1, 5 * Math.max(0.6, t.scale), control);
       }
     }
     ctx.setLineDash([]);
@@ -486,7 +485,7 @@ export class Graph3D {
     ctx.font = "11px system-ui, sans-serif";
     for (const p of sorted) {
       const n = p.node;
-      const r = nodeRadius(n) * p.scale;
+      const r = n.radius * p.scale;
       const dimmed = sel && n !== sel && !neighbours.has(n);
       ctx.globalAlpha = dimmed ? 0.2 : 1;
       ctx.beginPath();
@@ -507,7 +506,7 @@ export class Graph3D {
       const n = p.node;
       const wanted = n === sel || n === this.hovered || neighbours.has(n) || (showAll && this.labelMode !== "none");
       if (!wanted) continue;
-      const r = nodeRadius(n) * p.scale;
+      const r = n.radius * p.scale;
       ctx.globalAlpha = sel && n !== sel && !neighbours.has(n) && n !== this.hovered ? 0.3 : 1;
       ctx.fillText(n.name, p.x, p.y - r - 4);
     }
