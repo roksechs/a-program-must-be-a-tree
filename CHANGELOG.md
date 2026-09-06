@@ -81,6 +81,21 @@ The section for a version becomes the notes of its GitHub release
   the user framed themselves in the meantime was getting silently reset to
   the overview the instant physics happened to finish.
 * Spring stiffness's default is raised (0.03 → 0.05).
+* Edges rendered at a permanent 55% opacity even with nothing selected —
+  `dimmed`/`active` already covered every case where a *selected* node
+  should mute or highlight an edge, so the 0.55 in between them only ever
+  applied when no node was selected at all, muting every kind's colour well
+  below its legend swatch (the paler kinds, `reference` especially, nearly
+  vanished). Both renderers now default to full opacity and only dim an
+  edge once some other node is selected.
+* A freshly loaded graph's first frame used to render with a placeholder
+  camera state sized for whatever the previous graph's extent was (or the
+  constructor's guess, on the very first load) rather than the newly seeded
+  layout's actual, much smaller extent — visibly wrong (flattened, close to
+  the Top view above) until physics spread the graph out enough for the
+  existing auto-fit to trigger. `installGraph()` now fits the camera to the
+  seeded layout immediately, before the first draw, instead of waiting for
+  that.
 
 ### The article
 

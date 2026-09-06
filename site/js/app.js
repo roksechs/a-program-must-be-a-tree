@@ -218,6 +218,15 @@ function installGraph(doc, label) {
   renderer.setLabelMode(state.labelMode);
   renderer.setColorBy(state.colorBy);
   renderer.setVisibleKinds(state.kinds);
+  // Frame the seeded layout before the very first draw, not just once the
+  // simulation has spread it out: the placeholder camera state (a fixed
+  // focal length meant for whatever the previous graph's extent was, or the
+  // constructor's guess for a graph that hasn't loaded yet) doesn't match a
+  // freshly seeded layout's much smaller extent, and with physics now
+  // cooling far more slowly (see DEFAULT_PHYSICS.alphaDecay) that mismatched
+  // first frame stayed on screen long enough to read as its own view, then
+  // visibly snapped to "Fit to view" once alpha crossed the threshold below.
+  renderer.fit();
   panel.setMaxDepth(graph.maxDepth, state.zoneDepth);
   panel.setMetrics(graph);
   panel.setSelection(null, graph);
@@ -230,7 +239,7 @@ function installGraph(doc, label) {
     renderer.tick();
     if (!fitted && sim.alpha() < 0.6) {
       fitted = true;
-      renderer.fit();
+      if (!renderer.userAdjusted) renderer.fit();
     }
   });
   // Framing the settled layout is a convenience for a hands-off view, not a

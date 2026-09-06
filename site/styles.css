@@ -628,12 +628,13 @@ svg .label.dimmed {
   opacity: 0.2;
 }
 
+/* Full opacity by default, matching the legend swatches; .dimmed (below)
+   mutes an edge only once some other node is selected. */
 svg .link {
-  opacity: 0.55;
+  opacity: 1;
 }
 
 svg .link.highlight {
-  opacity: 1;
   stroke: var(--md-on-surface);
   stroke-width: 2px;
 }

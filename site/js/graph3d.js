@@ -460,7 +460,14 @@ export class Graph3D {
       const active = sel && (l.source === sel || l.target === sel);
       const dimmed = sel && !active;
       ctx.strokeStyle = active ? "#111827" : edgeColor(l.kind);
-      ctx.globalAlpha = dimmed ? 0.08 : active ? 1 : 0.55;
+      // Full opacity unless some other node is selected: `active`/`dimmed`
+      // already partition every edge when `sel` is set, so with nothing
+      // selected both are false and this used to fall through to a default
+      // 0.55 — permanently muting every edge kind's colour well below its
+      // legend swatch (nearly to invisibility for paler kinds like
+      // `reference`), which is what made the graph look like it didn't
+      // match the legend at all.
+      ctx.globalAlpha = dimmed ? 0.08 : 1;
       ctx.lineWidth = active ? 2 : 1;
       ctx.setLineDash(l.inferred ? [3, 3] : l.kind === "type" || l.kind === "reference" ? [1, 3] : []);
       if (l.source === l.target) {
