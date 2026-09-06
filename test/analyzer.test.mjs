@@ -263,6 +263,23 @@ test("top-level statements belong to a module node", () => {
   assert.equal(edge("m.js::<module>", "m.js::start").time, "definition");
 });
 
+test("a top-level destructuring declaration's initializer is module code", () => {
+  const root = fixture({
+    "m.js": `
+      export function make() { return { helper() {} }; }
+      const { helper } = make();
+      helper();
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
+  // `helper` is a destructured local, not a declaration of its own; only the
+  // calls in `make()`'s initializer and the following statement are module code.
+  assert.equal(byId["m.js::helper"], undefined);
+  const edge = (t) => doc.edges.find((e) => e.source === "m.js::<module>" && e.target === t);
+  assert.equal(edge("m.js::make").kind, "call"); // was silently dropped before this test existed
+});
+
 test("definition-time property assignments declare members; use-time ones store or bind late", () => {
   const root = fixture({
     "p.js": `

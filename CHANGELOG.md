@@ -6,6 +6,29 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Analyzer split into a portable core, to run in the browser next
+
+* `analyzers/ts/analyze.mjs` used to both find source files on disk and walk
+  the resulting `ts.Program`. Split into `analyzers/ts/core.mjs` (the
+  `ts.Program` walk, touching nothing outside the `ts` module it is handed —
+  no `node:fs`, `node:path`, `node:url`) and a thinner `analyze.mjs` that
+  keeps only the Node-specific half (`listSourceFiles`, building the Program
+  via `ts.sys`, the CLI). Same public `analyze(options)` signature, same
+  output; this is what lets a second front end (the local-folder feature
+  being added next, running the same analysis on a Program built in-browser
+  over files read with the File System Access API) reuse the real analyzer
+  instead of a reimplementation.
+* Doing this exposed a real, previously-latent analyzer bug: a top-level
+  destructuring declaration (`const { helper } = make();`) named no
+  declaration of its own (correct — a destructured local isn't nameable) but
+  also never fell back to being counted as module code, so `make()`'s call
+  was silently dropped from the graph entirely. Nothing in the codebase had
+  ever written a top-level destructuring declaration before `core.mjs`
+  itself did (`const { analyzeProgram } = createCore(ts);`), and `metrics.js`'s
+  `unreferencedDeclarations` (above) caught it on the first run against the
+  refactored source. Fixed: such a declaration's initializer is now pushed
+  onto the file's module-code list, same as a bare expression statement.
+
 ### `metrics.js` can tell you what nothing calls, and removes what it found
 
 * "Is anything unreferenced" is a question about the graph, so the graph

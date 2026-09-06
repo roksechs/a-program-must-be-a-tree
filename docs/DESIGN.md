@@ -32,7 +32,13 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
   The first one covers JavaScript / TypeScript using the
   TypeScript compiler API, which resolves imports, `this.method()` calls and
   aliases for free. Other languages (Python `ast`, tree-sitter, Go `go/types`,
-  ...) can be added without touching the viewer.
+  ...) can be added without touching the viewer. The TypeScript analyzer
+  itself has two front ends over one shared core (`analyzers/ts/core.mjs`,
+  which touches nothing outside the `ts` module it is handed): `analyze.mjs`
+  builds a `ts.Program` from files read off disk (the CLI, `npm run
+  build:data`); the viewer's local-folder feature builds one from files read
+  in-browser with the File System Access API, so opening a folder needs no
+  server-side analysis step and works from the static site alone.
 * **Viewer** (`site/`) is plain ES modules plus a vendored copy of d3. There is
   no bundler so the page can be opened from any static host.
 
