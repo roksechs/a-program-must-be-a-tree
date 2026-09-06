@@ -10,7 +10,7 @@
 //
 // Usage:
 //   node analyzers/ts/analyze.mjs --name my-project --root path/to/project \
-//        --include src lib --exclude "**/*.test.ts" --out graph.json
+//        --include src lib --exclude "**/*.test.ts" [--nested] --out graph.json
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { extname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -91,8 +91,8 @@ function collectDeclarations(sf, file, baseName) {
   const decls = [];
   const rest = []; // top-level statements that are not declarations: the module's own code
   const assignments = []; // `a.b = v` / `Object.assign(a.b, {...})` at top level
-  const add = (node, name, kind, parent, exported, bodyNodes, nameNode) => {
-    const id = parent ? `${parent.id}.${name}` : `${file}::${name}`;
+  const add = (node, name, kind, parent, exported, bodyNodes, nameNode, sep = ".") => {
+    const id = parent ? `${parent.id}${sep}${name}` : `${file}::${name}`;
     const entry = { node, id, name, kind, parent: parent?.id ?? null, exported, bodyNodes, nameNode, line: sf.getLineAndCharacterOfPosition(node.getStart(sf)).line + 1 };
     decls.push(entry);
     return entry;
@@ -221,7 +221,8 @@ function referenceKind(node) {
 
 /**
  * Analyze a project.
- * @param {object} options { name, root, include: string[], exclude: string[], language }
+ * @param {object} options { name, root, include: string[], exclude: string[], language,
+ *   nested: boolean (local functions as declarations, ids `<parent>/<name>`) }
  */
 export function analyze(options) {
   const root = resolve(options.root ?? ".");
@@ -264,13 +265,6 @@ export function analyze(options) {
     }
   }
   const ctxOf = new Map(fileCtx.map((c) => [c.file, c]));
-  const attach = (ctx, e) => {
-    e.file = ctx.file;
-    declByNode.set(e.node, e);
-    declarations.push(e);
-    ids.add(e.id);
-    return e;
-  };
 
   /** Find the declaration entry that owns an AST node (nearest declared ancestor). */
   const ownerOf = (node) => {
@@ -376,6 +370,19 @@ export function analyze(options) {
   };
   const slotName = (d) => d.memberName ?? d.name;
   for (const d of declarations) if (d.parent) registerMember(d.parent, d.name, d);
+  /** Make an entry created after pass 1 a declaration of the document. */
+  const attach = (ctx, e) => {
+    e.file = ctx.file;
+    declByNode.set(e.node, e);
+    declarations.push(e);
+    ids.add(e.id);
+    if (e.parent && !e.local) registerMember(e.parent, e.name, e);
+    return e;
+  };
+  /** Attach the members `ctx.addClassMembers` declared for a class found after pass 1. */
+  const attachNew = (ctx) => {
+    for (const d of ctx.decls) if (!declByNode.has(d.node)) attach(ctx, d);
+  };
   const globals = new Map(); // qualified name bound on an undeclared global ("d3.scale") -> entry
   const consumed = new Set(); // identifiers that name an alias target: not occurrences
   const unwrap = (e) => {
@@ -477,7 +484,10 @@ export function analyze(options) {
     if (isFunctionLike(value)) {
       const kind = ts.isClassExpression(value) ? "class" : owner && (owner.kind === "class" || owner.kind === "function" || owner.kind === "method") ? "method" : "function";
       const e = record(ctx.add(value, name, kind, owner, exported, [value], nameNode));
-      if (ts.isClassExpression(value)) ctx.addClassMembers(value, e);
+      if (ts.isClassExpression(value)) {
+        ctx.addClassMembers(value, e);
+        attachNew(ctx);
+      }
       return e;
     }
     if (late) return null;
@@ -579,6 +589,48 @@ export function analyze(options) {
       });
     };
     for (const body of d.bodyNodes) walk(body, false);
+  }
+
+  // Pass 1d (option `nested`): local functions as declarations. A named function
+  // inside a body is the local definition that Definition 10 of docs/THEORY.md
+  // speaks of; with the option on it becomes a node whose parent is the
+  // enclosing declaration (id `<parent>/<name>`), so a large function made of
+  // closures can be diagnosed the way a module is. Off by default: the default
+  // graph is the module-level `letrec`.
+  if (options.nested) {
+    const nest = (d) => {
+      const ctx = ctxOf.get(d.file);
+      const found = [];
+      const walk = (node) => {
+        let e = null;
+        if (node !== d.node && ts.isFunctionDeclaration(node) && node.name) {
+          e = ctx.add(node, node.name.text, "function", d, false, [node], node.name, "/");
+        } else if (node !== d.node && ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer && isFunctionLike(unwrap(node.initializer))) {
+          const init = unwrap(node.initializer);
+          e = ctx.add(node, node.name.text, ts.isClassExpression(init) ? "class" : "function", d, false, [init], node.name, "/");
+          if (ts.isClassExpression(init)) ctx.addClassMembers(init, e);
+        } else if (node !== d.node && ts.isClassDeclaration(node) && node.name) {
+          e = ctx.add(node, node.name.text, "class", d, false, [], node.name, "/");
+          if (node.heritageClauses) e.bodyNodes.push(...node.heritageClauses);
+          ctx.addClassMembers(node, e);
+        }
+        if (e) {
+          e.local = true;
+          attach(ctx, e);
+          attachNew(ctx);
+          found.push(e);
+          return; // its own body is walked when it is nested in turn
+        }
+        ts.forEachChild(node, (child) => {
+          const nested = declByNode.get(child);
+          if (nested && nested !== d) return;
+          walk(child);
+        });
+      };
+      for (const body of d.bodyNodes) walk(body);
+      for (const e of found) nest(e);
+    };
+    for (const d of [...declarations]) nest(d);
   }
 
   // ---------------------------------------------------------------------------
@@ -999,6 +1051,9 @@ function parseArgs(argv) {
         break;
       case "--language":
         opts.language = next();
+        break;
+      case "--nested":
+        opts.nested = true;
         break;
       case "--include":
         while (argv[i + 1] && !argv[i + 1].startsWith("--")) opts.include.push(next());

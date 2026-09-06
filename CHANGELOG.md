@@ -19,6 +19,10 @@ The section for a version becomes the notes of its GitHub release
   path (`d3.scale.linear()`), by `this` inside a member, or to every
   instance member of that name (field-based, marked `inferred`).
 * Declarations gain optional `late` and `aliases` fields (`DATA_FORMAT.md`).
+* `--nested`: named local functions become declarations of their own
+  (`<parent>/<name>`), so a function made of closures can be diagnosed like a
+  module. Off by default. The bundled `self-nested` dataset is this
+  repository in that view.
 * Measured effect: moment 2.29.0 goes from 313 to 807 control edges; d3
   v3.5.17 from 203 `module` nodes to 25.
 

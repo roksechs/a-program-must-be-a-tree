@@ -25,7 +25,11 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
   is not module code but a declaration — the ES5 spelling of an export or a
   method — while the same assignment inside a function body is a flagged
   *late binding* when the receiver is a module-level name and a mere store
-  when it is a value (`THEORY.md` §4.1). The first one covers JavaScript / TypeScript using the
+  when it is a value (`THEORY.md` §4.1). With `--nested`, named local
+  functions become nodes of their own (`<parent>/<name>`), which is the only
+  view in which a large function made of closures — this analyzer, for one —
+  can be diagnosed; the `self-nested` dataset is that view of this repository.
+  The first one covers JavaScript / TypeScript using the
   TypeScript compiler API, which resolves imports, `this.method()` calls and
   aliases for free. Other languages (Python `ast`, tree-sitter, Go `go/types`,
   ...) can be added without touching the viewer.
@@ -248,7 +252,6 @@ module loads), which are genuine errors rather than recursion.
   records the commit the graph was taken from.
 * Model property stores and anonymous functions in the flow analysis
   (objects of callbacks, event maps).
-* Nested declarations (inner functions) as their own nodes, behind a flag.
 * Collapse a zone into a single node (module-level graph) and expand it again.
 * Highlight the edges that would have to be removed to make the graph a tree
   (the edges with a lift above 0 are already known; draw them apart).

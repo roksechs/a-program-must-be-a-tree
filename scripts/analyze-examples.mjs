@@ -28,6 +28,16 @@ write(
   analyze({ name: "a-program-must-be-a-tree", root, include: ["site/js", "analyzers", "scripts", "test"], language: "javascript" }),
 );
 
+// 1b. Self again, with local functions as nodes: the analyzer is one large
+// function made of closures, and this is the only view in which its own
+// structure can be diagnosed.
+write(
+  "self-nested",
+  "a-program-must-be-a-tree (nested declarations)",
+  "this viewer and its analyzer, local functions as nodes",
+  analyze({ name: "a-program-must-be-a-tree", root, include: ["site/js", "analyzers", "scripts", "test"], language: "javascript", nested: true }),
+);
+
 // 2. d3 packages. Each package ships its ES module sources in src/.
 const d3Packages = ["d3-force", "d3-selection", "d3-scale", "d3-shape", "d3-hierarchy", "d3-zoom"];
 for (const pkg of d3Packages) {

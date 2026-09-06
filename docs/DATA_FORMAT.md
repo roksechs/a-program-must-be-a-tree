@@ -27,7 +27,7 @@ analyzer that produces it (in any language, with any parser).
 
 | field      | type            | notes |
 |------------|-----------------|-------|
-| `id`       | string          | Unique within the document. Convention: `<file>::<qualified name>`; a member is `<parent id>.<name>`, so a member bound by assignment in another file carries its parent's file in its id while `file` says where it was written. A binding on an undeclared global (`d3.scale = {}`) is `<file>::<full path>`. |
+| `id`       | string          | Unique within the document. Convention: `<file>::<qualified name>`; a member is `<parent id>.<name>`, so a member bound by assignment in another file carries its parent's file in its id while `file` says where it was written. A binding on an undeclared global (`d3.scale = {}`) is `<file>::<full path>`. A local function emitted with the analyzer's `--nested` option is `<parent id>/<name>` (`/` marks lexical nesting, `.` membership). |
 | `name`     | string          | Display name (unqualified). |
 | `kind`     | string          | One of `function`, `method`, `class`, `variable`, `interface`, `type`, `enum`, `module`, or any other string. Unknown kinds are rendered with a neutral colour. A `module` declaration stands for the top-level code of a file (statements outside any declaration, e.g. `X.prototype = {...}` or a call at load time); the TypeScript analyzer emits one per file that has such code, with id `<file>::<module>`. |
 | `file`     | string          | Path relative to `meta.root`, using `/` separators. The directory hierarchy is derived from this path and drawn as nested zones. |

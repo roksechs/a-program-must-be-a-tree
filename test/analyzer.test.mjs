@@ -340,6 +340,37 @@ test("bindings on an undeclared global keep their qualified name", () => {
   assert.equal(edge("core.js::d3.scale.linear", "linear.js::d3_scale_linear").kind, "call");
 });
 
+test("local functions become declarations behind the nested option", () => {
+  const root = fixture({
+    "n.js": `
+      export function outer(x) {
+        const inner = (y) => helper(y);
+        function deep() { return inner(1); }
+        return deep() + inner(x);
+      }
+      export function helper(v) { return v; }
+    `,
+  });
+  const flat = analyze({ name: "js", root });
+  const flatEdge = (s, t) => flat.edges.find((e) => e.source === s && e.target === t);
+  // By default the closures belong to outer: their bodies are its body.
+  assert.equal(flat.declarations.some((d) => d.id.includes("/")), false);
+  assert.equal(flatEdge("n.js::outer", "n.js::helper").kind, "call");
+
+  const doc = analyze({ name: "js", root, nested: true });
+  const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  assert.equal(byId["n.js::outer/inner"].kind, "function");
+  assert.equal(byId["n.js::outer/inner"].parent, "n.js::outer");
+  assert.equal(byId["n.js::outer/deep"].parent, "n.js::outer");
+  assert.equal(edge("n.js::outer", "n.js::outer/deep").kind, "call");
+  assert.equal(edge("n.js::outer", "n.js::outer/inner").kind, "call");
+  assert.equal(edge("n.js::outer/deep", "n.js::outer/inner").kind, "call");
+  assert.equal(edge("n.js::outer/inner", "n.js::helper").kind, "call");
+  // outer no longer reaches helper directly: the call sits in inner's body.
+  assert.equal(edge("n.js::outer", "n.js::helper"), undefined);
+});
+
 test("CommonJS exports are declarations of the module", () => {
   const root = fixture({
     "cjs.js": `

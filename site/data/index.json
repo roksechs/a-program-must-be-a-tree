@@ -52,5 +52,11 @@
     "name": "sample: perfect tree",
     "description": "synthetic, 40 declarations",
     "file": "data/sample-tree.json"
+  },
+  {
+    "id": "self-nested",
+    "name": "a-program-must-be-a-tree (nested declarations)",
+    "description": "this viewer and its analyzer, local functions as nodes",
+    "file": "data/self-nested.json"
   }
 ]
