@@ -162,6 +162,14 @@ point sits at screen centre stays there through further zooming instead of
 sliding away from it — the per-node perspective factor cancels out of the
 ratio, so this holds regardless of a node's depth.
 
+A node focused with `focusOn()` keeps its own position re-read into `target`
+on every frame rather than a one-off snapshot: node positions keep changing
+under the physics (settling, or reheated by dragging a different node or
+changing a physics parameter), so a snapshot would go stale within a tick
+or two and orbiting would end up pivoting on where the node used to be. An
+explicit pan releases this following, since it means the viewer wants to
+move away from the focused node on purpose.
+
 ## Edge kinds
 
 The meaning of `call`, `create`, `reference`, `type`, `extends`,
