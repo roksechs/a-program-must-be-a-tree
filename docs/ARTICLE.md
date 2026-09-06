@@ -254,6 +254,12 @@ Findings:
   module sources under `src/lib`). Every ratio declines monotonically while
   surplus edges grow faster than the declaration count (0.70, 0.78, 0.81
   surplus per declaration). The decline is modest; the article must say so.
+* **The moment numbers are contaminated by the same gap.** Of the 143
+  functions with no caller in the control graph at 2.29.0, 103 are API
+  methods attached by assignment (`proto.add = add` in
+  `src/lib/moment/prototype.js`) and called only through dispatch the
+  analyzer does not see. Until property-assigned functions are modelled, the
+  series above understates connectivity and its decline is not to be quoted.
 * **moment before 2.10 is invisible**: the whole library is one IIFE in one
   file, so the analyzer sees one `module` node and no edges. Measuring that
   era needs nested declarations as nodes (an existing roadmap item).
