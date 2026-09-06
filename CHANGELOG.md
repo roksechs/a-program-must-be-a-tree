@@ -27,6 +27,10 @@ The section for a version becomes the notes of its GitHub release
   v3.5.17 from 203 `module` nodes to 25.
 * One name resolver inside the analyzer instead of two; `class C extends
   ns.Base` now resolves through the path `ns.Base` like any other name.
+* New bundled dataset `sample-bindings`, analyzed from `samples/bindings/`:
+  one file per way a property assignment is read (a binding on an undeclared
+  global, prototype members and an alias, a late binding, stores, CommonJS
+  exports), so each can be looked at in the viewer.
 
 ## v0.2.0
 

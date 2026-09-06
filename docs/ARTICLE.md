@@ -259,7 +259,9 @@ with the largest lift, cycles, shared leaves pushed down).
 * **Real numbers only.** Every live graph imports the viewer's own modules;
   no re-implementation of a metric for the page.
 * **Datasets to add**: the Clean-Architecture sample app; historical
-  snapshots for chapter 17 (needs a `--git` mode in the analyzer).
+  snapshots for chapter 17 (needs a `--git` mode in the analyzer). Chapter
+  2b's data exists: `sample-bindings`, analyzed from `samples/bindings/`, one
+  file per cell of the binding / late binding / store table.
 * **Viewer additions the article requires**: clone detection (ch. 3),
   lift × subtree (ch. 7), structural cohesion per container (ch. 8), semantic
   node labels (ch. 10), a switch for inferred versus syntactic edges (ch. 10).

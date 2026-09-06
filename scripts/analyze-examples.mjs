@@ -50,6 +50,15 @@ for (const pkg of d3Packages) {
   write(pkg, `${pkg}@${version}`, "D3 module sources", analyze({ name: pkg, root: pkgRoot, include: ["src"], language: "javascript" }));
 }
 
+// 2b. Sample sources: one small program per idea the docs explain, analyzed for
+// real so the picture is the analyzer's own output.
+write(
+  "sample-bindings",
+  "sample: bindings, aliases, late bindings and stores",
+  "one file per way a property assignment is read (docs/THEORY.md §4.1)",
+  analyze({ name: "sample-bindings", root: join(root, "samples", "bindings"), include: ["."], language: "javascript" }),
+);
+
 // 3. Synthetic graphs.
 write("sample-tree", "sample: perfect tree", "synthetic, 40 declarations", syntheticTree(3, 3));
 write("sample-tangle", "sample: tangled graph", "synthetic, 60 declarations with cycles and shared helpers", syntheticTangle(60, 7));

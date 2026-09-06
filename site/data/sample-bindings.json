@@ -1,0 +1,365 @@
+{
+ "meta": {
+  "name": "sample-bindings",
+  "root": "samples/bindings",
+  "language": "javascript",
+  "generatedAt": "2026-09-06T02:54:12.220Z",
+  "analyzer": "analyzers/ts@0.2.0",
+  "files": 7
+ },
+ "declarations": [
+  {
+   "id": "cjs.js::helper",
+   "name": "helper",
+   "kind": "function",
+   "file": "cjs.js",
+   "line": 3,
+   "parent": null,
+   "exported": true,
+   "aliases": [
+    "helper"
+   ]
+  },
+  {
+   "id": "cjs.js::run",
+   "name": "run",
+   "kind": "function",
+   "file": "cjs.js",
+   "line": 7,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "late.js::app",
+   "name": "app",
+   "kind": "variable",
+   "file": "late.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "late.js::app.handler",
+   "name": "handler",
+   "kind": "function",
+   "file": "late.js",
+   "line": 9,
+   "parent": "late.js::app",
+   "exported": false,
+   "late": true
+  },
+  {
+   "id": "late.js::init",
+   "name": "init",
+   "kind": "function",
+   "file": "late.js",
+   "line": 8,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "late.js::route",
+   "name": "route",
+   "kind": "function",
+   "file": "late.js",
+   "line": 14,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "main.js::main",
+   "name": "main",
+   "kind": "function",
+   "file": "main.js",
+   "line": 6,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "namespace.js::chart.scale",
+   "name": "chart.scale",
+   "kind": "variable",
+   "file": "namespace.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "namespace.js::chart.scale.linear",
+   "name": "linear",
+   "kind": "function",
+   "file": "namespace.js",
+   "line": 7,
+   "parent": "namespace.js::chart.scale",
+   "exported": true
+  },
+  {
+   "id": "namespace.js::interpolate",
+   "name": "interpolate",
+   "kind": "function",
+   "file": "namespace.js",
+   "line": 11,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "prototype.js::add",
+   "name": "add",
+   "kind": "function",
+   "file": "prototype.js",
+   "line": 9,
+   "parent": "prototype.js::Moment",
+   "exported": true,
+   "aliases": [
+    "Moment.add"
+   ]
+  },
+  {
+   "id": "prototype.js::Moment",
+   "name": "Moment",
+   "kind": "function",
+   "file": "prototype.js",
+   "line": 3,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "prototype.js::Moment.isValid",
+   "name": "isValid",
+   "kind": "method",
+   "file": "prototype.js",
+   "line": 17,
+   "parent": "prototype.js::Moment",
+   "exported": false
+  },
+  {
+   "id": "prototype.js::Moment.utc",
+   "name": "utc",
+   "kind": "method",
+   "file": "prototype.js",
+   "line": 22,
+   "parent": "prototype.js::Moment",
+   "exported": true
+  },
+  {
+   "id": "prototype.js::proto",
+   "name": "proto",
+   "kind": "variable",
+   "file": "prototype.js",
+   "line": 7,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "store.js::<module>",
+   "name": "store",
+   "kind": "module",
+   "file": "store.js",
+   "line": 15,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "store.js::build",
+   "name": "build",
+   "kind": "function",
+   "file": "store.js",
+   "line": 19,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "store.js::list",
+   "name": "list",
+   "kind": "variable",
+   "file": "store.js",
+   "line": 14,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "store.js::setup",
+   "name": "setup",
+   "kind": "function",
+   "file": "store.js",
+   "line": 7,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "util.js::save",
+   "name": "save",
+   "kind": "function",
+   "file": "util.js",
+   "line": 5,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "util.js::tick",
+   "name": "tick",
+   "kind": "function",
+   "file": "util.js",
+   "line": 1,
+   "parent": null,
+   "exported": true
+  }
+ ],
+ "edges": [
+  {
+   "source": "cjs.js::run",
+   "target": "cjs.js::helper",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "late.js::app.handler",
+   "target": "util.js::tick",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "late.js::init",
+   "target": "late.js::app",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "late.js::init",
+   "target": "late.js::app.handler",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "late.js::route",
+   "target": "late.js::app",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "late.js::route",
+   "target": "late.js::app.handler",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "main.js::main",
+   "target": "late.js::init",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "main.js::main",
+   "target": "late.js::route",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "main.js::main",
+   "target": "namespace.js::chart.scale",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "main.js::main",
+   "target": "namespace.js::chart.scale.linear",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "main.js::main",
+   "target": "prototype.js::Moment",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "main.js::main",
+   "target": "prototype.js::Moment.isValid",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "main.js::main",
+   "target": "prototype.js::Moment.utc",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "main.js::main",
+   "target": "store.js::setup",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "namespace.js::chart.scale.linear",
+   "target": "namespace.js::interpolate",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "prototype.js::Moment.isValid",
+   "target": "prototype.js::add",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "prototype.js::Moment.utc",
+   "target": "prototype.js::Moment",
+   "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "prototype.js::proto",
+   "target": "prototype.js::Moment",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "store.js::<module>",
+   "target": "store.js::list",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "store.js::<module>",
+   "target": "util.js::save",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "store.js::list",
+   "target": "store.js::build",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "store.js::setup",
+   "target": "util.js::save",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  }
+ ]
+}

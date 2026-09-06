@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-06T02:41:47.098Z",
+  "generatedAt": "2026-09-06T02:54:08.912Z",
   "analyzer": "analyzers/ts@0.2.0",
   "files": 21
  },
@@ -202,7 +202,7 @@
    "name": "syntheticTangle",
    "kind": "function",
    "file": "scripts/analyze-examples.mjs",
-   "line": 74,
+   "line": 83,
    "parent": null,
    "exported": false
   },
@@ -211,7 +211,7 @@
    "name": "syntheticTree",
    "kind": "function",
    "file": "scripts/analyze-examples.mjs",
-   "line": 57,
+   "line": 66,
    "parent": null,
    "exported": false
   },
@@ -1706,7 +1706,7 @@
    "source": "scripts/analyze-examples.mjs::<module>",
    "target": "analyzers/ts/analyze.mjs::analyze",
    "kind": "call",
-   "count": 3,
+   "count": 4,
    "time": "definition"
   },
   {
@@ -1734,7 +1734,7 @@
    "source": "scripts/analyze-examples.mjs::<module>",
    "target": "scripts/analyze-examples.mjs::root",
    "kind": "reference",
-   "count": 3,
+   "count": 4,
    "time": "definition"
   },
   {
@@ -1755,7 +1755,7 @@
    "source": "scripts/analyze-examples.mjs::<module>",
    "target": "scripts/analyze-examples.mjs::write",
    "kind": "call",
-   "count": 5,
+   "count": 6,
    "time": "definition"
   },
   {

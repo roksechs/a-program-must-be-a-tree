@@ -57,6 +57,7 @@ site/            static site (GitHub Pages root)
   data/          generated datasets, listed in index.json
   vendor/        d3 (copied by `npm run vendor`, do not edit)
 analyzers/ts/    JavaScript / TypeScript analyzer (TypeScript compiler API)
+samples/         small source programs analyzed into the bundled sample datasets
 scripts/         vendoring, dataset generation, dev server
 test/            node:test unit tests
 docs/            DESIGN.md (architecture, physics, metrics), DATA_FORMAT.md, THEORY.md (edge semantics)

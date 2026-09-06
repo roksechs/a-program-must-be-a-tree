@@ -88,6 +88,7 @@ site/            static site published to GitHub Pages
   data/          generated datasets (index.json lists them)
   vendor/        d3 (copied by `npm run vendor`)
 analyzers/ts/    JavaScript / TypeScript analyzer
+samples/         small source programs analyzed into the bundled `sample-*` datasets
 scripts/         data generation, vendoring, dev server
 test/            node:test unit tests
 docs/            design notes, the data format and the theory behind the edge kinds

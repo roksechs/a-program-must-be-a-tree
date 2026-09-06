@@ -42,6 +42,12 @@
     "file": "data/d3-zoom.json"
   },
   {
+    "id": "sample-bindings",
+    "name": "sample: bindings, aliases, late bindings and stores",
+    "description": "one file per way a property assignment is read (docs/THEORY.md §4.1)",
+    "file": "data/sample-bindings.json"
+  },
+  {
     "id": "sample-tangle",
     "name": "sample: tangled graph",
     "description": "synthetic, 60 declarations with cycles and shared helpers",
