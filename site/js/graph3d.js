@@ -579,10 +579,6 @@ export class Graph3D {
     this.orthographic = true;
     this.draw();
   }
-
-  show(visible) {
-    this.canvas.style.display = visible ? null : "none";
-  }
 }
 
 /**
