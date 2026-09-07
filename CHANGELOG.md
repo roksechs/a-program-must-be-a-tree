@@ -6,6 +6,18 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Highlight the path between two declarations
+
+* Ctrl/cmd+click a second node while one is selected to highlight every
+  node and edge on some path from the selected one to it — the whole cone
+  of influence between the two (an intersection of two BFS reachability
+  searches), not just the shortest route, though the shortest one is also
+  shown as an ordered list in the Selection panel. Only follows currently
+  enabled edge kinds, consistent with the panel's "one switch drives
+  drawing, springs and diagnostics together" rule. Selecting a different
+  node clears the highlight, since it's only meaningful relative to the
+  selection it was asked for.
+
 ### Camera, physics, and panel refinements
 
 * Removed the 3D camera's `MIN_PITCH` dead zone around level orientations

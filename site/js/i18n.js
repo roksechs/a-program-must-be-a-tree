@@ -84,7 +84,7 @@ const STRINGS = {
     "view.autoRotate": "Auto-rotate",
     "view.fit": "Fit to view",
     "view.top": "Top view",
-    "view.help": "Drag to orbit, shift+drag to pan, wheel to zoom. Click a node to inspect it, double-click to focus it. Top view looks straight down the height axis with no perspective; orbiting away from it returns to the normal view.",
+    "view.help": "Drag to orbit, shift+drag to pan, wheel to zoom. Click a node to inspect it, double-click to focus it, ctrl/cmd+click a second one to highlight the path between them. Top view looks straight down the height axis with no perspective; orbiting away from it returns to the normal view.",
 
     "physics.reheat": "Recompute (reheat)",
     "physics.reset": "Reset positions",
@@ -154,6 +154,10 @@ const STRINGS = {
     "selection.callers": "Callers",
     "selection.callees": "Callees",
     "selection.none": "none",
+    "selection.pathHint": "Ctrl/cmd+click another node to highlight the path to it.",
+    "selection.path.found": "Path found: {count} declarations on it.",
+    "selection.path.none": "No path from {from} to {to}.",
+    "selection.path.clear": "Clear the path highlight.",
 
     "kind.function": "function",
     "kind.method": "method",
@@ -247,7 +251,7 @@ const STRINGS = {
     "view.autoRotate": "自動回転",
     "view.fit": "全体表示",
     "view.top": "真上から見る",
-    "view.help": "ドラッグで回転、Shift+ドラッグでパン、ホイールでズーム。ノードをクリックすると詳細を表示、ダブルクリックで注視します。「真上から見る」は遠近感なしで高さの軸を真上から見下ろす視点で、そこから回転すると通常の視点に戻ります。",
+    "view.help": "ドラッグで回転、Shift+ドラッグでパン、ホイールでズーム。ノードをクリックすると詳細を表示、ダブルクリックで注視、Ctrl/Cmd+クリックで2つ目のノードとの間の経路をハイライトします。「真上から見る」は遠近感なしで高さの軸を真上から見下ろす視点で、そこから回転すると通常の視点に戻ります。",
 
     "physics.reheat": "再計算 (リヒート)",
     "physics.reset": "位置をリセット",
@@ -317,6 +321,10 @@ const STRINGS = {
     "selection.callers": "呼び出し元",
     "selection.callees": "呼び出し先",
     "selection.none": "なし",
+    "selection.pathHint": "Ctrl/Cmd+クリックで別のノードとの間の経路をハイライトします。",
+    "selection.path.found": "経路が見つかりました: {count} 件の宣言が含まれます。",
+    "selection.path.none": "{from} から {to} への経路はありません。",
+    "selection.path.clear": "経路のハイライトを解除します。",
 
     "kind.function": "関数",
     "kind.method": "メソッド",

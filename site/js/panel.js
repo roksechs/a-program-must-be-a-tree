@@ -15,7 +15,7 @@ export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode, onClearPath }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -287,7 +287,8 @@ export class Panel {
 
     // Selection
     this.selectionBody = this.el("div", { class: "selection muted small" }, t("selection.empty"));
-    this.host.append(this.section(t("section.selection"), this.selectionBody));
+    this.pathResultEl = this.el("div", { class: "path-result", hidden: "" });
+    this.host.append(this.section(t("section.selection"), this.selectionBody, this.pathResultEl));
 
     // Legend
     const legend = this.el("div", { class: "legend" });
@@ -405,6 +406,7 @@ export class Panel {
 
   setSelection(node, graph) {
     this.selected = node;
+    this.pathResultEl.hidden = true;
     if (!node) {
       this.selectionBody.className = "selection muted small";
       this.selectionBody.replaceChildren(t("selection.empty"));
@@ -447,8 +449,33 @@ export class Panel {
       this.el("div", { class: "small mono" }, node.line ? `${node.file}:${node.line}` : node.file),
       this.el("div", { class: "small muted" }, flags.join(", ")),
       this.el("div", { class: "small muted", title: t("selection.scope.hint") }, `${t("selection.scope")}: ${scopeText}`),
+      this.el("div", { class: "small muted" }, t("selection.pathHint")),
       list(t("selection.callers"), callers),
       list(t("selection.callees"), callees),
+    );
+  }
+
+  /**
+   * @param {object|null} result paths.js's pathBetween() output, or null to clear
+   * @param {object} [from] the path's origin node (for the "no path" message)
+   * @param {object} [to] the path's destination node
+   */
+  setPathResult(result, from, to) {
+    if (!result) {
+      this.pathResultEl.hidden = true;
+      return;
+    }
+    this.pathResultEl.hidden = false;
+    const clearButton = this.el("button", { type: "button", class: "icon-button", title: t("selection.path.clear"), onclick: () => this.h.onClearPath() }, "×");
+    if (!result.reachable) {
+      this.pathResultEl.replaceChildren(this.el("span", { class: "muted small" }, t("selection.path.none", { from: from.name, to: to.name })), clearButton);
+      return;
+    }
+    const names = result.shortestPath.map((n) => n.name).join(" → ");
+    this.pathResultEl.replaceChildren(
+      this.el("div", { class: "small" }, t("selection.path.found", { count: result.nodes.size })),
+      this.el("div", { class: "small mono path-route" }, names),
+      clearButton,
     );
   }
 }

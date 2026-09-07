@@ -29,6 +29,12 @@ export class Graph3D {
     this.zones = [];
     this.selected = null;
     this.hovered = null;
+    // A ctrl/cmd+click on a second node while one is selected asks "how does
+    // the selected node reach this one" (see paths.js's pathBetween(), run
+    // by the app, not here — this renderer only draws whatever it is given).
+    // Both null together, or both set together; never one without the other.
+    this.pathNodes = null;
+    this.pathEdges = null;
     this.labelMode = "auto";
     this.colorBy = "height";
     this.visibleKinds = new Set(EDGE_KINDS);
@@ -163,7 +169,16 @@ export class Graph3D {
       if (!dragging) return;
       if (!moved) {
         const n = this.hitTest(e.offsetX, e.offsetY);
-        this.select(n === this.selected ? null : n);
+        // Ctrl/cmd+click a second node while one is already selected: "how
+        // does the selected node reach this one" (see paths.js), instead of
+        // the plain click's normal select/deselect — the origin stays
+        // selected (its own callers/callees stay in the Selection panel)
+        // with the path drawn as an overlay on top of it.
+        if ((e.ctrlKey || e.metaKey) && this.selected && n && n !== this.selected) {
+          this.callbacks.onFindPath?.(this.selected, n);
+        } else {
+          this.select(n === this.selected ? null : n);
+        }
       }
       dragging = null;
     };
@@ -261,8 +276,21 @@ export class Graph3D {
 
   select(node) {
     this.selected = node;
+    // A path highlight is only meaningful relative to the selection it was
+    // asked for; changing that selection (including clearing it) leaves it
+    // stale rather than wrong, so drop it here instead of drawing a path
+    // whose own endpoint no longer matches what is selected.
+    this.pathNodes = null;
+    this.pathEdges = null;
     this.draw();
     this.callbacks.onSelect?.(node);
+  }
+
+  /** Highlight every node/edge on some path between two nodes (paths.js's pathBetween()); null clears it. */
+  setPath(nodes, edges) {
+    this.pathNodes = nodes;
+    this.pathEdges = edges;
+    this.draw();
   }
 
   /**
@@ -375,6 +403,13 @@ export class Graph3D {
     const { nodes, links } = this.graph;
     const sel = this.selected;
     const neighbours = this.neighbourSet();
+    // A path highlight (see setPath()) takes over what "active"/"dimmed"
+    // mean from the plain selection while it's set: everything on the path
+    // reads as active, everything else dims, regardless of adjacency to
+    // `sel` — a node three hops from the selection but not on this path is
+    // exactly as irrelevant here as one with no relation to it at all.
+    const edgeActive = this.pathEdges ? (l) => this.pathEdges.has(l) : (l) => Boolean(sel) && (l.source === sel || l.target === sel);
+    const nodeDimmed = this.pathNodes ? (n) => !this.pathNodes.has(n) : (n) => Boolean(sel) && n !== sel && !neighbours.has(n);
 
     // Project all nodes once per frame. Nodes too close to the camera to
     // project sanely (see MAX_MAGNIFICATION) are left out, the same way a
@@ -476,15 +511,15 @@ export class Graph3D {
       .filter((item) => item !== null)
       .sort((a, b) => b.depth - a.depth);
     for (const { l, s, t } of edgeItems) {
-      const active = sel && (l.source === sel || l.target === sel);
-      const dimmed = sel && !active;
+      const active = edgeActive(l);
+      const dimmed = Boolean(sel || this.pathEdges) && !active;
       ctx.strokeStyle = active ? "#111827" : edgeColor(l.kind);
-      // Full opacity unless some other node is selected: `active`/`dimmed`
-      // already partition every edge when `sel` is set, so with nothing
-      // selected both are false and this used to fall through to a default
-      // 0.55 — permanently muting every edge kind's colour well below its
-      // legend swatch (nearly to invisibility for paler kinds like
-      // `reference`), which is what made the graph look like it didn't
+      // Full opacity unless something is selected or a path is highlighted:
+      // `active`/`dimmed` already partition every edge in either of those
+      // states, so with neither active this used to fall through to a
+      // default 0.55 — permanently muting every edge kind's colour well
+      // below its legend swatch (nearly to invisibility for paler kinds
+      // like `reference`), which is what made the graph look like it didn't
       // match the legend at all.
       ctx.globalAlpha = dimmed ? 0.08 : 1;
       ctx.lineWidth = active ? 2 : 1;
@@ -519,7 +554,7 @@ export class Graph3D {
     for (const p of sorted) {
       const n = p.node;
       const r = n.radius * p.scale;
-      const dimmed = sel && n !== sel && !neighbours.has(n);
+      const dimmed = nodeDimmed(n);
       ctx.globalAlpha = dimmed ? 0.2 : 1;
       ctx.beginPath();
       ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
@@ -537,10 +572,10 @@ export class Graph3D {
     ctx.textAlign = "center";
     for (const p of sorted) {
       const n = p.node;
-      const wanted = n === sel || n === this.hovered || neighbours.has(n) || (showAll && this.labelMode !== "none");
+      const wanted = n === sel || n === this.hovered || neighbours.has(n) || this.pathNodes?.has(n) || (showAll && this.labelMode !== "none");
       if (!wanted) continue;
       const r = n.radius * p.scale;
-      ctx.globalAlpha = sel && n !== sel && !neighbours.has(n) && n !== this.hovered ? 0.3 : 1;
+      ctx.globalAlpha = nodeDimmed(n) && n !== this.hovered ? 0.3 : 1;
       ctx.fillText(n.name, p.x, p.y - r - 4);
     }
     ctx.globalAlpha = 1;

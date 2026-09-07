@@ -667,6 +667,21 @@ ol.shared a:hover {
   border-radius: var(--shape-full);
 }
 
+.path-result {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.path-route {
+  color: var(--md-on-surface-variant);
+  word-break: break-word;
+}
+
 .legend {
   display: flex;
   flex-wrap: wrap;

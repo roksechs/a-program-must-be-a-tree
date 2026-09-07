@@ -56,6 +56,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `model.js`      | Normalises the document: nodes, merged links, containers (directory tree derived from file paths), SCCs and call heights. |
 | `metrics.js`    | Tree-likeness diagnostics. |
 | `dominance.js`  | Dominator tree of the condensed graph: the deepest nesting the program admits, and the lift of every edge. |
+| `paths.js`      | "How does A reach B": every node/edge on some path between two declarations, plus the shortest one — see "Path highlighting". |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
 | `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer, used by both the main viewer and the article's live figures. |
@@ -546,6 +547,40 @@ else to be found by control-flow analysis instead). Fixed at the analyzer
 level, not by the metric: `panel -> {onFit, onLabels, …} -> draw` no longer
 appears, because `onFit` and friends are now their own declarations with
 their own, correctly separate, calls to `draw`.
+
+## Path highlighting
+
+"How does A reach B" is a different question from anything the diagnostics
+answer: those score the graph's shape as a whole, not one declaration's
+route to another. Ctrl/cmd+clicking a second node while one is already
+selected (`graph3d.js`'s `bindEvents`) asks exactly that, and `paths.js`'s
+`pathBetween(graph, from, to)` answers it over `graph.activeLinks` — the
+same edges currently drawn, springing and counted, so a switched-off edge
+kind is invisible to a path query too, consistent with the panel's "one
+switch drives drawing, springs and diagnostics together" rule extending to
+this as well.
+
+The result is not just the shortest route: it is every node and edge that
+lies on *some* directed path from `from` to `to` — the intersection of
+"reachable from `from`" and "can reach `to`", each its own BFS over an
+adjacency list built for the query (no persistent graph-wide index; a query
+is one-off and the graph can change between queries as edge kinds toggle).
+A single shortest path would understate a node's influence whenever more
+than one route exists; the full intersection is the whole cone between the
+two, with the shortest path kept alongside it only as an ordered list for
+the panel's textual summary. A node BFS-reachable from `from` that can
+never itself reach `to` (a dead end down some other branch) is correctly
+excluded — reachability in one direction alone is not enough to belong to
+a path between the two.
+
+Drawing it reuses the exact dimming mechanism `sel` (an ordinary selection)
+already uses, generalized: `graph3d.js`'s `draw()` computes `edgeActive`/
+`nodeDimmed` from `pathNodes`/`pathEdges` when a path is set, falling back
+to the plain selection/neighbour test otherwise, rather than the path
+highlight being a separate rendering pass layered on top. Selecting a
+different node (including clearing the selection) drops the path instead
+of drawing one whose endpoint no longer matches what's selected, since a
+path is only ever meaningful relative to the selection it was asked for.
 
 ## Roadmap
 

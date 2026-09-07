@@ -8,6 +8,7 @@ import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
 import { Panel } from "./panel.js";
+import { pathBetween } from "./paths.js";
 import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
 import { visibleContainers } from "./zones.js";
 
@@ -72,6 +73,12 @@ const renderer = new Graph3D(stage, rendererCallbacks());
 function rendererCallbacks() {
   return {
     onSelect: (node) => panel.setSelection(node, state.graph),
+    onFindPath: (from, to) => {
+      if (!state.graph) return;
+      const result = pathBetween(state.graph, from, to);
+      renderer.setPath(result.reachable ? result.nodes : null, result.reachable ? result.edges : null);
+      panel.setPathResult(result, from, to);
+    },
     onDragStart: () => state.sim?.alphaTarget(0.3).restart(),
     onDragEnd: () => state.sim?.alphaTarget(0),
     onHover: (node, event) => {
@@ -158,6 +165,10 @@ const panel = new Panel(document.getElementById("panel"), state, {
   },
   onSelectNode: (node) => renderer.select(node),
   onFocusNode: (node) => renderer.focusOn(node),
+  onClearPath: () => {
+    renderer.setPath(null, null);
+    panel.setPathResult(null);
+  },
 });
 
 /** Apply the enabled edge kinds to drawing, springs and diagnostics at once. */
