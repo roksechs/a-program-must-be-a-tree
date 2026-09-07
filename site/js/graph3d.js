@@ -21,16 +21,47 @@ const FOCAL_EXTENT_RATIO = 1.2;
 // out of frame.
 const MAX_MAGNIFICATION = 4;
 
-// Pitch never goes past straight up/down: beyond here the camera is looking
-// from underneath the layout, and the height axis's own screen-space
-// contribution (viewSpace()'s cos(pitch) term) changes sign, so "up" flips —
-// a call graph rendered this way reads as if every edge pointed the wrong
-// way, with nothing on screen to say the view itself is upside down rather
-// than the data. Clamping here trades away viewing the graph from directly
-// underneath for never landing there by accident (an ordinary drag or a
-// held W/S can otherwise cross it without anyone noticing until the picture
-// already looks wrong).
+// The mouse-orbit `pitch` never goes past straight up/down: beyond here the
+// camera is looking from underneath the layout, and the height axis's own
+// screen-space contribution (viewSpace()'s cos(pitch) term) changes sign, so
+// "up" flips — a call graph rendered this way reads as if every edge
+// pointed the wrong way, with nothing on screen to say the view itself is
+// upside down rather than the data. Clamping here trades away viewing the
+// graph from directly underneath for never landing there by an ordinary
+// drag alone, without anyone noticing until the picture already looks
+// wrong. This applies only to orbiting with the mouse (an arcball around a
+// fixed subject, where ending up upside down is never really the point);
+// the keyboard's flight controls (`flightQuat`, below) have no such limit,
+// since flying upside down there is the point.
 const PITCH_LIMIT = Math.PI / 2;
+
+// Unit quaternions {x,y,z,w}, used only for the keyboard flight camera's
+// `flightQuat` (see the constructor): composing pitch/yaw/roll as three
+// independent angles in a fixed order (as the mouse-orbit yaw/pitch still
+// do) can't represent "roll, then pitch relative to the now-rolled frame" —
+// a coordinated turn, the way a real aircraft banks into one — since each
+// angle would keep rotating around the ORIGINAL, unrolled axis regardless
+// of the others. A quaternion accumulated via local-axis composition (see
+// Graph3D#roll()/rotateInPlace()) has no such fixed axes to begin with.
+function quatMultiply(a, b) {
+  return {
+    x: a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
+    y: a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
+    z: a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w,
+    w: a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z,
+  };
+}
+function quatFromAxisAngle([ax, ay, az], angle) {
+  const s = Math.sin(angle / 2);
+  return { x: ax * s, y: ay * s, z: az * s, w: Math.cos(angle / 2) };
+}
+/** Rotate a plain [x,y,z] vector by a unit quaternion (v' = q v q*, expanded to avoid building a quaternion for v). */
+function quatRotateVector(q, [vx, vy, vz]) {
+  const tx = 2 * (q.y * vz - q.z * vy);
+  const ty = 2 * (q.z * vx - q.x * vz);
+  const tz = 2 * (q.x * vy - q.y * vx);
+  return [vx + q.w * tx + (q.y * tz - q.z * ty), vy + q.w * ty + (q.z * tx - q.x * tz), vz + q.w * tz + (q.x * ty - q.y * tx)];
+}
 
 export class Graph3D {
   constructor(host, callbacks) {
@@ -84,12 +115,19 @@ export class Graph3D {
     // single instant a continuous orbit passes through the exact angle
     // anyway.
     this.pitch = 0.9;
-    // Camera roll (tilt around the forward axis, A/D — see bindEvents):
-    // unlike yaw/pitch there is no pointer gesture for it, only the keyboard,
-    // and it auto-levels back to 0 once A/D stop being held (see keyStep())
-    // rather than staying wherever it was left, since an accidentally tilted
-    // horizon has no way back other than rolling the exact opposite amount.
-    this.roll = 0;
+    // Additional rotation the keyboard's flight controls (W/S/Q/E/A/D — see
+    // bindEvents) layer on top of the yaw/pitch orbit above, composed via
+    // local-axis quaternion multiplication (see quatMultiply()'s own
+    // comment) instead of three more independent angles: pitching after a
+    // roll needs to turn around the now-rolled right axis, not the original
+    // unrolled one, the way a banked aircraft's nose actually swings when
+    // its pilot pulls back — a coordinated turn, not just a tilted-looking
+    // pan. Identity (no additional rotation) until a flight key is first
+    // pressed; unlike pitch there is no clamp and no auto-level back to
+    // level, since flying upside down is the point, not an accident to
+    // recover from — "Fit to view"/"Top view" reset it back to identity for
+    // whoever wants a clean way out instead.
+    this.flightQuat = { x: 0, y: 0, z: 0, w: 1 };
     // True while showing the "Top view" preset: a perspective-free look
     // straight down the height axis (see viewTop()), which is what a purely
     // 2D top-down rendering of this same x/y layout would look like — the
@@ -221,18 +259,17 @@ export class Graph3D {
     // Keyboard camera controls, held down like a game camera: W/S pitch the
     // camera up/down, A/D roll it, Q/E yaw it left/right, and the arrows
     // dolly forward/back or strafe left/right — an actual move through the
-    // scene (see dolly()/panScreen()), not a rescale like the wheel's zoom.
+    // scene (see dolly()/strafe()), not a rescale like the wheel's zoom.
     // Every axis eases toward whichever direction (or neither) is currently
     // held instead of snapping to full speed the instant a key goes down or
     // stopping dead the instant it comes up, so a tap reads as a nudge and a
-    // held key reads as accelerating into a cruise, the same way the roll
-    // auto-level below already eases back to level. Listens on window rather
-    // than the canvas since the canvas never takes keyboard focus, and is
-    // skipped while a text field (e.g. the GitHub repo box) is focused so
-    // typing doesn't fly the camera around.
+    // held key reads as accelerating into a cruise and coasting back down on
+    // release. Listens on window rather than the canvas since the canvas
+    // never takes keyboard focus, and is skipped while a text field (e.g.
+    // the GitHub repo box) is focused so typing doesn't fly the camera
+    // around.
     const MAX_ROTATE_RATE = 0.03; // radians per animation frame at full speed
-    const MAX_DOLLY_RATE = 0.02; // fraction of the focal length per animation frame at full speed
-    const MAX_STRAFE_RATE = 14; // screen pixels (panScreen's units) per animation frame at full speed
+    const MAX_MOVE_RATE = 0.02; // fraction of the focal length per animation frame at full speed, dolly and strafe alike
     const EASE = 0.15; // fraction of the gap to the target rate closed per frame, speeding up or coasting down alike
     // Which eased rate each key drives, and which direction (+1/-1) holding
     // it asks that rate to approach; releasing every key on an axis asks its
@@ -264,21 +301,12 @@ export class Graph3D {
         this.orthographic = false;
       }
       if (rate.roll) {
-        this.roll += rate.roll * MAX_ROTATE_RATE;
+        this.roll(rate.roll * MAX_ROTATE_RATE);
         this.orthographic = false;
       }
-      // Auto-level: once A/D aren't actively rolling it further (the eased
-      // rate above has coasted back to 0 too), the roll VALUE itself eases
-      // back to 0 on its own instead of leaving the horizon tilted, the same
-      // way a game camera self-rights after a roll input ends. This keeps
-      // the loop alive past the last keyup until it settles.
-      if (!heldKeys.has("a") && !heldKeys.has("d") && rate.roll === 0 && this.roll !== 0) {
-        this.roll *= 0.85;
-        if (Math.abs(this.roll) < 0.001) this.roll = 0;
-      }
-      if (rate.dolly) this.dolly(rate.dolly * this.focal * MAX_DOLLY_RATE);
-      if (rate.strafe) this.panScreen(rate.strafe * MAX_STRAFE_RATE, 0);
-      const settled = heldKeys.size === 0 && this.roll === 0 && Object.values(rate).every((r) => r === 0);
+      if (rate.dolly) this.dolly(rate.dolly * this.focal * MAX_MOVE_RATE);
+      if (rate.strafe) this.strafe(rate.strafe * this.focal * MAX_MOVE_RATE);
+      const settled = heldKeys.size === 0 && Object.values(rate).every((r) => r === 0);
       if (settled) {
         keyRAF = null;
         return;
@@ -308,45 +336,40 @@ export class Graph3D {
   panScreen(dx, dy) {
     this.focusedNode = null;
     const scale = this.zoomK; // scale at the target's own depth (project(): depth 0)
-    let ddx = dx / scale;
-    let ddy = -dy / scale; // +1 = one world unit of screen "up"
-    if (this.roll !== 0) {
-      // Undo the on-screen roll rotation first: dx/dy arrive in final screen
-      // pixels, but the yaw/pitch math below expects them in the unrolled
-      // frame viewSpace() itself works in (see project()).
-      const cr = Math.cos(this.roll);
-      const sr = Math.sin(this.roll);
-      const rx = ddx * cr + ddy * sr;
-      const ry = -ddx * sr + ddy * cr;
-      ddx = rx;
-      ddy = ry;
-    }
-    const cy = Math.cos(this.yaw);
-    const sy = Math.sin(this.yaw);
-    const cp = Math.cos(this.pitch);
-    const sp = Math.sin(this.pitch);
-    // World-space "right" and "up" directions for one unit of screen
-    // "right"/"up": the inverse of project()'s yaw then pitch rotation.
-    this.targetX -= ddx * cy + ddy * sy * sp;
-    this.targetY -= -ddx * sy + ddy * cy * sp;
-    this.targetZ -= ddy * cp;
+    const ddx = dx / scale;
+    const ddy = -dy / scale; // +1 = one world unit of screen "up"
+    // World-space "right" and "up" for one unit of screen "right"/"up": the
+    // inverse of viewSpace()'s full rotation (yaw, pitch, and flightQuat —
+    // see localToWorld()), so this still points the right way regardless of
+    // whatever the keyboard has rolled the camera to in the meantime.
+    const [rx, ry, rz] = this.localToWorld([1, 0, 0]);
+    const [ux, uy, uz] = this.localToWorld([0, 1, 0]);
+    this.targetX -= ddx * rx + ddy * ux;
+    this.targetY -= ddx * ry + ddy * uy;
+    this.targetZ -= ddx * rz + ddy * uz;
     this.draw();
   }
 
   /**
-   * Unit world-space "forward" (view) direction for a given yaw/pitch — the
-   * world-space gradient of viewSpace()'s own `depth`, i.e. the inverse of
-   * its yaw-then-pitch rotation applied to the unit vector "straight ahead".
-   * Shared by dolly() and rotateInPlace(); roll never enters it, since it
-   * only spins the rendered picture and doesn't change which way the camera
-   * actually faces.
+   * Map a LOCAL camera-space direction — [1,0,0] right, [0,1,0] up, [0,0,1]
+   * forward, before either the mouse-orbit yaw/pitch or the keyboard's
+   * `flightQuat` are layered on — into world space: the exact inverse of
+   * `viewSpace()`'s own rotation, generalized from a single hardcoded
+   * "forward" to any local direction, since `rotateInPlace()`/`dolly()`/
+   * `strafe()`/`panScreen()` all need the camera's actual current
+   * right/up/forward, not just forward.
    */
-  forwardVector(yaw, pitch) {
-    const cy = Math.cos(yaw);
-    const sy = Math.sin(yaw);
-    const cp = Math.cos(pitch);
-    const sp = Math.sin(pitch);
-    return [sy * cp, cy * cp, -sp];
+  localToWorld(local) {
+    const [fx, fy, fz] = quatRotateVector(this.flightQuat, local);
+    const cy = Math.cos(this.yaw);
+    const sy = Math.sin(this.yaw);
+    const cp = Math.cos(this.pitch);
+    const sp = Math.sin(this.pitch);
+    const Y = fy * sp + fz * cp;
+    const rz = fy * cp - fz * sp;
+    const rx = fx * cy + Y * sy;
+    const ry = -fx * sy + Y * cy;
+    return [rx, ry, rz];
   }
 
   /**
@@ -357,33 +380,59 @@ export class Graph3D {
    */
   dolly(step) {
     this.focusedNode = null;
-    const [fx, fy, fz] = this.forwardVector(this.yaw, this.pitch);
+    const [fx, fy, fz] = this.localToWorld([0, 0, 1]);
     this.targetX += step * fx;
     this.targetY += step * fy;
     this.targetZ += step * fz;
     this.draw();
   }
 
+  /** Move `target` a world-space distance `step` sideways — positive is the camera's own right — for the left/right arrows' strafe (bindEvents). */
+  strafe(step) {
+    this.focusedNode = null;
+    const [rx, ry, rz] = this.localToWorld([1, 0, 0]);
+    this.targetX += step * rx;
+    this.targetY += step * ry;
+    this.targetZ += step * rz;
+    this.draw();
+  }
+
   /**
-   * Adjust yaw/pitch the way W/S/Q/E do (bindEvents) — around the camera's
+   * Roll by `angle` around the camera's own forward axis — A/D (bindEvents).
+   * A pure rotation around forward leaves forward itself unchanged, so
+   * unlike pitch/yaw this never has to move `target` to keep the camera's
+   * position fixed.
+   */
+  roll(angle) {
+    this.flightQuat = quatMultiply(this.flightQuat, quatFromAxisAngle([0, 0, 1], angle));
+  }
+
+  /**
+   * Adjust pitch/yaw the way W/S/Q/E do (bindEvents) — around the camera's
    * own position instead of around `target` the way mouse-drag orbiting
    * does: the camera stays put and what's dead ahead of it changes, rather
    * than swinging around a fixed subject. The camera's position is never
    * stored on its own — it's always `target` minus `focal` world units
    * along the current view direction (the same relationship project() uses
    * the other way around, via `focalDepth`) — so this recovers it from the
-   * OLD yaw/pitch, applies the change, then re-derives `target` as `focal`
-   * units ahead of that same fixed point along the NEW view direction.
+   * OLD orientation, applies the change, then re-derives `target` as
+   * `focal` units ahead of that same fixed point along the NEW view
+   * direction. The change itself is local-axis rotation of `flightQuat`
+   * (canonical right for pitch, canonical up for yaw, composed the same way
+   * roll() composes around canonical forward) rather than adding to `pitch`
+   * directly, so that pitching after a roll turns around the now-rolled
+   * right axis — a coordinated turn — instead of the original, unrolled one
+   * a fixed-order Euler update would keep using regardless of roll.
    */
   rotateInPlace(dYaw, dPitch) {
     this.focusedNode = null;
-    const [fx0, fy0, fz0] = this.forwardVector(this.yaw, this.pitch);
+    const [fx0, fy0, fz0] = this.localToWorld([0, 0, 1]);
     const camX = this.targetX - this.focal * fx0;
     const camY = this.targetY - this.focal * fy0;
     const camZ = this.targetZ - this.focal * fz0;
-    this.yaw += dYaw;
-    this.pitch = Math.max(-PITCH_LIMIT, Math.min(PITCH_LIMIT, this.pitch + dPitch));
-    const [fx1, fy1, fz1] = this.forwardVector(this.yaw, this.pitch);
+    this.flightQuat = quatMultiply(this.flightQuat, quatFromAxisAngle([1, 0, 0], dPitch));
+    this.flightQuat = quatMultiply(this.flightQuat, quatFromAxisAngle([0, 1, 0], dYaw));
+    const [fx1, fy1, fz1] = this.localToWorld([0, 0, 1]);
     this.targetX = camX + this.focal * fx1;
     this.targetY = camY + this.focal * fy1;
     this.targetZ = camZ + this.focal * fz1;
@@ -489,27 +538,30 @@ export class Graph3D {
    * target, target itself always projects to screen centre (X = Y = 0)
    * regardless of yaw/pitch — orbiting never drifts it away from centre.
    */
-  /** The rotation (yaw, then pitch, then roll) project() and projectClamped() share, before either decides how to turn depth into scale. */
+  /** The rotation (mouse-orbit yaw/pitch, then the keyboard's flightQuat) project() and projectClamped() share, before either decides how to turn depth into scale. */
   viewSpace(x, y, z) {
     const rx = x - this.targetX;
     const ry = y - this.targetY;
     const rz = z - this.targetZ;
     const cy = Math.cos(this.yaw);
     const sy = Math.sin(this.yaw);
-    const X = rx * cy - ry * sy;
-    const Y = rx * sy + ry * cy;
+    const X0 = rx * cy - ry * sy;
+    const Y0 = rx * sy + ry * cy;
     const cp = Math.cos(this.pitch);
     const sp = Math.sin(this.pitch);
-    const upX = Y * sp + rz * cp;
-    const depth = Y * cp - rz * sp;
-    // Roll doesn't change distance from the camera, only the on-screen
-    // orientation, so it's a plain 2D rotation of the already-projected
-    // X/screenUp pair around target's own screen position (always centre) —
-    // equivalent to rolling the camera itself around its forward axis.
-    if (this.roll === 0) return { X, screenUp: upX, depth };
-    const cr = Math.cos(this.roll);
-    const sr = Math.sin(this.roll);
-    return { X: X * cr - upX * sr, screenUp: X * sr + upX * cr, depth };
+    const upX0 = Y0 * sp + rz * cp;
+    const depth0 = Y0 * cp - rz * sp;
+    // flightQuat (identity until a flight key is first pressed) is a further
+    // rotation on top of the yaw/pitch orbit above, applied here as a
+    // rotation of the already-computed (X0, upX0, depth0) rather than
+    // rotating (rx, ry, rz) directly: a pure roll leaves depth0 alone the
+    // same way the old roll-only code did (rotation around the forward axis
+    // doesn't touch the forward component), and a pitch/yaw rotation
+    // composes correctly with whatever roll came before it, which three
+    // independent angles in a fixed order could not (see quatMultiply()'s
+    // own comment) — the reason this exists at all.
+    const [X, screenUp, depth] = quatRotateVector(this.flightQuat, [X0, upX0, depth0]);
+    return { X, screenUp, depth };
   }
 
   project(x, y, z) {
@@ -814,8 +866,12 @@ export class Graph3D {
     this.zoomK = 1;
     this.focusedNode = null;
     // The general "get me unstuck" reset, so it returns to the normal
-    // perspective view too, the same as orbiting away from Top view does.
+    // perspective view too, the same as orbiting away from Top view does —
+    // including undoing whatever the keyboard's flight controls rolled or
+    // looped the camera to, since that has no auto-level of its own to fall
+    // back on (see the constructor).
     this.orthographic = false;
+    this.flightQuat = { x: 0, y: 0, z: 0, w: 1 };
     this.targetX = 0;
     this.targetY = 0;
     this.targetZ = 0;
@@ -871,6 +927,7 @@ export class Graph3D {
    */
   viewTop() {
     this.pitch = Math.PI / 2;
+    this.flightQuat = { x: 0, y: 0, z: 0, w: 1 };
     this.orthographic = true;
     this.draw();
   }
