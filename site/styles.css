@@ -382,6 +382,58 @@ input[type="range"]::-moz-range-thumb {
   background: rgba(var(--md-primary-rgb), var(--state-hover));
 }
 
+/* Recently opened local folders / GitHub repos (site/js/analysisCache.js). */
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.recent-label {
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  padding: 4px 0;
+  cursor: pointer;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-label:hover {
+  color: var(--md-primary);
+  text-decoration: underline;
+}
+
+.icon-button {
+  font: inherit;
+  font-size: 13px;
+  line-height: 1;
+  padding: 4px 6px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  border-radius: var(--shape-xs);
+  cursor: pointer;
+  flex: none;
+}
+
+.icon-button:hover {
+  background: rgba(var(--md-primary-rgb), var(--state-hover));
+  color: var(--md-primary);
+}
+
 .muted {
   color: var(--muted);
 }

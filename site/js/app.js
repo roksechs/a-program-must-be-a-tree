@@ -1,6 +1,7 @@
 // Application wiring: loads a dataset, runs the simulation and connects the
 // renderer to the property panel.
 /* global d3 */
+import { deleteAnalysis, listRecentAnalyses, saveAnalysis } from "./analysisCache.js";
 import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
@@ -93,6 +94,9 @@ const panel = new Panel(document.getElementById("panel"), state, {
   onFile: (file) => loadFile(file),
   onOpenFolder: () => loadLocalFolder(),
   onGithub: (spec) => loadGithubRepo(spec),
+  onLoadRecent: (entry) => loadFromCache(entry),
+  onReanalyzeRecent: (entry) => reanalyzeRecent(entry),
+  onDeleteRecent: (entry) => deleteRecent(entry),
   onPhysics: (key, value) => {
     state.physics[key] = value;
     // Apply the new parameter without forcing a reheat: a settled layout the
@@ -304,6 +308,53 @@ function reportPhase(phase, detail, fileCount) {
   else if (phase === "analyzing") setStatus("app.analyzingFiles", { count: fileCount });
 }
 
+async function refreshRecent() {
+  panel.setRecent(await listRecentAnalyses());
+}
+
+/** A "Recently opened" entry, clicked: show its cached graph, no re-reading. */
+function loadFromCache(entry) {
+  state.datasetId = "__custom__";
+  panel.setDatasets(state.datasets, "__custom__");
+  installGraph(entry.doc, entry.label);
+}
+
+async function deleteRecent(entry) {
+  await deleteAnalysis(entry.kind, entry.key);
+  await refreshRecent();
+}
+
+/** The explicit "re-analyze" action on a "Recently opened" entry: re-read/re-fetch and refresh the cache, in place of just replaying the cached graph. */
+async function reanalyzeRecent(entry) {
+  if (entry.kind === "github") {
+    await loadGithubRepo(entry.key);
+    return;
+  }
+  let fileCount = 0;
+  setStatus("app.readingFiles", { count: 0 });
+  try {
+    const granted = await entry.dirHandle.requestPermission({ mode: "read" });
+    if (granted !== "granted") throw new Error("permission was not granted");
+    const doc = await runAnalysisInWorker(
+      "local",
+      { dirHandle: entry.dirHandle },
+      {},
+      (count) => {
+        fileCount = count;
+        setStatus("app.readingFiles", { count });
+      },
+      (phase, detail) => reportPhase(phase, detail, fileCount),
+    );
+    await saveAnalysis({ kind: "local", key: entry.key, label: entry.label, doc, dirHandle: entry.dirHandle });
+    await refreshRecent();
+    state.datasetId = "__custom__";
+    panel.setDatasets(state.datasets, "__custom__");
+    installGraph(doc, entry.label);
+  } catch (err) {
+    setStatus("app.analyzeFailed", { name: entry.label, message: err.message });
+  }
+}
+
 async function loadLocalFolder() {
   let dirHandle;
   try {
@@ -327,6 +378,8 @@ async function loadLocalFolder() {
     state.datasetId = "__custom__";
     panel.setDatasets(state.datasets, "__custom__");
     installGraph(doc, dirHandle.name);
+    await saveAnalysis({ kind: "local", key: crypto.randomUUID(), label: dirHandle.name, doc, dirHandle });
+    await refreshRecent();
   } catch (err) {
     setStatus("app.analyzeFailed", { name: dirHandle.name, message: err.message });
   }
@@ -349,6 +402,11 @@ async function loadGithubRepo(spec) {
     state.datasetId = "__custom__";
     panel.setDatasets(state.datasets, "__custom__");
     installGraph(doc, spec);
+    // Keyed by the resolved "owner/repo@ref" (doc.meta.root), not the raw
+    // input: typing "owner/repo" and "owner/repo@main" for the same default
+    // branch collapse to one cache entry once the ref is resolved.
+    await saveAnalysis({ kind: "github", key: doc.meta.root, label: doc.meta.root, doc });
+    await refreshRecent();
   } catch (err) {
     setStatus("app.analyzeFailed", { name: spec, message: err.message });
   }
@@ -369,6 +427,7 @@ async function loadRemote(url) {
 }
 
 async function main() {
+  refreshRecent(); // does not block the initial dataset load
   const res = await fetch("data/index.json");
   state.datasets = res.ok ? await res.json() : [];
   const params = new URLSearchParams(location.search);

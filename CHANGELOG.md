@@ -6,6 +6,28 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### "Recently opened": a local folder or GitHub repo, remembered
+
+* Analyzing the same local folder or GitHub repo twice used to mean paying
+  the full cost again — reading every file (or fetching the whole tree),
+  loading the compiler, walking the `ts.Program`. `analysisCache.js` now
+  stores each result in IndexedDB, and the panel gets a "Recently opened"
+  list (separate from the Dataset dropdown, which only lists the bundled
+  `site/data/*.json` examples): clicking an entry installs its graph
+  directly, with nothing re-read or re-analyzed. Verified end to end in a
+  real browser, including that the list survives a page reload and that
+  loading a cached entry makes no network requests at all.
+* A GitHub entry is keyed by the *resolved* `owner/repo@ref`, so
+  `owner/repo` and `owner/repo@main` (the same default branch) collapse to
+  one entry. A local folder has no such stable name, so its entry instead
+  keeps the actual `FileSystemDirectoryHandle` (IndexedDB can store these
+  directly); an explicit "re-analyze" action re-requests read permission on
+  it before rereading — permission is scoped to the directory itself, not
+  the specific JS object, so this works regardless of how the handle was
+  obtained. Loading the cached graph never touches the handle at all, so it
+  stays instant even once permission has lapsed.
+* A "remove" action deletes an entry from the cache.
+
 ### Finer-grained progress for the local-folder / GitHub-repo analysis
 
 * Past "reading files… N" / "fetching files… N/M" the status line used to go

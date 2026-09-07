@@ -71,7 +71,10 @@ Three ways, no server involved in any of them:
   uploaded anywhere, and the GitHub option is subject to GitHub's
   unauthenticated API rate limit (60 requests/hour; fetching a repo's file
   tree is one request, its file contents are unmetered `raw.githubusercontent.com`
-  fetches).
+  fetches). Each result is remembered in the panel's "Recently opened" list
+  (`site/js/analysisCache.js`, IndexedDB), so opening the same folder or repo
+  again shows it instantly, with no re-reading or re-analyzing; a
+  "re-analyze" action picks up changes since then.
 * **The CLI**, for a JSON file you want to keep, script, or check into the
   bundled examples:
 
@@ -88,7 +91,7 @@ Three ways, no server involved in any of them:
 
 | Section     | Controls |
 |-------------|----------|
-| Data        | bundled datasets, open a local JSON file, open a local folder, load a GitHub repo |
+| Data        | bundled datasets, open a local JSON file, open a local folder, load a GitHub repo, "Recently opened" (folders/repos the browser has already analyzed, reopened instantly from IndexedDB — see below) |
 | Header      | language selector (English / Japanese) |
 | View        | label mode, colour by kind or call height, layer gap and planes, auto-rotate, fit, top view (perspective-free, straight down the height axis) |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |
@@ -102,7 +105,8 @@ Three ways, no server involved in any of them:
 ```
 site/            static site (the root a static host publishes)
   js/            ES modules: model, metrics, dominance, simulation, zones, renderers, panel, app,
-                 browserAnalyzer/localAnalyzer/githubAnalyzer (in-browser analysis)
+                 browserAnalyzer/localAnalyzer/githubAnalyzer/analyzeWorker (in-browser analysis),
+                 analysisCache ("Recently opened", IndexedDB)
   data/          generated datasets (index.json lists them)
   vendor/        d3 and TypeScript (copied by `npm run vendor`; TypeScript is regenerated on every build, not committed — see .gitignore)
 analyzers/ts/    JavaScript / TypeScript analyzer

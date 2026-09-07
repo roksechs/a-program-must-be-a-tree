@@ -59,7 +59,8 @@ edges. Required features, all of which must keep working:
 ```
 site/            static site (GitHub Pages root)
   js/            ES modules: model, metrics, dominance, simulation, zones, graph3d, panel, app, i18n,
-                 browserAnalyzer/localAnalyzer/githubAnalyzer (analyzer running in-browser)
+                 browserAnalyzer/localAnalyzer/githubAnalyzer/analyzeWorker (analyzer running in-browser),
+                 analysisCache ("Recently opened", IndexedDB)
   data/          generated datasets, listed in index.json
   content/       article chapters: chapters.json, then <lang>/<chapter>.md per language
   vendor/        d3 and TypeScript (copied by `npm run vendor`, do not edit; TypeScript is regenerated on every build, not committed)

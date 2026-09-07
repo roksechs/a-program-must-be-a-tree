@@ -3,9 +3,9 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-07T02:19:26.781Z",
+  "generatedAt": "2026-09-07T02:50:22.652Z",
   "analyzer": "analyzers/ts@0.4.0",
-  "files": 31
+  "files": 32
  },
  "declarations": [
   {
@@ -297,6 +297,78 @@
    "exported": false
   },
   {
+   "id": "site/js/analysisCache.js::DB_NAME",
+   "name": "DB_NAME",
+   "kind": "variable",
+   "file": "site/js/analysisCache.js",
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/analysisCache.js::DB_VERSION",
+   "name": "DB_VERSION",
+   "kind": "variable",
+   "file": "site/js/analysisCache.js",
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/analysisCache.js::deleteAnalysis",
+   "name": "deleteAnalysis",
+   "kind": "function",
+   "file": "site/js/analysisCache.js",
+   "line": 72,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/analysisCache.js::idFor",
+   "name": "idFor",
+   "kind": "function",
+   "file": "site/js/analysisCache.js",
+   "line": 24,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/analysisCache.js::listRecentAnalyses",
+   "name": "listRecentAnalyses",
+   "kind": "function",
+   "file": "site/js/analysisCache.js",
+   "line": 54,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/analysisCache.js::openDb",
+   "name": "openDb",
+   "kind": "function",
+   "file": "site/js/analysisCache.js",
+   "line": 12,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/analysisCache.js::saveAnalysis",
+   "name": "saveAnalysis",
+   "kind": "function",
+   "file": "site/js/analysisCache.js",
+   "line": 34,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/analysisCache.js::STORE",
+   "name": "STORE",
+   "kind": "variable",
+   "file": "site/js/analysisCache.js",
+   "line": 10,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "site/js/analyzeWorker.js::<module>",
    "name": "analyzeWorker",
    "kind": "module",
@@ -310,7 +382,7 @@
    "name": "app",
    "kind": "module",
    "file": "site/js/app.js",
-   "line": 40,
+   "line": 41,
    "parent": null,
    "exported": false
   },
@@ -319,7 +391,7 @@
    "name": "applyKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 148,
+   "line": 152,
    "parent": null,
    "exported": false
   },
@@ -328,7 +400,16 @@
    "name": "applyStaticTranslations",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 56,
+   "line": 57,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::deleteRecent",
+   "name": "deleteRecent",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 322,
    "parent": null,
    "exported": false
   },
@@ -337,7 +418,7 @@
    "name": "ensureTicking",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 195,
+   "line": 199,
    "parent": null,
    "exported": false
   },
@@ -346,7 +427,7 @@
    "name": "installGraph",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 209,
+   "line": 213,
    "parent": null,
    "exported": false
   },
@@ -355,7 +436,7 @@
    "name": "languageSelect",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 36,
+   "line": 37,
    "parent": null,
    "exported": false
   },
@@ -364,7 +445,7 @@
    "name": "value",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 52,
+   "line": 53,
    "parent": "site/js/app.js::languageSelect",
    "exported": false
   },
@@ -373,7 +454,7 @@
    "name": "loadDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 238,
+   "line": 242,
    "parent": null,
    "exported": false
   },
@@ -382,7 +463,16 @@
    "name": "loadFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 257,
+   "line": 261,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::loadFromCache",
+   "name": "loadFromCache",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 316,
    "parent": null,
    "exported": false
   },
@@ -391,7 +481,7 @@
    "name": "loadGithubRepo",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 335,
+   "line": 388,
    "parent": null,
    "exported": false
   },
@@ -400,7 +490,7 @@
    "name": "loadLocalFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 307,
+   "line": 358,
    "parent": null,
    "exported": false
   },
@@ -409,7 +499,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 357,
+   "line": 415,
    "parent": null,
    "exported": false
   },
@@ -418,7 +508,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 371,
+   "line": 429,
    "parent": null,
    "exported": false
   },
@@ -427,7 +517,7 @@
    "name": "panel",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 91,
+   "line": 92,
    "parent": null,
    "exported": false
   },
@@ -436,7 +526,7 @@
    "name": "onAutoRotate",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 138,
+   "line": 142,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -445,7 +535,7 @@
    "name": "onColorBy",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 126,
+   "line": 130,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -454,7 +544,16 @@
    "name": "onDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 92,
+   "line": 93,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onDeleteRecent",
+   "name": "onDeleteRecent",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 99,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -463,7 +562,7 @@
    "name": "onFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 93,
+   "line": 94,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -472,7 +571,7 @@
    "name": "onFit",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 111,
+   "line": 115,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -481,7 +580,7 @@
    "name": "onFocusNode",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 144,
+   "line": 148,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -490,7 +589,7 @@
    "name": "onGithub",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 95,
+   "line": 96,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -499,7 +598,7 @@
    "name": "onKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 121,
+   "line": 125,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -508,7 +607,7 @@
    "name": "onLabels",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 117,
+   "line": 121,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -517,7 +616,16 @@
    "name": "onLayerGap",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 130,
+   "line": 134,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onLoadRecent",
+   "name": "onLoadRecent",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 97,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -526,7 +634,7 @@
    "name": "onOpenFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 94,
+   "line": 95,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -535,7 +643,16 @@
    "name": "onPhysics",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 96,
+   "line": 100,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onReanalyzeRecent",
+   "name": "onReanalyzeRecent",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 98,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -544,7 +661,7 @@
    "name": "onReheat",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 105,
+   "line": 109,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -553,7 +670,7 @@
    "name": "onReset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 106,
+   "line": 110,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -562,7 +679,7 @@
    "name": "onSelectNode",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 143,
+   "line": 147,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -571,7 +688,7 @@
    "name": "onShowLayers",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 134,
+   "line": 138,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -580,7 +697,7 @@
    "name": "onTop",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 112,
+   "line": 116,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -589,8 +706,26 @@
    "name": "onZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 113,
+   "line": 117,
    "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::reanalyzeRecent",
+   "name": "reanalyzeRecent",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 328,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::refreshRecent",
+   "name": "refreshRecent",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 311,
+   "parent": null,
    "exported": false
   },
   {
@@ -598,7 +733,7 @@
    "name": "renderer",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 63,
+   "line": 64,
    "parent": null,
    "exported": false
   },
@@ -607,7 +742,7 @@
    "name": "rendererCallbacks",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 65,
+   "line": 66,
    "parent": null,
    "exported": false
   },
@@ -616,7 +751,7 @@
    "name": "onDragEnd",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 69,
+   "line": 70,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -625,7 +760,7 @@
    "name": "onDragStart",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 68,
+   "line": 69,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -634,7 +769,7 @@
    "name": "onHover",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 70,
+   "line": 71,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -643,7 +778,7 @@
    "name": "onSelect",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 67,
+   "line": 68,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -652,7 +787,7 @@
    "name": "reportPhase",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 301,
+   "line": 305,
    "parent": null,
    "exported": false
   },
@@ -661,7 +796,7 @@
    "name": "runAnalysisInWorker",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 277,
+   "line": 281,
    "parent": null,
    "exported": false
   },
@@ -670,7 +805,7 @@
    "name": "savedLanguage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 39,
+   "line": 40,
    "parent": null,
    "exported": false
   },
@@ -679,7 +814,7 @@
    "name": "setStatus",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 172,
+   "line": 176,
    "parent": null,
    "exported": false
   },
@@ -688,7 +823,7 @@
    "name": "stage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 33,
+   "line": 34,
    "parent": null,
    "exported": false
   },
@@ -697,7 +832,7 @@
    "name": "state",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 12,
+   "line": 13,
    "parent": null,
    "exported": false
   },
@@ -706,7 +841,7 @@
    "name": "status",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 35,
+   "line": 36,
    "parent": null,
    "exported": false
   },
@@ -715,7 +850,7 @@
    "name": "statusMessage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 171,
+   "line": 175,
    "parent": null,
    "exported": false
   },
@@ -724,7 +859,7 @@
    "name": "ticking",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 194,
+   "line": 198,
    "parent": null,
    "exported": false
   },
@@ -733,7 +868,7 @@
    "name": "tooltip",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 34,
+   "line": 35,
    "parent": null,
    "exported": false
   },
@@ -742,7 +877,7 @@
    "name": "updateZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 165,
+   "line": 169,
    "parent": null,
    "exported": false
   },
@@ -1579,7 +1714,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 329,
+   "line": 337,
    "parent": null,
    "exported": false
   },
@@ -1588,7 +1723,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 333,
+   "line": 341,
    "parent": null,
    "exported": true
   },
@@ -1597,7 +1732,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 342,
+   "line": 350,
    "parent": null,
    "exported": true
   },
@@ -1606,7 +1741,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 366,
+   "line": 374,
    "parent": null,
    "exported": true
   },
@@ -1624,7 +1759,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 330,
+   "line": 338,
    "parent": null,
    "exported": false
   },
@@ -1633,7 +1768,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 372,
+   "line": 380,
    "parent": null,
    "exported": true
   },
@@ -1642,7 +1777,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 353,
+   "line": 361,
    "parent": null,
    "exported": true
   },
@@ -1651,7 +1786,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 346,
+   "line": 354,
    "parent": null,
    "exported": true
   },
@@ -1669,7 +1804,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 359,
+   "line": 367,
    "parent": null,
    "exported": true
   },
@@ -1939,7 +2074,7 @@
    "name": "el",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 30,
+   "line": 31,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1948,7 +2083,7 @@
    "name": "refresh",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 73,
+   "line": 74,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1957,7 +2092,7 @@
    "name": "render",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 84,
+   "line": 86,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1966,7 +2101,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 90,
+   "line": 92,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -1975,7 +2110,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 91,
+   "line": 93,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -1984,7 +2119,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 126,
+   "line": 135,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -1993,7 +2128,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 127,
+   "line": 136,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2002,7 +2137,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 149,
+   "line": 158,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2011,7 +2146,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 97,
+   "line": 99,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2020,7 +2155,7 @@
    "name": "section",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 41,
+   "line": 42,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2029,7 +2164,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 66,
+   "line": 67,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2038,7 +2173,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 67,
+   "line": 68,
    "parent": "site/js/panel.js::Panel.select",
    "exported": false
   },
@@ -2047,7 +2182,7 @@
    "name": "setDataInfo",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 215,
+   "line": 224,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2056,7 +2191,7 @@
    "name": "setDatasets",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 204,
+   "line": 213,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2065,7 +2200,7 @@
    "name": "setMaxDepth",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 220,
+   "line": 252,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2074,7 +2209,7 @@
    "name": "setMetrics",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 227,
+   "line": 259,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2083,8 +2218,44 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 272,
+   "line": 304,
    "parent": "site/js/panel.js::Panel.setMetrics",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setRecent",
+   "name": "setRecent",
+   "kind": "method",
+   "file": "site/js/panel.js",
+   "line": 230,
+   "parent": "site/js/panel.js::Panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setRecent/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 243,
+   "parent": "site/js/panel.js::Panel.setRecent",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setRecent/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 245,
+   "parent": "site/js/panel.js::Panel.setRecent",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setRecent/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 246,
+   "parent": "site/js/panel.js::Panel.setRecent",
    "exported": false
   },
   {
@@ -2092,7 +2263,7 @@
    "name": "setSelection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 280,
+   "line": 312,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2101,7 +2272,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 299,
+   "line": 331,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
@@ -2110,7 +2281,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 319,
+   "line": 351,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
@@ -2119,7 +2290,7 @@
    "name": "slider",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 45,
+   "line": 46,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2128,7 +2299,7 @@
    "name": "oninput",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 54,
+   "line": 55,
    "parent": "site/js/panel.js::Panel.slider",
    "exported": false
   },
@@ -2842,6 +3013,83 @@
    "time": "definition"
   },
   {
+   "source": "site/js/analysisCache.js::deleteAnalysis",
+   "target": "site/js/analysisCache.js::idFor",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analysisCache.js::deleteAnalysis",
+   "target": "site/js/analysisCache.js::openDb",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analysisCache.js::deleteAnalysis",
+   "target": "site/js/analysisCache.js::STORE",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analysisCache.js::listRecentAnalyses",
+   "target": "site/js/analysisCache.js::openDb",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analysisCache.js::listRecentAnalyses",
+   "target": "site/js/analysisCache.js::STORE",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analysisCache.js::openDb",
+   "target": "site/js/analysisCache.js::DB_NAME",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analysisCache.js::openDb",
+   "target": "site/js/analysisCache.js::DB_VERSION",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analysisCache.js::openDb",
+   "target": "site/js/analysisCache.js::STORE",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analysisCache.js::saveAnalysis",
+   "target": "site/js/analysisCache.js::idFor",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analysisCache.js::saveAnalysis",
+   "target": "site/js/analysisCache.js::openDb",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analysisCache.js::saveAnalysis",
+   "target": "site/js/analysisCache.js::STORE",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
    "source": "site/js/analyzeWorker.js::<module>",
    "target": "site/js/githubAnalyzer.js::analyzeGithubRepo",
    "kind": "call",
@@ -3110,6 +3358,20 @@
    "time": "use"
   },
   {
+   "source": "site/js/app.js::deleteRecent",
+   "target": "site/js/analysisCache.js::deleteAnalysis",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::deleteRecent",
+   "target": "site/js/app.js::refreshRecent",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/app.js::ensureTicking",
    "target": "site/js/app.js::renderer",
    "kind": "reference",
@@ -3341,6 +3603,41 @@
    "time": "use"
   },
   {
+   "source": "site/js/app.js::loadFromCache",
+   "target": "site/js/app.js::installGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadFromCache",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadFromCache",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadFromCache",
+   "target": "site/js/panel.js::Panel.setDatasets",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo",
+   "target": "site/js/analysisCache.js::saveAnalysis",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/app.js::loadGithubRepo",
    "target": "site/js/app.js::installGraph",
    "kind": "call",
@@ -3351,6 +3648,13 @@
    "source": "site/js/app.js::loadGithubRepo",
    "target": "site/js/app.js::panel",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo",
+   "target": "site/js/app.js::refreshRecent",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },
@@ -3391,6 +3695,13 @@
   },
   {
    "source": "site/js/app.js::loadLocalFolder",
+   "target": "site/js/analysisCache.js::saveAnalysis",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder",
    "target": "site/js/app.js::installGraph",
    "kind": "call",
    "count": 1,
@@ -3400,6 +3711,13 @@
    "source": "site/js/app.js::loadLocalFolder",
    "target": "site/js/app.js::panel",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder",
+   "target": "site/js/app.js::refreshRecent",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },
@@ -3496,6 +3814,13 @@
   },
   {
    "source": "site/js/app.js::main",
+   "target": "site/js/app.js::refreshRecent",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::main",
    "target": "site/js/app.js::setStatus",
    "kind": "call",
    "count": 1,
@@ -3581,6 +3906,13 @@
   {
    "source": "site/js/app.js::panel/onDataset",
    "target": "site/js/app.js::loadDataset",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onDeleteRecent",
+   "target": "site/js/app.js::deleteRecent",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -3684,6 +4016,13 @@
    "time": "use"
   },
   {
+   "source": "site/js/app.js::panel/onLoadRecent",
+   "target": "site/js/app.js::loadFromCache",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/app.js::panel/onOpenFolder",
    "target": "site/js/app.js::loadLocalFolder",
    "kind": "call",
@@ -3700,6 +4039,13 @@
   {
    "source": "site/js/app.js::panel/onPhysics",
    "target": "site/js/simulation.js::applyPhysics",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onReanalyzeRecent",
+   "target": "site/js/app.js::reanalyzeRecent",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -3784,6 +4130,97 @@
   {
    "source": "site/js/app.js::panel/onZones",
    "target": "site/js/app.js::updateZones",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reanalyzeRecent",
+   "target": "site/js/analysisCache.js::saveAnalysis",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reanalyzeRecent",
+   "target": "site/js/app.js::installGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reanalyzeRecent",
+   "target": "site/js/app.js::loadGithubRepo",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reanalyzeRecent",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reanalyzeRecent",
+   "target": "site/js/app.js::refreshRecent",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reanalyzeRecent",
+   "target": "site/js/app.js::reportPhase",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reanalyzeRecent",
+   "target": "site/js/app.js::runAnalysisInWorker",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reanalyzeRecent",
+   "target": "site/js/app.js::setStatus",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reanalyzeRecent",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reanalyzeRecent",
+   "target": "site/js/panel.js::Panel.setDatasets",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::refreshRecent",
+   "target": "site/js/analysisCache.js::listRecentAnalyses",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::refreshRecent",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::refreshRecent",
+   "target": "site/js/panel.js::Panel.setRecent",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -5249,6 +5686,13 @@
   },
   {
    "source": "site/js/panel.js::Panel.refresh",
+   "target": "site/js/panel.js::Panel.setRecent",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.refresh",
    "target": "site/js/panel.js::Panel.setSelection",
    "kind": "call",
    "count": 1,
@@ -5279,7 +5723,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 43,
+   "count": 44,
    "time": "use"
   },
   {
@@ -5300,7 +5744,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 53,
+   "count": 55,
    "time": "use"
   },
   {
@@ -5385,6 +5829,20 @@
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
    "count": 13,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setRecent",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setRecent",
+   "target": "site/js/panel.js::Panel.el",
+   "kind": "call",
+   "count": 6,
    "time": "use"
   },
   {

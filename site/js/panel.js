@@ -12,7 +12,7 @@ export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -22,6 +22,7 @@ export class Panel {
     this.datasets = [];
     this.currentDataset = null;
     this.dataInfo = null;
+    this.recent = [];
     this.graph = null;
     this.selected = null;
     this.render();
@@ -74,6 +75,7 @@ export class Panel {
     this.render();
     this.setDatasets(this.datasets, this.currentDataset);
     if (this.dataInfo) this.setDataInfo(this.dataInfo);
+    this.setRecent(this.recent);
     if (this.graph) {
       this.setMaxDepth(this.state.maxDepth, this.state.zoneDepth);
       this.setMetrics(this.graph);
@@ -100,6 +102,11 @@ export class Panel {
     const githubBtn = this.el("button", { type: "button", onclick: submitGithub }, t("data.githubLoad"));
     githubInput.addEventListener("keydown", (e) => e.key === "Enter" && submitGithub());
     this.dataInfoEl = this.el("p", { class: "muted small" });
+    // Analyses the browser itself ran (local folder / GitHub repo), not the
+    // bundled example datasets already in the Dataset dropdown above: see
+    // site/js/analysisCache.js. Populated by setRecent(), not render() —
+    // reading it back from IndexedDB is async.
+    this.recentEl = this.el("div", { class: "recent-list" });
     this.host.append(
       this.section(
         t("section.data"),
@@ -108,6 +115,8 @@ export class Panel {
         this.el("label", { class: "control" }, this.el("span", {}, t("data.openFolder")), folderBtn),
         this.el("label", { class: "control" }, this.el("span", {}, t("data.github")), githubInput, githubBtn),
         this.dataInfoEl,
+        this.el("h3", {}, t("data.recent")),
+        this.recentEl,
       ),
     );
 
@@ -215,6 +224,29 @@ export class Panel {
   setDataInfo(info) {
     this.dataInfo = info;
     this.dataInfoEl.textContent = t("app.dataInfo", info);
+  }
+
+  /** @param {object[]} entries analysisCache.js rows, newest first */
+  setRecent(entries) {
+    this.recent = entries;
+    this.recentEl.replaceChildren();
+    if (entries.length === 0) {
+      this.recentEl.append(this.el("p", { class: "muted small" }, t("data.recentEmpty")));
+      return;
+    }
+    const when = new Intl.DateTimeFormat(undefined, { dateStyle: "short", timeStyle: "short" });
+    for (const entry of entries) {
+      this.recentEl.append(
+        this.el(
+          "div",
+          { class: "recent-item" },
+          this.el("button", { type: "button", class: "recent-label", title: entry.label, onclick: () => this.h.onLoadRecent(entry) }, entry.label),
+          this.el("span", { class: "muted small" }, when.format(entry.analyzedAt)),
+          this.el("button", { type: "button", class: "icon-button", title: t("data.reanalyze"), onclick: () => this.h.onReanalyzeRecent(entry) }, "↻"),
+          this.el("button", { type: "button", class: "icon-button", title: t("data.remove"), onclick: () => this.h.onDeleteRecent(entry) }, "×"),
+        ),
+      );
+    }
   }
 
   setMaxDepth(maxDepth, value) {

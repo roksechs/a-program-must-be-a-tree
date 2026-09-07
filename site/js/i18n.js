@@ -58,6 +58,10 @@ const STRINGS = {
     "data.github": "GitHub repo",
     "data.githubPlaceholder": "owner/repo, owner/repo@ref, or a github.com URL",
     "data.githubLoad": "Load",
+    "data.recent": "Recently opened",
+    "data.recentEmpty": "Analyses you run (Open folder / GitHub repo) are remembered here, so reopening one skips reading and analyzing it again.",
+    "data.reanalyze": "Re-analyze",
+    "data.remove": "Remove",
 
     "view.labels": "Labels",
     "view.labels.auto": "auto",
@@ -216,6 +220,10 @@ const STRINGS = {
     "data.github": "GitHub リポジトリ",
     "data.githubPlaceholder": "owner/repo、owner/repo@ref、または github.com の URL",
     "data.githubLoad": "読み込む",
+    "data.recent": "最近開いた項目",
+    "data.recentEmpty": "「フォルダを開く」/「GitHub リポジトリ」で解析した項目がここに残るので、次回はもう一度読み込み直さずに開けます。",
+    "data.reanalyze": "再解析",
+    "data.remove": "削除",
 
     "view.labels": "ラベル",
     "view.labels.auto": "自動",

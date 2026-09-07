@@ -64,6 +64,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `localAnalyzer.js` | Reads a directory picked with `showDirectoryPicker()` into the file map `browserAnalyzer.js` needs. |
 | `githubAnalyzer.js` | Fetches a public GitHub repository's file tree and contents into the same file map. |
 | `analyzeWorker.js`  | Runs `localAnalyzer.js` / `githubAnalyzer.js` inside a dedicated worker so the page stays responsive during the analysis itself — see below. |
+| `analysisCache.js`  | Persists local-folder / GitHub-repo analysis results in IndexedDB, so the panel's "Recently opened" list can show a graph again without re-reading or re-analyzing — see below. |
 | `markdown.js`   | Small Markdown renderer for the article chapters (escaped, no raw HTML; `<!-- key: value -->` comments are page directives). |
 | `article.js`    | The article page (`article.html`): chapters from `content/<lang>/`, each with the live graphs its directives ask for, rendered by the same modules on the same datasets as the viewer. |
 
@@ -105,6 +106,33 @@ local declarations) — so `analyzeWorker.js` calls
 access, which the checker resolves back to the real declaration, keeping the
 call graph (and `metrics.js`'s `unreferencedDeclarations`) accurate with no
 exception needed.
+
+### Remembering an analysis: "Recently opened"
+
+Opening the same local folder or GitHub repo a second time should not mean
+paying the whole cost again — reading every file, fetching the whole tree,
+loading the compiler and its `lib.*.d.ts` closure, walking the `ts.Program`.
+`analysisCache.js` stores the result of each local-folder / GitHub-repo
+analysis in IndexedDB (`{ kind, key, label, doc, dirHandle?, analyzedAt }`),
+and the panel's "Recently opened" list reads it back: clicking an entry
+installs its `doc` directly, with none of that work repeated. This list is
+separate from the Dataset dropdown above it, which only ever lists the
+bundled `site/data/*.json` examples — an entry here exists because the
+browser itself analyzed something, not because it shipped with the site.
+
+A GitHub entry is keyed by the *resolved* `owner/repo@ref` (the analysis
+document's own `meta.root`, not the raw text the user typed), so typing
+`owner/repo` and `owner/repo@main` for the same default branch collapse to
+one entry once the ref is known. A local folder has no such stable, unique
+name to key by, so its entry instead keeps the actual
+`FileSystemDirectoryHandle` — itself a value IndexedDB can store — and an
+explicit "re-analyze" action re-requests read permission on it
+(`handle.requestPermission()`, which needs the user-gesture context a
+button click already provides) before rereading it; permission is scoped to
+the underlying directory, not to the specific JS object, so this works
+regardless of how the handle was obtained. Loading the cached graph itself
+never touches the handle at all — only "re-analyze" needs permission, so
+revisiting an old result stays instant even if permission has since lapsed.
 
 ### Keeping the codebase itself tidy
 
