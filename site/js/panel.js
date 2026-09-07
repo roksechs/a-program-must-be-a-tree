@@ -4,15 +4,18 @@
 // strings go through the translator so the panel can be re-rendered in
 // another language with `refresh()`.
 import { EDGE_KINDS, edgeColor, kindColor } from "./colors.js";
+import { POPULAR_REPOS } from "./githubAnalyzer.js";
 import { kindLabel, t } from "./i18n.js";
 import { localFolderSupported } from "./localAnalyzer.js";
 import { computeMetrics, linkLift, naturalScope, topSharedNodes } from "./metrics.js";
+
+const GITHUB_SEARCH_DEBOUNCE_MS = 400;
 
 export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -97,10 +100,57 @@ export class Panel {
     // that button is disabled with an explanatory title elsewhere.
     const folderSupported = localFolderSupported();
     const folderBtn = this.el("button", { type: "button", disabled: folderSupported ? null : "", title: folderSupported ? null : t("data.folderUnsupported"), onclick: () => h.onOpenFolder() }, t("data.openFolder"));
-    const githubInput = this.el("input", { type: "text", placeholder: t("data.githubPlaceholder") });
-    const submitGithub = () => githubInput.value.trim() && h.onGithub(githubInput.value.trim());
+    const githubInput = this.el("input", { type: "text", placeholder: t("data.githubPlaceholder"), autocomplete: "off" });
+    const githubResults = this.el("div", { class: "github-results", hidden: "" });
+    const hideResults = () => (githubResults.hidden = true);
+    const loadGithub = (spec) => {
+      hideResults();
+      githubInput.value = spec;
+      h.onGithub(spec);
+    };
+    const submitGithub = () => githubInput.value.trim() && loadGithub(githubInput.value.trim());
     const githubBtn = this.el("button", { type: "button", onclick: submitGithub }, t("data.githubLoad"));
-    githubInput.addEventListener("keydown", (e) => e.key === "Enter" && submitGithub());
+    const showGithubResults = (items) => {
+      githubResults.replaceChildren(
+        ...items.map((r) =>
+          this.el(
+            "button",
+            { type: "button", class: "github-result", onmousedown: (e) => e.preventDefault(), onclick: () => loadGithub(r.full_name) },
+            this.el("span", { class: "github-result-name" }, r.full_name),
+            this.el("span", { class: "muted small github-result-desc" }, r.description ?? ""),
+          ),
+        ),
+      );
+      githubResults.hidden = items.length === 0;
+    };
+    // GitHub's search API has its own, much stricter rate limit (10/minute
+    // unauthenticated, versus 60/hour for fetching a repo itself), so this
+    // debounces and never fires for a query shorter than 2 characters.
+    let searchTimer = null;
+    githubInput.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      const q = githubInput.value.trim();
+      if (q.length === 0) {
+        showGithubResults(POPULAR_REPOS);
+        return;
+      }
+      if (q.length < 2) {
+        hideResults();
+        return;
+      }
+      searchTimer = setTimeout(() => h.onGithubSearch(q).then(showGithubResults, hideResults), GITHUB_SEARCH_DEBOUNCE_MS);
+    });
+    githubInput.addEventListener("focus", () => {
+      if (githubInput.value.trim().length === 0) showGithubResults(POPULAR_REPOS);
+    });
+    // A click on a result fires this input's blur before its own onclick;
+    // onmousedown above (preventDefault, so focus never actually leaves the
+    // input) is what makes the click land instead of hiding the list first.
+    githubInput.addEventListener("blur", hideResults);
+    githubInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") submitGithub();
+      else if (e.key === "Escape") hideResults();
+    });
     this.dataInfoEl = this.el("p", { class: "muted small" });
     // Analyses the browser itself ran (local folder / GitHub repo), not the
     // bundled example datasets already in the Dataset dropdown above: see
@@ -114,6 +164,7 @@ export class Panel {
         this.el("label", { class: "control" }, this.el("span", {}, t("data.openJson")), fileInput),
         this.el("label", { class: "control" }, this.el("span", {}, t("data.openFolder")), folderBtn),
         this.el("label", { class: "control" }, this.el("span", {}, t("data.github")), githubInput, githubBtn),
+        githubResults,
         this.dataInfoEl,
         this.el("h3", {}, t("data.recent")),
         this.recentEl,

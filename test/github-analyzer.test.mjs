@@ -5,7 +5,7 @@
 // the fetch-driven half needs a real browser and is verified manually.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parseGithubSpec } from "../site/js/githubAnalyzer.js";
+import { POPULAR_REPOS, parseGithubSpec } from "../site/js/githubAnalyzer.js";
 
 test("parseGithubSpec: owner/repo", () => {
   assert.deepEqual(parseGithubSpec("roksechs/a-program-must-be-a-tree"), { owner: "roksechs", repo: "a-program-must-be-a-tree", ref: null });
@@ -27,4 +27,13 @@ test("parseGithubSpec: trims whitespace and a trailing slash", () => {
 
 test("parseGithubSpec: rejects anything else", () => {
   assert.throws(() => parseGithubSpec("not a repo spec"), /could not parse/);
+});
+
+test("POPULAR_REPOS: every entry is a parseable owner/repo with a description", () => {
+  assert.ok(POPULAR_REPOS.length >= 3);
+  for (const r of POPULAR_REPOS) {
+    assert.doesNotThrow(() => parseGithubSpec(r.full_name), `${r.full_name} does not parse as owner/repo`);
+    assert.equal(typeof r.description, "string");
+    assert.ok(r.description.length > 0);
+  }
 });

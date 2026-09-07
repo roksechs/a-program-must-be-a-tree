@@ -77,3 +77,33 @@ export async function analyzeGithubRepo(spec, { nested, onProgress, onPhase } = 
   const files = await fetchBlobs(owner, repo, ref, entries, onProgress);
   return analyzeFiles(files, { name: `${owner}/${repo}`, nested, rootLabel: `${owner}/${repo}@${ref}`, onPhase });
 }
+
+/**
+ * A small, fixed set of well-known JavaScript/TypeScript repositories, shown
+ * as suggestions before the user has typed a search query — GitHub's search
+ * API needs a real query string (there is no "most popular" query for an
+ * empty one), and this doubles as a demo of what the feature is for without
+ * spending any of its own, much stricter rate limit (10 requests/minute
+ * unauthenticated, versus 60/hour for the rest of the GitHub API).
+ */
+export const POPULAR_REPOS = [
+  { full_name: "expressjs/express", description: "Fast, unopinionated, minimalist web framework for node." },
+  { full_name: "axios/axios", description: "Promise based HTTP client for the browser and node.js." },
+  { full_name: "date-fns/date-fns", description: "Modern JavaScript date utility library." },
+  { full_name: "chartjs/Chart.js", description: "Simple HTML5 Charts using the canvas element." },
+  { full_name: "preactjs/preact", description: "Fast 3kb React alternative with the same modern API." },
+  { full_name: "sindresorhus/got", description: "Human-friendly and powerful HTTP request library for Node.js." },
+];
+
+/**
+ * Search public repositories by name/description (GitHub's search API, not
+ * the same endpoint or rate limit as analyzeGithubRepo's — 10 requests per
+ * minute unauthenticated, so callers should debounce). Restricted to
+ * JavaScript/TypeScript repositories, the only kind this analyzer can read;
+ * ranked by stars.
+ */
+export async function searchGithubRepos(query, limit = 8) {
+  const q = `${query} language:javascript OR language:typescript`;
+  const data = await githubJson(`/search/repositories?q=${encodeURIComponent(q)}&sort=stars&order=desc&per_page=${limit}`);
+  return (data.items ?? []).map((r) => ({ full_name: r.full_name, description: r.description, stars: r.stargazers_count }));
+}

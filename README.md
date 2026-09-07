@@ -65,8 +65,9 @@ Three ways, no server involved in any of them:
 * **From the panel, live.** "Open folder…" picks a local directory with the
   File System Access API (Chrome or Edge) and analyzes it in the browser; the
   "GitHub repo" field takes `owner/repo`, `owner/repo@ref` or a `github.com`
-  URL and fetches the repository's files client-side to analyze the same
-  way. Both run the real TypeScript-compiler-based analyzer entirely in the
+  URL — or searches GitHub as you type, showing a few popular JS/TS repos to
+  try when it's empty — and fetches the repository's files client-side to
+  analyze the same way. Both run the real TypeScript-compiler-based analyzer entirely in the
   page (`site/js/localAnalyzer.js`, `site/js/githubAnalyzer.js`) — nothing is
   uploaded anywhere, and the GitHub option is subject to GitHub's
   unauthenticated API rate limit (60 requests/hour; fetching a repo's file

@@ -134,6 +134,19 @@ regardless of how the handle was obtained. Loading the cached graph itself
 never touches the handle at all — only "re-analyze" needs permission, so
 revisiting an old result stays instant even if permission has since lapsed.
 
+### Finding a GitHub repo to analyze
+
+The GitHub-repo field searches as you type, against GitHub's search API —
+a different endpoint from the one `githubAnalyzer.js`'s `analyzeGithubRepo`
+uses to fetch a repo's own contents, with a much stricter rate limit (10
+requests/minute unauthenticated, vs. 60/hour) — so `panel.js` debounces
+input and never searches below two characters. The query is restricted to
+`language:javascript OR language:typescript`, the only kind of repository
+this analyzer can read. An empty field shows `POPULAR_REPOS`
+(`githubAnalyzer.js`), a small fixed list — there is no "most popular" query
+to send the search API for an empty string, and showing suggestions this
+way costs none of that budget.
+
 ### Keeping the codebase itself tidy
 
 "Is anything unreferenced" is a question about the graph's shape, so it is

@@ -2,6 +2,7 @@
 // renderer to the property panel.
 /* global d3 */
 import { deleteAnalysis, listRecentAnalyses, saveAnalysis } from "./analysisCache.js";
+import { searchGithubRepos } from "./githubAnalyzer.js";
 import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
@@ -94,6 +95,7 @@ const panel = new Panel(document.getElementById("panel"), state, {
   onFile: (file) => loadFile(file),
   onOpenFolder: () => loadLocalFolder(),
   onGithub: (spec) => loadGithubRepo(spec),
+  onGithubSearch: (query) => searchGithubRepos(query).catch(() => []),
   onLoadRecent: (entry) => loadFromCache(entry),
   onReanalyzeRecent: (entry) => reanalyzeRecent(entry),
   onDeleteRecent: (entry) => deleteRecent(entry),

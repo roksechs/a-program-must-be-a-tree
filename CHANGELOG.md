@@ -6,6 +6,24 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Search GitHub for a repo to analyze
+
+* The GitHub-repo field now searches as you type (`githubAnalyzer.js`'s
+  `searchGithubRepos`, GitHub's search API restricted to
+  `language:javascript OR language:typescript`), debounced and never fired
+  below two characters — the search API's own rate limit is a much
+  stricter 10 requests/minute unauthenticated, versus 60/hour for fetching
+  a repo's own contents. An empty field shows `POPULAR_REPOS`, a small
+  fixed list of well-known JS/TS projects, instead of spending any of that
+  budget on a query GitHub's search API has no "most popular" answer to
+  anyway. Selecting a result analyzes it through the same pipeline as
+  typing a spec directly.
+* Fixed in the same pass: the results dropdown's `hidden` attribute did
+  nothing, because `.github-results { display: flex }` (an author style)
+  overrides the browser's built-in `[hidden] { display: none }` regardless
+  of which one is toggled second — found by end-to-end browser testing,
+  not by reading the CSS.
+
 ### "Recently opened": a local folder or GitHub repo, remembered
 
 * Analyzing the same local folder or GitHub repo twice used to mean paying
