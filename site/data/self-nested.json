@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-07T07:09:27.957Z",
+  "generatedAt": "2026-09-07T07:43:55.554Z",
   "analyzer": "analyzers/ts@0.4.0",
   "files": 38
  },
@@ -1093,7 +1093,7 @@
    "name": "app",
    "kind": "module",
    "file": "site/js/app.js",
-   "line": 51,
+   "line": 57,
    "parent": null,
    "exported": false
   },
@@ -1102,7 +1102,7 @@
    "name": "applyKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 183,
+   "line": 190,
    "parent": null,
    "exported": false
   },
@@ -1111,7 +1111,7 @@
    "name": "applyStaticTranslations",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 67,
+   "line": 73,
    "parent": null,
    "exported": false
   },
@@ -1120,7 +1120,7 @@
    "name": "deleteRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 371,
+   "line": 399,
    "parent": null,
    "exported": false
   },
@@ -1129,7 +1129,7 @@
    "name": "ensureTicking",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 246,
+   "line": 272,
    "parent": null,
    "exported": false
   },
@@ -1138,8 +1138,17 @@
    "name": "frame",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 249,
+   "line": 275,
    "parent": "site/js/app.js::ensureTicking",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::exportJson",
+   "name": "exportJson",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 236,
+   "parent": null,
    "exported": false
   },
   {
@@ -1147,7 +1156,7 @@
    "name": "installGraph",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 260,
+   "line": 286,
    "parent": null,
    "exported": false
   },
@@ -1156,7 +1165,7 @@
    "name": "languageSelect",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 47,
+   "line": 53,
    "parent": null,
    "exported": false
   },
@@ -1165,7 +1174,7 @@
    "name": "value",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 63,
+   "line": 69,
    "parent": "site/js/app.js::languageSelect",
    "exported": false
   },
@@ -1174,7 +1183,7 @@
    "name": "loadDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 291,
+   "line": 319,
    "parent": null,
    "exported": false
   },
@@ -1183,7 +1192,7 @@
    "name": "loadFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 310,
+   "line": 338,
    "parent": null,
    "exported": false
   },
@@ -1192,7 +1201,7 @@
    "name": "loadFromCache",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 365,
+   "line": 393,
    "parent": null,
    "exported": false
   },
@@ -1201,7 +1210,7 @@
    "name": "loadGithubRepo",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 437,
+   "line": 465,
    "parent": null,
    "exported": false
   },
@@ -1210,7 +1219,7 @@
    "name": "loadLocalFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 407,
+   "line": 435,
    "parent": null,
    "exported": false
   },
@@ -1219,7 +1228,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 464,
+   "line": 492,
    "parent": null,
    "exported": false
   },
@@ -1228,7 +1237,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 478,
+   "line": 506,
    "parent": null,
    "exported": false
   },
@@ -1237,7 +1246,7 @@
    "name": "panel",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 108,
+   "line": 114,
    "parent": null,
    "exported": false
   },
@@ -1246,7 +1255,7 @@
    "name": "onAutoRotate",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 164,
+   "line": 171,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1255,7 +1264,7 @@
    "name": "onClearPath",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 171,
+   "line": 178,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1264,7 +1273,7 @@
    "name": "onColorBy",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 148,
+   "line": 155,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1273,7 +1282,7 @@
    "name": "onDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 109,
+   "line": 115,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1282,7 +1291,16 @@
    "name": "onDeleteRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 116,
+   "line": 123,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onExportJson",
+   "name": "onExportJson",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 119,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1291,7 +1309,7 @@
    "name": "onFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 110,
+   "line": 116,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1300,7 +1318,7 @@
    "name": "onFit",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 132,
+   "line": 139,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1309,7 +1327,7 @@
    "name": "onFocusNode",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 170,
+   "line": 177,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1318,7 +1336,7 @@
    "name": "onGithub",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 112,
+   "line": 118,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1327,7 +1345,7 @@
    "name": "onGithubSearch",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 113,
+   "line": 120,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1336,7 +1354,7 @@
    "name": "onKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 143,
+   "line": 150,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1345,7 +1363,7 @@
    "name": "onLabels",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 139,
+   "line": 146,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1354,7 +1372,7 @@
    "name": "onLayerFade",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 160,
+   "line": 167,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1363,7 +1381,7 @@
    "name": "onLayerGap",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 152,
+   "line": 159,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1372,7 +1390,7 @@
    "name": "onLoadRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 114,
+   "line": 121,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1381,7 +1399,7 @@
    "name": "onMotifs",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 175,
+   "line": 182,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1390,7 +1408,7 @@
    "name": "onOpenFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 111,
+   "line": 117,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1399,7 +1417,7 @@
    "name": "onPhysics",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 117,
+   "line": 124,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1408,7 +1426,7 @@
    "name": "onReanalyzeRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 115,
+   "line": 122,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1417,7 +1435,7 @@
    "name": "onReheat",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 126,
+   "line": 133,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1426,7 +1444,7 @@
    "name": "onReset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 127,
+   "line": 134,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1435,7 +1453,7 @@
    "name": "onSelectNode",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 169,
+   "line": 176,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1444,7 +1462,7 @@
    "name": "onShowLayers",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 156,
+   "line": 163,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1453,7 +1471,7 @@
    "name": "onTop",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 133,
+   "line": 140,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1462,7 +1480,7 @@
    "name": "onZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 134,
+   "line": 141,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1471,7 +1489,7 @@
    "name": "reanalyzeRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 377,
+   "line": 405,
    "parent": null,
    "exported": false
   },
@@ -1480,7 +1498,7 @@
    "name": "refreshRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 360,
+   "line": 388,
    "parent": null,
    "exported": false
   },
@@ -1489,7 +1507,7 @@
    "name": "renderer",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 74,
+   "line": 80,
    "parent": null,
    "exported": false
   },
@@ -1498,7 +1516,7 @@
    "name": "rendererCallbacks",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 76,
+   "line": 82,
    "parent": null,
    "exported": false
   },
@@ -1507,7 +1525,7 @@
    "name": "onDragEnd",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 86,
+   "line": 92,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -1516,7 +1534,7 @@
    "name": "onDragStart",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 85,
+   "line": 91,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -1525,7 +1543,7 @@
    "name": "onFindPath",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 79,
+   "line": 85,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -1534,7 +1552,7 @@
    "name": "onHover",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 87,
+   "line": 93,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -1543,7 +1561,7 @@
    "name": "onSelect",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 78,
+   "line": 84,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -1552,7 +1570,7 @@
    "name": "reportPhase",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 354,
+   "line": 382,
    "parent": null,
    "exported": false
   },
@@ -1561,7 +1579,7 @@
    "name": "runAnalysisInWorker",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 330,
+   "line": 358,
    "parent": null,
    "exported": false
   },
@@ -1570,7 +1588,7 @@
    "name": "savedLanguage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 50,
+   "line": 56,
    "parent": null,
    "exported": false
   },
@@ -1579,7 +1597,7 @@
    "name": "setStatus",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 223,
+   "line": 249,
    "parent": null,
    "exported": false
   },
@@ -1588,7 +1606,7 @@
    "name": "stage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 44,
+   "line": 50,
    "parent": null,
    "exported": false
   },
@@ -1606,7 +1624,7 @@
    "name": "status",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 46,
+   "line": 52,
    "parent": null,
    "exported": false
   },
@@ -1615,7 +1633,7 @@
    "name": "statusMessage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 222,
+   "line": 248,
    "parent": null,
    "exported": false
   },
@@ -1624,7 +1642,7 @@
    "name": "ticking",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 245,
+   "line": 271,
    "parent": null,
    "exported": false
   },
@@ -1633,7 +1651,7 @@
    "name": "tooltip",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 45,
+   "line": 51,
    "parent": null,
    "exported": false
   },
@@ -1642,7 +1660,7 @@
    "name": "updateMotifs",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 208,
+   "line": 215,
    "parent": null,
    "exported": false
   },
@@ -1651,7 +1669,7 @@
    "name": "updateZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 201,
+   "line": 208,
    "parent": null,
    "exported": false
   },
@@ -2794,7 +2812,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 359,
+   "line": 361,
    "parent": null,
    "exported": false
   },
@@ -2803,7 +2821,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 363,
+   "line": 365,
    "parent": null,
    "exported": true
   },
@@ -2812,7 +2830,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 372,
+   "line": 374,
    "parent": null,
    "exported": true
   },
@@ -2821,7 +2839,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 396,
+   "line": 398,
    "parent": null,
    "exported": true
   },
@@ -2839,7 +2857,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 360,
+   "line": 362,
    "parent": null,
    "exported": false
   },
@@ -2848,7 +2866,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 402,
+   "line": 404,
    "parent": null,
    "exported": true
   },
@@ -2857,7 +2875,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 383,
+   "line": 385,
    "parent": null,
    "exported": true
   },
@@ -2866,7 +2884,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 376,
+   "line": 378,
    "parent": null,
    "exported": true
   },
@@ -2884,7 +2902,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 389,
+   "line": 391,
    "parent": null,
    "exported": true
   },
@@ -3370,7 +3388,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 231,
+   "line": 236,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3379,7 +3397,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 232,
+   "line": 237,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3388,7 +3406,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 233,
+   "line": 238,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3397,7 +3415,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 267,
+   "line": 272,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3406,7 +3424,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 281,
+   "line": 286,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3416,6 +3434,15 @@
    "kind": "function",
    "file": "site/js/panel.js",
    "line": 145,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 201,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3487,7 +3514,7 @@
    "name": "setDataInfo",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 327,
+   "line": 332,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3496,7 +3523,7 @@
    "name": "setDatasets",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 316,
+   "line": 321,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3505,7 +3532,7 @@
    "name": "setMaxDepth",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 355,
+   "line": 360,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3514,7 +3541,7 @@
    "name": "setMetrics",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 365,
+   "line": 370,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3523,7 +3550,7 @@
    "name": "bar",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 369,
+   "line": 374,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3532,7 +3559,7 @@
    "name": "kv",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 377,
+   "line": 382,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3541,7 +3568,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 410,
+   "line": 415,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3550,7 +3577,7 @@
    "name": "pct",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 368,
+   "line": 373,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3559,7 +3586,7 @@
    "name": "setPathResult",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 474,
+   "line": 479,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3568,7 +3595,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 480,
+   "line": 485,
    "parent": "site/js/panel.js::Panel.setPathResult",
    "exported": false
   },
@@ -3577,7 +3604,7 @@
    "name": "setRecent",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 333,
+   "line": 338,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3586,7 +3613,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 346,
+   "line": 351,
    "parent": "site/js/panel.js::Panel.setRecent",
    "exported": false
   },
@@ -3595,7 +3622,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 348,
+   "line": 353,
    "parent": "site/js/panel.js::Panel.setRecent",
    "exported": false
   },
@@ -3604,7 +3631,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 349,
+   "line": 354,
    "parent": "site/js/panel.js::Panel.setRecent",
    "exported": false
   },
@@ -3613,7 +3640,7 @@
    "name": "setSelection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 418,
+   "line": 423,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3622,7 +3649,7 @@
    "name": "list",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 429,
+   "line": 434,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
@@ -3631,7 +3658,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 438,
+   "line": 443,
    "parent": "site/js/panel.js::Panel.setSelection/list",
    "exported": false
   },
@@ -3640,7 +3667,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 458,
+   "line": 463,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
@@ -6359,6 +6386,13 @@
    "time": "use"
   },
   {
+   "source": "site/js/app.js::exportJson",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 4,
+   "time": "use"
+  },
+  {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/app.js::panel",
    "kind": "reference",
@@ -6383,7 +6417,7 @@
    "source": "site/js/app.js::installGraph",
    "target": "site/js/app.js::state",
    "kind": "reference",
-   "count": 17,
+   "count": 19,
    "time": "use"
   },
   {
@@ -6907,6 +6941,13 @@
   {
    "source": "site/js/app.js::panel/onDeleteRecent",
    "target": "site/js/app.js::deleteRecent",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onExportJson",
+   "target": "site/js/app.js::exportJson",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -9305,7 +9346,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 48,
+   "count": 49,
    "time": "use"
   },
   {
@@ -9347,7 +9388,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 66,
+   "count": 68,
    "time": "use"
   },
   {

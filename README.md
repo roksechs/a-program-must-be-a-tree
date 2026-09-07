@@ -39,8 +39,8 @@ force-directed graph, and measure how close that graph is to a tree.
   callbacks into calls at the declaration that invokes them with a bounded
   control-flow analysis.
 
-The viewer is a static page (D3.js, no build step) served from GitHub Pages or
-Cloudflare Pages, see Deployment. Analyzers turn a codebase into a small JSON document
+The viewer is a static page (D3.js, no build step) served from Cloudflare, see
+Deployment. Analyzers turn a codebase into a small JSON document
 (see [docs/DATA_FORMAT.md](docs/DATA_FORMAT.md)) that the viewer loads.
 
 ## Quick start
@@ -129,17 +129,12 @@ CHANGELOG.md     release notes, one section per version
 npm test
 ```
 
-The GitHub Pages workflow (`.github/workflows/pages.yml`) runs the tests,
-vendors d3, regenerates the datasets and publishes `site/` on every push to
-the repository's default branch. Enable Pages with "GitHub Actions" as the
-source in the repository settings.
-
 ### Cloudflare Pages
 
 Cloudflare Pages builds every branch and gives each pull request a preview
-URL, which GitHub Pages cannot. Connect the repository in the Cloudflare
-dashboard (Workers & Pages → Create → Pages → Connect to Git; the GitHub
-integration means no tokens live in this repository) with these settings:
+URL. Connect the repository in the Cloudflare dashboard (Workers & Pages →
+Create → Pages → Connect to Git; the GitHub integration means no tokens live
+in this repository) with these settings:
 
 | setting | value |
 |---|---|
@@ -148,11 +143,11 @@ integration means no tokens live in this repository) with these settings:
 | Build output directory | `site` |
 | Node version | read from `.node-version` (22); or set the `NODE_VERSION` variable |
 
-That is the same sequence as the GitHub workflow (`npm run build:site` is its
-shorthand, but the build command is spelled out so it also works on branches
-that predate the script). Preview deployments are on by default for every
-other branch; the Cloudflare GitHub app comments the preview URL on each pull
-request. The article lives at `/article.html` on either host.
+`npm run build:site` is a shorthand for the same sequence, but the build
+command above is spelled out so it also works on branches that predate the
+script. Preview deployments are on by default for every other branch; the
+Cloudflare GitHub app comments the preview URL on each pull request. The
+article lives at `/article.html`.
 
 If the project was created as a **Workers** project instead (Workers & Pages →
 Create → Workers → Import a repository), the same build command applies and
@@ -177,11 +172,7 @@ carries that tag yet, creates the tag and the GitHub release from the matching
 npm version minor --no-git-tag-version   # write the CHANGELOG section too
 ```
 
-and merge. It uses only the built-in `GITHUB_TOKEN`; no secrets are involved. GitHub creates a `github-pages` environment
-on the first deployment whose allowed deployment branch is pinned to the
-default branch *at that time*; if you rename or switch the default branch
-later, add the new branch under Settings → Environments → github-pages →
-Deployment branches, otherwise the deploy job is rejected without running.
+and merge. It uses only the built-in `GITHUB_TOKEN`; no secrets are involved.
 
 ## License
 

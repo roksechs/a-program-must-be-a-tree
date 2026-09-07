@@ -7,7 +7,7 @@
    zones, callers above callees in 3D.
 3. Put a number on the question in the project name: how far is this program
    from being a tree?
-4. Stay a static site. Anyone can publish the viewer on GitHub Pages with
+4. Stay a static site. Anyone can publish the viewer on any static host with
    their own datasets, and no secrets are needed anywhere.
 
 ## Architecture

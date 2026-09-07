@@ -4,6 +4,23 @@ The section for a version becomes the notes of its GitHub release
 (`.github/workflows/release.yml`), which is cut when the version in
 `package.json` reaches the default branch.
 
+## Unreleased
+
+### Export the currently loaded analysis as JSON
+
+* A new "Export JSON" button in the Data section downloads the raw analyzer
+  document exactly as installed (docs/DATA_FORMAT.md), before `buildGraph()`
+  merges/drops edges or derives anything — for debugging an analysis that
+  looks wrong (a reference that should have connected two declarations but
+  didn't, say) without having to reproduce it.
+
+### Drop the GitHub Pages deployment
+
+* `.github/workflows/pages.yml` is removed; Cloudflare (Pages or Workers) is
+  now the only documented host. It builds every branch, gives each pull
+  request its own preview URL (which GitHub Pages couldn't), and needed no
+  separate workflow to begin with.
+
 ## v0.3.0
 
 ### Lift call heights toward their caller

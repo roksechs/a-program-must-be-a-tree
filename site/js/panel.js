@@ -16,7 +16,7 @@ export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onMotifs }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onExportJson, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onMotifs }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -195,6 +195,10 @@ export class Panel {
       else if (e.key === "Escape") hideResults();
     });
     this.dataInfoEl = this.el("p", { class: "muted small" });
+    // Downloads the raw analyzer document exactly as installed — see
+    // app.js's exportJson() — so a graph that looks wrong can be inspected
+    // or handed off without reproducing the analysis that produced it.
+    const exportBtn = this.el("button", { type: "button", onclick: () => h.onExportJson() }, t("data.exportJson"));
     // Analyses the browser itself ran (local folder / GitHub repo), not the
     // bundled example datasets already in the Dataset dropdown above: see
     // site/js/analysisCache.js. Populated by setRecent(), not render() —
@@ -209,6 +213,7 @@ export class Panel {
         this.el("label", { class: "control" }, this.el("span", {}, t("data.github")), githubInput, githubBtn),
         githubResults,
         this.dataInfoEl,
+        this.el("div", { class: "buttons" }, exportBtn),
         this.el("h3", {}, t("data.recent")),
         this.recentEl,
       ),

@@ -39,6 +39,12 @@ const state = {
   datasetId: null,
   graph: null,
   sim: null,
+  // The raw analyzer document currently installed (docs/DATA_FORMAT.md),
+  // before buildGraph() turns it into `graph` above — kept only so
+  // "Export JSON" can hand back exactly what was analyzed, for debugging an
+  // analysis that looks wrong without having to reproduce it.
+  doc: null,
+  docLabel: null,
 };
 
 const stage = document.getElementById("stage");
@@ -110,6 +116,7 @@ const panel = new Panel(document.getElementById("panel"), state, {
   onFile: (file) => loadFile(file),
   onOpenFolder: () => loadLocalFolder(),
   onGithub: (spec) => loadGithubRepo(spec),
+  onExportJson: () => exportJson(),
   onGithubSearch: (query) => searchGithubRepos(query).catch(() => []),
   onLoadRecent: (entry) => loadFromCache(entry),
   onReanalyzeRecent: (entry) => reanalyzeRecent(entry),
@@ -219,6 +226,25 @@ function updateMotifs() {
   renderer.setMotifs(result);
 }
 
+/**
+ * Download the raw analyzer document currently installed (docs/DATA_FORMAT.md),
+ * exactly as analyzed — before buildGraph() merges/drops edges or derives
+ * anything — so a graph that looks wrong (a reference that should have
+ * connected two declarations but didn't, say) can be inspected or handed
+ * off without having to reproduce the analysis that produced it.
+ */
+function exportJson() {
+  if (!state.doc) return;
+  const name = (state.doc.meta?.name ?? state.docLabel ?? "graph").replace(/[^A-Za-z0-9._-]+/g, "-");
+  const blob = new Blob([JSON.stringify(state.doc, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${name}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 let statusMessage = { key: "app.loading", params: {} };
 function setStatus(key, params = {}) {
   statusMessage = { key, params };
@@ -263,6 +289,8 @@ function installGraph(doc, label) {
   applyActiveKinds(graph, state.kinds);
   state.physics.springKinds = new Set(state.kinds);
   state.graph = graph;
+  state.doc = doc;
+  state.docLabel = label;
   state.maxDepth = graph.maxDepth;
   state.zoneMinDepth = Math.min(state.zoneMinDepth, graph.maxDepth);
   state.zoneMaxDepth = Math.min(state.zoneMaxDepth, graph.maxDepth);
