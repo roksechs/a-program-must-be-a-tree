@@ -15,14 +15,15 @@
 self.onmessage = async (event) => {
   const { kind, payload, options } = event.data;
   const onProgress = (...args) => self.postMessage({ type: "progress", args });
+  const onPhase = (phase, detail) => self.postMessage({ type: "phase", phase, detail });
   try {
     let doc;
     if (kind === "local") {
       const localAnalyzer = await import("./localAnalyzer.js");
-      doc = await localAnalyzer.analyzeLocalFolder(payload.dirHandle, { ...options, onProgress });
+      doc = await localAnalyzer.analyzeLocalFolder(payload.dirHandle, { ...options, onProgress, onPhase });
     } else if (kind === "github") {
       const githubAnalyzer = await import("./githubAnalyzer.js");
-      doc = await githubAnalyzer.analyzeGithubRepo(payload.spec, { ...options, onProgress });
+      doc = await githubAnalyzer.analyzeGithubRepo(payload.spec, { ...options, onProgress, onPhase });
     } else {
       throw new Error(`unknown analysis kind: ${kind}`);
     }

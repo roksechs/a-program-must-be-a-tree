@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-07T02:05:44.654Z",
+  "generatedAt": "2026-09-07T02:19:26.781Z",
   "analyzer": "analyzers/ts@0.4.0",
   "files": 31
  },
@@ -391,7 +391,7 @@
    "name": "loadGithubRepo",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 317,
+   "line": 335,
    "parent": null,
    "exported": false
   },
@@ -400,7 +400,7 @@
    "name": "loadLocalFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 299,
+   "line": 307,
    "parent": null,
    "exported": false
   },
@@ -409,7 +409,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 329,
+   "line": 357,
    "parent": null,
    "exported": false
   },
@@ -418,7 +418,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 343,
+   "line": 371,
    "parent": null,
    "exported": false
   },
@@ -645,6 +645,15 @@
    "file": "site/js/app.js",
    "line": 67,
    "parent": "site/js/app.js::rendererCallbacks",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::reportPhase",
+   "name": "reportPhase",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 301,
+   "parent": null,
    "exported": false
   },
   {
@@ -967,7 +976,7 @@
    "name": "analyzeFiles",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 120,
+   "line": 127,
    "parent": null,
    "exported": true
   },
@@ -985,7 +994,7 @@
    "name": "createHost",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 91,
+   "line": 92,
    "parent": null,
    "exported": false
   },
@@ -994,7 +1003,7 @@
    "name": "directoryExists",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 110,
+   "line": 111,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1003,7 +1012,7 @@
    "name": "fileExists",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 108,
+   "line": 109,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1012,7 +1021,7 @@
    "name": "getCanonicalFileName",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 105,
+   "line": 106,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1021,7 +1030,7 @@
    "name": "getCurrentDirectory",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 104,
+   "line": 105,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1030,7 +1039,7 @@
    "name": "getDefaultLibFileName",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 102,
+   "line": 103,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1039,7 +1048,7 @@
    "name": "getDirectories",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 111,
+   "line": 112,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1048,7 +1057,7 @@
    "name": "getNewLine",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 107,
+   "line": 108,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1057,7 +1066,7 @@
    "name": "getSourceFile",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 95,
+   "line": 96,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1066,7 +1075,7 @@
    "name": "readFile",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 109,
+   "line": 110,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1075,7 +1084,7 @@
    "name": "useCaseSensitiveFileNames",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 106,
+   "line": 107,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1084,7 +1093,7 @@
    "name": "writeFile",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 103,
+   "line": 104,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1246,7 +1255,7 @@
    "name": "analyzeGithubRepo",
    "kind": "function",
    "file": "site/js/githubAnalyzer.js",
-   "line": 71,
+   "line": 72,
    "parent": null,
    "exported": true
   },
@@ -1570,7 +1579,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 323,
+   "line": 329,
    "parent": null,
    "exported": false
   },
@@ -1579,7 +1588,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 327,
+   "line": 333,
    "parent": null,
    "exported": true
   },
@@ -1588,7 +1597,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 336,
+   "line": 342,
    "parent": null,
    "exported": true
   },
@@ -1597,7 +1606,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 360,
+   "line": 366,
    "parent": null,
    "exported": true
   },
@@ -1615,7 +1624,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 324,
+   "line": 330,
    "parent": null,
    "exported": false
   },
@@ -1624,7 +1633,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 366,
+   "line": 372,
    "parent": null,
    "exported": true
   },
@@ -1633,7 +1642,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 347,
+   "line": 353,
    "parent": null,
    "exported": true
   },
@@ -1642,7 +1651,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 340,
+   "line": 346,
    "parent": null,
    "exported": true
   },
@@ -1660,7 +1669,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 353,
+   "line": 359,
    "parent": null,
    "exported": true
   },
@@ -3347,6 +3356,13 @@
   },
   {
    "source": "site/js/app.js::loadGithubRepo",
+   "target": "site/js/app.js::reportPhase",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo",
    "target": "site/js/app.js::runAnalysisInWorker",
    "kind": "call",
    "count": 1,
@@ -3384,6 +3400,13 @@
    "source": "site/js/app.js::loadLocalFolder",
    "target": "site/js/app.js::panel",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder",
+   "target": "site/js/app.js::reportPhase",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },
@@ -3847,6 +3870,13 @@
    "target": "site/js/panel.js::Panel.setSelection",
    "kind": "call",
    "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::reportPhase",
+   "target": "site/js/app.js::setStatus",
+   "kind": "call",
+   "count": 3,
    "time": "use"
   },
   {

@@ -37,12 +37,12 @@ async function readDirectory(dirHandle, prefix, files, exclude, extensions, onPr
 
 /**
  * Analyze a directory picked with showDirectoryPicker(). `onProgress(count)`
- * is called as files are read (before analysis itself starts — reading is
- * the part whose duration depends on the folder's size).
+ * is called as files are read; `onPhase` as analysis moves past that (see
+ * browserAnalyzer.js's analyzeFiles).
  */
-export async function analyzeLocalFolder(dirHandle, { name, nested, onProgress } = {}) {
+export async function analyzeLocalFolder(dirHandle, { name, nested, onProgress, onPhase } = {}) {
   const { DEFAULT_EXCLUDES, EXTENSIONS } = await import("../vendor/analyzer-core.js");
   const files = new Map();
   await readDirectory(dirHandle, "", files, DEFAULT_EXCLUDES, EXTENSIONS, onProgress);
-  return analyzeFiles(files, { name, nested, rootLabel: name ?? dirHandle.name });
+  return analyzeFiles(files, { name, nested, rootLabel: name ?? dirHandle.name, onPhase });
 }

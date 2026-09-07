@@ -73,7 +73,7 @@ async function readLib(fileName) {
 }
 
 /** Every lib.*.d.ts the default lib file references, transitively (mirrors scripts/vendor.mjs's own closure walk). */
-async function loadLibClosure(ts, options) {
+async function loadLibClosure(ts, options, onProgress) {
   const libFiles = new Map();
   const queue = [ts.getDefaultLibFileName(options)];
   while (queue.length) {
@@ -81,6 +81,7 @@ async function loadLibClosure(ts, options) {
     if (libFiles.has(fileName)) continue;
     const text = await readLib(fileName);
     libFiles.set(fileName, text);
+    onProgress?.(libFiles.size);
     if (text === undefined) continue;
     for (const m of text.matchAll(/\/\/\/\s*<reference\s+lib="([^"]+)"/g)) queue.push(`lib.${m[1]}.d.ts`);
   }
@@ -114,16 +115,25 @@ function createHost(ts, files, libFiles) {
 
 /**
  * Analyze `files` (Map of absolute-style path, e.g. "/src/app.ts", -> text).
- * @param {object} opts { name, nested, rootLabel }
+ * @param {object} opts { name, nested, rootLabel, onPhase }
+ * `onPhase(phase, detail)` marks entry into each stage past file-reading
+ * (which the caller already tracks itself): "compiler" (loading
+ * vendor/typescript.js, usually near-instant once cached within a run),
+ * "types" (loading the lib.*.d.ts closure — `detail` is how many of them
+ * have loaded so far), "analyzing" (building the ts.Program and walking it —
+ * the expensive, unmeasurable-from-outside part, see docs/DESIGN.md).
  * @returns the same document shape analyzers/ts/analyze.mjs's analyze() returns
  */
-export async function analyzeFiles(files, { name, nested, rootLabel } = {}) {
+export async function analyzeFiles(files, { name, nested, rootLabel, onPhase } = {}) {
   if (files.size === 0) throw new Error("no .js/.ts source files found (node_modules, .git, dist, build, coverage and vendor are skipped)");
+  onPhase?.("compiler");
   const ts = await loadTypeScript();
   const options = compilerOptions(ts);
-  const libFiles = await loadLibClosure(ts, options);
+  onPhase?.("types", 0);
+  const libFiles = await loadLibClosure(ts, options, (count) => onPhase?.("types", count));
   const host = createHost(ts, files, libFiles);
   const fileNames = [...files.keys()];
+  onPhase?.("analyzing");
   const program = ts.createProgram({ rootNames: fileNames, options, host });
   const { createCore } = await import("../vendor/analyzer-core.js");
   const { analyzeProgram } = createCore(ts);

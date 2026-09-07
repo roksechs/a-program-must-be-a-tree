@@ -6,6 +6,18 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Finer-grained progress for the local-folder / GitHub-repo analysis
+
+* Past "reading files… N" / "fetching files… N/M" the status line used to go
+  silent for the whole analysis (10+ seconds for a large project). It now
+  reports "loading the TypeScript compiler…", "loading type definitions… N"
+  and "analyzing N files…" as `browserAnalyzer.js`'s `analyzeFiles` moves
+  through those stages (an `onPhase` callback threaded through
+  `localAnalyzer.js` / `githubAnalyzer.js` / `analyzeWorker.js`). There is no
+  finer-grained progress available *within* "analyzing" itself — building
+  and walking the `ts.Program` is one call with no internal checkpoints to
+  report from.
+
 ### The local-folder and GitHub-repo analysis runs off the main thread
 
 * Analyzing a large project froze the page for the whole run — building a

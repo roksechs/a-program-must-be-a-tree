@@ -274,12 +274,13 @@ function loadFile(file) {
 // pre-generated JSON, no server. They run inside analyzeWorker.js's
 // dedicated worker, not here — building and walking a ts.Program is heavy
 // enough to freeze the page for the duration otherwise (docs/DESIGN.md).
-function runAnalysisInWorker(kind, payload, options, onProgress) {
+function runAnalysisInWorker(kind, payload, options, onProgress, onPhase) {
   return new Promise((resolve, reject) => {
     const worker = new Worker(new URL("./analyzeWorker.js", import.meta.url));
     worker.onmessage = (event) => {
       const msg = event.data;
       if (msg.type === "progress") onProgress?.(...msg.args);
+      else if (msg.type === "phase") onPhase?.(msg.phase, msg.detail);
       else if (msg.type === "done") {
         worker.terminate();
         resolve(msg.doc);
@@ -296,6 +297,13 @@ function runAnalysisInWorker(kind, payload, options, onProgress) {
   });
 }
 
+/** Past file-reading, analysis has no single "percent done" — these are the stages there are (browserAnalyzer.js's analyzeFiles). */
+function reportPhase(phase, detail, fileCount) {
+  if (phase === "compiler") setStatus("app.loadingCompiler");
+  else if (phase === "types") setStatus("app.loadingTypes", { count: detail });
+  else if (phase === "analyzing") setStatus("app.analyzingFiles", { count: fileCount });
+}
+
 async function loadLocalFolder() {
   let dirHandle;
   try {
@@ -303,9 +311,19 @@ async function loadLocalFolder() {
   } catch {
     return; // the user cancelled the picker
   }
+  let fileCount = 0;
   setStatus("app.readingFiles", { count: 0 });
   try {
-    const doc = await runAnalysisInWorker("local", { dirHandle }, {}, (count) => setStatus("app.readingFiles", { count }));
+    const doc = await runAnalysisInWorker(
+      "local",
+      { dirHandle },
+      {},
+      (count) => {
+        fileCount = count;
+        setStatus("app.readingFiles", { count });
+      },
+      (phase, detail) => reportPhase(phase, detail, fileCount),
+    );
     state.datasetId = "__custom__";
     panel.setDatasets(state.datasets, "__custom__");
     installGraph(doc, dirHandle.name);
@@ -315,9 +333,19 @@ async function loadLocalFolder() {
 }
 
 async function loadGithubRepo(spec) {
+  let fileCount = 0;
   setStatus("app.fetchingFiles", { done: 0, total: "?" });
   try {
-    const doc = await runAnalysisInWorker("github", { spec }, {}, (done, total) => setStatus("app.fetchingFiles", { done, total }));
+    const doc = await runAnalysisInWorker(
+      "github",
+      { spec },
+      {},
+      (done, total) => {
+        fileCount = done;
+        setStatus("app.fetchingFiles", { done, total });
+      },
+      (phase, detail) => reportPhase(phase, detail, fileCount),
+    );
     state.datasetId = "__custom__";
     panel.setDatasets(state.datasets, "__custom__");
     installGraph(doc, spec);

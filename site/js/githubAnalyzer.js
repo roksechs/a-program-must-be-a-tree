@@ -66,13 +66,14 @@ async function fetchBlobs(owner, repo, ref, entries, onProgress) {
 
 /**
  * Analyze a public GitHub repository. `onProgress(done, total)` is called as
- * files are fetched (before analysis itself starts).
+ * files are fetched; `onPhase` as analysis moves past that (see
+ * browserAnalyzer.js's analyzeFiles).
  */
-export async function analyzeGithubRepo(spec, { nested, onProgress } = {}) {
+export async function analyzeGithubRepo(spec, { nested, onProgress, onPhase } = {}) {
   const { DEFAULT_EXCLUDES, EXTENSIONS } = await import("../vendor/analyzer-core.js");
   const { owner, repo, ref: givenRef } = parseGithubSpec(spec);
   const ref = givenRef ?? (await githubJson(`/repos/${owner}/${repo}`)).default_branch;
   const entries = await fetchTree(owner, repo, ref, DEFAULT_EXCLUDES, EXTENSIONS);
   const files = await fetchBlobs(owner, repo, ref, entries, onProgress);
-  return analyzeFiles(files, { name: `${owner}/${repo}`, nested, rootLabel: `${owner}/${repo}@${ref}` });
+  return analyzeFiles(files, { name: `${owner}/${repo}`, nested, rootLabel: `${owner}/${repo}@${ref}`, onPhase });
 }
