@@ -6,6 +6,14 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Dominator view
+
+* A "Dominator view" button next to "Fit to view"/"Top view" swaps the 3D
+  height axis from call height to dominator-tree depth — the same measure
+  behind the "natural scope" diagnostic — without touching the x/y layout,
+  the physics, or anything else about the camera. A second click switches
+  back to call height.
+
 ### Highlight structural motifs
 
 * A new "Patterns" panel section highlights four structural shapes anywhere
@@ -63,6 +71,13 @@ The section for a version becomes the notes of its GitHub release
   band's outer edge to show an inner level — a directory two levels down,
   say — without any of its enclosing directories drawn at all, which a
   single cutoff could never express.
+* "Layer planes" now starts unchecked instead of checked, since a plane per
+  layer is more clutter than guide until asked for on a graph with many of
+  them.
+* The 3D view can now also be panned by holding W/A/S/D, alongside the
+  existing shift-drag, for anyone who'd rather steer with the keyboard while
+  the mouse orbits. Disabled while a text field (the GitHub repo box, say)
+  has focus, so typing doesn't fly the camera around.
 
 ### Analyze Svelte components
 

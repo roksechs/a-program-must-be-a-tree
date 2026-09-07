@@ -47,7 +47,14 @@ export class Graph3D {
     this.colorBy = "height";
     this.visibleKinds = new Set(EDGE_KINDS);
     this.layerGap = 80;
-    this.showLayers = true;
+    // Which per-node number the vertical axis lifts: the call height
+    // (deepest callers on top, pure callees at the bottom) normally, or the
+    // dominator-tree depth (app.js's `n.domDepth`, from dominance.js/
+    // metrics.js's `dominance()`) in "Dominator view" — the same x/y from
+    // the same physics either way, only what "up" means changes. See
+    // nodeHeight() and viewDominator().
+    this.heightMode = "call";
+    this.showLayers = false;
     // Whether a layer plane's fill/stroke fades out away from the camera's
     // own focus (see draw()) rather than a single flat colour everywhere —
     // needed once a plane always draws in full (projectClamped()) instead of
@@ -139,24 +146,7 @@ export class Graph3D {
         dragging.y = e.clientY;
         if (Math.abs(dx) + Math.abs(dy) > 1) moved = true;
         if (dragging.pan) {
-          // Move `target` itself in world space by the screen-space drag,
-          // instead of adding a separate screen-space offset: that keeps
-          // orbiting pivoting on screen centre even after panning (see the
-          // constructor). Stop following a focused node so the pan sticks
-          // instead of being overridden on the next frame.
-          this.focusedNode = null;
-          const scale = this.zoomK; // scale at the target's own depth (project(): depth 0)
-          const ddx = dx / scale;
-          const ddy = -dy / scale; // +1 = one world unit of screen "up"
-          const cy = Math.cos(this.yaw);
-          const sy = Math.sin(this.yaw);
-          const cp = Math.cos(this.pitch);
-          const sp = Math.sin(this.pitch);
-          // World-space "right" and "up" directions for one unit of screen
-          // "right"/"up": the inverse of project()'s yaw then pitch rotation.
-          this.targetX -= ddx * cy + ddy * sy * sp;
-          this.targetY -= -ddx * sy + ddy * cy * sp;
-          this.targetZ -= ddy * cp;
+          this.panScreen(dx, dy);
         } else {
           this.yaw += dx * 0.008;
           this.pitch += dy * 0.006;
@@ -215,6 +205,69 @@ export class Graph3D {
       },
       { passive: false },
     );
+
+    // WASD panning, held down like a game camera, as an alternative to the
+    // shift-drag pan above (same panScreen()) for anyone who'd rather steer
+    // with the keyboard while the mouse orbits. Listens on window rather than
+    // the canvas since the canvas never takes keyboard focus, and is skipped
+    // while a text field (e.g. the GitHub repo box) is focused so typing
+    // "sad" doesn't fly the camera around.
+    const PAN_KEYS = { w: [0, -1], s: [0, 1], a: [-1, 0], d: [1, 0] };
+    const PAN_SPEED = 14; // screen pixels per animation frame, at zoomK 1
+    const heldKeys = new Set();
+    let panRAF = null;
+    const isTyping = () => {
+      const el = document.activeElement;
+      return Boolean(el) && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable);
+    };
+    const panStep = () => {
+      let dx = 0;
+      let dy = 0;
+      for (const k of heldKeys) {
+        const [kx, ky] = PAN_KEYS[k];
+        dx += kx;
+        dy += ky;
+      }
+      if (dx === 0 && dy === 0) {
+        panRAF = null;
+        return;
+      }
+      this.panScreen(dx * PAN_SPEED, dy * PAN_SPEED);
+      panRAF = requestAnimationFrame(panStep);
+    };
+    window.addEventListener("keydown", (e) => {
+      const k = e.key.toLowerCase();
+      if (!(k in PAN_KEYS) || isTyping()) return;
+      heldKeys.add(k);
+      if (panRAF === null) panRAF = requestAnimationFrame(panStep);
+    });
+    window.addEventListener("keyup", (e) => heldKeys.delete(e.key.toLowerCase()));
+    window.addEventListener("blur", () => heldKeys.clear());
+  }
+
+  /**
+   * Pan by a screen-space delta (dx right, dy down), the same math whether it
+   * comes from a shift-drag or a held WASD key: move `target` itself in world
+   * space instead of adding a separate screen-space offset, so orbiting keeps
+   * pivoting on screen centre even after panning (see the constructor), and
+   * stop following a focused node so the pan sticks instead of being
+   * overridden on the next frame.
+   */
+  panScreen(dx, dy) {
+    this.focusedNode = null;
+    const scale = this.zoomK; // scale at the target's own depth (project(): depth 0)
+    const ddx = dx / scale;
+    const ddy = -dy / scale; // +1 = one world unit of screen "up"
+    const cy = Math.cos(this.yaw);
+    const sy = Math.sin(this.yaw);
+    const cp = Math.cos(this.pitch);
+    const sp = Math.sin(this.pitch);
+    // World-space "right" and "up" directions for one unit of screen
+    // "right"/"up": the inverse of project()'s yaw then pitch rotation.
+    this.targetX -= ddx * cy + ddy * sy * sp;
+    this.targetY -= -ddx * sy + ddy * cy * sp;
+    this.targetZ -= ddy * cp;
+    this.draw();
   }
 
   resize() {
@@ -237,7 +290,8 @@ export class Graph3D {
     this.focusedNode = null;
     // Zones belong to the previous graph until the app calls setZones again.
     this.zones = [];
-    this.maxHeight = graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
+    this.heightMode = "call"; // a new graph's dominance data (n.domDepth) may not even be computed yet
+    this.maxHeight = graph.nodes.reduce((h, n) => Math.max(h, this.nodeHeight(n)), 0);
     this.draw();
   }
 
@@ -248,8 +302,13 @@ export class Graph3D {
 
   /** Degrees or heights changed: recompute the height range and redraw. */
   restyle() {
-    if (this.graph) this.maxHeight = this.graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
+    if (this.graph) this.maxHeight = this.graph.nodes.reduce((h, n) => Math.max(h, this.nodeHeight(n)), 0);
     this.draw();
+  }
+
+  /** The number `zOf()`/`maxHeight` lift into the vertical axis, per `heightMode` (see the constructor). */
+  nodeHeight(node) {
+    return this.heightMode === "dominator" ? (node.domDepth ?? 0) : node.height;
   }
 
   setLabelMode(mode) {
@@ -373,7 +432,7 @@ export class Graph3D {
   }
 
   zOf(node) {
-    return node.height * this.layerGap;
+    return this.nodeHeight(node) * this.layerGap;
   }
 
   hitTest(px, py) {
@@ -490,7 +549,7 @@ export class Graph3D {
         ctx.stroke();
         ctx.fillStyle = "rgba(71, 85, 105, 0.7)";
         ctx.font = "11px system-ui, sans-serif";
-        ctx.fillText(t("graph3d.height", { height: h }), corners[0].x + 4, corners[0].y - 3);
+        ctx.fillText(t(this.heightMode === "dominator" ? "graph3d.domDepth" : "graph3d.height", { height: h }), corners[0].x + 4, corners[0].y - 3);
       }
     }
 
@@ -572,7 +631,7 @@ export class Graph3D {
       ctx.globalAlpha = dimmed ? 0.2 : 1;
       ctx.beginPath();
       ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-      ctx.fillStyle = this.colorBy === "height" ? heightColor(n.height, this.maxHeight) : kindColor(n.kind);
+      ctx.fillStyle = this.colorBy === "height" ? heightColor(this.nodeHeight(n), this.maxHeight) : kindColor(n.kind);
       ctx.fill();
       ctx.lineWidth = n === sel ? 3 : n.inCycle ? 2 : 1;
       ctx.strokeStyle = n === sel ? "#111827" : n.inCycle ? "#b91c1c" : "#ffffff";
@@ -692,6 +751,23 @@ export class Graph3D {
     this.pitch = Math.PI / 2;
     this.orthographic = true;
     this.draw();
+  }
+
+  /**
+   * Toggle which number the vertical axis lifts (see `heightMode`/`nodeHeight()`)
+   * between call height and dominator-tree depth, then reframe exactly as
+   * "Fit to view" would for whichever one is now current — the same x/y
+   * from the same physics either way, so only `fit()`'s own z-dependent
+   * work (extent, focal length, target) actually needs redoing. A toggle,
+   * not a one-way trip: pressing it again switches back, the same button
+   * either way (unlike Top view, there is no "orbit away" gesture that
+   * would undo this on its own, since nothing about the pose itself is
+   * particular to one mode or the other).
+   */
+  viewDominator() {
+    this.heightMode = this.heightMode === "dominator" ? "call" : "dominator";
+    if (this.graph) this.maxHeight = this.graph.nodes.reduce((h, n) => Math.max(h, this.nodeHeight(n)), 0);
+    this.fit();
   }
 }
 

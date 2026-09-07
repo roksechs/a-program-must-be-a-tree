@@ -358,7 +358,9 @@ height 0 and sit on the bottom plane; the deepest callers sit on the top plane.
 Members of a cycle share one height. The x/y coordinates are the ones computed
 by the 2D simulation, so the 3D view is a lift of the 2D layout rather than a
 different layout. A translucent plane is drawn per height so the layers are
-easy to count.
+easy to count; "Layer planes" (View & Physics) starts unchecked, since a
+plane per layer on a graph with many of them is more clutter than guide until
+asked for.
 
 The projection is a small hand-written orbit camera (yaw, pitch, perspective)
 on a 2D canvas; no WebGL dependency is needed for a few thousand nodes. Pitch
@@ -417,12 +419,20 @@ near the origin (see "Nothing defines a centre" above), so `fit()` points
 `target` at the box's own centre instead of assuming the origin already
 coincides with it, and `focusOn()` points it at a node instead. Because
 rotation is relative to `target`, dragging to orbit never drifts whatever
-it's aimed at away from screen centre — only an explicit pan (shift-drag)
-moves it, as a screen-space offset on top of the orbit. Zooming (mouse
+it's aimed at away from screen centre — only an explicit pan (shift-drag, or
+a held WASD key — both call the same `panScreen()`) moves it, as a
+screen-space offset on top of the orbit. Zooming (mouse
 wheel) rescales that offset by the same factor as the zoom, so whatever
 point sits at screen centre stays there through further zooming instead of
 sliding away from it — the per-node perspective factor cancels out of the
 ratio, so this holds regardless of a node's depth.
+
+WASD panning listens on `window` rather than the canvas, since the canvas
+never takes keyboard focus, and is skipped while a text input is focused (the
+GitHub repo box, say) so that typing "sad" there doesn't fly the camera
+around; each held key re-arms itself on `requestAnimationFrame` rather than
+relying on the browser's own key-repeat timing, so the pan speed is the same
+regardless of OS repeat-rate settings.
 
 A node focused with `focusOn()` keeps its own position re-read into `target`
 on every frame rather than a one-off snapshot: node positions keep changing
@@ -623,6 +633,29 @@ ordinary node/edge/label passes rather than folded into their own dimming
 logic — unlike the path highlight, a node can and often does belong to more
 than one motif at once (a hub that is also in a cycle, say), so it can carry
 one ring per kind rather than one motif "winning" over the others.
+
+## Dominator view
+
+Call height and dominator depth answer different questions about the same
+graph: height is "how long a chain of calls sits below this node", dominance
+is "how much of the graph disappears if this node is removed" (see "Natural
+scope" above, already computed by `metrics.js`'s `dominance()` for that
+diagnostic). Showing both from the same camera, rather than a second
+renderer, keeps the comparison literal — same x/y from the same physics,
+same nodes and edges, only what the vertical axis means changes.
+
+`graph3d.js`'s `heightMode` (`"call"` or `"dominator"`) and `nodeHeight(node)`
+(`node.height` or `node.domDepth`) are consulted everywhere the renderer
+currently reads a node's height — `zOf()`, `colorBy === "height"`, the layer
+label text, and `maxHeight` — so `viewDominator()` (the "Dominator view"
+button, alongside "Fit to view"/"Top view") only has to flip `heightMode`,
+recompute `maxHeight` against the new metric, and re-`fit()`; nothing else in
+the render path needs to know which mode it is in. `app.js`'s
+`updateDominance()` sets `n.domDepth = dom.depth[n.scc]` for every node
+whenever the active edge kinds change (`installGraph()`, `applyKinds()`),
+the same triggers `dominance()` itself already runs on, so a disabled edge
+kind reshapes the dominator view exactly as it reshapes the diagnostic it's
+drawn from.
 
 ## Roadmap
 
