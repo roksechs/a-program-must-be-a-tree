@@ -9,7 +9,7 @@ import { hullPath } from "./zones.js";
 
 // focal is kept proportional to the graph's own extent (set in fit(), below)
 // rather than a fixed world-unit constant: a focal length that's small next
-// to the content's actual size lets ordinary orbiting bring a node's depth
+// to the content's actual size lets ordinary flying bring a node's depth
 // close enough to -focal that its perspective scale blows up, stretching it
 // like a very wide-angle (near-fisheye) lens. Tying focal to extent keeps
 // the lens "normal" regardless of how large the force layout happens to be.
@@ -21,28 +21,14 @@ const FOCAL_EXTENT_RATIO = 1.2;
 // out of frame.
 const MAX_MAGNIFICATION = 4;
 
-// The mouse-orbit `pitch` never goes past straight up/down: beyond here the
-// camera is looking from underneath the layout, and the height axis's own
-// screen-space contribution (viewSpace()'s cos(pitch) term) changes sign, so
-// "up" flips — a call graph rendered this way reads as if every edge
-// pointed the wrong way, with nothing on screen to say the view itself is
-// upside down rather than the data. Clamping here trades away viewing the
-// graph from directly underneath for never landing there by an ordinary
-// drag alone, without anyone noticing until the picture already looks
-// wrong. This applies only to orbiting with the mouse (an arcball around a
-// fixed subject, where ending up upside down is never really the point);
-// the keyboard's flight controls (`flightQuat`, below) have no such limit,
-// since flying upside down there is the point.
-const PITCH_LIMIT = Math.PI / 2;
-
-// Unit quaternions {x,y,z,w}, used only for the keyboard flight camera's
-// `flightQuat` (see the constructor): composing pitch/yaw/roll as three
-// independent angles in a fixed order (as the mouse-orbit yaw/pitch still
-// do) can't represent "roll, then pitch relative to the now-rolled frame" —
-// a coordinated turn, the way a real aircraft banks into one — since each
-// angle would keep rotating around the ORIGINAL, unrolled axis regardless
-// of the others. A quaternion accumulated via local-axis composition (see
-// Graph3D#roll()/rotateInPlace()) has no such fixed axes to begin with.
+// Unit quaternions {x,y,z,w}, used only for `flightQuat` (see the
+// constructor): composing pitch/yaw/roll as three independent angles in a
+// fixed order can't represent "roll, then pitch relative to the now-rolled
+// frame" — a coordinated turn, the way a real aircraft banks into one —
+// since each angle would keep rotating around the ORIGINAL, unrolled axis
+// regardless of the others. A quaternion accumulated via local-axis
+// composition (see Graph3D#roll()/rotateInPlace()) has no such fixed axes
+// to begin with.
 function quatMultiply(a, b) {
   return {
     x: a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
@@ -97,55 +83,49 @@ export class Graph3D {
     this.layerFade = true;
     this.autoRotate = false;
 
+    // yaw/pitch are only ever the camera's RESTING pose, set once by fit()'s
+    // default framing or a preset like viewTop() — never touched by an
+    // interactive look or turn, mouse or keyboard alike (see bindEvents and
+    // rotateInPlace()). Every rotation the person driving the camera actually
+    // does accumulates onto `flightQuat` instead (below), composed on top of
+    // this base by viewSpace().
     this.yaw = -0.6;
-    // Camera elevation above the ground plane: 0 = looking horizontally,
-    // +PITCH_LIMIT = straight down from above, -PITCH_LIMIT = straight up
-    // from below. Unlike yaw, pitch does not loop past there — see
-    // PITCH_LIMIT's own comment for why crossing over would flip "up" on
-    // screen with nothing on screen to say so. Every angle in between,
-    // including exactly level, is still freely reachable: at a level
-    // elevation the camera's forward axis is horizontal, so height stops
-    // contributing to depth (the layer planes, drawn edge-on, briefly
-    // flatten to lines — see draw()) the same way a real pinhole camera has
-    // the same momentary dead spot; earlier versions kept pitch a fixed
-    // distance away from every such point to avoid it, which instead made
-    // crossing one a sudden jump (an orbit drag can only sample discrete
-    // steps, so a value forced to stay outside a band has to skip over it,
-    // however small the step) for a flaw that is only ever visible for the
-    // single instant a continuous orbit passes through the exact angle
-    // anyway.
     this.pitch = 0.9;
-    // Additional rotation the keyboard's flight controls (W/S/Q/E/A/D — see
-    // bindEvents) layer on top of the yaw/pitch orbit above, composed via
-    // local-axis quaternion multiplication (see quatMultiply()'s own
-    // comment) instead of three more independent angles: pitching after a
+    // Every interactive rotation — mouse-look (bindEvents' pointermove) and
+    // the keyboard's W/S/Q/E/A/D alike — accumulates here, via local-axis
+    // quaternion multiplication (see quatMultiply()'s own comment) instead
+    // of updating yaw/pitch/a third roll angle directly: pitching after a
     // roll needs to turn around the now-rolled right axis, not the original
     // unrolled one, the way a banked aircraft's nose actually swings when
     // its pilot pulls back — a coordinated turn, not just a tilted-looking
-    // pan. Identity (no additional rotation) until a flight key is first
-    // pressed; unlike pitch there is no clamp and no auto-level back to
-    // level, since flying upside down is the point, not an accident to
-    // recover from — "Fit to view"/"Top view" reset it back to identity for
-    // whoever wants a clean way out instead.
+    // pan — and three independent, fixed-axis angles can't express that
+    // regardless of update order. Identity (no rotation yet) until the
+    // camera is first looked/turned; no clamp and no auto-level back to
+    // level, since flying upside down is the point of a coordinated turn,
+    // not an accident to recover from — "Fit to view"/"Top view" reset it
+    // back to identity for whoever wants a clean way out instead.
     this.flightQuat = { x: 0, y: 0, z: 0, w: 1 };
     // True while showing the "Top view" preset: a perspective-free look
     // straight down the height axis (see viewTop()), which is what a purely
     // 2D top-down rendering of this same x/y layout would look like — the
     // graph's own physics never uses height, so seen from directly above and
     // without perspective it is exactly the layout a 2D-only renderer would
-    // draw. Orbiting away from it (see bindEvents) turns it back off, since
-    // it is a specific camera pose, not a general drawing mode.
+    // draw. Looking around away from it (see bindEvents) turns it back off,
+    // since it is a specific camera pose, not a general drawing mode.
     this.orthographic = false;
     this.zoomK = 1;
-    // World point the camera orbits and looks at (yaw/pitch pivot around
-    // this, not the origin) and which always projects to screen centre
-    // (see project()) — set from the graph's own bounding box in fit(), or
-    // a node's position in focusOn(), since nothing about the physics
-    // guarantees the layout sits near world origin (see docs/DESIGN.md,
-    // "Nothing defines a centre"). A shift-drag pan (see bindEvents) moves
-    // this point in world space rather than adding a screen-space offset,
-    // so the point under the pointer keeps tracking it and orbiting always
-    // pivots on screen centre, panned or not.
+    // The world point `focal` world units directly ahead of the camera, and
+    // which therefore always projects to screen centre (see project()) — set
+    // from the graph's own bounding box in fit(), or a node's position in
+    // focusOn(), since nothing about the physics guarantees the layout sits
+    // near world origin (see docs/DESIGN.md, "Nothing defines a centre").
+    // Looking around (bindEvents' pointermove, or the keyboard) keeps this
+    // invariant by re-deriving `target` from the camera's own (implicit,
+    // unmoved) position every time — see rotateInPlace() — rather than by
+    // rotating the world around a fixed `target` the way an orbit camera
+    // would; a shift-drag pan or a dolly/strafe moves it in world space
+    // instead, on purpose, since those really do mean to look at (or from)
+    // somewhere else.
     this.targetX = 0;
     this.targetY = 0;
     this.targetZ = 0;
@@ -153,8 +133,9 @@ export class Graph3D {
     // changing under the physics — settling, or reheated by dragging another
     // node or changing physics params — so a one-off snapshot into target
     // goes stale almost immediately; draw() re-reads this node's live
-    // position into target every frame instead, so orbiting always pivots
-    // on where the node actually is right now.
+    // position into target every frame instead, so it stays centred on
+    // where the node actually is right now regardless of how the camera
+    // looks around it.
     this.focusedNode = null;
     // Placeholder until the first fit(), which sets this from the graph's
     // own extent (see FOCAL_EXTENT_RATIO).
@@ -182,7 +163,7 @@ export class Graph3D {
       if (dragging) {
         // setPointerCapture (pointerdown, above) keeps delivering these to
         // the canvas even once the cursor leaves it, up to the edge of the
-        // screen — enough range for an ordinary orbit drag. A single drag
+        // screen — enough range for an ordinary look drag. A single drag
         // reaching all the way around (say, a full vertical loop) can take
         // more pixels than fit on the actual display; that needs release
         // and re-drag to continue, rather than Pointer Lock's uncapped
@@ -198,9 +179,15 @@ export class Graph3D {
         if (dragging.pan) {
           this.panScreen(dx, dy);
         } else {
-          this.yaw += dx * 0.008;
-          this.pitch = Math.max(-PITCH_LIMIT, Math.min(PITCH_LIMIT, this.pitch + dy * 0.006));
-          // Orbiting is a deliberate move away from the flat top-down pose.
+          // FPS-style mouse-look: rotateInPlace() (also W/S/Q/E's own method,
+          // see its doc) turns the camera in place from wherever it already
+          // is, rather than orbiting some subject around a screen-centred
+          // pivot — the same reasoning that put the keyboard's rotations on
+          // it applies here too, and a drag needs no easing of its own the
+          // way a held key does, since the pointer's own movement already
+          // is the rate.
+          this.rotateInPlace(dx * 0.008, dy * 0.006);
+          // A look is a deliberate move away from the flat top-down pose.
           this.orthographic = false;
         }
         this.draw();
@@ -245,21 +232,26 @@ export class Graph3D {
       this.hovered = null;
       this.callbacks.onHover?.(null);
     });
+    // The wheel dollies (an actual move through the scene, see dolly())
+    // instead of rescaling zoomK: a rescale and a real forward move look
+    // enough alike that which one had just happened was never obvious, and
+    // the arrow keys already dolly, so this is that same one mechanism
+    // rather than a second, confusable way to get closer. zoomK itself is
+    // unaffected — fit()/focusOn() still use it for framing, only its own
+    // interactive control is gone.
     c.addEventListener(
       "wheel",
       (e) => {
         e.preventDefault();
-        const f = Math.exp(-e.deltaY * 0.0015);
-        this.zoomK = Math.max(0.05, Math.min(8, this.zoomK * f));
-        this.draw();
+        this.dolly(-e.deltaY * this.focal * 0.0008);
       },
       { passive: false },
     );
 
     // Keyboard camera controls, held down like a game camera: W/S pitch the
     // camera up/down, A/D roll it, Q/E yaw it left/right, and the arrows
-    // dolly forward/back or strafe left/right — an actual move through the
-    // scene (see dolly()/strafe()), not a rescale like the wheel's zoom.
+    // dolly forward/back or strafe left/right the same way the wheel dollies
+    // (see dolly()/strafe()), just eased rather than driven pixel-for-pixel.
     // Every axis eases toward whichever direction (or neither) is currently
     // held instead of snapping to full speed the instant a key goes down or
     // stopping dead the instant it comes up, so a tap reads as a nudge and a
@@ -296,7 +288,7 @@ export class Graph3D {
         // Camera-centred, not target-centred: see rotateInPlace()'s own doc.
         this.rotateInPlace(rate.yaw * MAX_ROTATE_RATE, rate.pitch * MAX_ROTATE_RATE);
         // A rotation is a deliberate move away from the flat top-down pose,
-        // same as an orbit drag; a dolly/strafe (arrow keys) leaves it
+        // same as a mouse-look drag; a dolly/strafe (arrow keys) leaves it
         // alone, same as a shift-drag pan does.
         this.orthographic = false;
       }
@@ -328,10 +320,9 @@ export class Graph3D {
   /**
    * Pan by a screen-space delta (dx right, dy down) — used by the shift-drag
    * pan in bindEvents: move `target` itself in world space instead of adding
-   * a separate screen-space offset, so orbiting keeps pivoting on screen
-   * centre even after panning (see the constructor), and stop following a
-   * focused node so the pan sticks instead of being overridden on the next
-   * frame.
+   * a separate screen-space offset, so a look still stays camera-centred
+   * (see the constructor) even after panning, and stop following a focused
+   * node so the pan sticks instead of being overridden on the next frame.
    */
   panScreen(dx, dy) {
     this.focusedNode = null;
@@ -352,8 +343,9 @@ export class Graph3D {
 
   /**
    * Map a LOCAL camera-space direction — [1,0,0] right, [0,1,0] up, [0,0,1]
-   * forward, before either the mouse-orbit yaw/pitch or the keyboard's
-   * `flightQuat` are layered on — into world space: the exact inverse of
+   * forward, before either the resting yaw/pitch (see the constructor) or
+   * `flightQuat` — shared by mouse-look and the keyboard alike — are layered
+   * on — into world space: the exact inverse of
    * `viewSpace()`'s own rotation, generalized from a single hardcoded
    * "forward" to any local direction, since `rotateInPlace()`/`dolly()`/
    * `strafe()`/`panScreen()` all need the camera's actual current
@@ -374,9 +366,9 @@ export class Graph3D {
 
   /**
    * Move `target` a world-space distance `step` along the view direction —
-   * positive is forward (into the scene), negative is back — for the arrow
-   * keys' dolly (see bindEvents): an actual move through the scene, unlike
-   * the wheel's zoomK rescale.
+   * positive is forward (into the scene), negative is back — shared by the
+   * wheel and the arrow keys (see bindEvents): an actual move through the
+   * scene, rather than a zoomK rescale.
    */
   dolly(step) {
     this.focusedNode = null;
@@ -408,11 +400,12 @@ export class Graph3D {
   }
 
   /**
-   * Adjust pitch/yaw the way W/S/Q/E do (bindEvents) — around the camera's
-   * own position instead of around `target` the way mouse-drag orbiting
-   * does: the camera stays put and what's dead ahead of it changes, rather
-   * than swinging around a fixed subject. The camera's position is never
-   * stored on its own — it's always `target` minus `focal` world units
+   * Turn in place around the camera's own position — shared by mouse-look
+   * (bindEvents' pointermove) and the keyboard's W/S/Q/E alike: the camera
+   * stays put and what's dead ahead of it changes, rather than swinging some
+   * subject around a fixed pivot the way an arcball/orbit camera would. The
+   * camera's position is never stored on its own — it's always `target` minus
+   * `focal` world units
    * along the current view direction (the same relationship project() uses
    * the other way around, via `focalDepth`) — so this recovers it from the
    * OLD orientation, applies the change, then re-derives `target` as
@@ -530,15 +523,18 @@ export class Graph3D {
 
   /**
    * Project a world point (x, y horizontal plane; z up) to screen space.
-   * The camera orbits `target`, not the origin: yaw spins it around the
-   * vertical axis through target, pitch is its elevation. After the yaw
-   * rotation X points right and Y away from the camera; tilting by pitch
-   * turns "away" into "up on screen" and brings higher points closer to a
-   * camera that looks down. Because rotation applies to the offset from
-   * target, target itself always projects to screen centre (X = Y = 0)
-   * regardless of yaw/pitch — orbiting never drifts it away from centre.
+   * The rotation is centred on `target`, not the origin: yaw spins the
+   * offset from target around the vertical axis, pitch is its elevation.
+   * After the yaw rotation X points right and Y away from the camera;
+   * tilting by pitch turns "away" into "up on screen" and brings higher
+   * points closer to a camera that looks down. That's just the geometry of
+   * the projection, though — nothing interacts by swinging around `target`
+   * any more (see rotateInPlace()); `target` is instead kept `focal` units
+   * directly ahead of wherever the camera actually is, and the two together
+   * are what keep target always projecting to screen centre (X = Y = 0)
+   * regardless of yaw/pitch.
    */
-  /** The rotation (mouse-orbit yaw/pitch, then the keyboard's flightQuat) project() and projectClamped() share, before either decides how to turn depth into scale. */
+  /** The rotation (resting yaw/pitch, then `flightQuat` — driven by mouse-look and the keyboard alike, see the constructor) project() and projectClamped() share, before either decides how to turn depth into scale. */
   viewSpace(x, y, z) {
     const rx = x - this.targetX;
     const ry = y - this.targetY;
@@ -551,8 +547,8 @@ export class Graph3D {
     const sp = Math.sin(this.pitch);
     const upX0 = Y0 * sp + rz * cp;
     const depth0 = Y0 * cp - rz * sp;
-    // flightQuat (identity until a flight key is first pressed) is a further
-    // rotation on top of the yaw/pitch orbit above, applied here as a
+    // flightQuat (identity until the camera is first looked or turned) is a
+    // further rotation on top of the yaw/pitch rotation above, applied here as a
     // rotation of the already-computed (X0, upX0, depth0) rather than
     // rotating (rx, ry, rz) directly: a pure roll leaves depth0 alone the
     // same way the old roll-only code did (rotation around the forward axis
@@ -866,10 +862,10 @@ export class Graph3D {
     this.zoomK = 1;
     this.focusedNode = null;
     // The general "get me unstuck" reset, so it returns to the normal
-    // perspective view too, the same as orbiting away from Top view does —
-    // including undoing whatever the keyboard's flight controls rolled or
-    // looped the camera to, since that has no auto-level of its own to fall
-    // back on (see the constructor).
+    // perspective view too, the same as looking away from Top view does —
+    // including undoing whatever mouse-look or the keyboard's flight
+    // controls rolled or looped the camera to, since that has no auto-level
+    // of its own to fall back on (see the constructor).
     this.orthographic = false;
     this.flightQuat = { x: 0, y: 0, z: 0, w: 1 };
     this.targetX = 0;
@@ -887,7 +883,7 @@ export class Graph3D {
     this.focal = extent * FOCAL_EXTENT_RATIO;
     // Repulsion has no range limit and nothing pulls nodes toward a centre
     // (by design, see docs/DESIGN.md), so the layout's own bounding box can
-    // sit anywhere in world space. Point the camera's orbit target at the
+    // sit anywhere in world space. Point `target` at the
     // box's own centre — since target always projects to screen centre (see
     // project()) — instead of leaving it at the origin, or both zooming and
     // rotating would drift the graph away from screen centre.
@@ -899,7 +895,7 @@ export class Graph3D {
 
   /**
    * Centre the camera on one node without touching yaw/pitch: zoom in a
-   * little if it's currently zoomed out, then re-point the orbit target at
+   * little if it's currently zoomed out, then re-point `target` at
    * the node so it lands exactly at screen centre. draw() keeps re-reading
    * the node's live position into target every frame (see focusedNode)
    * rather than a one-off snapshot, so it stays centred through further
@@ -921,9 +917,9 @@ export class Graph3D {
    * mattering once pitch points straight down, so only pitch needs setting,
    * to exactly PI/2 — the view with the *most* height contribution, the
    * opposite end of the range from the level orientations discussed above.
-   * Orbiting away from here (bindEvents) turns `orthographic` back off, and
-   * so does fit() — the two ways out of Top view mirror the two ways in
-   * (bindEvents' orbit, this method).
+   * Looking around away from here (bindEvents) turns `orthographic` back
+   * off, and so does fit() — the two ways out of Top view mirror the two
+   * ways in (bindEvents' mouse-look/keyboard, this method).
    */
   viewTop() {
     this.pitch = Math.PI / 2;

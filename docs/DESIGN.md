@@ -60,7 +60,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `motifs.js`     | Structural motif detectors (cycle, hub, diamond, chain) — see "Motif highlighting". |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
-| `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer, used by both the main viewer and the article's live figures. |
+| `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, FPS-style flight camera, layer planes, an orthographic "Top view" preset. The only renderer, used by both the main viewer and the article's live figures. |
 | `panel.js`      | Property panel (controls + diagnostics + selection details). |
 | `app.js`        | Data loading and wiring. |
 | `browserAnalyzer.js` | The part of the in-browser analyzer shared by `localAnalyzer.js` and `githubAnalyzer.js`: a custom `ts.CompilerHost` over an in-memory file map, fed to `analyzers/ts/core.mjs`, with a `.svelte` file transformed through `vendor/svelte2tsx.js` first (see "Analyzing Svelte components"). Loads `vendor/typescript.js` (~9MB) and, only when a `.svelte` file is present, `vendor/svelte2tsx.js` lazily, on first use; every vendored asset is addressed by a URL resolved against `import.meta.url`, so the same code works whether it runs on the main thread or inside `analyzeWorker.js`. |
@@ -301,7 +301,7 @@ Nothing defines a centre. Two attempts at one were removed:
 Where the graph sits is therefore a question for the camera, not the physics:
 "Fit to view" frames whatever the simulation produced. Nothing calls it on the
 app's own initiative — not a fresh load, not a run settling — only the button
-itself, Top view, and orbiting away from Top view ever move the camera. A run
+itself, Top view, and looking away from Top view ever move the camera. A run
 can take a while to settle (see `alphaDecay` above), long enough for the user
 to have framed their own view of it by hand in the meantime; an automatic fit
 firing at whatever moment that happens to end would override a camera they
@@ -400,36 +400,42 @@ callee's *other* caller may have far less headroom — and that is not a bug,
 it means the gap is real slack rather than a fact about the chain between
 them.
 
-The projection is a small hand-written orbit camera (yaw, pitch, perspective)
-on a 2D canvas; no WebGL dependency is needed for a few thousand nodes. Pitch
-is unbounded, not clamped to a single hemisphere: dragging past straight
-up/down continues the orbit into a full vertical loop rather than stopping,
+The projection is a small hand-written flight camera (yaw, pitch, perspective)
+on a 2D canvas; no WebGL dependency is needed for a few thousand nodes.
+Rotation is never clamped to a single hemisphere: continuing to look past
+straight up/down carries on into a full vertical loop rather than stopping,
 the same way yaw already spins all the way around, and it is never pushed
 away from a *level* orientation either (pitch a multiple of `PI`): at those
 elevations the camera's forward axis is horizontal, so height stops
 contributing to the perspective divide and the layer planes (drawn edge-on)
 flatten to lines for that one instant (true of any look-at camera, not just
-this one). An earlier version kept pitch a fixed distance away from every
-such point to avoid that, which traded a momentary, purely cosmetic flattening
-for a real interaction bug: since an orbit drag can only land on discrete
-steps, a value that must stay outside a band has to skip over it however
-small the step is, so every crossing became a sudden angular jump — worse
-than the flattening it was avoiding, and for something a continuous orbit
-only ever shows for a single frame anyway.
+this one). An earlier version bounded the mouse drag's pitch to a single
+hemisphere and kept it a fixed distance away from every such point besides,
+to avoid a sign flip in `viewSpace()`'s `cos(pitch)` term that would
+otherwise make every edge appear to run the wrong way with nothing on screen
+to say the view itself had flipped rather than the data — but that traded a
+momentary, purely cosmetic flattening for a real interaction bug, since a
+drag can only land on discrete steps and a value that must stay outside a
+band has to skip over it however small the step is, so every crossing became
+a sudden angular jump. Unifying mouse-look onto the same mechanism the
+keyboard already used (below) made the whole problem moot rather than
+needing a better clamp: neither one touches `pitch` interactively any more —
+both accumulate onto a quaternion instead (`flightQuat`, below), which has
+no discrete "wrong side" to flip across in the first place.
 
-Orbiting reads `pointermove` while a drag is down, letting `setPointerCapture`
-(acquired on `pointerdown`) keep delivering events once the cursor leaves the
-canvas, up to the edge of the screen. That is enough range for an ordinary
-orbit; a single drag large enough to need more (a full vertical loop, say)
-needs release-and-redrag to continue. The alternative, the Pointer Lock API,
-gives uncapped relative movement past the screen edge, but unconditionally
-shows the browser's own "press Esc to exit" banner the moment it activates —
-worse than the capped range it would buy back — so this renderer never
-requests it.
+Looking around with the mouse reads `pointermove` while a drag is down,
+letting `setPointerCapture` (acquired on `pointerdown`) keep delivering
+events once the cursor leaves the canvas, up to the edge of the screen. That
+is enough range for an ordinary look; a single drag large enough to need
+more (a full vertical loop, say) needs release-and-redrag to continue. The
+alternative, the Pointer Lock API, gives uncapped relative movement past the
+screen edge, but unconditionally shows the browser's own "press Esc to exit"
+banner the moment it activates — worse than the capped range it would buy
+back — so this renderer never requests it.
 
 The camera's focal length is set from the graph's own extent (in `fit()`)
 rather than a fixed world-unit constant. A focal length small next to the
-layout's actual size lets ordinary orbiting bring some node's depth close
+layout's actual size lets ordinary flying bring some node's depth close
 enough to `-focal` that its perspective scale blows up, stretching it the
 way a very wide-angle lens stretches whatever is closest to it; tying focal
 to extent keeps the lens "normal" regardless of how far the `1/d` repulsion
@@ -450,82 +456,71 @@ every pixel of a plane that might span the whole view competing at the same
 strength regardless of how far off-focus it is. `layerFade` (View & Physics)
 turns this off in favour of the older flat fill.
 
-The orbit camera doesn't pivot on the world origin; it pivots on an explicit
-`target` point that always projects to screen centre regardless of yaw or
-pitch. Nothing in the physics keeps the layout's own bounding box anywhere
-near the origin (see "Nothing defines a centre" above), so `fit()` points
-`target` at the box's own centre instead of assuming the origin already
-coincides with it, and `focusOn()` points it at a node instead. Because
-rotation is relative to `target`, dragging to orbit never drifts whatever
-it's aimed at away from screen centre — only an explicit pan (shift-drag,
-`panScreen()`) moves it, as a screen-space offset on top of the orbit.
-Zooming (mouse wheel) rescales that offset by the same factor as the zoom, so
-whatever point sits at screen centre stays there through further zooming
-instead of sliding away from it — the per-node perspective factor cancels
-out of the ratio, so this holds regardless of a node's depth.
+The camera's position is never stored on its own — it's always `target`
+minus `focal` world units along the camera's current forward direction
+(`localToWorld([0, 0, 1])`), the same relationship `project()` uses the
+other way around via `focalDepth`. Nothing in the physics keeps the layout's
+own bounding box anywhere near the origin (see "Nothing defines a centre"
+above), so `fit()` points `target` at the box's own centre instead of
+assuming the origin already coincides with it, and `focusOn()` points it at
+a node instead. Looking around — mouse-look or the keyboard's W/S/Q/E alike,
+both `rotateInPlace()`, below — keeps `target` always projecting to screen
+centre by re-deriving it as `focal` units ahead of that fixed camera
+position along the *new* forward every time, rather than by rotating the
+world around a `target` that stays put the way an arcball/orbit camera
+would; here it's the camera's own position that stays fixed instead, the
+same way turning your head leaves your feet planted. An explicit pan
+(shift-drag, `panScreen()`) or a dolly/strafe (the wheel or the arrow keys)
+moves `target` — and with it the implicit camera position — directly in
+world space instead, along `localToWorld([1, 0, 0])`/`localToWorld([0, 1,
+0])`/`localToWorld([0, 0, 1])`, since those really do mean to move to
+somewhere else rather than just look elsewhere from where you already are.
 
-The mouse-orbit `pitch` is bounded to `PITCH_LIMIT` (±π/2 — straight down to
-straight up, level in between), unlike yaw, which still spins freely: past
-that point the camera would be looking from underneath the layout, and
-`viewSpace()`'s own `cos(pitch)` term (the height axis's screen-space
-contribution) changes sign, so every edge would appear to run the wrong way
-with nothing on screen to say the view itself had flipped rather than the
-data. An ordinary drag can cross that point without the person driving it
-noticing until the picture already looks wrong, so this trades away
-orbiting to view the graph from directly underneath for never landing there
-by accident — reasonable for an arcball around a fixed subject, where
-ending up upside down was never really the point. The keyboard's flight
-controls (below) have no such limit, since there flying upside down *is*
-the point.
+Mouse-look and the keyboard's W/S/Q/E/A/D drive the exact same rotation
+mechanism: pitch, yaw and roll all accumulate onto one quaternion,
+`flightQuat` (identity until the camera is first looked or turned), via
+local-axis composition — `quatMultiply()`'s own comment has the general
+reasoning, `roll()` and `rotateInPlace()` the specific axes. Composing this
+way, rather than as three independent world-relative angles in a fixed
+order, is what lets a bank (roll) followed by a pull-up (pitch) actually
+swing the nose sideways in world terms — a coordinated turn, the way a real
+aircraft's does — instead of just tilting an already-rolled picture further
+without ever changing the heading, which is all three fixed-order,
+world-relative angles can ever do regardless of update order. `viewSpace()`
+applies `flightQuat` as a further rotation on top of the resting yaw/pitch
+pose (set once by `fit()`/`viewTop()`, never touched interactively — see the
+constructor), so it composes correctly regardless of how much rotation came
+before it.
 
-The keyboard offers a full flight camera as an alternative to the mouse —
-pitch, yaw, roll, a dolly and a strafe — but the mouse and W/S/Q/E/A/D
-disagree about both what a rotation pivots on and how it composes. Dragging
-to orbit changes yaw/pitch without touching `target`, so it swings the
-camera's own (implicit) position around that fixed subject — the arcball
-behaviour described above — and composes yaw and pitch as two independent
-angles, always relative to the *world's* axes, which is exactly what keeps
-an orbit drag from ever accidentally introducing roll. A fixed-order,
-world-relative composition like that cannot express a coordinated turn,
-though: banking (rolling) and then pulling up needs the pitch to turn
-around the aircraft's *own*, now-tilted right axis, not the original
-unrolled one, for the nose to actually swing sideways in world terms the
-way a real aircraft's does — with two independent, world-relative angles,
-pitching after a roll just tilts the already-rolled picture further, never
-changing the heading. So the keyboard's rotations don't touch yaw/pitch at
-all; they accumulate onto a separate quaternion, `flightQuat` (identity
-until a flight key is first pressed), via local-axis composition —
-`quatMultiply()`'s own comment has the general reasoning, `roll()` and
-`rotateInPlace()` the specific axes. `viewSpace()` applies it as a further
-rotation on top of the ordinary yaw/pitch projection, so nothing about the
-mouse-orbit math needs to know it exists, and it composes correctly
-regardless of how much roll came before it.
-
-W/S/Q/E call `rotateInPlace(dYaw, dPitch)`, which holds the *camera's*
-position fixed and swings `target` around instead, the way turning your
-head does rather than orbiting a subject: it recovers that implicit camera
+`rotateInPlace(dYaw, dPitch)` — called by both mouse-look (`bindEvents`'
+`pointermove`) and W/S/Q/E — holds the *camera's* position fixed and swings
+`target` around instead, the way turning your head does rather than
+swinging a subject around a fixed pivot: it recovers that implicit camera
 position as `target` minus `focal` world units along the current
 `localToWorld([0, 0, 1])` (the camera's actual forward, accounting for both
 the yaw/pitch base and `flightQuat`), rotates `flightQuat` by `dPitch`
 around the canonical local right axis and `dYaw` around the canonical local
 up axis, then re-derives `target` as `focal` units ahead of that same fixed
 point along the *new* forward — so whatever was framed dead ahead drifts
-off screen centre as you turn, rather than staying put the way orbiting
-keeps it. A/D call `roll()`, which only rotates `flightQuat` around the
-canonical local forward axis: a pure roll never changes the forward
-direction, so unlike pitch/yaw it never has to touch `target` at all. Roll
-has no limit and no auto-level back to level — flying upside down or
-looping is the entire point of a coordinated turn, not an accident to
-recover from, so nothing here would even know which way "level" is meant to
-be — "Fit to view"/"Top view" reset `flightQuat` to identity for whoever
-wants a clean way out. The up/down arrows call `dolly()`, and the
-left/right arrows call the analogous `strafe()`, moving `target` a
-world-space step along `localToWorld([0, 0, 1])` or `localToWorld([1, 0,
-0])` respectively rather than rescaling `zoomK` the way the wheel does — an
-actual move through the scene, not a bigger picture of the same vantage
-point. `panScreen()` (the shift-drag pan) is written the same way, against
-`localToWorld([1, 0, 0])`/`localToWorld([0, 1, 0])`, so it still points the
-right way regardless of whatever the keyboard has rolled the camera to.
+off screen centre as you turn, the way it would looking out of a cockpit,
+rather than staying put the way orbiting a subject would keep it. A/D call
+`roll()`, which only rotates `flightQuat` around the canonical local forward
+axis: a pure roll never changes the forward direction, so unlike pitch/yaw
+it never has to touch `target` at all. Roll has no limit and no auto-level
+back to level — flying upside down or looping is the entire point of a
+coordinated turn, not an accident to recover from, so nothing here would
+even know which way "level" is meant to be — "Fit to view"/"Top view" reset
+`flightQuat` to identity for whoever wants a clean way out. The wheel and
+the up/down arrows both call `dolly()`, and the left/right arrows call the
+analogous `strafe()`, moving `target` a world-space step along
+`localToWorld([0, 0, 1])` or `localToWorld([1, 0, 0])` respectively rather
+than rescaling `zoomK` — an actual move through the scene, not a bigger
+picture of the same vantage point; the wheel and the arrow keys share this
+one mechanism rather than the wheel doing a second, easily-confused-with-
+movement thing of its own. `panScreen()` (the shift-drag pan) is written the
+same way, against `localToWorld([1, 0, 0])`/`localToWorld([0, 1, 0])`, so it
+still points the right way regardless of whatever has rolled the camera in
+the meantime.
 
 Each of these five keyboard axes (pitch, yaw, roll, dolly, strafe) is driven
 by its own eased rate rather than a fixed per-frame step: every frame, each
@@ -551,7 +546,7 @@ A node focused with `focusOn()` keeps its own position re-read into `target`
 on every frame rather than a one-off snapshot: node positions keep changing
 under the physics (settling, or reheated by dragging a different node or
 changing a physics parameter), so a snapshot would go stale within a tick
-or two and orbiting would end up pivoting on where the node used to be. An
+or two and the view would end up looking at where the node used to be. An
 explicit pan releases this following, since it means the viewer wants to
 move away from the focused node on purpose.
 
