@@ -43,7 +43,8 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
   no server-side step and works from the static site alone. `core.mjs` is
   copied into `site/vendor/analyzer-core.js` by `npm run vendor` (gitignored:
   `analyzers/ts/core.mjs` stays the single source of truth) since the
-  published site only ever serves `site/`.
+  published site only ever serves `site/`. Both run inside a dedicated worker
+  (`analyzeWorker.js`), not the main thread — see below.
 * **Viewer** (`site/`) is plain ES modules plus a vendored copy of d3. There is
   no bundler so the page can be opened from any static host.
 
@@ -59,9 +60,10 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer, used by both the main viewer and the article's live figures. |
 | `panel.js`      | Property panel (controls + diagnostics + selection details). |
 | `app.js`        | Data loading and wiring. |
-| `browserAnalyzer.js` | The part of the in-browser analyzer shared by `localAnalyzer.js` and `githubAnalyzer.js`: a custom `ts.CompilerHost` over an in-memory file map, fed to `analyzers/ts/core.mjs`. Loads `vendor/typescript.js` (~9MB) lazily, on first use. |
+| `browserAnalyzer.js` | The part of the in-browser analyzer shared by `localAnalyzer.js` and `githubAnalyzer.js`: a custom `ts.CompilerHost` over an in-memory file map, fed to `analyzers/ts/core.mjs`. Loads `vendor/typescript.js` (~9MB) lazily, on first use; every vendored asset is addressed by a URL resolved against `import.meta.url`, so the same code works whether it runs on the main thread or inside `analyzeWorker.js`. |
 | `localAnalyzer.js` | Reads a directory picked with `showDirectoryPicker()` into the file map `browserAnalyzer.js` needs. |
 | `githubAnalyzer.js` | Fetches a public GitHub repository's file tree and contents into the same file map. |
+| `analyzeWorker.js`  | Runs `localAnalyzer.js` / `githubAnalyzer.js` inside a dedicated worker so the page stays responsive during the analysis itself — see below. |
 | `markdown.js`   | Small Markdown renderer for the article chapters (escaped, no raw HTML; `<!-- key: value -->` comments are page directives). |
 | `article.js`    | The article page (`article.html`): chapters from `content/<lang>/`, each with the live graphs its directives ask for, rendered by the same modules on the same datasets as the viewer. |
 
@@ -71,6 +73,38 @@ Top view (`viewTop()`), so a separate SVG renderer (`graph2d.js`, removed)
 would only have been a second, heavier way to draw the same picture; a
 figure that wants a flat, label-readable layout asks for `view: top`
 instead and gets `graph3d.js`'s Top view.
+
+### Keeping a large analysis off the main thread
+
+Building a `ts.Program` and walking it with the type checker is real,
+synchronous CPU work: analyzing a single ~9MB/200,000-line file in-browser
+(measured against `typescript.js`'s own compiled bundle) took the main
+thread itself out of commission — even reading a DOM property from outside
+the page timed out — for the full ~10-15 seconds the analysis ran. A
+codebase that size is not a contrived case for a tool whose whole premise is
+analyzing other codebases, so `analyzeWorker.js` runs `localAnalyzer.js` and
+`githubAnalyzer.js` inside a dedicated `Worker` instead: the same code
+(`browserAnalyzer.js`'s `loadTypeScript`/`readLib` detect the worker
+environment via `typeof importScripts`, since a worker has no `document` to
+append a `<script>` tag to) now runs off the main thread, which stays at a
+steady 60fps throughout — verified by counting `requestAnimationFrame`
+callbacks during the same 9MB analysis, before and after this change.
+
+The worker is a classic (non-module) one on purpose: `importScripts()` —
+the only way to turn `vendor/typescript.js`'s plain `var ts = {}` into a
+usable value, short of `eval`, since it is not itself an ES module — does
+not work inside a module worker. Dynamic `import()` of the real ES modules
+that do the work is available in a classic script too, so nothing is
+duplicated for the worker's sake. One thing to get right: a value pulled out
+of a dynamic import by destructuring (`const { analyzeLocalFolder } =
+await import(...)`) becomes, to the analyzer, a local binding with no
+traceable path back to the function it names — the same blind spot as any
+other value that escapes through a stored reference (docs/DATA_FORMAT.md's
+local declarations) — so `analyzeWorker.js` calls
+`(await import(...)).analyzeLocalFolder(...)` instead: a plain property
+access, which the checker resolves back to the real declaration, keeping the
+call graph (and `metrics.js`'s `unreferencedDeclarations`) accurate with no
+exception needed.
 
 ### Keeping the codebase itself tidy
 

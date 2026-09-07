@@ -6,6 +6,27 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### The local-folder and GitHub-repo analysis runs off the main thread
+
+* Analyzing a large project froze the page for the whole run — building a
+  `ts.Program` and walking it with the type checker is real synchronous
+  work; measured against `typescript.js`'s own ~9MB/200,000-line bundle, the
+  main thread was unresponsive (not even answering a query from outside the
+  page) for the full 10-15 second analysis. `analyzeWorker.js` now runs
+  `localAnalyzer.js` / `githubAnalyzer.js` inside a dedicated `Worker`
+  instead; the same analysis now runs with the page holding a steady 60fps
+  throughout (measured by counting `requestAnimationFrame` callbacks during
+  the same 9MB run). See docs/DESIGN.md's "Keeping a large analysis off the
+  main thread" for how vendored-asset loading and dynamic-import call
+  tracing (`unreferencedDeclarations` stays accurate with no exception
+  needed) both had to account for running inside a worker.
+* This does not raise the ceiling on how large a project can be analyzed at
+  all — a codebase whose total size genuinely exceeds a browser tab's memory
+  budget will still fail, and the CLI (`analyzers/ts/analyze.mjs`, no such
+  ceiling) remains the right tool for that — but it turns "the tab looks
+  crashed" into "the tab stays responsive while it works, or reports a clean
+  error," which was the actual problem reported.
+
 ### Analyze a local folder or a GitHub repo, live, from the panel
 
 * Two new "Data" controls run the real TypeScript-compiler-based analyzer

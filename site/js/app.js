@@ -1,11 +1,9 @@
 // Application wiring: loads a dataset, runs the simulation and connects the
 // renderer to the property panel.
 /* global d3 */
-import { analyzeGithubRepo } from "./githubAnalyzer.js";
 import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
-import { analyzeLocalFolder } from "./localAnalyzer.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
 import { Panel } from "./panel.js";
 import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
@@ -273,9 +271,31 @@ function loadFile(file) {
 
 // The local-folder and GitHub-repo features analyze real source entirely in
 // the browser (site/js/localAnalyzer.js, site/js/githubAnalyzer.js): no
-// pre-generated JSON, no server. Neither module loads the TypeScript
-// compiler they need (~9MB) until one of these actually runs, so importing
-// them costs nothing on a page load that never uses them.
+// pre-generated JSON, no server. They run inside analyzeWorker.js's
+// dedicated worker, not here — building and walking a ts.Program is heavy
+// enough to freeze the page for the duration otherwise (docs/DESIGN.md).
+function runAnalysisInWorker(kind, payload, options, onProgress) {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(new URL("./analyzeWorker.js", import.meta.url));
+    worker.onmessage = (event) => {
+      const msg = event.data;
+      if (msg.type === "progress") onProgress?.(...msg.args);
+      else if (msg.type === "done") {
+        worker.terminate();
+        resolve(msg.doc);
+      } else if (msg.type === "error") {
+        worker.terminate();
+        reject(new Error(msg.message));
+      }
+    };
+    worker.onerror = (event) => {
+      worker.terminate();
+      reject(new Error(event.message || "worker error"));
+    };
+    worker.postMessage({ kind, payload, options });
+  });
+}
+
 async function loadLocalFolder() {
   let dirHandle;
   try {
@@ -285,7 +305,7 @@ async function loadLocalFolder() {
   }
   setStatus("app.readingFiles", { count: 0 });
   try {
-    const doc = await analyzeLocalFolder(dirHandle, { onProgress: (count) => setStatus("app.readingFiles", { count }) });
+    const doc = await runAnalysisInWorker("local", { dirHandle }, {}, (count) => setStatus("app.readingFiles", { count }));
     state.datasetId = "__custom__";
     panel.setDatasets(state.datasets, "__custom__");
     installGraph(doc, dirHandle.name);
@@ -297,7 +317,7 @@ async function loadLocalFolder() {
 async function loadGithubRepo(spec) {
   setStatus("app.fetchingFiles", { done: 0, total: "?" });
   try {
-    const doc = await analyzeGithubRepo(spec, { onProgress: (done, total) => setStatus("app.fetchingFiles", { done, total }) });
+    const doc = await runAnalysisInWorker("github", { spec }, {}, (done, total) => setStatus("app.fetchingFiles", { done, total }));
     state.datasetId = "__custom__";
     panel.setDatasets(state.datasets, "__custom__");
     installGraph(doc, spec);

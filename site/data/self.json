@@ -3,9 +3,9 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-07T00:20:10.607Z",
+  "generatedAt": "2026-09-07T02:05:44.654Z",
   "analyzer": "analyzers/ts@0.4.0",
-  "files": 30
+  "files": 31
  },
  "declarations": [
   {
@@ -297,11 +297,20 @@
    "exported": false
   },
   {
+   "id": "site/js/analyzeWorker.js::<module>",
+   "name": "analyzeWorker",
+   "kind": "module",
+   "file": "site/js/analyzeWorker.js",
+   "line": 15,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "site/js/app.js::<module>",
    "name": "app",
    "kind": "module",
    "file": "site/js/app.js",
-   "line": 42,
+   "line": 40,
    "parent": null,
    "exported": false
   },
@@ -310,7 +319,7 @@
    "name": "applyKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 150,
+   "line": 148,
    "parent": null,
    "exported": false
   },
@@ -319,7 +328,7 @@
    "name": "applyStaticTranslations",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 58,
+   "line": 56,
    "parent": null,
    "exported": false
   },
@@ -328,7 +337,7 @@
    "name": "ensureTicking",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 197,
+   "line": 195,
    "parent": null,
    "exported": false
   },
@@ -337,7 +346,7 @@
    "name": "installGraph",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 211,
+   "line": 209,
    "parent": null,
    "exported": false
   },
@@ -346,7 +355,7 @@
    "name": "languageSelect",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 38,
+   "line": 36,
    "parent": null,
    "exported": false
   },
@@ -355,7 +364,7 @@
    "name": "value",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 54,
+   "line": 52,
    "parent": "site/js/app.js::languageSelect",
    "exported": false
   },
@@ -364,7 +373,7 @@
    "name": "loadDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 240,
+   "line": 238,
    "parent": null,
    "exported": false
   },
@@ -373,7 +382,7 @@
    "name": "loadFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 259,
+   "line": 257,
    "parent": null,
    "exported": false
   },
@@ -382,17 +391,8 @@
    "name": "loadGithubRepo",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 297,
+   "line": 317,
    "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/app.js::loadGithubRepo/onProgress",
-   "name": "onProgress",
-   "kind": "function",
-   "file": "site/js/app.js",
-   "line": 300,
-   "parent": "site/js/app.js::loadGithubRepo",
    "exported": false
   },
   {
@@ -400,17 +400,8 @@
    "name": "loadLocalFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 279,
+   "line": 299,
    "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/app.js::loadLocalFolder/onProgress",
-   "name": "onProgress",
-   "kind": "function",
-   "file": "site/js/app.js",
-   "line": 288,
-   "parent": "site/js/app.js::loadLocalFolder",
    "exported": false
   },
   {
@@ -418,7 +409,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 309,
+   "line": 329,
    "parent": null,
    "exported": false
   },
@@ -427,7 +418,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 323,
+   "line": 343,
    "parent": null,
    "exported": false
   },
@@ -436,7 +427,7 @@
    "name": "panel",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 93,
+   "line": 91,
    "parent": null,
    "exported": false
   },
@@ -445,7 +436,7 @@
    "name": "onAutoRotate",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 140,
+   "line": 138,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -454,7 +445,7 @@
    "name": "onColorBy",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 128,
+   "line": 126,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -463,7 +454,7 @@
    "name": "onDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 94,
+   "line": 92,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -472,7 +463,7 @@
    "name": "onFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 95,
+   "line": 93,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -481,7 +472,7 @@
    "name": "onFit",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 113,
+   "line": 111,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -490,7 +481,7 @@
    "name": "onFocusNode",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 146,
+   "line": 144,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -499,7 +490,7 @@
    "name": "onGithub",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 97,
+   "line": 95,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -508,7 +499,7 @@
    "name": "onKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 123,
+   "line": 121,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -517,7 +508,7 @@
    "name": "onLabels",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 119,
+   "line": 117,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -526,7 +517,7 @@
    "name": "onLayerGap",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 132,
+   "line": 130,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -535,7 +526,7 @@
    "name": "onOpenFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 96,
+   "line": 94,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -544,7 +535,7 @@
    "name": "onPhysics",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 98,
+   "line": 96,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -553,7 +544,7 @@
    "name": "onReheat",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 107,
+   "line": 105,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -562,7 +553,7 @@
    "name": "onReset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 108,
+   "line": 106,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -571,7 +562,7 @@
    "name": "onSelectNode",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 145,
+   "line": 143,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -580,7 +571,7 @@
    "name": "onShowLayers",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 136,
+   "line": 134,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -589,7 +580,7 @@
    "name": "onTop",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 114,
+   "line": 112,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -598,7 +589,7 @@
    "name": "onZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 115,
+   "line": 113,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -607,7 +598,7 @@
    "name": "renderer",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 65,
+   "line": 63,
    "parent": null,
    "exported": false
   },
@@ -616,7 +607,7 @@
    "name": "rendererCallbacks",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 67,
+   "line": 65,
    "parent": null,
    "exported": false
   },
@@ -625,7 +616,7 @@
    "name": "onDragEnd",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 71,
+   "line": 69,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -634,7 +625,7 @@
    "name": "onDragStart",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 70,
+   "line": 68,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -643,7 +634,7 @@
    "name": "onHover",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 72,
+   "line": 70,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -652,8 +643,17 @@
    "name": "onSelect",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 69,
+   "line": 67,
    "parent": "site/js/app.js::rendererCallbacks",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::runAnalysisInWorker",
+   "name": "runAnalysisInWorker",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 277,
+   "parent": null,
    "exported": false
   },
   {
@@ -661,7 +661,7 @@
    "name": "savedLanguage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 41,
+   "line": 39,
    "parent": null,
    "exported": false
   },
@@ -670,7 +670,7 @@
    "name": "setStatus",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 174,
+   "line": 172,
    "parent": null,
    "exported": false
   },
@@ -679,7 +679,7 @@
    "name": "stage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 35,
+   "line": 33,
    "parent": null,
    "exported": false
   },
@@ -688,7 +688,7 @@
    "name": "state",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 14,
+   "line": 12,
    "parent": null,
    "exported": false
   },
@@ -697,7 +697,7 @@
    "name": "status",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 37,
+   "line": 35,
    "parent": null,
    "exported": false
   },
@@ -706,7 +706,7 @@
    "name": "statusMessage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 173,
+   "line": 171,
    "parent": null,
    "exported": false
   },
@@ -715,7 +715,7 @@
    "name": "ticking",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 196,
+   "line": 194,
    "parent": null,
    "exported": false
   },
@@ -724,7 +724,7 @@
    "name": "tooltip",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 36,
+   "line": 34,
    "parent": null,
    "exported": false
   },
@@ -733,7 +733,7 @@
    "name": "updateZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 167,
+   "line": 165,
    "parent": null,
    "exported": false
   },
@@ -967,7 +967,7 @@
    "name": "analyzeFiles",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 103,
+   "line": 120,
    "parent": null,
    "exported": true
   },
@@ -976,7 +976,7 @@
    "name": "compilerOptions",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 33,
+   "line": 50,
    "parent": null,
    "exported": false
   },
@@ -985,7 +985,7 @@
    "name": "createHost",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 74,
+   "line": 91,
    "parent": null,
    "exported": false
   },
@@ -994,7 +994,7 @@
    "name": "directoryExists",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 93,
+   "line": 110,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1003,7 +1003,7 @@
    "name": "fileExists",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 91,
+   "line": 108,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1012,7 +1012,7 @@
    "name": "getCanonicalFileName",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 88,
+   "line": 105,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1021,7 +1021,7 @@
    "name": "getCurrentDirectory",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 87,
+   "line": 104,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1030,7 +1030,7 @@
    "name": "getDefaultLibFileName",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 85,
+   "line": 102,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1039,7 +1039,7 @@
    "name": "getDirectories",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 94,
+   "line": 111,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1048,7 +1048,7 @@
    "name": "getNewLine",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 90,
+   "line": 107,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1057,7 +1057,7 @@
    "name": "getSourceFile",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 78,
+   "line": 95,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1066,7 +1066,7 @@
    "name": "readFile",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 92,
+   "line": 109,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1075,7 +1075,7 @@
    "name": "useCaseSensitiveFileNames",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 89,
+   "line": 106,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1084,7 +1084,7 @@
    "name": "writeFile",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 86,
+   "line": 103,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1093,7 +1093,7 @@
    "name": "libCache",
    "kind": "variable",
    "file": "site/js/browserAnalyzer.js",
-   "line": 49,
+   "line": 66,
    "parent": null,
    "exported": false
   },
@@ -1102,7 +1102,7 @@
    "name": "loadLibClosure",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 59,
+   "line": 76,
    "parent": null,
    "exported": false
   },
@@ -1111,7 +1111,7 @@
    "name": "loadTypeScript",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 21,
+   "line": 34,
    "parent": null,
    "exported": true
   },
@@ -1120,7 +1120,7 @@
    "name": "readLib",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 50,
+   "line": 67,
    "parent": null,
    "exported": false
   },
@@ -1129,7 +1129,16 @@
    "name": "tsPromise",
    "kind": "variable",
    "file": "site/js/browserAnalyzer.js",
-   "line": 19,
+   "line": 32,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::vendorUrl",
+   "name": "vendorUrl",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 28,
    "parent": null,
    "exported": false
   },
@@ -2824,6 +2833,20 @@
    "time": "definition"
   },
   {
+   "source": "site/js/analyzeWorker.js::<module>",
+   "target": "site/js/githubAnalyzer.js::analyzeGithubRepo",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/analyzeWorker.js::<module>",
+   "target": "site/js/localAnalyzer.js::analyzeLocalFolder",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/app.js::<module>",
    "target": "site/js/app.js::applyStaticTranslations",
    "kind": "call",
@@ -3324,9 +3347,16 @@
   },
   {
    "source": "site/js/app.js::loadGithubRepo",
+   "target": "site/js/app.js::runAnalysisInWorker",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo",
    "target": "site/js/app.js::setStatus",
    "kind": "call",
-   "count": 2,
+   "count": 3,
    "time": "use"
   },
   {
@@ -3338,21 +3368,7 @@
   },
   {
    "source": "site/js/app.js::loadGithubRepo",
-   "target": "site/js/githubAnalyzer.js::analyzeGithubRepo",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadGithubRepo",
    "target": "site/js/panel.js::Panel.setDatasets",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadGithubRepo/onProgress",
-   "target": "site/js/app.js::setStatus",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -3373,9 +3389,16 @@
   },
   {
    "source": "site/js/app.js::loadLocalFolder",
+   "target": "site/js/app.js::runAnalysisInWorker",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder",
    "target": "site/js/app.js::setStatus",
    "kind": "call",
-   "count": 2,
+   "count": 3,
    "time": "use"
   },
   {
@@ -3387,21 +3410,7 @@
   },
   {
    "source": "site/js/app.js::loadLocalFolder",
-   "target": "site/js/localAnalyzer.js::analyzeLocalFolder",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadLocalFolder",
    "target": "site/js/panel.js::Panel.setDatasets",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadLocalFolder/onProgress",
-   "target": "site/js/app.js::setStatus",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -4488,10 +4497,24 @@
    "time": "use"
   },
   {
+   "source": "site/js/browserAnalyzer.js::loadTypeScript",
+   "target": "site/js/browserAnalyzer.js::vendorUrl",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
    "source": "site/js/browserAnalyzer.js::readLib",
    "target": "site/js/browserAnalyzer.js::libCache",
    "kind": "reference",
    "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::readLib",
+   "target": "site/js/browserAnalyzer.js::vendorUrl",
+   "kind": "call",
+   "count": 1,
    "time": "use"
   },
   {
