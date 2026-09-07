@@ -318,12 +318,19 @@ one that is still rearranging itself.
 ## Zones
 
 Containers are derived from file paths: every directory prefix is a container,
-the file itself is the innermost one. A single depth slider chooses how many
-levels are drawn: 0 draws nothing, 1 the top-level directories, and so on down
-to the files, which count as one level below their directory (a file at the
-repository root has depth 1). A container whose node set is identical to its
-visible parent is skipped so a directory with a single file does not produce
-two identical hulls.
+the file itself is the innermost one, one level below its directory (a file
+at the repository root has depth 1). A two-handled range slider (`Panel`'s
+`rangeSlider`) chooses which *band* of levels is drawn, not just a single
+cutoff: both handles start at 0, showing nothing, since no container is
+actually at depth 0; dragging only the high handle reveals outward from the
+top the way a single depth slider always did (1 the top-level directories,
+and so on down to the files at the maximum), but the low handle can also
+raise the *outer* edge of the band — showing, say, only the directories two
+levels down, with nothing enclosing them drawn at all, which a single cutoff
+could never express. A container whose node set is identical to its visible
+parent is skipped so a directory with a single file does not produce two
+identical hulls, but only when that parent is *also* inside the chosen band;
+outside it there is no second hull to collide with, so the container draws.
 
 Each zone is the convex hull of its members' positions, padded by expanding
 every point into a small octagon before hulling and drawn as a plain closed
@@ -355,21 +362,18 @@ The projection is a small hand-written orbit camera (yaw, pitch, perspective)
 on a 2D canvas; no WebGL dependency is needed for a few thousand nodes. Pitch
 is unbounded, not clamped to a single hemisphere: dragging past straight
 up/down continues the orbit into a full vertical loop rather than stopping,
-the same way yaw already spins all the way around. It is kept away from
-every *level* orientation (pitch a multiple of `PI`, not just 0): at those
-elevations the camera's forward axis is horizontal, so height never
-contributes to the perspective divide and the call-height axis would render
-with no depth cue at all (true of any look-at camera, not just this one). A
-minimum elevation keeps that axis visibly foreshortened everywhere else on
-the loop. Pushing a candidate pitch back out of that dead zone snaps it
-toward the edge in the *direction it was already moving* (the sign of
-`newPitch - oldPitch`), not toward whichever edge the raw candidate happens
-to be nearest: snapping to the nearest edge instead would put a drag that
-enters the zone from one side right back where it started on the very next
-small step — a wall the orbit could only cross by jumping it outright in one
-oversized step — while snapping in the direction of travel carries any step
-size through the level orientation the same way an unclamped pass through it
-would.
+the same way yaw already spins all the way around, and it is never pushed
+away from a *level* orientation either (pitch a multiple of `PI`): at those
+elevations the camera's forward axis is horizontal, so height stops
+contributing to the perspective divide and the layer planes (drawn edge-on)
+flatten to lines for that one instant (true of any look-at camera, not just
+this one). An earlier version kept pitch a fixed distance away from every
+such point to avoid that, which traded a momentary, purely cosmetic flattening
+for a real interaction bug: since an orbit drag can only land on discrete
+steps, a value that must stay outside a band has to skip over it however
+small the step is, so every crossing became a sudden angular jump — worse
+than the flattening it was avoiding, and for something a continuous orbit
+only ever shows for a single frame anyway.
 
 Orbiting reads `pointermove` while a drag is down, letting `setPointerCapture`
 (acquired on `pointerdown`) keep delivering events once the cursor leaves the
@@ -390,7 +394,19 @@ to extent keeps the lens "normal" regardless of how far the `1/d` repulsion
 happens to spread a given graph. Points whose scale would still exceed
 `MAX_MAGNIFICATION` are left undrawn rather than magnified without bound —
 a real camera doesn't render what's pressed against the lens, it just falls
-out of frame.
+out of frame. A layer plane's own corners use `projectClamped()` instead,
+which clamps to that same boundary scale rather than leaving a corner out:
+dropping an entire plane because one corner alone would have clipped made a
+layer disappear far more often than any single node would, so a background
+shape like this is drawn at whatever scale the near plane allows rather than
+not at all. Always drawing the full plane this way means it can now cover
+much of the screen at a steep angle or up close, so its fill and stroke fade
+outward (a radial gradient) from wherever the camera's own `target` projects
+onto that height instead of one flat colour throughout — what the camera is
+actually looking at stays crisp, the rest recedes like fog, rather than
+every pixel of a plane that might span the whole view competing at the same
+strength regardless of how far off-focus it is. `layerFade` (View & Physics)
+turns this off in favour of the older flat fill.
 
 The orbit camera doesn't pivot on the world origin; it pivots on an explicit
 `target` point that always projects to screen centre regardless of yaw or

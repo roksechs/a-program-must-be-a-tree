@@ -42,7 +42,7 @@ const STRINGS = {
     "article.selection.node": "{name} ({kind}) — in {in} / out {out}, height {height}",
 
     "section.data": "Data",
-    "section.view": "View",
+    "section.view": "View & Physics",
     "section.edges": "Edges",
     "section.physics": "Physics",
     "section.zones": "Zones",
@@ -80,6 +80,7 @@ const STRINGS = {
     "edge.override": "override",
     "view.layerGap": "Layer gap",
     "view.layerPlanes": "Layer planes",
+    "view.layerFade": "Fade layers by focus",
     "view.autoRotate": "Auto-rotate",
     "view.fit": "Fit to view",
     "view.top": "Top view",
@@ -92,8 +93,8 @@ const STRINGS = {
     "physics.restLength": "Spring rest length",
     "physics.help": "Repulsion between every pair of nodes is inversely proportional to their distance, at any distance, and every edge is a spring whose pull is proportional to its length. Those are the only two forces: no point is a centre and nothing pulls towards one, so declarations end up close together only when edges hold them there. Directories and files never influence the layout. Use Recompute when the layout gets stuck in an early configuration, and Fit to view to bring the result back on screen.",
 
-    "zones.depth": "Directory / file depth",
-    "zones.help": "Depth 0 hides all zones; each step reveals one more level of directories, and the maximum also shows the files. Zones are convex hulls around the declarations they contain and have no effect on the physics.",
+    "zones.depth": "Directory / file depth range",
+    "zones.help": "Both handles start at 0, showing no zones. The low handle is the outermost level shown, the high handle the innermost (the maximum reaches the files); dragging only the high handle keeps revealing outward from the top like before, but the low handle can also show an inner band — a directory two levels down, say — without its outer directories drawn at all. Zones are convex hulls around the declarations they contain and have no effect on the physics.",
 
     "metric.treeScore": "Tree score",
     "metric.treeScore.hint": "Average of the five ratios below.",
@@ -204,7 +205,7 @@ const STRINGS = {
     "article.selection.node": "{name}（{kind}）— 入 {in} / 出 {out}、高さ {height}",
 
     "section.data": "データ",
-    "section.view": "表示",
+    "section.view": "表示・物理",
     "section.edges": "エッジ",
     "section.physics": "物理",
     "section.zones": "ゾーン",
@@ -242,6 +243,7 @@ const STRINGS = {
     "edge.override": "オーバーライド",
     "view.layerGap": "層の間隔",
     "view.layerPlanes": "層の平面",
+    "view.layerFade": "フォーカスで層をぼかす",
     "view.autoRotate": "自動回転",
     "view.fit": "全体表示",
     "view.top": "真上から見る",
@@ -254,8 +256,8 @@ const STRINGS = {
     "physics.restLength": "ばねの自然長",
     "physics.help": "すべてのノード対には距離に反比例する斥力が、どれだけ離れていても働きます。各エッジは長さに比例して引き合うばねです。力はこの 2 つだけで、中心となる点も、そこへ引き寄せる力もありません。近くに集まっている宣言は、エッジがそこに留めているからそこにあります。ディレクトリやファイルは配置に一切影響しません。初期の反復で引っかかった配置になったときは再計算を、画面外に出たときは表示に合わせるを押してください。",
 
-    "zones.depth": "ディレクトリ / ファイル深さ",
-    "zones.help": "深さ 0 ですべてのゾーンを非表示、1 段階ごとにディレクトリを 1 階層ずつ表示し、最大でファイルまで表示します。ゾーンは含まれる宣言を囲む凸包で、物理には一切影響しません。",
+    "zones.depth": "ディレクトリ / ファイル深さの範囲",
+    "zones.help": "両方のハンドルは初期状態で 0 にあり、ゾーンは何も表示されません。下限ハンドルが表示する最も外側の階層、上限ハンドルが最も内側の階層(最大でファイルまで)です。上限ハンドルだけを動かせば従来どおり外側から段階的に表示できますが、下限ハンドルを使えば、例えば2階層下のディレクトリだけを、外側のディレクトリを表示せずに見せることもできます。ゾーンは含まれる宣言を囲む凸包で、物理には一切影響しません。",
 
     "metric.treeScore": "木スコア",
     "metric.treeScore.hint": "下の 5 つの比率の平均。",

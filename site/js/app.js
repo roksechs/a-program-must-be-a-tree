@@ -16,8 +16,13 @@ const state = {
   colorBy: "kind",
   layerGap: 80,
   showLayers: true,
+  layerFade: true,
   autoRotate: false,
-  zoneDepth: 2,
+  // No container has depth 0 (1 = top-level directory, model.js's
+  // buildContainers), so this range starts as empty on purpose: nothing
+  // drawn until the user asks for a band of it.
+  zoneMinDepth: 0,
+  zoneMaxDepth: 0,
   // Enabled edge kinds. An enabled kind is drawn, acts as a spring and counts
   // for degrees, call heights and the diagnostics; a disabled kind does none
   // of these. Every kind starts enabled (see kinds.js); `write`'s reversed
@@ -116,8 +121,9 @@ const panel = new Panel(document.getElementById("panel"), state, {
   },
   onFit: () => renderer.fit(),
   onTop: () => renderer.viewTop(),
-  onZones: (depth) => {
-    state.zoneDepth = depth;
+  onZones: (minDepth, maxDepth) => {
+    state.zoneMinDepth = minDepth;
+    state.zoneMaxDepth = maxDepth;
     updateZones();
   },
   onLabels: (mode) => {
@@ -140,6 +146,10 @@ const panel = new Panel(document.getElementById("panel"), state, {
   onShowLayers: (show) => {
     state.showLayers = show;
     renderer.setShowLayers(show);
+  },
+  onLayerFade: (fade) => {
+    state.layerFade = fade;
+    renderer.setLayerFade(fade);
   },
   onAutoRotate: (on) => {
     state.autoRotate = on;
@@ -170,7 +180,7 @@ function applyKinds() {
 
 function updateZones() {
   if (!state.graph) return;
-  const containers = visibleContainers(state.graph, state.zoneDepth);
+  const containers = visibleContainers(state.graph, state.zoneMinDepth, state.zoneMaxDepth);
   renderer.setZones(containers);
 }
 
@@ -219,14 +229,15 @@ function installGraph(doc, label) {
   state.physics.springKinds = new Set(state.kinds);
   state.graph = graph;
   state.maxDepth = graph.maxDepth;
-  state.zoneDepth = Math.min(state.zoneDepth, graph.maxDepth);
+  state.zoneMinDepth = Math.min(state.zoneMinDepth, graph.maxDepth);
+  state.zoneMaxDepth = Math.min(state.zoneMaxDepth, graph.maxDepth);
   seedPositions(graph);
 
   renderer.setGraph(graph);
   renderer.setLabelMode(state.labelMode);
   renderer.setColorBy(state.colorBy);
   renderer.setVisibleKinds(state.kinds);
-  panel.setMaxDepth(graph.maxDepth, state.zoneDepth);
+  panel.setMaxDepth(graph.maxDepth, state.zoneMinDepth, state.zoneMaxDepth);
   panel.setMetrics(graph);
   panel.setSelection(null, graph);
   panel.setDataInfo({ label, nodes: graph.nodes.length, edges: graph.links.length, files: graph.containers.filter((c) => c.isFile).length });

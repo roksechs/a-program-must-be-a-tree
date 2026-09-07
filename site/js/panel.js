@@ -15,7 +15,7 @@ export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -67,6 +67,48 @@ export class Panel {
     return row;
   }
 
+  /**
+   * Two-handled range: two overlapping native `<input type=range>` sharing
+   * one visual track (only their thumbs are interactive — the tracks
+   * themselves are transparent, see styles.css's `.dual-slider`), plus a
+   * `.range-fill` bar redrawn on every change to show the selected span.
+   * Each handle refuses to cross the other rather than swap places, so
+   * "low" and "high" always mean what their own thumb suggests.
+   */
+  rangeSlider(label, lo, hi, min, max, step, onChange, format = (v) => v) {
+    const out = this.el("output", {}, `${format(lo)}–${format(hi)}`);
+    const fill = this.el("div", { class: "range-fill" });
+    const track = this.el("div", { class: "range-track" });
+    const minInput = this.el("input", { type: "range", min, max, step, value: lo });
+    const maxInput = this.el("input", { type: "range", min, max, step, value: hi });
+    const pct = (v) => (max > min ? ((v - min) / (max - min)) * 100 : 0);
+    const refresh = () => {
+      const a = Number(minInput.value);
+      const b = Number(maxInput.value);
+      fill.style.left = `${pct(a)}%`;
+      fill.style.width = `${Math.max(0, pct(b) - pct(a))}%`;
+      out.textContent = `${format(a)}–${format(b)}`;
+    };
+    minInput.addEventListener("input", () => {
+      if (Number(minInput.value) > Number(maxInput.value)) minInput.value = maxInput.value;
+      refresh();
+      onChange(Number(minInput.value), Number(maxInput.value));
+    });
+    maxInput.addEventListener("input", () => {
+      if (Number(maxInput.value) < Number(minInput.value)) maxInput.value = minInput.value;
+      refresh();
+      onChange(Number(minInput.value), Number(maxInput.value));
+    });
+    refresh();
+    const wrap = this.el("div", { class: "dual-slider" }, track, fill, minInput, maxInput);
+    const row = this.el("label", { class: "control" }, this.el("span", {}, label), wrap, out);
+    row.minInput = minInput;
+    row.maxInput = maxInput;
+    row.output = out;
+    row.refresh = refresh;
+    return row;
+  }
+
   select(options, current, onChange) {
     const sel = this.el("select", { onchange: (e) => onChange(e.target.value) });
     for (const [value, label] of options) sel.append(this.el("option", { value, selected: current === value ? "" : null }, label));
@@ -80,7 +122,7 @@ export class Panel {
     if (this.dataInfo) this.setDataInfo(this.dataInfo);
     this.setRecent(this.recent);
     if (this.graph) {
-      this.setMaxDepth(this.state.maxDepth, this.state.zoneDepth);
+      this.setMaxDepth(this.state.maxDepth, this.state.zoneMinDepth, this.state.zoneMaxDepth);
       this.setMetrics(this.graph);
       this.setSelection(this.selected, this.graph);
     }
@@ -171,7 +213,9 @@ export class Panel {
       ),
     );
 
-    // View
+    // View & Physics: what the camera shows and how the layout moves are two
+    // faces of one section, not two separate ones — merged so both are one
+    // scroll away from each other instead of split by the Edges section.
     const labelSelect = this.select(
       ["auto", "all", "none"].map((m) => [m, t(`view.labels.${m}`)]),
       s.labelMode,
@@ -184,6 +228,7 @@ export class Panel {
     );
     this.layerGap = this.slider(t("view.layerGap"), "layerGap", 10, 300, 5, h.onLayerGap);
     const layers = this.el("input", { type: "checkbox", checked: s.showLayers ? "" : null, onchange: (e) => h.onShowLayers(e.target.checked) });
+    const layerFade = this.el("input", { type: "checkbox", checked: s.layerFade ? "" : null, onchange: (e) => h.onLayerFade(e.target.checked) });
     const rotate = this.el("input", { type: "checkbox", checked: s.autoRotate ? "" : null, onchange: (e) => h.onAutoRotate(e.target.checked) });
     this.host.append(
       this.section(
@@ -192,6 +237,7 @@ export class Panel {
         this.el("label", { class: "control" }, this.el("span", {}, t("view.colourBy")), colorSelect),
         this.layerGap,
         this.el("label", { class: "control" }, this.el("span", {}, t("view.layerPlanes")), layers),
+        this.el("label", { class: "control" }, this.el("span", {}, t("view.layerFade")), layerFade),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.autoRotate")), rotate),
         this.el(
           "div",
@@ -200,21 +246,7 @@ export class Panel {
           this.el("button", { type: "button", onclick: h.onTop }, t("view.top")),
         ),
         this.el("p", { class: "muted small" }, t("view.help")),
-      ),
-    );
-
-    // Edges: one switch per kind; it drives drawing, springs and diagnostics together.
-    const kindList = this.el("div", { class: "kind-list" });
-    for (const kind of EDGE_KINDS) {
-      const box = this.el("input", { type: "checkbox", checked: s.kinds.has(kind) ? "" : null, onchange: (e) => h.onKinds(kind, e.target.checked) });
-      kindList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
-    }
-    this.host.append(this.section(t("section.edges"), kindList, this.el("p", { class: "muted small" }, t("edges.help"))));
-
-    // Physics
-    this.host.append(
-      this.section(
-        t("section.physics"),
+        this.el("h3", {}, t("section.physics")),
         this.el(
           "div",
           { class: "buttons" },
@@ -228,8 +260,16 @@ export class Panel {
       ),
     );
 
+    // Edges: one switch per kind; it drives drawing, springs and diagnostics together.
+    const kindList = this.el("div", { class: "kind-list" });
+    for (const kind of EDGE_KINDS) {
+      const box = this.el("input", { type: "checkbox", checked: s.kinds.has(kind) ? "" : null, onchange: (e) => h.onKinds(kind, e.target.checked) });
+      kindList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
+    }
+    this.host.append(this.section(t("section.edges"), kindList, this.el("p", { class: "muted small" }, t("edges.help"))));
+
     // Zones
-    this.depthSlider = this.slider(t("zones.depth"), "zoneDepth", 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => `${v} / ${s.maxDepth}`);
+    this.depthSlider = this.rangeSlider(t("zones.depth"), s.zoneMinDepth, s.zoneMaxDepth, 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => v);
     this.host.append(this.section(t("section.zones"), this.depthSlider, this.el("p", { class: "muted small" }, t("zones.help"))));
 
     // Diagnostics
@@ -300,11 +340,14 @@ export class Panel {
     }
   }
 
-  setMaxDepth(maxDepth, value) {
+  setMaxDepth(maxDepth, minValue, maxValue) {
     this.state.maxDepth = maxDepth;
-    this.depthSlider.input.max = String(Math.max(0, maxDepth));
-    this.depthSlider.input.value = String(value);
-    this.depthSlider.output.textContent = `${value} / ${maxDepth}`;
+    const cap = String(Math.max(0, maxDepth));
+    this.depthSlider.minInput.max = cap;
+    this.depthSlider.maxInput.max = cap;
+    this.depthSlider.minInput.value = String(minValue);
+    this.depthSlider.maxInput.value = String(maxValue);
+    this.depthSlider.refresh();
   }
 
   setMetrics(graph) {

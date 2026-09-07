@@ -7,14 +7,6 @@ import { EDGE_KINDS, edgeBowOffset, edgeColor, heightColor, kindColor, zoneColor
 import { t } from "./i18n.js";
 import { hullPath } from "./zones.js";
 
-// Smallest distance, in radians, that pitch is kept away from a level view.
-// Camera elevation is periodic every PI, not just 2*PI (see clampPitch), and
-// at each of those points the height axis carries no perspective at all (see
-// the constructor); this keeps pitch just off every one of those dead spots
-// without stopping the camera from getting close to level, or from orbiting
-// all the way through a full vertical loop.
-const MIN_PITCH = 0.15;
-
 // focal is kept proportional to the graph's own extent (set in fit(), below)
 // rather than a fixed world-unit constant: a focal length that's small next
 // to the content's actual size lets ordinary orbiting bring a node's depth
@@ -42,18 +34,28 @@ export class Graph3D {
     this.visibleKinds = new Set(EDGE_KINDS);
     this.layerGap = 80;
     this.showLayers = true;
+    // Whether a layer plane's fill/stroke fades out away from the camera's
+    // own focus (see draw()) rather than a single flat colour everywhere —
+    // needed once a plane always draws in full (projectClamped()) instead of
+    // disappearing the moment any one corner would have clipped.
+    this.layerFade = true;
     this.autoRotate = false;
 
     this.yaw = -0.6;
     // Camera elevation above the ground plane: 0 = looking horizontally,
     // +PI/2 = straight down from above, -PI/2 = straight up from below, and
     // it keeps going past there — orbiting over the top or under the bottom
-    // continues the loop rather than stopping, so every angle is reachable.
-    // Kept away from exactly level (a multiple of PI): at those elevations
-    // the camera's forward axis is horizontal, so height never contributes
-    // to depth and the call-height axis would render with no perspective at
-    // all (a real pinhole camera has the same dead spot). MIN_PITCH keeps
-    // some of it visible at every elevation.
+    // continues the loop rather than stopping, so every angle is reachable,
+    // including exactly level. At a level elevation the camera's forward
+    // axis is horizontal, so height stops contributing to depth (the layer
+    // planes, drawn edge-on, briefly flatten to lines — see draw()) the same
+    // way a real pinhole camera has the same momentary dead spot; earlier
+    // versions kept pitch a fixed distance away from every such point to
+    // avoid it, which instead made crossing one a sudden jump (an orbit drag
+    // can only sample discrete steps, so a value forced to stay outside a
+    // band has to skip over it, however small the step) for a flaw that is
+    // only ever visible for the single instant a continuous orbit passes
+    // through the exact angle anyway.
     this.pitch = 0.9;
     // True while showing the "Top view" preset: a perspective-free look
     // straight down the height axis (see viewTop()), which is what a purely
@@ -143,7 +145,7 @@ export class Graph3D {
           this.targetZ -= ddy * cp;
         } else {
           this.yaw += dx * 0.008;
-          this.pitch = clampPitch(this.pitch + dy * 0.006, this.pitch);
+          this.pitch += dy * 0.006;
           // Orbiting is a deliberate move away from the flat top-down pose.
           this.orthographic = false;
         }
@@ -247,6 +249,11 @@ export class Graph3D {
     this.draw();
   }
 
+  setLayerFade(fade) {
+    this.layerFade = fade;
+    this.draw();
+  }
+
   setShowLayers(show) {
     this.showLayers = show;
     this.draw();
@@ -268,7 +275,8 @@ export class Graph3D {
    * target, target itself always projects to screen centre (X = Y = 0)
    * regardless of yaw/pitch — orbiting never drifts it away from centre.
    */
-  project(x, y, z) {
+  /** The rotation (yaw then pitch) project() and projectClamped() share, before either decides how to turn depth into scale. */
+  viewSpace(x, y, z) {
     const rx = x - this.targetX;
     const ry = y - this.targetY;
     const rz = z - this.targetZ;
@@ -278,8 +286,11 @@ export class Graph3D {
     const Y = rx * sy + ry * cy;
     const cp = Math.cos(this.pitch);
     const sp = Math.sin(this.pitch);
-    const screenUp = Y * sp + rz * cp;
-    const depth = Y * cp - rz * sp; // distance along the view direction; negative = nearer than target
+    return { X, screenUp: Y * sp + rz * cp, depth: Y * cp - rz * sp };
+  }
+
+  project(x, y, z) {
+    const { X, screenUp, depth } = this.viewSpace(x, y, z);
     // Orthographic (Top view, see viewTop()): every point scales the same
     // regardless of depth, exactly like a 2D top-down drawing of the x/y
     // layout — there is no near plane to clip against either.
@@ -299,6 +310,24 @@ export class Graph3D {
       depth,
       clipped: false,
     };
+  }
+
+  /**
+   * Like project(), but a point past the near plane is drawn at the
+   * boundary's own scale instead of being left out — appropriate for a large
+   * background shape (a layer plane's corner) where "very stretched" still
+   * reads fine, unlike a node or an edge, which really should just fall out
+   * of frame (see project() and MAX_MAGNIFICATION). Never returns `clipped`.
+   */
+  projectClamped(x, y, z) {
+    const { X, screenUp, depth } = this.viewSpace(x, y, z);
+    if (this.orthographic) {
+      const scale = this.zoomK;
+      return { x: this.width / 2 + X * scale, y: this.height / 2 - screenUp * scale, scale, depth };
+    }
+    const focalDepth = Math.max(this.focal + depth, this.focal / MAX_MAGNIFICATION);
+    const scale = (this.focal / focalDepth) * this.zoomK;
+    return { x: this.width / 2 + X * scale, y: this.height / 2 - screenUp * scale, scale, depth };
   }
 
   zOf(node) {
@@ -376,19 +405,37 @@ export class Graph3D {
       y1 += pad;
       for (let h = 0; h <= this.maxHeight; h++) {
         const z = h * this.layerGap;
+        // projectClamped(), not project(): a plane corner past the near
+        // plane is still drawn, at the boundary's own scale, rather than
+        // making the whole plane disappear just because one corner would
+        // have been clipped as a node or edge would be (see MAX_MAGNIFICATION).
         const corners = [
-          this.project(x0, y0, z),
-          this.project(x1, y0, z),
-          this.project(x1, y1, z),
-          this.project(x0, y1, z),
+          this.projectClamped(x0, y0, z),
+          this.projectClamped(x1, y0, z),
+          this.projectClamped(x1, y1, z),
+          this.projectClamped(x0, y1, z),
         ];
-        if (corners.some((c) => c.clipped)) continue;
         ctx.beginPath();
         ctx.moveTo(corners[0].x, corners[0].y);
         for (let i = 1; i < 4; i++) ctx.lineTo(corners[i].x, corners[i].y);
         ctx.closePath();
-        ctx.fillStyle = "rgba(100, 116, 139, 0.04)";
-        ctx.strokeStyle = "rgba(100, 116, 139, 0.25)";
+        if (this.layerFade) {
+          // Always drawing the full plane (above) means it can now cover
+          // most of the screen at a steep angle or close up — a flat fill
+          // over that much area reads as a wash of solid colour instead of
+          // a frame. Fading outward from the camera's own focus (`target`,
+          // projected onto this same height) keeps what the camera is
+          // actually looking at crisp while the rest recedes, the way
+          // distance fog does, instead of every pixel competing at the same
+          // strength regardless of how far off-focus it is.
+          const focus = this.projectClamped(this.targetX, this.targetY, z);
+          const radius = Math.max(1, ...corners.map((c) => Math.hypot(c.x - focus.x, c.y - focus.y)));
+          ctx.fillStyle = fadeGradient(ctx, focus, radius, 100, 116, 139, 0.06);
+          ctx.strokeStyle = fadeGradient(ctx, focus, radius, 100, 116, 139, 0.35);
+        } else {
+          ctx.fillStyle = "rgba(100, 116, 139, 0.04)";
+          ctx.strokeStyle = "rgba(100, 116, 139, 0.25)";
+        }
         ctx.lineWidth = 1;
         ctx.fill();
         ctx.stroke();
@@ -553,12 +600,11 @@ export class Graph3D {
   /**
    * Look straight down the height axis with no perspective: yaw stops
    * mattering once pitch points straight down, so only pitch needs setting,
-   * to exactly PI/2 rather than through clampPitch — PI/2 is the view with
-   * the *most* height contribution, not one of the level dead spots
-   * clampPitch pushes away from (see MIN_PITCH). Orbiting away from here
-   * (bindEvents) turns `orthographic` back off, and so does fit() — the two
-   * ways out of Top view mirror the two ways in (bindEvents' orbit, this
-   * method).
+   * to exactly PI/2 — the view with the *most* height contribution, the
+   * opposite end of the range from the level orientations discussed above.
+   * Orbiting away from here (bindEvents) turns `orthographic` back off, and
+   * so does fit() — the two ways out of Top view mirror the two ways in
+   * (bindEvents' orbit, this method).
    */
   viewTop() {
     this.pitch = Math.PI / 2;
@@ -567,28 +613,12 @@ export class Graph3D {
   }
 }
 
-/**
- * Push pitch away from the nearest level orientation (a multiple of PI —
- * see MIN_PITCH) by at least MIN_PITCH, without otherwise bounding its
- * range: unlike a clamp to [-PI/2, PI/2], this lets the camera complete a
- * full vertical loop, orbiting up over the top or down under the bottom and
- * on around, instead of stopping at straight up/down.
- *
- * Snapping `newPitch` to the *nearer* edge of that dead zone (the one on
- * `oldPitch`'s side) would re-snap right back to where it came from on the
- * very next small step — a wall the pitch can never actually cross, only
- * jump clean over given one single step big enough to land past the far
- * edge already. Snapping toward the edge in the direction of travel instead
- * — using the sign of `newPitch - oldPitch`, not `newPitch`'s raw offset —
- * carries the orbit through the level orientation exactly as a step-free
- * pass through would, whatever the step size.
- */
-function clampPitch(newPitch, oldPitch) {
-  const nearestLevel = Math.round(newPitch / Math.PI) * Math.PI;
-  const offset = newPitch - nearestLevel;
-  if (Math.abs(offset) >= MIN_PITCH) return newPitch;
-  const direction = Math.sign(newPitch - oldPitch) || Math.sign(offset) || 1;
-  return nearestLevel + direction * MIN_PITCH;
+/** A radial gradient of `rgba(r,g,b,maxAlpha)` at `center` fading to fully transparent at `radius`. */
+function fadeGradient(ctx, center, radius, r, g, b, maxAlpha) {
+  const gradient = ctx.createRadialGradient(center.x, center.y, 0, center.x, center.y, radius);
+  gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${maxAlpha})`);
+  gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+  return gradient;
 }
 
 /**

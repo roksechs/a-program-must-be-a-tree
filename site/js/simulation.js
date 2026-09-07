@@ -9,16 +9,21 @@
 
 export const DEFAULT_PHYSICS = Object.freeze({
   springKinds: null, // Set of edge kinds that act as springs; null = every kind
-  repulsion: 120, // magnitude of the 1/d repulsion
+  repulsion: 90, // magnitude of the 1/d repulsion
   stiffness: 0.05, // spring constant k in F = k * (d - restLength)
   restLength: 30, // spring rest length in pixels
   // d3's default (0.0228, ~300 ticks per run) cools before a graph of any
   // size has actually settled, especially once every edge kind's springs and
   // a larger repulsion (above) are all pulling and pushing at once. A slower
-  // decay keeps the layout warm for roughly 1200 ticks instead, long enough
+  // decay keeps the layout warm for roughly 2400 ticks instead, long enough
   // to reach a stable shape rather than freezing a half-arranged one.
-  alphaDecay: 0.006,
+  alphaDecay: 0.003,
 });
+
+// d3's own default (0.4) damps velocity fairly hard every tick; a lower
+// value lets the initial layout and a "Recompute (reheat)" swing through
+// more dramatic motion on the way to settling, instead of creeping there.
+export const VELOCITY_DECAY = 0.25;
 
 /**
  * Spring force along edges. Every edge applies a displacement proportional to
@@ -89,7 +94,7 @@ export function createSimulation(graph, physics) {
     .force("spring", forceSpring(graph.links, physics))
     .force("collide", d3.forceCollide().radius((n) => n.radius + 2).iterations(1))
     .alphaDecay(physics.alphaDecay)
-    .velocityDecay(0.4);
+    .velocityDecay(VELOCITY_DECAY);
   return sim;
 }
 

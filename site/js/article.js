@@ -236,7 +236,7 @@ function createFigure(d) {
       renderer.setLabelMode(state.labels);
       renderer.setColorBy("kind");
       renderer.setVisibleKinds(state.kinds);
-      renderer.setZones(visibleContainers(graph, state.zoneDepth ?? Math.min(1, graph.maxDepth)));
+      renderer.setZones(visibleContainers(graph, 0, state.zoneDepth ?? Math.min(1, graph.maxDepth)));
       const physics = { ...DEFAULT_PHYSICS, springKinds: new Set(state.kinds) };
       const sim = createSimulation(graph, physics);
       sim.stop();

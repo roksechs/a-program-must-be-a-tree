@@ -6,6 +6,39 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Camera, physics, and panel refinements
+
+* Removed the 3D camera's `MIN_PITCH` dead zone around level orientations
+  entirely, instead of tuning it: it was fixed to stop the camera getting
+  stuck, but a value forced to stay outside a band can only ever skip over
+  it, so every crossing became a sudden angular jump. Orbiting through
+  exactly level now flattens the layer planes for a single frame — the
+  original, purely cosmetic issue the dead zone existed to avoid — which is
+  a better trade than a jump on every crossing.
+* `call` edges are now blue (`#3b82f6`) instead of a muted grey, which read
+  as an undifferentiated tangle once enough of them were on screen at once
+  (the majority kind in almost every real codebase).
+* Lowered the default repulsion (120 → 90) and the physics decay (weaker
+  `alphaDecay` and a new, lower `velocityDecay`), so the initial layout and
+  a "Recompute (reheat)" move more freely and settle over a longer run
+  instead of damping out quickly.
+* Merged the "View" and "Physics" panel sections into one "View & Physics"
+  section.
+* Layer planes: a plane whose corner would have clipped (as a node or edge
+  does) used to make the *whole* plane disappear; it now draws at the
+  near-plane's own clamped scale instead (`projectClamped`). Since a plane
+  now always draws in full, its fill and stroke fade outward from wherever
+  the camera's own focus point projects onto that height (a new "Fade
+  layers by focus" toggle), instead of one flat colour covering however much
+  of the screen a steep or close-up plane now reaches.
+* The Zones depth control is now a two-handled range slider instead of a
+  single cutoff, both handles starting at 0 (nothing shown, since no
+  container is actually at depth 0). The high handle still reveals outward
+  from the top like the old slider did; the low handle can also raise the
+  band's outer edge to show an inner level — a directory two levels down,
+  say — without any of its enclosing directories drawn at all, which a
+  single cutoff could never express.
+
 ### Analyze Svelte components
 
 * `.svelte` files are now analyzed like any other source file, in the Node

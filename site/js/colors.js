@@ -28,15 +28,17 @@ export function zoneColor(container) {
   return zoneScale(top);
 }
 
-// `call` stays a muted, low-saturation grey on purpose — it is the majority
-// kind in almost every real codebase, and a graph where the single most
-// common edge is also the loudest colour would drown out everything else.
-// Every other kind needs to read as clearly *not* that neutral grey even in
-// a quick glance, which `reference` (a near-identical light grey until this
-// change, and typically the second most common kind by a wide margin — the
-// two together can be nearly the whole graph) did not.
+// `call` is blue: it is the majority kind in almost every real codebase, so
+// it needs a colour clearly its own rather than a shade one squint away from
+// a neighbour — a muted grey read as an undifferentiated tangle ("ゲジゲジ",
+// centipede legs) once enough of them piled up, exactly the failure a legend
+// swatch is supposed to prevent. Every other kind still needs to read as
+// clearly *not* this one even in a quick glance, which is why `reference`
+// (a near-identical light grey until a separate earlier change, and
+// typically the second most common kind by a wide margin — the two together
+// can be nearly the whole graph) is green, not another blue.
 export const EDGE_COLORS = {
-  call: "#6b7280",
+  call: "#3b82f6",
   create: "#d97706",
   reference: "#22c55e",
   write: "#db2777",

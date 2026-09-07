@@ -3,20 +3,24 @@
 /* global d3 */
 
 /**
- * Select the containers that should be drawn for a given depth. Depth counts
- * directories from the root (1 = top-level directory) and the file itself as
- * one more level, so 0 draws nothing and the maximum draws every directory and
- * every file. Containers whose parent has the same node set are skipped (a
- * directory holding a single file would otherwise draw two hulls on top of
- * each other).
+ * Select the containers that should be drawn for a given depth *range*.
+ * Depth counts directories from the root (1 = top-level directory) and the
+ * file itself as one more level, so a range entirely below 1 draws nothing
+ * and [1, the maximum] draws every directory and every file — but any other
+ * range draws only that band, letting an inner (small) frame show without
+ * its outer (large) ones, not just everything down to a single cutoff.
+ * Containers whose parent has the same node set are skipped only when that
+ * parent is *also* in range (a directory holding a single file would
+ * otherwise draw two hulls on top of each other whenever both show; if the
+ * parent is out of range there is no second hull to collide with).
  */
-export function visibleContainers(graph, depth) {
+export function visibleContainers(graph, minDepth, maxDepth) {
   const byId = new Map(graph.containers.map((c) => [c.id, c]));
   const result = [];
   for (const c of graph.containers) {
-    if (c.depth > depth) continue;
+    if (c.depth < minDepth || c.depth > maxDepth) continue;
     const parent = c.parent ? byId.get(c.parent) : null;
-    if (parent && parent.depth <= depth && parent.nodes.length === c.nodes.length) continue;
+    if (parent && parent.depth >= minDepth && parent.depth <= maxDepth && parent.nodes.length === c.nodes.length) continue;
     result.push(c);
   }
   // Draw shallow (large) zones first so nested zones sit on top.
