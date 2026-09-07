@@ -10,9 +10,14 @@
 export const DEFAULT_PHYSICS = Object.freeze({
   springKinds: null, // Set of edge kinds that act as springs; null = every kind
   repulsion: 120, // magnitude of the 1/d repulsion
-  stiffness: 0.03, // spring constant k in F = k * (d - restLength)
+  stiffness: 0.05, // spring constant k in F = k * (d - restLength)
   restLength: 30, // spring rest length in pixels
-  alphaDecay: 0.0228, // d3 default: ~300 ticks per run
+  // d3's default (0.0228, ~300 ticks per run) cools before a graph of any
+  // size has actually settled, especially once every edge kind's springs and
+  // a larger repulsion (above) are all pulling and pushing at once. A slower
+  // decay keeps the layout warm for roughly 1200 ticks instead, long enough
+  // to reach a stable shape rather than freezing a half-arranged one.
+  alphaDecay: 0.006,
 });
 
 /**
@@ -82,7 +87,7 @@ export function createSimulation(graph, physics) {
     .forceSimulation(graph.nodes)
     .force("charge", d3.forceManyBody().strength(-physics.repulsion).theta(0.9))
     .force("spring", forceSpring(graph.links, physics))
-    .force("collide", d3.forceCollide().radius((n) => nodeRadius(n) + 2).iterations(1))
+    .force("collide", d3.forceCollide().radius((n) => n.radius + 2).iterations(1))
     .alphaDecay(physics.alphaDecay)
     .velocityDecay(0.4);
   return sim;
@@ -91,14 +96,10 @@ export function createSimulation(graph, physics) {
 /** Push the current physics parameters into an existing simulation. */
 export function applyPhysics(sim, physics) {
   sim.force("charge").strength(-physics.repulsion);
-  // Re-read node radii (degrees may have changed with the active edge kinds).
-  sim.force("collide").radius((n) => nodeRadius(n) + 2);
+  // Re-read node radii (degrees, and so radius, may have changed with the
+  // active edge kinds - see model.js's applyActiveKinds).
+  sim.force("collide").radius((n) => n.radius + 2);
   sim.alphaDecay(physics.alphaDecay);
-}
-
-/** Node radius grows slowly with the number of callers so hubs stand out. */
-export function nodeRadius(n) {
-  return 4 + Math.sqrt(n.inDegree + n.outDegree) * 1.2;
 }
 
 /**

@@ -1,0 +1,283 @@
+/* The article: prose in a measured column, a live graph beside each chapter. */
+
+body.article-page {
+  height: auto;
+  min-height: 100%;
+}
+
+#header h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#article {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 24px 96px;
+}
+
+.article-subtitle {
+  font-size: 15px;
+  margin: 0 0 24px;
+}
+
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-size: 13px;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.toc a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.toc a:hover {
+  color: var(--text);
+}
+
+.chapter {
+  display: grid;
+  grid-template-columns: minmax(0, 620px) minmax(320px, 1fr);
+  gap: 40px;
+  align-items: start;
+  padding: 32px 0 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.chapter:last-child {
+  border-bottom: 0;
+}
+
+.chapter.no-figures {
+  grid-template-columns: minmax(0, 620px);
+}
+
+.prose {
+  font-size: 15.5px;
+  line-height: 1.8;
+}
+
+.prose h1 {
+  font-size: 26px;
+  line-height: 1.3;
+  margin: 0 0 20px;
+  text-wrap: balance;
+}
+
+.prose h2 {
+  font-size: 18px;
+  margin: 36px 0 10px;
+}
+
+.prose h3 {
+  font-size: 15.5px;
+  margin: 24px 0 6px;
+}
+
+.prose p {
+  margin: 0 0 14px;
+}
+
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  background: var(--md-surface-container-high);
+  padding: 1px 5px;
+  border-radius: var(--shape-xs);
+}
+
+.prose pre {
+  background: var(--md-inverse-surface);
+  color: var(--md-inverse-on-surface);
+  padding: 12px 14px;
+  border-radius: var(--shape-md);
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.prose blockquote {
+  margin: 18px 0;
+  padding: 2px 0 2px 16px;
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+}
+
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 22px;
+  margin: 0 0 14px;
+}
+
+.prose li {
+  margin: 4px 0;
+}
+
+.prose .table-wrap {
+  overflow-x: auto;
+  margin: 0 0 16px;
+}
+
+.prose table {
+  border-collapse: collapse;
+  font-size: 13.5px;
+  line-height: 1.5;
+  min-width: 100%;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  background: var(--md-surface-container);
+  font-weight: 600;
+}
+
+.prose th:first-child,
+.prose td:first-child {
+  white-space: nowrap;
+}
+
+/* Live graphs */
+
+.figures {
+  position: sticky;
+  top: 16px;
+  display: grid;
+  gap: 20px;
+}
+
+.live {
+  margin: 0;
+  background: var(--panel-bg);
+  border-radius: var(--shape-lg);
+  box-shadow: var(--elevation-1);
+  overflow: hidden;
+}
+
+.live .stage {
+  position: relative;
+  height: 420px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.live .stage canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  cursor: grab;
+}
+
+.live .stage canvas:active {
+  cursor: grabbing;
+}
+
+.live .stage .tooltip {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  background: var(--md-inverse-surface);
+  color: var(--md-inverse-on-surface);
+  padding: 6px 10px;
+  border-radius: var(--shape-sm);
+  box-shadow: var(--elevation-2);
+  font-size: 12px;
+  white-space: pre;
+  max-width: 420px;
+}
+
+.live .bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+}
+
+/* Button colour/shape/state come from styles.css's shared
+   `.buttons button, .live .bar button` rule (M3 outlined/filled pill); only
+   the smaller size needed inside a figure's toolbar is set here. */
+.live .bar button {
+  font-size: 12px;
+  padding: 4px 12px;
+}
+
+.live .bar .spacer {
+  flex: 1;
+}
+
+.live figcaption {
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.live .readout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px 14px;
+  padding: 8px 10px 0;
+  font-size: 12px;
+}
+
+.live .readout div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.live .readout b {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.live .readout.changed b {
+  color: var(--accent);
+}
+
+.live .selection {
+  padding: 6px 10px 0;
+  font-size: 12px;
+  color: var(--muted);
+  min-height: 20px;
+}
+
+.live .selection b {
+  color: var(--text);
+}
+
+@media (max-width: 960px) {
+  .chapter {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .figures {
+    position: static;
+  }
+}

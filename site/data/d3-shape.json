@@ -3,8 +3,8 @@
   "name": "d3-shape",
   "root": "node_modules/d3-shape",
   "language": "javascript",
-  "generatedAt": "2026-09-05T12:09:08.759Z",
-  "analyzer": "analyzers/ts@0.1.0",
+  "generatedAt": "2026-09-07T00:20:12.654Z",
+  "analyzer": "analyzers/ts@0.4.0",
   "files": 60
  },
  "declarations": [
@@ -126,15 +126,6 @@
    "exported": true
   },
   {
-   "id": "src/curve/basis.js::<module>",
-   "name": "basis",
-   "kind": "module",
-   "file": "src/curve/basis.js",
-   "line": 16,
-   "parent": null,
-   "exported": false
-  },
-  {
    "id": "src/curve/basis.js::Basis",
    "name": "Basis",
    "kind": "function",
@@ -142,6 +133,51 @@
    "line": 12,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/curve/basis.js::Basis.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/basis.js",
+   "line": 20,
+   "parent": "src/curve/basis.js::Basis",
+   "exported": false
+  },
+  {
+   "id": "src/curve/basis.js::Basis.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/basis.js",
+   "line": 17,
+   "parent": "src/curve/basis.js::Basis",
+   "exported": false
+  },
+  {
+   "id": "src/curve/basis.js::Basis.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/basis.js",
+   "line": 28,
+   "parent": "src/curve/basis.js::Basis",
+   "exported": false
+  },
+  {
+   "id": "src/curve/basis.js::Basis.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/basis.js",
+   "line": 23,
+   "parent": "src/curve/basis.js::Basis",
+   "exported": false
+  },
+  {
+   "id": "src/curve/basis.js::Basis.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/basis.js",
+   "line": 36,
+   "parent": "src/curve/basis.js::Basis",
+   "exported": false
   },
   {
    "id": "src/curve/basis.js::default",
@@ -162,21 +198,39 @@
    "exported": true
   },
   {
-   "id": "src/curve/basisClosed.js::<module>",
-   "name": "basisClosed",
-   "kind": "module",
-   "file": "src/curve/basisClosed.js",
-   "line": 8,
-   "parent": null,
-   "exported": false
-  },
-  {
    "id": "src/curve/basisClosed.js::BasisClosed",
    "name": "BasisClosed",
    "kind": "function",
    "file": "src/curve/basisClosed.js",
    "line": 4,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/basisClosed.js::BasisClosed.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/basisClosed.js",
+   "line": 16,
+   "parent": "src/curve/basisClosed.js::BasisClosed",
+   "exported": false
+  },
+  {
+   "id": "src/curve/basisClosed.js::BasisClosed.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/basisClosed.js",
+   "line": 11,
+   "parent": "src/curve/basisClosed.js::BasisClosed",
+   "exported": false
+  },
+  {
+   "id": "src/curve/basisClosed.js::BasisClosed.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/basisClosed.js",
+   "line": 37,
+   "parent": "src/curve/basisClosed.js::BasisClosed",
    "exported": false
   },
   {
@@ -189,21 +243,57 @@
    "exported": true
   },
   {
-   "id": "src/curve/basisOpen.js::<module>",
-   "name": "basisOpen",
-   "kind": "module",
-   "file": "src/curve/basisOpen.js",
-   "line": 7,
-   "parent": null,
-   "exported": false
-  },
-  {
    "id": "src/curve/basisOpen.js::BasisOpen",
    "name": "BasisOpen",
    "kind": "function",
    "file": "src/curve/basisOpen.js",
    "line": 3,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/basisOpen.js::BasisOpen.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/basisOpen.js",
+   "line": 11,
+   "parent": "src/curve/basisOpen.js::BasisOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/basisOpen.js::BasisOpen.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/basisOpen.js",
+   "line": 8,
+   "parent": "src/curve/basisOpen.js::BasisOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/basisOpen.js::BasisOpen.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/basisOpen.js",
+   "line": 19,
+   "parent": "src/curve/basisOpen.js::BasisOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/basisOpen.js::BasisOpen.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/basisOpen.js",
+   "line": 14,
+   "parent": "src/curve/basisOpen.js::BasisOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/basisOpen.js::BasisOpen.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/basisOpen.js",
+   "line": 23,
+   "parent": "src/curve/basisOpen.js::BasisOpen",
    "exported": false
   },
   {
@@ -355,7 +445,7 @@
    "name": "bundle",
    "kind": "module",
    "file": "src/curve/bundle.js",
-   "line": 8,
+   "line": 45,
    "parent": null,
    "exported": false
   },
@@ -369,11 +459,38 @@
    "exported": false
   },
   {
+   "id": "src/curve/bundle.js::Bundle.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/bundle.js",
+   "line": 14,
+   "parent": "src/curve/bundle.js::Bundle",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bundle.js::Bundle.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/bundle.js",
+   "line": 9,
+   "parent": "src/curve/bundle.js::Bundle",
+   "exported": false
+  },
+  {
+   "id": "src/curve/bundle.js::Bundle.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/bundle.js",
+   "line": 39,
+   "parent": "src/curve/bundle.js::Bundle",
+   "exported": false
+  },
+  {
    "id": "src/curve/cardinal.js::<module>",
    "name": "cardinal",
    "kind": "module",
    "file": "src/curve/cardinal.js",
-   "line": 17,
+   "line": 50,
    "parent": null,
    "exported": false
   },
@@ -385,6 +502,51 @@
    "line": 12,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "src/curve/cardinal.js::Cardinal.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/cardinal.js",
+   "line": 21,
+   "parent": "src/curve/cardinal.js::Cardinal",
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinal.js::Cardinal.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/cardinal.js",
+   "line": 18,
+   "parent": "src/curve/cardinal.js::Cardinal",
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinal.js::Cardinal.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/cardinal.js",
+   "line": 29,
+   "parent": "src/curve/cardinal.js::Cardinal",
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinal.js::Cardinal.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/cardinal.js",
+   "line": 24,
+   "parent": "src/curve/cardinal.js::Cardinal",
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinal.js::Cardinal.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/cardinal.js",
+   "line": 37,
+   "parent": "src/curve/cardinal.js::Cardinal",
+   "exported": false
   },
   {
    "id": "src/curve/cardinal.js::point",
@@ -400,7 +562,7 @@
    "name": "cardinalClosed",
    "kind": "module",
    "file": "src/curve/cardinalClosed.js",
-   "line": 9,
+   "line": 50,
    "parent": null,
    "exported": false
   },
@@ -414,11 +576,38 @@
    "exported": true
   },
   {
+   "id": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/cardinalClosed.js",
+   "line": 17,
+   "parent": "src/curve/cardinalClosed.js::CardinalClosed",
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinalClosed.js::CardinalClosed.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/cardinalClosed.js",
+   "line": 12,
+   "parent": "src/curve/cardinalClosed.js::CardinalClosed",
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinalClosed.js::CardinalClosed.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/cardinalClosed.js",
+   "line": 37,
+   "parent": "src/curve/cardinalClosed.js::CardinalClosed",
+   "exported": false
+  },
+  {
    "id": "src/curve/cardinalOpen.js::<module>",
    "name": "cardinalOpen",
    "kind": "module",
    "file": "src/curve/cardinalOpen.js",
-   "line": 8,
+   "line": 38,
    "parent": null,
    "exported": false
   },
@@ -432,11 +621,56 @@
    "exported": true
   },
   {
+   "id": "src/curve/cardinalOpen.js::CardinalOpen.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/cardinalOpen.js",
+   "line": 12,
+   "parent": "src/curve/cardinalOpen.js::CardinalOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinalOpen.js::CardinalOpen.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/cardinalOpen.js",
+   "line": 9,
+   "parent": "src/curve/cardinalOpen.js::CardinalOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinalOpen.js::CardinalOpen.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/cardinalOpen.js",
+   "line": 20,
+   "parent": "src/curve/cardinalOpen.js::CardinalOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinalOpen.js::CardinalOpen.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/cardinalOpen.js",
+   "line": 15,
+   "parent": "src/curve/cardinalOpen.js::CardinalOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/cardinalOpen.js::CardinalOpen.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/cardinalOpen.js",
+   "line": 24,
+   "parent": "src/curve/cardinalOpen.js::CardinalOpen",
+   "exported": false
+  },
+  {
    "id": "src/curve/catmullRom.js::<module>",
    "name": "catmullRom",
    "kind": "module",
    "file": "src/curve/catmullRom.js",
-   "line": 32,
+   "line": 77,
    "parent": null,
    "exported": false
   },
@@ -447,6 +681,51 @@
    "file": "src/curve/catmullRom.js",
    "line": 27,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRom.js::CatmullRom.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/catmullRom.js",
+   "line": 36,
+   "parent": "src/curve/catmullRom.js::CatmullRom",
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRom.js::CatmullRom.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/catmullRom.js",
+   "line": 33,
+   "parent": "src/curve/catmullRom.js::CatmullRom",
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRom.js::CatmullRom.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/catmullRom.js",
+   "line": 46,
+   "parent": "src/curve/catmullRom.js::CatmullRom",
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRom.js::CatmullRom.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/catmullRom.js",
+   "line": 39,
+   "parent": "src/curve/catmullRom.js::CatmullRom",
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRom.js::CatmullRom.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/catmullRom.js",
+   "line": 54,
+   "parent": "src/curve/catmullRom.js::CatmullRom",
    "exported": false
   },
   {
@@ -463,7 +742,7 @@
    "name": "catmullRomClosed",
    "kind": "module",
    "file": "src/curve/catmullRomClosed.js",
-   "line": 10,
+   "line": 63,
    "parent": null,
    "exported": false
   },
@@ -477,11 +756,38 @@
    "exported": false
   },
   {
+   "id": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/catmullRomClosed.js",
+   "line": 20,
+   "parent": "src/curve/catmullRomClosed.js::CatmullRomClosed",
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/catmullRomClosed.js",
+   "line": 13,
+   "parent": "src/curve/catmullRomClosed.js::CatmullRomClosed",
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/catmullRomClosed.js",
+   "line": 40,
+   "parent": "src/curve/catmullRomClosed.js::CatmullRomClosed",
+   "exported": false
+  },
+  {
    "id": "src/curve/catmullRomOpen.js::<module>",
    "name": "catmullRomOpen",
    "kind": "module",
    "file": "src/curve/catmullRomOpen.js",
-   "line": 9,
+   "line": 51,
    "parent": null,
    "exported": false
   },
@@ -495,12 +801,48 @@
    "exported": false
   },
   {
-   "id": "src/curve/linear.js::<module>",
-   "name": "linear",
-   "kind": "module",
-   "file": "src/curve/linear.js",
-   "line": 5,
-   "parent": null,
+   "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/catmullRomOpen.js",
+   "line": 13,
+   "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/catmullRomOpen.js",
+   "line": 10,
+   "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/catmullRomOpen.js",
+   "line": 23,
+   "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/catmullRomOpen.js",
+   "line": 16,
+   "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
+   "exported": false
+  },
+  {
+   "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/catmullRomOpen.js",
+   "line": 27,
+   "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
    "exported": false
   },
   {
@@ -522,12 +864,48 @@
    "exported": false
   },
   {
-   "id": "src/curve/linearClosed.js::<module>",
-   "name": "linearClosed",
-   "kind": "module",
-   "file": "src/curve/linearClosed.js",
-   "line": 7,
-   "parent": null,
+   "id": "src/curve/linear.js::Linear.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/linear.js",
+   "line": 9,
+   "parent": "src/curve/linear.js::Linear",
+   "exported": false
+  },
+  {
+   "id": "src/curve/linear.js::Linear.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/linear.js",
+   "line": 6,
+   "parent": "src/curve/linear.js::Linear",
+   "exported": false
+  },
+  {
+   "id": "src/curve/linear.js::Linear.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/linear.js",
+   "line": 15,
+   "parent": "src/curve/linear.js::Linear",
+   "exported": false
+  },
+  {
+   "id": "src/curve/linear.js::Linear.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/linear.js",
+   "line": 12,
+   "parent": "src/curve/linear.js::Linear",
+   "exported": false
+  },
+  {
+   "id": "src/curve/linear.js::Linear.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/linear.js",
+   "line": 19,
+   "parent": "src/curve/linear.js::Linear",
    "exported": false
   },
   {
@@ -549,11 +927,38 @@
    "exported": false
   },
   {
+   "id": "src/curve/linearClosed.js::LinearClosed.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/linearClosed.js",
+   "line": 13,
+   "parent": "src/curve/linearClosed.js::LinearClosed",
+   "exported": false
+  },
+  {
+   "id": "src/curve/linearClosed.js::LinearClosed.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/linearClosed.js",
+   "line": 10,
+   "parent": "src/curve/linearClosed.js::LinearClosed",
+   "exported": false
+  },
+  {
+   "id": "src/curve/linearClosed.js::LinearClosed.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/linearClosed.js",
+   "line": 16,
+   "parent": "src/curve/linearClosed.js::LinearClosed",
+   "exported": false
+  },
+  {
    "id": "src/curve/monotone.js::<module>",
    "name": "monotone",
    "kind": "module",
    "file": "src/curve/monotone.js",
-   "line": 40,
+   "line": 83,
    "parent": null,
    "exported": false
   },
@@ -573,6 +978,51 @@
    "file": "src/curve/monotone.js",
    "line": 36,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::MonotoneX.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/monotone.js",
+   "line": 44,
+   "parent": "src/curve/monotone.js::MonotoneX",
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::MonotoneX.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/monotone.js",
+   "line": 41,
+   "parent": "src/curve/monotone.js::MonotoneX",
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::MonotoneX.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/monotone.js",
+   "line": 53,
+   "parent": "src/curve/monotone.js::MonotoneX",
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::MonotoneX.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/monotone.js",
+   "line": 47,
+   "parent": "src/curve/monotone.js::MonotoneX",
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::MonotoneX.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/monotone.js",
+   "line": 61,
+   "parent": "src/curve/monotone.js::MonotoneX",
    "exported": false
   },
   {
@@ -612,6 +1062,42 @@
    "exported": false
   },
   {
+   "id": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
+   "name": "bezierCurveTo",
+   "kind": "method",
+   "file": "src/curve/monotone.js",
+   "line": 95,
+   "parent": "src/curve/monotone.js::ReflectContext",
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::ReflectContext.closePath",
+   "name": "closePath",
+   "kind": "method",
+   "file": "src/curve/monotone.js",
+   "line": 93,
+   "parent": "src/curve/monotone.js::ReflectContext",
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::ReflectContext.lineTo",
+   "name": "lineTo",
+   "kind": "method",
+   "file": "src/curve/monotone.js",
+   "line": 94,
+   "parent": "src/curve/monotone.js::ReflectContext",
+   "exported": false
+  },
+  {
+   "id": "src/curve/monotone.js::ReflectContext.moveTo",
+   "name": "moveTo",
+   "kind": "method",
+   "file": "src/curve/monotone.js",
+   "line": 92,
+   "parent": "src/curve/monotone.js::ReflectContext",
+   "exported": false
+  },
+  {
    "id": "src/curve/monotone.js::sign",
    "name": "sign",
    "kind": "function",
@@ -635,15 +1121,6 @@
    "kind": "function",
    "file": "src/curve/monotone.js",
    "line": 9,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "src/curve/natural.js::<module>",
-   "name": "natural",
-   "kind": "module",
-   "file": "src/curve/natural.js",
-   "line": 5,
    "parent": null,
    "exported": false
   },
@@ -675,12 +1152,48 @@
    "exported": false
   },
   {
-   "id": "src/curve/radial.js::<module>",
-   "name": "radial",
-   "kind": "module",
-   "file": "src/curve/radial.js",
+   "id": "src/curve/natural.js::Natural.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/natural.js",
    "line": 9,
-   "parent": null,
+   "parent": "src/curve/natural.js::Natural",
+   "exported": false
+  },
+  {
+   "id": "src/curve/natural.js::Natural.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/natural.js",
+   "line": 6,
+   "parent": "src/curve/natural.js::Natural",
+   "exported": false
+  },
+  {
+   "id": "src/curve/natural.js::Natural.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/natural.js",
+   "line": 16,
+   "parent": "src/curve/natural.js::Natural",
+   "exported": false
+  },
+  {
+   "id": "src/curve/natural.js::Natural.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/natural.js",
+   "line": 12,
+   "parent": "src/curve/natural.js::Natural",
+   "exported": false
+  },
+  {
+   "id": "src/curve/natural.js::Natural.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/natural.js",
+   "line": 38,
+   "parent": "src/curve/natural.js::Natural",
    "exported": false
   },
   {
@@ -711,12 +1224,48 @@
    "exported": false
   },
   {
-   "id": "src/curve/step.js::<module>",
-   "name": "step",
-   "kind": "module",
-   "file": "src/curve/step.js",
-   "line": 6,
-   "parent": null,
+   "id": "src/curve/radial.js::Radial.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/radial.js",
+   "line": 13,
+   "parent": "src/curve/radial.js::Radial",
+   "exported": false
+  },
+  {
+   "id": "src/curve/radial.js::Radial.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/radial.js",
+   "line": 10,
+   "parent": "src/curve/radial.js::Radial",
+   "exported": false
+  },
+  {
+   "id": "src/curve/radial.js::Radial.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/radial.js",
+   "line": 19,
+   "parent": "src/curve/radial.js::Radial",
+   "exported": false
+  },
+  {
+   "id": "src/curve/radial.js::Radial.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/radial.js",
+   "line": 16,
+   "parent": "src/curve/radial.js::Radial",
+   "exported": false
+  },
+  {
+   "id": "src/curve/radial.js::Radial.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/radial.js",
+   "line": 22,
+   "parent": "src/curve/radial.js::Radial",
    "exported": false
   },
   {
@@ -735,6 +1284,51 @@
    "file": "src/curve/step.js",
    "line": 1,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/curve/step.js::Step.areaEnd",
+   "name": "areaEnd",
+   "kind": "method",
+   "file": "src/curve/step.js",
+   "line": 10,
+   "parent": "src/curve/step.js::Step",
+   "exported": false
+  },
+  {
+   "id": "src/curve/step.js::Step.areaStart",
+   "name": "areaStart",
+   "kind": "method",
+   "file": "src/curve/step.js",
+   "line": 7,
+   "parent": "src/curve/step.js::Step",
+   "exported": false
+  },
+  {
+   "id": "src/curve/step.js::Step.lineEnd",
+   "name": "lineEnd",
+   "kind": "method",
+   "file": "src/curve/step.js",
+   "line": 17,
+   "parent": "src/curve/step.js::Step",
+   "exported": false
+  },
+  {
+   "id": "src/curve/step.js::Step.lineStart",
+   "name": "lineStart",
+   "kind": "method",
+   "file": "src/curve/step.js",
+   "line": 13,
+   "parent": "src/curve/step.js::Step",
+   "exported": false
+  },
+  {
+   "id": "src/curve/step.js::Step.point",
+   "name": "point",
+   "kind": "method",
+   "file": "src/curve/step.js",
+   "line": 22,
+   "parent": "src/curve/step.js::Step",
    "exported": false
   },
   {
@@ -977,8 +1571,18 @@
    "kind": "function",
    "file": "src/noop.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/curve/basisClosed.js::BasisClosed",
+   "exported": true,
+   "aliases": [
+    "BasisClosed.areaStart",
+    "BasisClosed.areaEnd",
+    "CardinalClosed.areaStart",
+    "CardinalClosed.areaEnd",
+    "CatmullRomClosed.areaStart",
+    "CatmullRomClosed.areaEnd",
+    "LinearClosed.areaStart",
+    "LinearClosed.areaEnd"
+   ]
   },
   {
    "id": "src/offset/diverging.js::default",
@@ -1206,6 +1810,15 @@
    "exported": false
   },
   {
+   "id": "src/symbol/asterisk.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/asterisk.js",
+   "line": 6,
+   "parent": "src/symbol/asterisk.js::<module>",
+   "exported": false
+  },
+  {
    "id": "src/symbol/asterisk.js::sqrt3",
    "name": "sqrt3",
    "kind": "variable",
@@ -1224,6 +1837,15 @@
    "exported": false
   },
   {
+   "id": "src/symbol/circle.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/circle.js",
+   "line": 4,
+   "parent": "src/symbol/circle.js::<module>",
+   "exported": false
+  },
+  {
    "id": "src/symbol/cross.js::<module>",
    "name": "cross",
    "kind": "module",
@@ -1233,12 +1855,30 @@
    "exported": false
   },
   {
+   "id": "src/symbol/cross.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/cross.js",
+   "line": 4,
+   "parent": "src/symbol/cross.js::<module>",
+   "exported": false
+  },
+  {
    "id": "src/symbol/diamond.js::<module>",
    "name": "diamond",
    "kind": "module",
    "file": "src/symbol/diamond.js",
    "line": 6,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/diamond.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/diamond.js",
+   "line": 7,
+   "parent": "src/symbol/diamond.js::<module>",
    "exported": false
   },
   {
@@ -1269,12 +1909,30 @@
    "exported": false
   },
   {
+   "id": "src/symbol/diamond2.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/diamond2.js",
+   "line": 4,
+   "parent": "src/symbol/diamond2.js::<module>",
+   "exported": false
+  },
+  {
    "id": "src/symbol/plus.js::<module>",
    "name": "plus",
    "kind": "module",
    "file": "src/symbol/plus.js",
    "line": 3,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/plus.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/plus.js",
+   "line": 4,
+   "parent": "src/symbol/plus.js::<module>",
    "exported": false
   },
   {
@@ -1287,6 +1945,15 @@
    "exported": false
   },
   {
+   "id": "src/symbol/square.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/square.js",
+   "line": 4,
+   "parent": "src/symbol/square.js::<module>",
+   "exported": false
+  },
+  {
    "id": "src/symbol/square2.js::<module>",
    "name": "square2",
    "kind": "module",
@@ -1296,12 +1963,30 @@
    "exported": false
   },
   {
+   "id": "src/symbol/square2.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/square2.js",
+   "line": 4,
+   "parent": "src/symbol/square2.js::<module>",
+   "exported": false
+  },
+  {
    "id": "src/symbol/star.js::<module>",
    "name": "star",
    "kind": "module",
    "file": "src/symbol/star.js",
    "line": 8,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/star.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/star.js",
+   "line": 9,
+   "parent": "src/symbol/star.js::<module>",
    "exported": false
   },
   {
@@ -1350,12 +2035,30 @@
    "exported": false
   },
   {
+   "id": "src/symbol/times.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/times.js",
+   "line": 4,
+   "parent": "src/symbol/times.js::<module>",
+   "exported": false
+  },
+  {
    "id": "src/symbol/triangle.js::<module>",
    "name": "triangle",
    "kind": "module",
    "file": "src/symbol/triangle.js",
    "line": 5,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/triangle.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/triangle.js",
+   "line": 6,
+   "parent": "src/symbol/triangle.js::<module>",
    "exported": false
   },
   {
@@ -1377,6 +2080,15 @@
    "exported": false
   },
   {
+   "id": "src/symbol/triangle2.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/triangle2.js",
+   "line": 6,
+   "parent": "src/symbol/triangle2.js::<module>",
+   "exported": false
+  },
+  {
    "id": "src/symbol/triangle2.js::sqrt3",
    "name": "sqrt3",
    "kind": "variable",
@@ -1392,6 +2104,15 @@
    "file": "src/symbol/wye.js",
    "line": 8,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "src/symbol/wye.js::<module>/draw",
+   "name": "draw",
+   "kind": "function",
+   "file": "src/symbol/wye.js",
+   "line": 9,
+   "parent": "src/symbol/wye.js::<module>",
    "exported": false
   },
   {
@@ -1501,6 +2222,30 @@
    "kind": "call",
    "count": 8,
    "time": "use"
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/arc.js::default",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/arc.js::default",
@@ -1616,6 +2361,406 @@
   },
   {
    "source": "src/area.js::default",
+   "target": "src/curve/basis.js::Basis.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basis.js::Basis.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basis.js::Basis.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basis.js::Basis.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basis.js::Basis.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basisClosed.js::BasisClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basisClosed.js::BasisClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basisClosed.js::BasisClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basisOpen.js::BasisOpen.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basisOpen.js::BasisOpen.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basisOpen.js::BasisOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basisOpen.js::BasisOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/basisOpen.js::BasisOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bump.js::Bump.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bump.js::Bump.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bump.js::Bump.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bump.js::Bump.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bump.js::Bump.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bump.js::BumpRadial.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bump.js::BumpRadial.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bump.js::BumpRadial.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bundle.js::Bundle.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bundle.js::Bundle.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/bundle.js::Bundle.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinal.js::Cardinal.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinal.js::Cardinal.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinal.js::Cardinal.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinal.js::Cardinal.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinal.js::Cardinal.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRom.js::CatmullRom.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRom.js::CatmullRom.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRom.js::CatmullRom.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRom.js::CatmullRom.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRom.js::CatmullRom.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
    "target": "src/curve/linear.js::default",
    "kind": "call",
    "count": 1,
@@ -1631,10 +2776,242 @@
   },
   {
    "source": "src/area.js::default",
+   "target": "src/curve/linear.js::Linear.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/linear.js::Linear.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/linear.js::Linear.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/linear.js::Linear.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/linear.js::Linear.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/linearClosed.js::LinearClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/linearClosed.js::LinearClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/linearClosed.js::LinearClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/monotone.js::MonotoneX.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/monotone.js::MonotoneX.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/monotone.js::MonotoneX.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/monotone.js::MonotoneX.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/monotone.js::MonotoneX.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/natural.js::Natural.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/natural.js::Natural.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/natural.js::Natural.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/natural.js::Natural.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/natural.js::Natural.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/radial.js::Radial.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/radial.js::Radial.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/radial.js::Radial.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/radial.js::Radial.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/radial.js::Radial.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/step.js::Step.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/step.js::Step.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/step.js::Step.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/step.js::Step.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/curve/step.js::Step.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/area.js::default",
    "target": "src/line.js::default",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/area.js::default",
+   "target": "src/noop.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/area.js::default",
@@ -1702,18 +3079,50 @@
    "time": "use"
   },
   {
-   "source": "src/curve/basis.js::<module>",
-   "target": "src/curve/basis.js::Basis",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/curve/basis.js::<module>",
+   "source": "src/curve/basis.js::Basis.lineEnd",
    "target": "src/curve/basis.js::point",
    "kind": "call",
-   "count": 2,
+   "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/curve/basis.js::Basis.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/basis.js::Basis.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/basis.js::Basis.point",
+   "target": "src/curve/basis.js::point",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/basis.js::Basis.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/basis.js::Basis.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/basis.js::default",
@@ -1723,25 +3132,58 @@
    "time": "use"
   },
   {
-   "source": "src/curve/basisClosed.js::<module>",
+   "source": "src/curve/basis.js::point",
+   "target": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/basisClosed.js::BasisClosed.lineEnd",
+   "target": "src/curve/basisClosed.js::BasisClosed.point",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/basisClosed.js::BasisClosed.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/basisClosed.js::BasisClosed.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/basisClosed.js::BasisClosed.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/basisClosed.js::BasisClosed.point",
    "target": "src/curve/basis.js::point",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/curve/basisClosed.js::<module>",
-   "target": "src/curve/basisClosed.js::BasisClosed",
-   "kind": "reference",
+   "source": "src/curve/basisClosed.js::BasisClosed.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/curve/basisClosed.js::<module>",
-   "target": "src/noop.js::default",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/basisClosed.js::default",
@@ -1751,18 +3193,35 @@
    "time": "use"
   },
   {
-   "source": "src/curve/basisOpen.js::<module>",
+   "source": "src/curve/basisOpen.js::BasisOpen.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/basisOpen.js::BasisOpen.point",
    "target": "src/curve/basis.js::point",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/curve/basisOpen.js::<module>",
-   "target": "src/curve/basisOpen.js::BasisOpen",
-   "kind": "reference",
+   "source": "src/curve/basisOpen.js::BasisOpen.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/basisOpen.js::BasisOpen.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/basisOpen.js::default",
@@ -1770,6 +3229,38 @@
    "kind": "create",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/curve/bump.js::Bump.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bump.js::Bump.point",
+   "target": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bump.js::Bump.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bump.js::Bump.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/bump.js::bumpRadial",
@@ -1784,6 +3275,22 @@
    "kind": "create",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/curve/bump.js::BumpRadial.point",
+   "target": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bump.js::BumpRadial.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/bump.js::BumpRadial.point",
@@ -1835,13 +3342,6 @@
    "time": "use"
   },
   {
-   "source": "src/curve/bundle.js::<module>",
-   "target": "src/curve/bundle.js::Bundle",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
    "source": "src/curve/bundle.js::Bundle",
    "target": "src/curve/basis.js::Basis",
    "kind": "create",
@@ -1849,6 +3349,438 @@
    "time": "use"
   },
   {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/basis.js::Basis.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/basis.js::Basis.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/basisClosed.js::BasisClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/basisClosed.js::BasisClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/basisOpen.js::BasisOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/basisOpen.js::BasisOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/bump.js::Bump.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/bump.js::Bump.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/bump.js::BumpRadial.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/bump.js::BumpRadial.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/bundle.js::Bundle.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/bundle.js::Bundle.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/cardinal.js::Cardinal.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/cardinal.js::Cardinal.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/catmullRom.js::CatmullRom.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/catmullRom.js::CatmullRom.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/linear.js::Linear.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/linear.js::Linear.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/linearClosed.js::LinearClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/linearClosed.js::LinearClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/monotone.js::MonotoneX.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/monotone.js::MonotoneX.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/natural.js::Natural.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/natural.js::Natural.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/radial.js::Radial.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/radial.js::Radial.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/step.js::Step.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineEnd",
+   "target": "src/curve/step.js::Step.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/basis.js::Basis.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/basisClosed.js::BasisClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/basisOpen.js::BasisOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/bump.js::Bump.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/bump.js::BumpRadial.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/bundle.js::Bundle.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/cardinal.js::Cardinal.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/catmullRom.js::CatmullRom.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/linear.js::Linear.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/linearClosed.js::LinearClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/monotone.js::MonotoneX.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/natural.js::Natural.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/radial.js::Radial.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/bundle.js::Bundle.lineStart",
+   "target": "src/curve/step.js::Step.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "src/curve/cardinal.js::<module>",
    "target": "src/curve/cardinal.js::Cardinal",
    "kind": "create",
@@ -1856,25 +3788,58 @@
    "time": "use"
   },
   {
-   "source": "src/curve/cardinal.js::<module>",
-   "target": "src/curve/cardinal.js::Cardinal",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/curve/cardinal.js::<module>",
-   "target": "src/curve/cardinal.js::point",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "src/curve/cardinalClosed.js::<module>",
+   "source": "src/curve/cardinal.js::Cardinal.lineEnd",
    "target": "src/curve/cardinal.js::point",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/curve/cardinal.js::Cardinal.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/cardinal.js::Cardinal.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/cardinal.js::Cardinal.point",
+   "target": "src/curve/cardinal.js::point",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/cardinal.js::Cardinal.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/cardinal.js::Cardinal.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/cardinal.js::point",
+   "target": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/cardinalClosed.js::<module>",
@@ -1884,25 +3849,50 @@
    "time": "use"
   },
   {
-   "source": "src/curve/cardinalClosed.js::<module>",
-   "target": "src/curve/cardinalClosed.js::CardinalClosed",
-   "kind": "reference",
+   "source": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.point",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use",
+   "inferred": true
   },
   {
-   "source": "src/curve/cardinalClosed.js::<module>",
-   "target": "src/noop.js::default",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
+   "source": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
-   "source": "src/curve/cardinalOpen.js::<module>",
+   "source": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/cardinalClosed.js::CardinalClosed.point",
    "target": "src/curve/cardinal.js::point",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/curve/cardinalClosed.js::CardinalClosed.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/cardinalOpen.js::<module>",
@@ -1912,11 +3902,35 @@
    "time": "use"
   },
   {
-   "source": "src/curve/cardinalOpen.js::<module>",
-   "target": "src/curve/cardinalOpen.js::CardinalOpen",
-   "kind": "reference",
+   "source": "src/curve/cardinalOpen.js::CardinalOpen.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/cardinalOpen.js::CardinalOpen.point",
+   "target": "src/curve/cardinal.js::point",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/cardinalOpen.js::CardinalOpen.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/cardinalOpen.js::CardinalOpen.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/catmullRom.js::<module>",
@@ -1933,18 +3947,58 @@
    "time": "use"
   },
   {
-   "source": "src/curve/catmullRom.js::<module>",
-   "target": "src/curve/catmullRom.js::CatmullRom",
-   "kind": "reference",
+   "source": "src/curve/catmullRom.js::CatmullRom.lineEnd",
+   "target": "src/curve/catmullRom.js::CatmullRom.point",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use"
   },
   {
-   "source": "src/curve/catmullRom.js::<module>",
+   "source": "src/curve/catmullRom.js::CatmullRom.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/catmullRom.js::CatmullRom.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/catmullRom.js::CatmullRom.point",
    "target": "src/curve/catmullRom.js::point",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/curve/catmullRom.js::CatmullRom.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/catmullRom.js::CatmullRom.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/catmullRom.js::point",
+   "target": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/catmullRom.js::point",
@@ -1962,31 +4016,56 @@
   },
   {
    "source": "src/curve/catmullRomClosed.js::<module>",
-   "target": "src/curve/catmullRom.js::point",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "src/curve/catmullRomClosed.js::<module>",
    "target": "src/curve/catmullRomClosed.js::CatmullRomClosed",
    "kind": "create",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/curve/catmullRomClosed.js::<module>",
-   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
+   "source": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
   },
   {
-   "source": "src/curve/catmullRomClosed.js::<module>",
-   "target": "src/noop.js::default",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
+   "source": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
+   "target": "src/curve/catmullRom.js::point",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/catmullRomOpen.js::<module>",
@@ -1997,31 +4076,41 @@
   },
   {
    "source": "src/curve/catmullRomOpen.js::<module>",
-   "target": "src/curve/catmullRom.js::point",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "src/curve/catmullRomOpen.js::<module>",
    "target": "src/curve/catmullRomOpen.js::CatmullRomOpen",
    "kind": "create",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/curve/catmullRomOpen.js::<module>",
-   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen",
-   "kind": "reference",
+   "source": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use",
+   "inferred": true
   },
   {
-   "source": "src/curve/linear.js::<module>",
-   "target": "src/curve/linear.js::Linear",
-   "kind": "reference",
+   "source": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
+   "target": "src/curve/catmullRom.js::point",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use"
+  },
+  {
+   "source": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/linear.js::default",
@@ -2031,18 +4120,28 @@
    "time": "use"
   },
   {
-   "source": "src/curve/linearClosed.js::<module>",
-   "target": "src/curve/linearClosed.js::LinearClosed",
-   "kind": "reference",
+   "source": "src/curve/linear.js::Linear.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use",
+   "inferred": true
   },
   {
-   "source": "src/curve/linearClosed.js::<module>",
-   "target": "src/noop.js::default",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
+   "source": "src/curve/linear.js::Linear.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/linear.js::Linear.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/linearClosed.js::default",
@@ -2052,6 +4151,30 @@
    "time": "use"
   },
   {
+   "source": "src/curve/linearClosed.js::LinearClosed.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/linearClosed.js::LinearClosed.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/linearClosed.js::LinearClosed.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "src/curve/monotone.js::<module>",
    "target": "src/curve/monotone.js::MonotoneX",
    "kind": "reference",
@@ -2061,6 +4184,13 @@
   {
    "source": "src/curve/monotone.js::<module>",
    "target": "src/curve/monotone.js::MonotoneX",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/monotone.js::<module>",
+   "target": "src/curve/monotone.js::MonotoneX.point",
    "kind": "reference",
    "count": 1,
    "time": "use"
@@ -2069,42 +4199,81 @@
    "source": "src/curve/monotone.js::<module>",
    "target": "src/curve/monotone.js::MonotoneY",
    "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/curve/monotone.js::<module>",
-   "target": "src/curve/monotone.js::point",
-   "kind": "call",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "src/curve/monotone.js::<module>",
-   "target": "src/curve/monotone.js::ReflectContext",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/curve/monotone.js::<module>",
-   "target": "src/curve/monotone.js::slope2",
-   "kind": "call",
    "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "src/curve/monotone.js::<module>",
-   "target": "src/curve/monotone.js::slope3",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
+   "time": "definition"
   },
   {
    "source": "src/curve/monotone.js::monotoneX",
    "target": "src/curve/monotone.js::MonotoneX",
    "kind": "create",
    "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/monotone.js::MonotoneX.lineEnd",
+   "target": "src/curve/monotone.js::point",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/monotone.js::MonotoneX.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/monotone.js::MonotoneX.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/monotone.js::MonotoneX.lineEnd",
+   "target": "src/curve/monotone.js::slope2",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/monotone.js::MonotoneX.point",
+   "target": "src/curve/monotone.js::point",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/monotone.js::MonotoneX.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/monotone.js::MonotoneX.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/monotone.js::MonotoneX.point",
+   "target": "src/curve/monotone.js::slope2",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/curve/monotone.js::MonotoneX.point",
+   "target": "src/curve/monotone.js::slope3",
+   "kind": "call",
+   "count": 2,
    "time": "use"
   },
   {
@@ -2122,25 +4291,51 @@
    "time": "use"
   },
   {
+   "source": "src/curve/monotone.js::point",
+   "target": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
+   "target": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/monotone.js::ReflectContext.closePath",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/monotone.js::ReflectContext.lineTo",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/monotone.js::ReflectContext.moveTo",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "src/curve/monotone.js::slope3",
    "target": "src/curve/monotone.js::sign",
    "kind": "call",
    "count": 2,
    "time": "use"
-  },
-  {
-   "source": "src/curve/natural.js::<module>",
-   "target": "src/curve/natural.js::controlPoints",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "src/curve/natural.js::<module>",
-   "target": "src/curve/natural.js::Natural",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
   },
   {
    "source": "src/curve/natural.js::default",
@@ -2150,11 +4345,43 @@
    "time": "use"
   },
   {
-   "source": "src/curve/radial.js::<module>",
-   "target": "src/curve/radial.js::Radial",
-   "kind": "reference",
+   "source": "src/curve/natural.js::Natural.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/natural.js::Natural.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/natural.js::Natural.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/natural.js::Natural.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/natural.js::Natural.lineEnd",
+   "target": "src/curve/natural.js::controlPoints",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
   },
   {
    "source": "src/curve/radial.js::curveRadial",
@@ -2186,11 +4413,644 @@
    "time": "definition"
   },
   {
-   "source": "src/curve/step.js::<module>",
-   "target": "src/curve/step.js::Step",
-   "kind": "reference",
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/basis.js::Basis.areaEnd",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/basisOpen.js::BasisOpen.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/bump.js::Bump.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/cardinal.js::Cardinal.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/catmullRom.js::CatmullRom.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/linear.js::Linear.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/monotone.js::MonotoneX.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/natural.js::Natural.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/radial.js::Radial.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/curve/step.js::Step.areaEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaEnd",
+   "target": "src/noop.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/basis.js::Basis.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/basisOpen.js::BasisOpen.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/bump.js::Bump.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/cardinal.js::Cardinal.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/catmullRom.js::CatmullRom.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/linear.js::Linear.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/monotone.js::MonotoneX.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/natural.js::Natural.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/radial.js::Radial.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/curve/step.js::Step.areaStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.areaStart",
+   "target": "src/noop.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/basis.js::Basis.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/basisClosed.js::BasisClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/basisOpen.js::BasisOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/bump.js::Bump.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/bump.js::BumpRadial.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/bundle.js::Bundle.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/cardinal.js::Cardinal.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/catmullRom.js::CatmullRom.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/linear.js::Linear.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/linearClosed.js::LinearClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/monotone.js::MonotoneX.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/natural.js::Natural.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/radial.js::Radial.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineEnd",
+   "target": "src/curve/step.js::Step.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/basis.js::Basis.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/basisClosed.js::BasisClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/basisOpen.js::BasisOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/bump.js::Bump.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/bump.js::BumpRadial.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/bundle.js::Bundle.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/cardinal.js::Cardinal.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/catmullRom.js::CatmullRom.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/linear.js::Linear.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/linearClosed.js::LinearClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/monotone.js::MonotoneX.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/natural.js::Natural.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/radial.js::Radial.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.lineStart",
+   "target": "src/curve/step.js::Step.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/basis.js::Basis.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/basisClosed.js::BasisClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/basisOpen.js::BasisOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/bump.js::Bump.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/bump.js::BumpRadial.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/bundle.js::Bundle.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/cardinal.js::Cardinal.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/catmullRom.js::CatmullRom.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/linear.js::Linear.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/linearClosed.js::LinearClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/monotone.js::MonotoneX.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/natural.js::Natural.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/radial.js::Radial.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/radial.js::Radial.point",
+   "target": "src/curve/step.js::Step.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/step.js::default",
@@ -2198,6 +5058,38 @@
    "kind": "create",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/curve/step.js::Step.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/step.js::Step.lineEnd",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/step.js::Step.point",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/curve/step.js::Step.point",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/curve/step.js::stepAfter",
@@ -2229,6 +5121,294 @@
   },
   {
    "source": "src/line.js::default",
+   "target": "src/curve/basis.js::Basis.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/basis.js::Basis.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/basis.js::Basis.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/basisClosed.js::BasisClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/basisClosed.js::BasisClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/basisClosed.js::BasisClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/basisOpen.js::BasisOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/basisOpen.js::BasisOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/basisOpen.js::BasisOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/bump.js::Bump.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/bump.js::Bump.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/bump.js::Bump.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/bump.js::BumpRadial.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/bump.js::BumpRadial.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/bump.js::BumpRadial.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/bundle.js::Bundle.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/bundle.js::Bundle.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/bundle.js::Bundle.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/cardinal.js::Cardinal.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/cardinal.js::Cardinal.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/cardinal.js::Cardinal.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/catmullRom.js::CatmullRom.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/catmullRom.js::CatmullRom.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/catmullRom.js::CatmullRom.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
    "target": "src/curve/linear.js::default",
    "kind": "call",
    "count": 1,
@@ -2241,6 +5421,150 @@
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/linear.js::Linear.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/linear.js::Linear.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/linear.js::Linear.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/linearClosed.js::LinearClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/linearClosed.js::LinearClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/linearClosed.js::LinearClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/monotone.js::MonotoneX.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/monotone.js::MonotoneX.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/monotone.js::MonotoneX.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/natural.js::Natural.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/natural.js::Natural.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/natural.js::Natural.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/radial.js::Radial.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/radial.js::Radial.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/radial.js::Radial.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/step.js::Step.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/step.js::Step.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/line.js::default",
+   "target": "src/curve/step.js::Step.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/line.js::default",
@@ -2323,7 +5647,127 @@
   },
   {
    "source": "src/link.js::link",
+   "target": "src/curve/basis.js::Basis.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/basis.js::Basis.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/basis.js::Basis.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/basisClosed.js::BasisClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/basisClosed.js::BasisClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/basisClosed.js::BasisClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/basisOpen.js::BasisOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/basisOpen.js::BasisOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/basisOpen.js::BasisOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bump.js::Bump.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bump.js::Bump.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bump.js::Bump.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
    "target": "src/curve/bump.js::bumpRadial",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bump.js::BumpRadial.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bump.js::BumpRadial.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bump.js::BumpRadial.point",
    "kind": "call",
    "count": 1,
    "time": "use",
@@ -2340,6 +5784,318 @@
   {
    "source": "src/link.js::link",
    "target": "src/curve/bump.js::bumpY",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bundle.js::Bundle.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bundle.js::Bundle.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/bundle.js::Bundle.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/cardinal.js::Cardinal.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/cardinal.js::Cardinal.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/cardinal.js::Cardinal.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/cardinalClosed.js::CardinalClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/cardinalOpen.js::CardinalOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/catmullRom.js::CatmullRom.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/catmullRom.js::CatmullRom.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/catmullRom.js::CatmullRom.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/linear.js::Linear.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/linear.js::Linear.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/linear.js::Linear.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/linearClosed.js::LinearClosed.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/linearClosed.js::LinearClosed.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/linearClosed.js::LinearClosed.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/monotone.js::MonotoneX.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/monotone.js::MonotoneX.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/monotone.js::MonotoneX.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/natural.js::Natural.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/natural.js::Natural.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/natural.js::Natural.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/radial.js::Radial.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/radial.js::Radial.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/radial.js::Radial.point",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/step.js::Step.lineEnd",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/step.js::Step.lineStart",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/link.js::link",
+   "target": "src/curve/step.js::Step.point",
    "kind": "call",
    "count": 1,
    "time": "use",
@@ -2659,21 +6415,37 @@
    "time": "use"
   },
   {
-   "source": "src/symbol/asterisk.js::<module>",
+   "source": "src/symbol/asterisk.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/asterisk.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/asterisk.js::<module>/draw",
    "target": "src/math.js::min",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/asterisk.js::<module>",
+   "source": "src/symbol/asterisk.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/asterisk.js::<module>",
+   "source": "src/symbol/asterisk.js::<module>/draw",
    "target": "src/symbol/asterisk.js::sqrt3",
    "kind": "reference",
    "count": 1,
@@ -2687,49 +6459,105 @@
    "time": "definition"
   },
   {
-   "source": "src/symbol/circle.js::<module>",
+   "source": "src/symbol/circle.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/circle.js::<module>/draw",
    "target": "src/math.js::pi",
    "kind": "reference",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/circle.js::<module>",
+   "source": "src/symbol/circle.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/circle.js::<module>",
+   "source": "src/symbol/circle.js::<module>/draw",
    "target": "src/math.js::tau",
    "kind": "reference",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/cross.js::<module>",
+   "source": "src/symbol/cross.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/cross.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/cross.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/cross.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/diamond.js::<module>",
+   "source": "src/symbol/diamond.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/diamond.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/diamond.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/diamond.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/diamond.js::<module>",
+   "source": "src/symbol/diamond.js::<module>/draw",
    "target": "src/symbol/diamond.js::tan30",
    "kind": "reference",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/diamond.js::<module>",
+   "source": "src/symbol/diamond.js::<module>/draw",
    "target": "src/symbol/diamond.js::tan30_2",
    "kind": "reference",
    "count": 1,
@@ -2750,84 +6578,172 @@
    "time": "definition"
   },
   {
-   "source": "src/symbol/diamond2.js::<module>",
+   "source": "src/symbol/diamond2.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/diamond2.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/diamond2.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/diamond2.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/plus.js::<module>",
+   "source": "src/symbol/plus.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/plus.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/plus.js::<module>/draw",
    "target": "src/math.js::min",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/plus.js::<module>",
+   "source": "src/symbol/plus.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/square.js::<module>",
+   "source": "src/symbol/square.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/square2.js::<module>",
+   "source": "src/symbol/square2.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/square2.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/square2.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/square2.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/star.js::<module>",
+   "source": "src/symbol/star.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/star.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/star.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/star.js::<module>/draw",
    "target": "src/math.js::cos",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/star.js::<module>",
+   "source": "src/symbol/star.js::<module>/draw",
    "target": "src/math.js::sin",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/star.js::<module>",
+   "source": "src/symbol/star.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/star.js::<module>",
+   "source": "src/symbol/star.js::<module>/draw",
    "target": "src/math.js::tau",
    "kind": "reference",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/star.js::<module>",
+   "source": "src/symbol/star.js::<module>/draw",
    "target": "src/symbol/star.js::ka",
    "kind": "reference",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/star.js::<module>",
+   "source": "src/symbol/star.js::<module>/draw",
    "target": "src/symbol/star.js::kx",
    "kind": "reference",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/star.js::<module>",
+   "source": "src/symbol/star.js::<module>/draw",
    "target": "src/symbol/star.js::ky",
    "kind": "reference",
    "count": 1,
@@ -2890,28 +6806,68 @@
    "time": "definition"
   },
   {
-   "source": "src/symbol/times.js::<module>",
+   "source": "src/symbol/times.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/times.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/times.js::<module>/draw",
    "target": "src/math.js::min",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/times.js::<module>",
+   "source": "src/symbol/times.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/triangle.js::<module>",
+   "source": "src/symbol/triangle.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/triangle.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/triangle.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/triangle.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/triangle.js::<module>",
+   "source": "src/symbol/triangle.js::<module>/draw",
    "target": "src/symbol/triangle.js::sqrt3",
    "kind": "reference",
    "count": 3,
@@ -2925,14 +6881,38 @@
    "time": "definition"
   },
   {
-   "source": "src/symbol/triangle2.js::<module>",
+   "source": "src/symbol/triangle2.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/triangle2.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/triangle2.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/triangle2.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/triangle2.js::<module>",
+   "source": "src/symbol/triangle2.js::<module>/draw",
    "target": "src/symbol/triangle2.js::sqrt3",
    "kind": "reference",
    "count": 1,
@@ -2946,35 +6926,59 @@
    "time": "definition"
   },
   {
-   "source": "src/symbol/wye.js::<module>",
+   "source": "src/symbol/wye.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.closePath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/wye.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.lineTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/wye.js::<module>/draw",
+   "target": "src/curve/monotone.js::ReflectContext.moveTo",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/wye.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/wye.js::<module>",
+   "source": "src/symbol/wye.js::<module>/draw",
    "target": "src/symbol/wye.js::a",
    "kind": "reference",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "src/symbol/wye.js::<module>",
+   "source": "src/symbol/wye.js::<module>/draw",
    "target": "src/symbol/wye.js::c",
    "kind": "reference",
    "count": 12,
    "time": "use"
   },
   {
-   "source": "src/symbol/wye.js::<module>",
+   "source": "src/symbol/wye.js::<module>/draw",
    "target": "src/symbol/wye.js::k",
    "kind": "reference",
    "count": 2,
    "time": "use"
   },
   {
-   "source": "src/symbol/wye.js::<module>",
+   "source": "src/symbol/wye.js::<module>/draw",
    "target": "src/symbol/wye.js::s",
    "kind": "reference",
    "count": 12,

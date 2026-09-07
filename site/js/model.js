@@ -36,6 +36,7 @@ export function buildGraph(doc) {
       height: 0,
       scc: -1,
       inCycle: false,
+      radius: 4,
     };
   });
   const byId = new Map(nodes.map((n) => [n.id, n]));
@@ -87,6 +88,12 @@ export function applyActiveKinds(graph, kinds) {
     l.source.outDegree += 1;
     l.target.inDegree += 1;
   }
+  // Radius is a node property, not a rendering-time computation: both
+  // renderers and the physics (its collision radius) need the exact same
+  // value, so it is derived here, once, alongside the degrees it depends on,
+  // rather than each of them importing a formula from whichever one happened
+  // to declare it first.
+  for (const n of graph.nodes) n.radius = 4 + Math.sqrt(n.inDegree + n.outDegree) * 1.2;
   computeHeights(graph.nodes, active);
   return active;
 }

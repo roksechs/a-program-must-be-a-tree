@@ -13,14 +13,19 @@ Guidance for AI assistants and contributors working in this repository.
 3. **Code and documentation are written in English.** This includes comments,
    commit messages, README, docs, data files and the English source strings of
    the UI. Conversation with the owner may happen in Japanese, but nothing
-   committed is, except translations inside `site/js/i18n.js`.
+   committed is, except translations inside `site/js/i18n.js` and the
+   per-language article content under `site/content/<lang>/`, where the
+   Japanese text is content in its own right (drafted first, for review by
+   the owner) and every chapter must exist in every language.
 4. **The UI is internationalised.** Every user-visible string goes through
    `t()` from `site/js/i18n.js`; never hard-code UI text in components. When
    adding a string, add it to every language (English and Japanese today); the
    unit tests fail when a language misses a key.
 5. **The product is a GitHub Pages site** that visualizes declaration graphs
    with D3.js. It must work as a static site without a server or build step;
-   d3 is vendored into `site/vendor` so the page has no runtime CDN dependency.
+   d3 and TypeScript (for the local-folder feature, which runs the analyzer
+   in-browser) are vendored into `site/vendor` so the page has no runtime CDN
+   dependency.
 6. **The viewer must be able to analyze this project itself** as well as
    well-known open-source projects. Keep `npm run build:data` producing the
    `self` dataset and keep example datasets working.
@@ -53,10 +58,13 @@ edges. Required features, all of which must keep working:
 
 ```
 site/            static site (GitHub Pages root)
-  js/            ES modules: model, metrics, dominance, simulation, zones, graph2d, graph3d, panel, app, i18n
+  js/            ES modules: model, metrics, dominance, simulation, zones, graph3d, panel, app, i18n,
+                 browserAnalyzer/localAnalyzer/githubAnalyzer (analyzer running in-browser)
   data/          generated datasets, listed in index.json
-  vendor/        d3 (copied by `npm run vendor`, do not edit)
-analyzers/ts/    JavaScript / TypeScript analyzer (TypeScript compiler API)
+  content/       article chapters: chapters.json, then <lang>/<chapter>.md per language
+  vendor/        d3 and TypeScript (copied by `npm run vendor`, do not edit; TypeScript is regenerated on every build, not committed)
+analyzers/ts/    JavaScript / TypeScript analyzer (TypeScript compiler API); core.mjs is the portable half shared with the browser's local-folder feature
+samples/         small source programs analyzed into the bundled sample datasets
 scripts/         vendoring, dataset generation, dev server
 test/            node:test unit tests
 docs/            DESIGN.md (architecture, physics, metrics), DATA_FORMAT.md, THEORY.md (edge semantics)
@@ -82,7 +90,7 @@ docs/            DESIGN.md (architecture, physics, metrics), DATA_FORMAT.md, THE
 ```sh
 npm install
 npm test               # unit tests (node:test)
-npm run vendor         # copy d3 into site/vendor
+npm run vendor         # copy d3 and TypeScript into site/vendor
 npm run build:data     # regenerate site/data/*.json (self + d3 packages + samples)
 npm run serve          # dev server at http://localhost:8080/
 node analyzers/ts/analyze.mjs --name x --root path --include src --out x.json
@@ -100,6 +108,14 @@ repository's default branch: tests, vendoring, data generation, then publishes
 configured with "GitHub Actions" as the source in the repository settings, and
 the `github-pages` environment must allow deployments from the default branch
 (its allowed-branch list is pinned when the environment is first created).
+
+The site can equally be served by **Cloudflare Pages** connected to this
+repository through its GitHub integration (no tokens in the repository): build
+command `npm test && npm run vendor && npm run build:data` (spelled out so it
+works on every branch; `npm run build:site` is its shorthand), output
+directory `site`, Node version from `.node-version`. Cloudflare then builds
+every branch and gives each pull request its own preview URL, which GitHub
+Pages cannot do. Nothing in the site depends on which host serves it.
 
 `.github/workflows/release.yml` cuts the tag and the GitHub release for the
 version in `package.json` when it reaches the default branch, taking the notes

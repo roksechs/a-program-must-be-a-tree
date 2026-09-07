@@ -251,14 +251,204 @@ test("top-level statements belong to a module node", () => {
   const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
   assert.equal(byId["m.js::<module>"].kind, "module");
   assert.equal(byId["m.js::<module>"].name, "m");
-  assert.equal(byId["m.js::<module>"].line, 5);
+  // `Selection.prototype = { select, each }` is a definition-time binding, so it
+  // declares (see the next test); only `start()` is left as module code.
+  assert.equal(byId["m.js::<module>"].line, 7);
   assert.equal(byId["n.js::<module>"], undefined); // nothing but declarations: no module node
   const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
-  assert.equal(edge("m.js::<module>", "m.js::select").kind, "reference");
-  assert.equal(edge("m.js::<module>", "m.js::each").time, "definition");
-  assert.equal(edge("m.js::<module>", "m.js::Selection").kind, "reference");
+  assert.equal(byId["m.js::select"].parent, "m.js::Selection");
+  assert.deepEqual(byId["m.js::each"].aliases, ["Selection.each"]);
+  assert.equal(edge("m.js::<module>", "m.js::select"), undefined); // an alias is not an occurrence
   assert.equal(edge("m.js::<module>", "m.js::start").kind, "call");
   assert.equal(edge("m.js::<module>", "m.js::start").time, "definition");
+});
+
+test("a top-level destructuring declaration's initializer is module code", () => {
+  const root = fixture({
+    "m.js": `
+      export function make() { return { helper() {} }; }
+      const { helper } = make();
+      helper();
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
+  // `helper` is a destructured local, not a declaration of its own; only the
+  // calls in `make()`'s initializer and the following statement are module code.
+  assert.equal(byId["m.js::helper"], undefined);
+  const edge = (t) => doc.edges.find((e) => e.source === "m.js::<module>" && e.target === t);
+  assert.equal(edge("m.js::make").kind, "call"); // was silently dropped before this test existed
+});
+
+test("definition-time property assignments declare members; use-time ones store or bind late", () => {
+  const root = fixture({
+    "p.js": `
+      export function Moment(config) { this.c = config; }
+      var proto = Moment.prototype;
+      export function add(n) { return this.c + n; }
+      proto.add = add;
+      proto.isValid = function () { return this.add(0) > 0; };
+      Moment.utc = function () { return new Moment(1); };
+      export function use(m) { return m.isValid() + m.add(2); }
+      export function setup(el) { el.onclick = function () { return add(1); }; }
+      export function init() { proto.late = function () { return 1; }; }
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  // `proto.isValid = function`: an instance member of Moment, spelled the ES5 way.
+  assert.equal(byId["p.js::Moment.isValid"].kind, "method");
+  assert.equal(byId["p.js::Moment.isValid"].parent, "p.js::Moment");
+  assert.equal(byId["p.js::Moment.isValid"].late, undefined);
+  // `proto.add = add`: an alias. `add` keeps its node and gains the member role.
+  assert.equal(byId["p.js::add"].parent, "p.js::Moment");
+  assert.deepEqual(byId["p.js::add"].aliases, ["Moment.add"]);
+  assert.equal(byId["p.js::Moment.add"], undefined);
+  // `Moment.utc = function`: a static member.
+  assert.equal(byId["p.js::Moment.utc"].kind, "method");
+  assert.equal(edge("p.js::Moment.utc", "p.js::Moment").kind, "create");
+  // `this.add()` inside a member resolves to the member, exactly.
+  assert.equal(edge("p.js::Moment.isValid", "p.js::add").kind, "call");
+  assert.equal(edge("p.js::Moment.isValid", "p.js::add").inferred, undefined);
+  // An untyped receiver: every instance member of that name, inferred.
+  assert.equal(edge("p.js::use", "p.js::Moment.isValid").kind, "call");
+  assert.equal(edge("p.js::use", "p.js::Moment.isValid").inferred, true);
+  assert.equal(edge("p.js::use", "p.js::add").kind, "call");
+  // `el.onclick = function` stores a closure in a value: no declaration, and the
+  // closure's body belongs to setup.
+  assert.equal(doc.declarations.some((d) => d.id.endsWith("onclick")), false);
+  assert.equal(edge("p.js::setup", "p.js::add").kind, "call");
+  assert.equal(edge("p.js::setup", "p.js::add").time, "use");
+  // `proto.late = function` inside init: nameable, but only once init has run.
+  assert.equal(byId["p.js::Moment.late"].late, true);
+  assert.equal(byId["p.js::Moment.late"].parent, "p.js::Moment");
+  assert.equal(edge("p.js::init", "p.js::Moment.late").kind, "reference");
+  assert.equal(edge("p.js::init", "p.js::Moment.late").time, "use");
+});
+
+test("bindings on an undeclared global keep their qualified name", () => {
+  const root = fixture({
+    "core.js": `
+      d3.version = "3";
+      d3.scale = {};
+    `,
+    "linear.js": `
+      d3.scale.linear = function () { return d3_scale_linear(); };
+      function d3_scale_linear() { return 1; }
+    `,
+    "chart.js": `
+      export function chart() { return d3.scale.linear(); }
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  assert.equal(byId["core.js::d3.scale"].kind, "variable");
+  assert.equal(byId["core.js::d3.scale"].parent, null);
+  assert.equal(byId["core.js::d3.scale.linear"].parent, "core.js::d3.scale");
+  assert.equal(byId["core.js::d3.scale.linear"].file, "linear.js");
+  assert.equal(byId["core.js::d3.scale.linear"].name, "linear");
+  assert.equal(byId["core.js::<module>"], undefined); // everything in core.js declares
+  // Resolved by name path: an ordinary call, not an inferred one.
+  assert.equal(edge("chart.js::chart", "core.js::d3.scale.linear").kind, "call");
+  assert.equal(edge("chart.js::chart", "core.js::d3.scale.linear").inferred, undefined);
+  assert.equal(edge("chart.js::chart", "core.js::d3.scale").kind, "reference");
+  assert.equal(edge("core.js::d3.scale.linear", "linear.js::d3_scale_linear").kind, "call");
+});
+
+test("local functions become declarations behind the nested option", () => {
+  const root = fixture({
+    "n.js": `
+      export function outer(x) {
+        const inner = (y) => helper(y);
+        function deep() { return inner(1); }
+        return deep() + inner(x);
+      }
+      export function helper(v) { return v; }
+    `,
+  });
+  const flat = analyze({ name: "js", root });
+  const flatEdge = (s, t) => flat.edges.find((e) => e.source === s && e.target === t);
+  // By default the closures belong to outer: their bodies are its body.
+  assert.equal(flat.declarations.some((d) => d.id.includes("/")), false);
+  assert.equal(flatEdge("n.js::outer", "n.js::helper").kind, "call");
+
+  const doc = analyze({ name: "js", root, nested: true });
+  const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  assert.equal(byId["n.js::outer/inner"].kind, "function");
+  assert.equal(byId["n.js::outer/inner"].parent, "n.js::outer");
+  assert.equal(byId["n.js::outer/deep"].parent, "n.js::outer");
+  assert.equal(edge("n.js::outer", "n.js::outer/deep").kind, "call");
+  assert.equal(edge("n.js::outer", "n.js::outer/inner").kind, "call");
+  assert.equal(edge("n.js::outer/deep", "n.js::outer/inner").kind, "call");
+  assert.equal(edge("n.js::outer/inner", "n.js::helper").kind, "call");
+  // outer no longer reaches helper directly: the call sits in inner's body.
+  assert.equal(edge("n.js::outer", "n.js::helper"), undefined);
+});
+
+test("a function-valued object literal property is a declaration even without the nested option", () => {
+  const root = fixture({
+    "h.js": `
+      export function helper(v) { return v; }
+      export function install(target) {
+        target.wire({
+          onFit: () => helper(1),
+          onLabels(mode) { return helper(mode); },
+        });
+      }
+    `,
+  });
+  const doc = analyze({ name: "js", root }); // default: no { nested: true }
+  const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+
+  assert.equal(byId["h.js::install/onFit"].kind, "function");
+  assert.equal(byId["h.js::install/onFit"].parent, "h.js::install");
+  assert.equal(byId["h.js::install/onLabels"].kind, "function");
+  assert.equal(byId["h.js::install/onLabels"].parent, "h.js::install");
+
+  // The calls to helper() belong to the handler that makes them, not to
+  // install() itself - the whole point: install merely constructs and hands
+  // off the object, it never calls helper directly.
+  assert.equal(edge("h.js::install/onFit", "h.js::helper").kind, "call");
+  assert.equal(edge("h.js::install/onLabels", "h.js::helper").kind, "call");
+  assert.equal(edge("h.js::install", "h.js::helper"), undefined);
+});
+
+test("an object literal property already bound to a name is not declared twice", () => {
+  const root = fixture({
+    "b.js": `
+      export const helper = () => 1;
+      export function install(target) {
+        target.wire({ onFit: helper });
+      }
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  assert.equal(doc.declarations.some((d) => d.id === "b.js::install/onFit"), false);
+  const edge = doc.edges.find((e) => e.source === "b.js::install" && e.target === "b.js::helper");
+  assert.equal(edge.kind, "reference"); // helper is handed off, not declared again
+});
+
+test("CommonJS exports are declarations of the module", () => {
+  const root = fixture({
+    "cjs.js": `
+      function helper() { return 1; }
+      exports.run = function () { return helper(); };
+      module.exports.helper = helper;
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const byId = Object.fromEntries(doc.declarations.map((d) => [d.id, d]));
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  assert.equal(byId["cjs.js::run"].kind, "function");
+  assert.equal(byId["cjs.js::run"].exported, true);
+  assert.equal(byId["cjs.js::helper"].exported, true);
+  assert.deepEqual(byId["cjs.js::helper"].aliases, ["helper"]);
+  assert.equal(edge("cjs.js::run", "cjs.js::helper").kind, "call");
+  assert.equal(byId["cjs.js::<module>"], undefined);
 });
 
 test("a call through a union type or a record index reaches every candidate", () => {
@@ -283,4 +473,33 @@ test("a call through a union type or a record index reaches every candidate", ()
     assert.equal(e.kind, "call", `${source} -> ${cls}.draw`);
     assert.equal(e.inferred, true); // one of them runs; which one is not decided here
   }
+});
+
+test("assignment targets record a reversed write edge (docs/THEORY.md §3.5)", () => {
+  const root = fixture({
+    "g.js": `
+      let total = 0;
+      export function addItem(price) { total += price; }
+      export function setTotal(price) { total = price; }
+      export function incTotal() { total++; }
+      export function checkout() { return total; }
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const edges = (s, t) => doc.edges.filter((e) => e.source === s && e.target === t);
+  // Compound assignment (+=): write, reversed, plus the ordinary read.
+  assert.equal(edges("g.js::total", "g.js::addItem").length, 1);
+  assert.equal(edges("g.js::total", "g.js::addItem")[0].kind, "write");
+  assert.equal(edges("g.js::addItem", "g.js::total").length, 1);
+  assert.equal(edges("g.js::addItem", "g.js::total")[0].kind, "reference");
+  // Plain assignment (=): write only, no read edge.
+  assert.equal(edges("g.js::total", "g.js::setTotal").length, 1);
+  assert.equal(edges("g.js::total", "g.js::setTotal")[0].kind, "write");
+  assert.equal(edges("g.js::setTotal", "g.js::total").length, 0);
+  // ++: write and read, like compound assignment.
+  assert.equal(edges("g.js::total", "g.js::incTotal")[0].kind, "write");
+  assert.equal(edges("g.js::incTotal", "g.js::total")[0].kind, "reference");
+  // Read only: no write edge at all.
+  assert.equal(edges("g.js::total", "g.js::checkout").length, 0);
+  assert.equal(edges("g.js::checkout", "g.js::total")[0].kind, "reference");
 });

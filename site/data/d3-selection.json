@@ -3,8 +3,8 @@
   "name": "d3-selection",
   "root": "node_modules/d3-selection",
   "language": "javascript",
-  "generatedAt": "2026-09-05T12:09:07.626Z",
-  "analyzer": "analyzers/ts@0.1.0",
+  "generatedAt": "2026-09-07T00:20:11.976Z",
+  "analyzer": "analyzers/ts@0.4.0",
   "files": 54
  },
  "declarations": [
@@ -72,15 +72,6 @@
    "exported": true
   },
   {
-   "id": "src/local.js::<module>",
-   "name": "local",
-   "kind": "module",
-   "file": "src/local.js",
-   "line": 11,
-   "parent": null,
-   "exported": false
-  },
-  {
    "id": "src/local.js::local",
    "name": "local",
    "kind": "function",
@@ -95,7 +86,46 @@
    "kind": "function",
    "file": "src/local.js",
    "line": 7,
-   "parent": null,
+   "parent": "src/local.js::Local",
+   "exported": false,
+   "aliases": [
+    "Local.constructor"
+   ]
+  },
+  {
+   "id": "src/local.js::Local.get",
+   "name": "get",
+   "kind": "method",
+   "file": "src/local.js",
+   "line": 13,
+   "parent": "src/local.js::Local",
+   "exported": false
+  },
+  {
+   "id": "src/local.js::Local.remove",
+   "name": "remove",
+   "kind": "method",
+   "file": "src/local.js",
+   "line": 21,
+   "parent": "src/local.js::Local",
+   "exported": false
+  },
+  {
+   "id": "src/local.js::Local.set",
+   "name": "set",
+   "kind": "method",
+   "file": "src/local.js",
+   "line": 18,
+   "parent": "src/local.js::Local",
+   "exported": false
+  },
+  {
+   "id": "src/local.js::Local.toString",
+   "name": "toString",
+   "kind": "method",
+   "file": "src/local.js",
+   "line": 24,
+   "parent": "src/local.js::Local",
    "exported": false
   },
   {
@@ -194,8 +224,11 @@
    "kind": "function",
    "file": "src/selection/append.js",
    "line": 3,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.append"
+   ]
   },
   {
    "id": "src/selection/attr.js::attrConstant",
@@ -257,8 +290,11 @@
    "kind": "function",
    "file": "src/selection/attr.js",
    "line": 43,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.attr"
+   ]
   },
   {
    "id": "src/selection/call.js::default",
@@ -266,17 +302,11 @@
    "kind": "function",
    "file": "src/selection/call.js",
    "line": 1,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "src/selection/classed.js::<module>",
-   "name": "classed",
-   "kind": "module",
-   "file": "src/selection/classed.js",
-   "line": 14,
-   "parent": null,
-   "exported": false
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.call"
+   ]
   },
   {
    "id": "src/selection/classed.js::classArray",
@@ -351,13 +381,43 @@
    "exported": false
   },
   {
+   "id": "src/selection/classed.js::ClassList.add",
+   "name": "add",
+   "kind": "method",
+   "file": "src/selection/classed.js",
+   "line": 15,
+   "parent": "src/selection/classed.js::ClassList",
+   "exported": false
+  },
+  {
+   "id": "src/selection/classed.js::ClassList.contains",
+   "name": "contains",
+   "kind": "method",
+   "file": "src/selection/classed.js",
+   "line": 29,
+   "parent": "src/selection/classed.js::ClassList",
+   "exported": false
+  },
+  {
+   "id": "src/selection/classed.js::ClassList.remove",
+   "name": "remove",
+   "kind": "method",
+   "file": "src/selection/classed.js",
+   "line": 22,
+   "parent": "src/selection/classed.js::ClassList",
+   "exported": false
+  },
+  {
    "id": "src/selection/classed.js::default",
    "name": "classed",
    "kind": "function",
    "file": "src/selection/classed.js",
    "line": 62,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.classed"
+   ]
   },
   {
    "id": "src/selection/clone.js::default",
@@ -365,8 +425,11 @@
    "kind": "function",
    "file": "src/selection/clone.js",
    "line": 11,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.clone"
+   ]
   },
   {
    "id": "src/selection/clone.js::selection_cloneDeep",
@@ -428,8 +491,11 @@
    "kind": "function",
    "file": "src/selection/data.js",
    "line": 79,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.data"
+   ]
   },
   {
    "id": "src/selection/datum.js::default",
@@ -437,8 +503,11 @@
    "kind": "function",
    "file": "src/selection/datum.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.datum"
+   ]
   },
   {
    "id": "src/selection/dispatch.js::default",
@@ -446,8 +515,11 @@
    "kind": "function",
    "file": "src/selection/dispatch.js",
    "line": 30,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.dispatch"
+   ]
   },
   {
    "id": "src/selection/dispatch.js::dispatchConstant",
@@ -482,8 +554,11 @@
    "kind": "function",
    "file": "src/selection/each.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.each"
+   ]
   },
   {
    "id": "src/selection/empty.js::default",
@@ -491,17 +566,11 @@
    "kind": "function",
    "file": "src/selection/empty.js",
    "line": 1,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "src/selection/enter.js::<module>",
-   "name": "enter",
-   "kind": "module",
-   "file": "src/selection/enter.js",
-   "line": 16,
-   "parent": null,
-   "exported": false
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.empty"
+   ]
   },
   {
    "id": "src/selection/enter.js::default",
@@ -509,8 +578,11 @@
    "kind": "function",
    "file": "src/selection/enter.js",
    "line": 4,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.enter"
+   ]
   },
   {
    "id": "src/selection/enter.js::EnterNode",
@@ -518,8 +590,47 @@
    "kind": "function",
    "file": "src/selection/enter.js",
    "line": 8,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/enter.js::EnterNode",
+   "exported": true,
+   "aliases": [
+    "EnterNode.constructor"
+   ]
+  },
+  {
+   "id": "src/selection/enter.js::EnterNode.appendChild",
+   "name": "appendChild",
+   "kind": "method",
+   "file": "src/selection/enter.js",
+   "line": 18,
+   "parent": "src/selection/enter.js::EnterNode",
+   "exported": false
+  },
+  {
+   "id": "src/selection/enter.js::EnterNode.insertBefore",
+   "name": "insertBefore",
+   "kind": "method",
+   "file": "src/selection/enter.js",
+   "line": 19,
+   "parent": "src/selection/enter.js::EnterNode",
+   "exported": false
+  },
+  {
+   "id": "src/selection/enter.js::EnterNode.querySelector",
+   "name": "querySelector",
+   "kind": "method",
+   "file": "src/selection/enter.js",
+   "line": 20,
+   "parent": "src/selection/enter.js::EnterNode",
+   "exported": false
+  },
+  {
+   "id": "src/selection/enter.js::EnterNode.querySelectorAll",
+   "name": "querySelectorAll",
+   "kind": "method",
+   "file": "src/selection/enter.js",
+   "line": 21,
+   "parent": "src/selection/enter.js::EnterNode",
+   "exported": false
   },
   {
    "id": "src/selection/exit.js::default",
@@ -527,8 +638,11 @@
    "kind": "function",
    "file": "src/selection/exit.js",
    "line": 4,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.exit"
+   ]
   },
   {
    "id": "src/selection/filter.js::default",
@@ -536,8 +650,11 @@
    "kind": "function",
    "file": "src/selection/filter.js",
    "line": 4,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.filter"
+   ]
   },
   {
    "id": "src/selection/html.js::default",
@@ -545,8 +662,11 @@
    "kind": "function",
    "file": "src/selection/html.js",
    "line": 18,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.html"
+   ]
   },
   {
    "id": "src/selection/html.js::htmlConstant",
@@ -580,7 +700,7 @@
    "name": "index",
    "kind": "module",
    "file": "src/selection/index.js",
-   "line": 51,
+   "line": 90,
    "parent": null,
    "exported": false
   },
@@ -608,8 +728,11 @@
    "kind": "function",
    "file": "src/selection/index.js",
    "line": 38,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.constructor"
+   ]
   },
   {
    "id": "src/selection/index.js::selection_selection",
@@ -617,8 +740,11 @@
    "kind": "function",
    "file": "src/selection/index.js",
    "line": 47,
-   "parent": null,
-   "exported": false
+   "parent": "src/selection/index.js::Selection",
+   "exported": false,
+   "aliases": [
+    "Selection.selection"
+   ]
   },
   {
    "id": "src/selection/insert.js::constantNull",
@@ -635,8 +761,11 @@
    "kind": "function",
    "file": "src/selection/insert.js",
    "line": 8,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.insert"
+   ]
   },
   {
    "id": "src/selection/iterator.js::default",
@@ -644,8 +773,11 @@
    "kind": "function",
    "file": "src/selection/iterator.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.[Symbol.iterator]"
+   ]
   },
   {
    "id": "src/selection/join.js::default",
@@ -653,8 +785,11 @@
    "kind": "function",
    "file": "src/selection/join.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.join"
+   ]
   },
   {
    "id": "src/selection/lower.js::default",
@@ -662,8 +797,11 @@
    "kind": "function",
    "file": "src/selection/lower.js",
    "line": 5,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.lower"
+   ]
   },
   {
    "id": "src/selection/lower.js::lower",
@@ -680,8 +818,11 @@
    "kind": "function",
    "file": "src/selection/merge.js",
    "line": 3,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.merge"
+   ]
   },
   {
    "id": "src/selection/node.js::default",
@@ -689,8 +830,11 @@
    "kind": "function",
    "file": "src/selection/node.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.node"
+   ]
   },
   {
    "id": "src/selection/nodes.js::default",
@@ -698,8 +842,11 @@
    "kind": "function",
    "file": "src/selection/nodes.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.nodes"
+   ]
   },
   {
    "id": "src/selection/on.js::contextListener",
@@ -716,8 +863,11 @@
    "kind": "function",
    "file": "src/selection/on.js",
    "line": 49,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.on"
+   ]
   },
   {
    "id": "src/selection/on.js::onAdd",
@@ -752,8 +902,11 @@
    "kind": "function",
    "file": "src/selection/order.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.order"
+   ]
   },
   {
    "id": "src/selection/property.js::default",
@@ -761,8 +914,11 @@
    "kind": "function",
    "file": "src/selection/property.js",
    "line": 21,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.property"
+   ]
   },
   {
    "id": "src/selection/property.js::propertyConstant",
@@ -797,8 +953,11 @@
    "kind": "function",
    "file": "src/selection/raise.js",
    "line": 5,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.raise"
+   ]
   },
   {
    "id": "src/selection/raise.js::raise",
@@ -815,8 +974,11 @@
    "kind": "function",
    "file": "src/selection/remove.js",
    "line": 6,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.remove"
+   ]
   },
   {
    "id": "src/selection/remove.js::remove",
@@ -833,8 +995,11 @@
    "kind": "function",
    "file": "src/selection/select.js",
    "line": 4,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.select"
+   ]
   },
   {
    "id": "src/selection/selectAll.js::arrayAll",
@@ -851,8 +1016,11 @@
    "kind": "function",
    "file": "src/selection/selectAll.js",
    "line": 11,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.selectAll"
+   ]
   },
   {
    "id": "src/selection/selectChild.js::childFind",
@@ -878,8 +1046,11 @@
    "kind": "function",
    "file": "src/selection/selectChild.js",
    "line": 15,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.selectChild"
+   ]
   },
   {
    "id": "src/selection/selectChild.js::find",
@@ -914,8 +1085,11 @@
    "kind": "function",
    "file": "src/selection/selectChildren.js",
    "line": 15,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.selectChildren"
+   ]
   },
   {
    "id": "src/selection/selectChildren.js::filter",
@@ -932,8 +1106,11 @@
    "kind": "function",
    "file": "src/selection/size.js",
    "line": 1,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.size"
+   ]
   },
   {
    "id": "src/selection/sort.js::ascending",
@@ -950,8 +1127,11 @@
    "kind": "function",
    "file": "src/selection/sort.js",
    "line": 3,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.sort"
+   ]
   },
   {
    "id": "src/selection/sparse.js::default",
@@ -968,8 +1148,11 @@
    "kind": "function",
    "file": "src/selection/style.js",
    "line": 23,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.style"
+   ]
   },
   {
    "id": "src/selection/style.js::styleConstant",
@@ -1013,8 +1196,11 @@
    "kind": "function",
    "file": "src/selection/text.js",
    "line": 18,
-   "parent": null,
-   "exported": true
+   "parent": "src/selection/index.js::Selection",
+   "exported": true,
+   "aliases": [
+    "Selection.text"
+   ]
   },
   {
    "id": "src/selection/text.js::textConstant",
@@ -1114,6 +1300,14 @@
    "time": "use"
   },
   {
+   "source": "src/create.js::default",
+   "target": "src/selection/call.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "src/creator.js::creatorInherit",
    "target": "src/namespaces.js::xhtml",
    "kind": "reference",
@@ -1158,20 +1352,6 @@
    "time": "use"
   },
   {
-   "source": "src/local.js::<module>",
-   "target": "src/local.js::local",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/local.js::<module>",
-   "target": "src/local.js::Local",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
-  },
-  {
    "source": "src/local.js::local",
    "target": "src/local.js::Local",
    "kind": "create",
@@ -1180,8 +1360,23 @@
   },
   {
    "source": "src/local.js::Local",
+   "target": "src/local.js::Local.toString",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/local.js::Local",
    "target": "src/local.js::nextId",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/local.js::nextId",
+   "target": "src/local.js::Local",
+   "kind": "write",
    "count": 1,
    "time": "use"
   },
@@ -1215,6 +1410,14 @@
   },
   {
    "source": "src/select.js::default",
+   "target": "src/selection/enter.js::EnterNode.querySelector",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/select.js::default",
    "target": "src/selection/index.js::root",
    "kind": "reference",
    "count": 1,
@@ -1236,6 +1439,14 @@
   },
   {
    "source": "src/selectAll.js::default",
+   "target": "src/selection/enter.js::EnterNode.querySelectorAll",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selectAll.js::default",
    "target": "src/selection/index.js::root",
    "kind": "reference",
    "count": 1,
@@ -1251,6 +1462,13 @@
   {
    "source": "src/selection/append.js::default",
    "target": "src/creator.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/append.js::default",
+   "target": "src/selection/select.js::default",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -1353,11 +1571,18 @@
    "time": "use"
   },
   {
-   "source": "src/selection/classed.js::<module>",
-   "target": "src/selection/classed.js::ClassList",
-   "kind": "reference",
+   "source": "src/selection/attr.js::default",
+   "target": "src/selection/each.js::default",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
+   "time": "use"
+  },
+  {
+   "source": "src/selection/attr.js::default",
+   "target": "src/selection/node.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/classed.js::classedAdd",
@@ -1365,6 +1590,14 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/selection/classed.js::classedAdd",
+   "target": "src/selection/classed.js::ClassList.add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/classed.js::classedFalse",
@@ -1405,10 +1638,34 @@
   },
   {
    "source": "src/selection/classed.js::classedRemove",
+   "target": "src/local.js::Local.remove",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/classed.js::classedRemove",
    "target": "src/selection/classed.js::classList",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/selection/classed.js::classedRemove",
+   "target": "src/selection/classed.js::ClassList.remove",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/classed.js::classedRemove",
+   "target": "src/selection/remove.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/classed.js::classedTrue",
@@ -1432,6 +1689,22 @@
    "time": "use"
   },
   {
+   "source": "src/selection/classed.js::ClassList.add",
+   "target": "src/selection/join.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/classed.js::ClassList.remove",
+   "target": "src/selection/join.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "src/selection/classed.js::default",
    "target": "src/selection/classed.js::classArray",
    "kind": "call",
@@ -1491,6 +1764,28 @@
    "time": "use"
   },
   {
+   "source": "src/selection/classed.js::default",
+   "target": "src/selection/classed.js::ClassList.contains",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/classed.js::default",
+   "target": "src/selection/each.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/classed.js::default",
+   "target": "src/selection/node.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "src/selection/clone.js::default",
    "target": "src/selection/clone.js::selection_cloneDeep",
    "kind": "reference",
@@ -1505,11 +1800,58 @@
    "time": "use"
   },
   {
+   "source": "src/selection/clone.js::default",
+   "target": "src/selection/select.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/clone.js::selection_cloneDeep",
+   "target": "src/selection/enter.js::EnterNode.insertBefore",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/clone.js::selection_cloneShallow",
+   "target": "src/selection/enter.js::EnterNode.insertBefore",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "src/selection/data.js::bindIndex",
    "target": "src/selection/enter.js::EnterNode",
    "kind": "create",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/selection/data.js::bindKey",
+   "target": "src/local.js::Local.get",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/data.js::bindKey",
+   "target": "src/local.js::Local.set",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/data.js::bindKey",
+   "target": "src/selection/call.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/data.js::bindKey",
@@ -1524,6 +1866,14 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/selection/data.js::default",
+   "target": "src/selection/call.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/data.js::default",
@@ -1577,6 +1927,20 @@
    "time": "use"
   },
   {
+   "source": "src/selection/datum.js::default",
+   "target": "src/selection/node.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/datum.js::default",
+   "target": "src/selection/property.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "src/selection/dispatch.js::default",
    "target": "src/selection/dispatch.js::dispatchConstant",
    "kind": "call",
@@ -1603,6 +1967,13 @@
    "source": "src/selection/dispatch.js::default",
    "target": "src/selection/dispatch.js::dispatchFunction",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/dispatch.js::default",
+   "target": "src/selection/each.js::default",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },
@@ -1628,11 +1999,19 @@
    "time": "use"
   },
   {
-   "source": "src/selection/enter.js::<module>",
-   "target": "src/selection/enter.js::EnterNode",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
+   "source": "src/selection/each.js::default",
+   "target": "src/selection/call.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/empty.js::default",
+   "target": "src/selection/node.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/selection/enter.js::default",
@@ -1647,6 +2026,38 @@
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/selection/enter.js::EnterNode.appendChild",
+   "target": "src/selection/enter.js::EnterNode.insertBefore",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/enter.js::EnterNode.insertBefore",
+   "target": "src/selection/enter.js::EnterNode.insertBefore",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/enter.js::EnterNode.querySelector",
+   "target": "src/selection/enter.js::EnterNode.querySelector",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/enter.js::EnterNode.querySelectorAll",
+   "target": "src/selection/enter.js::EnterNode.querySelectorAll",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/exit.js::default",
@@ -1671,8 +2082,23 @@
   },
   {
    "source": "src/selection/filter.js::default",
+   "target": "src/selection/call.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/filter.js::default",
    "target": "src/selection/index.js::Selection",
    "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/html.js::default",
+   "target": "src/selection/each.js::default",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },
@@ -1714,260 +2140,15 @@
    "time": "use"
   },
   {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/append.js::default",
-   "kind": "reference",
+   "source": "src/selection/html.js::default",
+   "target": "src/selection/node.js::default",
+   "kind": "call",
    "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/attr.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/call.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/classed.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/clone.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/data.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/datum.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/dispatch.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/each.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/empty.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/enter.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/exit.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/filter.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/html.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
+   "time": "use"
   },
   {
    "source": "src/selection/index.js::<module>",
    "target": "src/selection/index.js::selection",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/index.js::Selection",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/index.js::selection_selection",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/insert.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/iterator.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/join.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/lower.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/merge.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/node.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/nodes.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/on.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/order.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/property.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/raise.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/remove.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/select.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/selectAll.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/selectChild.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/selectChildren.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/size.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/sort.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/style.js::default",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "src/selection/index.js::<module>",
-   "target": "src/selection/text.js::default",
    "kind": "reference",
    "count": 1,
    "time": "definition"
@@ -2002,7 +2183,91 @@
   },
   {
    "source": "src/selection/insert.js::default",
+   "target": "src/selection/select.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/insert.js::default",
    "target": "src/selector.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/join.js::default",
+   "target": "src/local.js::Local.remove",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/join.js::default",
+   "target": "src/selection/append.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/join.js::default",
+   "target": "src/selection/classed.js::ClassList.remove",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/join.js::default",
+   "target": "src/selection/enter.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/join.js::default",
+   "target": "src/selection/exit.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/join.js::default",
+   "target": "src/selection/index.js::selection_selection",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/join.js::default",
+   "target": "src/selection/merge.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/join.js::default",
+   "target": "src/selection/order.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/join.js::default",
+   "target": "src/selection/remove.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/lower.js::default",
+   "target": "src/selection/each.js::default",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2015,9 +2280,47 @@
    "time": "use"
   },
   {
+   "source": "src/selection/lower.js::lower",
+   "target": "src/selection/enter.js::EnterNode.insertBefore",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "src/selection/merge.js::default",
    "target": "src/selection/index.js::Selection",
    "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/merge.js::default",
+   "target": "src/selection/index.js::selection_selection",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/on.js::contextListener",
+   "target": "src/selection/call.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/on.js::default",
+   "target": "src/selection/each.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/on.js::default",
+   "target": "src/selection/node.js::default",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },
@@ -2061,6 +2364,28 @@
   {
    "source": "src/selection/on.js::onAdd",
    "target": "src/selection/on.js::contextListener",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/order.js::default",
+   "target": "src/selection/enter.js::EnterNode.insertBefore",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/property.js::default",
+   "target": "src/selection/each.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/property.js::default",
+   "target": "src/selection/node.js::default",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2112,8 +2437,30 @@
   },
   {
    "source": "src/selection/raise.js::default",
+   "target": "src/selection/each.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/raise.js::default",
    "target": "src/selection/raise.js::raise",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/raise.js::raise",
+   "target": "src/selection/enter.js::EnterNode.appendChild",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/remove.js::default",
+   "target": "src/selection/each.js::default",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },
@@ -2123,6 +2470,14 @@
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/selection/select.js::default",
+   "target": "src/selection/call.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selection/select.js::default",
@@ -2147,6 +2502,14 @@
   },
   {
    "source": "src/selection/selectAll.js::default",
+   "target": "src/selection/call.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/selectAll.js::default",
    "target": "src/selection/index.js::Selection",
    "kind": "create",
    "count": 1,
@@ -2168,6 +2531,14 @@
   },
   {
    "source": "src/selection/selectChild.js::childFind",
+   "target": "src/selection/call.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/selectChild.js::childFind",
    "target": "src/selection/selectChild.js::find",
    "kind": "reference",
    "count": 1,
@@ -2176,6 +2547,13 @@
   {
    "source": "src/selection/selectChild.js::default",
    "target": "src/matcher.js::childMatcher",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/selectChild.js::default",
+   "target": "src/selection/select.js::default",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2196,6 +2574,14 @@
   },
   {
    "source": "src/selection/selectChildren.js::childrenFilter",
+   "target": "src/selection/call.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/selectChildren.js::childrenFilter",
    "target": "src/selection/selectChildren.js::filter",
    "kind": "reference",
    "count": 1,
@@ -2204,6 +2590,13 @@
   {
    "source": "src/selection/selectChildren.js::default",
    "target": "src/matcher.js::childMatcher",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/selectChildren.js::default",
+   "target": "src/selection/selectAll.js::default",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2231,6 +2624,14 @@
   },
   {
    "source": "src/selection/sort.js::default",
+   "target": "src/selection/order.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/sort.js::default",
    "target": "src/selection/sort.js::ascending",
    "kind": "call",
    "count": 1,
@@ -2241,6 +2642,28 @@
    "source": "src/selection/sort.js::default",
    "target": "src/selection/sort.js::ascending",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/sort.js::default",
+   "target": "src/selection/sort.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selection/style.js::default",
+   "target": "src/selection/each.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/style.js::default",
+   "target": "src/selection/node.js::default",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },
@@ -2305,6 +2728,20 @@
   },
   {
    "source": "src/selection/text.js::default",
+   "target": "src/selection/each.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/text.js::default",
+   "target": "src/selection/node.js::default",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/selection/text.js::default",
    "target": "src/selection/text.js::textConstant",
    "kind": "call",
    "count": 1,
@@ -2342,10 +2779,26 @@
   },
   {
    "source": "src/selector.js::default",
+   "target": "src/selection/enter.js::EnterNode.querySelector",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/selector.js::default",
    "target": "src/selector.js::none",
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/selectorAll.js::default",
+   "target": "src/selection/enter.js::EnterNode.querySelectorAll",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/selectorAll.js::default",

@@ -154,6 +154,70 @@ export function topSharedNodes(graph, limit = 8) {
 }
 
 /**
+ * Convergent operations: a declaration `x` that directly calls several
+ * distinct declarations (`via`), all of which independently call the same
+ * shared node `y`. This is the shape a single logical operation takes when
+ * it has been decomposed into several independent steps instead of one: `x`
+ * calling five setters that each separately trigger a shared re-render is
+ * indistinguishable, structurally, from `x` genuinely needing five unrelated
+ * things done. The pattern is found from call-graph topology alone (`x` ->
+ * `via[i]` -> `y` for every `i`) and says nothing about whether `y` is worth
+ * consolidating: an expensive, stateful `y` (a full re-render) converged on
+ * this way is the redundant-work pattern worth collapsing into one operation
+ * at `x`'s level; a cheap, pure `y` (a translation lookup) converged on the
+ * same way is harmless. Telling those two apart needs the same reading a
+ * person already gives any shared declaration — this only narrows down
+ * where to look, and at which caller the fix belongs (the highest point
+ * that actually causes the convergence, not `y` itself and not `via`'s
+ * members individually).
+ */
+export function convergentOperations(graph, minWidth = 2) {
+  const links = graph.activeLinks ?? graph.links;
+  const callersOf = new Map();
+  const calleesOf = new Map();
+  for (const l of links) {
+    if (l.source === l.target) continue;
+    if (!callersOf.has(l.target)) callersOf.set(l.target, new Set());
+    callersOf.get(l.target).add(l.source);
+    if (!calleesOf.has(l.source)) calleesOf.set(l.source, new Set());
+    calleesOf.get(l.source).add(l.target);
+  }
+  const results = [];
+  for (const [y, callers] of callersOf) {
+    if (callers.size < minWidth) continue;
+    for (const [x, callees] of calleesOf) {
+      if (x === y) continue;
+      const via = [...callers].filter((c) => c !== x && callees.has(c));
+      if (via.length >= minWidth) results.push({ x, y, via });
+    }
+  }
+  return results.sort((a, b) => b.via.length - a.via.length || a.x.name.localeCompare(b.x.name));
+}
+
+/**
+ * Declarations nothing calls, constructs, references, writes to or depends
+ * on the type of. Counted over every edge kind regardless of which ones are
+ * currently toggled on (`graph.links`, not `graph.activeLinks`): a
+ * declaration only reached through a kind the user has hidden is still
+ * used. A `module` node (a file's own top-level code) is excluded — nothing
+ * is ever expected to point at one. A local declaration (docs/THEORY.md
+ * Definition 9a/10 — an options-object callback such as
+ * `{ onFit: () => {…} }`, or a named local under `--nested`) is excluded
+ * too: its id is `<parent id>/<name>` (docs/DATA_FORMAT.md), i.e. a "/"
+ * *after* the file's `::` — not the "/" every nested file path already has
+ * before it — and bounded 0-CFA (docs/THEORY.md §3.2) does not trace a call
+ * reaching such a declaration through a stored reference
+ * (`this.callbacks.onFit()`), so it reads as unused even when something
+ * invokes it dynamically.
+ */
+export function unreferencedDeclarations(graph) {
+  const inDegree = new Map(graph.nodes.map((n) => [n, 0]));
+  for (const l of graph.links) inDegree.set(l.target, (inDegree.get(l.target) ?? 0) + 1);
+  const isLocal = (id) => (id.split("::")[1] ?? "").includes("/");
+  return graph.nodes.filter((n) => n.kind !== "module" && !isLocal(n.id) && inDegree.get(n) === 0);
+}
+
+/**
  * Cycles among definition-time term-level edges. These are evaluated while the
  * module initialises, so a cycle means a declaration is read before it exists
  * (docs/THEORY.md §4). Returns the number of declarations involved.

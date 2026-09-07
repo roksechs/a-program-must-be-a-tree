@@ -42,6 +42,12 @@
     "file": "data/d3-zoom.json"
   },
   {
+    "id": "sample-bindings",
+    "name": "sample: bindings, aliases, late bindings and stores",
+    "description": "one file per way a property assignment is read (docs/THEORY.md §4.1)",
+    "file": "data/sample-bindings.json"
+  },
+  {
     "id": "sample-tangle",
     "name": "sample: tangled graph",
     "description": "synthetic, 60 declarations with cycles and shared helpers",
@@ -52,5 +58,11 @@
     "name": "sample: perfect tree",
     "description": "synthetic, 40 declarations",
     "file": "data/sample-tree.json"
+  },
+  {
+    "id": "self-nested",
+    "name": "a-program-must-be-a-tree (nested declarations)",
+    "description": "this viewer and its analyzer, local functions as nodes",
+    "file": "data/self-nested.json"
   }
 ]

@@ -3,9 +3,9 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-05T12:09:06.710Z",
-  "analyzer": "analyzers/ts@0.1.0",
-  "files": 21
+  "generatedAt": "2026-09-07T00:20:10.607Z",
+  "analyzer": "analyzers/ts@0.4.0",
+  "files": 30
  },
  "declarations": [
   {
@@ -13,7 +13,7 @@
    "name": "analyze",
    "kind": "module",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 717,
+   "line": 26,
    "parent": null,
    "exported": false
   },
@@ -22,70 +22,16 @@
    "name": "analyze",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 193,
+   "line": 79,
    "parent": null,
    "exported": true
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::ANALYZER_VERSION",
-   "name": "ANALYZER_VERSION",
-   "kind": "variable",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 19,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::collectDeclarations",
-   "name": "collectDeclarations",
-   "kind": "function",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 86,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::DEFAULT_EXCLUDES",
-   "name": "DEFAULT_EXCLUDES",
-   "kind": "variable",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 21,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::EXTENSIONS",
-   "name": "EXTENSIONS",
-   "kind": "variable",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 20,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::hasExportModifier",
-   "name": "hasExportModifier",
-   "kind": "function",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 69,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::isFunctionLike",
-   "name": "isFunctionLike",
-   "kind": "function",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 74,
-   "parent": null,
-   "exported": false
   },
   {
    "id": "analyzers/ts/analyze.mjs::listSourceFiles",
    "name": "listSourceFiles",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 24,
+   "line": 29,
    "parent": null,
    "exported": true
   },
@@ -94,16 +40,7 @@
    "name": "matches",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 53,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "analyzers/ts/analyze.mjs::memberName",
-   "name": "memberName",
-   "kind": "function",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 163,
+   "line": 58,
    "parent": null,
    "exported": false
   },
@@ -112,18 +49,54 @@
    "name": "parseArgs",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 681,
+   "line": 108,
    "parent": null,
    "exported": false
   },
   {
-   "id": "analyzers/ts/analyze.mjs::referenceKind",
-   "name": "referenceKind",
-   "kind": "function",
-   "file": "analyzers/ts/analyze.mjs",
-   "line": 171,
+   "id": "analyzers/ts/core.mjs::ANALYZER_VERSION",
+   "name": "ANALYZER_VERSION",
+   "kind": "variable",
+   "file": "analyzers/ts/core.mjs",
+   "line": 9,
    "parent": null,
-   "exported": false
+   "exported": true
+  },
+  {
+   "id": "analyzers/ts/core.mjs::createCore",
+   "name": "createCore",
+   "kind": "function",
+   "file": "analyzers/ts/core.mjs",
+   "line": 32,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "analyzers/ts/core.mjs::DEFAULT_EXCLUDES",
+   "name": "DEFAULT_EXCLUDES",
+   "kind": "variable",
+   "file": "analyzers/ts/core.mjs",
+   "line": 11,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "analyzers/ts/core.mjs::EXTENSIONS",
+   "name": "EXTENSIONS",
+   "kind": "variable",
+   "file": "analyzers/ts/core.mjs",
+   "line": 10,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "analyzers/ts/core.mjs::stripRoot",
+   "name": "stripRoot",
+   "kind": "function",
+   "file": "analyzers/ts/core.mjs",
+   "line": 20,
+   "parent": null,
+   "exported": true
   },
   {
    "id": "scripts/analyze-examples.mjs::<module>",
@@ -139,7 +112,7 @@
    "name": "d3Packages",
    "kind": "variable",
    "file": "scripts/analyze-examples.mjs",
-   "line": 32,
+   "line": 42,
    "parent": null,
    "exported": false
   },
@@ -175,7 +148,7 @@
    "name": "syntheticTangle",
    "kind": "function",
    "file": "scripts/analyze-examples.mjs",
-   "line": 64,
+   "line": 83,
    "parent": null,
    "exported": false
   },
@@ -184,7 +157,7 @@
    "name": "syntheticTree",
    "kind": "function",
    "file": "scripts/analyze-examples.mjs",
-   "line": 47,
+   "line": 66,
    "parent": null,
    "exported": false
   },
@@ -238,7 +211,7 @@
    "name": "vendor",
    "kind": "module",
    "file": "scripts/vendor.mjs",
-   "line": 9,
+   "line": 10,
    "parent": null,
    "exported": false
   },
@@ -247,7 +220,34 @@
    "name": "d3Pkg",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 11,
+   "line": 12,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::defaultLib",
+   "name": "defaultLib",
+   "kind": "variable",
+   "file": "scripts/vendor.mjs",
+   "line": 33,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::libFiles",
+   "name": "libFiles",
+   "kind": "variable",
+   "file": "scripts/vendor.mjs",
+   "line": 34,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::queue",
+   "name": "queue",
+   "kind": "variable",
+   "file": "scripts/vendor.mjs",
+   "line": 35,
    "parent": null,
    "exported": false
   },
@@ -256,7 +256,25 @@
    "name": "root",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 7,
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::tsLibDir",
+   "name": "tsLibDir",
+   "kind": "variable",
+   "file": "scripts/vendor.mjs",
+   "line": 24,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::tsPkg",
+   "name": "tsPkg",
+   "kind": "variable",
+   "file": "scripts/vendor.mjs",
+   "line": 23,
    "parent": null,
    "exported": false
   },
@@ -265,7 +283,16 @@
    "name": "vendorDir",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 8,
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::vendorLibDir",
+   "name": "vendorLibDir",
+   "kind": "variable",
+   "file": "scripts/vendor.mjs",
+   "line": 25,
    "parent": null,
    "exported": false
   },
@@ -274,7 +301,7 @@
    "name": "app",
    "kind": "module",
    "file": "site/js/app.js",
-   "line": 40,
+   "line": 42,
    "parent": null,
    "exported": false
   },
@@ -292,7 +319,7 @@
    "name": "applyStaticTranslations",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 56,
+   "line": 58,
    "parent": null,
    "exported": false
   },
@@ -301,7 +328,7 @@
    "name": "ensureTicking",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 204,
+   "line": 197,
    "parent": null,
    "exported": false
   },
@@ -310,7 +337,7 @@
    "name": "installGraph",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 218,
+   "line": 211,
    "parent": null,
    "exported": false
   },
@@ -319,8 +346,17 @@
    "name": "languageSelect",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 36,
+   "line": 38,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::languageSelect.value",
+   "name": "value",
+   "kind": "variable",
+   "file": "site/js/app.js",
+   "line": 54,
+   "parent": "site/js/app.js::languageSelect",
    "exported": false
   },
   {
@@ -328,7 +364,7 @@
    "name": "loadDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 254,
+   "line": 240,
    "parent": null,
    "exported": false
   },
@@ -337,8 +373,44 @@
    "name": "loadFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 273,
+   "line": 259,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::loadGithubRepo",
+   "name": "loadGithubRepo",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 297,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::loadGithubRepo/onProgress",
+   "name": "onProgress",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 300,
+   "parent": "site/js/app.js::loadGithubRepo",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::loadLocalFolder",
+   "name": "loadLocalFolder",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 279,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::loadLocalFolder/onProgress",
+   "name": "onProgress",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 288,
+   "parent": "site/js/app.js::loadLocalFolder",
    "exported": false
   },
   {
@@ -346,7 +418,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 288,
+   "line": 309,
    "parent": null,
    "exported": false
   },
@@ -355,7 +427,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 302,
+   "line": 323,
    "parent": null,
    "exported": false
   },
@@ -364,7 +436,178 @@
    "name": "panel",
    "kind": "variable",
    "file": "site/js/app.js",
+   "line": 93,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onAutoRotate",
+   "name": "onAutoRotate",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 140,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onColorBy",
+   "name": "onColorBy",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 128,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onDataset",
+   "name": "onDataset",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 94,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onFile",
+   "name": "onFile",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 95,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onFit",
+   "name": "onFit",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 113,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onFocusNode",
+   "name": "onFocusNode",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 146,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onGithub",
+   "name": "onGithub",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 97,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onKinds",
+   "name": "onKinds",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 123,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onLabels",
+   "name": "onLabels",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 119,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onLayerGap",
+   "name": "onLayerGap",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 132,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onOpenFolder",
+   "name": "onOpenFolder",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 96,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onPhysics",
+   "name": "onPhysics",
+   "kind": "function",
+   "file": "site/js/app.js",
    "line": 98,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onReheat",
+   "name": "onReheat",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 107,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onReset",
+   "name": "onReset",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 108,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onSelectNode",
+   "name": "onSelectNode",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 145,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onShowLayers",
+   "name": "onShowLayers",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 136,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onTop",
+   "name": "onTop",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 114,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onZones",
+   "name": "onZones",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 115,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::renderer",
+   "name": "renderer",
+   "kind": "variable",
+   "file": "site/js/app.js",
+   "line": 65,
    "parent": null,
    "exported": false
   },
@@ -373,17 +616,44 @@
    "name": "rendererCallbacks",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 69,
+   "line": 67,
    "parent": null,
    "exported": false
   },
   {
-   "id": "site/js/app.js::renderers",
-   "name": "renderers",
-   "kind": "variable",
+   "id": "site/js/app.js::rendererCallbacks/onDragEnd",
+   "name": "onDragEnd",
+   "kind": "function",
    "file": "site/js/app.js",
-   "line": 63,
-   "parent": null,
+   "line": 71,
+   "parent": "site/js/app.js::rendererCallbacks",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::rendererCallbacks/onDragStart",
+   "name": "onDragStart",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 70,
+   "parent": "site/js/app.js::rendererCallbacks",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::rendererCallbacks/onHover",
+   "name": "onHover",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 72,
+   "parent": "site/js/app.js::rendererCallbacks",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::rendererCallbacks/onSelect",
+   "name": "onSelect",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 69,
+   "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
   {
@@ -391,7 +661,7 @@
    "name": "savedLanguage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 39,
+   "line": 41,
    "parent": null,
    "exported": false
   },
@@ -400,16 +670,7 @@
    "name": "setStatus",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 180,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/app.js::setView",
-   "name": "setView",
-   "kind": "function",
-   "file": "site/js/app.js",
-   "line": 165,
+   "line": 174,
    "parent": null,
    "exported": false
   },
@@ -418,7 +679,7 @@
    "name": "stage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 33,
+   "line": 35,
    "parent": null,
    "exported": false
   },
@@ -427,7 +688,7 @@
    "name": "state",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 13,
+   "line": 14,
    "parent": null,
    "exported": false
   },
@@ -436,7 +697,7 @@
    "name": "status",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 35,
+   "line": 37,
    "parent": null,
    "exported": false
   },
@@ -445,7 +706,7 @@
    "name": "statusMessage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 179,
+   "line": 173,
    "parent": null,
    "exported": false
   },
@@ -454,7 +715,7 @@
    "name": "ticking",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 203,
+   "line": 196,
    "parent": null,
    "exported": false
   },
@@ -463,7 +724,7 @@
    "name": "tooltip",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 34,
+   "line": 36,
    "parent": null,
    "exported": false
   },
@@ -472,7 +733,421 @@
    "name": "updateZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 173,
+   "line": 167,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::<module>",
+   "name": "article",
+   "kind": "module",
+   "file": "site/js/article.js",
+   "line": 22,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::applyStaticTranslations",
+   "name": "applyStaticTranslations",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 32,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::chapterIds",
+   "name": "chapterIds",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 50,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::chaptersEl",
+   "name": "chaptersEl",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 15,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure",
+   "name": "createFigure",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 104,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/deselect",
+   "name": "deselect",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 277,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 122,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 123,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 124,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onDragEnd",
+   "name": "onDragEnd",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 148,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onDragStart",
+   "name": "onDragStart",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 147,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onHover",
+   "name": "onHover",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 149,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/onSelect",
+   "name": "onSelect",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 142,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::createFigure/resize",
+   "name": "resize",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 276,
+   "parent": "site/js/article.js::createFigure",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::datasets",
+   "name": "datasets",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 51,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::el",
+   "name": "el",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 39,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::fetchText",
+   "name": "fetchText",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 54,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::figures",
+   "name": "figures",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 52,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::languageSelect",
+   "name": "languageSelect",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 18,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::languageSelect.value",
+   "name": "value",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 29,
+   "parent": "site/js/article.js::languageSelect",
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::main",
+   "name": "main",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 303,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::renderChapters",
+   "name": "renderChapters",
+   "kind": "function",
+   "file": "site/js/article.js",
+   "line": 60,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::savedLanguage",
+   "name": "savedLanguage",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 21,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::status",
+   "name": "status",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 17,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/article.js::tocEl",
+   "name": "tocEl",
+   "kind": "variable",
+   "file": "site/js/article.js",
+   "line": 16,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::analyzeFiles",
+   "name": "analyzeFiles",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 103,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::compilerOptions",
+   "name": "compilerOptions",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 33,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost",
+   "name": "createHost",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 74,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/directoryExists",
+   "name": "directoryExists",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 93,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/fileExists",
+   "name": "fileExists",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 91,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/getCanonicalFileName",
+   "name": "getCanonicalFileName",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 88,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/getCurrentDirectory",
+   "name": "getCurrentDirectory",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 87,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
+   "name": "getDefaultLibFileName",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 85,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/getDirectories",
+   "name": "getDirectories",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 94,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/getNewLine",
+   "name": "getNewLine",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 90,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/getSourceFile",
+   "name": "getSourceFile",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 78,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/readFile",
+   "name": "readFile",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 92,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/useCaseSensitiveFileNames",
+   "name": "useCaseSensitiveFileNames",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 89,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::createHost/writeFile",
+   "name": "writeFile",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 86,
+   "parent": "site/js/browserAnalyzer.js::createHost",
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::libCache",
+   "name": "libCache",
+   "kind": "variable",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 49,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::loadLibClosure",
+   "name": "loadLibClosure",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 59,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::loadTypeScript",
+   "name": "loadTypeScript",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 21,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::readLib",
+   "name": "readLib",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 50,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::tsPromise",
+   "name": "tsPromise",
+   "kind": "variable",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 19,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/colors.js::BOW_STEP",
+   "name": "BOW_STEP",
+   "kind": "variable",
+   "file": "site/js/colors.js",
+   "line": 62,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/colors.js::EDGE_BOW",
+   "name": "EDGE_BOW",
+   "kind": "variable",
+   "file": "site/js/colors.js",
+   "line": 63,
    "parent": null,
    "exported": false
   },
@@ -481,7 +1156,16 @@
    "name": "EDGE_COLORS",
    "kind": "variable",
    "file": "site/js/colors.js",
-   "line": 29,
+   "line": 38,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/colors.js::edgeBowOffset",
+   "name": "edgeBowOffset",
+   "kind": "function",
+   "file": "site/js/colors.js",
+   "line": 75,
    "parent": null,
    "exported": true
   },
@@ -490,7 +1174,7 @@
    "name": "edgeColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 39,
+   "line": 49,
    "parent": null,
    "exported": true
   },
@@ -499,7 +1183,7 @@
    "name": "heightColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 44,
+   "line": 85,
    "parent": null,
    "exported": true
   },
@@ -508,7 +1192,7 @@
    "name": "KIND_COLORS",
    "kind": "variable",
    "file": "site/js/colors.js",
-   "line": 5,
+   "line": 7,
    "parent": null,
    "exported": true
   },
@@ -517,7 +1201,7 @@
    "name": "kindColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 17,
+   "line": 19,
    "parent": null,
    "exported": true
   },
@@ -526,7 +1210,7 @@
    "name": "zoneColor",
    "kind": "function",
    "file": "site/js/colors.js",
-   "line": 24,
+   "line": 26,
    "parent": null,
    "exported": true
   },
@@ -535,7 +1219,7 @@
    "name": "zoneScale",
    "kind": "variable",
    "file": "site/js/colors.js",
-   "line": 21,
+   "line": 23,
    "parent": null,
    "exported": false
   },
@@ -549,173 +1233,92 @@
    "exported": true
   },
   {
-   "id": "site/js/graph2d.js::Graph2D",
-   "name": "Graph2D",
-   "kind": "class",
-   "file": "site/js/graph2d.js",
-   "line": 9,
+   "id": "site/js/githubAnalyzer.js::analyzeGithubRepo",
+   "name": "analyzeGithubRepo",
+   "kind": "function",
+   "file": "site/js/githubAnalyzer.js",
+   "line": 71,
    "parent": null,
    "exported": true
   },
   {
-   "id": "site/js/graph2d.js::Graph2D.applyHighlight",
-   "name": "applyHighlight",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 254,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.constructor",
-   "name": "constructor",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 14,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.fit",
-   "name": "fit",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 295,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.neighbourSet",
-   "name": "neighbourSet",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 237,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.nodeFill",
-   "name": "nodeFill",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 156,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.resize",
-   "name": "resize",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 66,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.restyle",
-   "name": "restyle",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 170,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.select",
-   "name": "select",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 247,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.setColorBy",
-   "name": "setColorBy",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 164,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.setGraph",
-   "name": "setGraph",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 74,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.setLabelMode",
-   "name": "setLabelMode",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 213,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.setVisibleKinds",
-   "name": "setVisibleKinds",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 218,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.setZones",
-   "name": "setZones",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 183,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.show",
-   "name": "show",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 308,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.tick",
-   "name": "tick",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 270,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "name": "updateLabelVisibility",
-   "kind": "method",
-   "file": "site/js/graph2d.js",
-   "line": 223,
-   "parent": "site/js/graph2d.js::Graph2D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph2d.js::linkPath",
-   "name": "linkPath",
-   "kind": "function",
-   "file": "site/js/graph2d.js",
-   "line": 314,
+   "id": "site/js/githubAnalyzer.js::API",
+   "name": "API",
+   "kind": "variable",
+   "file": "site/js/githubAnalyzer.js",
+   "line": 10,
    "parent": null,
    "exported": false
   },
   {
-   "id": "site/js/graph2d.js::ZONE_PADDING",
-   "name": "ZONE_PADDING",
+   "id": "site/js/githubAnalyzer.js::CONCURRENCY",
+   "name": "CONCURRENCY",
    "kind": "variable",
-   "file": "site/js/graph2d.js",
-   "line": 7,
+   "file": "site/js/githubAnalyzer.js",
+   "line": 11,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/githubAnalyzer.js::fetchBlobs",
+   "name": "fetchBlobs",
+   "kind": "function",
+   "file": "site/js/githubAnalyzer.js",
+   "line": 51,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/githubAnalyzer.js::fetchTree",
+   "name": "fetchTree",
+   "kind": "function",
+   "file": "site/js/githubAnalyzer.js",
+   "line": 44,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/githubAnalyzer.js::githubJson",
+   "name": "githubJson",
+   "kind": "function",
+   "file": "site/js/githubAnalyzer.js",
+   "line": 23,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/githubAnalyzer.js::hasSourceExtension",
+   "name": "hasSourceExtension",
+   "kind": "function",
+   "file": "site/js/githubAnalyzer.js",
+   "line": 31,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/githubAnalyzer.js::parseGithubSpec",
+   "name": "parseGithubSpec",
+   "kind": "function",
+   "file": "site/js/githubAnalyzer.js",
+   "line": 14,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/githubAnalyzer.js::pathExcluded",
+   "name": "pathExcluded",
+   "kind": "function",
+   "file": "site/js/githubAnalyzer.js",
+   "line": 38,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/graph3d.js::clampPitch",
+   "name": "clampPitch",
+   "kind": "function",
+   "file": "site/js/graph3d.js",
+   "line": 591,
    "parent": null,
    "exported": false
   },
@@ -724,7 +1327,16 @@
    "name": "drawArrow",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 378,
+   "line": 604,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/graph3d.js::FOCAL_EXTENT_RATIO",
+   "name": "FOCAL_EXTENT_RATIO",
+   "kind": "variable",
+   "file": "site/js/graph3d.js",
+   "line": 24,
    "parent": null,
    "exported": false
   },
@@ -733,7 +1345,7 @@
    "name": "Graph3D",
    "kind": "class",
    "file": "site/js/graph3d.js",
-   "line": 11,
+   "line": 32,
    "parent": null,
    "exported": true
   },
@@ -742,7 +1354,7 @@
    "name": "bindEvents",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 44,
+   "line": 99,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -751,7 +1363,7 @@
    "name": "constructor",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 12,
+   "line": 33,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -760,7 +1372,7 @@
    "name": "draw",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 226,
+   "line": 351,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -769,7 +1381,16 @@
    "name": "fit",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 361,
+   "line": 517,
+   "parent": "site/js/graph3d.js::Graph3D",
+   "exported": false
+  },
+  {
+   "id": "site/js/graph3d.js::Graph3D.focusOn",
+   "name": "focusOn",
+   "kind": "method",
+   "file": "site/js/graph3d.js",
+   "line": 557,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -778,7 +1399,7 @@
    "name": "hitTest",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 197,
+   "line": 322,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -787,7 +1408,7 @@
    "name": "neighbourSet",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 211,
+   "line": 336,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -796,7 +1417,7 @@
    "name": "project",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 175,
+   "line": 285,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -805,7 +1426,7 @@
    "name": "resize",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 103,
+   "line": 209,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -814,7 +1435,7 @@
    "name": "restyle",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 132,
+   "line": 239,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -823,7 +1444,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 162,
+   "line": 269,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -832,7 +1453,7 @@
    "name": "setColorBy",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 142,
+   "line": 249,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -841,7 +1462,7 @@
    "name": "setGraph",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 116,
+   "line": 222,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -850,7 +1471,7 @@
    "name": "setLabelMode",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 137,
+   "line": 244,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -859,7 +1480,7 @@
    "name": "setLayerGap",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 152,
+   "line": 259,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -868,7 +1489,7 @@
    "name": "setShowLayers",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 157,
+   "line": 264,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -877,7 +1498,7 @@
    "name": "setVisibleKinds",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 147,
+   "line": 254,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -886,16 +1507,7 @@
    "name": "setZones",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 126,
-   "parent": "site/js/graph3d.js::Graph3D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph3d.js::Graph3D.show",
-   "name": "show",
-   "kind": "method",
-   "file": "site/js/graph3d.js",
-   "line": 373,
+   "line": 233,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -904,7 +1516,16 @@
    "name": "tick",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 221,
+   "line": 346,
+   "parent": "site/js/graph3d.js::Graph3D",
+   "exported": false
+  },
+  {
+   "id": "site/js/graph3d.js::Graph3D.viewTop",
+   "name": "viewTop",
+   "kind": "method",
+   "file": "site/js/graph3d.js",
+   "line": 577,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -913,8 +1534,26 @@
    "name": "zOf",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 193,
+   "line": 318,
    "parent": "site/js/graph3d.js::Graph3D",
+   "exported": false
+  },
+  {
+   "id": "site/js/graph3d.js::MAX_MAGNIFICATION",
+   "name": "MAX_MAGNIFICATION",
+   "kind": "variable",
+   "file": "site/js/graph3d.js",
+   "line": 30,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/graph3d.js::MIN_PITCH",
+   "name": "MIN_PITCH",
+   "kind": "variable",
+   "file": "site/js/graph3d.js",
+   "line": 16,
+   "parent": null,
    "exported": false
   },
   {
@@ -922,7 +1561,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 277,
+   "line": 323,
    "parent": null,
    "exported": false
   },
@@ -931,7 +1570,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 281,
+   "line": 327,
    "parent": null,
    "exported": true
   },
@@ -940,7 +1579,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 290,
+   "line": 336,
    "parent": null,
    "exported": true
   },
@@ -949,7 +1588,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 314,
+   "line": 360,
    "parent": null,
    "exported": true
   },
@@ -967,7 +1606,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 278,
+   "line": 324,
    "parent": null,
    "exported": false
   },
@@ -976,7 +1615,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 320,
+   "line": 366,
    "parent": null,
    "exported": true
   },
@@ -985,7 +1624,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 301,
+   "line": 347,
    "parent": null,
    "exported": true
   },
@@ -994,7 +1633,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 294,
+   "line": 340,
    "parent": null,
    "exported": true
   },
@@ -1012,7 +1651,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 307,
+   "line": 353,
    "parent": null,
    "exported": true
   },
@@ -1021,7 +1660,16 @@
    "name": "CONTROL_KINDS",
    "kind": "variable",
    "file": "site/js/kinds.js",
-   "line": 7,
+   "line": 13,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/kinds.js::DEFAULT_OFF_KINDS",
+   "name": "DEFAULT_OFF_KINDS",
+   "kind": "variable",
+   "file": "site/js/kinds.js",
+   "line": 10,
    "parent": null,
    "exported": true
   },
@@ -1035,11 +1683,101 @@
    "exported": true
   },
   {
+   "id": "site/js/localAnalyzer.js::analyzeLocalFolder",
+   "name": "analyzeLocalFolder",
+   "kind": "function",
+   "file": "site/js/localAnalyzer.js",
+   "line": 43,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/localAnalyzer.js::localFolderSupported",
+   "name": "localFolderSupported",
+   "kind": "function",
+   "file": "site/js/localAnalyzer.js",
+   "line": 11,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/localAnalyzer.js::readDirectory",
+   "name": "readDirectory",
+   "kind": "function",
+   "file": "site/js/localAnalyzer.js",
+   "line": 21,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/markdown.js::escapeHtml",
+   "name": "escapeHtml",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 11,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/markdown.js::ESCAPES",
+   "name": "ESCAPES",
+   "kind": "variable",
+   "file": "site/js/markdown.js",
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/markdown.js::parseDirective",
+   "name": "parseDirective",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 16,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/markdown.js::renderInline",
+   "name": "renderInline",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 30,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/markdown.js::renderMarkdown",
+   "name": "renderMarkdown",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 47,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/markdown.js::renderTable",
+   "name": "renderTable",
+   "kind": "function",
+   "file": "site/js/markdown.js",
+   "line": 138,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "site/js/metrics.js::computeMetrics",
    "name": "computeMetrics",
    "kind": "function",
    "file": "site/js/metrics.js",
    "line": 59,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/metrics.js::convergentOperations",
+   "name": "convergentOperations",
+   "kind": "function",
+   "file": "site/js/metrics.js",
+   "line": 174,
    "parent": null,
    "exported": true
   },
@@ -1057,7 +1795,7 @@
    "name": "initializationCycles",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 161,
+   "line": 225,
    "parent": null,
    "exported": true
   },
@@ -1089,11 +1827,20 @@
    "exported": true
   },
   {
+   "id": "site/js/metrics.js::unreferencedDeclarations",
+   "name": "unreferencedDeclarations",
+   "kind": "function",
+   "file": "site/js/metrics.js",
+   "line": 213,
+   "parent": null,
+   "exported": true
+  },
+  {
    "id": "site/js/model.js::applyActiveKinds",
    "name": "applyActiveKinds",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 78,
+   "line": 79,
    "parent": null,
    "exported": true
   },
@@ -1102,7 +1849,7 @@
    "name": "buildContainers",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 99,
+   "line": 106,
    "parent": null,
    "exported": true
   },
@@ -1120,7 +1867,7 @@
    "name": "computeHeights",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 197,
+   "line": 204,
    "parent": null,
    "exported": true
   },
@@ -1129,7 +1876,7 @@
    "name": "connectedComponentCount",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 229,
+   "line": 236,
    "parent": null,
    "exported": true
   },
@@ -1147,7 +1894,7 @@
    "name": "stronglyConnectedComponents",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 139,
+   "line": 146,
    "parent": null,
    "exported": true
   },
@@ -1156,7 +1903,7 @@
    "name": "Panel",
    "kind": "class",
    "file": "site/js/panel.js",
-   "line": 10,
+   "line": 11,
    "parent": null,
    "exported": true
   },
@@ -1165,7 +1912,7 @@
    "name": "constructor",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 16,
+   "line": 17,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1174,7 +1921,7 @@
    "name": "el",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 29,
+   "line": 30,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1183,7 +1930,7 @@
    "name": "refresh",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 72,
+   "line": 73,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1192,8 +1939,62 @@
    "name": "render",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 83,
+   "line": 84,
    "parent": "site/js/panel.js::Panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 90,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 91,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 126,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 127,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 149,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 97,
+   "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
   {
@@ -1201,7 +2002,7 @@
    "name": "section",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 40,
+   "line": 41,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1210,8 +2011,17 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 65,
+   "line": 66,
    "parent": "site/js/panel.js::Panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.select/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 67,
+   "parent": "site/js/panel.js::Panel.select",
    "exported": false
   },
   {
@@ -1219,7 +2029,7 @@
    "name": "setDataInfo",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 205,
+   "line": 215,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1228,7 +2038,7 @@
    "name": "setDatasets",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 194,
+   "line": 204,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1237,7 +2047,7 @@
    "name": "setMaxDepth",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 214,
+   "line": 220,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -1246,8 +2056,17 @@
    "name": "setMetrics",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 221,
+   "line": 227,
    "parent": "site/js/panel.js::Panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setMetrics/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 272,
+   "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
   {
@@ -1255,17 +2074,26 @@
    "name": "setSelection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 274,
+   "line": 280,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.setView",
-   "name": "setView",
-   "kind": "method",
+   "id": "site/js/panel.js::Panel.setSelection/onclick",
+   "name": "onclick",
+   "kind": "function",
    "file": "site/js/panel.js",
-   "line": 210,
-   "parent": "site/js/panel.js::Panel",
+   "line": 299,
+   "parent": "site/js/panel.js::Panel.setSelection",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setSelection/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 319,
+   "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
   {
@@ -1273,8 +2101,17 @@
    "name": "slider",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 44,
+   "line": 45,
    "parent": "site/js/panel.js::Panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.slider/oninput",
+   "name": "oninput",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 54,
+   "parent": "site/js/panel.js::Panel.slider",
    "exported": false
   },
   {
@@ -1282,7 +2119,7 @@
    "name": "applyPhysics",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 104,
+   "line": 97,
    "parent": null,
    "exported": true
   },
@@ -1291,7 +2128,7 @@
    "name": "createSimulation",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 84,
+   "line": 85,
    "parent": null,
    "exported": true
   },
@@ -1309,49 +2146,22 @@
    "name": "forceSpring",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 25,
+   "line": 28,
    "parent": null,
    "exported": true
-  },
-  {
-   "id": "site/js/simulation.js::nodeRadius",
-   "name": "nodeRadius",
-   "kind": "function",
-   "file": "site/js/simulation.js",
-   "line": 114,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/simulation.js::repulsionRange",
-   "name": "repulsionRange",
-   "kind": "function",
-   "file": "site/js/simulation.js",
-   "line": 99,
-   "parent": null,
-   "exported": false
   },
   {
    "id": "site/js/simulation.js::seedPositions",
    "name": "seedPositions",
    "kind": "function",
    "file": "site/js/simulation.js",
-   "line": 124,
+   "line": 111,
    "parent": null,
    "exported": true
   },
   {
-   "id": "site/js/zones.js::hullPath",
-   "name": "hullPath",
-   "kind": "function",
-   "file": "site/js/zones.js",
-   "line": 34,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/zones.js::roundedClosedLine",
-   "name": "roundedClosedLine",
+   "id": "site/js/zones.js::closedLine",
+   "name": "closedLine",
    "kind": "variable",
    "file": "site/js/zones.js",
    "line": 27,
@@ -1359,11 +2169,11 @@
    "exported": false
   },
   {
-   "id": "site/js/zones.js::topPoint",
-   "name": "topPoint",
+   "id": "site/js/zones.js::hullPath",
+   "name": "hullPath",
    "kind": "function",
    "file": "site/js/zones.js",
-   "line": 48,
+   "line": 42,
    "parent": null,
    "exported": true
   },
@@ -1391,6 +2201,60 @@
    "kind": "function",
    "file": "test/analyzer.test.mjs",
    "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/article.test.mjs::<module>",
+   "name": "article.test",
+   "kind": "module",
+   "file": "test/article.test.mjs",
+   "line": 10,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/article.test.mjs::content",
+   "name": "content",
+   "kind": "variable",
+   "file": "test/article.test.mjs",
+   "line": 8,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dead-code.test.mjs::<module>",
+   "name": "dead-code.test",
+   "kind": "module",
+   "file": "test/dead-code.test.mjs",
+   "line": 17,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dead-code.test.mjs::CSS_DECL",
+   "name": "CSS_DECL",
+   "kind": "variable",
+   "file": "test/dead-code.test.mjs",
+   "line": 28,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dead-code.test.mjs::CSS_USE",
+   "name": "CSS_USE",
+   "kind": "variable",
+   "file": "test/dead-code.test.mjs",
+   "line": 29,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/dead-code.test.mjs::root",
+   "name": "root",
+   "kind": "variable",
+   "file": "test/dead-code.test.mjs",
+   "line": 15,
    "parent": null,
    "exported": false
   },
@@ -1440,11 +2304,209 @@
    "exported": false
   },
   {
+   "id": "test/github-analyzer.test.mjs::<module>",
+   "name": "github-analyzer.test",
+   "kind": "module",
+   "file": "test/github-analyzer.test.mjs",
+   "line": 10,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "test/i18n.test.mjs::<module>",
    "name": "i18n.test",
    "kind": "module",
    "file": "test/i18n.test.mjs",
    "line": 5,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::<module>",
+   "name": "local-analyzer.test",
+   "kind": "module",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 21,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::analyzeVirtual",
+   "name": "analyzeVirtual",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 98,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::COMPILER_OPTIONS",
+   "name": "COMPILER_OPTIONS",
+   "kind": "variable",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 32,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost",
+   "name": "createVirtualHost",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 73,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/directoryExists",
+   "name": "directoryExists",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 92,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/fileExists",
+   "name": "fileExists",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 90,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/getCanonicalFileName",
+   "name": "getCanonicalFileName",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 87,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/getCurrentDirectory",
+   "name": "getCurrentDirectory",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 86,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "name": "getDefaultLibFileName",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 84,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/getDirectories",
+   "name": "getDirectories",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 93,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/getNewLine",
+   "name": "getNewLine",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 89,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/getSourceFile",
+   "name": "getSourceFile",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 77,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/readFile",
+   "name": "readFile",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 91,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/useCaseSensitiveFileNames",
+   "name": "useCaseSensitiveFileNames",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 88,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::createVirtualHost/writeFile",
+   "name": "writeFile",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 85,
+   "parent": "test/local-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::fixture",
+   "name": "fixture",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 23,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::libTextCache",
+   "name": "libTextCache",
+   "kind": "variable",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 47,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::loadLibClosure",
+   "name": "loadLibClosure",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 58,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::PROJECT",
+   "name": "PROJECT",
+   "kind": "variable",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 106,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::readLib",
+   "name": "readLib",
+   "kind": "function",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 48,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/local-analyzer.test.mjs::tsLibDir",
+   "name": "tsLibDir",
+   "kind": "variable",
+   "file": "test/local-analyzer.test.mjs",
+   "line": 46,
    "parent": null,
    "exported": false
   },
@@ -1510,65 +2572,16 @@
    "time": "definition"
   },
   {
-   "source": "analyzers/ts/analyze.mjs::analyze",
-   "target": "analyzers/ts/analyze.mjs::ANALYZER_VERSION",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze",
-   "target": "analyzers/ts/analyze.mjs::collectDeclarations",
+   "source": "analyzers/ts/analyze.mjs::<module>",
+   "target": "analyzers/ts/core.mjs::createCore",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "definition"
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze",
    "target": "analyzers/ts/analyze.mjs::listSourceFiles",
    "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::analyze",
-   "target": "analyzers/ts/analyze.mjs::referenceKind",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::collectDeclarations",
-   "target": "analyzers/ts/analyze.mjs::hasExportModifier",
-   "kind": "call",
-   "count": 6,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::collectDeclarations",
-   "target": "analyzers/ts/analyze.mjs::isFunctionLike",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::collectDeclarations",
-   "target": "analyzers/ts/analyze.mjs::memberName",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::listSourceFiles",
-   "target": "analyzers/ts/analyze.mjs::DEFAULT_EXCLUDES",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "analyzers/ts/analyze.mjs::listSourceFiles",
-   "target": "analyzers/ts/analyze.mjs::EXTENSIONS",
-   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -1580,10 +2593,38 @@
    "time": "use"
   },
   {
+   "source": "analyzers/ts/analyze.mjs::listSourceFiles",
+   "target": "analyzers/ts/core.mjs::DEFAULT_EXCLUDES",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::listSourceFiles",
+   "target": "analyzers/ts/core.mjs::EXTENSIONS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore",
+   "target": "analyzers/ts/core.mjs::ANALYZER_VERSION",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore",
+   "target": "analyzers/ts/core.mjs::stripRoot",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
    "source": "scripts/analyze-examples.mjs::<module>",
    "target": "analyzers/ts/analyze.mjs::analyze",
    "kind": "call",
-   "count": 2,
+   "count": 4,
    "time": "definition"
   },
   {
@@ -1611,7 +2652,7 @@
    "source": "scripts/analyze-examples.mjs::<module>",
    "target": "scripts/analyze-examples.mjs::root",
    "kind": "reference",
-   "count": 2,
+   "count": 4,
    "time": "definition"
   },
   {
@@ -1632,7 +2673,7 @@
    "source": "scripts/analyze-examples.mjs::<module>",
    "target": "scripts/analyze-examples.mjs::write",
    "kind": "call",
-   "count": 4,
+   "count": 6,
    "time": "definition"
   },
   {
@@ -1693,7 +2734,35 @@
   },
   {
    "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::libFiles",
+   "kind": "reference",
+   "count": 4,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::queue",
+   "kind": "reference",
+   "count": 4,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
    "target": "scripts/vendor.mjs::root",
+   "kind": "reference",
+   "count": 4,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::tsLibDir",
+   "kind": "reference",
+   "count": 3,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::tsPkg",
    "kind": "reference",
    "count": 2,
    "time": "definition"
@@ -1702,7 +2771,14 @@
    "source": "scripts/vendor.mjs::<module>",
    "target": "scripts/vendor.mjs::vendorDir",
    "kind": "reference",
-   "count": 4,
+   "count": 7,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::vendorLibDir",
+   "kind": "reference",
+   "count": 2,
    "time": "definition"
   },
   {
@@ -1713,8 +2789,36 @@
    "time": "definition"
   },
   {
+   "source": "scripts/vendor.mjs::queue",
+   "target": "scripts/vendor.mjs::defaultLib",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::tsLibDir",
+   "target": "scripts/vendor.mjs::root",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::tsPkg",
+   "target": "scripts/vendor.mjs::root",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "scripts/vendor.mjs::vendorDir",
    "target": "scripts/vendor.mjs::root",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::vendorLibDir",
+   "target": "scripts/vendor.mjs::vendorDir",
    "kind": "reference",
    "count": 1,
    "time": "definition"
@@ -1737,12 +2841,19 @@
    "source": "site/js/app.js::<module>",
    "target": "site/js/app.js::languageSelect",
    "kind": "reference",
-   "count": 3,
+   "count": 2,
    "time": "definition"
   },
   {
    "source": "site/js/app.js::<module>",
    "target": "site/js/app.js::languageSelect",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::languageSelect.value",
    "kind": "reference",
    "count": 1,
    "time": "use"
@@ -1758,19 +2869,12 @@
    "source": "site/js/app.js::<module>",
    "target": "site/js/app.js::panel",
    "kind": "reference",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
    "source": "site/js/app.js::<module>",
-   "target": "site/js/app.js::renderers",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::<module>",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
    "count": 3,
    "time": "use"
@@ -1779,7 +2883,7 @@
    "source": "site/js/app.js::<module>",
    "target": "site/js/app.js::savedLanguage",
    "kind": "reference",
-   "count": 3,
+   "count": 1,
    "time": "definition"
   },
   {
@@ -1791,33 +2895,10 @@
   },
   {
    "source": "site/js/app.js::<module>",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::<module>",
    "target": "site/js/app.js::statusMessage",
    "kind": "reference",
    "count": 2,
    "time": "use"
-  },
-  {
-   "source": "site/js/app.js::<module>",
-   "target": "site/js/graph2d.js::Graph2D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::<module>",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
   },
   {
    "source": "site/js/app.js::<module>",
@@ -1831,7 +2912,14 @@
    "target": "site/js/graph3d.js::Graph3D.resize",
    "kind": "call",
    "count": 1,
-   "time": "use",
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "definition",
    "inferred": true
   },
   {
@@ -1839,26 +2927,11 @@
    "target": "site/js/graph3d.js::Graph3D.select",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::<module>",
-   "target": "site/js/graph3d.js::Graph3D.show",
-   "kind": "call",
-   "count": 1,
-   "time": "definition"
+   "time": "use"
   },
   {
    "source": "site/js/app.js::<module>",
    "target": "site/js/i18n.js::detectLanguage",
-   "kind": "call",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::<module>",
-   "target": "site/js/i18n.js::getLanguage",
    "kind": "call",
    "count": 1,
    "time": "definition"
@@ -1907,10 +2980,11 @@
   },
   {
    "source": "site/js/app.js::<module>",
-   "target": "site/js/panel.js::Panel.setView",
+   "target": "site/js/panel.js::Panel.select",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "definition",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::applyKinds",
@@ -1921,7 +2995,7 @@
   },
   {
    "source": "site/js/app.js::applyKinds",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
    "count": 3,
    "time": "use"
@@ -1930,40 +3004,22 @@
    "source": "site/js/app.js::applyKinds",
    "target": "site/js/app.js::state",
    "kind": "reference",
-   "count": 14,
+   "count": 11,
    "time": "use"
-  },
-  {
-   "source": "site/js/app.js::applyKinds",
-   "target": "site/js/graph2d.js::Graph2D.restyle",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::applyKinds",
-   "target": "site/js/graph2d.js::Graph2D.setVisibleKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
   },
   {
    "source": "site/js/app.js::applyKinds",
    "target": "site/js/graph3d.js::Graph3D.restyle",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::applyKinds",
    "target": "site/js/graph3d.js::Graph3D.setVisibleKinds",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::applyKinds",
@@ -2002,6 +3058,13 @@
   },
   {
    "source": "site/js/app.js::applyStaticTranslations",
+   "target": "site/js/app.js::languageSelect.value",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::applyStaticTranslations",
    "target": "site/js/i18n.js::getLanguage",
    "kind": "call",
    "count": 2,
@@ -2016,7 +3079,7 @@
   },
   {
    "source": "site/js/app.js::ensureTicking",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
    "count": 1,
    "time": "use"
@@ -2025,14 +3088,14 @@
    "source": "site/js/app.js::ensureTicking",
    "target": "site/js/app.js::state",
    "kind": "reference",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
    "source": "site/js/app.js::ensureTicking",
    "target": "site/js/app.js::ticking",
    "kind": "reference",
-   "count": 3,
+   "count": 1,
    "time": "use"
   },
   {
@@ -2051,9 +3114,9 @@
   },
   {
    "source": "site/js/app.js::installGraph",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
-   "count": 4,
+   "count": 5,
    "time": "use"
   },
   {
@@ -2067,7 +3130,7 @@
    "source": "site/js/app.js::installGraph",
    "target": "site/js/app.js::state",
    "kind": "reference",
-   "count": 17,
+   "count": 14,
    "time": "use"
   },
   {
@@ -2079,99 +3142,38 @@
   },
   {
    "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.setColorBy",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.setGraph",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.setLabelMode",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.setVisibleKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph2d.js::Graph2D.tick",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/graph3d.js::Graph3D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.setColorBy",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.setGraph",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.setLabelMode",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.setVisibleKinds",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/graph3d.js::Graph3D.tick",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::installGraph",
@@ -2230,6 +3232,13 @@
    "time": "use"
   },
   {
+   "source": "site/js/app.js::languageSelect.value",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "site/js/app.js::loadDataset",
    "target": "site/js/app.js::installGraph",
    "kind": "call",
@@ -2295,6 +3304,104 @@
   {
    "source": "site/js/app.js::loadFile",
    "target": "site/js/panel.js::Panel.setDatasets",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo",
+   "target": "site/js/app.js::installGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo",
+   "target": "site/js/app.js::setStatus",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo",
+   "target": "site/js/githubAnalyzer.js::analyzeGithubRepo",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo",
+   "target": "site/js/panel.js::Panel.setDatasets",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadGithubRepo/onProgress",
+   "target": "site/js/app.js::setStatus",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder",
+   "target": "site/js/app.js::installGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder",
+   "target": "site/js/app.js::setStatus",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder",
+   "target": "site/js/localAnalyzer.js::analyzeLocalFolder",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder",
+   "target": "site/js/panel.js::Panel.setDatasets",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::loadLocalFolder/onProgress",
+   "target": "site/js/app.js::setStatus",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -2378,144 +3485,10 @@
   },
   {
    "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::applyKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::ensureTicking",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::loadDataset",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::loadFile",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::renderers",
-   "kind": "reference",
-   "count": 7,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::setView",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
    "target": "site/js/app.js::state",
    "kind": "reference",
    "count": 1,
    "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 20,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/app.js::updateZones",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.setColorBy",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph2d.js::Graph2D.setLabelMode",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.setColorBy",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.setLabelMode",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.setLayerGap",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/graph3d.js::Graph3D.setShowLayers",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
   },
   {
    "source": "site/js/app.js::panel",
@@ -2532,124 +3505,346 @@
    "time": "definition"
   },
   {
-   "source": "site/js/app.js::panel",
+   "source": "site/js/app.js::panel/onAutoRotate",
+   "target": "site/js/app.js::ensureTicking",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onAutoRotate",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onAutoRotate",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onColorBy",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onColorBy",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onColorBy",
+   "target": "site/js/graph3d.js::Graph3D.setColorBy",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onDataset",
+   "target": "site/js/app.js::loadDataset",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onFile",
+   "target": "site/js/app.js::loadFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onFit",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onFit",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onFocusNode",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onFocusNode",
+   "target": "site/js/graph3d.js::Graph3D.focusOn",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onGithub",
+   "target": "site/js/app.js::loadGithubRepo",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onKinds",
+   "target": "site/js/app.js::applyKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onKinds",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLabels",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLabels",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLabels",
+   "target": "site/js/graph3d.js::Graph3D.setLabelMode",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLayerGap",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLayerGap",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onLayerGap",
+   "target": "site/js/graph3d.js::Graph3D.setLayerGap",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onOpenFolder",
+   "target": "site/js/app.js::loadLocalFolder",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onPhysics",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onPhysics",
    "target": "site/js/simulation.js::applyPhysics",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::panel",
-   "target": "site/js/simulation.js::seedPositions",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/app.js::panel",
+   "source": "site/js/app.js::panel/onReheat",
+   "target": "site/js/app.js::state",
    "kind": "reference",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/app.js::renderers",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/app.js::stage",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::rendererCallbacks",
+   "source": "site/js/app.js::panel/onReset",
    "target": "site/js/app.js::state",
    "kind": "reference",
    "count": 3,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/app.js::tooltip",
-   "kind": "reference",
-   "count": 5,
+   "source": "site/js/app.js::panel/onReset",
+   "target": "site/js/simulation.js::seedPositions",
+   "kind": "call",
+   "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
+   "source": "site/js/app.js::panel/onSelectNode",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
+   "source": "site/js/app.js::panel/onSelectNode",
    "target": "site/js/graph3d.js::Graph3D.select",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/i18n.js::t",
+   "source": "site/js/app.js::panel/onShowLayers",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onShowLayers",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onShowLayers",
+   "target": "site/js/graph3d.js::Graph3D.setShowLayers",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::rendererCallbacks",
-   "target": "site/js/panel.js::Panel.setSelection",
+   "source": "site/js/app.js::panel/onTop",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onTop",
+   "target": "site/js/graph3d.js::Graph3D.viewTop",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::renderers",
+   "source": "site/js/app.js::panel/onZones",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onZones",
+   "target": "site/js/app.js::updateZones",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::renderer",
    "target": "site/js/app.js::rendererCallbacks",
    "kind": "call",
-   "count": 2,
+   "count": 1,
    "time": "definition"
   },
   {
-   "source": "site/js/app.js::renderers",
+   "source": "site/js/app.js::renderer",
    "target": "site/js/app.js::stage",
    "kind": "reference",
-   "count": 2,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::renderers",
-   "target": "site/js/graph2d.js::Graph2D",
-   "kind": "reference",
    "count": 1,
    "time": "definition"
   },
   {
-   "source": "site/js/app.js::renderers",
-   "target": "site/js/graph2d.js::Graph2D.constructor",
-   "kind": "create",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/app.js::renderers",
+   "source": "site/js/app.js::renderer",
    "target": "site/js/graph3d.js::Graph3D",
    "kind": "reference",
    "count": 1,
    "time": "definition"
   },
   {
-   "source": "site/js/app.js::renderers",
+   "source": "site/js/app.js::renderer",
    "target": "site/js/graph3d.js::Graph3D.constructor",
    "kind": "create",
    "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onDragEnd",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onDragStart",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onHover",
+   "target": "site/js/app.js::stage",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onHover",
+   "target": "site/js/app.js::tooltip",
+   "kind": "reference",
+   "count": 5,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onHover",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onSelect",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onSelect",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks/onSelect",
+   "target": "site/js/panel.js::Panel.setSelection",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::savedLanguage",
+   "target": "site/js/app.js::<module>",
+   "kind": "write",
+   "count": 2,
    "time": "definition"
   },
   {
@@ -2661,91 +3856,15 @@
   },
   {
    "source": "site/js/app.js::setStatus",
-   "target": "site/js/app.js::statusMessage",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::setStatus",
    "target": "site/js/i18n.js::t",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/app.js::panel",
+   "source": "site/js/app.js::state",
+   "target": "site/js/kinds.js::DEFAULT_OFF_KINDS",
    "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/app.js::renderers",
-   "kind": "reference",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph2d.js::Graph2D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph2d.js::Graph2D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph2d.js::Graph2D.show",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph3d.js::Graph3D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph3d.js::Graph3D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/graph3d.js::Graph3D.show",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::setView",
-   "target": "site/js/panel.js::Panel.setView",
-   "kind": "call",
    "count": 1,
    "time": "use"
   },
@@ -2764,8 +3883,22 @@
    "time": "definition"
   },
   {
+   "source": "site/js/app.js::statusMessage",
+   "target": "site/js/app.js::setStatus",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::ticking",
+   "target": "site/js/app.js::ensureTicking",
+   "kind": "write",
+   "count": 2,
+   "time": "use"
+  },
+  {
    "source": "site/js/app.js::updateZones",
-   "target": "site/js/app.js::renderers",
+   "target": "site/js/app.js::renderer",
    "kind": "reference",
    "count": 1,
    "time": "use"
@@ -2779,24 +3912,620 @@
   },
   {
    "source": "site/js/app.js::updateZones",
-   "target": "site/js/graph2d.js::Graph2D.setZones",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/app.js::updateZones",
    "target": "site/js/graph3d.js::Graph3D.setZones",
    "kind": "call",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
   },
   {
    "source": "site/js/app.js::updateZones",
    "target": "site/js/zones.js::visibleContainers",
    "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::applyStaticTranslations",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::el",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::figures",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::languageSelect",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::languageSelect",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::languageSelect.value",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::main",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::renderChapters",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/article.js::savedLanguage",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/graph3d.js::Graph3D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "definition",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::detectLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::LANGUAGES",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::onLanguageChange",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::setLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/i18n.js::setLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::<module>",
+   "target": "site/js/panel.js::Panel.select",
+   "kind": "call",
+   "count": 1,
+   "time": "definition",
+   "inferred": true
+  },
+  {
+   "source": "site/js/article.js::applyStaticTranslations",
+   "target": "site/js/article.js::languageSelect",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::applyStaticTranslations",
+   "target": "site/js/article.js::languageSelect.value",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::applyStaticTranslations",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::applyStaticTranslations",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::chapterIds",
+   "target": "site/js/article.js::main",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/article.js::datasets",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/article.js::el",
+   "kind": "call",
+   "count": 17,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.constructor",
+   "kind": "create",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.setColorBy",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.setGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.setLabelMode",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.setVisibleKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.setZones",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.tick",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/graph3d.js::Graph3D.viewTop",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/i18n.js::kindLabel",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 13,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/kinds.js::EDGE_KINDS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/metrics.js::computeMetrics",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/metrics.js::naturalScope",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/model.js::applyActiveKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/simulation.js::createSimulation",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/simulation.js::DEFAULT_PHYSICS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/simulation.js::seedPositions",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure",
+   "target": "site/js/zones.js::visibleContainers",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/deselect",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/onclick",
+   "target": "site/js/graph3d.js::Graph3D.fit",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/onclick",
+   "target": "site/js/graph3d.js::Graph3D.viewTop",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/onHover",
+   "target": "site/js/i18n.js::kindLabel",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/onHover",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/onSelect",
+   "target": "site/js/graph3d.js::Graph3D.select",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::createFigure/resize",
+   "target": "site/js/graph3d.js::Graph3D.resize",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::datasets",
+   "target": "site/js/article.js::main",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::languageSelect.value",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/article.js::main",
+   "target": "site/js/article.js::applyStaticTranslations",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::main",
+   "target": "site/js/article.js::renderChapters",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::main",
+   "target": "site/js/article.js::status",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::main",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::chapterIds",
+   "kind": "reference",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::chaptersEl",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::createFigure",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::el",
+   "kind": "call",
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::fetchText",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::figures",
+   "kind": "reference",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::status",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/article.js::tocEl",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/i18n.js::getLanguage",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::renderChapters",
+   "target": "site/js/markdown.js::renderMarkdown",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/article.js::savedLanguage",
+   "target": "site/js/article.js::<module>",
+   "kind": "write",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::analyzeFiles",
+   "target": "site/js/browserAnalyzer.js::compilerOptions",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::analyzeFiles",
+   "target": "site/js/browserAnalyzer.js::createHost",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::analyzeFiles",
+   "target": "site/js/browserAnalyzer.js::loadLibClosure",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::analyzeFiles",
+   "target": "site/js/browserAnalyzer.js::loadTypeScript",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::loadLibClosure",
+   "target": "site/js/browserAnalyzer.js::readLib",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::loadTypeScript",
+   "target": "site/js/browserAnalyzer.js::tsPromise",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::readLib",
+   "target": "site/js/browserAnalyzer.js::libCache",
+   "kind": "reference",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::tsPromise",
+   "target": "site/js/browserAnalyzer.js::loadTypeScript",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/colors.js::EDGE_BOW",
+   "target": "site/js/colors.js::BOW_STEP",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/colors.js::EDGE_BOW",
+   "target": "site/js/kinds.js::EDGE_KINDS",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/colors.js::EDGE_BOW",
+   "target": "site/js/kinds.js::EDGE_KINDS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/colors.js::edgeBowOffset",
+   "target": "site/js/colors.js::EDGE_BOW",
+   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -2829,199 +4558,87 @@
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.applyHighlight",
-   "target": "site/js/graph2d.js::Graph2D.neighbourSet",
+   "source": "site/js/githubAnalyzer.js::analyzeGithubRepo",
+   "target": "site/js/browserAnalyzer.js::analyzeFiles",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/colors.js::edgeColor",
+   "source": "site/js/githubAnalyzer.js::analyzeGithubRepo",
+   "target": "site/js/githubAnalyzer.js::fetchBlobs",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/graph2d.js::Graph2D.resize",
+   "source": "site/js/githubAnalyzer.js::analyzeGithubRepo",
+   "target": "site/js/githubAnalyzer.js::fetchTree",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/graph2d.js::Graph2D.select",
+   "source": "site/js/githubAnalyzer.js::analyzeGithubRepo",
+   "target": "site/js/githubAnalyzer.js::githubJson",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
+   "source": "site/js/githubAnalyzer.js::analyzeGithubRepo",
+   "target": "site/js/githubAnalyzer.js::parseGithubSpec",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.constructor",
-   "target": "site/js/kinds.js::EDGE_KINDS",
+   "source": "site/js/githubAnalyzer.js::fetchBlobs",
+   "target": "site/js/githubAnalyzer.js::CONCURRENCY",
    "kind": "reference",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.nodeFill",
-   "target": "site/js/colors.js::kindColor",
+   "source": "site/js/githubAnalyzer.js::fetchTree",
+   "target": "site/js/githubAnalyzer.js::githubJson",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.restyle",
-   "target": "site/js/graph2d.js::Graph2D.nodeFill",
+   "source": "site/js/githubAnalyzer.js::fetchTree",
+   "target": "site/js/githubAnalyzer.js::hasSourceExtension",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.restyle",
-   "target": "site/js/graph2d.js::Graph2D.tick",
+   "source": "site/js/githubAnalyzer.js::fetchTree",
+   "target": "site/js/githubAnalyzer.js::pathExcluded",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.restyle",
-   "target": "site/js/simulation.js::nodeRadius",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.select",
-   "target": "site/js/graph2d.js::Graph2D.applyHighlight",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.select",
-   "target": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setColorBy",
-   "target": "site/js/graph2d.js::Graph2D.restyle",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/colors.js::edgeColor",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/graph2d.js::Graph2D.applyHighlight",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/graph2d.js::Graph2D.nodeFill",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/graph2d.js::Graph2D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "kind": "call",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setGraph",
-   "target": "site/js/simulation.js::nodeRadius",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setLabelMode",
-   "target": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setZones",
-   "target": "site/js/colors.js::zoneColor",
-   "kind": "call",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.setZones",
-   "target": "site/js/graph2d.js::Graph2D.tick",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.tick",
-   "target": "site/js/graph2d.js::linkPath",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.tick",
-   "target": "site/js/graph2d.js::ZONE_PADDING",
+   "source": "site/js/githubAnalyzer.js::githubJson",
+   "target": "site/js/githubAnalyzer.js::API",
    "kind": "reference",
-   "count": 4,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.tick",
-   "target": "site/js/zones.js::hullPath",
-   "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph2d.js::Graph2D.tick",
-   "target": "site/js/zones.js::topPoint",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::Graph2D.updateLabelVisibility",
-   "target": "site/js/graph2d.js::Graph2D.neighbourSet",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/graph2d.js::linkPath",
-   "target": "site/js/simulation.js::nodeRadius",
-   "kind": "call",
+   "source": "site/js/graph3d.js::clampPitch",
+   "target": "site/js/graph3d.js::MIN_PITCH",
+   "kind": "reference",
    "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::clampPitch",
+   "kind": "call",
+   "count": 1,
    "time": "use"
   },
   {
@@ -3033,16 +4650,23 @@
   },
   {
    "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::Graph3D.focusOn",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
    "target": "site/js/graph3d.js::Graph3D.hitTest",
    "kind": "call",
-   "count": 2,
+   "count": 3,
    "time": "use"
   },
   {
    "source": "site/js/graph3d.js::Graph3D.bindEvents",
    "target": "site/js/graph3d.js::Graph3D.select",
    "kind": "call",
-   "count": 1,
+   "count": 2,
    "time": "use"
   },
   {
@@ -3063,6 +4687,13 @@
    "source": "site/js/graph3d.js::Graph3D.constructor",
    "target": "site/js/kinds.js::EDGE_KINDS",
    "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.draw",
+   "target": "site/js/colors.js::edgeBowOffset",
+   "kind": "call",
    "count": 1,
    "time": "use"
   },
@@ -3112,14 +4743,14 @@
    "source": "site/js/graph3d.js::Graph3D.draw",
    "target": "site/js/graph3d.js::Graph3D.project",
    "kind": "call",
-   "count": 5,
+   "count": 6,
    "time": "use"
   },
   {
    "source": "site/js/graph3d.js::Graph3D.draw",
    "target": "site/js/graph3d.js::Graph3D.zOf",
    "kind": "call",
-   "count": 1,
+   "count": 4,
    "time": "use"
   },
   {
@@ -3131,15 +4762,15 @@
   },
   {
    "source": "site/js/graph3d.js::Graph3D.draw",
-   "target": "site/js/simulation.js::nodeRadius",
+   "target": "site/js/zones.js::hullPath",
    "kind": "call",
-   "count": 4,
+   "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/graph3d.js::Graph3D.draw",
-   "target": "site/js/zones.js::hullPath",
-   "kind": "call",
+   "source": "site/js/graph3d.js::Graph3D.fit",
+   "target": "site/js/graph3d.js::FOCAL_EXTENT_RATIO",
+   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -3151,9 +4782,23 @@
    "time": "use"
   },
   {
-   "source": "site/js/graph3d.js::Graph3D.hitTest",
-   "target": "site/js/simulation.js::nodeRadius",
+   "source": "site/js/graph3d.js::Graph3D.focusOn",
+   "target": "site/js/graph3d.js::Graph3D.draw",
    "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.focusOn",
+   "target": "site/js/graph3d.js::Graph3D.zOf",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.project",
+   "target": "site/js/graph3d.js::MAX_MAGNIFICATION",
+   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -3235,6 +4880,20 @@
    "time": "use"
   },
   {
+   "source": "site/js/graph3d.js::Graph3D.viewTop",
+   "target": "site/js/graph3d.js::Graph3D.draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/i18n.js::current",
+   "target": "site/js/i18n.js::setLanguage",
+   "kind": "write",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/i18n.js::detectLanguage",
    "target": "site/js/i18n.js::STRINGS",
    "kind": "reference",
@@ -3280,7 +4939,7 @@
    "source": "site/js/i18n.js::setLanguage",
    "target": "site/js/i18n.js::current",
    "kind": "reference",
-   "count": 2,
+   "count": 1,
    "time": "use"
   },
   {
@@ -3308,6 +4967,83 @@
    "source": "site/js/i18n.js::t",
    "target": "site/js/i18n.js::STRINGS",
    "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/localAnalyzer.js::analyzeLocalFolder",
+   "target": "site/js/browserAnalyzer.js::analyzeFiles",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/localAnalyzer.js::analyzeLocalFolder",
+   "target": "site/js/localAnalyzer.js::readDirectory",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/localAnalyzer.js::readDirectory",
+   "target": "site/js/localAnalyzer.js::readDirectory",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::escapeHtml",
+   "target": "site/js/markdown.js::ESCAPES",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderInline",
+   "target": "site/js/markdown.js::escapeHtml",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::escapeHtml",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::parseDirective",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::renderInline",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::renderMarkdown",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderMarkdown",
+   "target": "site/js/markdown.js::renderTable",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/markdown.js::renderTable",
+   "target": "site/js/markdown.js::renderInline",
+   "kind": "call",
    "count": 2,
    "time": "use"
   },
@@ -3490,7 +5226,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 39,
+   "count": 43,
    "time": "use"
   },
   {
@@ -3502,9 +5238,16 @@
   },
   {
    "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/localAnalyzer.js::localFolderSupported",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 49,
+   "count": 53,
    "time": "use"
   },
   {
@@ -3525,7 +5268,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.slider",
    "kind": "call",
-   "count": 7,
+   "count": 5,
    "time": "use"
   },
   {
@@ -3616,7 +5359,7 @@
    "source": "site/js/panel.js::Panel.setSelection",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 13,
+   "count": 15,
    "time": "use"
   },
   {
@@ -3637,7 +5380,7 @@
    "source": "site/js/panel.js::Panel.setSelection",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 15,
+   "count": 16,
    "time": "use"
   },
   {
@@ -3648,20 +5391,6 @@
    "time": "use"
   },
   {
-   "source": "site/js/simulation.js::applyPhysics",
-   "target": "site/js/simulation.js::nodeRadius",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/simulation.js::applyPhysics",
-   "target": "site/js/simulation.js::repulsionRange",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
    "source": "site/js/simulation.js::createSimulation",
    "target": "site/js/simulation.js::forceSpring",
    "kind": "call",
@@ -3669,29 +5398,22 @@
    "time": "use"
   },
   {
-   "source": "site/js/simulation.js::createSimulation",
-   "target": "site/js/simulation.js::nodeRadius",
-   "kind": "call",
+   "source": "site/js/zones.js::closedLine",
+   "target": "site/js/zones.js::hullPath",
+   "kind": "write",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/simulation.js::createSimulation",
-   "target": "site/js/simulation.js::repulsionRange",
+   "source": "site/js/zones.js::hullPath",
+   "target": "site/js/zones.js::closedLine",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
    "source": "site/js/zones.js::hullPath",
-   "target": "site/js/zones.js::roundedClosedLine",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/zones.js::hullPath",
-   "target": "site/js/zones.js::roundedClosedLine",
+   "target": "site/js/zones.js::closedLine",
    "kind": "reference",
    "count": 1,
    "time": "use"
@@ -3700,14 +5422,91 @@
    "source": "test/analyzer.test.mjs::<module>",
    "target": "analyzers/ts/analyze.mjs::analyze",
    "kind": "call",
-   "count": 8,
+   "count": 18,
    "time": "use"
   },
   {
    "source": "test/analyzer.test.mjs::<module>",
    "target": "test/analyzer.test.mjs::fixture",
    "kind": "call",
-   "count": 8,
+   "count": 17,
+   "time": "use"
+  },
+  {
+   "source": "test/article.test.mjs::<module>",
+   "target": "site/js/i18n.js::LANGUAGES",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/article.test.mjs::<module>",
+   "target": "site/js/markdown.js::parseDirective",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/article.test.mjs::<module>",
+   "target": "site/js/markdown.js::renderInline",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/article.test.mjs::<module>",
+   "target": "site/js/markdown.js::renderMarkdown",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "test/article.test.mjs::<module>",
+   "target": "test/article.test.mjs::content",
+   "kind": "reference",
+   "count": 5,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "analyzers/ts/analyze.mjs::analyze",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "site/js/metrics.js::unreferencedDeclarations",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "test/dead-code.test.mjs::CSS_DECL",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "test/dead-code.test.mjs::CSS_USE",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "test/dead-code.test.mjs::root",
+   "kind": "reference",
+   "count": 1,
    "time": "use"
   },
   {
@@ -3720,6 +5519,13 @@
   {
    "source": "test/dominance.test.mjs::<module>",
    "target": "site/js/metrics.js::computeMetrics",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/metrics.js::convergentOperations",
    "kind": "call",
    "count": 3,
    "time": "use"
@@ -3740,16 +5546,30 @@
   },
   {
    "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/metrics.js::unreferencedDeclarations",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
    "target": "test/dominance.test.mjs::edge",
    "kind": "call",
-   "count": 32,
+   "count": 44,
    "time": "use"
   },
   {
    "source": "test/dominance.test.mjs::<module>",
    "target": "test/dominance.test.mjs::graph",
    "kind": "call",
-   "count": 6,
+   "count": 8,
    "time": "use"
   },
   {
@@ -3778,6 +5598,13 @@
    "target": "site/js/metrics.js::linkLift",
    "kind": "call",
    "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/github-analyzer.test.mjs::<module>",
+   "target": "site/js/githubAnalyzer.js::parseGithubSpec",
+   "kind": "call",
+   "count": 7,
    "time": "use"
   },
   {
@@ -3834,6 +5661,90 @@
    "target": "site/js/i18n.js::t",
    "kind": "call",
    "count": 5,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::<module>",
+   "target": "analyzers/ts/analyze.mjs::analyze",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::<module>",
+   "target": "analyzers/ts/core.mjs::createCore",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::<module>",
+   "target": "test/local-analyzer.test.mjs::analyzeVirtual",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::<module>",
+   "target": "test/local-analyzer.test.mjs::fixture",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::<module>",
+   "target": "test/local-analyzer.test.mjs::PROJECT",
+   "kind": "reference",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::analyzeVirtual",
+   "target": "test/local-analyzer.test.mjs::COMPILER_OPTIONS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::analyzeVirtual",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::analyzeVirtual",
+   "target": "test/local-analyzer.test.mjs::loadLibClosure",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::loadLibClosure",
+   "target": "test/local-analyzer.test.mjs::COMPILER_OPTIONS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::loadLibClosure",
+   "target": "test/local-analyzer.test.mjs::readLib",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::readLib",
+   "target": "test/local-analyzer.test.mjs::libTextCache",
+   "kind": "reference",
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::readLib",
+   "target": "test/local-analyzer.test.mjs::tsLibDir",
+   "kind": "reference",
+   "count": 1,
    "time": "use"
   },
   {

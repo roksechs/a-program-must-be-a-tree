@@ -3,9 +3,8 @@
 // The x/y coordinates come from the same simulation as the 2D view; only the
 // projection differs, so switching views never restarts the physics.
 /* global d3 */
-import { EDGE_KINDS, edgeColor, heightColor, kindColor, zoneColor } from "./colors.js";
+import { EDGE_KINDS, edgeBowOffset, edgeColor, heightColor, kindColor, zoneColor } from "./colors.js";
 import { t } from "./i18n.js";
-import { nodeRadius } from "./simulation.js";
 import { hullPath } from "./zones.js";
 
 // Smallest distance, in radians, that pitch is kept away from a level view.
@@ -56,18 +55,24 @@ export class Graph3D {
     // all (a real pinhole camera has the same dead spot). MIN_PITCH keeps
     // some of it visible at every elevation.
     this.pitch = 0.9;
+    // True while showing the "Top view" preset: a perspective-free look
+    // straight down the height axis (see viewTop()), which is what a purely
+    // 2D top-down rendering of this same x/y layout would look like — the
+    // graph's own physics never uses height, so seen from directly above and
+    // without perspective it is exactly the layout a 2D-only renderer would
+    // draw. Orbiting away from it (see bindEvents) turns it back off, since
+    // it is a specific camera pose, not a general drawing mode.
+    this.orthographic = false;
     this.zoomK = 1;
-    // Extra screen-space pan on top of the camera orbiting `target` below
-    // (e.g. from a shift-drag); kept separate so rotating never has to touch
-    // it, and so wheel-zoom (see bindEvents) only ever has to rescale this.
-    this.panX = 0;
-    this.panY = 0;
     // World point the camera orbits and looks at (yaw/pitch pivot around
     // this, not the origin) and which always projects to screen centre
     // (see project()) — set from the graph's own bounding box in fit(), or
     // a node's position in focusOn(), since nothing about the physics
     // guarantees the layout sits near world origin (see docs/DESIGN.md,
-    // "Nothing defines a centre").
+    // "Nothing defines a centre"). A shift-drag pan (see bindEvents) moves
+    // this point in world space rather than adding a screen-space offset,
+    // so the point under the pointer keeps tracking it and orbiting always
+    // pivots on screen centre, panned or not.
     this.targetX = 0;
     this.targetY = 0;
     this.targetZ = 0;
@@ -100,23 +105,59 @@ export class Graph3D {
       moved = false;
       c.setPointerCapture(e.pointerId);
     });
+    document.addEventListener("pointerlockchange", () => {
+      // Escape (or anything else) can end the lock without a pointerup;
+      // without this the next real pointerup would use a stale `dragging`.
+      if (document.pointerLockElement !== c && dragging && !dragging.pan) dragging = null;
+    });
     c.addEventListener("pointermove", (e) => {
       if (dragging) {
-        const dx = e.clientX - dragging.x;
-        const dy = e.clientY - dragging.y;
+        // Orbiting needs to accept a drag larger than the screen: reaching a
+        // pitch on the far side of level (looking up from underneath, say)
+        // can take more pixels of movement than fit on the actual display.
+        // Pointer lock removes that ceiling by reporting relative movement
+        // (movementX/Y) instead of an absolute, screen-bounded position, the
+        // same trick orbit/first-person controls in web-based 3D tools use.
+        // Only requested once the cursor actually reaches the window edge —
+        // not on every orbit drag — because acquiring it hides the system
+        // cursor and the browser announces that with its own "press Esc to
+        // exit" banner; doing that for every ordinary small drag would show
+        // it constantly. Panning never requests it, since it's a direct 1:1
+        // drag. `pointerlockchange` below cleans up if the lock ends some
+        // other way (Escape) mid-drag.
+        const edge = 2;
+        const atEdge = e.clientX <= edge || e.clientY <= edge || e.clientX >= window.innerWidth - edge || e.clientY >= window.innerHeight - edge;
+        if (!dragging.pan && atEdge && document.pointerLockElement !== c) c.requestPointerLock?.();
+        const locked = document.pointerLockElement === c;
+        const dx = locked ? e.movementX : e.clientX - dragging.x;
+        const dy = locked ? e.movementY : e.clientY - dragging.y;
         dragging.x = e.clientX;
         dragging.y = e.clientY;
         if (Math.abs(dx) + Math.abs(dy) > 1) moved = true;
         if (dragging.pan) {
-          // Panning deliberately moves the view away from whatever target
-          // is centred; stop following a focused node so this pan sticks
+          // Move `target` itself in world space by the screen-space drag,
+          // instead of adding a separate screen-space offset: that keeps
+          // orbiting pivoting on screen centre even after panning (see the
+          // constructor). Stop following a focused node so the pan sticks
           // instead of being overridden on the next frame.
           this.focusedNode = null;
-          this.panX += dx;
-          this.panY += dy;
+          const scale = this.zoomK; // scale at the target's own depth (project(): depth 0)
+          const ddx = dx / scale;
+          const ddy = -dy / scale; // +1 = one world unit of screen "up"
+          const cy = Math.cos(this.yaw);
+          const sy = Math.sin(this.yaw);
+          const cp = Math.cos(this.pitch);
+          const sp = Math.sin(this.pitch);
+          // World-space "right" and "up" directions for one unit of screen
+          // "right"/"up": the inverse of project()'s yaw then pitch rotation.
+          this.targetX -= ddx * cy + ddy * sy * sp;
+          this.targetY -= -ddx * sy + ddy * cy * sp;
+          this.targetZ -= ddy * cp;
         } else {
           this.yaw += dx * 0.008;
           this.pitch = clampPitch(this.pitch + dy * 0.006);
+          // Orbiting is a deliberate move away from the flat top-down pose.
+          this.orthographic = false;
         }
         this.draw();
       } else {
@@ -135,9 +176,20 @@ export class Graph3D {
         this.select(n === this.selected ? null : n);
       }
       dragging = null;
+      if (document.pointerLockElement === c) document.exitPointerLock();
     };
     c.addEventListener("pointerup", end);
-    c.addEventListener("pointercancel", () => (dragging = null));
+    c.addEventListener("pointercancel", () => {
+      dragging = null;
+      if (document.pointerLockElement === c) document.exitPointerLock();
+    });
+    c.addEventListener("dblclick", (e) => {
+      const n = this.hitTest(e.offsetX, e.offsetY);
+      if (n) {
+        this.select(n);
+        this.focusOn(n);
+      }
+    });
     c.addEventListener("pointerleave", () => {
       this.hovered = null;
       this.callbacks.onHover?.(null);
@@ -147,17 +199,7 @@ export class Graph3D {
       (e) => {
         e.preventDefault();
         const f = Math.exp(-e.deltaY * 0.0015);
-        const oldK = this.zoomK;
-        const newK = Math.max(0.05, Math.min(8, oldK * f));
-        // Scale never affects panX/panY themselves, only the world-coordinate
-        // term added to them (see project()), so whatever point currently
-        // sits at screen centre stays there only if pan is rescaled by the
-        // same factor as zoom; otherwise it drifts outward from centre by
-        // (newK - oldK) * panX/oldK each step, compounding over repeated
-        // zooms.
-        this.panX *= newK / oldK;
-        this.panY *= newK / oldK;
-        this.zoomK = newK;
+        this.zoomK = Math.max(0.05, Math.min(8, this.zoomK * f));
         this.draw();
       },
       { passive: false },
@@ -252,14 +294,21 @@ export class Graph3D {
     const sp = Math.sin(this.pitch);
     const screenUp = Y * sp + rz * cp;
     const depth = Y * cp - rz * sp; // distance along the view direction; negative = nearer than target
+    // Orthographic (Top view, see viewTop()): every point scales the same
+    // regardless of depth, exactly like a 2D top-down drawing of the x/y
+    // layout — there is no near plane to clip against either.
+    if (this.orthographic) {
+      const scale = this.zoomK;
+      return { x: this.width / 2 + X * scale, y: this.height / 2 - screenUp * scale, scale, depth, clipped: false };
+    }
     const focalDepth = this.focal + depth;
     if (focalDepth <= this.focal / MAX_MAGNIFICATION) {
       return { x: null, y: null, scale: 0, depth, clipped: true };
     }
     const scale = (this.focal / focalDepth) * this.zoomK;
     return {
-      x: this.width / 2 + this.panX + X * scale,
-      y: this.height / 2 + this.panY - screenUp * scale,
+      x: this.width / 2 + X * scale,
+      y: this.height / 2 - screenUp * scale,
       scale,
       depth,
       clipped: false,
@@ -274,7 +323,7 @@ export class Graph3D {
     let best = null;
     let bestD = Infinity;
     for (const p of this.projected) {
-      const r = nodeRadius(p.node) * p.scale + 3;
+      const r = p.node.radius * p.scale + 3;
       const d = Math.hypot(p.x - px, p.y - py);
       if (d <= r && p.depth < bestD) {
         best = p.node;
@@ -319,8 +368,11 @@ export class Graph3D {
     this.projected = projected;
     const byIndex = new Map(projected.map((p) => [p.node.index, p]));
 
-    // Layer planes: a translucent rectangle per call height.
-    if (this.showLayers && nodes.length > 0) {
+    // Layer planes: a translucent rectangle per call height. Meaningless in
+    // Top view — looking straight down the height axis, every layer's
+    // rectangle projects to the exact same screen quad, so they would only
+    // stack into a single smear instead of showing anything.
+    if (this.showLayers && !this.orthographic && nodes.length > 0) {
       let x0 = Infinity;
       let x1 = -Infinity;
       let y0 = Infinity;
@@ -394,16 +446,35 @@ export class Graph3D {
       const active = sel && (l.source === sel || l.target === sel);
       const dimmed = sel && !active;
       ctx.strokeStyle = active ? "#111827" : edgeColor(l.kind);
-      ctx.globalAlpha = dimmed ? 0.08 : active ? 1 : 0.55;
+      // Full opacity unless some other node is selected: `active`/`dimmed`
+      // already partition every edge when `sel` is set, so with nothing
+      // selected both are false and this used to fall through to a default
+      // 0.55 — permanently muting every edge kind's colour well below its
+      // legend swatch (nearly to invisibility for paler kinds like
+      // `reference`), which is what made the graph look like it didn't
+      // match the legend at all.
+      ctx.globalAlpha = dimmed ? 0.08 : 1;
       ctx.lineWidth = active ? 2 : 1;
       ctx.setLineDash(l.inferred ? [3, 3] : l.kind === "type" || l.kind === "reference" ? [1, 3] : []);
       if (l.source === l.target) {
-        const r = nodeRadius(l.source) * s.scale;
+        const r = l.source.radius * s.scale;
         ctx.beginPath();
         ctx.arc(s.x + r, s.y - r, r, 0, Math.PI * 2);
         ctx.stroke();
       } else {
-        drawArrow(ctx, s.x, s.y, t.x, t.y, nodeRadius(l.target) * t.scale + 1, 5 * Math.max(0.6, t.scale));
+        // `reference` and `write` bow through edgeBowOffset (colors.js), so
+        // the read and write halves of a compound assignment never draw on
+        // top of each other.
+        let control = null;
+        const bow = edgeBowOffset(l.source, l.target, l.kind);
+        if (bow) {
+          const mx = (l.source.x + l.target.x) / 2 + bow.x;
+          const my = (l.source.y + l.target.y) / 2 + bow.y;
+          const mz = (this.zOf(l.source) + this.zOf(l.target)) / 2;
+          const p = this.project(mx, my, mz);
+          if (!p.clipped) control = p;
+        }
+        drawArrow(ctx, s.x, s.y, t.x, t.y, l.target.radius * t.scale + 1, 5 * Math.max(0.6, t.scale), control);
       }
     }
     ctx.setLineDash([]);
@@ -414,7 +485,7 @@ export class Graph3D {
     ctx.font = "11px system-ui, sans-serif";
     for (const p of sorted) {
       const n = p.node;
-      const r = nodeRadius(n) * p.scale;
+      const r = n.radius * p.scale;
       const dimmed = sel && n !== sel && !neighbours.has(n);
       ctx.globalAlpha = dimmed ? 0.2 : 1;
       ctx.beginPath();
@@ -435,7 +506,7 @@ export class Graph3D {
       const n = p.node;
       const wanted = n === sel || n === this.hovered || neighbours.has(n) || (showAll && this.labelMode !== "none");
       if (!wanted) continue;
-      const r = nodeRadius(n) * p.scale;
+      const r = n.radius * p.scale;
       ctx.globalAlpha = sel && n !== sel && !neighbours.has(n) && n !== this.hovered ? 0.3 : 1;
       ctx.fillText(n.name, p.x, p.y - r - 4);
     }
@@ -445,9 +516,10 @@ export class Graph3D {
 
   fit() {
     this.zoomK = 1;
-    this.panX = 0;
-    this.panY = 0;
     this.focusedNode = null;
+    // The general "get me unstuck" reset, so it returns to the normal
+    // perspective view too, the same as orbiting away from Top view does.
+    this.orthographic = false;
     this.targetX = 0;
     this.targetY = 0;
     this.targetZ = 0;
@@ -485,8 +557,6 @@ export class Graph3D {
   focusOn(node) {
     if (!node) return;
     this.zoomK = Math.min(8, Math.max(this.zoomK, 1.2));
-    this.panX = 0;
-    this.panY = 0;
     this.focusedNode = node;
     this.targetX = node.x;
     this.targetY = node.y;
@@ -494,8 +564,20 @@ export class Graph3D {
     this.draw();
   }
 
-  show(visible) {
-    this.canvas.style.display = visible ? null : "none";
+  /**
+   * Look straight down the height axis with no perspective: yaw stops
+   * mattering once pitch points straight down, so only pitch needs setting,
+   * to exactly PI/2 rather than through clampPitch — PI/2 is the view with
+   * the *most* height contribution, not one of the level dead spots
+   * clampPitch pushes away from (see MIN_PITCH). Orbiting away from here
+   * (bindEvents) turns `orthographic` back off, and so does fit() — the two
+   * ways out of Top view mirror the two ways in (bindEvents' orbit, this
+   * method).
+   */
+  viewTop() {
+    this.pitch = Math.PI / 2;
+    this.orthographic = true;
+    this.draw();
   }
 }
 
@@ -513,17 +595,24 @@ function clampPitch(pitch) {
   return nearestLevel + (offset < 0 ? -MIN_PITCH : MIN_PITCH);
 }
 
-function drawArrow(ctx, x0, y0, x1, y1, stopBefore, headSize) {
-  const dx = x1 - x0;
-  const dy = y1 - y0;
-  const d = Math.hypot(dx, dy) || 1;
-  const ux = dx / d;
-  const uy = dy / d;
+/**
+ * `control`, when given, is a projected point the line bows through (a
+ * quadratic curve, via colors.js's edgeBowOffset) instead of running
+ * straight. The arrowhead uses the curve's own end tangent
+ * (control -> x1,y1), not the start -> end line.
+ */
+function drawArrow(ctx, x0, y0, x1, y1, stopBefore, headSize, control) {
+  const tangentX = control ? x1 - control.x : x1 - x0;
+  const tangentY = control ? y1 - control.y : y1 - y0;
+  const d = Math.hypot(tangentX, tangentY) || 1;
+  const ux = tangentX / d;
+  const uy = tangentY / d;
   const ex = x1 - ux * stopBefore;
   const ey = y1 - uy * stopBefore;
   ctx.beginPath();
   ctx.moveTo(x0, y0);
-  ctx.lineTo(ex, ey);
+  if (control) ctx.quadraticCurveTo(control.x, control.y, ex, ey);
+  else ctx.lineTo(ex, ey);
   ctx.stroke();
   ctx.beginPath();
   ctx.moveTo(ex, ey);

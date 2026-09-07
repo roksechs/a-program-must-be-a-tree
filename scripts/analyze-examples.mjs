@@ -28,6 +28,16 @@ write(
   analyze({ name: "a-program-must-be-a-tree", root, include: ["site/js", "analyzers", "scripts", "test"], language: "javascript" }),
 );
 
+// 1b. Self again, with local functions as nodes: the analyzer is one large
+// function made of closures, and this is the only view in which its own
+// structure can be diagnosed.
+write(
+  "self-nested",
+  "a-program-must-be-a-tree (nested declarations)",
+  "this viewer and its analyzer, local functions as nodes",
+  analyze({ name: "a-program-must-be-a-tree", root, include: ["site/js", "analyzers", "scripts", "test"], language: "javascript", nested: true }),
+);
+
 // 2. d3 packages. Each package ships its ES module sources in src/.
 const d3Packages = ["d3-force", "d3-selection", "d3-scale", "d3-shape", "d3-hierarchy", "d3-zoom"];
 for (const pkg of d3Packages) {
@@ -39,6 +49,15 @@ for (const pkg of d3Packages) {
   const version = JSON.parse(readFileSync(join(pkgRoot, "package.json"), "utf8")).version;
   write(pkg, `${pkg}@${version}`, "D3 module sources", analyze({ name: pkg, root: pkgRoot, include: ["src"], language: "javascript" }));
 }
+
+// 2b. Sample sources: one small program per idea the docs explain, analyzed for
+// real so the picture is the analyzer's own output.
+write(
+  "sample-bindings",
+  "sample: bindings, aliases, late bindings and stores",
+  "one file per way a property assignment is read (docs/THEORY.md §4.1)",
+  analyze({ name: "sample-bindings", root: join(root, "samples", "bindings"), include: ["."], language: "javascript" }),
+);
 
 // 3. Synthetic graphs.
 write("sample-tree", "sample: perfect tree", "synthetic, 40 declarations", syntheticTree(3, 3));

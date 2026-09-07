@@ -19,11 +19,31 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 * **Analyzers** are independent programs that emit the JSON described in
   `DATA_FORMAT.md`. Besides functions, classes, members, variables and types,
   the TypeScript analyzer emits one `module` node per file that has top-level
-  code outside any declaration (`X.prototype = {...}`, a call at load time), so
-  references made by such code are not lost. The first one covers JavaScript / TypeScript using the
+  code outside any declaration (a call at load time), so references made by
+  such code are not lost. A top-level assignment through a path of names
+  (`ns.f = function`, `C.prototype.m = f`, `exports.f = …`, `d3.scale = {}`)
+  is not module code but a declaration — the ES5 spelling of an export or a
+  method — while the same assignment inside a function body is a flagged
+  *late binding* when the receiver is a module-level name and a mere store
+  when it is a value (`THEORY.md` §4.1). With `--nested`, named local
+  functions become nodes of their own (`<parent>/<name>`), which is the only
+  view in which a large function made of closures — this analyzer, for one —
+  can be diagnosed; the `self-nested` dataset is that view of this repository.
+  The first one covers JavaScript / TypeScript using the
   TypeScript compiler API, which resolves imports, `this.method()` calls and
   aliases for free. Other languages (Python `ast`, tree-sitter, Go `go/types`,
-  ...) can be added without touching the viewer.
+  ...) can be added without touching the viewer. The TypeScript analyzer
+  itself has three front ends over one shared core (`analyzers/ts/core.mjs`,
+  which touches nothing outside the `ts` module it is handed): `analyze.mjs`
+  builds a `ts.Program` from files read off disk (the CLI, `npm run
+  build:data`); the viewer's "Open folder…" and "GitHub repo" panel controls
+  each build one from files read a different way (the File System Access API,
+  the GitHub REST API plus `raw.githubusercontent.com`) over a custom
+  `ts.CompilerHost` backed by an in-memory map — so analyzing a project needs
+  no server-side step and works from the static site alone. `core.mjs` is
+  copied into `site/vendor/analyzer-core.js` by `npm run vendor` (gitignored:
+  `analyzers/ts/core.mjs` stays the single source of truth) since the
+  published site only ever serves `site/`.
 * **Viewer** (`site/`) is plain ES modules plus a vendored copy of d3. There is
   no bundler so the page can be opened from any static host.
 
@@ -36,13 +56,40 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `dominance.js`  | Dominator tree of the condensed graph: the deepest nesting the program admits, and the lift of every edge. |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
-| `graph2d.js`    | SVG renderer: zoom/pan, drag, arrows, hulls, labels, selection. |
-| `graph3d.js`    | Canvas renderer: same x/y, z = call height, orbit camera, layer planes. |
+| `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer, used by both the main viewer and the article's live figures. |
 | `panel.js`      | Property panel (controls + diagnostics + selection details). |
 | `app.js`        | Data loading and wiring. |
+| `browserAnalyzer.js` | The part of the in-browser analyzer shared by `localAnalyzer.js` and `githubAnalyzer.js`: a custom `ts.CompilerHost` over an in-memory file map, fed to `analyzers/ts/core.mjs`. Loads `vendor/typescript.js` (~9MB) lazily, on first use. |
+| `localAnalyzer.js` | Reads a directory picked with `showDirectoryPicker()` into the file map `browserAnalyzer.js` needs. |
+| `githubAnalyzer.js` | Fetches a public GitHub repository's file tree and contents into the same file map. |
+| `markdown.js`   | Small Markdown renderer for the article chapters (escaped, no raw HTML; `<!-- key: value -->` comments are page directives). |
+| `article.js`    | The article page (`article.html`): chapters from `content/<lang>/`, each with the live graphs its directives ask for, rendered by the same modules on the same datasets as the viewer. |
 
-Both renderers read the same node objects, so switching between 2D and 3D does
-not restart the simulation and the user does not lose the layout.
+Both the main viewer (`index.html`) and the article's live figures render
+only in 3D. A 2D renderer without perspective is exactly `graph3d.js`'s own
+Top view (`viewTop()`), so a separate SVG renderer (`graph2d.js`, removed)
+would only have been a second, heavier way to draw the same picture; a
+figure that wants a flat, label-readable layout asks for `view: top`
+instead and gets `graph3d.js`'s Top view.
+
+### Keeping the codebase itself tidy
+
+"Is anything unreferenced" is a question about the graph's shape, so it is
+answered by the graph model, not by a one-off script: `metrics.js`'s
+`unreferencedDeclarations(graph)` returns every node with zero incoming
+edges of any kind — exactly what a removed caller leaves behind (deleting
+`graph2d.js` orphaned `Graph3D.show()` and `zones.js`'s `topPoint`, both
+found this way). A `module` node (a file's own top-level code) and a local
+declaration (`<parent id>/<name>`, docs/DATA_FORMAT.md — an options-object
+callback such as `{ onFit: () => {…} }`) are excluded: the analyzer does not
+trace a call reaching a local declaration through a stored reference
+(`this.callbacks.onFit()`), so it reads as unused even when something
+invokes it dynamically. `test/dead-code.test.mjs` runs the analyzer on
+`site/js`, `analyzers`, `scripts` and `test` themselves, builds the graph the
+same way the viewer does, and asserts `unreferencedDeclarations` finds
+nothing; a second check in the same file flags a CSS custom property that is
+declared in `site/*.css` but never read with `var(...)` anywhere in
+`site/*.css`.
 
 ## Physics
 
@@ -54,13 +101,23 @@ d3-force is used as the integrator. The forces are:
   edge, `F = k * (d - restLength)`, split between the endpoints by their degree
   so a hub is not thrown around by one neighbour. `d3.forceLink` is close, but
   the custom force keeps the parameters (stiffness, rest length) explicit.
-* **Collision**: keeps circles from overlapping.
+* **Collision**: keeps circles from overlapping, using each node's `radius`.
 
 That is all. The repulsion has no range limit — every pair of nodes feels it at
 any distance — and a spring along an edge is the only attraction, so two
 declarations end up next to each other only when something connects them.
 `forceCollide` is not a third force but the hard core of the repulsion, keeping
 circles from overlapping.
+
+A node's `radius` (`4 + sqrt(inDegree + outDegree) * 1.2`, so busier
+declarations stand out) is a field on the node itself, set in `model.js`
+alongside `inDegree`/`outDegree`/`height` whenever the active edge kinds
+change — not a function either renderer or the physics calls. All three need
+the exact same number (the physics so its collision radius matches what gets
+drawn, both renderers so a node's circle, its label offset and where an edge
+stops before it all agree), so it belongs to whichever module already owns a
+node's other derived numbers, not to whichever of the three happened to
+declare a `nodeRadius()` function first and have the other two import it.
 
 Nothing defines a centre. Two attempts at one were removed:
 
@@ -76,8 +133,13 @@ Nothing defines a centre. Two attempts at one were removed:
   plane where no point should be special.
 
 Where the graph sits is therefore a question for the camera, not the physics:
-"Fit to view" (also applied when a run settles) frames whatever the simulation
-produced.
+"Fit to view" frames whatever the simulation produced. Nothing calls it on the
+app's own initiative — not a fresh load, not a run settling — only the button
+itself, Top view, and orbiting away from Top view ever move the camera. A run
+can take a while to settle (see `alphaDecay` above), long enough for the user
+to have framed their own view of it by hand in the meantime; an automatic fit
+firing at whatever moment that happens to end would override a camera they
+already took hold of, so there is no automatic fit to fire.
 
 Directories and files have no influence on the physics: no force reads the
 containers, and the initial positions are seeded on a spiral in declaration
@@ -88,6 +150,19 @@ directory ended up.
 "Recompute" resets the simulation alpha to 1 (reheat), "Reset positions"
 re-seeds the coordinates first. Dragging a node pins it while the pointer is
 down.
+
+Changing a physics parameter or an edge kind's toggle applies immediately —
+the spring set and the force strengths are updated right away — but does not
+itself reheat: a layout the user has been looking at should not be flung back
+into motion just for touching a slider or a checkbox while exploring which
+edge kinds to look at. If the simulation is still cooling from a previous run
+the new values simply take effect on its very next tick; the explicit
+"Recompute (reheat)" button is how to ask for a fresh layout under the
+current parameters. `alphaDecay` is also tuned well below d3's own default
+(0.0228, ~300 ticks) so a run stays warm for roughly 1200 ticks instead —
+long enough, on a graph of any size, for repulsion and every edge kind's
+springs to actually settle into a stable shape rather than cooling on top of
+one that is still rearranging itself.
 
 ## Zones
 
@@ -178,10 +253,21 @@ evaluation contexts, is derived in `THEORY.md`. The Edges section of the
 panel has one switch per kind: an enabled kind is drawn, acts as a spring in
 the physics and counts for degrees, call heights and the diagnostics; a
 disabled kind does none of these, so the picture, the layout and the numbers
-always describe the same graph. Type-level edges are off by default. Edges
-found by analysis rather than written at that spot (dispatched overrides,
-callbacks resolved by flow analysis, and the candidates of a call through a
-union type or a record indexed at run time) are dashed.
+always describe the same graph. Every kind starts enabled (see `write`,
+below, for the one worth turning back off on some graphs). Edges found by
+analysis rather than written at that spot (dispatched overrides, callbacks
+resolved by flow analysis, and the candidates of a call through a union type
+or a record indexed at run time) are dashed.
+
+Two edges of different kinds between the same pair of nodes never draw on
+top of each other: every kind bows a different amount away from the straight
+line between its endpoints (`colors.js`'s `edgeBowOffset`, evenly spread and
+centred on zero across `EDGE_KINDS`), a generalisation of the read/write bow
+described below. Left overlapping, two differently-coloured, semi-transparent
+strokes on the same pixels blend into a colour that matches neither kind's
+legend swatch — which is what an edge kind sharing a pair with a much more
+common one (`call`, typically) used to look like before every kind got its
+own offset.
 
 A declaration counts as a root only when nothing reaches it, so the analyzer
 has to resolve the indirect calls a codebase actually uses, or perfectly live
@@ -195,7 +281,12 @@ the checker gives up entirely, is resolved against the property types of
 All structural diagnostics, the degrees and the call heights are computed on
 the edge kinds enabled in the Edges section, the same set that is drawn and
 that pulls in the physics. Disable `reference` to diagnose the control graph
-(`call` + `create`) of `THEORY.md` §7.
+(`call` + `create`) of `THEORY.md` §7. `write` edges run backwards (a
+variable to whoever assigns it), which starts enabled like every other kind
+but is the one worth turning back off if it confuses a dominator-tree-based
+reading of the diagnostics: mixing a reversed edge into these numbers without
+noticing would misread the tree, so `write` is its own lens (`THEORY.md`
+§3.5, §7) that the toggle makes it easy to set aside.
 
 For `n` nodes, `m` control edges and `c` weakly connected components:
 
@@ -237,13 +328,44 @@ loops, the costliest shared declarations, and *initialisation cycles*:
 declarations on a cycle of definition-time dependencies (evaluated while the
 module loads), which are genuine errors rather than recursion.
 
+`convergentOperations(graph, minWidth = 2)` finds a different shape than lift
+does: a declaration `x` that directly calls several distinct declarations
+(`via`), every one of which independently calls the same shared node `y` —
+`x -> via[i] -> y` for every `i`. This is what a single logical operation
+looks like once it has been decomposed into several independent steps instead
+of one, e.g. `installGraph()` calling five setters that each separately
+trigger `Graph3D#draw`, where one call to a single `load()`-shaped method
+would do; the pattern was found this way (by running the analyzer on this
+project itself) before the fix that collapsed it existed. It is read straight
+off call-graph topology and knows nothing about `y` itself, so it cannot tell
+a genuinely costly, stateful `y` (worth consolidating at `x`) from a cheap,
+pure one (harmless to reach from several siblings, same as any other shared
+utility) — that judgement is the same one every shared declaration already
+needs (see "Edge kinds" above on `nodeRadius`). That is a read error for a
+person to make, same as any other finding this tool surfaces, not something
+the metric resolves on its own.
+
+A different, sharper false positive this same finder turned up while running
+on this project itself: a handler object's several one-line arrow functions
+(each firing on a different, unrelated user action, e.g. a property panel's
+`{ onFit, onLabels, onColorBy, … }`) used to be attributed to whichever named
+declaration merely constructed the object literal, making genuinely
+independent handlers look like one converging operation. That was not a
+judgement call left to a person — it was the analyzer failing to name
+something that has a name (docs/THEORY.md §4.1, Definition 9a's "local
+declaration": a function-valued object literal property, passed straight
+into a call with no name of its own in between, is declared and parented to
+the calling declaration, the same as a `--nested` local, because ECMAScript
+already names it by NamedEvaluation and the value never escapes anywhere
+else to be found by control-flow analysis instead). Fixed at the analyzer
+level, not by the metric: `panel -> {onFit, onLabels, …} -> draw` no longer
+appears, because `onFit` and friends are now their own declarations with
+their own, correctly separate, calls to `draw`.
+
 ## Roadmap
 
 * Analyzers for Python, Go and Rust (tree-sitter based) and a `--git` mode that
   records the commit the graph was taken from.
-* Model property stores and anonymous functions in the flow analysis
-  (objects of callbacks, event maps).
-* Nested declarations (inner functions) as their own nodes, behind a flag.
 * Collapse a zone into a single node (module-level graph) and expand it again.
 * Highlight the edges that would have to be removed to make the graph a tree
   (the edges with a lift above 0 are already known; draw them apart).
