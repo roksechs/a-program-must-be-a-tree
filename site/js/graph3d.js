@@ -105,32 +105,20 @@ export class Graph3D {
       moved = false;
       c.setPointerCapture(e.pointerId);
     });
-    document.addEventListener("pointerlockchange", () => {
-      // Escape (or anything else) can end the lock without a pointerup;
-      // without this the next real pointerup would use a stale `dragging`.
-      if (document.pointerLockElement !== c && dragging && !dragging.pan) dragging = null;
-    });
     c.addEventListener("pointermove", (e) => {
       if (dragging) {
-        // Orbiting needs to accept a drag larger than the screen: reaching a
-        // pitch on the far side of level (looking up from underneath, say)
-        // can take more pixels of movement than fit on the actual display.
-        // Pointer lock removes that ceiling by reporting relative movement
-        // (movementX/Y) instead of an absolute, screen-bounded position, the
-        // same trick orbit/first-person controls in web-based 3D tools use.
-        // Only requested once the cursor actually reaches the window edge —
-        // not on every orbit drag — because acquiring it hides the system
-        // cursor and the browser announces that with its own "press Esc to
-        // exit" banner; doing that for every ordinary small drag would show
-        // it constantly. Panning never requests it, since it's a direct 1:1
-        // drag. `pointerlockchange` below cleans up if the lock ends some
-        // other way (Escape) mid-drag.
-        const edge = 2;
-        const atEdge = e.clientX <= edge || e.clientY <= edge || e.clientX >= window.innerWidth - edge || e.clientY >= window.innerHeight - edge;
-        if (!dragging.pan && atEdge && document.pointerLockElement !== c) c.requestPointerLock?.();
-        const locked = document.pointerLockElement === c;
-        const dx = locked ? e.movementX : e.clientX - dragging.x;
-        const dy = locked ? e.movementY : e.clientY - dragging.y;
+        // setPointerCapture (pointerdown, above) keeps delivering these to
+        // the canvas even once the cursor leaves it, up to the edge of the
+        // screen — enough range for an ordinary orbit drag. A single drag
+        // reaching all the way around (say, a full vertical loop) can take
+        // more pixels than fit on the actual display; that needs release
+        // and re-drag to continue, rather than Pointer Lock's uncapped
+        // relative movement, which hides the system cursor and made the
+        // browser announce it with its own "press Esc to exit" banner even
+        // just brushing the window edge — worse than the capped range it
+        // bought back.
+        const dx = e.clientX - dragging.x;
+        const dy = e.clientY - dragging.y;
         dragging.x = e.clientX;
         dragging.y = e.clientY;
         if (Math.abs(dx) + Math.abs(dy) > 1) moved = true;
@@ -155,7 +143,7 @@ export class Graph3D {
           this.targetZ -= ddy * cp;
         } else {
           this.yaw += dx * 0.008;
-          this.pitch = clampPitch(this.pitch + dy * 0.006);
+          this.pitch = clampPitch(this.pitch + dy * 0.006, this.pitch);
           // Orbiting is a deliberate move away from the flat top-down pose.
           this.orthographic = false;
         }
@@ -176,12 +164,10 @@ export class Graph3D {
         this.select(n === this.selected ? null : n);
       }
       dragging = null;
-      if (document.pointerLockElement === c) document.exitPointerLock();
     };
     c.addEventListener("pointerup", end);
     c.addEventListener("pointercancel", () => {
       dragging = null;
-      if (document.pointerLockElement === c) document.exitPointerLock();
     });
     c.addEventListener("dblclick", (e) => {
       const n = this.hitTest(e.offsetX, e.offsetY);
@@ -587,12 +573,22 @@ export class Graph3D {
  * range: unlike a clamp to [-PI/2, PI/2], this lets the camera complete a
  * full vertical loop, orbiting up over the top or down under the bottom and
  * on around, instead of stopping at straight up/down.
+ *
+ * Snapping `newPitch` to the *nearer* edge of that dead zone (the one on
+ * `oldPitch`'s side) would re-snap right back to where it came from on the
+ * very next small step — a wall the pitch can never actually cross, only
+ * jump clean over given one single step big enough to land past the far
+ * edge already. Snapping toward the edge in the direction of travel instead
+ * — using the sign of `newPitch - oldPitch`, not `newPitch`'s raw offset —
+ * carries the orbit through the level orientation exactly as a step-free
+ * pass through would, whatever the step size.
  */
-function clampPitch(pitch) {
-  const nearestLevel = Math.round(pitch / Math.PI) * Math.PI;
-  const offset = pitch - nearestLevel;
-  if (Math.abs(offset) >= MIN_PITCH) return pitch;
-  return nearestLevel + (offset < 0 ? -MIN_PITCH : MIN_PITCH);
+function clampPitch(newPitch, oldPitch) {
+  const nearestLevel = Math.round(newPitch / Math.PI) * Math.PI;
+  const offset = newPitch - nearestLevel;
+  if (Math.abs(offset) >= MIN_PITCH) return newPitch;
+  const direction = Math.sign(newPitch - oldPitch) || Math.sign(offset) || 1;
+  return nearestLevel + direction * MIN_PITCH;
 }
 
 /**

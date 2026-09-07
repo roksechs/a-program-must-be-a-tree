@@ -285,7 +285,25 @@ elevations the camera's forward axis is horizontal, so height never
 contributes to the perspective divide and the call-height axis would render
 with no depth cue at all (true of any look-at camera, not just this one). A
 minimum elevation keeps that axis visibly foreshortened everywhere else on
-the loop.
+the loop. Pushing a candidate pitch back out of that dead zone snaps it
+toward the edge in the *direction it was already moving* (the sign of
+`newPitch - oldPitch`), not toward whichever edge the raw candidate happens
+to be nearest: snapping to the nearest edge instead would put a drag that
+enters the zone from one side right back where it started on the very next
+small step — a wall the orbit could only cross by jumping it outright in one
+oversized step — while snapping in the direction of travel carries any step
+size through the level orientation the same way an unclamped pass through it
+would.
+
+Orbiting reads `pointermove` while a drag is down, letting `setPointerCapture`
+(acquired on `pointerdown`) keep delivering events once the cursor leaves the
+canvas, up to the edge of the screen. That is enough range for an ordinary
+orbit; a single drag large enough to need more (a full vertical loop, say)
+needs release-and-redrag to continue. The alternative, the Pointer Lock API,
+gives uncapped relative movement past the screen edge, but unconditionally
+shows the browser's own "press Esc to exit" banner the moment it activates —
+worse than the capped range it would buy back — so this renderer never
+requests it.
 
 The camera's focal length is set from the graph's own extent (in `fit()`)
 rather than a fixed world-unit constant. A focal length small next to the

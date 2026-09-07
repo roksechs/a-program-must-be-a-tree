@@ -6,6 +6,28 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Fixed a "wall" in the 3D camera's orbit and dropped the Pointer Lock banner
+
+* Orbiting the 3D view's camera toward a level pitch (looking exactly
+  horizontal, from above or below) used to stick about 10% short of level
+  and refuse to go further, unless the drag moved fast enough to jump clear
+  over the dead zone in one step. `clampPitch` now snaps a candidate pitch
+  out of that dead zone in the *direction the drag is already moving*,
+  instead of toward whichever edge the raw candidate happens to be nearest
+  — the latter re-snapped right back where it started on the very next
+  small step, which was the wall. Verified with a step-size sweep from
+  0.001 to 1.0 radians per step, confirming every size crosses cleanly with
+  no size able to get stuck.
+* Removed the Pointer Lock request used to extend drag range past the
+  screen edge: it unconditionally triggered the browser's own
+  non-suppressible "press Esc to exit" notification, which is worse than
+  the capped range `setPointerCapture` (already in use) provides on its
+  own. A single drag that needs more range than the physical screen allows
+  (a full vertical loop, say) now needs release-and-redrag to continue,
+  same as most web-based orbit controls. Verified in a real browser that
+  `requestPointerLock` is never called, including while dragging past the
+  screen edge.
+
 ### Search GitHub for a repo to analyze
 
 * The GitHub-repo field now searches as you type (`githubAnalyzer.js`'s
