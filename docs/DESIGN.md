@@ -362,6 +362,18 @@ easy to count; "Layer planes" (View & Physics) starts unchecked, since a
 plane per layer on a graph with many of them is more clutter than guide until
 asked for.
 
+Anchoring height at the sinks (leaves always at 0) and anchoring it at the
+sources (roots — declarations nobody calls — always at the top) cannot both
+hold once call chains of different lengths coexist in the same graph: forcing
+every leaf to 0 means a shallow root's own chain may fall well short of
+`maxHeight`, so it doesn't reach the top plane even though nothing calls it;
+forcing every root to the top would instead pull some leaf above a non-leaf
+elsewhere in a longer chain, breaking "only-called declarations sit at the
+bottom" instead. This project anchors at the sinks, so a leaf's height is
+always 0 regardless of who calls it — a caller sitting far above one of its
+own direct callees is not a bug, it means that caller has another, longer
+chain elsewhere setting its height.
+
 The projection is a small hand-written orbit camera (yaw, pitch, perspective)
 on a 2D canvas; no WebGL dependency is needed for a few thousand nodes. Pitch
 is unbounded, not clamped to a single hemisphere: dragging past straight
