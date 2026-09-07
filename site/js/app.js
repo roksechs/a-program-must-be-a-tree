@@ -1,27 +1,38 @@
 // Application wiring: loads a dataset, runs the simulation and connects the
-// renderers to the property panel.
+// renderer to the property panel.
 /* global d3 */
-import { EDGE_KINDS } from "./kinds.js";
-import { Graph2D } from "./graph2d.js";
+import { deleteAnalysis, listRecentAnalyses, saveAnalysis } from "./analysisCache.js";
+import { searchGithubRepos } from "./githubAnalyzer.js";
+import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
+import { MOTIF_COLORS, MOTIF_DETECTORS } from "./motifs.js";
 import { Panel } from "./panel.js";
+import { pathBetween } from "./paths.js";
 import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
 import { visibleContainers } from "./zones.js";
 
 const state = {
-  view: "2d",
   labelMode: "auto",
   colorBy: "kind",
   layerGap: 80,
-  showLayers: true,
+  showLayers: false,
+  layerFade: true,
   autoRotate: false,
-  zoneDepth: 2,
+  // No container has depth 0 (1 = top-level directory, model.js's
+  // buildContainers), so this range starts as empty on purpose: nothing
+  // drawn until the user asks for a band of it.
+  zoneMinDepth: 0,
+  zoneMaxDepth: 0,
   // Enabled edge kinds. An enabled kind is drawn, acts as a spring and counts
   // for degrees, call heights and the diagnostics; a disabled kind does none
-  // of these. Type-level edges are off by default (erased at run time).
-  kinds: new Set(EDGE_KINDS.filter((k) => k !== "type")),
+  // of these. Every kind starts enabled (see kinds.js); `write`'s reversed
+  // direction (THEORY.md §7) is the one worth turning back off if it confuses
+  // a dominator-tree-based reading of the diagnostics.
+  kinds: new Set(EDGE_KINDS.filter((k) => !DEFAULT_OFF_KINDS.has(k))),
+  // Which motif kinds (motifs.js) are currently highlighted; none by default.
+  motifs: new Set(),
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
   datasets: [],
@@ -60,17 +71,16 @@ function applyStaticTranslations() {
 }
 applyStaticTranslations();
 
-const renderers = {
-  "2d": new Graph2D(stage, rendererCallbacks()),
-  "3d": new Graph3D(stage, rendererCallbacks()),
-};
-renderers["3d"].show(false);
+const renderer = new Graph3D(stage, rendererCallbacks());
 
 function rendererCallbacks() {
   return {
-    onSelect: (node) => {
-      for (const r of Object.values(renderers)) if (r.selected !== node) r.select?.(node);
-      panel.setSelection(node, state.graph);
+    onSelect: (node) => panel.setSelection(node, state.graph),
+    onFindPath: (from, to) => {
+      if (!state.graph) return;
+      const result = pathBetween(state.graph, from, to);
+      renderer.setPath(result.reachable ? result.nodes : null, result.reachable ? result.edges : null);
+      panel.setPathResult(result, from, to);
     },
     onDragStart: () => state.sim?.alphaTarget(0.3).restart(),
     onDragEnd: () => state.sim?.alphaTarget(0),
@@ -98,13 +108,20 @@ function rendererCallbacks() {
 const panel = new Panel(document.getElementById("panel"), state, {
   onDataset: (id) => loadDataset(id),
   onFile: (file) => loadFile(file),
-  onView: (view) => setView(view),
+  onOpenFolder: () => loadLocalFolder(),
+  onGithub: (spec) => loadGithubRepo(spec),
+  onGithubSearch: (query) => searchGithubRepos(query).catch(() => []),
+  onLoadRecent: (entry) => loadFromCache(entry),
+  onReanalyzeRecent: (entry) => reanalyzeRecent(entry),
+  onDeleteRecent: (entry) => deleteRecent(entry),
   onPhysics: (key, value) => {
     state.physics[key] = value;
-    if (state.sim) {
-      applyPhysics(state.sim, state.physics);
-      state.sim.alpha(Math.max(state.sim.alpha(), 0.3)).restart();
-    }
+    // Apply the new parameter without forcing a reheat: a settled layout the
+    // user has been looking at should not be flung back into motion just for
+    // touching a slider. If the simulation is still warm the new value takes
+    // effect on its very next tick either way; "Recompute (reheat)" is the
+    // explicit way to ask for a fresh layout.
+    if (state.sim) applyPhysics(state.sim, state.physics);
   },
   onReheat: () => state.sim?.alpha(1).restart(),
   onReset: () => {
@@ -112,14 +129,16 @@ const panel = new Panel(document.getElementById("panel"), state, {
     seedPositions(state.graph);
     state.sim.alpha(1).restart();
   },
-  onFit: () => renderers[state.view].fit(),
-  onZones: (depth) => {
-    state.zoneDepth = depth;
+  onFit: () => renderer.fit(),
+  onTop: () => renderer.viewTop(),
+  onZones: (minDepth, maxDepth) => {
+    state.zoneMinDepth = minDepth;
+    state.zoneMaxDepth = maxDepth;
     updateZones();
   },
   onLabels: (mode) => {
     state.labelMode = mode;
-    for (const r of Object.values(renderers)) r.setLabelMode(mode);
+    renderer.setLabelMode(mode);
   },
   onKinds: (kind, enabled) => {
     if (enabled) state.kinds.add(kind);
@@ -128,53 +147,76 @@ const panel = new Panel(document.getElementById("panel"), state, {
   },
   onColorBy: (mode) => {
     state.colorBy = mode;
-    for (const r of Object.values(renderers)) r.setColorBy(mode);
+    renderer.setColorBy(mode);
   },
   onLayerGap: (gap) => {
     state.layerGap = gap;
-    renderers["3d"].setLayerGap(gap);
+    renderer.setLayerGap(gap);
   },
   onShowLayers: (show) => {
     state.showLayers = show;
-    renderers["3d"].setShowLayers(show);
+    renderer.setShowLayers(show);
+  },
+  onLayerFade: (fade) => {
+    state.layerFade = fade;
+    renderer.setLayerFade(fade);
   },
   onAutoRotate: (on) => {
     state.autoRotate = on;
-    renderers["3d"].autoRotate = on;
+    renderer.autoRotate = on;
     if (on) ensureTicking();
   },
-  onSelectNode: (node) => renderers[state.view].select(node),
-  onFocusNode: (node) => renderers[state.view].focusOn(node),
+  onSelectNode: (node) => renderer.select(node),
+  onFocusNode: (node) => renderer.focusOn(node),
+  onClearPath: () => {
+    renderer.setPath(null, null);
+    panel.setPathResult(null);
+  },
+  onMotifs: (kind, enabled) => {
+    if (enabled) state.motifs.add(kind);
+    else state.motifs.delete(kind);
+    updateMotifs();
+  },
 });
 
 /** Apply the enabled edge kinds to drawing, springs and diagnostics at once. */
 function applyKinds() {
-  for (const r of Object.values(renderers)) r.setVisibleKinds(state.kinds);
+  renderer.setVisibleKinds(state.kinds);
   state.physics.springKinds = new Set(state.kinds);
   if (state.graph) {
     applyActiveKinds(state.graph, state.kinds);
     panel.setMetrics(state.graph);
-    panel.setSelection(renderers[state.view].selected, state.graph);
-    for (const r of Object.values(renderers)) r.restyle();
+    panel.setSelection(renderer.selected, state.graph);
+    renderer.restyle();
+    updateMotifs(); // a motif's own edges/nodes depend on which kinds are active, same as the diagnostics above
   }
-  if (state.sim) {
-    applyPhysics(state.sim, state.physics);
-    state.sim.alpha(Math.max(state.sim.alpha(), 0.3)).restart();
-  }
-}
-
-function setView(view) {
-  state.view = view;
-  panel.setView(view);
-  for (const [k, r] of Object.entries(renderers)) r.show(k === view);
-  renderers[view].resize();
-  renderers[view].fit();
+  // Drawing, degrees and diagnostics above already reflect the new kinds
+  // immediately; the spring set (below) takes effect on the simulation's own
+  // schedule instead of being forced with a reheat, so switching a kind on or
+  // off while exploring a graph never flings a layout the user just settled
+  // back into motion (see onPhysics for the same reasoning).
+  if (state.sim) applyPhysics(state.sim, state.physics);
 }
 
 function updateZones() {
   if (!state.graph) return;
-  const containers = visibleContainers(state.graph, state.zoneDepth);
-  for (const r of Object.values(renderers)) r.setZones(containers);
+  const containers = visibleContainers(state.graph, state.zoneMinDepth, state.zoneMaxDepth);
+  renderer.setZones(containers);
+}
+
+/** Recompute every enabled motif (motifs.js) over the graph's current active edges and hand the result to the renderer. */
+function updateMotifs() {
+  if (!state.graph) return;
+  if (state.motifs.size === 0) {
+    renderer.setMotifs(null);
+    return;
+  }
+  const result = new Map();
+  for (const kind of state.motifs) {
+    const { nodes, edges } = MOTIF_DETECTORS[kind](state.graph);
+    result.set(kind, { nodes, edges, color: MOTIF_COLORS[kind] });
+  }
+  renderer.setMotifs(result);
 }
 
 let statusMessage = { key: "app.loading", params: {} };
@@ -195,22 +237,21 @@ onLanguageChange(() => {
   applyStaticTranslations();
   setStatus(statusMessage.key, statusMessage.params);
   panel.refresh();
-  panel.setView(state.view);
-  renderers["3d"].draw();
+  renderer.draw();
 });
 
-// The 3D view redraws on an animation frame while auto-rotating even after the
+// The view redraws on an animation frame while auto-rotating even after the
 // simulation has cooled down.
 let ticking = false;
 function ensureTicking() {
   if (ticking) return;
   ticking = true;
   const frame = () => {
-    if (!state.autoRotate || state.view !== "3d") {
+    if (!state.autoRotate) {
       ticking = false;
       return;
     }
-    renderers["3d"].tick();
+    renderer.tick();
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
@@ -223,31 +264,26 @@ function installGraph(doc, label) {
   state.physics.springKinds = new Set(state.kinds);
   state.graph = graph;
   state.maxDepth = graph.maxDepth;
-  state.zoneDepth = Math.min(state.zoneDepth, graph.maxDepth);
+  state.zoneMinDepth = Math.min(state.zoneMinDepth, graph.maxDepth);
+  state.zoneMaxDepth = Math.min(state.zoneMaxDepth, graph.maxDepth);
   seedPositions(graph);
 
-  for (const r of Object.values(renderers)) {
-    r.setGraph(graph);
-    r.setLabelMode(state.labelMode);
-    r.setColorBy(state.colorBy);
-    r.setVisibleKinds(state.kinds);
-  }
-  panel.setMaxDepth(graph.maxDepth, state.zoneDepth);
+  renderer.setGraph(graph);
+  renderer.setLabelMode(state.labelMode);
+  renderer.setColorBy(state.colorBy);
+  renderer.setVisibleKinds(state.kinds);
+  panel.setMaxDepth(graph.maxDepth, state.zoneMinDepth, state.zoneMaxDepth);
   panel.setMetrics(graph);
   panel.setSelection(null, graph);
   panel.setDataInfo({ label, nodes: graph.nodes.length, edges: graph.links.length, files: graph.containers.filter((c) => c.isFile).length });
   updateZones();
+  updateMotifs();
 
+  // The camera is never moved on its own — not on load, not while the
+  // simulation is running, not once it settles. "Fit to view" is the only
+  // way the view reframes; the user asks for it, or does not.
   const sim = createSimulation(graph, state.physics);
-  let fitted = false;
-  sim.on("tick", () => {
-    renderers[state.view].tick();
-    if (!fitted && sim.alpha() < 0.6) {
-      fitted = true;
-      renderers[state.view].fit();
-    }
-  });
-  sim.on("end", () => renderers[state.view].fit());
+  sim.on("tick", () => renderer.tick());
   state.sim = sim;
   setStatus("app.status", { nodes: graph.nodes.length, edges: graph.links.length });
 }
@@ -286,6 +322,145 @@ function loadFile(file) {
   reader.readAsText(file);
 }
 
+// The local-folder and GitHub-repo features analyze real source entirely in
+// the browser (site/js/localAnalyzer.js, site/js/githubAnalyzer.js): no
+// pre-generated JSON, no server. They run inside analyzeWorker.js's
+// dedicated worker, not here — building and walking a ts.Program is heavy
+// enough to freeze the page for the duration otherwise (docs/DESIGN.md).
+function runAnalysisInWorker(kind, payload, options, onProgress, onPhase) {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(new URL("./analyzeWorker.js", import.meta.url));
+    worker.onmessage = (event) => {
+      const msg = event.data;
+      if (msg.type === "progress") onProgress?.(...msg.args);
+      else if (msg.type === "phase") onPhase?.(msg.phase, msg.detail);
+      else if (msg.type === "done") {
+        worker.terminate();
+        resolve(msg.doc);
+      } else if (msg.type === "error") {
+        worker.terminate();
+        reject(new Error(msg.message));
+      }
+    };
+    worker.onerror = (event) => {
+      worker.terminate();
+      reject(new Error(event.message || "worker error"));
+    };
+    worker.postMessage({ kind, payload, options });
+  });
+}
+
+/** Past file-reading, analysis has no single "percent done" — these are the stages there are (browserAnalyzer.js's analyzeFiles). */
+function reportPhase(phase, detail, fileCount) {
+  if (phase === "compiler") setStatus("app.loadingCompiler");
+  else if (phase === "types") setStatus("app.loadingTypes", { count: detail });
+  else if (phase === "analyzing") setStatus("app.analyzingFiles", { count: fileCount });
+}
+
+async function refreshRecent() {
+  panel.setRecent(await listRecentAnalyses());
+}
+
+/** A "Recently opened" entry, clicked: show its cached graph, no re-reading. */
+function loadFromCache(entry) {
+  state.datasetId = "__custom__";
+  panel.setDatasets(state.datasets, "__custom__");
+  installGraph(entry.doc, entry.label);
+}
+
+async function deleteRecent(entry) {
+  await deleteAnalysis(entry.kind, entry.key);
+  await refreshRecent();
+}
+
+/** The explicit "re-analyze" action on a "Recently opened" entry: re-read/re-fetch and refresh the cache, in place of just replaying the cached graph. */
+async function reanalyzeRecent(entry) {
+  if (entry.kind === "github") {
+    await loadGithubRepo(entry.key);
+    return;
+  }
+  let fileCount = 0;
+  setStatus("app.readingFiles", { count: 0 });
+  try {
+    const granted = await entry.dirHandle.requestPermission({ mode: "read" });
+    if (granted !== "granted") throw new Error("permission was not granted");
+    const doc = await runAnalysisInWorker(
+      "local",
+      { dirHandle: entry.dirHandle },
+      {},
+      (count) => {
+        fileCount = count;
+        setStatus("app.readingFiles", { count });
+      },
+      (phase, detail) => reportPhase(phase, detail, fileCount),
+    );
+    await saveAnalysis({ kind: "local", key: entry.key, label: entry.label, doc, dirHandle: entry.dirHandle });
+    await refreshRecent();
+    state.datasetId = "__custom__";
+    panel.setDatasets(state.datasets, "__custom__");
+    installGraph(doc, entry.label);
+  } catch (err) {
+    setStatus("app.analyzeFailed", { name: entry.label, message: err.message });
+  }
+}
+
+async function loadLocalFolder() {
+  let dirHandle;
+  try {
+    dirHandle = await window.showDirectoryPicker();
+  } catch {
+    return; // the user cancelled the picker
+  }
+  let fileCount = 0;
+  setStatus("app.readingFiles", { count: 0 });
+  try {
+    const doc = await runAnalysisInWorker(
+      "local",
+      { dirHandle },
+      {},
+      (count) => {
+        fileCount = count;
+        setStatus("app.readingFiles", { count });
+      },
+      (phase, detail) => reportPhase(phase, detail, fileCount),
+    );
+    state.datasetId = "__custom__";
+    panel.setDatasets(state.datasets, "__custom__");
+    installGraph(doc, dirHandle.name);
+    await saveAnalysis({ kind: "local", key: crypto.randomUUID(), label: dirHandle.name, doc, dirHandle });
+    await refreshRecent();
+  } catch (err) {
+    setStatus("app.analyzeFailed", { name: dirHandle.name, message: err.message });
+  }
+}
+
+async function loadGithubRepo(spec) {
+  let fileCount = 0;
+  setStatus("app.fetchingFiles", { done: 0, total: "?" });
+  try {
+    const doc = await runAnalysisInWorker(
+      "github",
+      { spec },
+      {},
+      (done, total) => {
+        fileCount = done;
+        setStatus("app.fetchingFiles", { done, total });
+      },
+      (phase, detail) => reportPhase(phase, detail, fileCount),
+    );
+    state.datasetId = "__custom__";
+    panel.setDatasets(state.datasets, "__custom__");
+    installGraph(doc, spec);
+    // Keyed by the resolved "owner/repo@ref" (doc.meta.root), not the raw
+    // input: typing "owner/repo" and "owner/repo@main" for the same default
+    // branch collapse to one cache entry once the ref is resolved.
+    await saveAnalysis({ kind: "github", key: doc.meta.root, label: doc.meta.root, doc });
+    await refreshRecent();
+  } catch (err) {
+    setStatus("app.analyzeFailed", { name: spec, message: err.message });
+  }
+}
+
 async function loadRemote(url) {
   setStatus("app.loadingDataset", { name: url });
   try {
@@ -301,6 +476,7 @@ async function loadRemote(url) {
 }
 
 async function main() {
+  refreshRecent(); // does not block the initial dataset load
   const res = await fetch("data/index.json");
   state.datasets = res.ok ? await res.json() : [];
   const params = new URLSearchParams(location.search);
@@ -317,12 +493,10 @@ async function main() {
   }
 }
 
-window.addEventListener("resize", () => {
-  for (const r of Object.values(renderers)) r.resize();
-});
+window.addEventListener("resize", () => renderer.resize());
 
 d3.select(window).on("keydown", (event) => {
-  if (event.key === "Escape") renderers[state.view].select(null);
+  if (event.key === "Escape") renderer.select(null);
 });
 
 main();

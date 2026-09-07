@@ -36,6 +36,7 @@ export function buildGraph(doc) {
       height: 0,
       scc: -1,
       inCycle: false,
+      radius: 4,
     };
   });
   const byId = new Map(nodes.map((n) => [n.id, n]));
@@ -87,6 +88,12 @@ export function applyActiveKinds(graph, kinds) {
     l.source.outDegree += 1;
     l.target.inDegree += 1;
   }
+  // Radius is a node property, not a rendering-time computation: both
+  // renderers and the physics (its collision radius) need the exact same
+  // value, so it is derived here, once, alongside the degrees it depends on,
+  // rather than each of them importing a formula from whichever one happened
+  // to declare it first.
+  for (const n of graph.nodes) n.radius = 4 + Math.sqrt(n.inDegree + n.outDegree) * 1.2;
   computeHeights(graph.nodes, active);
   return active;
 }
@@ -190,9 +197,23 @@ export function stronglyConnectedComponents(nodes, links) {
 }
 
 /**
- * Assign each node a call height: the longest path from its SCC to a sink SCC
- * in the condensation DAG. Nodes that only get called have height 0.
- * Tarjan emits SCCs in reverse topological order, so a single pass suffices.
+ * Assign each node a call height. First, bottom-up: the longest path from
+ * its SCC to a sink SCC in the condensation DAG, which pins `maxHeight` (the
+ * top plane) at the graph's single longest chain, and every node's minimal
+ * (ASAP) height — a pure sink gets 0 here, but that is only its floor, not
+ * its final value. Then, top-down: every component is pulled up as close to
+ * its shallowest caller as possible instead of left at that floor — all the
+ * way to the top plane for one with no caller at all — so a leaf reached by
+ * a shallow caller sits near that caller instead of always at the very
+ * bottom; only the leaf on the graph's own single longest chain ends up
+ * still at 0, because nothing gives it anywhere higher to go. The one
+ * exception is a component with no caller *and* no callee: nothing calls it
+ * and it calls nothing, so unlike a real, uncalled entry point it has no
+ * business at the top either, and is left at 0 rather than lifted just
+ * because it technically has no caller to be pulled toward. Tarjan emits
+ * SCCs in reverse topological order, so each pass is a single sweep — the
+ * first ascending (from the sinks), the second descending (from the
+ * sources).
  */
 export function computeHeights(nodes, links) {
   const { comp, compCount } = stronglyConnectedComponents(nodes, links);
@@ -217,10 +238,27 @@ export function computeHeights(nodes, links) {
     height[c] = h;
   }
   let maxHeight = 0;
+  for (let c = 0; c < compCount; c++) if (height[c] > maxHeight) maxHeight = height[c];
+
+  // Descending id order visits every caller of a component before the
+  // component itself (a condensation edge always points to a lower id), so
+  // by the time a component is lifted, the ceiling its callers were lifted
+  // to is already final.
+  const compCallers = Array.from({ length: compCount }, () => []);
+  for (let c = 0; c < compCount; c++) for (const d of compAdj[c]) compCallers[d].push(c);
+  for (let c = compCount - 1; c >= 0; c--) {
+    const callers = compCallers[c];
+    if (callers.length === 0) {
+      if (compAdj[c].size === 0) continue; // calls nothing and is called by nothing: leave at its ASAP height, 0
+      height[c] = maxHeight;
+    } else {
+      height[c] = Math.min(...callers.map((a) => height[a])) - 1;
+    }
+  }
+
   for (const n of nodes) {
     n.height = height[n.scc];
     n.inCycle = compSize[n.scc] > 1 || selfLoop[n.index] === 1;
-    if (n.height > maxHeight) maxHeight = n.height;
   }
   return { compCount, compSize, maxHeight };
 }

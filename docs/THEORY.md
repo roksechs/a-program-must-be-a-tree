@@ -26,6 +26,7 @@ Declaration   D  ::= x = e                          (variable, function when e i
 Term          e  ::= x | c                          (variables, constants)
                    | λy.e | e e                     (functions, application)
                    | { m = e } | e.m                (records, projection)
+                   | e.m := e                       (field assignment)
                    | new e (ē) | super (ē)          (construction, base constructor call)
                    | let y = e in e | e : τ         (binding, type ascription)
                    | return e                       (tail position marker inside a λ)
@@ -199,10 +200,16 @@ they flow through local bindings, through the parameters of declared callees
 (including dispatched method targets) and through the return values of
 declared functions, to a fixed point. A call whose callee evaluates to a
 declared function produces a `call` edge marked `inferred` from the
-declaration that contains the operator position. Property stores, anonymous
-functions and external callees are not modelled, so a callback handed to a
-library function keeps its `reference` edge and nothing else: the analysis
-is sound for what it claims and silent otherwise.
+declaration that contains the operator position. Property stores (§4.1,
+Definition 9a) and external callees are not modelled, so a callback stored
+into an object that escapes, or handed to a function this analyzer never
+sees the body of, keeps its `reference` edge and nothing else. A
+function-like value that names a slot — a variable initializer or an object
+literal property, escaping or not — is declared (Definition 9a) and enters
+the CFA exactly like any other function; only a value that never occupies a
+named slot at all, such as a bare `arr.map(x => f(x))` argument, has no
+declaration to flow as. The analysis is sound for what it claims and silent
+otherwise.
 
 ### 3.3 Tail position and the continuation view
 
@@ -233,6 +240,67 @@ separately: `override` from a member to the nearest ancestor member it
 overrides, `implements` from a member to the interface member it
 implements.
 
+### 3.5 Assignment targets: read and write
+
+An occurrence in an ordinary evaluation-context hole has its *value* used
+by the consumer frame (Definition 5): the frame reads the occurrence. An
+assignment is different: `x = e` does not read `x`, it *replaces* the
+binding's contents, and `x` names which binding — a distinct kind of
+occurrence the grammar of §3 has no hole for. Extend it with one production:
+
+```
+E ::= ... (as in §3)
+    | x = E                                  (assignment: the right side is the hole)
+```
+
+**Definition 5a (target position).** An occurrence `p` of a variable `x`
+in `body(D)` is a *target* when `p` is the left-hand side of `x = e`
+(assignment) or `x ⊕= e` for an arithmetic or logical operator `⊕`
+(compound assignment: `+=`, `-=`, `*=`, ...), or the operand of `x++` or
+`x--`. Plain assignment (`x = e`) *only writes*: the previous value of `x`
+plays no part in the new one. Compound assignment and `++`/`--` *read and
+write*: `x ⊕= e` reduces to `x = x ⊕ e`, so the occurrence both supplies the
+old value and receives the new one.
+
+**Definition 6a (write).** For a target occurrence of `D'` in `D`:
+
+* `write` := the target role, whether plain or compound. Unlike every other
+  kind in Definition 6, its edge runs **from `D'` to `D`**, not from `D` to
+  `D'`.
+* if the target is a compound assignment (or `++`/`--`), the analyzer
+  *also* emits the ordinary `reference` edge `D → D'` (Definition 6), since
+  the old value is read too.
+
+The direction reverses because a `write` edge records a different
+dependency than every other kind. `call`, `create` and `reference` all
+point from the side whose *correctness* depends on the other: `D` cannot
+run without knowing what `D'` does or currently holds, so `D → D'`. A write
+inverts which side is which: `D`'s correctness does not depend on
+`total`'s value at all (it only assigns one) — `total`'s *next* value is
+determined by what `D` computed. The dependency points at whoever produces
+the value, which for a write is `D`, not `D'`. This is the reverse of the
+default because assignment is the one construct in the calculus where the
+declaration in the hole is a consumer of nothing and a producer of
+everything.
+
+A plain function, method or class is the degenerate case of a slot written
+exactly once, at definition time, by the declaration itself — which is
+exactly why §4.1 already treats it as a `binding` rather than a `write`:
+with a single writer, a separate read edge would name the same declaration
+every time and add nothing. A mutable variable with more than one writer at
+use-time is the case where the distinction starts to carry information: the
+value `total` holds at any point depends on which writer last ran, an
+ordering the write edges alone do not fix (they say *who can* determine the
+value, not *when*).
+
+Worked example:
+
+```js
+function addItem(item) { total += item.price; }   // write: total -> addItem
+                                                    // reference: addItem -> total (the += also reads)
+function checkout()    { return total; }           // reference: checkout -> total (read only, no write)
+```
+
 ## 4. Time: definition-time and use-time occurrences
 
 Term-level occurrences differ in *when* the consumer frame runs.
@@ -258,6 +326,83 @@ Every edge carries `time: "definition" | "use"`. The viewer reports the
 declarations caught in a cycle of definition-time term-level edges as
 *initialisation cycles*, separately from ordinary recursion.
 
+### 4.1 Field assignment: binding or store
+
+A statement `P.m := e` writes a function (or any value) into a slot. Whether
+that *declares* something is not a matter of what `P` is called ("a
+namespace", "an instance") but of two structural facts, both invariant under
+renaming every identifier:
+
+* **When does it run?** At definition time (no `λ` between the statement and
+  the root of the module) or at use time (inside some body)?
+* **Can other code name the target?** Is `P` a *path of names* — an
+  identifier bound at module level, or an undeclared global, followed by
+  projections, `C.prototype` included — so that another declaration can
+  write `P.m` and mean exactly this slot? Or does `P` denote a value that
+  only exists at run time (a parameter, a local, an element, a call result,
+  `this`), which no static name reaches?
+
+Definition 1 requires an occurrence to carry a *name*, so only a nameable slot
+can be the target of an edge. Hence:
+
+**Definition 9a (binding, late binding, store).**
+
+* *Binding*: `P.m := e` at definition time with `P` a path of names. The
+  statement extends the `letrec` of section 1 with a declaration named `m`
+  whose parent is what `P` denotes (a class for `C.prototype`, a namespace
+  object or function otherwise, none for an undeclared global, whose
+  qualified name is kept). `ns.f = function` is the ES5 spelling of
+  `export function f`; `C.prototype.m = function` of a method (section 5).
+  When `e` is the name of a declared function, the statement is an *alias*,
+  like `import`: no occurrence and no new node, the function gains the
+  member role. Any other value is a variable binding; an object literal is a
+  namespace whose function-valued properties are bindings in turn.
+* *Late binding*: the same statement at use time. The slot is nameable, so
+  call sites `P.m(ē)` elsewhere resolve to it, but it exists only after the
+  enclosing body has run: the initialisation hazard above in another
+  costume. It is a declaration flagged `late`, with a `reference` edge from
+  the declaration that installs it.
+* *Store*: `P` denotes a value that can escape — a parameter, `this`, a local
+  that outlives this statement. Nothing is declared. The closure escapes
+  into the slot (Fact 3), the enclosing declaration keeps the closure's
+  body and gets the edges its body makes, and whoever eventually applies
+  the value is found by control-flow analysis (§3.2), never by name — because
+  any code that later gets hold of the same object can read `P.m` back, so no
+  single declaration is "the" one that will call it.
+* *Local declaration*: `P` denotes a value with no path *and no escape* — a
+  bare object literal passed whole, as an argument, straight into a call or
+  constructor, never assigned to a name in between (`f({ m: e })`, not
+  `const o = { m: e }; f(o)`). Unlike a store, this value has exactly one
+  reader, syntactically visible at the call itself: whichever parameter of
+  the callee receives it. Its function-valued properties are therefore
+  declared after all, named by the property key — ECMAScript's own
+  NamedEvaluation already gives them that name at just this position
+  (`{ m(){} }.m.name === "m"`, the same rule a variable initializer uses,
+  so this was never truly the "anonymous function" §3.2 disclaims) — parented
+  to whichever declaration performs the call, id `<parent>/<m>`. This is the
+  same shape as a `--nested` local declaration (Definition 10) and, unlike
+  it, is not gated behind that option: a `--nested` local never leaves the
+  declaration that wrote it, while a value handed to another declaration this
+  way is invoked back by *that* declaration, at a genuinely different time —
+  folding it into the caller, the module-level `letrec`'s usual
+  simplification, would misattribute every call the handler itself makes to
+  whoever merely constructed it.
+
+Treating the late case as a declaration rather than a store is a design
+decision, not a consequence of the calculus; the flag keeps it visible. The
+same is true of local declarations: nothing forces the choice, but leaving a
+handed-off closure's calls attributed to its installer is worse than the
+inaccuracy `--nested` accepts by default, because the installer is not simply
+approximating "this closure's code" the way a flattened module-level view
+approximates a function's own internals — it is a different declaration
+entirely, doing a different thing, that just happens to run first.
+
+"Namespace" is thus the name we give an object whose slots are only ever
+written at definition time, and the class/object distinction of section 5 is
+the same split: what is put on the prototype is bound once when the class
+statement runs, what is put on the instance (`this.m := λ` in a constructor)
+is stored once per construction.
+
 ## 5. Classes, generators and inheritance
 
 Following Cook (1989) and Cook and Palsberg (1989), a class is a
@@ -279,6 +424,19 @@ an object is a fixed point `fix(gen_C)`. Under this reading:
 * An overriding method `C.m` is *selected* by dispatch, never named; the
   relation `C.m overrides B.m` is structural and belongs with `extends`,
   not with calls.
+* `C.prototype.m = λȳ.e` after the class (or constructor function) statement
+  is `m = λȳ.e` of `gen_C` written incrementally: the module's definition-time
+  statements assemble the generator, and the member is declared exactly as
+  if it stood in the class body (Definition 9a). `C.prototype.m = f` for a
+  declared `f` names an existing `λ`: an alias, `f` becomes the member.
+  `C.m = λ` is a static field of the class value. `this.m = λ` inside the
+  constructor runs once per `fix(gen_C)`: one closure per object, stored,
+  not declared.
+* When the receiver of `o.m(ē)` has no static type (untyped JavaScript), the
+  target set is approximated by name: the slot `P.m` when `o` is a path of
+  names, `C.m` when `o` is `this` inside a member of `C`, and otherwise every
+  instance member called `m` in the program — the field-based call graph of
+  Feldthaus et al. (2013), an over-approximation and therefore `inferred`.
 
 ## 6. Mapping real syntax onto the calculus
 
@@ -292,12 +450,22 @@ an object is a fixed point `fix(gen_C)`. Under this reading:
 | `g(f)`, `arr.map(f)`, `setTimeout(f)`      | operand                         | `reference` | `f`                                     |
 | `const h = f`, `obj.x = f`, `return f`     | bound / stored / returned       | `reference` | `f`                                     |
 | `f.bind(o)`, `f.call(o)`                   | `(f.bind) o`: `f` is a receiver | `reference` | `f` (the bound function escapes)        |
+| `x = e`, `x` a declared variable           | assignment target (§3.5)        | `write`     | `x`, edge reversed: `x → D`             |
+| `x += e`, `x++`, `x--`                     | assignment target, compound (§3.5) | `write` + `reference` | `x → D` (write) and `D → x` (the read half) |
 | `x: T`, `<T>x`, `x as T`, `Array<T>`       | type position                   | `type`      | `T`                                     |
 | `class C extends B`                        | `extends B`                     | `extends`   | `B`                                     |
 | `class C implements I`, `interface I extends J` | type position              | `type` (`implements`) | `I`, `J`                      |
 | `import { f } from "m"`                    | alias, no occurrence            | none        | (resolved through the alias)            |
 | `import type { T } from "m"`               | alias, no occurrence            | none        |                                         |
 | `typeof f` in a type                       | type position                   | `type`      | `f`                                     |
+| `ns.f = function () {…}` at top level      | binding (Definition 9a)         | none        | declares `f` with parent `ns`           |
+| `C.prototype.m = function () {…}`          | `m = λ` of `gen_C` (section 5)  | none        | declares member `m` of `C`              |
+| `C.prototype.m = f`, `exports.f = f`       | alias, no occurrence            | none        | `f` gains the member / export role      |
+| `d3.scale.linear = …`, `d3` undeclared     | binding on a global             | none        | declares `d3.scale.linear`, parent `d3.scale` once that is bound |
+| `app.h = function () {…}` inside a body    | late binding (Definition 9a)    | `reference` | member `h` flagged `late`; installer → `h` |
+| `el.cb = function () {…}`, `el` a value    | store: the closure escapes      | none        | no declaration; the body belongs to the enclosing declaration |
+| `f({ m: function () {…} })`, argument      | local declaration (Definition 9a) | none      | declares `m`, parent = the declaration calling `f` |
+| `o.m(a)`, `o` untyped                      | `(o.m) a`                       | `call`      | `m` by name path or `this`, else every instance member `m` (inferred) |
 
 `f.bind(o)` deserves a note: `f` is the receiver of a projection whose result
 is applied, but the function that is applied is `bind`, not `f`; `f` escapes
@@ -317,6 +485,13 @@ Let `K` be a set of kinds and `G_K` the subgraph of edges whose kind is in
   the right graph for coupling metrics and for the acyclic dependencies
   principle (Martin 1996).
 * **Full graph** `G_all`: adds `type`. It is what the viewer draws.
+
+`write` (§3.5) is deliberately outside all three: its edges run from a
+variable to whoever writes it, the reverse of `call`, `create` and
+`reference`, so folding it into `G_ctl` or `G_uses` would mix two opposite
+notions of dependency into one graph and corrupt the dominator tree built
+from it. `write` is its own lens, off by default in the viewer's Edges
+section like `type`, toggled and read on its own.
 
 **Definition 10 (tree-likeness).** Take `G_ctl` (or `G_uses`), condense its
 strongly connected components (each non-trivial component is a `letrec`
@@ -378,10 +553,18 @@ kind(p) =
   create      if F(p) is new p (...)                              (section 3, 5)
   extends     if F(p) is a class heritage clause (term-level)     (section 5)
   reference   otherwise: p escapes or is merely projected         (section 3)
+  write       if p is the target of x = e, x += e (etc.) or
+              x++ / x--; edge reversed to D' -> D; compound
+              forms also keep the reference edge D -> D'         (section 3.5)
 
 time(p) =
   definition  if no λ separates p from the root of body(D)        (section 4)
   use         otherwise
+
+declares(P.m := e) =
+  binding     if definition-time and P is a path of names          (section 4.1)
+  late        if use-time and P is a path of names                 (a declaration flagged late)
+  store       if P denotes a value: a reference, no declaration
 ```
 
 Two facts justify the split. Erasure (Fact 1) separates `type` from the
@@ -409,6 +592,9 @@ found by control-flow analysis.
   using static class hierarchy analysis*, ECOOP 1995; D. Grove,
   C. Chambers, *A framework for call graph construction algorithms*,
   TOPLAS 2001.
+* A. Feldthaus, M. Schäfer, M. Sridharan, J. Dolby, F. Tip, *Efficient
+  construction of approximate call graphs for JavaScript*, ICSE 2013 (the
+  field-based call graph).
 * W. R. Cook, *A denotational semantics of inheritance*, PhD 1989;
   W. R. Cook, J. Palsberg, *A denotational semantics of inheritance and its
   correctness*, OOPSLA 1989.

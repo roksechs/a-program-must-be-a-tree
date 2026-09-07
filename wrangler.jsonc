@@ -1,0 +1,14 @@
+// Cloudflare Workers configuration: the site as static assets, no Worker code.
+// Used when the repository is connected to Cloudflare as a Workers project
+// (Workers Builds); a Cloudflare Pages project ignores this file. No secrets:
+// the Git integration authenticates the deploy.
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "a-program-must-be-a-tree",
+  "compatibility_date": "2025-06-01",
+  "assets": {
+    "directory": "./site",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}

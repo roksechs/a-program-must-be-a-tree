@@ -14,9 +14,13 @@ force-directed graph, and measure how close that graph is to a tree.
   proportional to its length. Those are the only two forces. No point is a
   centre and nothing pulls towards one, so declarations sit close together only
   when edges hold them there.
-* **3D mode** lifts the same layout into three dimensions where the vertical
-  axis is the call height: declarations that only get called sit at the
-  bottom, the deepest callers sit at the top.
+* **The view** lifts the flat x/y layout the physics computes into three
+  dimensions, where the vertical axis is the call height: a declaration sits
+  as close to its shallowest caller as the rest of the graph allows, with
+  the deepest callers (or anything nobody calls) reaching the top; only the
+  leaf ending the graph's own single longest call chain is guaranteed to sit
+  at the bottom. A Top view preset looks straight down that axis with no
+  perspective — the same x/y layout a 2D-only rendering would show.
 * **Diagnostics** quantify tree-likeness on the enabled edge kinds: spanning
   ratio, acyclicity, single-caller ratio, DAG-ness and locality. They are
   directed: `A -> S <- B` is not a tree, and sharing a declaration between two
@@ -27,21 +31,23 @@ force-directed graph, and measure how close that graph is to a tree.
   cycles, roots, leaves, longest call chain, initialisation cycles) and a list
   of the declarations whose sharing costs the most.
 * **Edge kinds** follow a small theory (`docs/THEORY.md`): calls, constructions,
-  references (callbacks and other value flows), type-only uses, inheritance,
-  interface implementation and overriding. The analyzer resolves `new` to the
-  constructor that actually runs, dispatches method calls to overriding
-  implementations, and lifts callbacks into calls at the declaration that
-  invokes them with a bounded control-flow analysis.
+  references (callbacks and other value flows), writes (a variable's edge to
+  whoever assigns it, reversed since the variable's next value depends on the
+  writer), type-only uses, inheritance, interface implementation and
+  overriding. The analyzer resolves `new` to the constructor that actually
+  runs, dispatches method calls to overriding implementations, and lifts
+  callbacks into calls at the declaration that invokes them with a bounded
+  control-flow analysis.
 
-The viewer is a static page (D3.js, no build step) meant to be served from
-GitHub Pages. Analyzers turn a codebase into a small JSON document
+The viewer is a static page (D3.js, no build step) served from GitHub Pages or
+Cloudflare Pages, see Deployment. Analyzers turn a codebase into a small JSON document
 (see [docs/DATA_FORMAT.md](docs/DATA_FORMAT.md)) that the viewer loads.
 
 ## Quick start
 
 ```sh
 npm install
-npm run vendor       # copy d3 into site/vendor
+npm run vendor       # copy d3 and TypeScript into site/vendor
 npm run build:data   # analyze this repository and a few d3 packages into site/data
 npm run serve        # http://localhost:8080/
 ```
@@ -56,38 +62,61 @@ in the header switches it at any time. Translations live in `site/js/i18n.js`.
 
 ## Analyzing your own project
 
-The bundled analyzer handles JavaScript and TypeScript with the TypeScript
-compiler API:
+Three ways, no server involved in any of them:
 
-```sh
-node analyzers/ts/analyze.mjs --name my-app --root path/to/my-app \
-     --include src --exclude "**/*.test.ts" --out my-app.json
-```
+* **From the panel, live.** "Open folder…" picks a local directory with the
+  File System Access API (Chrome or Edge) and analyzes it in the browser; the
+  "GitHub repo" field takes `owner/repo`, `owner/repo@ref` or a `github.com`
+  URL — or searches GitHub as you type, showing a few popular JS/TS repos to
+  try when it's empty — and fetches the repository's files client-side to
+  analyze the same way. Both run the real TypeScript-compiler-based analyzer
+  entirely in the page (`site/js/localAnalyzer.js`, `site/js/githubAnalyzer.js`),
+  `.svelte` files included (a component's script *and* template, transformed
+  through `svelte2tsx` — `docs/DESIGN.md`'s "Analyzing Svelte components") —
+  nothing is uploaded anywhere, and the GitHub option is subject to GitHub's
+  unauthenticated API rate limit (60 requests/hour; fetching a repo's file
+  tree is one request, its file contents are unmetered `raw.githubusercontent.com`
+  fetches). Each result is remembered in the panel's "Recently opened" list
+  (`site/js/analysisCache.js`, IndexedDB), so opening the same folder or repo
+  again shows it instantly, with no re-reading or re-analyzing; a
+  "re-analyze" action picks up changes since then.
+* **The CLI**, for a JSON file you want to keep, script, or check into the
+  bundled examples:
 
-Then open `my-app.json` from the panel. Other languages only need an analyzer
-that writes the same JSON; see the data format document.
+  ```sh
+  node analyzers/ts/analyze.mjs --name my-app --root path/to/my-app \
+       --include src --exclude "**/*.test.ts" --out my-app.json
+  ```
+
+  Then open `my-app.json` from the panel.
+* **Any other language** only needs an analyzer that writes the same JSON;
+  see the data format document.
 
 ## Property panel
 
 | Section     | Controls |
 |-------------|----------|
-| Data        | bundled datasets, open a local JSON file |
+| Data        | bundled datasets, open a local JSON file, open a local folder, load a GitHub repo, "Recently opened" (folders/repos the browser has already analyzed, reopened instantly from IndexedDB — see below) |
 | Header      | language selector (English / Japanese) |
-| View        | 2D / 3D, label mode, colour by kind or call height, 3D layer gap and planes, auto-rotate, fit |
-| Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics (type-level edges are off by default) |
-| Physics     | recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
-| Zones       | directory / file depth from 0 (none) through every directory level down to the files |
+| View & Physics | label mode, colour by kind or call height, layer gap and planes (off by default, with a focus-distance fade), auto-rotate, fit, top view (perspective-free, straight down the height axis); orbit around the selected subject by dragging, pan with shift-drag, zoom with the wheel, or turn and move like a flight camera with the keyboard — W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ forward/back; recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
+| Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |
+| Zones       | directory / file depth *range* (a two-handled slider): both ends start at 0 (nothing shown); the high handle reveals outward from the top like a single depth slider always did, down to the files at the maximum, while the low handle can raise the outer edge to show an inner band on its own |
+| Patterns    | structural motifs — cycles, hubs, diamonds, chains — highlighted anywhere they occur in the graph, any number on at once, each its own colour |
 | Diagnostics | tree score and its five components, counts, costliest sharing |
-| Selection   | callers and callees of the clicked node, with the lift of each edge, the declaration's natural scope, and a Focus button that centres the camera on it |
+| Selection   | callers and callees of the clicked node, with the lift of each edge, the declaration's natural scope, a Focus button that centres the camera on it, and (ctrl/cmd+click a second node) the path between the two, highlighted in the view |
 
 ## Repository layout
 
 ```
-site/            static site published to GitHub Pages
-  js/            ES modules: model, metrics, dominance, simulation, zones, renderers, panel, app
+site/            static site (the root a static host publishes)
+  js/            ES modules: model, metrics, dominance, simulation, zones, renderers, panel, app,
+                 browserAnalyzer/localAnalyzer/githubAnalyzer/analyzeWorker (in-browser analysis),
+                 analysisCache ("Recently opened", IndexedDB)
   data/          generated datasets (index.json lists them)
-  vendor/        d3 (copied by `npm run vendor`)
-analyzers/ts/    JavaScript / TypeScript analyzer
+  vendor/        d3 and TypeScript (copied by `npm run vendor`; TypeScript is regenerated on every build, not committed — see .gitignore)
+analyzers/ts/    JavaScript / TypeScript / Svelte analyzer
+samples/         small source programs analyzed into the bundled `sample-*` datasets
+site/content/    the article's chapters, one Markdown file per chapter per language (`article.html`)
 scripts/         data generation, vendoring, dev server
 test/            node:test unit tests
 docs/            design notes, the data format and the theory behind the edge kinds
@@ -104,6 +133,40 @@ The GitHub Pages workflow (`.github/workflows/pages.yml`) runs the tests,
 vendors d3, regenerates the datasets and publishes `site/` on every push to
 the repository's default branch. Enable Pages with "GitHub Actions" as the
 source in the repository settings.
+
+### Cloudflare Pages
+
+Cloudflare Pages builds every branch and gives each pull request a preview
+URL, which GitHub Pages cannot. Connect the repository in the Cloudflare
+dashboard (Workers & Pages → Create → Pages → Connect to Git; the GitHub
+integration means no tokens live in this repository) with these settings:
+
+| setting | value |
+|---|---|
+| Production branch | `main` |
+| Build command | `npm test && npm run vendor && npm run build:data` |
+| Build output directory | `site` |
+| Node version | read from `.node-version` (22); or set the `NODE_VERSION` variable |
+
+That is the same sequence as the GitHub workflow (`npm run build:site` is its
+shorthand, but the build command is spelled out so it also works on branches
+that predate the script). Preview deployments are on by default for every
+other branch; the Cloudflare GitHub app comments the preview URL on each pull
+request. The article lives at `/article.html` on either host.
+
+If the project was created as a **Workers** project instead (Workers & Pages →
+Create → Workers → Import a repository), the same build command applies and
+the deploy command is `npx wrangler deploy`; `wrangler.jsonc` at the
+repository root declares `site/` as the Worker's static assets, so no Worker
+code is involved. Every non-production branch is uploaded as a version with a
+preview URL (`<version id prefix>-a-program-must-be-a-tree.<account>.workers.dev`,
+behind Cloudflare Access by default) and a branch alias
+`<alias>-a-program-must-be-a-tree.<account>.workers.dev`: the alias is the
+branch name lowercased with runs of other characters replaced by hyphens. The
+whole label must fit 63 characters, so a long branch name is truncated and
+given a hash suffix (`claude-diagnosis-scope-class-para-4231`). Both URLs are
+posted by the Cloudflare bot in a comment on the pull request, so there is no
+need to derive them by hand.
 
 Releasing is a version bump. `.github/workflows/release.yml` reads the version
 in `package.json` on every push to the default branch and, when no release
@@ -123,3 +186,4 @@ Deployment branches, otherwise the deploy job is rejected without running.
 ## License
 
 MIT. D3 is distributed under its own ISC license (see `site/vendor/d3.LICENSE`).
+TypeScript is distributed under its own Apache 2.0 license (`site/vendor/typescript.LICENSE`, present after `npm run vendor`).

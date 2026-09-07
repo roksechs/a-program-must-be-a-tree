@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "name": "sample-svelte",
+  "root": "samples/svelte-app",
+  "language": "svelte",
+  "generatedAt": "2026-09-07T07:09:30.391Z",
+  "analyzer": "analyzers/ts@0.4.0",
+  "files": 3
+ },
+ "declarations": [
+  {
+   "id": "App.svelte::App",
+   "name": "App",
+   "kind": "class",
+   "file": "App.svelte",
+   "line": 1,
+   "parent": null,
+   "exported": true,
+   "displayName": "App"
+  },
+  {
+   "id": "Counter.svelte::Counter/increment",
+   "name": "increment",
+   "kind": "function",
+   "file": "Counter.svelte",
+   "line": 7,
+   "parent": "Counter.svelte::Counter",
+   "exported": false
+  },
+  {
+   "id": "Counter.svelte::Counter/reset",
+   "name": "reset",
+   "kind": "function",
+   "file": "Counter.svelte",
+   "line": 11,
+   "parent": "Counter.svelte::Counter",
+   "exported": false
+  },
+  {
+   "id": "Counter.svelte::Counter",
+   "name": "Counter",
+   "kind": "class",
+   "file": "Counter.svelte",
+   "line": 1,
+   "parent": null,
+   "exported": true,
+   "displayName": "Counter"
+  },
+  {
+   "id": "format.ts::formatCount",
+   "name": "formatCount",
+   "kind": "function",
+   "file": "format.ts",
+   "line": 4,
+   "parent": null,
+   "exported": true
+  }
+ ],
+ "edges": [
+  {
+   "source": "App.svelte::App",
+   "target": "Counter.svelte::Counter",
+   "kind": "reference",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "Counter.svelte::Counter",
+   "target": "Counter.svelte::Counter/increment",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "Counter.svelte::Counter",
+   "target": "Counter.svelte::Counter/reset",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "Counter.svelte::Counter",
+   "target": "format.ts::formatCount",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  }
+ ]
+}

@@ -4,14 +4,19 @@
 // strings go through the translator so the panel can be re-rendered in
 // another language with `refresh()`.
 import { EDGE_KINDS, edgeColor, kindColor } from "./colors.js";
+import { POPULAR_REPOS } from "./githubAnalyzer.js";
 import { kindLabel, t } from "./i18n.js";
+import { localFolderSupported } from "./localAnalyzer.js";
 import { computeMetrics, linkLift, naturalScope, topSharedNodes } from "./metrics.js";
+import { MOTIF_COLORS, MOTIF_KINDS } from "./motifs.js";
+
+const GITHUB_SEARCH_DEBOUNCE_MS = 400;
 
 export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onView, onPhysics, onReheat, onReset, onFit, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onMotifs }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -21,6 +26,7 @@ export class Panel {
     this.datasets = [];
     this.currentDataset = null;
     this.dataInfo = null;
+    this.recent = [];
     this.graph = null;
     this.selected = null;
     this.render();
@@ -62,6 +68,48 @@ export class Panel {
     return row;
   }
 
+  /**
+   * Two-handled range: two overlapping native `<input type=range>` sharing
+   * one visual track (only their thumbs are interactive — the tracks
+   * themselves are transparent, see styles.css's `.dual-slider`), plus a
+   * `.range-fill` bar redrawn on every change to show the selected span.
+   * Each handle refuses to cross the other rather than swap places, so
+   * "low" and "high" always mean what their own thumb suggests.
+   */
+  rangeSlider(label, lo, hi, min, max, step, onChange, format = (v) => v) {
+    const out = this.el("output", {}, `${format(lo)}–${format(hi)}`);
+    const fill = this.el("div", { class: "range-fill" });
+    const track = this.el("div", { class: "range-track" });
+    const minInput = this.el("input", { type: "range", min, max, step, value: lo });
+    const maxInput = this.el("input", { type: "range", min, max, step, value: hi });
+    const pct = (v) => (max > min ? ((v - min) / (max - min)) * 100 : 0);
+    const refresh = () => {
+      const a = Number(minInput.value);
+      const b = Number(maxInput.value);
+      fill.style.left = `${pct(a)}%`;
+      fill.style.width = `${Math.max(0, pct(b) - pct(a))}%`;
+      out.textContent = `${format(a)}–${format(b)}`;
+    };
+    minInput.addEventListener("input", () => {
+      if (Number(minInput.value) > Number(maxInput.value)) minInput.value = maxInput.value;
+      refresh();
+      onChange(Number(minInput.value), Number(maxInput.value));
+    });
+    maxInput.addEventListener("input", () => {
+      if (Number(maxInput.value) < Number(minInput.value)) maxInput.value = minInput.value;
+      refresh();
+      onChange(Number(minInput.value), Number(maxInput.value));
+    });
+    refresh();
+    const wrap = this.el("div", { class: "dual-slider" }, track, fill, minInput, maxInput);
+    const row = this.el("label", { class: "control" }, this.el("span", {}, label), wrap, out);
+    row.minInput = minInput;
+    row.maxInput = maxInput;
+    row.output = out;
+    row.refresh = refresh;
+    return row;
+  }
+
   select(options, current, onChange) {
     const sel = this.el("select", { onchange: (e) => onChange(e.target.value) });
     for (const [value, label] of options) sel.append(this.el("option", { value, selected: current === value ? "" : null }, label));
@@ -73,8 +121,9 @@ export class Panel {
     this.render();
     this.setDatasets(this.datasets, this.currentDataset);
     if (this.dataInfo) this.setDataInfo(this.dataInfo);
+    this.setRecent(this.recent);
     if (this.graph) {
-      this.setMaxDepth(this.state.maxDepth, this.state.zoneDepth);
+      this.setMaxDepth(this.state.maxDepth, this.state.zoneMinDepth, this.state.zoneMaxDepth);
       this.setMetrics(this.graph);
       this.setSelection(this.selected, this.graph);
     }
@@ -88,22 +137,86 @@ export class Panel {
     // Data
     this.datasetSelect = this.el("select", { onchange: (e) => h.onDataset(e.target.value) });
     const fileInput = this.el("input", { type: "file", accept: ".json,application/json", onchange: (e) => e.target.files[0] && h.onFile(e.target.files[0]) });
+    // The local-folder and GitHub-repo features analyze source in the
+    // browser (no bundled JSON, no server): see site/js/localAnalyzer.js and
+    // site/js/githubAnalyzer.js. showDirectoryPicker() is Chromium-only, so
+    // that button is disabled with an explanatory title elsewhere.
+    const folderSupported = localFolderSupported();
+    const folderBtn = this.el("button", { type: "button", disabled: folderSupported ? null : "", title: folderSupported ? null : t("data.folderUnsupported"), onclick: () => h.onOpenFolder() }, t("data.openFolder"));
+    const githubInput = this.el("input", { type: "text", placeholder: t("data.githubPlaceholder"), autocomplete: "off" });
+    const githubResults = this.el("div", { class: "github-results", hidden: "" });
+    const hideResults = () => (githubResults.hidden = true);
+    const loadGithub = (spec) => {
+      hideResults();
+      githubInput.value = spec;
+      h.onGithub(spec);
+    };
+    const submitGithub = () => githubInput.value.trim() && loadGithub(githubInput.value.trim());
+    const githubBtn = this.el("button", { type: "button", onclick: submitGithub }, t("data.githubLoad"));
+    const showGithubResults = (items) => {
+      githubResults.replaceChildren(
+        ...items.map((r) =>
+          this.el(
+            "button",
+            { type: "button", class: "github-result", onmousedown: (e) => e.preventDefault(), onclick: () => loadGithub(r.full_name) },
+            this.el("span", { class: "github-result-name" }, r.full_name),
+            this.el("span", { class: "muted small github-result-desc" }, r.description ?? ""),
+          ),
+        ),
+      );
+      githubResults.hidden = items.length === 0;
+    };
+    // GitHub's search API has its own, much stricter rate limit (10/minute
+    // unauthenticated, versus 60/hour for fetching a repo itself), so this
+    // debounces and never fires for a query shorter than 2 characters.
+    let searchTimer = null;
+    githubInput.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      const q = githubInput.value.trim();
+      if (q.length === 0) {
+        showGithubResults(POPULAR_REPOS);
+        return;
+      }
+      if (q.length < 2) {
+        hideResults();
+        return;
+      }
+      searchTimer = setTimeout(() => h.onGithubSearch(q).then(showGithubResults, hideResults), GITHUB_SEARCH_DEBOUNCE_MS);
+    });
+    githubInput.addEventListener("focus", () => {
+      if (githubInput.value.trim().length === 0) showGithubResults(POPULAR_REPOS);
+    });
+    // A click on a result fires this input's blur before its own onclick;
+    // onmousedown above (preventDefault, so focus never actually leaves the
+    // input) is what makes the click land instead of hiding the list first.
+    githubInput.addEventListener("blur", hideResults);
+    githubInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") submitGithub();
+      else if (e.key === "Escape") hideResults();
+    });
     this.dataInfoEl = this.el("p", { class: "muted small" });
+    // Analyses the browser itself ran (local folder / GitHub repo), not the
+    // bundled example datasets already in the Dataset dropdown above: see
+    // site/js/analysisCache.js. Populated by setRecent(), not render() —
+    // reading it back from IndexedDB is async.
+    this.recentEl = this.el("div", { class: "recent-list" });
     this.host.append(
       this.section(
         t("section.data"),
         this.el("label", { class: "control" }, this.el("span", {}, t("data.dataset")), this.datasetSelect),
         this.el("label", { class: "control" }, this.el("span", {}, t("data.openJson")), fileInput),
+        this.el("label", { class: "control" }, this.el("span", {}, t("data.openFolder")), folderBtn),
+        this.el("label", { class: "control" }, this.el("span", {}, t("data.github")), githubInput, githubBtn),
+        githubResults,
         this.dataInfoEl,
+        this.el("h3", {}, t("data.recent")),
+        this.recentEl,
       ),
     );
 
-    // View
-    const viewGroup = this.el("div", { class: "segmented" });
-    for (const v of ["2d", "3d"]) {
-      viewGroup.append(this.el("button", { type: "button", "data-view": v, class: s.view === v ? "active" : "", onclick: () => h.onView(v) }, v.toUpperCase()));
-    }
-    this.viewGroup = viewGroup;
+    // View & Physics: what the camera shows and how the layout moves are two
+    // faces of one section, not two separate ones — merged so both are one
+    // scroll away from each other instead of split by the Edges section.
     const labelSelect = this.select(
       ["auto", "all", "none"].map((m) => [m, t(`view.labels.${m}`)]),
       s.labelMode,
@@ -116,33 +229,25 @@ export class Panel {
     );
     this.layerGap = this.slider(t("view.layerGap"), "layerGap", 10, 300, 5, h.onLayerGap);
     const layers = this.el("input", { type: "checkbox", checked: s.showLayers ? "" : null, onchange: (e) => h.onShowLayers(e.target.checked) });
+    const layerFade = this.el("input", { type: "checkbox", checked: s.layerFade ? "" : null, onchange: (e) => h.onLayerFade(e.target.checked) });
     const rotate = this.el("input", { type: "checkbox", checked: s.autoRotate ? "" : null, onchange: (e) => h.onAutoRotate(e.target.checked) });
     this.host.append(
       this.section(
         t("section.view"),
-        this.el("div", { class: "control" }, this.el("span", {}, t("view.mode")), viewGroup),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.labels")), labelSelect),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.colourBy")), colorSelect),
         this.layerGap,
         this.el("label", { class: "control" }, this.el("span", {}, t("view.layerPlanes")), layers),
+        this.el("label", { class: "control" }, this.el("span", {}, t("view.layerFade")), layerFade),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.autoRotate")), rotate),
-        this.el("div", { class: "buttons" }, this.el("button", { type: "button", onclick: h.onFit }, t("view.fit"))),
+        this.el(
+          "div",
+          { class: "buttons" },
+          this.el("button", { type: "button", onclick: h.onFit }, t("view.fit")),
+          this.el("button", { type: "button", onclick: h.onTop }, t("view.top")),
+        ),
         this.el("p", { class: "muted small" }, t("view.help")),
-      ),
-    );
-
-    // Edges: one switch per kind; it drives drawing, springs and diagnostics together.
-    const kindList = this.el("div", { class: "kind-list" });
-    for (const kind of EDGE_KINDS) {
-      const box = this.el("input", { type: "checkbox", checked: s.kinds.has(kind) ? "" : null, onchange: (e) => h.onKinds(kind, e.target.checked) });
-      kindList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
-    }
-    this.host.append(this.section(t("section.edges"), kindList, this.el("p", { class: "muted small" }, t("edges.help"))));
-
-    // Physics
-    this.host.append(
-      this.section(
-        t("section.physics"),
+        this.el("h3", {}, t("section.physics")),
         this.el(
           "div",
           { class: "buttons" },
@@ -156,9 +261,27 @@ export class Panel {
       ),
     );
 
+    // Edges: one switch per kind; it drives drawing, springs and diagnostics together.
+    const kindList = this.el("div", { class: "kind-list" });
+    for (const kind of EDGE_KINDS) {
+      const box = this.el("input", { type: "checkbox", checked: s.kinds.has(kind) ? "" : null, onchange: (e) => h.onKinds(kind, e.target.checked) });
+      kindList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
+    }
+    this.host.append(this.section(t("section.edges"), kindList, this.el("p", { class: "muted small" }, t("edges.help"))));
+
     // Zones
-    this.depthSlider = this.slider(t("zones.depth"), "zoneDepth", 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => `${v} / ${s.maxDepth}`);
+    this.depthSlider = this.rangeSlider(t("zones.depth"), s.zoneMinDepth, s.zoneMaxDepth, 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => v);
     this.host.append(this.section(t("section.zones"), this.depthSlider, this.el("p", { class: "muted small" }, t("zones.help"))));
+
+    // Patterns: structural motifs, spotted within the whole graph rather
+    // than isolating one relationship (contrast the path highlight above,
+    // in Selection) — off by default, any number can be on at once.
+    const motifList = this.el("div", { class: "kind-list" });
+    for (const kind of MOTIF_KINDS) {
+      const box = this.el("input", { type: "checkbox", checked: s.motifs.has(kind) ? "" : null, onchange: (e) => h.onMotifs(kind, e.target.checked) });
+      motifList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${MOTIF_COLORS[kind]}` }), t(`motif.${kind}`)));
+    }
+    this.host.append(this.section(t("section.patterns"), motifList, this.el("p", { class: "muted small" }, t("patterns.help"))));
 
     // Diagnostics
     this.metricsBody = this.el("div", { class: "metrics" });
@@ -175,7 +298,8 @@ export class Panel {
 
     // Selection
     this.selectionBody = this.el("div", { class: "selection muted small" }, t("selection.empty"));
-    this.host.append(this.section(t("section.selection"), this.selectionBody));
+    this.pathResultEl = this.el("div", { class: "path-result", hidden: "" });
+    this.host.append(this.section(t("section.selection"), this.selectionBody, this.pathResultEl));
 
     // Legend
     const legend = this.el("div", { class: "legend" });
@@ -205,15 +329,37 @@ export class Panel {
     this.dataInfoEl.textContent = t("app.dataInfo", info);
   }
 
-  setView(view) {
-    for (const b of this.viewGroup.children) b.classList.toggle("active", b.dataset.view === view);
+  /** @param {object[]} entries analysisCache.js rows, newest first */
+  setRecent(entries) {
+    this.recent = entries;
+    this.recentEl.replaceChildren();
+    if (entries.length === 0) {
+      this.recentEl.append(this.el("p", { class: "muted small" }, t("data.recentEmpty")));
+      return;
+    }
+    const when = new Intl.DateTimeFormat(undefined, { dateStyle: "short", timeStyle: "short" });
+    for (const entry of entries) {
+      this.recentEl.append(
+        this.el(
+          "div",
+          { class: "recent-item" },
+          this.el("button", { type: "button", class: "recent-label", title: entry.label, onclick: () => this.h.onLoadRecent(entry) }, entry.label),
+          this.el("span", { class: "muted small" }, when.format(entry.analyzedAt)),
+          this.el("button", { type: "button", class: "icon-button", title: t("data.reanalyze"), onclick: () => this.h.onReanalyzeRecent(entry) }, "↻"),
+          this.el("button", { type: "button", class: "icon-button", title: t("data.remove"), onclick: () => this.h.onDeleteRecent(entry) }, "×"),
+        ),
+      );
+    }
   }
 
-  setMaxDepth(maxDepth, value) {
+  setMaxDepth(maxDepth, minValue, maxValue) {
     this.state.maxDepth = maxDepth;
-    this.depthSlider.input.max = String(Math.max(0, maxDepth));
-    this.depthSlider.input.value = String(value);
-    this.depthSlider.output.textContent = `${value} / ${maxDepth}`;
+    const cap = String(Math.max(0, maxDepth));
+    this.depthSlider.minInput.max = cap;
+    this.depthSlider.maxInput.max = cap;
+    this.depthSlider.minInput.value = String(minValue);
+    this.depthSlider.maxInput.value = String(maxValue);
+    this.depthSlider.refresh();
   }
 
   setMetrics(graph) {
@@ -271,6 +417,7 @@ export class Panel {
 
   setSelection(node, graph) {
     this.selected = node;
+    this.pathResultEl.hidden = true;
     if (!node) {
       this.selectionBody.className = "selection muted small";
       this.selectionBody.replaceChildren(t("selection.empty"));
@@ -313,8 +460,33 @@ export class Panel {
       this.el("div", { class: "small mono" }, node.line ? `${node.file}:${node.line}` : node.file),
       this.el("div", { class: "small muted" }, flags.join(", ")),
       this.el("div", { class: "small muted", title: t("selection.scope.hint") }, `${t("selection.scope")}: ${scopeText}`),
+      this.el("div", { class: "small muted" }, t("selection.pathHint")),
       list(t("selection.callers"), callers),
       list(t("selection.callees"), callees),
+    );
+  }
+
+  /**
+   * @param {object|null} result paths.js's pathBetween() output, or null to clear
+   * @param {object} [from] the path's origin node (for the "no path" message)
+   * @param {object} [to] the path's destination node
+   */
+  setPathResult(result, from, to) {
+    if (!result) {
+      this.pathResultEl.hidden = true;
+      return;
+    }
+    this.pathResultEl.hidden = false;
+    const clearButton = this.el("button", { type: "button", class: "icon-button", title: t("selection.path.clear"), onclick: () => this.h.onClearPath() }, "×");
+    if (!result.reachable) {
+      this.pathResultEl.replaceChildren(this.el("span", { class: "muted small" }, t("selection.path.none", { from: from.name, to: to.name })), clearButton);
+      return;
+    }
+    const names = result.shortestPath.map((n) => n.name).join(" → ");
+    this.pathResultEl.replaceChildren(
+      this.el("div", { class: "small" }, t("selection.path.found", { count: result.nodes.size })),
+      this.el("div", { class: "small mono path-route" }, names),
+      clearButton,
     );
   }
 }
