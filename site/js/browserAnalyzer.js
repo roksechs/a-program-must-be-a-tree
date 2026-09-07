@@ -5,7 +5,12 @@
 // it here to become a declaration graph document — the same shape
 // analyzers/ts/analyze.mjs's analyze() produces, walked by the very same
 // analyzers/ts/core.mjs (copied into vendor/analyzer-core.js by `npm run
-// vendor` since the published site only ever serves site/).
+// vendor` since the published site only ever serves site/). A `.svelte` file
+// among them is transformed through svelte2tsx first (vendor/svelte2tsx.js,
+// vendor/svelte-analyzer.js — analyzers/ts/svelte.mjs's browser copies) so
+// the same walk sees its script *and* template as ordinary TSX; see
+// analyzers/ts/svelte.mjs for why and analyze.mjs for the Node CLI's mirror
+// of the same host changes.
 //
 // The `ts` compiler itself (site/vendor/typescript.js, ~9MB) is loaded lazily
 // on first use, as a classic <script> (or importScripts(), in a worker)
@@ -47,7 +52,30 @@ export function loadTypeScript() {
   return tsPromise;
 }
 
-function compilerOptions(ts) {
+let svelte2tsxPromise = null;
+/**
+ * Load vendor/svelte2tsx.js once, returning its `svelte2tsx` function.
+ * Requires `self.ts` to already be set (see loadTypeScript()): the bundle's
+ * one external dependency, `typescript`, is reached through that global (see
+ * scripts/vendor.mjs) rather than doubling the size of the page's own copy.
+ */
+export function loadSvelte2tsx() {
+  if (self.__svelte2tsxExports) return Promise.resolve(self.__svelte2tsxExports.svelte2tsx);
+  if (typeof importScripts === "function") {
+    importScripts(vendorUrl("svelte2tsx.js"));
+    return Promise.resolve(self.__svelte2tsxExports.svelte2tsx);
+  }
+  svelte2tsxPromise ??= new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = vendorUrl("svelte2tsx.js");
+    script.onload = () => resolve(window.__svelte2tsxExports.svelte2tsx);
+    script.onerror = () => reject(new Error("could not load vendor/svelte2tsx.js — run `npm run vendor` (see README.md)"));
+    document.head.append(script);
+  });
+  return svelte2tsxPromise;
+}
+
+function compilerOptions(ts, hasSvelte) {
   return {
     allowJs: true,
     checkJs: false,
@@ -60,6 +88,9 @@ function compilerOptions(ts) {
     jsx: ts.JsxEmit.Preserve,
     allowSyntheticDefaultImports: true,
     esModuleInterop: true,
+    // See analyzers/ts/analyze.mjs's identical option: TypeScript otherwise
+    // hard-errors a root file whose extension it doesn't recognize at all.
+    ...(hasSvelte ? { allowNonTsExtensions: true } : null),
   };
 }
 
@@ -88,15 +119,36 @@ async function loadLibClosure(ts, options, onProgress) {
   return libFiles;
 }
 
-/** A ts.CompilerHost reading from an in-memory file map plus the vendored lib.*.d.ts files. */
-function createHost(ts, files, libFiles) {
+/**
+ * A ts.CompilerHost reading from an in-memory file map plus the vendored
+ * lib.*.d.ts files. `svelte`, when given — `{ transform, resolveModule,
+ * lineMaps }`, built from analyzers/ts/svelte.mjs (vendored as
+ * vendor/svelte-analyzer.js) — transforms a `.svelte` file's text through
+ * svelte2tsx before handing it to the compiler, resolves a relative
+ * `.svelte` import that TypeScript's own resolution has no notion of, and
+ * collects into `lineMaps` the per-file line-remapping functions
+ * `analyzeProgram` needs to report a `.svelte` declaration's real line (see
+ * core.mjs's `svelteLineMaps` parameter).
+ */
+function createHost(ts, files, libFiles, svelte) {
   const sourceFiles = new Map();
   const read = (fileName) => files.get(fileName) ?? libFiles.get(fileName);
-  return {
+  const host = {
     getSourceFile(fileName, languageVersionOrOptions) {
       if (!sourceFiles.has(fileName)) {
-        const text = read(fileName);
-        sourceFiles.set(fileName, text === undefined ? undefined : ts.createSourceFile(fileName, text, languageVersionOrOptions, true));
+        if (svelte && fileName.endsWith(".svelte")) {
+          const raw = files.get(fileName);
+          if (raw === undefined) {
+            sourceFiles.set(fileName, undefined);
+          } else {
+            const { code, toOriginalLine } = svelte.transform(fileName, raw);
+            svelte.lineMaps.set(fileName, toOriginalLine);
+            sourceFiles.set(fileName, ts.createSourceFile(fileName, code, languageVersionOrOptions, true, ts.ScriptKind.TSX));
+          }
+        } else {
+          const text = read(fileName);
+          sourceFiles.set(fileName, text === undefined ? undefined : ts.createSourceFile(fileName, text, languageVersionOrOptions, true));
+        }
       }
       return sourceFiles.get(fileName);
     },
@@ -111,6 +163,15 @@ function createHost(ts, files, libFiles) {
     directoryExists: () => true,
     getDirectories: () => [],
   };
+  if (svelte) {
+    host.resolveModuleNames = (moduleNames, containingFile) =>
+      moduleNames.map((name) => {
+        const svelteResolved = svelte.resolveModule(name, containingFile, (f) => files.has(f));
+        if (svelteResolved) return { resolvedFileName: svelteResolved, extension: ts.Extension.Tsx, isExternalLibraryImport: false };
+        return ts.resolveModuleName(name, containingFile, compilerOptions(ts, true), host).resolvedModule;
+      });
+  }
+  return host;
 }
 
 /**
@@ -125,23 +186,34 @@ function createHost(ts, files, libFiles) {
  * @returns the same document shape analyzers/ts/analyze.mjs's analyze() returns
  */
 export async function analyzeFiles(files, { name, nested, rootLabel, onPhase } = {}) {
-  if (files.size === 0) throw new Error("no .js/.ts source files found (node_modules, .git, dist, build, coverage and vendor are skipped)");
+  if (files.size === 0) throw new Error("no source files found (node_modules, .git, dist, build, coverage and vendor are skipped)");
+  const fileNames = [...files.keys()];
+  const hasSvelte = fileNames.some((f) => f.endsWith(".svelte"));
   onPhase?.("compiler");
   const ts = await loadTypeScript();
-  const options = compilerOptions(ts);
+  const options = compilerOptions(ts, hasSvelte);
+  let svelte;
+  let cleanupSvelteDocument;
+  if (hasSvelte) {
+    const svelte2tsx = await loadSvelte2tsx();
+    const svelteAnalyzer = await import("../vendor/svelte-analyzer.js");
+    svelte = { ...svelteAnalyzer.createSvelteSupport(svelte2tsx), resolveModule: svelteAnalyzer.resolveSvelteModule, lineMaps: new Map() };
+    cleanupSvelteDocument = svelteAnalyzer.cleanupSvelteDocument;
+  }
   onPhase?.("types", 0);
   const libFiles = await loadLibClosure(ts, options, (count) => onPhase?.("types", count));
-  const host = createHost(ts, files, libFiles);
-  const fileNames = [...files.keys()];
+  const host = createHost(ts, files, libFiles, svelte);
   onPhase?.("analyzing");
   const program = ts.createProgram({ rootNames: fileNames, options, host });
   const { createCore } = await import("../vendor/analyzer-core.js");
   const { analyzeProgram } = createCore(ts);
-  return analyzeProgram({
+  const doc = analyzeProgram({
     program,
     files: fileNames,
     stripPrefix: "/",
     rootLabel: rootLabel ?? name ?? ".",
-    options: { name, nested, language: "javascript" },
+    options: { name, nested, language: hasSvelte ? "svelte" : "javascript" },
+    svelteLineMaps: svelte?.lineMaps,
   });
+  return hasSvelte ? cleanupSvelteDocument(doc) : doc;
 }

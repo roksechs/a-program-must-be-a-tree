@@ -1,12 +1,14 @@
 #!/usr/bin/env node
-// JavaScript / TypeScript analyzer, Node front end.
+// JavaScript / TypeScript / Svelte analyzer, Node front end.
 //
-// Walks a directory tree, parses every .js/.mjs/.cjs/.jsx/.ts/.tsx file with
-// the TypeScript compiler API and emits a declaration graph document (see
-// docs/DATA_FORMAT.md). Declarations are module-level functions, variables,
-// classes (with their members), interfaces, type aliases and enums. An edge
-// A -> B is emitted whenever the body of A references B; the edge kind tells
-// whether it was a call, a plain reference, a heritage clause or a type-only use.
+// Walks a directory tree, parses every .js/.mjs/.cjs/.jsx/.ts/.tsx/.svelte
+// file with the TypeScript compiler API (a `.svelte` file's script and
+// template transformed through svelte2tsx first, see svelte.mjs) and emits
+// a declaration graph document (see docs/DATA_FORMAT.md). Declarations are
+// module-level functions, variables, classes (with their members),
+// interfaces, type aliases and enums. An edge A -> B is emitted whenever the
+// body of A references B; the edge kind tells whether it was a call, a
+// plain reference, a heritage clause or a type-only use.
 //
 // The actual analysis (walking a ts.Program) lives in core.mjs and is shared
 // with the browser's local-folder feature (site/js/localAnalyzer.js); this
@@ -20,10 +22,13 @@ import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { extname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
+import { svelte2tsx } from "svelte2tsx";
 import { ANALYZER_VERSION, DEFAULT_EXCLUDES, EXTENSIONS, createCore } from "./core.mjs";
+import { SVELTE_EXTENSION, cleanupSvelteDocument, createSvelteSupport, resolveSvelteModule } from "./svelte.mjs";
 
 export { ANALYZER_VERSION };
 const { analyzeProgram } = createCore(ts);
+const svelteSupport = createSvelteSupport(svelte2tsx);
 
 /** Recursively list source files under `dir`, skipping excluded directory names and glob-ish patterns. */
 export function listSourceFiles(dir, excludes) {
@@ -81,8 +86,9 @@ export function analyze(options) {
   const includes = (options.include?.length ? options.include : ["."]).map((p) => resolve(root, p));
   const excludes = options.exclude ?? [];
   const files = [...new Set(includes.flatMap((p) => listSourceFiles(p, excludes)))].sort();
+  const hasSvelte = files.some((f) => f.endsWith(SVELTE_EXTENSION));
 
-  const program = ts.createProgram(files, {
+  const compilerOptions = {
     allowJs: true,
     checkJs: false,
     noEmit: true,
@@ -94,15 +100,61 @@ export function analyze(options) {
     jsx: ts.JsxEmit.Preserve,
     allowSyntheticDefaultImports: true,
     esModuleInterop: true,
-  });
+    // TypeScript otherwise refuses to include a root file with an extension
+    // it doesn't recognize at all (a hard error, not just a diagnostic — see
+    // analyzers/ts/svelte.mjs's own comment on the transform this enables).
+    // Scoped to projects that actually have a `.svelte` file, so it changes
+    // nothing about how every other project here has always been analyzed.
+    ...(hasSvelte ? { allowNonTsExtensions: true } : null),
+  };
 
-  return analyzeProgram({
+  // The plain default host (real `ts.sys` file reads, no `.svelte` in sight)
+  // unless there is a `.svelte` file to transform — most projects, so this
+  // keeps their exact prior behavior rather than adding an unneeded custom
+  // host to every analysis.
+  let host;
+  let svelteLineMaps;
+  if (hasSvelte) {
+    const defaultHost = ts.createCompilerHost(compilerOptions, true);
+    svelteLineMaps = new Map();
+    const svelteSourceFiles = new Map();
+    host = {
+      ...defaultHost,
+      getSourceFile(fileName, languageVersionOrOptions, ...rest) {
+        if (!fileName.endsWith(SVELTE_EXTENSION)) return defaultHost.getSourceFile(fileName, languageVersionOrOptions, ...rest);
+        if (!svelteSourceFiles.has(fileName)) {
+          const raw = defaultHost.readFile(fileName);
+          if (raw === undefined) {
+            svelteSourceFiles.set(fileName, undefined);
+          } else {
+            const { code, toOriginalLine } = svelteSupport.transform(fileName, raw);
+            svelteLineMaps.set(fileName, toOriginalLine);
+            svelteSourceFiles.set(fileName, ts.createSourceFile(fileName, code, languageVersionOrOptions, true, ts.ScriptKind.TSX));
+          }
+        }
+        return svelteSourceFiles.get(fileName);
+      },
+      resolveModuleNames(moduleNames, containingFile, ...rest) {
+        return moduleNames.map((name) => {
+          const svelteResolved = resolveSvelteModule(name, containingFile, (f) => ts.sys.fileExists(f));
+          if (svelteResolved) return { resolvedFileName: svelteResolved, extension: ts.Extension.Tsx, isExternalLibraryImport: false };
+          return ts.resolveModuleName(name, containingFile, compilerOptions, defaultHost).resolvedModule;
+        });
+      },
+    };
+  }
+
+  const program = host ? ts.createProgram({ rootNames: files, options: compilerOptions, host }) : ts.createProgram(files, compilerOptions);
+
+  const doc = analyzeProgram({
     program,
     files,
     stripPrefix: root.split(sep).join("/"),
     rootLabel: relative(process.cwd(), root).split(sep).join("/") || ".",
     options,
+    svelteLineMaps,
   });
+  return hasSvelte ? cleanupSvelteDocument(doc) : doc;
 }
 
 function parseArgs(argv) {

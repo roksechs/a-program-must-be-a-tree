@@ -1,4 +1,6 @@
 {
   "d3": "7.9.0",
-  "typescript": "5.9.3"
+  "typescript": "5.9.3",
+  "svelte": "5.57.0",
+  "svelte2tsx": "0.7.61"
 }

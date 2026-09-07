@@ -99,11 +99,11 @@ export const POPULAR_REPOS = [
  * Search public repositories by name/description (GitHub's search API, not
  * the same endpoint or rate limit as analyzeGithubRepo's — 10 requests per
  * minute unauthenticated, so callers should debounce). Restricted to
- * JavaScript/TypeScript repositories, the only kind this analyzer can read;
- * ranked by stars.
+ * JavaScript/TypeScript/Svelte repositories, the kinds this analyzer can
+ * read; ranked by stars.
  */
 export async function searchGithubRepos(query, limit = 8) {
-  const q = `${query} language:javascript OR language:typescript`;
+  const q = `${query} language:javascript OR language:typescript OR language:svelte`;
   const data = await githubJson(`/search/repositories?q=${encodeURIComponent(q)}&sort=stars&order=desc&per_page=${limit}`);
   return (data.items ?? []).map((r) => ({ full_name: r.full_name, description: r.description, stars: r.stargazers_count }));
 }

@@ -3,9 +3,9 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-07T02:57:45.258Z",
+  "generatedAt": "2026-09-07T03:46:06.805Z",
   "analyzer": "analyzers/ts@0.4.0",
-  "files": 32
+  "files": 34
  },
  "declarations": [
   {
@@ -13,7 +13,7 @@
    "name": "analyze",
    "kind": "module",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 26,
+   "line": 30,
    "parent": null,
    "exported": false
   },
@@ -22,16 +22,34 @@
    "name": "analyze",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 79,
+   "line": 84,
    "parent": null,
    "exported": true
+  },
+  {
+   "id": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "name": "getSourceFile",
+   "kind": "function",
+   "file": "analyzers/ts/analyze.mjs",
+   "line": 123,
+   "parent": "analyzers/ts/analyze.mjs::analyze",
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/analyze.mjs::analyze/resolveModuleNames",
+   "name": "resolveModuleNames",
+   "kind": "function",
+   "file": "analyzers/ts/analyze.mjs",
+   "line": 137,
+   "parent": "analyzers/ts/analyze.mjs::analyze",
+   "exported": false
   },
   {
    "id": "analyzers/ts/analyze.mjs::listSourceFiles",
    "name": "listSourceFiles",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 29,
+   "line": 34,
    "parent": null,
    "exported": true
   },
@@ -40,7 +58,7 @@
    "name": "matches",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 58,
+   "line": 63,
    "parent": null,
    "exported": false
   },
@@ -49,7 +67,16 @@
    "name": "parseArgs",
    "kind": "function",
    "file": "analyzers/ts/analyze.mjs",
-   "line": 108,
+   "line": 160,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/analyze.mjs::svelteSupport",
+   "name": "svelteSupport",
+   "kind": "variable",
+   "file": "analyzers/ts/analyze.mjs",
+   "line": 31,
    "parent": null,
    "exported": false
   },
@@ -95,6 +122,105 @@
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
    "line": 20,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::BASE64_CHARS",
+   "name": "BASE64_CHARS",
+   "kind": "variable",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 30,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::BASE64_VALUE",
+   "name": "BASE64_VALUE",
+   "kind": "variable",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 31,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::basename",
+   "name": "basename",
+   "kind": "function",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 19,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::buildLineMap",
+   "name": "buildLineMap",
+   "kind": "function",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 62,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::cleanupSvelteDocument",
+   "name": "cleanupSvelteDocument",
+   "kind": "function",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 161,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::COMPONENT_SUFFIX",
+   "name": "COMPONENT_SUFFIX",
+   "kind": "variable",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 137,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::createSvelteSupport",
+   "name": "createSvelteSupport",
+   "kind": "function",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 97,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::decodeVLQSegment",
+   "name": "decodeVLQSegment",
+   "kind": "function",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 34,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::RENDER_FUNCTION_NAME",
+   "name": "RENDER_FUNCTION_NAME",
+   "kind": "variable",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 138,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::resolveSvelteModule",
+   "name": "resolveSvelteModule",
+   "kind": "function",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 117,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "analyzers/ts/svelte.mjs::SVELTE_EXTENSION",
+   "name": "SVELTE_EXTENSION",
+   "kind": "variable",
+   "file": "analyzers/ts/svelte.mjs",
+   "line": 16,
    "parent": null,
    "exported": true
   },
@@ -148,7 +274,7 @@
    "name": "syntheticTangle",
    "kind": "function",
    "file": "scripts/analyze-examples.mjs",
-   "line": 83,
+   "line": 90,
    "parent": null,
    "exported": false
   },
@@ -157,7 +283,7 @@
    "name": "syntheticTree",
    "kind": "function",
    "file": "scripts/analyze-examples.mjs",
-   "line": 66,
+   "line": 73,
    "parent": null,
    "exported": false
   },
@@ -211,7 +337,7 @@
    "name": "vendor",
    "kind": "module",
    "file": "scripts/vendor.mjs",
-   "line": 10,
+   "line": 11,
    "parent": null,
    "exported": false
   },
@@ -220,7 +346,7 @@
    "name": "d3Pkg",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 12,
+   "line": 13,
    "parent": null,
    "exported": false
   },
@@ -229,7 +355,7 @@
    "name": "defaultLib",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 33,
+   "line": 34,
    "parent": null,
    "exported": false
   },
@@ -238,8 +364,26 @@
    "name": "libFiles",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 34,
+   "line": 35,
    "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::pathShim",
+   "name": "pathShim",
+   "kind": "variable",
+   "file": "scripts/vendor.mjs",
+   "line": 70,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::pathShim/setup",
+   "name": "setup",
+   "kind": "function",
+   "file": "scripts/vendor.mjs",
+   "line": 72,
+   "parent": "scripts/vendor.mjs::pathShim",
    "exported": false
   },
   {
@@ -247,7 +391,7 @@
    "name": "queue",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 35,
+   "line": 36,
    "parent": null,
    "exported": false
   },
@@ -256,7 +400,34 @@
    "name": "root",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 8,
+   "line": 9,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::svelte2tsxBundle",
+   "name": "svelte2tsxBundle",
+   "kind": "variable",
+   "file": "scripts/vendor.mjs",
+   "line": 105,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::svelte2tsxPkg",
+   "name": "svelte2tsxPkg",
+   "kind": "variable",
+   "file": "scripts/vendor.mjs",
+   "line": 68,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "scripts/vendor.mjs::sveltePkg",
+   "name": "sveltePkg",
+   "kind": "variable",
+   "file": "scripts/vendor.mjs",
+   "line": 69,
    "parent": null,
    "exported": false
   },
@@ -265,7 +436,7 @@
    "name": "tsLibDir",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 24,
+   "line": 25,
    "parent": null,
    "exported": false
   },
@@ -274,7 +445,7 @@
    "name": "tsPkg",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 23,
+   "line": 24,
    "parent": null,
    "exported": false
   },
@@ -283,7 +454,7 @@
    "name": "vendorDir",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 9,
+   "line": 10,
    "parent": null,
    "exported": false
   },
@@ -292,7 +463,7 @@
    "name": "vendorLibDir",
    "kind": "variable",
    "file": "scripts/vendor.mjs",
-   "line": 25,
+   "line": 26,
    "parent": null,
    "exported": false
   },
@@ -1120,7 +1291,7 @@
    "name": "analyzeFiles",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 127,
+   "line": 188,
    "parent": null,
    "exported": true
   },
@@ -1129,7 +1300,7 @@
    "name": "compilerOptions",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 50,
+   "line": 78,
    "parent": null,
    "exported": false
   },
@@ -1138,7 +1309,7 @@
    "name": "createHost",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 92,
+   "line": 133,
    "parent": null,
    "exported": false
   },
@@ -1147,7 +1318,7 @@
    "name": "directoryExists",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 111,
+   "line": 163,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1156,7 +1327,7 @@
    "name": "fileExists",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 109,
+   "line": 161,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1165,7 +1336,7 @@
    "name": "getCanonicalFileName",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 106,
+   "line": 158,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1174,7 +1345,7 @@
    "name": "getCurrentDirectory",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 105,
+   "line": 157,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1183,7 +1354,7 @@
    "name": "getDefaultLibFileName",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 103,
+   "line": 155,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1192,7 +1363,7 @@
    "name": "getDirectories",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 112,
+   "line": 164,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1201,7 +1372,7 @@
    "name": "getNewLine",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 108,
+   "line": 160,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1210,7 +1381,7 @@
    "name": "getSourceFile",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 96,
+   "line": 137,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1219,7 +1390,7 @@
    "name": "readFile",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 110,
+   "line": 162,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1228,7 +1399,7 @@
    "name": "useCaseSensitiveFileNames",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 107,
+   "line": 159,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1237,7 +1408,7 @@
    "name": "writeFile",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 104,
+   "line": 156,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false
   },
@@ -1246,7 +1417,7 @@
    "name": "libCache",
    "kind": "variable",
    "file": "site/js/browserAnalyzer.js",
-   "line": 66,
+   "line": 97,
    "parent": null,
    "exported": false
   },
@@ -1255,16 +1426,25 @@
    "name": "loadLibClosure",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 76,
+   "line": 107,
    "parent": null,
    "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::loadSvelte2tsx",
+   "name": "loadSvelte2tsx",
+   "kind": "function",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 62,
+   "parent": null,
+   "exported": true
   },
   {
    "id": "site/js/browserAnalyzer.js::loadTypeScript",
    "name": "loadTypeScript",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 34,
+   "line": 39,
    "parent": null,
    "exported": true
   },
@@ -1273,7 +1453,16 @@
    "name": "readLib",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 67,
+   "line": 98,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/browserAnalyzer.js::svelte2tsxPromise",
+   "name": "svelte2tsxPromise",
+   "kind": "variable",
+   "file": "site/js/browserAnalyzer.js",
+   "line": 55,
    "parent": null,
    "exported": false
   },
@@ -1282,7 +1471,7 @@
    "name": "tsPromise",
    "kind": "variable",
    "file": "site/js/browserAnalyzer.js",
-   "line": 32,
+   "line": 37,
    "parent": null,
    "exported": false
   },
@@ -1291,7 +1480,7 @@
    "name": "vendorUrl",
    "kind": "function",
    "file": "site/js/browserAnalyzer.js",
-   "line": 28,
+   "line": 33,
    "parent": null,
    "exported": false
   },
@@ -1498,7 +1687,7 @@
    "name": "clampPitch",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 591,
+   "line": 586,
    "parent": null,
    "exported": false
   },
@@ -1507,7 +1696,7 @@
    "name": "drawArrow",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 604,
+   "line": 600,
    "parent": null,
    "exported": false
   },
@@ -1552,7 +1741,7 @@
    "name": "draw",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 351,
+   "line": 337,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1561,7 +1750,7 @@
    "name": "fit",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 517,
+   "line": 503,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1570,7 +1759,7 @@
    "name": "focusOn",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 557,
+   "line": 543,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1579,7 +1768,7 @@
    "name": "hitTest",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 322,
+   "line": 308,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1588,7 +1777,7 @@
    "name": "neighbourSet",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 336,
+   "line": 322,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1597,7 +1786,7 @@
    "name": "project",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 285,
+   "line": 271,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1606,7 +1795,7 @@
    "name": "resize",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 209,
+   "line": 195,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1615,7 +1804,7 @@
    "name": "restyle",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 239,
+   "line": 225,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1624,7 +1813,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 269,
+   "line": 255,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1633,7 +1822,7 @@
    "name": "setColorBy",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 249,
+   "line": 235,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1642,7 +1831,7 @@
    "name": "setGraph",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 222,
+   "line": 208,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1651,7 +1840,7 @@
    "name": "setLabelMode",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 244,
+   "line": 230,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1660,7 +1849,7 @@
    "name": "setLayerGap",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 259,
+   "line": 245,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1669,7 +1858,7 @@
    "name": "setShowLayers",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 264,
+   "line": 250,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1678,7 +1867,7 @@
    "name": "setVisibleKinds",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 254,
+   "line": 240,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1687,7 +1876,7 @@
    "name": "setZones",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 233,
+   "line": 219,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1696,7 +1885,7 @@
    "name": "tick",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 346,
+   "line": 332,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1705,7 +1894,7 @@
    "name": "viewTop",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 577,
+   "line": 563,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -1714,7 +1903,7 @@
    "name": "zOf",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 318,
+   "line": 304,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2781,6 +2970,195 @@
    "exported": false
   },
   {
+   "id": "test/svelte-analyzer.test.mjs::<module>",
+   "name": "svelte-analyzer.test",
+   "kind": "module",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 21,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::analyzeVirtual",
+   "name": "analyzeVirtual",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 236,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::COMPILER_OPTIONS",
+   "name": "COMPILER_OPTIONS",
+   "kind": "variable",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 152,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "name": "createVirtualHost",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 194,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/directoryExists",
+   "name": "directoryExists",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 224,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/fileExists",
+   "name": "fileExists",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 222,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getCanonicalFileName",
+   "name": "getCanonicalFileName",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 219,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getCurrentDirectory",
+   "name": "getCurrentDirectory",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 218,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "name": "getDefaultLibFileName",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 216,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getDirectories",
+   "name": "getDirectories",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 225,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getNewLine",
+   "name": "getNewLine",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 221,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getSourceFile",
+   "name": "getSourceFile",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 198,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/readFile",
+   "name": "readFile",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 223,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/useCaseSensitiveFileNames",
+   "name": "useCaseSensitiveFileNames",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 220,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::createVirtualHost/writeFile",
+   "name": "writeFile",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 217,
+   "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::fixture",
+   "name": "fixture",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 23,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::libTextCache",
+   "name": "libTextCache",
+   "kind": "variable",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 168,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::loadLibClosure",
+   "name": "loadLibClosure",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 179,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::PROJECT",
+   "name": "PROJECT",
+   "kind": "variable",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 32,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::readLib",
+   "name": "readLib",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 169,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::tsLibDir",
+   "name": "tsLibDir",
+   "kind": "variable",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 167,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "test/zones.test.mjs::<module>",
    "name": "zones.test",
    "kind": "module",
@@ -2829,6 +3207,41 @@
    "time": "use"
   },
   {
+   "source": "analyzers/ts/analyze.mjs::analyze",
+   "target": "analyzers/ts/svelte.mjs::cleanupSvelteDocument",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze",
+   "target": "analyzers/ts/svelte.mjs::SVELTE_EXTENSION",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "target": "analyzers/ts/analyze.mjs::svelteSupport",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "target": "analyzers/ts/svelte.mjs::SVELTE_EXTENSION",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/resolveModuleNames",
+   "target": "analyzers/ts/svelte.mjs::resolveSvelteModule",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "analyzers/ts/analyze.mjs::listSourceFiles",
    "target": "analyzers/ts/analyze.mjs::matches",
    "kind": "call",
@@ -2850,6 +3263,13 @@
    "time": "use"
   },
   {
+   "source": "analyzers/ts/analyze.mjs::svelteSupport",
+   "target": "analyzers/ts/svelte.mjs::createSvelteSupport",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "analyzers/ts/core.mjs::createCore",
    "target": "analyzers/ts/core.mjs::ANALYZER_VERSION",
    "kind": "reference",
@@ -2864,10 +3284,73 @@
    "time": "use"
   },
   {
+   "source": "analyzers/ts/svelte.mjs::BASE64_VALUE",
+   "target": "analyzers/ts/svelte.mjs::BASE64_CHARS",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "analyzers/ts/svelte.mjs::buildLineMap",
+   "target": "analyzers/ts/svelte.mjs::decodeVLQSegment",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/svelte.mjs::cleanupSvelteDocument",
+   "target": "analyzers/ts/svelte.mjs::COMPONENT_SUFFIX",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/svelte.mjs::cleanupSvelteDocument",
+   "target": "analyzers/ts/svelte.mjs::RENDER_FUNCTION_NAME",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/svelte.mjs::cleanupSvelteDocument",
+   "target": "analyzers/ts/svelte.mjs::SVELTE_EXTENSION",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/svelte.mjs::createSvelteSupport",
+   "target": "analyzers/ts/svelte.mjs::basename",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/svelte.mjs::createSvelteSupport",
+   "target": "analyzers/ts/svelte.mjs::buildLineMap",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/svelte.mjs::decodeVLQSegment",
+   "target": "analyzers/ts/svelte.mjs::BASE64_VALUE",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/svelte.mjs::resolveSvelteModule",
+   "target": "analyzers/ts/svelte.mjs::SVELTE_EXTENSION",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "scripts/analyze-examples.mjs::<module>",
    "target": "analyzers/ts/analyze.mjs::analyze",
    "kind": "call",
-   "count": 4,
+   "count": 5,
    "time": "definition"
   },
   {
@@ -2895,7 +3378,7 @@
    "source": "scripts/analyze-examples.mjs::<module>",
    "target": "scripts/analyze-examples.mjs::root",
    "kind": "reference",
-   "count": 4,
+   "count": 5,
    "time": "definition"
   },
   {
@@ -2916,7 +3399,7 @@
    "source": "scripts/analyze-examples.mjs::<module>",
    "target": "scripts/analyze-examples.mjs::write",
    "kind": "call",
-   "count": 6,
+   "count": 7,
    "time": "definition"
   },
   {
@@ -2993,7 +3476,28 @@
    "source": "scripts/vendor.mjs::<module>",
    "target": "scripts/vendor.mjs::root",
    "kind": "reference",
-   "count": 4,
+   "count": 5,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::svelte2tsxBundle",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::svelte2tsxPkg",
+   "kind": "reference",
+   "count": 2,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "scripts/vendor.mjs::sveltePkg",
+   "kind": "reference",
+   "count": 2,
    "time": "definition"
   },
   {
@@ -3014,7 +3518,7 @@
    "source": "scripts/vendor.mjs::<module>",
    "target": "scripts/vendor.mjs::vendorDir",
    "kind": "reference",
-   "count": 7,
+   "count": 9,
    "time": "definition"
   },
   {
@@ -3034,6 +3538,34 @@
   {
    "source": "scripts/vendor.mjs::queue",
    "target": "scripts/vendor.mjs::defaultLib",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::svelte2tsxBundle",
+   "target": "scripts/vendor.mjs::pathShim",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::svelte2tsxBundle",
+   "target": "scripts/vendor.mjs::root",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::svelte2tsxPkg",
+   "target": "scripts/vendor.mjs::root",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::sveltePkg",
+   "target": "scripts/vendor.mjs::root",
    "kind": "reference",
    "count": 1,
    "time": "definition"
@@ -5005,7 +5537,21 @@
   },
   {
    "source": "site/js/browserAnalyzer.js::analyzeFiles",
+   "target": "site/js/browserAnalyzer.js::loadSvelte2tsx",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::analyzeFiles",
    "target": "site/js/browserAnalyzer.js::loadTypeScript",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::compilerOptions",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -5015,6 +5561,20 @@
    "target": "site/js/browserAnalyzer.js::readLib",
    "kind": "call",
    "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::loadSvelte2tsx",
+   "target": "site/js/browserAnalyzer.js::svelte2tsxPromise",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::loadSvelte2tsx",
+   "target": "site/js/browserAnalyzer.js::vendorUrl",
+   "kind": "call",
+   "count": 2,
    "time": "use"
   },
   {
@@ -5042,6 +5602,13 @@
    "source": "site/js/browserAnalyzer.js::readLib",
    "target": "site/js/browserAnalyzer.js::vendorUrl",
    "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::svelte2tsxPromise",
+   "target": "site/js/browserAnalyzer.js::loadSvelte2tsx",
+   "kind": "write",
    "count": 1,
    "time": "use"
   },
@@ -5189,7 +5756,7 @@
    "source": "site/js/graph3d.js::clampPitch",
    "target": "site/js/graph3d.js::MIN_PITCH",
    "kind": "reference",
-   "count": 3,
+   "count": 2,
    "time": "use"
   },
   {
@@ -6408,6 +6975,139 @@
    "target": "test/model.test.mjs::edge",
    "kind": "call",
    "count": 34,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::<module>",
+   "target": "analyzers/ts/analyze.mjs::analyze",
+   "kind": "call",
+   "count": 8,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::<module>",
+   "target": "analyzers/ts/core.mjs::createCore",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::<module>",
+   "target": "analyzers/ts/svelte.mjs::cleanupSvelteDocument",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::<module>",
+   "target": "analyzers/ts/svelte.mjs::resolveSvelteModule",
+   "kind": "call",
+   "count": 6,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::<module>",
+   "target": "test/svelte-analyzer.test.mjs::analyzeVirtual",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::<module>",
+   "target": "test/svelte-analyzer.test.mjs::fixture",
+   "kind": "call",
+   "count": 8,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::<module>",
+   "target": "test/svelte-analyzer.test.mjs::PROJECT",
+   "kind": "reference",
+   "count": 9,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::analyzeVirtual",
+   "target": "analyzers/ts/svelte.mjs::cleanupSvelteDocument",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::analyzeVirtual",
+   "target": "analyzers/ts/svelte.mjs::createSvelteSupport",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::analyzeVirtual",
+   "target": "test/svelte-analyzer.test.mjs::COMPILER_OPTIONS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::analyzeVirtual",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::analyzeVirtual",
+   "target": "test/svelte-analyzer.test.mjs::loadLibClosure",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "analyzers/ts/svelte.mjs::resolveSvelteModule",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::COMPILER_OPTIONS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost/getSourceFile",
+   "target": "analyzers/ts/svelte.mjs::SVELTE_EXTENSION",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::loadLibClosure",
+   "target": "test/svelte-analyzer.test.mjs::COMPILER_OPTIONS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::loadLibClosure",
+   "target": "test/svelte-analyzer.test.mjs::readLib",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::readLib",
+   "target": "test/svelte-analyzer.test.mjs::libTextCache",
+   "kind": "reference",
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::readLib",
+   "target": "test/svelte-analyzer.test.mjs::tsLibDir",
+   "kind": "reference",
+   "count": 1,
    "time": "use"
   },
   {

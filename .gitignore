@@ -11,6 +11,11 @@ node_modules/
 site/vendor/typescript.js
 site/vendor/typescript.LICENSE
 site/vendor/ts-lib/
-# Copy of analyzers/ts/core.mjs (our own code): keep that file the single
-# source of truth rather than committing a duplicate that could drift.
+# Copy of analyzers/ts/core.mjs and analyzers/ts/svelte.mjs (our own code):
+# keep those files the single source of truth rather than committing a
+# duplicate that could drift.
 site/vendor/analyzer-core.js
+site/vendor/svelte-analyzer.js
+# svelte2tsx + svelte/compiler bundled for the browser (scripts/vendor.mjs);
+# same reasoning as typescript.js above.
+site/vendor/svelte2tsx.js

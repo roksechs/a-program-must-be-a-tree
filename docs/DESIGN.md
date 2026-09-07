@@ -29,7 +29,8 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
   functions become nodes of their own (`<parent>/<name>`), which is the only
   view in which a large function made of closures — this analyzer, for one —
   can be diagnosed; the `self-nested` dataset is that view of this repository.
-  The first one covers JavaScript / TypeScript using the
+  The first one covers JavaScript / TypeScript (and Svelte, via a
+  `svelte2tsx` transform — see "Analyzing Svelte components") using the
   TypeScript compiler API, which resolves imports, `this.method()` calls and
   aliases for free. Other languages (Python `ast`, tree-sitter, Go `go/types`,
   ...) can be added without touching the viewer. The TypeScript analyzer
@@ -60,7 +61,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer, used by both the main viewer and the article's live figures. |
 | `panel.js`      | Property panel (controls + diagnostics + selection details). |
 | `app.js`        | Data loading and wiring. |
-| `browserAnalyzer.js` | The part of the in-browser analyzer shared by `localAnalyzer.js` and `githubAnalyzer.js`: a custom `ts.CompilerHost` over an in-memory file map, fed to `analyzers/ts/core.mjs`. Loads `vendor/typescript.js` (~9MB) lazily, on first use; every vendored asset is addressed by a URL resolved against `import.meta.url`, so the same code works whether it runs on the main thread or inside `analyzeWorker.js`. |
+| `browserAnalyzer.js` | The part of the in-browser analyzer shared by `localAnalyzer.js` and `githubAnalyzer.js`: a custom `ts.CompilerHost` over an in-memory file map, fed to `analyzers/ts/core.mjs`, with a `.svelte` file transformed through `vendor/svelte2tsx.js` first (see "Analyzing Svelte components"). Loads `vendor/typescript.js` (~9MB) and, only when a `.svelte` file is present, `vendor/svelte2tsx.js` lazily, on first use; every vendored asset is addressed by a URL resolved against `import.meta.url`, so the same code works whether it runs on the main thread or inside `analyzeWorker.js`. |
 | `localAnalyzer.js` | Reads a directory picked with `showDirectoryPicker()` into the file map `browserAnalyzer.js` needs. |
 | `githubAnalyzer.js` | Fetches a public GitHub repository's file tree and contents into the same file map. |
 | `analyzeWorker.js`  | Runs `localAnalyzer.js` / `githubAnalyzer.js` inside a dedicated worker so the page stays responsive during the analysis itself — see below. |
@@ -141,11 +142,86 @@ a different endpoint from the one `githubAnalyzer.js`'s `analyzeGithubRepo`
 uses to fetch a repo's own contents, with a much stricter rate limit (10
 requests/minute unauthenticated, vs. 60/hour) — so `panel.js` debounces
 input and never searches below two characters. The query is restricted to
-`language:javascript OR language:typescript`, the only kind of repository
-this analyzer can read. An empty field shows `POPULAR_REPOS`
+`language:javascript OR language:typescript OR language:svelte`, the kinds
+of repository this analyzer can read. An empty field shows `POPULAR_REPOS`
 (`githubAnalyzer.js`), a small fixed list — there is no "most popular" query
 to send the search API for an empty string, and showing suggestions this
 way costs none of that budget.
+
+### Analyzing Svelte components
+
+A `.svelte` file is not TypeScript, so it cannot go straight into a
+`ts.Program` the way every other source file here does. `analyzers/ts/svelte.mjs`
+bridges that gap with `svelte2tsx` — the same transform Svelte's own
+language server and `svelte-check` use, run for real rather than
+reimplemented — which turns a component's script *and* template into TSX
+text: `on:click={someHandler}` becomes a reference to `someHandler`,
+`{aFunction()}` becomes a real call, and `<Child prop={x}>` becomes a
+reference to whatever `Child` resolves to. That last one is the reason this
+uses the real transform instead of only reading each file's `<script>`
+block on its own: a script-only extraction can trace what a component's own
+code calls, but never which *other components* a template instantiates —
+exactly the edges that make a Svelte codebase's graph worth looking at.
+
+Both front ends feed the transformed text in under the file's own,
+unchanged name (`Foo.svelte`, not a virtual `Foo.svelte.tsx`) with an
+explicit `ts.ScriptKind.TSX`, so every other part of the pipeline — file
+attribution, zones, "Recently opened" keys — needs no Svelte-specific case
+at all; only three things do:
+
+* **The compiler's own root-file check.** TypeScript hard-errors a root file
+  whose extension it doesn't recognize (a real error, not a diagnostic to
+  ignore) unless `allowNonTsExtensions` is set — scoped to a project that
+  actually has a `.svelte` file, so it changes nothing about how every other
+  project here has always been analyzed.
+* **Module resolution.** `import Child from "./Child.svelte"` has no
+  extension TypeScript's resolver knows to try, so `resolveSvelteModule`
+  resolves a relative `.svelte` specifier against the known file set itself
+  and reports it with `extension: ts.Extension.Tsx`, telling the checker to
+  treat whatever it loads as TSX regardless of the file's real name. This is
+  the mechanism that makes `<Child />` in a template resolve to *Child's
+  own* declarations rather than dead-ending at the import statement.
+* **Line numbers.** svelte2tsx moves and rewrites code enough that a
+  declaration's line in the generated TSX is rarely its line in the
+  original file. Its sourcemap (a standard V3 map from `MagicString`) says
+  which original line a generated one came from; `svelte.mjs` decodes the
+  VLQ-encoded `mappings` string itself (a few dozen lines of arithmetic)
+  rather than adding another vendored dependency for it, and `core.mjs`'s
+  `analyzeProgram` takes an optional per-file line-remapping function
+  (`svelteLineMaps`) it applies wherever it would otherwise read a
+  `SourceFile`'s line directly.
+
+Every `.svelte` file's transform produces the same fixed scaffolding around
+a component's actual code: a `$$render` function wrapping the whole script
+and template, a `const Foo__SvelteComponent_ = …` and a
+`type Foo__SvelteComponent_ = …` describing its shape, and a trailing
+`export default Foo__SvelteComponent_`. Left as emitted, this is actively
+wrong, not just noisy: the `variable` and the `type` declaration share one
+name and therefore one id (`<file>::Foo__SvelteComponent_`,
+docs/DATA_FORMAT.md's "unique within the document" broken by construction),
+and a component's own functions — promoted into visible declarations at all
+only because `.svelte` files always get the `nested`-option treatment
+regardless of the project's own choice, the same reasoning `nested` itself
+documents for a named local function — end up parented under the
+meaningless `$$render` rather than under the component. `svelte.mjs`'s
+`cleanupSvelteDocument`, run once after `analyzeProgram`, turns that into
+one clean declaration per component — named and ided after the file itself
+(`Foo.svelte::Foo`, kind `class`, since a component is exactly that: a
+named, instantiable, importable unit) — reparents the component's own
+functions onto it, drops the scaffolding nodes entirely, and drops the
+edges that only existed because of it (a `type X -> type X` self-reference
+from the id collision, and "the component calls its own `$$render`") while
+leaving real self-recursion written by hand untouched.
+
+Not modeled: a prop passed at a component's own use site
+(`<Child onBump={bump} />`) is a runtime data flow into Child's
+`export let onBump`, not a lexical binding either file's `.svelte`
+independently exposes — connecting that specific use of `bump` to Child's
+internal call to whatever `onBump` holds would need Svelte-specific
+cross-component modeling this analyzer does not attempt, the same kind of
+gap the project already documents for other dynamic bindings, and a
+different limitation from the case the transform *does* handle: what a
+component's own script and template themselves reference and call.
 
 ### Keeping the codebase itself tidy
 

@@ -6,6 +6,25 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Analyze Svelte components
+
+* `.svelte` files are now analyzed like any other source file, in the Node
+  CLI, "Open folder…", and "GitHub repo" — a component's script *and*
+  template, transformed through the real `svelte2tsx` (the same transform
+  Svelte's own language server uses), not just its `<script>` block: a
+  template call (`{aFunction()}`), an event handler (`on:click={handler}`)
+  and a component-to-component reference (`<Child prop={x}>`, resolved to
+  Child's own declarations) all become real edges. See `docs/DESIGN.md`'s
+  "Analyzing Svelte components" for the module-resolution and line-number
+  remapping this needs, and how svelte2tsx's own generated scaffolding
+  (`$$render`, a colliding `variable`/`type` id pair) is turned into one
+  clean declaration per component instead of being exposed as-is.
+  GitHub search now also matches `language:svelte`, and a bundled
+  `sample-svelte` dataset demonstrates the feature. `svelte2tsx` +
+  `svelte/compiler` are bundled for the browser by `npm run vendor` (new
+  `esbuild` build-time dependency) into `site/vendor/svelte2tsx.js`, loaded
+  lazily only when a `.svelte` file is actually being analyzed.
+
 ### Fixed a "wall" in the 3D camera's orbit and dropped the Pointer Lock banner
 
 * Orbiting the 3D view's camera toward a level pitch (looking exactly

@@ -59,6 +59,13 @@ write(
   analyze({ name: "sample-bindings", root: join(root, "samples", "bindings"), include: ["."], language: "javascript" }),
 );
 
+write(
+  "sample-svelte",
+  "sample: a small Svelte app",
+  "component-to-component references and template calls, resolved through svelte2tsx",
+  analyze({ name: "sample-svelte", root: join(root, "samples", "svelte-app"), include: ["."], language: "svelte" }),
+);
+
 // 3. Synthetic graphs.
 write("sample-tree", "sample: perfect tree", "synthetic, 40 declarations", syntheticTree(3, 3));
 write("sample-tangle", "sample: tangled graph", "synthetic, 60 declarations with cycles and shared helpers", syntheticTangle(60, 7));

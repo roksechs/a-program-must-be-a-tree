@@ -64,7 +64,7 @@ site/            static site (GitHub Pages root)
   data/          generated datasets, listed in index.json
   content/       article chapters: chapters.json, then <lang>/<chapter>.md per language
   vendor/        d3 and TypeScript (copied by `npm run vendor`, do not edit; TypeScript is regenerated on every build, not committed)
-analyzers/ts/    JavaScript / TypeScript analyzer (TypeScript compiler API); core.mjs is the portable half shared with the browser's local-folder feature
+analyzers/ts/    JavaScript / TypeScript / Svelte analyzer (TypeScript compiler API, svelte2tsx for `.svelte`); core.mjs is the portable half shared with the browser's local-folder feature
 samples/         small source programs analyzed into the bundled sample datasets
 scripts/         vendoring, dataset generation, dev server
 test/            node:test unit tests
@@ -81,8 +81,10 @@ docs/            DESIGN.md (architecture, physics, metrics), DATA_FORMAT.md, THE
   loading older documents.
 * New languages are supported by adding an analyzer under `analyzers/<lang>/`
   that emits that JSON, not by changing the viewer.
-* Keep dependencies minimal (currently only `d3` and `typescript`, both dev
-  dependencies). Pin exact versions.
+* Keep dependencies minimal (currently `d3`, `typescript`, `svelte`,
+  `svelte2tsx` and `esbuild` — the last three only for Svelte support, `svelte`
+  and `svelte2tsx` vendored into `site/vendor/svelte2tsx.js` by `npm run
+  vendor` with `esbuild`; all dev dependencies). Pin exact versions.
 * Update `docs/DESIGN.md` when physics, zone or metric semantics change, and
   `README.md` when panel controls change.
 

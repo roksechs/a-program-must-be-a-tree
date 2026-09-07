@@ -7,7 +7,7 @@
 // (`site/js/localAnalyzer.js`, a Program built over an in-memory CompilerHost
 // fed by the File System Access API) — one analyzer, two front ends.
 export const ANALYZER_VERSION = "0.4.0";
-export const EXTENSIONS = new Set([".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".mts", ".cts"]);
+export const EXTENSIONS = new Set([".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".mts", ".cts", ".svelte"]);
 export const DEFAULT_EXCLUDES = ["node_modules", ".git", "dist", "build", "coverage", "vendor"];
 
 /**
@@ -62,13 +62,13 @@ export function createCore(ts) {
    * property assignments that may turn out to be declarations once every file is
    * known (docs/THEORY.md §4-5); `add` declares more entries in this file.
    */
-  function collectDeclarations(sf, file, baseName) {
+  function collectDeclarations(sf, file, baseName, toLine = (pos) => sf.getLineAndCharacterOfPosition(pos).line + 1) {
     const decls = [];
     const rest = []; // top-level statements that are not declarations: the module's own code
     const assignments = []; // `a.b = v` / `Object.assign(a.b, {...})` at top level
     const add = (node, name, kind, parent, exported, bodyNodes, nameNode, sep = ".") => {
       const id = parent ? `${parent.id}${sep}${name}` : `${file}::${name}`;
-      const entry = { node, id, name, kind, parent: parent?.id ?? null, exported, bodyNodes, nameNode, line: sf.getLineAndCharacterOfPosition(node.getStart(sf)).line + 1 };
+      const entry = { node, id, name, kind, parent: parent?.id ?? null, exported, bodyNodes, nameNode, line: toLine(node.getStart(sf)) };
       decls.push(entry);
       return entry;
     };
@@ -142,7 +142,7 @@ export function createCore(ts) {
         rest.push(stmt);
       }
     }
-    return { decls, rest, assignments, add, addClassMembers, sf, file, baseName };
+    return { decls, rest, assignments, add, addClassMembers, sf, file, baseName, toLine };
   }
 
   /**
@@ -248,8 +248,12 @@ export function createCore(ts) {
    * @param {string} args.stripPrefix stripped off the front of each file name to produce its `file` field (see `stripRoot`)
    * @param {string} args.rootLabel the document's `meta.root`
    * @param {object} args.options { name, language, nested: boolean (local functions as declarations, ids `<parent>/<name>`) }
+   * @param {Map<string, (generatedLine1: number) => number>} [args.svelteLineMaps] for a `.svelte` file that was
+   *   fed in as svelte2tsx-transformed TSX (see `analyzers/ts/svelte.mjs`), maps a line in that transformed text
+   *   back to its line in the original file, keyed by the same `SourceFile.fileName`; every other file's `line`
+   *   is exact since it's already what it appears to be.
    */
-  function analyzeProgram({ program, files, stripPrefix, rootLabel, options }) {
+  function analyzeProgram({ program, files, stripPrefix, rootLabel, options, svelteLineMaps }) {
     const checker = program.getTypeChecker();
     const fileSet = new Set(files);
 
@@ -262,7 +266,9 @@ export function createCore(ts) {
       if (!fileSet.has(sf.fileName)) continue;
       const file = stripRoot(stripPrefix, sf.fileName);
       const baseName = file.split("/").pop().replace(/\.[^.]+$/, "");
-      const ctx = collectDeclarations(sf, file, baseName);
+      const toOriginalLine = svelteLineMaps?.get(sf.fileName);
+      const toLine = toOriginalLine ? (pos) => toOriginalLine(sf.getLineAndCharacterOfPosition(pos).line + 1) : undefined;
+      const ctx = collectDeclarations(sf, file, baseName, toLine);
       fileCtx.push(ctx);
       for (const d of ctx.decls) {
         d.file = file;
@@ -582,7 +588,7 @@ export function createCore(ts) {
       // occurrence here is definition-time). The source file is its AST node.
       const e = ctx.add(ctx.sf, "<module>", "module", null, false, ctx.rest, null);
       e.displayName = ctx.baseName;
-      e.line = ctx.sf.getLineAndCharacterOfPosition(ctx.rest[0].getStart(ctx.sf)).line + 1;
+      e.line = ctx.toLine(ctx.rest[0].getStart(ctx.sf));
       attach(ctx, e);
     }
 
@@ -635,6 +641,15 @@ export function createCore(ts) {
     const nestLocal = (d) => {
       const ctx = ctxOf.get(d.file);
       const found = [];
+      // A `.svelte` file's entire script and template compile into the body
+      // of one function (svelte2tsx's `$$render`, see analyzers/ts/svelte.mjs):
+      // without promoting local functions the way `nested` does, an entire
+      // component would appear as a single opaque node, its own functions
+      // invisible and its calls between them untraceable — worse than the
+      // module-level graph `nested` is normally off *for*. So a component's
+      // functions are always promoted, independent of the project's own
+      // `nested` choice, the same way a class's methods always are.
+      const nested = options.nested || d.file.endsWith(".svelte");
       const walk = (node) => {
         let e = null;
         if (node !== d.node && ts.isPropertyAssignment(node) && isFunctionLike(unwrap(node.initializer))) {
@@ -647,13 +662,13 @@ export function createCore(ts) {
         } else if (node !== d.node && ts.isObjectLiteralExpression(node.parent) && (ts.isMethodDeclaration(node) || ts.isGetAccessorDeclaration(node) || ts.isSetAccessorDeclaration(node))) {
           const name = memberName(node.name);
           if (name) e = ctx.add(node, name, "function", d, false, [node], node.name, "/");
-        } else if (options.nested && node !== d.node && ts.isFunctionDeclaration(node) && node.name) {
+        } else if (nested && node !== d.node && ts.isFunctionDeclaration(node) && node.name) {
           e = ctx.add(node, node.name.text, "function", d, false, [node], node.name, "/");
-        } else if (options.nested && node !== d.node && ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer && isFunctionLike(unwrap(node.initializer))) {
+        } else if (nested && node !== d.node && ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer && isFunctionLike(unwrap(node.initializer))) {
           const init = unwrap(node.initializer);
           e = ctx.add(node, node.name.text, ts.isClassExpression(init) ? "class" : "function", d, false, [init], node.name, "/");
           if (ts.isClassExpression(init)) ctx.addClassMembers(init, e);
-        } else if (options.nested && node !== d.node && ts.isClassDeclaration(node) && node.name) {
+        } else if (nested && node !== d.node && ts.isClassDeclaration(node) && node.name) {
           e = ctx.add(node, node.name.text, "class", d, false, [], node.name, "/");
           if (node.heritageClauses) e.bodyNodes.push(...node.heritageClauses);
           ctx.addClassMembers(node, e);

@@ -48,6 +48,12 @@
     "file": "data/sample-bindings.json"
   },
   {
+    "id": "sample-svelte",
+    "name": "sample: a small Svelte app",
+    "description": "component-to-component references and template calls, resolved through svelte2tsx",
+    "file": "data/sample-svelte.json"
+  },
+  {
     "id": "sample-tangle",
     "name": "sample: tangled graph",
     "description": "synthetic, 60 declarations with cycles and shared helpers",

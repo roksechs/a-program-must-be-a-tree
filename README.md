@@ -67,9 +67,11 @@ Three ways, no server involved in any of them:
   "GitHub repo" field takes `owner/repo`, `owner/repo@ref` or a `github.com`
   URL — or searches GitHub as you type, showing a few popular JS/TS repos to
   try when it's empty — and fetches the repository's files client-side to
-  analyze the same way. Both run the real TypeScript-compiler-based analyzer entirely in the
-  page (`site/js/localAnalyzer.js`, `site/js/githubAnalyzer.js`) — nothing is
-  uploaded anywhere, and the GitHub option is subject to GitHub's
+  analyze the same way. Both run the real TypeScript-compiler-based analyzer
+  entirely in the page (`site/js/localAnalyzer.js`, `site/js/githubAnalyzer.js`),
+  `.svelte` files included (a component's script *and* template, transformed
+  through `svelte2tsx` — `docs/DESIGN.md`'s "Analyzing Svelte components") —
+  nothing is uploaded anywhere, and the GitHub option is subject to GitHub's
   unauthenticated API rate limit (60 requests/hour; fetching a repo's file
   tree is one request, its file contents are unmetered `raw.githubusercontent.com`
   fetches). Each result is remembered in the panel's "Recently opened" list
@@ -110,7 +112,7 @@ site/            static site (the root a static host publishes)
                  analysisCache ("Recently opened", IndexedDB)
   data/          generated datasets (index.json lists them)
   vendor/        d3 and TypeScript (copied by `npm run vendor`; TypeScript is regenerated on every build, not committed — see .gitignore)
-analyzers/ts/    JavaScript / TypeScript analyzer
+analyzers/ts/    JavaScript / TypeScript / Svelte analyzer
 samples/         small source programs analyzed into the bundled `sample-*` datasets
 site/content/    the article's chapters, one Markdown file per chapter per language (`article.html`)
 scripts/         data generation, vendoring, dev server
