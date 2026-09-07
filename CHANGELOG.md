@@ -21,14 +21,6 @@ The section for a version becomes the notes of its GitHub release
   since it has no business at the top just because it technically has no
   caller.
 
-### Dominator view
-
-* A "Dominator view" button next to "Fit to view"/"Top view" swaps the 3D
-  height axis from call height to dominator-tree depth — the same measure
-  behind the "natural scope" diagnostic — without touching the x/y layout,
-  the physics, or anything else about the camera. A second click switches
-  back to call height.
-
 ### Highlight structural motifs
 
 * A new "Patterns" panel section highlights four structural shapes anywhere

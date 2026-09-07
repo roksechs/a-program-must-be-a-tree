@@ -6,7 +6,6 @@ import { searchGithubRepos } from "./githubAnalyzer.js";
 import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
-import { dominance } from "./metrics.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
 import { MOTIF_COLORS, MOTIF_DETECTORS } from "./motifs.js";
 import { Panel } from "./panel.js";
@@ -132,7 +131,6 @@ const panel = new Panel(document.getElementById("panel"), state, {
   },
   onFit: () => renderer.fit(),
   onTop: () => renderer.viewTop(),
-  onDominatorView: () => renderer.viewDominator(),
   onZones: (minDepth, maxDepth) => {
     state.zoneMinDepth = minDepth;
     state.zoneMaxDepth = maxDepth;
@@ -189,7 +187,6 @@ function applyKinds() {
     applyActiveKinds(state.graph, state.kinds);
     panel.setMetrics(state.graph);
     panel.setSelection(renderer.selected, state.graph);
-    updateDominance(); // dominance() is keyed to the active-link set too; renderer.restyle() (below) may read it via nodeHeight()
     renderer.restyle();
     updateMotifs(); // a motif's own edges/nodes depend on which kinds are active, same as the diagnostics above
   }
@@ -220,19 +217,6 @@ function updateMotifs() {
     result.set(kind, { nodes, edges, color: MOTIF_COLORS[kind] });
   }
   renderer.setMotifs(result);
-}
-
-/**
- * Every node's dominator-tree depth (`n.domDepth`), for "Dominator view"
- * (graph3d.js's `heightMode`/`nodeHeight()`) — the same `dominance()` the
- * diagnostics panel's "Natural scope" and lift figures already compute and
- * memoise per active-link-set, so this adds no real cost beyond the one
- * assignment per node.
- */
-function updateDominance() {
-  if (!state.graph) return;
-  const dom = dominance(state.graph);
-  for (const n of state.graph.nodes) n.domDepth = dom.depth[n.scc];
 }
 
 let statusMessage = { key: "app.loading", params: {} };
@@ -279,7 +263,6 @@ function installGraph(doc, label) {
   applyActiveKinds(graph, state.kinds);
   state.physics.springKinds = new Set(state.kinds);
   state.graph = graph;
-  updateDominance();
   state.maxDepth = graph.maxDepth;
   state.zoneMinDepth = Math.min(state.zoneMinDepth, graph.maxDepth);
   state.zoneMaxDepth = Math.min(state.zoneMaxDepth, graph.maxDepth);

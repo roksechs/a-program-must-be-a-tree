@@ -16,7 +16,7 @@ export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onDominatorView, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onMotifs }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onMotifs }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -245,7 +245,6 @@ export class Panel {
           { class: "buttons" },
           this.el("button", { type: "button", onclick: h.onFit }, t("view.fit")),
           this.el("button", { type: "button", onclick: h.onTop }, t("view.top")),
-          this.el("button", { type: "button", title: t("view.dominator.hint"), onclick: h.onDominatorView }, t("view.dominator")),
         ),
         this.el("p", { class: "muted small" }, t("view.help")),
         this.el("h3", {}, t("section.physics")),

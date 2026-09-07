@@ -15,13 +15,12 @@ force-directed graph, and measure how close that graph is to a tree.
   centre and nothing pulls towards one, so declarations sit close together only
   when edges hold them there.
 * **The view** lifts the flat x/y layout the physics computes into three
-  dimensions, where the vertical axis is the call height: declarations that
-  only get called sit at the bottom, the deepest callers sit at the top. A
-  Top view preset looks straight down that axis with no perspective — the
-  same x/y layout a 2D-only rendering would show. A Dominator view preset
-  swaps that axis for dominator-tree depth instead, the same measure behind
-  the "natural scope" diagnostic below, without touching the x/y layout or
-  the physics.
+  dimensions, where the vertical axis is the call height: a declaration sits
+  as close to its shallowest caller as the rest of the graph allows, with
+  the deepest callers (or anything nobody calls) reaching the top; only the
+  leaf ending the graph's own single longest call chain is guaranteed to sit
+  at the bottom. A Top view preset looks straight down that axis with no
+  perspective — the same x/y layout a 2D-only rendering would show.
 * **Diagnostics** quantify tree-likeness on the enabled edge kinds: spanning
   ratio, acyclicity, single-caller ratio, DAG-ness and locality. They are
   directed: `A -> S <- B` is not a tree, and sharing a declaration between two
@@ -99,7 +98,7 @@ Three ways, no server involved in any of them:
 |-------------|----------|
 | Data        | bundled datasets, open a local JSON file, open a local folder, load a GitHub repo, "Recently opened" (folders/repos the browser has already analyzed, reopened instantly from IndexedDB — see below) |
 | Header      | language selector (English / Japanese) |
-| View & Physics | label mode, colour by kind or call height, layer gap and planes (off by default, with a focus-distance fade), auto-rotate, fit, top view (perspective-free, straight down the height axis), dominator view (swaps the height axis for dominator-tree depth); orbit by dragging, pan with shift-drag, zoom with the wheel, or fly with the keyboard — W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ forward/back; recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
+| View & Physics | label mode, colour by kind or call height, layer gap and planes (off by default, with a focus-distance fade), auto-rotate, fit, top view (perspective-free, straight down the height axis); orbit around the selected subject by dragging, pan with shift-drag, zoom with the wheel, or turn and move like a flight camera with the keyboard — W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ forward/back; recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |
 | Zones       | directory / file depth *range* (a two-handled slider): both ends start at 0 (nothing shown); the high handle reveals outward from the top like a single depth slider always did, down to the files at the maximum, while the low handle can raise the outer edge to show an inner band on its own |
 | Patterns    | structural motifs — cycles, hubs, diamonds, chains — highlighted anywhere they occur in the graph, any number on at once, each its own colour |

@@ -47,13 +47,6 @@ export class Graph3D {
     this.colorBy = "height";
     this.visibleKinds = new Set(EDGE_KINDS);
     this.layerGap = 80;
-    // Which per-node number the vertical axis lifts: the call height
-    // (deepest callers on top, pure callees at the bottom) normally, or the
-    // dominator-tree depth (app.js's `n.domDepth`, from dominance.js/
-    // metrics.js's `dominance()`) in "Dominator view" — the same x/y from
-    // the same physics either way, only what "up" means changes. See
-    // nodeHeight() and viewDominator().
-    this.heightMode = "call";
     this.showLayers = false;
     // Whether a layer plane's fill/stroke fades out away from the camera's
     // own focus (see draw()) rather than a single flat colour everywhere —
@@ -391,8 +384,7 @@ export class Graph3D {
     this.focusedNode = null;
     // Zones belong to the previous graph until the app calls setZones again.
     this.zones = [];
-    this.heightMode = "call"; // a new graph's dominance data (n.domDepth) may not even be computed yet
-    this.maxHeight = graph.nodes.reduce((h, n) => Math.max(h, this.nodeHeight(n)), 0);
+    this.maxHeight = graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
     this.draw();
   }
 
@@ -403,13 +395,8 @@ export class Graph3D {
 
   /** Degrees or heights changed: recompute the height range and redraw. */
   restyle() {
-    if (this.graph) this.maxHeight = this.graph.nodes.reduce((h, n) => Math.max(h, this.nodeHeight(n)), 0);
+    if (this.graph) this.maxHeight = this.graph.nodes.reduce((h, n) => Math.max(h, n.height), 0);
     this.draw();
-  }
-
-  /** The number `zOf()`/`maxHeight` lift into the vertical axis, per `heightMode` (see the constructor). */
-  nodeHeight(node) {
-    return this.heightMode === "dominator" ? (node.domDepth ?? 0) : node.height;
   }
 
   setLabelMode(mode) {
@@ -542,7 +529,7 @@ export class Graph3D {
   }
 
   zOf(node) {
-    return this.nodeHeight(node) * this.layerGap;
+    return node.height * this.layerGap;
   }
 
   hitTest(px, py) {
@@ -659,7 +646,7 @@ export class Graph3D {
         ctx.stroke();
         ctx.fillStyle = "rgba(71, 85, 105, 0.7)";
         ctx.font = "11px system-ui, sans-serif";
-        ctx.fillText(t(this.heightMode === "dominator" ? "graph3d.domDepth" : "graph3d.height", { height: h }), corners[0].x + 4, corners[0].y - 3);
+        ctx.fillText(t("graph3d.height", { height: h }), corners[0].x + 4, corners[0].y - 3);
       }
     }
 
@@ -741,7 +728,7 @@ export class Graph3D {
       ctx.globalAlpha = dimmed ? 0.2 : 1;
       ctx.beginPath();
       ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-      ctx.fillStyle = this.colorBy === "height" ? heightColor(this.nodeHeight(n), this.maxHeight) : kindColor(n.kind);
+      ctx.fillStyle = this.colorBy === "height" ? heightColor(n.height, this.maxHeight) : kindColor(n.kind);
       ctx.fill();
       ctx.lineWidth = n === sel ? 3 : n.inCycle ? 2 : 1;
       ctx.strokeStyle = n === sel ? "#111827" : n.inCycle ? "#b91c1c" : "#ffffff";
@@ -861,23 +848,6 @@ export class Graph3D {
     this.pitch = Math.PI / 2;
     this.orthographic = true;
     this.draw();
-  }
-
-  /**
-   * Toggle which number the vertical axis lifts (see `heightMode`/`nodeHeight()`)
-   * between call height and dominator-tree depth, then reframe exactly as
-   * "Fit to view" would for whichever one is now current — the same x/y
-   * from the same physics either way, so only `fit()`'s own z-dependent
-   * work (extent, focal length, target) actually needs redoing. A toggle,
-   * not a one-way trip: pressing it again switches back, the same button
-   * either way (unlike Top view, there is no "orbit away" gesture that
-   * would undo this on its own, since nothing about the pose itself is
-   * particular to one mode or the other).
-   */
-  viewDominator() {
-    this.heightMode = this.heightMode === "dominator" ? "call" : "dominator";
-    if (this.graph) this.maxHeight = this.graph.nodes.reduce((h, n) => Math.max(h, this.nodeHeight(n)), 0);
-    this.fit();
   }
 }
 

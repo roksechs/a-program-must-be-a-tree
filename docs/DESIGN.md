@@ -691,29 +691,6 @@ logic — unlike the path highlight, a node can and often does belong to more
 than one motif at once (a hub that is also in a cycle, say), so it can carry
 one ring per kind rather than one motif "winning" over the others.
 
-## Dominator view
-
-Call height and dominator depth answer different questions about the same
-graph: height is "how long a chain of calls sits below this node", dominance
-is "how much of the graph disappears if this node is removed" (see "Natural
-scope" above, already computed by `metrics.js`'s `dominance()` for that
-diagnostic). Showing both from the same camera, rather than a second
-renderer, keeps the comparison literal — same x/y from the same physics,
-same nodes and edges, only what the vertical axis means changes.
-
-`graph3d.js`'s `heightMode` (`"call"` or `"dominator"`) and `nodeHeight(node)`
-(`node.height` or `node.domDepth`) are consulted everywhere the renderer
-currently reads a node's height — `zOf()`, `colorBy === "height"`, the layer
-label text, and `maxHeight` — so `viewDominator()` (the "Dominator view"
-button, alongside "Fit to view"/"Top view") only has to flip `heightMode`,
-recompute `maxHeight` against the new metric, and re-`fit()`; nothing else in
-the render path needs to know which mode it is in. `app.js`'s
-`updateDominance()` sets `n.domDepth = dom.depth[n.scc]` for every node
-whenever the active edge kinds change (`installGraph()`, `applyKinds()`),
-the same triggers `dominance()` itself already runs on, so a disabled edge
-kind reshapes the dominator view exactly as it reshapes the diagnostic it's
-drawn from.
-
 ## Roadmap
 
 * Analyzers for Python, Go and Rust (tree-sitter based) and a `--git` mode that
