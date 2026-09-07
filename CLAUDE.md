@@ -23,7 +23,9 @@ Guidance for AI assistants and contributors working in this repository.
    unit tests fail when a language misses a key.
 5. **The product is a GitHub Pages site** that visualizes declaration graphs
    with D3.js. It must work as a static site without a server or build step;
-   d3 is vendored into `site/vendor` so the page has no runtime CDN dependency.
+   d3 and TypeScript (for the local-folder feature, which runs the analyzer
+   in-browser) are vendored into `site/vendor` so the page has no runtime CDN
+   dependency.
 6. **The viewer must be able to analyze this project itself** as well as
    well-known open-source projects. Keep `npm run build:data` producing the
    `self` dataset and keep example datasets working.
@@ -59,8 +61,8 @@ site/            static site (GitHub Pages root)
   js/            ES modules: model, metrics, dominance, simulation, zones, graph3d, panel, app, i18n
   data/          generated datasets, listed in index.json
   content/       article chapters: chapters.json, then <lang>/<chapter>.md per language
-  vendor/        d3 (copied by `npm run vendor`, do not edit)
-analyzers/ts/    JavaScript / TypeScript analyzer (TypeScript compiler API)
+  vendor/        d3 and TypeScript (copied by `npm run vendor`, do not edit; TypeScript is regenerated on every build, not committed)
+analyzers/ts/    JavaScript / TypeScript analyzer (TypeScript compiler API); core.mjs is the portable half shared with the browser's local-folder feature
 samples/         small source programs analyzed into the bundled sample datasets
 scripts/         vendoring, dataset generation, dev server
 test/            node:test unit tests
@@ -87,7 +89,7 @@ docs/            DESIGN.md (architecture, physics, metrics), DATA_FORMAT.md, THE
 ```sh
 npm install
 npm test               # unit tests (node:test)
-npm run vendor         # copy d3 into site/vendor
+npm run vendor         # copy d3 and TypeScript into site/vendor
 npm run build:data     # regenerate site/data/*.json (self + d3 packages + samples)
 npm run serve          # dev server at http://localhost:8080/
 node analyzers/ts/analyze.mjs --name x --root path --include src --out x.json

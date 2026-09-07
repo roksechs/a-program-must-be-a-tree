@@ -45,7 +45,7 @@ Cloudflare Pages, see Deployment. Analyzers turn a codebase into a small JSON do
 
 ```sh
 npm install
-npm run vendor       # copy d3 into site/vendor
+npm run vendor       # copy d3 and TypeScript into site/vendor
 npm run build:data   # analyze this repository and a few d3 packages into site/data
 npm run serve        # http://localhost:8080/
 ```
@@ -90,7 +90,7 @@ that writes the same JSON; see the data format document.
 site/            static site (the root a static host publishes)
   js/            ES modules: model, metrics, dominance, simulation, zones, renderers, panel, app
   data/          generated datasets (index.json lists them)
-  vendor/        d3 (copied by `npm run vendor`)
+  vendor/        d3 and TypeScript (copied by `npm run vendor`; TypeScript is regenerated on every build, not committed — see .gitignore)
 analyzers/ts/    JavaScript / TypeScript analyzer
 samples/         small source programs analyzed into the bundled `sample-*` datasets
 site/content/    the article's chapters, one Markdown file per chapter per language (`article.html`)
@@ -163,3 +163,4 @@ Deployment branches, otherwise the deploy job is rejected without running.
 ## License
 
 MIT. D3 is distributed under its own ISC license (see `site/vendor/d3.LICENSE`).
+TypeScript is distributed under its own Apache 2.0 license (`site/vendor/typescript.LICENSE`, present after `npm run vendor`).
