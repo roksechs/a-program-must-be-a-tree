@@ -369,10 +369,19 @@ every leaf to 0 means a shallow root's own chain may fall well short of
 `maxHeight`, so it doesn't reach the top plane even though nothing calls it;
 forcing every root to the top would instead pull some leaf above a non-leaf
 elsewhere in a longer chain, breaking "only-called declarations sit at the
-bottom" instead. This project anchors at the sinks, so a leaf's height is
-always 0 regardless of who calls it — a caller sitting far above one of its
-own direct callees is not a bug, it means that caller has another, longer
-chain elsewhere setting its height.
+bottom" instead. This project anchors at the sinks — a pure sink's height is
+always 0 regardless of who calls it, non-negotiably — but doesn't otherwise
+leave every other node at the minimal (ASAP) height that formula alone
+requires: `computeHeights()` (`model.js`) first computes that minimal height
+bottom-up exactly as above, fixing `maxHeight` and every sink's 0, then pulls
+every non-sink component up as close to its shallowest caller as possible —
+to `maxHeight` itself for one with no caller at all — in a second, top-down
+pass over the same condensation DAG (descending component id, so every
+caller is finalized before the callees its own height feeds into are
+computed). A caller can still sit far above one of its own direct callees —
+that callee may be a pinned sink, or a non-sink whose *other* caller has far
+less headroom — and that is not a bug, it means the gap is real slack rather
+than a fact about the chain between them.
 
 The projection is a small hand-written orbit camera (yaw, pitch, perspective)
 on a 2D canvas; no WebGL dependency is needed for a few thousand nodes. Pitch
@@ -431,20 +440,39 @@ near the origin (see "Nothing defines a centre" above), so `fit()` points
 `target` at the box's own centre instead of assuming the origin already
 coincides with it, and `focusOn()` points it at a node instead. Because
 rotation is relative to `target`, dragging to orbit never drifts whatever
-it's aimed at away from screen centre — only an explicit pan (shift-drag, or
-a held WASD key — both call the same `panScreen()`) moves it, as a
-screen-space offset on top of the orbit. Zooming (mouse
-wheel) rescales that offset by the same factor as the zoom, so whatever
-point sits at screen centre stays there through further zooming instead of
-sliding away from it — the per-node perspective factor cancels out of the
-ratio, so this holds regardless of a node's depth.
+it's aimed at away from screen centre — only an explicit pan (shift-drag,
+`panScreen()`) moves it, as a screen-space offset on top of the orbit.
+Zooming (mouse wheel) rescales that offset by the same factor as the zoom, so
+whatever point sits at screen centre stays there through further zooming
+instead of sliding away from it — the per-node perspective factor cancels
+out of the ratio, so this holds regardless of a node's depth.
 
-WASD panning listens on `window` rather than the canvas, since the canvas
-never takes keyboard focus, and is skipped while a text input is focused (the
-GitHub repo box, say) so that typing "sad" there doesn't fly the camera
-around; each held key re-arms itself on `requestAnimationFrame` rather than
-relying on the browser's own key-repeat timing, so the pan speed is the same
-regardless of OS repeat-rate settings.
+The keyboard offers the same three rotations as a flight camera, plus a
+dolly, as an alternative to the mouse: held down, W/S adjust `pitch`, Q/E
+adjust `yaw` (the same two fields an orbit drag already writes), and the
+up/down arrows adjust `zoomK` (the same field the wheel already writes) to
+move in/out along the view direction. A/D adjust a fourth field, `roll`,
+that orbiting and the wheel never touch: there is no pointer gesture for it,
+and unlike pitch/yaw it auto-levels back to 0 once A/D stop being held
+(eased by a multiplicative decay each frame) rather than staying wherever it
+was left, since an accidentally tilted horizon has no way back other than
+rolling the exact opposite amount by hand. `viewSpace()` applies roll last,
+as a plain 2D rotation of the already-projected `X`/`screenUp` pair around
+`target`'s own screen position (always screen centre) — equivalent to
+rolling the camera around its forward axis, and why nothing about the
+X/Y/depth computation that precedes it needs to know roll exists.
+`panScreen()` undoes that same rotation on its screen-space input first,
+since a shift-drag's `dx`/`dy` arrive in final (rolled) screen pixels but
+its own yaw/pitch math is written in the frame `viewSpace()` computes before
+roll is applied.
+
+All of this listens on `window` rather than the canvas, since the canvas
+never takes keyboard focus, and is skipped while a text input is focused
+(the GitHub repo box, say) so that typing doesn't fly the camera around;
+each held key re-arms itself on `requestAnimationFrame` rather than relying
+on the browser's own key-repeat timing, so the response is the same
+regardless of OS repeat-rate settings, and the same loop keeps running past
+the last keyup for as long as roll still has ground to give back.
 
 A node focused with `focusOn()` keeps its own position re-read into `target`
 on every frame rather than a one-off snapshot: node positions keep changing

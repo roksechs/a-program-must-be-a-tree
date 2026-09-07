@@ -48,9 +48,31 @@ test("call heights: leaves are 0, callers stack above, cycles share a height", (
   assert.equal(h("a"), 2);
   assert.equal(h("main"), 3);
   assert.equal(h("x"), h("y"));
-  assert.equal(h("x"), 1);
+  // Nothing calls into the {x, y} cycle, so — unlike a pure sink — it is
+  // lifted all the way to the top plane instead of sitting at its minimal
+  // (ASAP) height of 1.
+  assert.equal(h("x"), 3);
   assert.equal(g.byId.get("x").inCycle, true);
   assert.equal(g.byId.get("main").inCycle, false);
+});
+
+test("call heights: a node with slack is pulled up toward its caller, a pure sink stays pinned at 0", () => {
+  const g = buildGraph({
+    declarations: ["root", "x", "leafX", "y", "z", "leafZ"].map((id) => decl(id)),
+    edges: [edge("root", "x"), edge("x", "leafX"), edge("root", "y"), edge("y", "z"), edge("z", "leafZ")],
+  });
+  const h = (id) => g.byId.get(id).height;
+  // root -> y -> z -> leafZ is the longest chain, fixing maxHeight at 3; the
+  // shallower root -> x -> leafX branch has slack.
+  assert.equal(h("leafX"), 0); // pure sink: pinned regardless of how high its caller sits
+  assert.equal(h("leafZ"), 0); // pure sink on the critical path too — still pinned, not just coincidentally 0
+  assert.equal(h("root"), 3);
+  assert.equal(h("y"), 2);
+  assert.equal(h("z"), 1);
+  // x's own ASAP height is 1 (one hop to a leaf), but it is not itself a
+  // sink (it calls leafX), so it is pulled up to sit right below its only
+  // caller, root, instead of being left at its minimal height.
+  assert.equal(h("x"), 2);
 });
 
 test("self loops mark a node as cyclic", () => {

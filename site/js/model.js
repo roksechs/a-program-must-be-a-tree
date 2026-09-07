@@ -200,6 +200,16 @@ export function stronglyConnectedComponents(nodes, links) {
  * Assign each node a call height: the longest path from its SCC to a sink SCC
  * in the condensation DAG. Nodes that only get called have height 0.
  * Tarjan emits SCCs in reverse topological order, so a single pass suffices.
+ *
+ * That minimal (ASAP) height is only the floor, not the final value: a
+ * component with slack above it — its shallowest caller sits higher than one
+ * more than its own height — is then pulled up as close to that caller as
+ * possible, all the way to the top plane for one with no caller at all. A
+ * pure sink (nothing called from it) is exempt and stays pinned to its ASAP
+ * value of 0 regardless: "only called" declarations must sit at the bottom,
+ * and that and "every uncalled root sits at the top" cannot both hold once
+ * chains of different lengths coexist in the same graph (see
+ * docs/DESIGN.md), so the pin wins and only non-sinks get lifted.
  */
 export function computeHeights(nodes, links) {
   const { comp, compCount } = stronglyConnectedComponents(nodes, links);
@@ -224,10 +234,23 @@ export function computeHeights(nodes, links) {
     height[c] = h;
   }
   let maxHeight = 0;
+  for (let c = 0; c < compCount; c++) if (height[c] > maxHeight) maxHeight = height[c];
+
+  // Descending id order visits every caller of a component before the
+  // component itself (a condensation edge always points to a lower id), so
+  // by the time a component is lifted, the ceiling its callers were lifted
+  // to is already final.
+  const compCallers = Array.from({ length: compCount }, () => []);
+  for (let c = 0; c < compCount; c++) for (const d of compAdj[c]) compCallers[d].push(c);
+  for (let c = compCount - 1; c >= 0; c--) {
+    if (compAdj[c].size === 0) continue; // pure sink: leave pinned at its ASAP height, 0
+    const callers = compCallers[c];
+    height[c] = callers.length === 0 ? maxHeight : Math.min(...callers.map((a) => height[a])) - 1;
+  }
+
   for (const n of nodes) {
     n.height = height[n.scc];
     n.inCycle = compSize[n.scc] > 1 || selfLoop[n.index] === 1;
-    if (n.height > maxHeight) maxHeight = n.height;
   }
   return { compCount, compSize, maxHeight };
 }

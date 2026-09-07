@@ -87,7 +87,7 @@ const STRINGS = {
     "view.top": "Top view",
     "view.dominator": "Dominator view",
     "view.dominator.hint": "Lift the height axis by dominator-tree depth instead of call height, and reframe. Press again to switch back.",
-    "view.help": "Drag to orbit, shift+drag or WASD to pan, wheel to zoom. Click a node to inspect it, double-click to focus it, ctrl/cmd+click a second one to highlight the path between them. Top view looks straight down the height axis with no perspective; orbiting away from it returns to the normal view.",
+    "view.help": "Drag to orbit, shift+drag to pan, wheel to zoom. W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ move forward/back. Click a node to inspect it, double-click to focus it, ctrl/cmd+click a second one to highlight the path between them. Top view looks straight down the height axis with no perspective; orbiting away from it returns to the normal view.",
 
     "physics.reheat": "Recompute (reheat)",
     "physics.reset": "Reset positions",
@@ -263,7 +263,7 @@ const STRINGS = {
     "view.top": "真上から見る",
     "view.dominator": "支配木ビュー",
     "view.dominator.hint": "高さ軸を呼び出し高さの代わりに支配木の深さで持ち上げ、再フレーミングします。もう一度押すと元に戻ります。",
-    "view.help": "ドラッグで回転、Shift+ドラッグまたはWASDでパン、ホイールでズーム。ノードをクリックすると詳細を表示、ダブルクリックで注視、Ctrl/Cmd+クリックで2つ目のノードとの間の経路をハイライトします。「真上から見る」は遠近感なしで高さの軸を真上から見下ろす視点で、そこから回転すると通常の視点に戻ります。",
+    "view.help": "ドラッグで回転、Shift+ドラッグでパン、ホイールでズーム。W/Sでピッチ、A/Dでロール(離すと自動で水平に戻ります)、Q/Eでヨー、↑/↓で前後移動。ノードをクリックすると詳細を表示、ダブルクリックで注視、Ctrl/Cmd+クリックで2つ目のノードとの間の経路をハイライトします。「真上から見る」は遠近感なしで高さの軸を真上から見下ろす視点で、そこから回転すると通常の視点に戻ります。",
 
     "physics.reheat": "再計算 (リヒート)",
     "physics.reset": "位置をリセット",

@@ -6,6 +6,18 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Lift call heights toward their caller
+
+* A node with slack above it — its shallowest caller sits higher than one
+  more than its own minimal height — is now pulled up as close to that
+  caller as possible, all the way to the top plane for one with no caller at
+  all, instead of sitting at the minimal height that only its own outgoing
+  calls required. A pure sink (nothing called from it) is exempt and stays
+  pinned to the bottom regardless of who calls it: "only called"
+  declarations must sit at the bottom, and that and "every uncalled root
+  sits at the top" cannot both hold in general (see `docs/DESIGN.md`), so
+  the sink pin wins and only non-sinks get lifted.
+
 ### Dominator view
 
 * A "Dominator view" button next to "Fit to view"/"Top view" swaps the 3D
@@ -74,10 +86,13 @@ The section for a version becomes the notes of its GitHub release
 * "Layer planes" now starts unchecked instead of checked, since a plane per
   layer is more clutter than guide until asked for on a graph with many of
   them.
-* The 3D view can now also be panned by holding W/A/S/D, alongside the
-  existing shift-drag, for anyone who'd rather steer with the keyboard while
-  the mouse orbits. Disabled while a text field (the GitHub repo box, say)
-  has focus, so typing doesn't fly the camera around.
+* The 3D camera can now also be flown with the keyboard, alongside the
+  existing mouse controls: W/S pitch, Q/E yaw (the same two fields an orbit
+  drag already writes), and the up/down arrows dolly in/out (the same
+  `zoomK` the wheel already writes). A/D add a new roll, auto-levelling back
+  to 0 once released rather than leaving the horizon tilted. Disabled while
+  a text field (the GitHub repo box, say) has focus, so typing doesn't fly
+  the camera around.
 
 ### Analyze Svelte components
 

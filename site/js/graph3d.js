@@ -78,6 +78,12 @@ export class Graph3D {
     // only ever visible for the single instant a continuous orbit passes
     // through the exact angle anyway.
     this.pitch = 0.9;
+    // Camera roll (tilt around the forward axis, A/D — see bindEvents):
+    // unlike yaw/pitch there is no pointer gesture for it, only the keyboard,
+    // and it auto-levels back to 0 once A/D stop being held (see keyStep())
+    // rather than staying wherever it was left, since an accidentally tilted
+    // horizon has no way back other than rolling the exact opposite amount.
+    this.roll = 0;
     // True while showing the "Top view" preset: a perspective-free look
     // straight down the height axis (see viewTop()), which is what a purely
     // 2D top-down rendering of this same x/y layout would look like — the
@@ -206,58 +212,104 @@ export class Graph3D {
       { passive: false },
     );
 
-    // WASD panning, held down like a game camera, as an alternative to the
-    // shift-drag pan above (same panScreen()) for anyone who'd rather steer
-    // with the keyboard while the mouse orbits. Listens on window rather than
-    // the canvas since the canvas never takes keyboard focus, and is skipped
-    // while a text field (e.g. the GitHub repo box) is focused so typing
-    // "sad" doesn't fly the camera around.
-    const PAN_KEYS = { w: [0, -1], s: [0, 1], a: [-1, 0], d: [1, 0] };
-    const PAN_SPEED = 14; // screen pixels per animation frame, at zoomK 1
+    // Keyboard camera controls, held down like a game camera: W/S pitch the
+    // camera up/down, A/D roll it, Q/E yaw it left/right, and the up/down
+    // arrows dolly in/out (the same zoomK the wheel drives). Listens on
+    // window rather than the canvas since the canvas never takes keyboard
+    // focus, and is skipped while a text field (e.g. the GitHub repo box) is
+    // focused so typing doesn't fly the camera around.
+    const ROTATE_STEP = 0.03; // radians per animation frame
+    const ZOOM_STEP = 1.02; // multiplicative factor per animation frame
+    const KEY_ACTIONS = {
+      w: () => {
+        this.pitch += ROTATE_STEP;
+      },
+      s: () => {
+        this.pitch -= ROTATE_STEP;
+      },
+      a: () => {
+        this.roll -= ROTATE_STEP;
+      },
+      d: () => {
+        this.roll += ROTATE_STEP;
+      },
+      q: () => {
+        this.yaw -= ROTATE_STEP;
+      },
+      e: () => {
+        this.yaw += ROTATE_STEP;
+      },
+      arrowup: () => {
+        this.zoomK = Math.min(8, this.zoomK * ZOOM_STEP);
+      },
+      arrowdown: () => {
+        this.zoomK = Math.max(0.05, this.zoomK / ZOOM_STEP);
+      },
+    };
     const heldKeys = new Set();
-    let panRAF = null;
+    let keyRAF = null;
     const isTyping = () => {
       const el = document.activeElement;
       return Boolean(el) && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable);
     };
-    const panStep = () => {
-      let dx = 0;
-      let dy = 0;
+    const keyStep = () => {
       for (const k of heldKeys) {
-        const [kx, ky] = PAN_KEYS[k];
-        dx += kx;
-        dy += ky;
+        KEY_ACTIONS[k]();
+        // A rotation is a deliberate move away from the flat top-down pose,
+        // same as an orbit drag; a dolly (arrow keys) leaves it alone, same
+        // as the wheel does.
+        if (k !== "arrowup" && k !== "arrowdown") this.orthographic = false;
       }
-      if (dx === 0 && dy === 0) {
-        panRAF = null;
+      // Auto-level: once A/D aren't actively rolling it further, roll eases
+      // back to 0 on its own instead of leaving the horizon tilted, the same
+      // way a game camera self-rights after a roll input ends. This keeps
+      // the loop alive past the last keyup until it settles.
+      if (!heldKeys.has("a") && !heldKeys.has("d") && this.roll !== 0) {
+        this.roll *= 0.85;
+        if (Math.abs(this.roll) < 0.001) this.roll = 0;
+      }
+      if (heldKeys.size === 0 && this.roll === 0) {
+        keyRAF = null;
         return;
       }
-      this.panScreen(dx * PAN_SPEED, dy * PAN_SPEED);
-      panRAF = requestAnimationFrame(panStep);
+      this.draw();
+      keyRAF = requestAnimationFrame(keyStep);
     };
     window.addEventListener("keydown", (e) => {
       const k = e.key.toLowerCase();
-      if (!(k in PAN_KEYS) || isTyping()) return;
+      if (!(k in KEY_ACTIONS) || isTyping()) return;
+      e.preventDefault(); // stop the arrow keys from scrolling the page
       heldKeys.add(k);
-      if (panRAF === null) panRAF = requestAnimationFrame(panStep);
+      if (keyRAF === null) keyRAF = requestAnimationFrame(keyStep);
     });
     window.addEventListener("keyup", (e) => heldKeys.delete(e.key.toLowerCase()));
     window.addEventListener("blur", () => heldKeys.clear());
   }
 
   /**
-   * Pan by a screen-space delta (dx right, dy down), the same math whether it
-   * comes from a shift-drag or a held WASD key: move `target` itself in world
-   * space instead of adding a separate screen-space offset, so orbiting keeps
-   * pivoting on screen centre even after panning (see the constructor), and
-   * stop following a focused node so the pan sticks instead of being
-   * overridden on the next frame.
+   * Pan by a screen-space delta (dx right, dy down) — used by the shift-drag
+   * pan in bindEvents: move `target` itself in world space instead of adding
+   * a separate screen-space offset, so orbiting keeps pivoting on screen
+   * centre even after panning (see the constructor), and stop following a
+   * focused node so the pan sticks instead of being overridden on the next
+   * frame.
    */
   panScreen(dx, dy) {
     this.focusedNode = null;
     const scale = this.zoomK; // scale at the target's own depth (project(): depth 0)
-    const ddx = dx / scale;
-    const ddy = -dy / scale; // +1 = one world unit of screen "up"
+    let ddx = dx / scale;
+    let ddy = -dy / scale; // +1 = one world unit of screen "up"
+    if (this.roll !== 0) {
+      // Undo the on-screen roll rotation first: dx/dy arrive in final screen
+      // pixels, but the yaw/pitch math below expects them in the unrolled
+      // frame viewSpace() itself works in (see project()).
+      const cr = Math.cos(this.roll);
+      const sr = Math.sin(this.roll);
+      const rx = ddx * cr + ddy * sr;
+      const ry = -ddx * sr + ddy * cr;
+      ddx = rx;
+      ddy = ry;
+    }
     const cy = Math.cos(this.yaw);
     const sy = Math.sin(this.yaw);
     const cp = Math.cos(this.pitch);
@@ -376,7 +428,7 @@ export class Graph3D {
    * target, target itself always projects to screen centre (X = Y = 0)
    * regardless of yaw/pitch — orbiting never drifts it away from centre.
    */
-  /** The rotation (yaw then pitch) project() and projectClamped() share, before either decides how to turn depth into scale. */
+  /** The rotation (yaw, then pitch, then roll) project() and projectClamped() share, before either decides how to turn depth into scale. */
   viewSpace(x, y, z) {
     const rx = x - this.targetX;
     const ry = y - this.targetY;
@@ -387,7 +439,16 @@ export class Graph3D {
     const Y = rx * sy + ry * cy;
     const cp = Math.cos(this.pitch);
     const sp = Math.sin(this.pitch);
-    return { X, screenUp: Y * sp + rz * cp, depth: Y * cp - rz * sp };
+    const upX = Y * sp + rz * cp;
+    const depth = Y * cp - rz * sp;
+    // Roll doesn't change distance from the camera, only the on-screen
+    // orientation, so it's a plain 2D rotation of the already-projected
+    // X/screenUp pair around target's own screen position (always centre) —
+    // equivalent to rolling the camera itself around its forward axis.
+    if (this.roll === 0) return { X, screenUp: upX, depth };
+    const cr = Math.cos(this.roll);
+    const sr = Math.sin(this.roll);
+    return { X: X * cr - upX * sr, screenUp: X * sr + upX * cr, depth };
   }
 
   project(x, y, z) {
