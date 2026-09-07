@@ -86,7 +86,7 @@ const STRINGS = {
     "view.autoRotate": "Auto-rotate",
     "view.fit": "Fit to view",
     "view.top": "Top view",
-    "view.help": "Drag to orbit, shift+drag to pan, wheel to zoom. W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ move forward/back. Click a node to inspect it, double-click to focus it, ctrl/cmd+click a second one to highlight the path between them. Top view looks straight down the height axis with no perspective; orbiting away from it returns to the normal view.",
+    "view.help": "Drag to orbit, shift+drag to pan, wheel to zoom. W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ forward/back, ←/→ strafe — pitch never crosses over vertical, so the view never ends up upside down. Click a node to inspect it, double-click to focus it, ctrl/cmd+click a second one to highlight the path between them. Top view looks straight down the height axis with no perspective; orbiting away from it returns to the normal view.",
 
     "physics.reheat": "Recompute (reheat)",
     "physics.reset": "Reset positions",
@@ -260,7 +260,7 @@ const STRINGS = {
     "view.autoRotate": "自動回転",
     "view.fit": "全体表示",
     "view.top": "真上から見る",
-    "view.help": "ドラッグで回転、Shift+ドラッグでパン、ホイールでズーム。W/Sでピッチ、A/Dでロール(離すと自動で水平に戻ります)、Q/Eでヨー、↑/↓で前後移動。ノードをクリックすると詳細を表示、ダブルクリックで注視、Ctrl/Cmd+クリックで2つ目のノードとの間の経路をハイライトします。「真上から見る」は遠近感なしで高さの軸を真上から見下ろす視点で、そこから回転すると通常の視点に戻ります。",
+    "view.help": "ドラッグで回転、Shift+ドラッグでパン、ホイールでズーム。W/Sでピッチ、A/Dでロール(離すと自動で水平に戻ります)、Q/Eでヨー、↑/↓で前後移動、←/→で左右移動 — ピッチは真上/真下を超えないので、画面が上下逆さまになることはありません。ノードをクリックすると詳細を表示、ダブルクリックで注視、Ctrl/Cmd+クリックで2つ目のノードとの間の経路をハイライトします。「真上から見る」は遠近感なしで高さの軸を真上から見下ろす視点で、そこから回転すると通常の視点に戻ります。",
 
     "physics.reheat": "再計算 (リヒート)",
     "physics.reset": "位置をリセット",

@@ -6,6 +6,22 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### The 3D camera never ends up upside down, strafes, and eases in/out
+
+* Pitch is now bounded to straight up/straight down (±90°): past that point
+  the camera looks from underneath the layout and the height axis's own
+  screen-space contribution changes sign, so every edge reads as pointing
+  the wrong way with nothing on screen to say the view itself flipped
+  rather than the data — an easy accident to have with an ordinary drag or
+  a held W/S, and hard to notice until the picture already looks wrong.
+* The left/right arrows now strafe the camera sideways, alongside the
+  existing up/down dolly.
+* All five keyboard axes (pitch, yaw, roll, dolly, strafe) now ease in and
+  out through their own rate instead of snapping to full speed the instant
+  a key goes down and stopping dead the instant it comes up, so a tap reads
+  as a nudge and a held key reads as accelerating into a cruise and
+  coasting back down on release.
+
 ### Export the currently loaded analysis as JSON
 
 * A new "Export JSON" button in the Data section downloads the raw analyzer

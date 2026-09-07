@@ -3,7 +3,7 @@
   "name": "sample-svelte",
   "root": "samples/svelte-app",
   "language": "svelte",
-  "generatedAt": "2026-09-07T07:43:58.314Z",
+  "generatedAt": "2026-09-07T08:03:53.149Z",
   "analyzer": "analyzers/ts@0.4.0",
   "files": 3
  },

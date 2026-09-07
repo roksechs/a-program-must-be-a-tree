@@ -451,45 +451,71 @@ whatever point sits at screen centre stays there through further zooming
 instead of sliding away from it — the per-node perspective factor cancels
 out of the ratio, so this holds regardless of a node's depth.
 
+Pitch is bounded to `PITCH_LIMIT` (±π/2 — straight down to straight up, level
+in between), unlike yaw, which still spins freely: past that point the
+camera would be looking from underneath the layout, and `viewSpace()`'s own
+`cos(pitch)` term (the height axis's screen-space contribution) changes
+sign, so every edge would appear to run the wrong way with nothing on
+screen to say the view itself had flipped rather than the data. An ordinary
+drag or a held W/S can cross that point without the person driving it
+noticing until the picture already looks wrong, so this trades away viewing
+the graph from directly underneath for never landing there by accident.
+
 The keyboard offers the same three rotations as a flight camera, plus a
-dolly, as an alternative to the mouse — but the mouse and W/S/Q/E disagree
-about what a rotation pivots on. Dragging to orbit changes yaw/pitch without
-touching `target`, so it swings the camera's own (implicit) position around
-that fixed subject — the arcball behaviour described above. W/S/Q/E instead
-call `rotateInPlace(dYaw, dPitch)`, which holds the *camera's* position
-fixed and swings `target` around instead, the way turning your head does
-rather than orbiting a subject: it recovers that implicit camera position as
-`target` minus `focal` world units along the current `forwardVector(yaw,
-pitch)` (the inverse of `viewSpace()`'s yaw-then-pitch rotation applied to
-"straight ahead", also shared by `dolly()` below), applies the yaw/pitch
-change, then re-derives `target` as `focal` units ahead of that same fixed
-point along the *new* view direction — so whatever was framed dead ahead
-drifts off screen centre as you turn, rather than staying put the way
-orbiting keeps it. The up/down arrows call `dolly()`, moving `target` itself
-a world-space step along `forwardVector()` rather than rescaling `zoomK` the
-way the wheel does: an actual move through the scene, not a bigger picture
-of the same vantage point. A/D adjust a fourth field, `roll`,
-that orbiting and the wheel never touch: there is no pointer gesture for it,
-and unlike pitch/yaw it auto-levels back to 0 once A/D stop being held
-(eased by a multiplicative decay each frame) rather than staying wherever it
-was left, since an accidentally tilted horizon has no way back other than
-rolling the exact opposite amount by hand. `viewSpace()` applies roll last,
-as a plain 2D rotation of the already-projected `X`/`screenUp` pair around
-`target`'s own screen position (always screen centre) — equivalent to
-rolling the camera around its forward axis, and why nothing about the
-X/Y/depth computation that precedes it needs to know roll exists.
-`panScreen()` undoes that same rotation on its screen-space input first,
-since a shift-drag's `dx`/`dy` arrive in final (rolled) screen pixels but
-its own yaw/pitch math is written in the frame `viewSpace()` computes before
-roll is applied.
+dolly and a strafe, as an alternative to the mouse — but the mouse and
+W/S/Q/E disagree about what a rotation pivots on. Dragging to orbit changes
+yaw/pitch without touching `target`, so it swings the camera's own
+(implicit) position around that fixed subject — the arcball behaviour
+described above. W/S/Q/E instead call `rotateInPlace(dYaw, dPitch)`, which
+holds the *camera's* position fixed and swings `target` around instead, the
+way turning your head does rather than orbiting a subject: it recovers that
+implicit camera position as `target` minus `focal` world units along the
+current `forwardVector(yaw, pitch)` (the inverse of `viewSpace()`'s
+yaw-then-pitch rotation applied to "straight ahead", also shared by
+`dolly()` below), applies the yaw/pitch change (clamping pitch the same way
+the mouse drag does), then re-derives `target` as `focal` units ahead of
+that same fixed point along the *new* view direction — so whatever was
+framed dead ahead drifts off screen centre as you turn, rather than staying
+put the way orbiting keeps it. The up/down arrows call `dolly()`, moving
+`target` itself a world-space step along `forwardVector()` rather than
+rescaling `zoomK` the way the wheel does — an actual move through the
+scene, not a bigger picture of the same vantage point — and the left/right
+arrows call `panScreen()` with a purely horizontal screen-space delta, the
+same sideways step a keyboard-driven strafe takes in any flight camera.
+A/D adjust a fifth field, `roll`, that orbiting and the wheel never touch:
+there is no pointer gesture for it, and unlike the other four it also
+auto-levels back to 0 once A/D stop being held (an added multiplicative
+decay on top of the easing below) rather than staying wherever it was left,
+since an accidentally tilted horizon has no way back other than rolling the
+exact opposite amount by hand. `viewSpace()` applies roll last, as a plain
+2D rotation of the already-projected `X`/`screenUp` pair around `target`'s
+own screen position (always screen centre) — equivalent to rolling the
+camera around its forward axis, and why nothing about the X/Y/depth
+computation that precedes it needs to know roll exists. `panScreen()`
+undoes that same rotation on its screen-space input first, since its
+`dx`/`dy` (a shift-drag's, or a strafe's) arrive in final (rolled) screen
+pixels but its own yaw/pitch math is written in the frame `viewSpace()`
+computes before roll is applied.
+
+Each of these five keyboard axes (pitch, yaw, roll, dolly, strafe) is driven
+by its own eased rate rather than a fixed per-frame step: every frame, each
+rate closes 15% of the gap toward ±1 (whichever direction's key is held) or
+0 (neither), then that rate — not a constant — is what actually moves the
+camera. This makes a tap read as a nudge and a held key read as
+accelerating into a cruise and coasting back down on release, rather than
+snapping to full speed the instant a key goes down and stopping dead the
+instant it comes up. A rate is snapped to exactly 0 once it's negligibly
+close, so the easing loop can actually terminate instead of running
+forever on an ever-shrinking fraction of a gap; the loop keeps re-arming
+itself on `requestAnimationFrame` past the last keyup for as long as any
+rate (or roll's own separate auto-level) still has ground to cover.
 
 All of this listens on `window` rather than the canvas, since the canvas
 never takes keyboard focus, and is skipped while a text input is focused
 (the GitHub repo box, say) so that typing doesn't fly the camera around;
 each held key re-arms itself on `requestAnimationFrame` rather than relying
 on the browser's own key-repeat timing, so the response is the same
-regardless of OS repeat-rate settings, and the same loop keeps running past
-the last keyup for as long as roll still has ground to give back.
+regardless of OS repeat-rate settings.
 
 A node focused with `focusOn()` keeps its own position re-read into `target`
 on every frame rather than a one-off snapshot: node positions keep changing

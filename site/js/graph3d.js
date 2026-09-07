@@ -21,6 +21,17 @@ const FOCAL_EXTENT_RATIO = 1.2;
 // out of frame.
 const MAX_MAGNIFICATION = 4;
 
+// Pitch never goes past straight up/down: beyond here the camera is looking
+// from underneath the layout, and the height axis's own screen-space
+// contribution (viewSpace()'s cos(pitch) term) changes sign, so "up" flips —
+// a call graph rendered this way reads as if every edge pointed the wrong
+// way, with nothing on screen to say the view itself is upside down rather
+// than the data. Clamping here trades away viewing the graph from directly
+// underneath for never landing there by accident (an ordinary drag or a
+// held W/S can otherwise cross it without anyone noticing until the picture
+// already looks wrong).
+const PITCH_LIMIT = Math.PI / 2;
+
 export class Graph3D {
   constructor(host, callbacks) {
     this.host = host;
@@ -57,19 +68,21 @@ export class Graph3D {
 
     this.yaw = -0.6;
     // Camera elevation above the ground plane: 0 = looking horizontally,
-    // +PI/2 = straight down from above, -PI/2 = straight up from below, and
-    // it keeps going past there — orbiting over the top or under the bottom
-    // continues the loop rather than stopping, so every angle is reachable,
-    // including exactly level. At a level elevation the camera's forward
-    // axis is horizontal, so height stops contributing to depth (the layer
-    // planes, drawn edge-on, briefly flatten to lines — see draw()) the same
-    // way a real pinhole camera has the same momentary dead spot; earlier
-    // versions kept pitch a fixed distance away from every such point to
-    // avoid it, which instead made crossing one a sudden jump (an orbit drag
-    // can only sample discrete steps, so a value forced to stay outside a
-    // band has to skip over it, however small the step) for a flaw that is
-    // only ever visible for the single instant a continuous orbit passes
-    // through the exact angle anyway.
+    // +PITCH_LIMIT = straight down from above, -PITCH_LIMIT = straight up
+    // from below. Unlike yaw, pitch does not loop past there — see
+    // PITCH_LIMIT's own comment for why crossing over would flip "up" on
+    // screen with nothing on screen to say so. Every angle in between,
+    // including exactly level, is still freely reachable: at a level
+    // elevation the camera's forward axis is horizontal, so height stops
+    // contributing to depth (the layer planes, drawn edge-on, briefly
+    // flatten to lines — see draw()) the same way a real pinhole camera has
+    // the same momentary dead spot; earlier versions kept pitch a fixed
+    // distance away from every such point to avoid it, which instead made
+    // crossing one a sudden jump (an orbit drag can only sample discrete
+    // steps, so a value forced to stay outside a band has to skip over it,
+    // however small the step) for a flaw that is only ever visible for the
+    // single instant a continuous orbit passes through the exact angle
+    // anyway.
     this.pitch = 0.9;
     // Camera roll (tilt around the forward axis, A/D — see bindEvents):
     // unlike yaw/pitch there is no pointer gesture for it, only the keyboard,
@@ -148,7 +161,7 @@ export class Graph3D {
           this.panScreen(dx, dy);
         } else {
           this.yaw += dx * 0.008;
-          this.pitch += dy * 0.006;
+          this.pitch = Math.max(-PITCH_LIMIT, Math.min(PITCH_LIMIT, this.pitch + dy * 0.006));
           // Orbiting is a deliberate move away from the flat top-down pose.
           this.orthographic = false;
         }
@@ -206,32 +219,26 @@ export class Graph3D {
     );
 
     // Keyboard camera controls, held down like a game camera: W/S pitch the
-    // camera up/down, A/D roll it, Q/E yaw it left/right, and the up/down
-    // arrows dolly forward/back — an actual move through the scene (see
-    // dolly()), not a rescale like the wheel's zoom. Listens on window
-    // rather than the canvas since the canvas never takes keyboard focus,
-    // and is skipped while a text field (e.g. the GitHub repo box) is
-    // focused so typing doesn't fly the camera around.
-    const ROTATE_STEP = 0.03; // radians per animation frame
-    const DOLLY_STEP = 0.02; // fraction of the focal length per animation frame
-    const KEY_ACTIONS = {
-      w: () => this.rotateInPlace(0, ROTATE_STEP),
-      s: () => this.rotateInPlace(0, -ROTATE_STEP),
-      a: () => {
-        this.roll -= ROTATE_STEP;
-      },
-      d: () => {
-        this.roll += ROTATE_STEP;
-      },
-      q: () => this.rotateInPlace(-ROTATE_STEP, 0),
-      e: () => this.rotateInPlace(ROTATE_STEP, 0),
-      arrowup: () => {
-        this.dolly(this.focal * DOLLY_STEP);
-      },
-      arrowdown: () => {
-        this.dolly(-this.focal * DOLLY_STEP);
-      },
-    };
+    // camera up/down, A/D roll it, Q/E yaw it left/right, and the arrows
+    // dolly forward/back or strafe left/right — an actual move through the
+    // scene (see dolly()/panScreen()), not a rescale like the wheel's zoom.
+    // Every axis eases toward whichever direction (or neither) is currently
+    // held instead of snapping to full speed the instant a key goes down or
+    // stopping dead the instant it comes up, so a tap reads as a nudge and a
+    // held key reads as accelerating into a cruise, the same way the roll
+    // auto-level below already eases back to level. Listens on window rather
+    // than the canvas since the canvas never takes keyboard focus, and is
+    // skipped while a text field (e.g. the GitHub repo box) is focused so
+    // typing doesn't fly the camera around.
+    const MAX_ROTATE_RATE = 0.03; // radians per animation frame at full speed
+    const MAX_DOLLY_RATE = 0.02; // fraction of the focal length per animation frame at full speed
+    const MAX_STRAFE_RATE = 14; // screen pixels (panScreen's units) per animation frame at full speed
+    const EASE = 0.15; // fraction of the gap to the target rate closed per frame, speeding up or coasting down alike
+    // Which eased rate each key drives, and which direction (+1/-1) holding
+    // it asks that rate to approach; releasing every key on an axis asks its
+    // rate to approach 0 instead (see keyStep()'s `target`).
+    const KEY_AXIS = { w: ["pitch", 1], s: ["pitch", -1], q: ["yaw", -1], e: ["yaw", 1], a: ["roll", -1], d: ["roll", 1], arrowup: ["dolly", 1], arrowdown: ["dolly", -1], arrowright: ["strafe", 1], arrowleft: ["strafe", -1] };
+    const rate = { pitch: 0, yaw: 0, roll: 0, dolly: 0, strafe: 0 };
     const heldKeys = new Set();
     let keyRAF = null;
     const isTyping = () => {
@@ -239,22 +246,40 @@ export class Graph3D {
       return Boolean(el) && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable);
     };
     const keyStep = () => {
+      const target = { pitch: 0, yaw: 0, roll: 0, dolly: 0, strafe: 0 };
       for (const k of heldKeys) {
-        KEY_ACTIONS[k]();
-        // A rotation is a deliberate move away from the flat top-down pose,
-        // same as an orbit drag; a dolly (arrow keys) leaves it alone, same
-        // as a shift-drag pan does.
-        if (k !== "arrowup" && k !== "arrowdown") this.orthographic = false;
+        const axis = KEY_AXIS[k];
+        if (axis) target[axis[0]] = axis[1];
       }
-      // Auto-level: once A/D aren't actively rolling it further, roll eases
+      for (const axis of Object.keys(rate)) {
+        rate[axis] += (target[axis] - rate[axis]) * EASE;
+        if (Math.abs(rate[axis]) < 0.0005) rate[axis] = 0; // snap to exactly 0 so the loop can actually stop
+      }
+      if (rate.pitch || rate.yaw) {
+        // Camera-centred, not target-centred: see rotateInPlace()'s own doc.
+        this.rotateInPlace(rate.yaw * MAX_ROTATE_RATE, rate.pitch * MAX_ROTATE_RATE);
+        // A rotation is a deliberate move away from the flat top-down pose,
+        // same as an orbit drag; a dolly/strafe (arrow keys) leaves it
+        // alone, same as a shift-drag pan does.
+        this.orthographic = false;
+      }
+      if (rate.roll) {
+        this.roll += rate.roll * MAX_ROTATE_RATE;
+        this.orthographic = false;
+      }
+      // Auto-level: once A/D aren't actively rolling it further (the eased
+      // rate above has coasted back to 0 too), the roll VALUE itself eases
       // back to 0 on its own instead of leaving the horizon tilted, the same
       // way a game camera self-rights after a roll input ends. This keeps
       // the loop alive past the last keyup until it settles.
-      if (!heldKeys.has("a") && !heldKeys.has("d") && this.roll !== 0) {
+      if (!heldKeys.has("a") && !heldKeys.has("d") && rate.roll === 0 && this.roll !== 0) {
         this.roll *= 0.85;
         if (Math.abs(this.roll) < 0.001) this.roll = 0;
       }
-      if (heldKeys.size === 0 && this.roll === 0) {
+      if (rate.dolly) this.dolly(rate.dolly * this.focal * MAX_DOLLY_RATE);
+      if (rate.strafe) this.panScreen(rate.strafe * MAX_STRAFE_RATE, 0);
+      const settled = heldKeys.size === 0 && this.roll === 0 && Object.values(rate).every((r) => r === 0);
+      if (settled) {
         keyRAF = null;
         return;
       }
@@ -263,7 +288,7 @@ export class Graph3D {
     };
     window.addEventListener("keydown", (e) => {
       const k = e.key.toLowerCase();
-      if (!(k in KEY_ACTIONS) || isTyping()) return;
+      if (!(k in KEY_AXIS) || isTyping()) return;
       e.preventDefault(); // stop the arrow keys from scrolling the page
       heldKeys.add(k);
       if (keyRAF === null) keyRAF = requestAnimationFrame(keyStep);
@@ -357,7 +382,7 @@ export class Graph3D {
     const camY = this.targetY - this.focal * fy0;
     const camZ = this.targetZ - this.focal * fz0;
     this.yaw += dYaw;
-    this.pitch += dPitch;
+    this.pitch = Math.max(-PITCH_LIMIT, Math.min(PITCH_LIMIT, this.pitch + dPitch));
     const [fx1, fy1, fz1] = this.forwardVector(this.yaw, this.pitch);
     this.targetX = camX + this.focal * fx1;
     this.targetY = camY + this.focal * fy1;
