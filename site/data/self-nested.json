@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-07T06:20:39.072Z",
+  "generatedAt": "2026-09-07T06:45:47.170Z",
   "analyzer": "analyzers/ts@0.4.0",
   "files": 38
  },
@@ -3145,7 +3145,7 @@
    "name": "computeHeights",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 214,
+   "line": 218,
    "parent": null,
    "exported": true
   },
@@ -3154,7 +3154,7 @@
    "name": "connectedComponentCount",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 259,
+   "line": 267,
    "parent": null,
    "exported": true
   },
@@ -3163,7 +3163,7 @@
    "name": "find",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 262,
+   "line": 270,
    "parent": "site/js/model.js::connectedComponentCount",
    "exported": false
   },
@@ -4297,7 +4297,7 @@
    "name": "h",
    "kind": "function",
    "file": "test/model.test.mjs",
-   "line": 64,
+   "line": 66,
    "parent": "test/model.test.mjs::<module>",
    "exported": false
   },
@@ -4306,7 +4306,7 @@
    "name": "id",
    "kind": "function",
    "file": "test/model.test.mjs",
-   "line": 91,
+   "line": 98,
    "parent": "test/model.test.mjs::<module>",
    "exported": false
   },
@@ -4315,7 +4315,7 @@
    "name": "time",
    "kind": "function",
    "file": "test/model.test.mjs",
-   "line": 193,
+   "line": 200,
    "parent": "test/model.test.mjs::<module>",
    "exported": false
   },

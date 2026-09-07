@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-07T06:20:37.776Z",
+  "generatedAt": "2026-09-07T06:45:45.945Z",
   "analyzer": "analyzers/ts@0.4.0",
   "files": 38
  },
@@ -2434,7 +2434,7 @@
    "name": "computeHeights",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 214,
+   "line": 218,
    "parent": null,
    "exported": true
   },
@@ -2443,7 +2443,7 @@
    "name": "connectedComponentCount",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 259,
+   "line": 267,
    "parent": null,
    "exported": true
   },

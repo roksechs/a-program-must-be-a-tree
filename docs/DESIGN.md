@@ -352,36 +352,40 @@ zones.
 ## 3D mode
 
 The vertical axis is the **call height** of a node: the graph is condensed
-into strongly connected components and the height of a component is the
-longest path from it to a sink in the condensation DAG. Pure callees have
-height 0 and sit on the bottom plane; the deepest callers sit on the top plane.
-Members of a cycle share one height. The x/y coordinates are the ones computed
-by the 2D simulation, so the 3D view is a lift of the 2D layout rather than a
-different layout. A translucent plane is drawn per height so the layers are
-easy to count; "Layer planes" (View & Physics) starts unchecked, since a
-plane per layer on a graph with many of them is more clutter than guide until
-asked for.
+into strongly connected components, and a component's height is as close to
+its shallowest caller as the rest of the graph allows — all the way to the
+top plane for one with no caller at all — rather than only however far it
+happens to sit above its own deepest callee. Members of a cycle share one
+height. The x/y coordinates are the ones computed by the 2D simulation, so
+the 3D view is a lift of the 2D layout rather than a different layout. A
+translucent plane is drawn per height so the layers are easy to count;
+"Layer planes" (View & Physics) starts unchecked, since a plane per layer on
+a graph with many of them is more clutter than guide until asked for.
 
-Anchoring height at the sinks (leaves always at 0) and anchoring it at the
-sources (roots — declarations nobody calls — always at the top) cannot both
-hold once call chains of different lengths coexist in the same graph: forcing
-every leaf to 0 means a shallow root's own chain may fall well short of
-`maxHeight`, so it doesn't reach the top plane even though nothing calls it;
-forcing every root to the top would instead pull some leaf above a non-leaf
-elsewhere in a longer chain, breaking "only-called declarations sit at the
-bottom" instead. This project anchors at the sinks — a pure sink's height is
-always 0 regardless of who calls it, non-negotiably — but doesn't otherwise
-leave every other node at the minimal (ASAP) height that formula alone
-requires: `computeHeights()` (`model.js`) first computes that minimal height
-bottom-up exactly as above, fixing `maxHeight` and every sink's 0, then pulls
-every non-sink component up as close to its shallowest caller as possible —
-to `maxHeight` itself for one with no caller at all — in a second, top-down
-pass over the same condensation DAG (descending component id, so every
-caller is finalized before the callees its own height feeds into are
-computed). A caller can still sit far above one of its own direct callees —
-that callee may be a pinned sink, or a non-sink whose *other* caller has far
-less headroom — and that is not a bug, it means the gap is real slack rather
-than a fact about the chain between them.
+`computeHeights()` (`model.js`) gets there in two passes over the same
+condensation DAG. First, bottom-up (ascending component id — Tarjan emits
+SCCs in reverse topological order, so this is a single sweep from the
+sinks): each component's *minimal* height, one more than its deepest
+callee's, 0 for a pure sink. This pins `maxHeight` — the top plane — at the
+graph's own single longest chain. Second, top-down (descending id, a sweep
+from the sources, so every caller is finalized before the callees its
+height feeds into are computed): each component is pulled up from that
+floor to one less than its *shallowest* caller's already-finalized height —
+or to `maxHeight` itself if it has no caller — rather than left at whatever
+the first pass gave it. A pure sink is no exception: a declaration that
+calls nothing but is itself only ever reached from high up still rises with
+its caller, rather than sitting at the very bottom regardless of who calls
+it. Only the leaf that ends the graph's own single longest chain is
+guaranteed to stay at 0, because nothing gives it anywhere higher to go; a
+component with no caller *and* no callee (calls nothing, is called by
+nothing) is the one deliberate exception to the lift itself — nothing pulls
+it toward the top just because it technically has no caller, when it has no
+business up there either.
+
+A caller can still sit far above one of its own direct callees — that
+callee's *other* caller may have far less headroom — and that is not a bug,
+it means the gap is real slack rather than a fact about the chain between
+them.
 
 The projection is a small hand-written orbit camera (yaw, pitch, perspective)
 on a 2D canvas; no WebGL dependency is needed for a few thousand nodes. Pitch

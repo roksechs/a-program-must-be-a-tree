@@ -51,8 +51,11 @@ edges. Required features, all of which must keep working:
   being shared between siblings), and one switch per edge kind that
   drives drawing, springs and diagnostics together (the three must never
   disagree, and a change must take effect immediately).
-* A 3D mode where the z axis is the call height: the deepest callers at the
-  top, declarations that are only called at the bottom.
+* A 3D mode where the z axis is the call height: a declaration sits as close
+  to its shallowest caller as the rest of the graph allows, the deepest
+  callers (or anything nobody calls) reaching the top; only the leaf ending
+  the graph's own single longest call chain is guaranteed to sit at the
+  bottom.
 
 ## Repository layout
 

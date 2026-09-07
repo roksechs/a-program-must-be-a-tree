@@ -8,15 +8,18 @@ The section for a version becomes the notes of its GitHub release
 
 ### Lift call heights toward their caller
 
-* A node with slack above it — its shallowest caller sits higher than one
-  more than its own minimal height — is now pulled up as close to that
+* Every node with slack above it — its shallowest caller sits higher than
+  one more than its own minimal height — is now pulled up as close to that
   caller as possible, all the way to the top plane for one with no caller at
   all, instead of sitting at the minimal height that only its own outgoing
-  calls required. A pure sink (nothing called from it) is exempt and stays
-  pinned to the bottom regardless of who calls it: "only called"
-  declarations must sit at the bottom, and that and "every uncalled root
-  sits at the top" cannot both hold in general (see `docs/DESIGN.md`), so
-  the sink pin wins and only non-sinks get lifted.
+  calls required. This includes a pure sink (nothing called from it): a
+  declaration that calls nothing but is only ever reached from high up now
+  rises with its caller instead of sitting at the very bottom regardless of
+  who calls it. Only the leaf ending the graph's own single longest chain is
+  guaranteed to stay at 0, since nothing gives it anywhere higher to go; a
+  node with no caller *and* no callee (fully isolated) is left alone too,
+  since it has no business at the top just because it technically has no
+  caller.
 
 ### Dominator view
 
