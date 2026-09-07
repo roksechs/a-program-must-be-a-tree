@@ -214,36 +214,29 @@ export class Graph3D {
 
     // Keyboard camera controls, held down like a game camera: W/S pitch the
     // camera up/down, A/D roll it, Q/E yaw it left/right, and the up/down
-    // arrows dolly in/out (the same zoomK the wheel drives). Listens on
-    // window rather than the canvas since the canvas never takes keyboard
-    // focus, and is skipped while a text field (e.g. the GitHub repo box) is
+    // arrows dolly forward/back — an actual move through the scene (see
+    // dolly()), not a rescale like the wheel's zoom. Listens on window
+    // rather than the canvas since the canvas never takes keyboard focus,
+    // and is skipped while a text field (e.g. the GitHub repo box) is
     // focused so typing doesn't fly the camera around.
     const ROTATE_STEP = 0.03; // radians per animation frame
-    const ZOOM_STEP = 1.02; // multiplicative factor per animation frame
+    const DOLLY_STEP = 0.02; // fraction of the focal length per animation frame
     const KEY_ACTIONS = {
-      w: () => {
-        this.pitch += ROTATE_STEP;
-      },
-      s: () => {
-        this.pitch -= ROTATE_STEP;
-      },
+      w: () => this.rotateInPlace(0, ROTATE_STEP),
+      s: () => this.rotateInPlace(0, -ROTATE_STEP),
       a: () => {
         this.roll -= ROTATE_STEP;
       },
       d: () => {
         this.roll += ROTATE_STEP;
       },
-      q: () => {
-        this.yaw -= ROTATE_STEP;
-      },
-      e: () => {
-        this.yaw += ROTATE_STEP;
-      },
+      q: () => this.rotateInPlace(-ROTATE_STEP, 0),
+      e: () => this.rotateInPlace(ROTATE_STEP, 0),
       arrowup: () => {
-        this.zoomK = Math.min(8, this.zoomK * ZOOM_STEP);
+        this.dolly(this.focal * DOLLY_STEP);
       },
       arrowdown: () => {
-        this.zoomK = Math.max(0.05, this.zoomK / ZOOM_STEP);
+        this.dolly(-this.focal * DOLLY_STEP);
       },
     };
     const heldKeys = new Set();
@@ -257,7 +250,7 @@ export class Graph3D {
         KEY_ACTIONS[k]();
         // A rotation is a deliberate move away from the flat top-down pose,
         // same as an orbit drag; a dolly (arrow keys) leaves it alone, same
-        // as the wheel does.
+        // as a shift-drag pan does.
         if (k !== "arrowup" && k !== "arrowdown") this.orthographic = false;
       }
       // Auto-level: once A/D aren't actively rolling it further, roll eases
@@ -320,6 +313,62 @@ export class Graph3D {
     this.targetY -= -ddx * sy + ddy * cy * sp;
     this.targetZ -= ddy * cp;
     this.draw();
+  }
+
+  /**
+   * Unit world-space "forward" (view) direction for a given yaw/pitch — the
+   * world-space gradient of viewSpace()'s own `depth`, i.e. the inverse of
+   * its yaw-then-pitch rotation applied to the unit vector "straight ahead".
+   * Shared by dolly() and rotateInPlace(); roll never enters it, since it
+   * only spins the rendered picture and doesn't change which way the camera
+   * actually faces.
+   */
+  forwardVector(yaw, pitch) {
+    const cy = Math.cos(yaw);
+    const sy = Math.sin(yaw);
+    const cp = Math.cos(pitch);
+    const sp = Math.sin(pitch);
+    return [sy * cp, cy * cp, -sp];
+  }
+
+  /**
+   * Move `target` a world-space distance `step` along the view direction —
+   * positive is forward (into the scene), negative is back — for the arrow
+   * keys' dolly (see bindEvents): an actual move through the scene, unlike
+   * the wheel's zoomK rescale.
+   */
+  dolly(step) {
+    this.focusedNode = null;
+    const [fx, fy, fz] = this.forwardVector(this.yaw, this.pitch);
+    this.targetX += step * fx;
+    this.targetY += step * fy;
+    this.targetZ += step * fz;
+    this.draw();
+  }
+
+  /**
+   * Adjust yaw/pitch the way W/S/Q/E do (bindEvents) — around the camera's
+   * own position instead of around `target` the way mouse-drag orbiting
+   * does: the camera stays put and what's dead ahead of it changes, rather
+   * than swinging around a fixed subject. The camera's position is never
+   * stored on its own — it's always `target` minus `focal` world units
+   * along the current view direction (the same relationship project() uses
+   * the other way around, via `focalDepth`) — so this recovers it from the
+   * OLD yaw/pitch, applies the change, then re-derives `target` as `focal`
+   * units ahead of that same fixed point along the NEW view direction.
+   */
+  rotateInPlace(dYaw, dPitch) {
+    this.focusedNode = null;
+    const [fx0, fy0, fz0] = this.forwardVector(this.yaw, this.pitch);
+    const camX = this.targetX - this.focal * fx0;
+    const camY = this.targetY - this.focal * fy0;
+    const camZ = this.targetZ - this.focal * fz0;
+    this.yaw += dYaw;
+    this.pitch += dPitch;
+    const [fx1, fy1, fz1] = this.forwardVector(this.yaw, this.pitch);
+    this.targetX = camX + this.focal * fx1;
+    this.targetY = camY + this.focal * fy1;
+    this.targetZ = camZ + this.focal * fz1;
   }
 
   resize() {

@@ -452,10 +452,23 @@ instead of sliding away from it — the per-node perspective factor cancels
 out of the ratio, so this holds regardless of a node's depth.
 
 The keyboard offers the same three rotations as a flight camera, plus a
-dolly, as an alternative to the mouse: held down, W/S adjust `pitch`, Q/E
-adjust `yaw` (the same two fields an orbit drag already writes), and the
-up/down arrows adjust `zoomK` (the same field the wheel already writes) to
-move in/out along the view direction. A/D adjust a fourth field, `roll`,
+dolly, as an alternative to the mouse — but the mouse and W/S/Q/E disagree
+about what a rotation pivots on. Dragging to orbit changes yaw/pitch without
+touching `target`, so it swings the camera's own (implicit) position around
+that fixed subject — the arcball behaviour described above. W/S/Q/E instead
+call `rotateInPlace(dYaw, dPitch)`, which holds the *camera's* position
+fixed and swings `target` around instead, the way turning your head does
+rather than orbiting a subject: it recovers that implicit camera position as
+`target` minus `focal` world units along the current `forwardVector(yaw,
+pitch)` (the inverse of `viewSpace()`'s yaw-then-pitch rotation applied to
+"straight ahead", also shared by `dolly()` below), applies the yaw/pitch
+change, then re-derives `target` as `focal` units ahead of that same fixed
+point along the *new* view direction — so whatever was framed dead ahead
+drifts off screen centre as you turn, rather than staying put the way
+orbiting keeps it. The up/down arrows call `dolly()`, moving `target` itself
+a world-space step along `forwardVector()` rather than rescaling `zoomK` the
+way the wheel does: an actual move through the scene, not a bigger picture
+of the same vantage point. A/D adjust a fourth field, `roll`,
 that orbiting and the wheel never touch: there is no pointer gesture for it,
 and unlike pitch/yaw it auto-levels back to 0 once A/D stop being held
 (eased by a multiplicative decay each frame) rather than staying wherever it

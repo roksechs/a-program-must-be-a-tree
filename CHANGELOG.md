@@ -90,9 +90,13 @@ The section for a version becomes the notes of its GitHub release
   layer is more clutter than guide until asked for on a graph with many of
   them.
 * The 3D camera can now also be flown with the keyboard, alongside the
-  existing mouse controls: W/S pitch, Q/E yaw (the same two fields an orbit
-  drag already writes), and the up/down arrows dolly in/out (the same
-  `zoomK` the wheel already writes). A/D add a new roll, auto-levelling back
+  existing mouse controls: W/S pitch, Q/E yaw, and the up/down arrows dolly
+  forward/back — an actual move through the scene along the view direction,
+  not a rescale like the wheel's zoom. Unlike a mouse-drag orbit, which
+  swings the camera around the fixed subject at screen centre, W/S/Q/E
+  instead hold the camera's own position fixed and turn it in place, so
+  whatever was framed dead ahead drifts off centre as you turn — closer to
+  looking around than to orbiting. A/D add a new roll, auto-levelling back
   to 0 once released rather than leaving the horizon tilted. Disabled while
   a text field (the GitHub repo box, say) has focus, so typing doesn't fly
   the camera around.
