@@ -6,7 +6,7 @@
 // files via `ts.sys`) and from the browser's local-folder feature
 // (`site/js/localAnalyzer.js`, a Program built over an in-memory CompilerHost
 // fed by the File System Access API) — one analyzer, two front ends.
-export const ANALYZER_VERSION = "0.4.0";
+export const ANALYZER_VERSION = "0.5.0";
 export const EXTENSIONS = new Set([".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".mts", ".cts", ".svelte"]);
 export const DEFAULT_EXCLUDES = ["node_modules", ".git", "dist", "build", "coverage", "vendor"];
 
@@ -888,6 +888,7 @@ export function createCore(ts) {
 
     // Pass 2: syntactic references (docs/THEORY.md §3, definitions 4-6).
     const callSites = []; // { owner, node, time } for the flow analysis below
+    const referenceSites = []; // { owner, target, time } for the flow analysis below: a plain reference to a variable, not a call
     for (const d of declarations) {
       const visit = (node, inFn) => {
         const time = inFn ? "use" : "definition";
@@ -925,7 +926,16 @@ export function createCore(ts) {
                   inferred = true;
                 }
               }
-              for (const resolved of found) emitReference(d, resolved, kind, time, node, inferred);
+              for (const resolved of found) {
+                emitReference(d, resolved, kind, time, node, inferred);
+                // A plain reference to a variable (not a call) may be handing off a
+                // value the flow analysis below can trace further than "the
+                // variable itself" — e.g. a template binding a handler prop to a
+                // captor variable whose own value came from a factory function
+                // that returned a declaration nested somewhere else entirely (see
+                // the loop after flowPass() converges).
+                if (kind === "reference" && resolved.kind === "variable") referenceSites.push({ owner: d, target: resolved, time });
+              }
             }
           }
         }
@@ -1076,6 +1086,18 @@ export function createCore(ts) {
       for (const g of calleeValues(node)) {
         if (g === owner) continue;
         addEdge(owner, g, ts.isNewExpression(node) ? "create" : "call", time, true);
+      }
+    }
+    // Emit a further reference wherever a plain (non-call) occurrence read a
+    // variable the flow analysis traced to a declared function/class: this is
+    // what connects, say, a template prop bound to a captor variable through
+    // to the (possibly deeply nested) declaration a factory function actually
+    // returned into it, the same way the loop above connects a call through a
+    // stored callback to whatever it turned out to call.
+    for (const { owner, target, time } of referenceSites) {
+      for (const g of variableValues(target)) {
+        if (g === owner || g === target) continue;
+        addEdge(owner, g, "reference", time, true);
       }
     }
 

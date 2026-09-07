@@ -388,6 +388,35 @@ test("local functions become declarations behind the nested option", () => {
   assert.equal(edge("n.js::outer", "n.js::helper"), undefined);
 });
 
+test("a reference to a captor variable also reaches the nested declaration a factory function returned into it", () => {
+  // `handler` is a module-level variable (its own declaration, since every
+  // top-level `const`/`let` is one — see the sf.statements loop above), but
+  // its own value is opaque without the flow analysis in Pass 3: `wire(handler)`
+  // already got a "reference" edge to `handler` itself (ordinary Pass 2
+  // resolution), same as any other variable read. This is the same shape a
+  // template prop binding takes in a framework component (bind a handler
+  // prop to a variable whose value came from a factory elsewhere) — the
+  // fix generalizes past call sites, which already got this treatment.
+  const root = fixture({
+    "n.js": `
+      function createHandler() {
+        function onKeydown(e) { return e; }
+        return onKeydown;
+      }
+      const handler = createHandler();
+      export function wire(cb) { return cb; }
+      wire(handler);
+    `,
+  });
+  const doc = analyze({ name: "js", root, nested: true });
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  assert.equal(edge("n.js::<module>", "n.js::handler")?.kind, "reference"); // the existing, direct edge
+  const inferred = edge("n.js::<module>", "n.js::createHandler/onKeydown");
+  assert.ok(inferred, "module code should also reach the nested onKeydown through the captor variable");
+  assert.equal(inferred.kind, "reference");
+  assert.equal(inferred.inferred, true);
+});
+
 test("a function-valued object literal property is a declaration even without the nested option", () => {
   const root = fixture({
     "h.js": `

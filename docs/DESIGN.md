@@ -165,6 +165,19 @@ block on its own: a script-only extraction can trace what a component's own
 code calls, but never which *other components* a template instantiates —
 exactly the edges that make a Svelte codebase's graph worth looking at.
 
+A template binding can only ever denote whatever is actually in scope at
+the point svelte2tsx places it — the whole script and template compile into
+one function body (`$$render`, below), so `on:keydown={onkeydown}` binds to
+whatever `onkeydown` resolves to right there, by ordinary lexical scoping,
+the same as any other TSX code would. A function declared only inside
+*another* local function — two scopes deeper than the template can see —
+is genuinely not reachable from a bare identifier like that; nothing here
+special-cases it, because nothing sound could (§3.2's 0-CFA extension below
+still requires an actual value-flow path, e.g. through a variable the
+factory that built the nested function assigned it to — a bare name with
+no such path is either a mistake in the component itself or, in a real
+Svelte app, resolves to something the developer didn't intend).
+
 Both front ends feed the transformed text in under the file's own,
 unchanged name (`Foo.svelte`, not a virtual `Foo.svelte.tsx`) with an
 explicit `ts.ScriptKind.TSX`, so every other part of the pipeline — file

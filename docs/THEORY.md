@@ -192,7 +192,8 @@ edge is in `⇝̂` because `λ_{D'} ∈ Ĉ(ℓ)` whenever `D'` occurs syntactica
 So the three relations nest: `syntactic calls ⊆ ⇝̂ ⊇ ⇝`. The syntactic
 graph is the cheapest sound *lower* description of control transfer plus an
 exact description of value flow (`reference`); a CFA pass turns each
-`reference` edge into zero or more `call` edges originating elsewhere.
+`reference` edge into zero or more further `call` or `reference` edges
+originating elsewhere.
 
 The TypeScript analyzer runs a bounded 0-CFA after the syntactic pass:
 abstract values are sets of declared functions, methods and classes, and
@@ -200,7 +201,13 @@ they flow through local bindings, through the parameters of declared callees
 (including dispatched method targets) and through the return values of
 declared functions, to a fixed point. A call whose callee evaluates to a
 declared function produces a `call` edge marked `inferred` from the
-declaration that contains the operator position. Property stores (§4.1,
+declaration that contains the operator position; a plain (non-call)
+occurrence that merely reads a variable produces a further `reference` edge
+the same way, to whatever the variable's own value was traced to — the
+difference between the two is only whether the operator position calls the
+value or hands it somewhere else (a callback prop, an event handler, a
+stored reference), not whether the flow analysis can see through it.
+Property stores (§4.1,
 Definition 9a) and external callees are not modelled, so a callback stored
 into an object that escapes, or handed to a function this analyzer never
 sees the body of, keeps its `reference` edge and nothing else. A

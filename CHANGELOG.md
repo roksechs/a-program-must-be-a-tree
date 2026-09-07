@@ -6,6 +6,23 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Analyzer: a reference can flow through a variable to a nested declaration
+
+* The bounded 0-CFA (docs/THEORY.md §3.2) already turned a call through a
+  stored callback into a further `call` edge to whatever the flow analysis
+  traced it to; it now does the same for a plain (non-call) reference —
+  handing a variable to something else, a template prop binding, an event
+  handler — producing a further, inferred `reference` edge to whatever the
+  variable's value was traced to. This is what lets, say, a template
+  binding reach a nested declaration a factory function returned into a
+  captor variable, one hop further than the existing direct edge to the
+  captor variable itself. It does not, and cannot soundly, resolve a
+  binding that names a function declared *only* inside another local
+  function with no such value-flow path at all — under real JS/Svelte
+  scoping that name was never in scope there to begin with, which is worth
+  checking for as a possible bug in the component itself rather than the
+  analyzer. `analyzers/ts@0.5.0`.
+
 ### The 3D camera never ends up upside down, strafes, and eases in/out
 
 * Pitch is now bounded to straight up/straight down (±90°): past that point
