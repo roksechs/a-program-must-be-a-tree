@@ -4,7 +4,7 @@ The section for a version becomes the notes of its GitHub release
 (`.github/workflows/release.yml`), which is cut when the version in
 `package.json` reaches the default branch.
 
-## Unreleased
+## v0.3.0
 
 ### Lift call heights toward their caller
 
