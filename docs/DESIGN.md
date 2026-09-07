@@ -33,12 +33,17 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
   TypeScript compiler API, which resolves imports, `this.method()` calls and
   aliases for free. Other languages (Python `ast`, tree-sitter, Go `go/types`,
   ...) can be added without touching the viewer. The TypeScript analyzer
-  itself has two front ends over one shared core (`analyzers/ts/core.mjs`,
+  itself has three front ends over one shared core (`analyzers/ts/core.mjs`,
   which touches nothing outside the `ts` module it is handed): `analyze.mjs`
   builds a `ts.Program` from files read off disk (the CLI, `npm run
-  build:data`); the viewer's local-folder feature builds one from files read
-  in-browser with the File System Access API, so opening a folder needs no
-  server-side analysis step and works from the static site alone.
+  build:data`); the viewer's "Open folder…" and "GitHub repo" panel controls
+  each build one from files read a different way (the File System Access API,
+  the GitHub REST API plus `raw.githubusercontent.com`) over a custom
+  `ts.CompilerHost` backed by an in-memory map — so analyzing a project needs
+  no server-side step and works from the static site alone. `core.mjs` is
+  copied into `site/vendor/analyzer-core.js` by `npm run vendor` (gitignored:
+  `analyzers/ts/core.mjs` stays the single source of truth) since the
+  published site only ever serves `site/`.
 * **Viewer** (`site/`) is plain ES modules plus a vendored copy of d3. There is
   no bundler so the page can be opened from any static host.
 
@@ -54,6 +59,9 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer, used by both the main viewer and the article's live figures. |
 | `panel.js`      | Property panel (controls + diagnostics + selection details). |
 | `app.js`        | Data loading and wiring. |
+| `browserAnalyzer.js` | The part of the in-browser analyzer shared by `localAnalyzer.js` and `githubAnalyzer.js`: a custom `ts.CompilerHost` over an in-memory file map, fed to `analyzers/ts/core.mjs`. Loads `vendor/typescript.js` (~9MB) lazily, on first use. |
+| `localAnalyzer.js` | Reads a directory picked with `showDirectoryPicker()` into the file map `browserAnalyzer.js` needs. |
+| `githubAnalyzer.js` | Fetches a public GitHub repository's file tree and contents into the same file map. |
 | `markdown.js`   | Small Markdown renderer for the article chapters (escaped, no raw HTML; `<!-- key: value -->` comments are page directives). |
 | `article.js`    | The article page (`article.html`): chapters from `content/<lang>/`, each with the live graphs its directives ask for, rendered by the same modules on the same datasets as the viewer. |
 

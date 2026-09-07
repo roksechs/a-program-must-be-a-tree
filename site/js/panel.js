@@ -5,13 +5,14 @@
 // another language with `refresh()`.
 import { EDGE_KINDS, edgeColor, kindColor } from "./colors.js";
 import { kindLabel, t } from "./i18n.js";
+import { localFolderSupported } from "./localAnalyzer.js";
 import { computeMetrics, linkLift, naturalScope, topSharedNodes } from "./metrics.js";
 
 export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onAutoRotate, onSelectNode, onFocusNode }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -88,12 +89,24 @@ export class Panel {
     // Data
     this.datasetSelect = this.el("select", { onchange: (e) => h.onDataset(e.target.value) });
     const fileInput = this.el("input", { type: "file", accept: ".json,application/json", onchange: (e) => e.target.files[0] && h.onFile(e.target.files[0]) });
+    // The local-folder and GitHub-repo features analyze source in the
+    // browser (no bundled JSON, no server): see site/js/localAnalyzer.js and
+    // site/js/githubAnalyzer.js. showDirectoryPicker() is Chromium-only, so
+    // that button is disabled with an explanatory title elsewhere.
+    const folderSupported = localFolderSupported();
+    const folderBtn = this.el("button", { type: "button", disabled: folderSupported ? null : "", title: folderSupported ? null : t("data.folderUnsupported"), onclick: () => h.onOpenFolder() }, t("data.openFolder"));
+    const githubInput = this.el("input", { type: "text", placeholder: t("data.githubPlaceholder") });
+    const submitGithub = () => githubInput.value.trim() && h.onGithub(githubInput.value.trim());
+    const githubBtn = this.el("button", { type: "button", onclick: submitGithub }, t("data.githubLoad"));
+    githubInput.addEventListener("keydown", (e) => e.key === "Enter" && submitGithub());
     this.dataInfoEl = this.el("p", { class: "muted small" });
     this.host.append(
       this.section(
         t("section.data"),
         this.el("label", { class: "control" }, this.el("span", {}, t("data.dataset")), this.datasetSelect),
         this.el("label", { class: "control" }, this.el("span", {}, t("data.openJson")), fileInput),
+        this.el("label", { class: "control" }, this.el("span", {}, t("data.openFolder")), folderBtn),
+        this.el("label", { class: "control" }, this.el("span", {}, t("data.github")), githubInput, githubBtn),
         this.dataInfoEl,
       ),
     );

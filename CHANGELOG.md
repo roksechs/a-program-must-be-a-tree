@@ -6,6 +6,30 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Analyze a local folder or a GitHub repo, live, from the panel
+
+* Two new "Data" controls run the real TypeScript-compiler-based analyzer
+  entirely in the browser, no server and no pre-generated JSON: **"Open
+  folder…"** picks a local directory with the File System Access API
+  (Chrome/Edge only — disabled elsewhere with an explanatory tooltip), and
+  the **GitHub repo** field takes `owner/repo`, `owner/repo@ref` or a
+  `github.com` URL and fetches the repository's file tree and contents via
+  the GitHub REST API and `raw.githubusercontent.com` (subject to GitHub's
+  60-requests/hour unauthenticated rate limit — one API request for the file
+  tree, unmetered CDN fetches for content).
+* Both build a `ts.Program` over a custom `ts.CompilerHost` backed by an
+  in-memory file map, instead of the Node CLI's `ts.sys`-backed one, and
+  hand it to the exact same `analyzers/ts/core.mjs` the CLI uses — not a
+  second implementation. Verified identical output to the Node CLI on the
+  same project (`test/local-analyzer.test.mjs`, a custom host built the same
+  way over `node:fs`-read files instead of the File System Access API) and,
+  in a real browser, against both a mocked local folder and a mocked GitHub
+  repo (the actual failure mode of a live GitHub API call in a sandbox is
+  the sandbox's own network policy, not the code).
+* The TypeScript compiler this needs (`site/vendor/typescript.js`, ~9MB) and
+  its `lib.*.d.ts` files load lazily, only when one of these features is
+  actually used, so viewing a bundled dataset never fetches them.
+
 ### Analyzer split into a portable core, to run in the browser next
 
 * `analyzers/ts/analyze.mjs` used to both find source files on disk and walk

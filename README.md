@@ -60,22 +60,35 @@ in the header switches it at any time. Translations live in `site/js/i18n.js`.
 
 ## Analyzing your own project
 
-The bundled analyzer handles JavaScript and TypeScript with the TypeScript
-compiler API:
+Three ways, no server involved in any of them:
 
-```sh
-node analyzers/ts/analyze.mjs --name my-app --root path/to/my-app \
-     --include src --exclude "**/*.test.ts" --out my-app.json
-```
+* **From the panel, live.** "Open folder…" picks a local directory with the
+  File System Access API (Chrome or Edge) and analyzes it in the browser; the
+  "GitHub repo" field takes `owner/repo`, `owner/repo@ref` or a `github.com`
+  URL and fetches the repository's files client-side to analyze the same
+  way. Both run the real TypeScript-compiler-based analyzer entirely in the
+  page (`site/js/localAnalyzer.js`, `site/js/githubAnalyzer.js`) — nothing is
+  uploaded anywhere, and the GitHub option is subject to GitHub's
+  unauthenticated API rate limit (60 requests/hour; fetching a repo's file
+  tree is one request, its file contents are unmetered `raw.githubusercontent.com`
+  fetches).
+* **The CLI**, for a JSON file you want to keep, script, or check into the
+  bundled examples:
 
-Then open `my-app.json` from the panel. Other languages only need an analyzer
-that writes the same JSON; see the data format document.
+  ```sh
+  node analyzers/ts/analyze.mjs --name my-app --root path/to/my-app \
+       --include src --exclude "**/*.test.ts" --out my-app.json
+  ```
+
+  Then open `my-app.json` from the panel.
+* **Any other language** only needs an analyzer that writes the same JSON;
+  see the data format document.
 
 ## Property panel
 
 | Section     | Controls |
 |-------------|----------|
-| Data        | bundled datasets, open a local JSON file |
+| Data        | bundled datasets, open a local JSON file, open a local folder, load a GitHub repo |
 | Header      | language selector (English / Japanese) |
 | View        | label mode, colour by kind or call height, layer gap and planes, auto-rotate, fit, top view (perspective-free, straight down the height axis) |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |
@@ -88,7 +101,8 @@ that writes the same JSON; see the data format document.
 
 ```
 site/            static site (the root a static host publishes)
-  js/            ES modules: model, metrics, dominance, simulation, zones, renderers, panel, app
+  js/            ES modules: model, metrics, dominance, simulation, zones, renderers, panel, app,
+                 browserAnalyzer/localAnalyzer/githubAnalyzer (in-browser analysis)
   data/          generated datasets (index.json lists them)
   vendor/        d3 and TypeScript (copied by `npm run vendor`; TypeScript is regenerated on every build, not committed — see .gitignore)
 analyzers/ts/    JavaScript / TypeScript analyzer

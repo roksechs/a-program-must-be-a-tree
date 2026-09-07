@@ -43,9 +43,17 @@ while (queue.length) {
 }
 for (const name of libFiles) copyFileSync(join(tsLibDir, name), join(vendorLibDir, name));
 
+// analyzers/ts/core.mjs (our own code, not third-party) touches nothing
+// outside the `ts` module it is handed, so it runs unmodified in the
+// browser — but the published site only ever serves site/, so it needs a
+// copy there too. Copied, not authored, to keep analyzers/ts/core.mjs the
+// single source of truth; see site/js/localAnalyzer.js.
+copyFileSync(join(root, "analyzers/ts/core.mjs"), join(vendorDir, "analyzer-core.js"));
+
 writeFileSync(
   join(vendorDir, "VERSIONS.json"),
   JSON.stringify({ d3: d3Pkg.version, typescript: tsPkg.version }, null, 2) + "\n",
 );
 console.log(`vendored d3@${d3Pkg.version} -> site/vendor/d3.min.js`);
 console.log(`vendored typescript@${tsPkg.version} -> site/vendor/typescript.js (+ ${libFiles.size} lib files in site/vendor/ts-lib/)`);
+console.log("copied analyzers/ts/core.mjs -> site/vendor/analyzer-core.js");

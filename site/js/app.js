@@ -1,9 +1,11 @@
 // Application wiring: loads a dataset, runs the simulation and connects the
 // renderer to the property panel.
 /* global d3 */
+import { analyzeGithubRepo } from "./githubAnalyzer.js";
 import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
+import { analyzeLocalFolder } from "./localAnalyzer.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
 import { Panel } from "./panel.js";
 import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
@@ -91,6 +93,8 @@ function rendererCallbacks() {
 const panel = new Panel(document.getElementById("panel"), state, {
   onDataset: (id) => loadDataset(id),
   onFile: (file) => loadFile(file),
+  onOpenFolder: () => loadLocalFolder(),
+  onGithub: (spec) => loadGithubRepo(spec),
   onPhysics: (key, value) => {
     state.physics[key] = value;
     // Apply the new parameter without forcing a reheat: a settled layout the
@@ -265,6 +269,41 @@ function loadFile(file) {
     }
   };
   reader.readAsText(file);
+}
+
+// The local-folder and GitHub-repo features analyze real source entirely in
+// the browser (site/js/localAnalyzer.js, site/js/githubAnalyzer.js): no
+// pre-generated JSON, no server. Neither module loads the TypeScript
+// compiler they need (~9MB) until one of these actually runs, so importing
+// them costs nothing on a page load that never uses them.
+async function loadLocalFolder() {
+  let dirHandle;
+  try {
+    dirHandle = await window.showDirectoryPicker();
+  } catch {
+    return; // the user cancelled the picker
+  }
+  setStatus("app.readingFiles", { count: 0 });
+  try {
+    const doc = await analyzeLocalFolder(dirHandle, { onProgress: (count) => setStatus("app.readingFiles", { count }) });
+    state.datasetId = "__custom__";
+    panel.setDatasets(state.datasets, "__custom__");
+    installGraph(doc, dirHandle.name);
+  } catch (err) {
+    setStatus("app.analyzeFailed", { name: dirHandle.name, message: err.message });
+  }
+}
+
+async function loadGithubRepo(spec) {
+  setStatus("app.fetchingFiles", { done: 0, total: "?" });
+  try {
+    const doc = await analyzeGithubRepo(spec, { onProgress: (done, total) => setStatus("app.fetchingFiles", { done, total }) });
+    state.datasetId = "__custom__";
+    panel.setDatasets(state.datasets, "__custom__");
+    installGraph(doc, spec);
+  } catch (err) {
+    setStatus("app.analyzeFailed", { name: spec, message: err.message });
+  }
 }
 
 async function loadRemote(url) {

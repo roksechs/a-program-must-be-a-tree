@@ -11,3 +11,6 @@ node_modules/
 site/vendor/typescript.js
 site/vendor/typescript.LICENSE
 site/vendor/ts-lib/
+# Copy of analyzers/ts/core.mjs (our own code): keep that file the single
+# source of truth rather than committing a duplicate that could drift.
+site/vendor/analyzer-core.js
