@@ -6,6 +6,19 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Highlight structural motifs
+
+* A new "Patterns" panel section highlights four structural shapes anywhere
+  they occur in the graph, any number at once: cycles (red), hubs — a
+  degree standing out from the rest of the graph (purple), diamonds — two
+  distinct routes between the same pair of declarations (amber), and
+  chains — a linear run with nothing else attached along the way (teal).
+  Unlike the path highlight, this doesn't dim the rest of the graph: a
+  coloured ring is drawn per matching node (one ring per motif kind if it
+  matches more than one) and a thicker stroke per matching edge, as an
+  overlay on top of the ordinary drawing. Only follows currently enabled
+  edge kinds, same as everything else in the panel.
+
 ### Highlight the path between two declarations
 
 * Ctrl/cmd+click a second node while one is selected to highlight every

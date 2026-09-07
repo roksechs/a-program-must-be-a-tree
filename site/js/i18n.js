@@ -46,6 +46,7 @@ const STRINGS = {
     "section.edges": "Edges",
     "section.physics": "Physics",
     "section.zones": "Zones",
+    "section.patterns": "Patterns",
     "section.diagnostics": "Diagnostics: is it a tree?",
     "section.selection": "Selection",
     "section.legend": "Legend",
@@ -95,6 +96,11 @@ const STRINGS = {
 
     "zones.depth": "Directory / file depth range",
     "zones.help": "Both handles start at 0, showing no zones. The low handle is the outermost level shown, the high handle the innermost (the maximum reaches the files); dragging only the high handle keeps revealing outward from the top like before, but the low handle can also show an inner band — a directory two levels down, say — without its outer directories drawn at all. Zones are convex hulls around the declarations they contain and have no effect on the physics.",
+    "motif.cycle": "Cycles",
+    "motif.hub": "Hubs",
+    "motif.diamond": "Diamonds",
+    "motif.chain": "Chains",
+    "patterns.help": "Structural shapes, spotted within the whole graph rather than isolating one relationship (contrast a path highlight in Selection): cycles (a red ring), hubs — a degree standing out from the rest of the graph (purple), diamonds — two distinct routes from one declaration to another (amber), and chains — a linear run with nothing else attached along the way (teal). Any number can be on at once; a declaration in more than one gets a ring per kind. Only follows currently enabled edge kinds.",
 
     "metric.treeScore": "Tree score",
     "metric.treeScore.hint": "Average of the five ratios below.",
@@ -213,6 +219,7 @@ const STRINGS = {
     "section.edges": "エッジ",
     "section.physics": "物理",
     "section.zones": "ゾーン",
+    "section.patterns": "パターン",
     "section.diagnostics": "診断: 木になっているか",
     "section.selection": "選択",
     "section.legend": "凡例",
@@ -262,6 +269,11 @@ const STRINGS = {
 
     "zones.depth": "ディレクトリ / ファイル深さの範囲",
     "zones.help": "両方のハンドルは初期状態で 0 にあり、ゾーンは何も表示されません。下限ハンドルが表示する最も外側の階層、上限ハンドルが最も内側の階層(最大でファイルまで)です。上限ハンドルだけを動かせば従来どおり外側から段階的に表示できますが、下限ハンドルを使えば、例えば2階層下のディレクトリだけを、外側のディレクトリを表示せずに見せることもできます。ゾーンは含まれる宣言を囲む凸包で、物理には一切影響しません。",
+    "motif.cycle": "循環",
+    "motif.hub": "ハブ",
+    "motif.diamond": "ダイヤモンド",
+    "motif.chain": "チェーン",
+    "patterns.help": "グラフ全体の中から構造的な形を見つけて示します。1つの関係を切り出すパス強調(選択セクション)とは違い、複数を同時にオンにできます: 循環(赤い輪)、ハブ — グラフの他の部分から突出した次数を持つノード(紫)、ダイヤモンド — ある宣言から別の宣言への2つの異なる経路(琥珀色)、チェーン — 途中に何も接続していない一直線の連なり(ティール)。1つの宣言が複数に該当する場合は種類ごとに輪が付きます。現在有効なエッジ種別のみを対象とします。",
 
     "metric.treeScore": "木スコア",
     "metric.treeScore.hint": "下の 5 つの比率の平均。",

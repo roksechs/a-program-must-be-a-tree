@@ -35,6 +35,14 @@ export class Graph3D {
     // Both null together, or both set together; never one without the other.
     this.pathNodes = null;
     this.pathEdges = null;
+    // Motif highlighting (motifs.js): `Map<kind, {nodes, edges}>`, drawn as
+    // an overlay — a coloured ring per matching node, a thicker stroke per
+    // matching edge — on top of the ordinary drawing rather than replacing
+    // it, since (unlike a path) a motif is a category to spot within the
+    // whole graph, not a single relationship to isolate from everything
+    // else; a node can belong to more than one at once (e.g. a hub that is
+    // also in a cycle), each getting its own ring rather than one winning.
+    this.motifs = null;
     this.labelMode = "auto";
     this.colorBy = "height";
     this.visibleKinds = new Set(EDGE_KINDS);
@@ -290,6 +298,12 @@ export class Graph3D {
   setPath(nodes, edges) {
     this.pathNodes = nodes;
     this.pathEdges = edges;
+    this.draw();
+  }
+
+  /** `motifs` is a Map<kind, {nodes, edges, color}> (see app.js), or null to clear every motif overlay at once. */
+  setMotifs(motifs) {
+    this.motifs = motifs;
     this.draw();
   }
 
@@ -580,6 +594,39 @@ export class Graph3D {
     }
     ctx.globalAlpha = 1;
     ctx.textAlign = "start";
+
+    // Motif overlay (see setMotifs()): drawn last, on top of everything
+    // above, since it is a category to spot within the whole graph rather
+    // than a relationship that dims the rest of it away.
+    if (this.motifs) {
+      for (const { edges, color } of this.motifs.values()) {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 3;
+        ctx.globalAlpha = 0.6;
+        for (const l of edges) {
+          const s = byIndex.get(l.source.index);
+          const t = byIndex.get(l.target.index);
+          if (!s || !t) continue;
+          ctx.beginPath();
+          ctx.moveTo(s.x, s.y);
+          ctx.lineTo(t.x, t.y);
+          ctx.stroke();
+        }
+      }
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = 2;
+      for (const p of sorted) {
+        let ring = 0;
+        for (const { nodes: motifNodes, color } of this.motifs.values()) {
+          if (!motifNodes.has(p.node)) continue;
+          ctx.strokeStyle = color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.node.radius * p.scale + 3 + ring * 4, 0, Math.PI * 2);
+          ctx.stroke();
+          ring++;
+        }
+      }
+    }
   }
 
   fit() {

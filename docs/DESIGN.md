@@ -57,6 +57,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `metrics.js`    | Tree-likeness diagnostics. |
 | `dominance.js`  | Dominator tree of the condensed graph: the deepest nesting the program admits, and the lift of every edge. |
 | `paths.js`      | "How does A reach B": every node/edge on some path between two declarations, plus the shortest one — see "Path highlighting". |
+| `motifs.js`     | Structural motif detectors (cycle, hub, diamond, chain) — see "Motif highlighting". |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
 | `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer, used by both the main viewer and the article's live figures. |
@@ -581,6 +582,47 @@ highlight being a separate rendering pass layered on top. Selecting a
 different node (including clearing the selection) drops the path instead
 of drawing one whose endpoint no longer matches what's selected, since a
 path is only ever meaningful relative to the selection it was asked for.
+
+## Motif highlighting
+
+A path highlight isolates one relationship; a motif is a *category* to spot
+across the whole graph instead, so `motifs.js`'s four detectors — `cycleMotif`,
+`hubMotif`, `diamondMotif`, `chainMotif` — and their panel toggles (any
+number on at once, off by default) draw as an additive overlay rather than
+dimming everything that doesn't match. Each returns the same `{ nodes, edges }`
+shape over `graph.activeLinks` as `pathBetween` does, for the same reason:
+a switched-off edge kind should be invisible to a motif query too.
+
+* **Cycle**: every node in a nontrivial SCC (`n.inCycle`, already computed by
+  `computeHeights` for the diagnostics) and every edge that stays inside one
+  — the same underlying fact the diagnostics' acyclicity score and each
+  node's always-on red stroke already reflect, made an explicit, toggleable
+  overlay instead of a fixed part of the node's own outline.
+* **Hub**: a node whose in+out degree (over active edges, recomputed here
+  rather than reusing the model's whole-graph `inDegree`/`outDegree`, which
+  do not shrink when a kind is switched off) sits at or above both a fixed
+  floor and a percentile of every other degree in the *current* graph — so
+  "stands out" adapts to how connected the graph as a whole happens to be,
+  rather than a single absolute number that reads very differently on a
+  sparse graph than a dense one.
+* **Diamond**: `A -> B, A -> C, B -> D, C -> D` — two distinct 2-hop routes
+  between the same pair. Found by counting, per node `A`, how many of its
+  out-neighbours' own out-neighbours land on the same node `D`; two or more
+  distinct intermediates means a diamond.
+* **Chain**: a maximal run of declarations connected one to the next with
+  nothing else attached along the way — every node strictly inside the run
+  has exactly one active in-edge and one active out-edge — long enough
+  (`minLength`, node count) to be worth calling out. This is exactly the
+  shape a tree-likeness score never penalizes, since nothing forks or
+  merges along it; the motif exists to make that "boring but blameless"
+  shape visible on request rather than implicit in a good score.
+
+Rendering draws a coloured ring per matching node (one motif kind, one
+colour) and a thicker stroke over matching edges, layered on top of the
+ordinary node/edge/label passes rather than folded into their own dimming
+logic — unlike the path highlight, a node can and often does belong to more
+than one motif at once (a hub that is also in a cycle, say), so it can carry
+one ring per kind rather than one motif "winning" over the others.
 
 ## Roadmap
 

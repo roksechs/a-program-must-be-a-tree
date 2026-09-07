@@ -99,6 +99,7 @@ Three ways, no server involved in any of them:
 | View & Physics | label mode, colour by kind or call height, layer gap and planes (with a focus-distance fade), auto-rotate, fit, top view (perspective-free, straight down the height axis); recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |
 | Zones       | directory / file depth *range* (a two-handled slider): both ends start at 0 (nothing shown); the high handle reveals outward from the top like a single depth slider always did, down to the files at the maximum, while the low handle can raise the outer edge to show an inner band on its own |
+| Patterns    | structural motifs — cycles, hubs, diamonds, chains — highlighted anywhere they occur in the graph, any number on at once, each its own colour |
 | Diagnostics | tree score and its five components, counts, costliest sharing |
 | Selection   | callers and callees of the clicked node, with the lift of each edge, the declaration's natural scope, a Focus button that centres the camera on it, and (ctrl/cmd+click a second node) the path between the two, highlighted in the view |
 

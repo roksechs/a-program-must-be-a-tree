@@ -7,6 +7,7 @@ import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
+import { MOTIF_COLORS, MOTIF_DETECTORS } from "./motifs.js";
 import { Panel } from "./panel.js";
 import { pathBetween } from "./paths.js";
 import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
@@ -30,6 +31,8 @@ const state = {
   // direction (THEORY.md §7) is the one worth turning back off if it confuses
   // a dominator-tree-based reading of the diagnostics.
   kinds: new Set(EDGE_KINDS.filter((k) => !DEFAULT_OFF_KINDS.has(k))),
+  // Which motif kinds (motifs.js) are currently highlighted; none by default.
+  motifs: new Set(),
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
   datasets: [],
@@ -169,6 +172,11 @@ const panel = new Panel(document.getElementById("panel"), state, {
     renderer.setPath(null, null);
     panel.setPathResult(null);
   },
+  onMotifs: (kind, enabled) => {
+    if (enabled) state.motifs.add(kind);
+    else state.motifs.delete(kind);
+    updateMotifs();
+  },
 });
 
 /** Apply the enabled edge kinds to drawing, springs and diagnostics at once. */
@@ -180,6 +188,7 @@ function applyKinds() {
     panel.setMetrics(state.graph);
     panel.setSelection(renderer.selected, state.graph);
     renderer.restyle();
+    updateMotifs(); // a motif's own edges/nodes depend on which kinds are active, same as the diagnostics above
   }
   // Drawing, degrees and diagnostics above already reflect the new kinds
   // immediately; the spring set (below) takes effect on the simulation's own
@@ -193,6 +202,21 @@ function updateZones() {
   if (!state.graph) return;
   const containers = visibleContainers(state.graph, state.zoneMinDepth, state.zoneMaxDepth);
   renderer.setZones(containers);
+}
+
+/** Recompute every enabled motif (motifs.js) over the graph's current active edges and hand the result to the renderer. */
+function updateMotifs() {
+  if (!state.graph) return;
+  if (state.motifs.size === 0) {
+    renderer.setMotifs(null);
+    return;
+  }
+  const result = new Map();
+  for (const kind of state.motifs) {
+    const { nodes, edges } = MOTIF_DETECTORS[kind](state.graph);
+    result.set(kind, { nodes, edges, color: MOTIF_COLORS[kind] });
+  }
+  renderer.setMotifs(result);
 }
 
 let statusMessage = { key: "app.loading", params: {} };
@@ -253,6 +277,7 @@ function installGraph(doc, label) {
   panel.setSelection(null, graph);
   panel.setDataInfo({ label, nodes: graph.nodes.length, edges: graph.links.length, files: graph.containers.filter((c) => c.isFile).length });
   updateZones();
+  updateMotifs();
 
   // The camera is never moved on its own — not on load, not while the
   // simulation is running, not once it settles. "Fit to view" is the only

@@ -8,6 +8,7 @@ import { POPULAR_REPOS } from "./githubAnalyzer.js";
 import { kindLabel, t } from "./i18n.js";
 import { localFolderSupported } from "./localAnalyzer.js";
 import { computeMetrics, linkLift, naturalScope, topSharedNodes } from "./metrics.js";
+import { MOTIF_COLORS, MOTIF_KINDS } from "./motifs.js";
 
 const GITHUB_SEARCH_DEBOUNCE_MS = 400;
 
@@ -15,7 +16,7 @@ export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode, onClearPath }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onMotifs }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -271,6 +272,16 @@ export class Panel {
     // Zones
     this.depthSlider = this.rangeSlider(t("zones.depth"), s.zoneMinDepth, s.zoneMaxDepth, 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => v);
     this.host.append(this.section(t("section.zones"), this.depthSlider, this.el("p", { class: "muted small" }, t("zones.help"))));
+
+    // Patterns: structural motifs, spotted within the whole graph rather
+    // than isolating one relationship (contrast the path highlight above,
+    // in Selection) — off by default, any number can be on at once.
+    const motifList = this.el("div", { class: "kind-list" });
+    for (const kind of MOTIF_KINDS) {
+      const box = this.el("input", { type: "checkbox", checked: s.motifs.has(kind) ? "" : null, onchange: (e) => h.onMotifs(kind, e.target.checked) });
+      motifList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${MOTIF_COLORS[kind]}` }), t(`motif.${kind}`)));
+    }
+    this.host.append(this.section(t("section.patterns"), motifList, this.el("p", { class: "muted small" }, t("patterns.help"))));
 
     // Diagnostics
     this.metricsBody = this.el("div", { class: "metrics" });
