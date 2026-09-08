@@ -6,7 +6,7 @@
 // files via `ts.sys`) and from the browser's local-folder feature
 // (`site/js/localAnalyzer.js`, a Program built over an in-memory CompilerHost
 // fed by the File System Access API) — one analyzer, two front ends.
-export const ANALYZER_VERSION = "0.6.0";
+export const ANALYZER_VERSION = "0.7.0";
 export const EXTENSIONS = new Set([".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".mts", ".cts", ".svelte"]);
 export const DEFAULT_EXCLUDES = ["node_modules", ".git", "dist", "build", "coverage", "vendor"];
 
@@ -971,6 +971,63 @@ export function createCore(ts) {
     // before, is the direction that is unsound. Only consulted when ordinary
     // name resolution has already failed, so a real method call is unaffected.
     const fieldValues = new Map(); // property name -> Set(entry)
+    // Object identities, so a property read can be answered by the object the
+    // receiver actually is rather than by the bare name. The token stands for
+    // one object literal (or one class, for `this`), and carries its own
+    // properties; `isObjToken` tells one apart from a declaration wherever a
+    // value set is consumed as declarations.
+    const objTokens = new Map(); // AST node -> token
+    const objectFields = new Map(); // token -> Map(property name -> Set(entry|token))
+    const objTokenFor = (node) => {
+      let t = objTokens.get(node);
+      if (!t) objTokens.set(node, (t = { objNode: node }));
+      return t;
+    };
+    const isObjToken = (v) => v !== null && typeof v === "object" && v.objNode !== undefined;
+    // Whether an object literal could hold a declaration at all. Most literals
+    // in real code are plain data (`{ x: 1 }`, a options bag of strings), and
+    // minting an identity for one buys nothing while costing a value that
+    // propagates through the fixed point and keeps it running another round.
+    const carriesDeclarations = (lit) =>
+      lit.properties.some((prop) => {
+        if (ts.isMethodDeclaration(prop) || ts.isShorthandPropertyAssignment(prop) || ts.isSpreadAssignment(prop)) return true;
+        if (!ts.isPropertyAssignment(prop)) return false;
+        const init = prop.initializer;
+        return !(ts.isStringLiteralLike(init) || ts.isNumericLiteral(init) || init.kind === ts.SyntaxKind.TrueKeyword || init.kind === ts.SyntaxKind.FalseKeyword || init.kind === ts.SyntaxKind.NullKeyword || ts.isArrayLiteralExpression(init));
+      });
+    const fieldsOf = (token) => {
+      let m = objectFields.get(token);
+      if (!m) objectFields.set(token, (m = new Map()));
+      return m;
+    };
+    // The class an expression's `this` refers to, so `this.foo` can be read off
+    // one object rather than off every `.foo` in the program.
+    const enclosingClass = (node) => {
+      for (let a = node.parent; a; a = a.parent) {
+        if (ts.isClassLike(a)) return a;
+        if (ts.isFunctionDeclaration(a) || ts.isFunctionExpression(a)) return null; // `this` rebinds
+      }
+      return null;
+    };
+    // Every member name the standard library declares, collected from the
+    // lib.*.d.ts files the program already loaded. A property read whose
+    // receiver could not be identified is answered by name (below) — which is
+    // what keeps a callback stored on an object nobody can identify reachable
+    // — but `.map`, `.get`, `.set`, `.then` and their like are names the
+    // language itself owns, and a codebase that happens to declare a function
+    // called `map` should not collect an edge from every array in the program.
+    // Deriving the set from lib.d.ts rather than writing one out keeps it
+    // honest: it says "the standard library owns this name", not "this name
+    // looked risky to me".
+    const stdlibMembers = new Set();
+    for (const sf of program.getSourceFiles()) {
+      if (!sf.isDeclarationFile || !/[\\/]lib\.[^\\/]*\.d\.ts$/.test(sf.fileName)) continue;
+      const collect = (n) => {
+        if ((ts.isMethodSignature(n) || ts.isPropertySignature(n) || ts.isMethodDeclaration(n) || ts.isPropertyDeclaration(n)) && n.name && ts.isIdentifier(n.name)) stdlibMembers.add(n.name.text);
+        ts.forEachChild(n, collect);
+      };
+      collect(sf);
+    }
     const returns = new Map(); // entry -> Set(entry)
     const varValues = new Map(); // variable entry -> Set(entry) (memoised)
     let changed = false;
@@ -1000,6 +1057,14 @@ export function createCore(ts) {
         const own = declByNode.get(node);
         return own ? new Set([own]) : new Set();
       }
+      // An object literal is a value of its own, so a property read off it can
+      // be answered by this object rather than by every object sharing the
+      // name. Its properties are filed by the walk in flowPass().
+      if (ts.isObjectLiteralExpression(node)) return carriesDeclarations(node) ? new Set([objTokenFor(node)]) : new Set();
+      if (node.kind === ts.SyntaxKind.ThisKeyword) {
+        const cls = enclosingClass(node);
+        return cls ? new Set([objTokenFor(cls)]) : new Set();
+      }
       if (ts.isIdentifier(node) || ts.isPropertyAccessExpression(node)) {
         const r = denote(node);
         const target = r && !r.viaPrototype ? r.entry : null;
@@ -1008,13 +1073,43 @@ export function createCore(ts) {
           if (target.kind === "variable") return variableValues(target);
           return new Set();
         }
-        if (ts.isPropertyAccessExpression(node)) return new Set(fieldValues.get(node.name.text) ?? []);
+        if (ts.isPropertyAccessExpression(node)) {
+          const name = node.name.text;
+          // Nothing was ever stored under this name anywhere, so neither the
+          // receiver's own properties nor the by-name table can answer — and
+          // that is the overwhelming majority of property reads in real code
+          // (`.length`, `.style`, `.parent`). Checking first keeps the
+          // receiver from being evaluated, and its receiver in turn, for all
+          // of them. Every store writes the by-name table too, so this cannot
+          // hide a property an object does have.
+          if (!fieldValues.has(name)) return new Set();
+          // Three answers, in order of how much is actually known.
+          const recv = evalExpr(node.expression);
+          const tokens = [...recv].filter(isObjToken);
+          // 1. The receiver is an object we tracked: answer from that object
+          //    alone, and stop. An empty answer here is a real answer — the
+          //    object does not have this property — not a reason to guess.
+          if (tokens.length > 0) {
+            const out = new Set();
+            for (const t of tokens) for (const v of fieldsOf(t).get(name) ?? []) out.add(v);
+            return out;
+          }
+          // 2. The receiver is unknown and the name belongs to the standard
+          //    library: say nothing. Guessing here is what made every
+          //    `xs.map(...)` in a codebase point at a function called `map`.
+          if (stdlibMembers.has(name)) return new Set();
+          // 3. The receiver is unknown and the name is the codebase's own:
+          //    answer by name. This is what keeps a callback reachable when it
+          //    was spread into a new object, or hung on an object some library
+          //    handed over — neither of which leaves an identity to follow.
+          return new Set(fieldValues.get(name) ?? []);
+        }
         const sym = symbolOf(node);
         return sym && env.has(sym) ? new Set(env.get(sym)) : new Set();
       }
       if (ts.isCallExpression(node)) {
         const out = new Set();
-        for (const g of calleeValues(node)) if (isCallable(g)) for (const v of returns.get(g) ?? []) out.add(v);
+        for (const g of calleeValues(node)) if (!isObjToken(g) && isCallable(g)) for (const v of returns.get(g) ?? []) out.add(v);
         return out;
       }
       if (ts.isConditionalExpression(node)) return new Set([...evalExpr(node.whenTrue), ...evalExpr(node.whenFalse)]);
@@ -1039,7 +1134,7 @@ export function createCore(ts) {
       const out = new Set();
       const callee = call.expression;
       if (ts.isNewExpression(call)) {
-        for (const v of evalExpr(callee)) if (v.kind === "class") out.add(constructorTarget(v));
+        for (const v of evalExpr(callee)) if (!isObjToken(v) && v.kind === "class") out.add(constructorTarget(v));
         return out;
       }
       if (callee.kind === ts.SyntaxKind.SuperKeyword) {
@@ -1048,7 +1143,7 @@ export function createCore(ts) {
         return out;
       }
       for (const v of evalExpr(callee)) {
-        if (v.kind === "class") continue;
+        if (isObjToken(v) || v.kind === "class") continue;
         out.add(v);
         if (v.kind === "method" && !v.isStatic && ts.isPropertyAccessExpression(callee)) for (const impl of dispatchTargets(v)) out.add(impl);
       }
@@ -1070,8 +1165,14 @@ export function createCore(ts) {
             const sym = symbolOf(node.left);
             if (sym && !denote(node.left)?.entry) union(setFor(env, sym), evalExpr(node.right));
           } else if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.EqualsToken && ts.isPropertyAccessExpression(node.left)) {
-            // `this.t = deps.t`, `obj.handler = fn` — a property store.
-            union(setFor(fieldValues, node.left.name.text), evalExpr(node.right));
+            // `this.t = deps.t`, `obj.handler = fn` — a property store. Filed
+            // against the receiver when it is an object we can name, and
+            // against the bare name either way: the by-name table is what
+            // answers a read whose receiver cannot be identified (tier 3).
+            const value = evalExpr(node.right);
+            const name = node.left.name.text;
+            for (const t of evalExpr(node.left.expression)) if (isObjToken(t)) union(setFor(fieldsOf(t), name), value);
+            union(setFor(fieldValues, name), value);
           } else if (ts.isObjectLiteralExpression(node)) {
             // `{ onSelect: fn }`, `{ onSelect }`, `{ onSelect() {} }` — the
             // shape dependency injection actually arrives in.
@@ -1084,9 +1185,9 @@ export function createCore(ts) {
               // inside it, which is why this asks about `prop` and not about
               // the initializer.
               const own = declByNode.get(prop);
-              if (own) union(setFor(fieldValues, key), new Set([own]));
-              else if (ts.isPropertyAssignment(prop)) union(setFor(fieldValues, key), evalExpr(prop.initializer));
-              else if (ts.isShorthandPropertyAssignment(prop)) union(setFor(fieldValues, key), evalExpr(prop.name));
+              const value = own ? new Set([own]) : ts.isPropertyAssignment(prop) ? evalExpr(prop.initializer) : ts.isShorthandPropertyAssignment(prop) ? evalExpr(prop.name) : new Set();
+              union(setFor(fieldsOf(objTokenFor(node)), key), value);
+              union(setFor(fieldValues, key), value);
             }
           } else if (ts.isReturnStatement(node) && node.expression && fn) {
             // Only returns of the declaration's own function body count; inner anonymous functions are not modelled.
@@ -1136,7 +1237,7 @@ export function createCore(ts) {
     // stored callback to whatever it turned out to call.
     for (const { owner, target, time } of referenceSites) {
       for (const g of variableValues(target)) {
-        if (g === owner || g === target) continue;
+        if (isObjToken(g) || g === owner || g === target) continue;
         addEdge(owner, g, "reference", time, true);
       }
     }

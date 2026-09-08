@@ -6,6 +6,31 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Analyzer: answer a property read by the object, not just by the name
+
+* `analyzers/ts@0.7.0`. Resolving a property purely by its name — which is
+  what the previous release did — made a codebase that declares a function
+  called `map` or `get` collect an edge from every `xs.map(…)` and
+  `cache.get(…)` whose receiver TypeScript could not pin down. In a Svelte
+  project, where `any` arrives from every direction, that was **the majority
+  of the graph**: 51% of edges inferred, against 29% before properties were
+  modelled at all.
+* A property read is now answered in three steps: from the receiver's own
+  object when one was identified (an object literal, or `this` in a class);
+  by nothing at all when the receiver is unknown and the name belongs to the
+  standard library; and by name otherwise. The standard-library names are
+  collected from the `lib.*.d.ts` files the program already loads, so the
+  rule is "the language owns this name", not a hand-written denylist.
+* All three steps are needed. Identity alone drops real edges wherever there
+  is no identity to follow — a callback spread into a new object, or hung on
+  an object a library handed over, both of which this repository does — and
+  name alone is what invented the edges above.
+* On `svelte/src` (370 files): edges 12,172 → 8,514, inferred 51% → 30%,
+  landing back on the 8,454 of the release before properties were modelled
+  plus 60 genuine injected-dependency edges. The viewer feels it more than
+  the analyzer does, since it pays per frame rather than once: first render
+  880ms → 489ms, and 18fps → 28fps on the same graph.
+
 ### Analyzer: an injected dependency is no longer invisible
 
 * The bounded 0-CFA (docs/THEORY.md §3.2) now flows values through object

@@ -569,6 +569,38 @@ test("a dependency passed as a parameter is traced too, and an unrelated declara
   assert.equal(edge("n.js::R.go", "n.js::onSelect"), undefined, "should not reach an unrelated same-named function");
 });
 
+test("a property read is answered by the object when one is known, by name when none is, and never by a standard-library name", () => {
+  const root = fixture({
+    "n.ts": `
+      export function target() { return 1; }
+      export function map<T>(g: T[]): T[] { return g; }
+      // the namespace-object shape: \`map\` is now a value stored under that name
+      export const NodeGraph = { map };
+
+      // the receiver cannot be identified and \`map\` is a name the standard
+      // library owns: answering by name here linked every array in a codebase
+      // to whatever function happened to be called map
+      export function loose(x: any) { return x.map((v: number) => v); }
+
+      // the receiver IS identifiable — literal, constructor argument, \`this\`
+      export class A { d: any; constructor(d: any) { this.d = d; } run() { return this.d.hit(); } }
+      export function wireA() { return new A({ hit: () => target() }); }
+
+      // a spread of an object built elsewhere leaves no identity to follow, so
+      // only the name can answer — and must, or the callback goes missing
+      function build() { return { spun: () => target() }; }
+      export function spread() { return { ...build() }.spun(); }
+    `,
+  });
+  const doc = analyze({ name: "ts", root });
+  const has = (from, to) => doc.edges.some((e) => e.source === from && e.target === to);
+
+  assert.equal(has("n.ts::loose", "n.ts::map"), false, "an any-typed receiver must not reach a function named map");
+  assert.ok(has("n.ts::NodeGraph", "n.ts::map"), "storing it is still a reference");
+  assert.ok(has("n.ts::A.run", "n.ts::wireA/hit"), "a known receiver is answered from its own object");
+  assert.ok(has("n.ts::spread", "n.ts::build/spun"), "a spread has no identity to follow, so the name answers");
+});
+
 test("assignment targets record a reversed write edge (docs/THEORY.md §3.5)", () => {
   const root = fixture({
     "g.js": `

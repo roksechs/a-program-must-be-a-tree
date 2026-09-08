@@ -201,15 +201,30 @@ they flow through local bindings, through the parameters of declared callees
 (including dispatched method targets), through the return values of declared
 functions, and through object properties, to a fixed point.
 
-Properties are *field-insensitive*: one abstract location per property name,
-shared by every object that has a property of that name. `this.t = deps.t`
-and `{ onSelect: fn }` both file their value under the bare name, and
-`x.onSelect()` reads it back without having to determine what `x` is — which
-is what makes an injected object whose properties are called off it
-(`this.callbacks.onSelect?.()`, where the callbacks object was built
-somewhere else entirely) resolvable at all. This over-approximates: two
-unrelated classes with a `.render` each share one location, so a call
-through one can name the other's. Fact 4 asks for exactly that direction.
+A property read is answered in three steps, by how much is actually known
+about the receiver.
+
+1. **The receiver is an object the analysis identified** — an object literal
+   it saw, or `this` in a class. The read is answered from that object's own
+   properties and stops there; an empty answer is a real answer, not a reason
+   to guess.
+2. **The receiver is unknown and the name belongs to the standard library.**
+   Nothing is said. The set of such names is collected from the `lib.*.d.ts`
+   files the program already loads, so it states "the language owns this
+   name" rather than a hand-picked list of names that looked risky.
+3. **The receiver is unknown and the name is the codebase's own.** The read is
+   answered by name: one abstract location per property name, shared by every
+   object having a property so called.
+
+Step 3 is field-insensitive and over-approximates, which is the direction
+Fact 4 asks for; steps 1 and 2 are what keep that from swallowing the graph.
+Both are needed. Identity alone loses real edges whenever there is no
+identity to follow — a callback spread into a new object (`{ ...base }`), or
+hung on an object some library handed over (`host.resolveModuleNames = …`) —
+and both shapes are common. Name alone is worse in the other direction: a
+codebase declaring a function `map` collected an edge from every `xs.map(…)`
+whose receiver the checker could not pin down, which in a Svelte project
+(where `any` is everywhere) meant the majority of its edges were invented.
 Modelling no properties at all, which is what this did previously, errs the
 other way and is unsound: a dependency that is *injected* rather than named
 directly then leaves no edge, so a codebase looks more tree-like the more of

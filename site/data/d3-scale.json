@@ -3,8 +3,8 @@
   "name": "d3-scale",
   "root": "node_modules/d3-scale",
   "language": "javascript",
-  "generatedAt": "2026-09-08T03:05:16.533Z",
-  "analyzer": "analyzers/ts@0.6.0",
+  "generatedAt": "2026-09-08T04:38:31.654Z",
+  "analyzer": "analyzers/ts@0.7.0",
   "files": 24
  },
  "declarations": [
@@ -665,14 +665,6 @@
   },
   {
    "source": "src/band.js::band",
-   "target": "src/log.js::loggish/floor",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "src/band.js::band",
    "target": "src/ordinal.js::ordinal",
    "kind": "call",
    "count": 1,
@@ -1027,22 +1019,6 @@
   },
   {
    "source": "src/linear.js::linearish",
-   "target": "src/log.js::loggish/ceil",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "src/linear.js::linearish",
-   "target": "src/log.js::loggish/floor",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "src/linear.js::linearish",
    "target": "src/tickFormat.js::tickFormat",
    "kind": "call",
    "count": 1,
@@ -1082,22 +1058,6 @@
    "kind": "call",
    "count": 1,
    "time": "use"
-  },
-  {
-   "source": "src/log.js::loggish",
-   "target": "src/log.js::loggish/ceil",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "src/log.js::loggish",
-   "target": "src/log.js::loggish/floor",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
   },
   {
    "source": "src/log.js::loggish",

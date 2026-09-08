@@ -3,8 +3,8 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-08T03:05:13.414Z",
-  "analyzer": "analyzers/ts@0.6.0",
+  "generatedAt": "2026-09-08T04:38:29.014Z",
+  "analyzer": "analyzers/ts@0.7.0",
   "files": 33
  },
  "declarations": [
@@ -6860,14 +6860,14 @@
    "source": "test/analyzer.test.mjs::<module>",
    "target": "analyzers/ts/analyze.mjs::analyze",
    "kind": "call",
-   "count": 21,
+   "count": 22,
    "time": "use"
   },
   {
    "source": "test/analyzer.test.mjs::<module>",
    "target": "test/analyzer.test.mjs::fixture",
    "kind": "call",
-   "count": 20,
+   "count": 21,
    "time": "use"
   },
   {

@@ -3,8 +3,8 @@
   "name": "d3-force",
   "root": "node_modules/d3-force",
   "language": "javascript",
-  "generatedAt": "2026-09-08T03:05:15.496Z",
-  "analyzer": "analyzers/ts@0.6.0",
+  "generatedAt": "2026-09-08T04:38:30.736Z",
+  "analyzer": "analyzers/ts@0.7.0",
   "files": 12
  },
  "declarations": [
@@ -442,14 +442,6 @@
    "kind": "call",
    "count": 1,
    "time": "use"
-  },
-  {
-   "source": "src/simulation.js::default",
-   "target": "src/simulation.js::default/stop",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
   },
   {
    "source": "src/simulation.js::default",
