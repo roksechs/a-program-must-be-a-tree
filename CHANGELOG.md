@@ -40,13 +40,19 @@ The section for a version becomes the notes of its GitHub release
   the analysis, so a folder pays for it once and never again.
   `site/js/layout.js` is the single copy both producers run, so a dataset and
   a freshly analyzed folder are laid out identically.
-* The run now stops on whichever comes first: the cooling schedule reaching
-  `alphaMin`, or the layout having stopped *moving* (mean displacement per
-  tick under 1e-5 of its own longest side). The tick budget the schedule
-  implies comes from `alphaDecay` alone and has nothing to do with the graph
-  — 2,300 ticks is about right for a few thousand declarations and absurd for
-  the five in a sample. The published datasets now stop between 600 and 1,500
-  ticks instead of always running 2,300.
+* The run stops on whichever comes first: the cooling schedule reaching
+  `alphaMin`, or the *arrangement* having stopped changing — the per-tick
+  change in the layout taken as a shape (centred, scaled by the median
+  distance from the centroid) under 1e-5, twice in a row. Not absolute
+  displacement, which reads as convergence far too early: it falls as much
+  from the layout inflating as from the picture settling, and the inflation
+  never stops, since an island has nothing holding it back. On a
+  2,138-declaration project a 1e-5 threshold on absolute displacement fires
+  at tick 1,300, where the shape is still changing eight times that fast.
+  It now stops at 2,000, and the layout differs from running the full
+  schedule by 0.0016 of the median radius. Small graphs still stop early,
+  which is the point: the published datasets range from 400 to 2,100 ticks
+  against the schedule's flat 2,300.
 * **A run that finishes is kept.** Its positions are written back into the
   document, and for an analysis from "Recently opened", back into IndexedDB —
   so reopening a folder is instant and already settled.

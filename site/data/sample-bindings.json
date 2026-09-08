@@ -3,7 +3,7 @@
   "name": "sample-bindings",
   "root": "samples/bindings",
   "language": "javascript",
-  "generatedAt": "2026-09-08T07:11:19.906Z",
+  "generatedAt": "2026-09-08T07:26:52.592Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 7
  },
@@ -19,8 +19,8 @@
    "aliases": [
     "helper"
    ],
-   "x": -1129.4,
-   "y": -969.6
+   "x": -1136,
+   "y": -974.1
   },
   {
    "id": "cjs.js::run",
@@ -30,8 +30,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": -1162.7,
-   "y": -899.9
+   "x": -1169.4,
+   "y": -904.4
   },
   {
    "id": "late.js::app",
@@ -41,8 +41,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 755,
-   "y": -116.8
+   "x": 758.3,
+   "y": -118.1
   },
   {
    "id": "late.js::app.handler",
@@ -53,8 +53,8 @@
    "parent": "late.js::app",
    "exported": false,
    "late": true,
-   "x": 713.6,
-   "y": -206.5
+   "x": 716.5,
+   "y": -208
   },
   {
    "id": "late.js::init",
@@ -64,8 +64,8 @@
    "line": 8,
    "parent": null,
    "exported": true,
-   "x": 642,
-   "y": -117.8
+   "x": 644.3,
+   "y": -119.6
   },
   {
    "id": "late.js::route",
@@ -75,8 +75,8 @@
    "line": 14,
    "parent": null,
    "exported": true,
-   "x": 683.3,
-   "y": -71.1
+   "x": 686,
+   "y": -73.1
   },
   {
    "id": "main.js::main",
@@ -86,8 +86,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 561.6,
-   "y": 21.1
+   "x": 564.3,
+   "y": 20
   },
   {
    "id": "namespace.js::chart.scale",
@@ -97,8 +97,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 478.4,
-   "y": 43.1
+   "x": 480.8,
+   "y": 41.5
   },
   {
    "id": "namespace.js::chart.scale.linear",
@@ -108,8 +108,8 @@
    "line": 7,
    "parent": "namespace.js::chart.scale",
    "exported": true,
-   "x": 514.2,
-   "y": 165.6
+   "x": 516.2,
+   "y": 164
   },
   {
    "id": "namespace.js::interpolate",
@@ -119,8 +119,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": 479.8,
-   "y": 301.5
+   "x": 483,
+   "y": 300.4
   },
   {
    "id": "prototype.js::add",
@@ -133,8 +133,8 @@
    "aliases": [
     "Moment.add"
    ],
-   "x": 367.6,
-   "y": -168.4
+   "x": 371,
+   "y": -169.6
   },
   {
    "id": "prototype.js::Moment",
@@ -144,8 +144,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": 660.5,
-   "y": 140.9
+   "x": 663.1,
+   "y": 139.6
   },
   {
    "id": "prototype.js::Moment.isValid",
@@ -155,8 +155,8 @@
    "line": 17,
    "parent": "prototype.js::Moment",
    "exported": false,
-   "x": 462.4,
-   "y": -75.8
+   "x": 465.4,
+   "y": -76.8
   },
   {
    "id": "prototype.js::Moment.utc",
@@ -166,8 +166,8 @@
    "line": 22,
    "parent": "prototype.js::Moment",
    "exported": true,
-   "x": 632.7,
-   "y": 83.3
+   "x": 635.1,
+   "y": 82.5
   },
   {
    "id": "prototype.js::proto",
@@ -177,8 +177,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": 744.5,
-   "y": 244.4
+   "x": 746.9,
+   "y": 242.6
   },
   {
    "id": "store.js::<module>",
@@ -188,8 +188,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": -171.3,
-   "y": 230.5
+   "x": -168.3,
+   "y": 230.6
   },
   {
    "id": "store.js::build",
@@ -199,8 +199,8 @@
    "line": 19,
    "parent": null,
    "exported": false,
-   "x": -434.6,
-   "y": 295.2
+   "x": -431.4,
+   "y": 296.1
   },
   {
    "id": "store.js::list",
@@ -210,8 +210,8 @@
    "line": 14,
    "parent": null,
    "exported": false,
-   "x": -322.7,
-   "y": 268.8
+   "x": -319.5,
+   "y": 269.3
   },
   {
    "id": "store.js::setup",
@@ -221,8 +221,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": 310.2,
-   "y": 95
+   "x": 312.7,
+   "y": 94.1
   },
   {
    "id": "util.js::save",
@@ -232,8 +232,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 36.1,
-   "y": 174.4
+   "x": 38.8,
+   "y": 174
   },
   {
    "id": "util.js::tick",
@@ -243,8 +243,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 777,
-   "y": -315.3
+   "x": 779.7,
+   "y": -317
   }
  ],
  "edges": [

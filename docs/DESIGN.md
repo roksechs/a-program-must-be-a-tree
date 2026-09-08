@@ -414,14 +414,34 @@ producers run; `scripts/settle.mjs` is only the build step's way of loading
 d3 before calling it.
 
 The run stops on whichever comes first: the cooling schedule reaching
-`alphaMin`, the same threshold a run in the page stops at, or the layout
-having stopped *moving* — mean displacement per tick under 1e-5 of the
-layout's own longest side. The second is what usually fires, and it is
-measured rather than assumed because the tick budget the cooling schedule
-implies is set by `alphaDecay` alone and has nothing to do with the graph:
-2,300 ticks is about right for a few thousand declarations and absurd for the
-five in a sample. In practice the published datasets stop between 600 and
-1,500 ticks, against the 2,300 the schedule would have run.
+`alphaMin`, the same threshold a run in the page stops at, or the
+*arrangement* having stopped changing — the per-tick change in the layout
+taken as a shape (centred on its centroid, scaled so the median distance from
+it is 1) falling under 1e-5, twice in a row.
+
+The arrangement, and not the positions, because absolute displacement reads
+as convergence far too early. It falls as much from the layout inflating as
+from the picture settling, and the inflation never stops: an island has no
+spring holding it to anything, so the unbounded repulsion pushes it away
+without limit. On a 2,138-declaration project, a threshold of 1e-5 on
+absolute displacement fires at tick 1,300, where the shape is still changing
+at 87e-6 per tick — eight times the same threshold. By 1,900 the shape is at
+12e-6 and by 2,300 at 6e-6. The median distance is the scale for the same
+reason the criterion exists at all: a handful of islands heading for infinity
+would otherwise set it, and everything else would look like it was converging
+by shrinking.
+
+That descent is the annealing rather than a fixed point being reached. Held
+at a high alpha instead of cooled, the same graph plateaus at about 60e-6 and
+never improves, because the temperature keeps nudging it — cooling is what
+settles a shape. So on a large graph this criterion mostly agrees with the
+schedule (that project stops at 2,000 of the schedule's 2,300 ticks, and the
+two layouts differ by 0.0016 of the median radius — nothing) and it is the
+small graphs, where 2,300 ticks is absurd, that stop early. The published
+datasets stop between 400 and 2,100 ticks.
+
+Twice in a row because the measure is noisy from chunk to chunk, and one dip
+below the line is not a layout that has come to rest.
 
 One consequence is worth stating because it is now visible immediately rather
 than after forty seconds of drift: a component connected to nothing else has

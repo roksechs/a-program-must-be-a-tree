@@ -170,19 +170,35 @@ export function layoutOf(graph) {
   return graph.nodes.map((n) => ({ id: n.id, x: n.x, y: n.y }));
 }
 
-/** Longest side of the layout's bounding box: the scale a movement is small *relative to*. */
-function extentOf(nodes) {
-  let minX = Infinity;
-  let maxX = -Infinity;
-  let minY = Infinity;
-  let maxY = -Infinity;
+/**
+ * The layout as a *shape*: centred on its centroid and scaled so the median
+ * distance from it is 1.
+ *
+ * Comparing two of these says how much the arrangement changed, ignoring how
+ * much the whole thing grew — which is the only useful question here, because
+ * under this physics the growth never stops. A piece connected to nothing has
+ * no spring holding it to anything, so the unbounded repulsion pushes it away
+ * without limit: measured on a 2,138-declaration project with the cooling
+ * schedule slowed down, the layout was 80,000 units across and still
+ * expanding after 2,800 ticks. Absolute displacement shrinks partly *because*
+ * of that expansion and so reads as convergence too early.
+ *
+ * The scale is the median distance and not the mean or the bounding box for
+ * the same reason: a handful of islands heading for infinity would otherwise
+ * set it, and everything else would look like it was converging by shrinking.
+ */
+function shapeOf(nodes) {
+  let cx = 0;
+  let cy = 0;
   for (const n of nodes) {
-    if (n.x < minX) minX = n.x;
-    if (n.x > maxX) maxX = n.x;
-    if (n.y < minY) minY = n.y;
-    if (n.y > maxY) maxY = n.y;
+    cx += n.x;
+    cy += n.y;
   }
-  return Math.max(maxX - minX, maxY - minY, 1);
+  cx /= nodes.length;
+  cy /= nodes.length;
+  const radii = nodes.map((n) => Math.hypot(n.x - cx, n.y - cy)).sort((a, b) => a - b);
+  const scale = radii[Math.floor(radii.length / 2)] || 1;
+  return nodes.map((n) => ({ x: (n.x - cx) / scale, y: (n.y - cy) / scale }));
 }
 
 /**
@@ -197,14 +213,25 @@ function extentOf(nodes) {
  *
  *  - the cooling schedule reaching `alphaMin`, the same threshold a run in
  *    the page stops at, or
- *  - the layout having stopped *moving*: mean displacement per tick under
- *    `quiet` of the layout's own longest side. Measured rather than assumed,
- *    because the tick budget the cooling schedule implies is set by
- *    `alphaDecay` alone and has nothing to do with the graph: 2,300 ticks is
- *    about right for a few thousand declarations and absurd for the five in
- *    a sample. On a 2,600-declaration codebase the drift is 0.09‰ of the
- *    extent per tick at 800 ticks and 0.007‰ at 1,800, so a threshold in
- *    that range stops where the picture has stopped changing.
+ *  - the *arrangement* having stopped changing: the per-tick change in
+ *    `shapeOf` under `quiet`, twice in a row.
+ *
+ * The arrangement, not the positions. Absolute displacement stops too early,
+ * because it falls as much from the layout inflating as from the picture
+ * settling: on a 2,138-declaration project, a threshold of 1e-5 on absolute
+ * displacement fires around tick 1,300, where the shape is still changing at
+ * 87e-6 per tick — eight times the same threshold. By tick 1,900 the shape is
+ * down to 12e-6 and by 2,300 to 6e-6.
+ *
+ * That descent is the annealing, not a fixed point being reached: held at a
+ * high alpha instead, the same graph plateaus at about 60e-6 and never
+ * improves, because the temperature keeps nudging it. Cooling is what settles
+ * a shape, so on a large graph this criterion mostly agrees with the schedule
+ * and it is the small graphs — where 2,300 ticks is absurd — that stop early.
+ *
+ * Twice in a row because the measure is noisy from chunk to chunk (86 then 90
+ * then 42, on the run above), and one dip below the line is not a layout that
+ * has come to rest.
  *
  * `maxTicks` is only a backstop against a graph that never settles at all.
  */
@@ -212,7 +239,8 @@ export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, maxTick
   if (graph.nodes.length === 0) return { ticks: 0, reason: "empty" };
   const sim = createSimulation(graph, physics);
   let ticks = 0;
-  let previous = graph.nodes.map((n) => ({ x: n.x, y: n.y }));
+  let previous = shapeOf(graph.nodes);
+  let quietRuns = 0;
   let reason = "cooled";
   while (ticks < maxTicks) {
     if (sim.alpha() <= sim.alphaMin()) break;
@@ -221,12 +249,14 @@ export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, maxTick
       sim.tick();
       ticks++;
     }
+    const now = shapeOf(graph.nodes);
     let moved = 0;
-    graph.nodes.forEach((n, i) => (moved += Math.hypot(n.x - previous[i].x, n.y - previous[i].y)));
-    const perTick = moved / graph.nodes.length / Math.max(ticks - before, 1);
-    previous = graph.nodes.map((n) => ({ x: n.x, y: n.y }));
+    for (let i = 0; i < now.length; i++) moved += Math.hypot(now[i].x - previous[i].x, now[i].y - previous[i].y);
+    const perTick = moved / now.length / Math.max(ticks - before, 1);
+    previous = now;
     onProgress?.({ ticks, maxTicks, alpha: sim.alpha() });
-    if (perTick / extentOf(graph.nodes) < quiet) {
+    quietRuns = perTick < quiet ? quietRuns + 1 : 0;
+    if (quietRuns >= 2) {
       reason = "still";
       break;
     }

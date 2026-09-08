@@ -3,7 +3,7 @@
   "name": "d3-shape",
   "root": "node_modules/d3-shape",
   "language": "javascript",
-  "generatedAt": "2026-09-08T07:11:16.403Z",
+  "generatedAt": "2026-09-08T07:26:47.450Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 60
  },
@@ -16,8 +16,8 @@
    "line": 17,
    "parent": null,
    "exported": false,
-   "x": -1292.2,
-   "y": -973.7
+   "x": -1319.8,
+   "y": -984.6
   },
   {
    "id": "src/arc.js::arcInnerRadius",
@@ -27,8 +27,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -1290.8,
-   "y": -889.8
+   "x": -1318.2,
+   "y": -901.1
   },
   {
    "id": "src/arc.js::arcOuterRadius",
@@ -38,8 +38,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -1585.7,
-   "y": -637.2
+   "x": -1608.4,
+   "y": -665.6
   },
   {
    "id": "src/arc.js::arcPadAngle",
@@ -49,8 +49,8 @@
    "line": 21,
    "parent": null,
    "exported": false,
-   "x": -1356.1,
-   "y": -943.3
+   "x": -1384.5,
+   "y": -954.8
   },
   {
    "id": "src/arc.js::arcStartAngle",
@@ -60,8 +60,8 @@
    "line": 13,
    "parent": null,
    "exported": false,
-   "x": -1307.8,
-   "y": -815.7
+   "x": -1333.6,
+   "y": -825.9
   },
   {
    "id": "src/arc.js::cornerTangents",
@@ -71,8 +71,8 @@
    "line": 36,
    "parent": null,
    "exported": false,
-   "x": -1678.4,
-   "y": -673
+   "x": -1702.8,
+   "y": -684.1
   },
   {
    "id": "src/arc.js::default",
@@ -82,8 +82,8 @@
    "line": 77,
    "parent": null,
    "exported": true,
-   "x": -1750.9,
-   "y": -970.3
+   "x": -1778.7,
+   "y": -978.6
   },
   {
    "id": "src/arc.js::intersect",
@@ -93,8 +93,8 @@
    "line": 25,
    "parent": null,
    "exported": false,
-   "x": -1459.7,
-   "y": -1037.8
+   "x": -1487.1,
+   "y": -1048.3
   },
   {
    "id": "src/area.js::default",
@@ -104,8 +104,8 @@
    "line": 8,
    "parent": null,
    "exported": true,
-   "x": -2264.9,
-   "y": -1526.4
+   "x": -2299.4,
+   "y": -1531
   },
   {
    "id": "src/areaRadial.js::default",
@@ -115,8 +115,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": -2802.1,
-   "y": -1649.8
+   "x": -2837.1,
+   "y": -1650
   },
   {
    "id": "src/array.js::default",
@@ -126,8 +126,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -2088.1,
-   "y": -885.3
+   "x": -2118.1,
+   "y": -883.3
   },
   {
    "id": "src/array.js::slice",
@@ -137,8 +137,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -1948.8,
-   "y": -1691.6
+   "x": -1986.2,
+   "y": -1698.2
   },
   {
    "id": "src/constant.js::default",
@@ -148,8 +148,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -2028.2,
-   "y": -1041.6
+   "x": -2060.9,
+   "y": -1043.9
   },
   {
    "id": "src/curve/basis.js::Basis",
@@ -159,8 +159,8 @@
    "line": 12,
    "parent": null,
    "exported": true,
-   "x": 3550.2,
-   "y": 3942.3
+   "x": 3568.6,
+   "y": 3964.1
   },
   {
    "id": "src/curve/basis.js::Basis.areaEnd",
@@ -170,8 +170,8 @@
    "line": 20,
    "parent": "src/curve/basis.js::Basis",
    "exported": false,
-   "x": -2532,
-   "y": -1916.9
+   "x": -2568.2,
+   "y": -1920.4
   },
   {
    "id": "src/curve/basis.js::Basis.areaStart",
@@ -181,8 +181,8 @@
    "line": 17,
    "parent": "src/curve/basis.js::Basis",
    "exported": false,
-   "x": -2102.4,
-   "y": -2010
+   "x": -2136,
+   "y": -2014.1
   },
   {
    "id": "src/curve/basis.js::Basis.lineEnd",
@@ -192,8 +192,8 @@
    "line": 28,
    "parent": "src/curve/basis.js::Basis",
    "exported": false,
-   "x": -2112.4,
-   "y": -1360.5
+   "x": -2144.5,
+   "y": -1365.3
   },
   {
    "id": "src/curve/basis.js::Basis.lineStart",
@@ -203,8 +203,8 @@
    "line": 23,
    "parent": "src/curve/basis.js::Basis",
    "exported": false,
-   "x": -2459.3,
-   "y": -1568.1
+   "x": -2494.3,
+   "y": -1569.3
   },
   {
    "id": "src/curve/basis.js::Basis.point",
@@ -214,8 +214,8 @@
    "line": 36,
    "parent": "src/curve/basis.js::Basis",
    "exported": false,
-   "x": -2226.1,
-   "y": -1254.5
+   "x": -2258,
+   "y": -1258.3
   },
   {
    "id": "src/curve/basis.js::default",
@@ -225,8 +225,8 @@
    "line": 49,
    "parent": null,
    "exported": true,
-   "x": 3638.5,
-   "y": 3930.8
+   "x": 3656.9,
+   "y": 3952.5
   },
   {
    "id": "src/curve/basis.js::point",
@@ -236,8 +236,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -2055.1,
-   "y": -1249.9
+   "x": -2085.1,
+   "y": -1256.7
   },
   {
    "id": "src/curve/basisClosed.js::BasisClosed",
@@ -247,8 +247,8 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": 3941.6,
-   "y": -4146.3
+   "x": 3969.3,
+   "y": -4161.7
   },
   {
    "id": "src/curve/basisClosed.js::BasisClosed.lineEnd",
@@ -258,8 +258,8 @@
    "line": 16,
    "parent": "src/curve/basisClosed.js::BasisClosed",
    "exported": false,
-   "x": -2155.9,
-   "y": -1283
+   "x": -2188.2,
+   "y": -1287.1
   },
   {
    "id": "src/curve/basisClosed.js::BasisClosed.lineStart",
@@ -269,8 +269,8 @@
    "line": 11,
    "parent": "src/curve/basisClosed.js::BasisClosed",
    "exported": false,
-   "x": -2354.7,
-   "y": -1638.4
+   "x": -2391.4,
+   "y": -1641.9
   },
   {
    "id": "src/curve/basisClosed.js::BasisClosed.point",
@@ -280,8 +280,8 @@
    "line": 37,
    "parent": "src/curve/basisClosed.js::BasisClosed",
    "exported": false,
-   "x": -2294,
-   "y": -1322.6
+   "x": -2327,
+   "y": -1325.2
   },
   {
    "id": "src/curve/basisClosed.js::default",
@@ -291,8 +291,8 @@
    "line": 50,
    "parent": null,
    "exported": true,
-   "x": 3896.2,
-   "y": -4208.5
+   "x": 3924,
+   "y": -4224
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen",
@@ -302,8 +302,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": 5038.7,
-   "y": 2863.6
+   "x": 5063.6,
+   "y": 2877.5
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen.areaEnd",
@@ -313,8 +313,8 @@
    "line": 11,
    "parent": "src/curve/basisOpen.js::BasisOpen",
    "exported": false,
-   "x": -2558.4,
-   "y": -1869.3
+   "x": -2594.3,
+   "y": -1871.5
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen.areaStart",
@@ -324,8 +324,8 @@
    "line": 8,
    "parent": "src/curve/basisOpen.js::BasisOpen",
    "exported": false,
-   "x": -2225.2,
-   "y": -1957.5
+   "x": -2261.7,
+   "y": -1960.3
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen.lineEnd",
@@ -335,8 +335,8 @@
    "line": 19,
    "parent": "src/curve/basisOpen.js::BasisOpen",
    "exported": false,
-   "x": -2143.3,
-   "y": -1504.2
+   "x": -2177.3,
+   "y": -1509
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen.lineStart",
@@ -346,8 +346,8 @@
    "line": 14,
    "parent": "src/curve/basisOpen.js::BasisOpen",
    "exported": false,
-   "x": -2391.5,
-   "y": -1537.7
+   "x": -2426.5,
+   "y": -1538.8
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen.point",
@@ -357,8 +357,8 @@
    "line": 23,
    "parent": "src/curve/basisOpen.js::BasisOpen",
    "exported": false,
-   "x": -2223.7,
-   "y": -1284
+   "x": -2256,
+   "y": -1287.5
   },
   {
    "id": "src/curve/basisOpen.js::default",
@@ -368,8 +368,8 @@
    "line": 37,
    "parent": null,
    "exported": true,
-   "x": 5003.1,
-   "y": 2931.9
+   "x": 5028,
+   "y": 2945.8
   },
   {
    "id": "src/curve/bump.js::Bump",
@@ -379,8 +379,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1667.3,
-   "y": -2154.9
+   "x": -1705.9,
+   "y": -2160.4
   },
   {
    "id": "src/curve/bump.js::Bump.areaEnd",
@@ -390,8 +390,8 @@
    "line": 11,
    "parent": "src/curve/bump.js::Bump",
    "exported": false,
-   "x": -2408.9,
-   "y": -1980
+   "x": -2445.3,
+   "y": -1984.1
   },
   {
    "id": "src/curve/bump.js::Bump.areaStart",
@@ -401,8 +401,8 @@
    "line": 8,
    "parent": "src/curve/bump.js::Bump",
    "exported": false,
-   "x": -2070.9,
-   "y": -1889.5
+   "x": -2107.5,
+   "y": -1895.8
   },
   {
    "id": "src/curve/bump.js::Bump.constructor",
@@ -412,8 +412,8 @@
    "line": 4,
    "parent": "src/curve/bump.js::Bump",
    "exported": false,
-   "x": -1622.3,
-   "y": -2112.3
+   "x": -1660.8,
+   "y": -2118.2
   },
   {
    "id": "src/curve/bump.js::Bump.lineEnd",
@@ -423,8 +423,8 @@
    "line": 17,
    "parent": "src/curve/bump.js::Bump",
    "exported": false,
-   "x": -2102,
-   "y": -1468.4
+   "x": -2133.7,
+   "y": -1473.5
   },
   {
    "id": "src/curve/bump.js::Bump.lineStart",
@@ -434,8 +434,8 @@
    "line": 14,
    "parent": "src/curve/bump.js::Bump",
    "exported": false,
-   "x": -2459.6,
-   "y": -1533.2
+   "x": -2492.9,
+   "y": -1533.1
   },
   {
    "id": "src/curve/bump.js::Bump.point",
@@ -445,8 +445,8 @@
    "line": 21,
    "parent": "src/curve/bump.js::Bump",
    "exported": false,
-   "x": -2157.6,
-   "y": -1330
+   "x": -2191.7,
+   "y": -1334.3
   },
   {
    "id": "src/curve/bump.js::bumpRadial",
@@ -456,8 +456,8 @@
    "line": 73,
    "parent": null,
    "exported": true,
-   "x": -1740.7,
-   "y": -1786
+   "x": -1778.2,
+   "y": -1793.5
   },
   {
    "id": "src/curve/bump.js::BumpRadial",
@@ -467,8 +467,8 @@
    "line": 41,
    "parent": null,
    "exported": false,
-   "x": -1356,
-   "y": -1986.6
+   "x": -1394,
+   "y": -1996.5
   },
   {
    "id": "src/curve/bump.js::BumpRadial.constructor",
@@ -478,8 +478,8 @@
    "line": 42,
    "parent": "src/curve/bump.js::BumpRadial",
    "exported": false,
-   "x": -1395.5,
-   "y": -2056.1
+   "x": -1433.9,
+   "y": -2065.7
   },
   {
    "id": "src/curve/bump.js::BumpRadial.lineEnd",
@@ -489,8 +489,8 @@
    "line": 48,
    "parent": "src/curve/bump.js::BumpRadial",
    "exported": false,
-   "x": -2195.1,
-   "y": -1558.5
+   "x": -2228.7,
+   "y": -1564.2
   },
   {
    "id": "src/curve/bump.js::BumpRadial.lineStart",
@@ -500,8 +500,8 @@
    "line": 45,
    "parent": "src/curve/bump.js::BumpRadial",
    "exported": false,
-   "x": -2314,
-   "y": -1636.7
+   "x": -2348.7,
+   "y": -1639.9
   },
   {
    "id": "src/curve/bump.js::BumpRadial.point",
@@ -511,8 +511,8 @@
    "line": 49,
    "parent": "src/curve/bump.js::BumpRadial",
    "exported": false,
-   "x": -2165.2,
-   "y": -1405.2
+   "x": -2197.5,
+   "y": -1410.6
   },
   {
    "id": "src/curve/bump.js::bumpX",
@@ -522,8 +522,8 @@
    "line": 65,
    "parent": null,
    "exported": true,
-   "x": -1814.1,
-   "y": -1898
+   "x": -1850.6,
+   "y": -1902.8
   },
   {
    "id": "src/curve/bump.js::bumpY",
@@ -533,8 +533,8 @@
    "line": 69,
    "parent": null,
    "exported": true,
-   "x": -1855.3,
-   "y": -1938.6
+   "x": -1892.1,
+   "y": -1943.4
   },
   {
    "id": "src/curve/bundle.js::<module>",
@@ -544,8 +544,8 @@
    "line": 45,
    "parent": null,
    "exported": false,
-   "x": 3475.6,
-   "y": 3910.2
+   "x": 3493.9,
+   "y": 3932
   },
   {
    "id": "src/curve/bundle.js::Bundle",
@@ -555,8 +555,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": 3480.4,
-   "y": 3984.8
+   "x": 3498.9,
+   "y": 4006.7
   },
   {
    "id": "src/curve/bundle.js::Bundle.lineEnd",
@@ -566,8 +566,8 @@
    "line": 14,
    "parent": "src/curve/bundle.js::Bundle",
    "exported": false,
-   "x": -2216,
-   "y": -1406
+   "x": -2249.2,
+   "y": -1409.7
   },
   {
    "id": "src/curve/bundle.js::Bundle.lineStart",
@@ -577,8 +577,8 @@
    "line": 9,
    "parent": "src/curve/bundle.js::Bundle",
    "exported": false,
-   "x": -2426.7,
-   "y": -1599.7
+   "x": -2462.2,
+   "y": -1601.9
   },
   {
    "id": "src/curve/bundle.js::Bundle.point",
@@ -588,8 +588,8 @@
    "line": 39,
    "parent": "src/curve/bundle.js::Bundle",
    "exported": false,
-   "x": -2375.6,
-   "y": -1384.4
+   "x": -2409.4,
+   "y": -1387
   },
   {
    "id": "src/curve/cardinal.js::<module>",
@@ -599,8 +599,8 @@
    "line": 50,
    "parent": null,
    "exported": false,
-   "x": 1239.9,
-   "y": -6023.8
+   "x": 1256.4,
+   "y": -6054.7
   },
   {
    "id": "src/curve/cardinal.js::Cardinal",
@@ -610,8 +610,8 @@
    "line": 12,
    "parent": null,
    "exported": true,
-   "x": 1313.3,
-   "y": -5976.1
+   "x": 1329.6,
+   "y": -6006.7
   },
   {
    "id": "src/curve/cardinal.js::Cardinal.areaEnd",
@@ -621,8 +621,8 @@
    "line": 21,
    "parent": "src/curve/cardinal.js::Cardinal",
    "exported": false,
-   "x": -2560.3,
-   "y": -1814.6
+   "x": -2596.4,
+   "y": -1816.8
   },
   {
    "id": "src/curve/cardinal.js::Cardinal.areaStart",
@@ -632,8 +632,8 @@
    "line": 18,
    "parent": "src/curve/cardinal.js::Cardinal",
    "exported": false,
-   "x": -2188.6,
-   "y": -1869.6
+   "x": -2225.7,
+   "y": -1875.5
   },
   {
    "id": "src/curve/cardinal.js::Cardinal.lineEnd",
@@ -643,8 +643,8 @@
    "line": 29,
    "parent": "src/curve/cardinal.js::Cardinal",
    "exported": false,
-   "x": -2093.3,
-   "y": -1392.2
+   "x": -2126.1,
+   "y": -1397.4
   },
   {
    "id": "src/curve/cardinal.js::Cardinal.lineStart",
@@ -654,8 +654,8 @@
    "line": 24,
    "parent": "src/curve/cardinal.js::Cardinal",
    "exported": false,
-   "x": -2356,
-   "y": -1540.7
+   "x": -2391.1,
+   "y": -1542.1
   },
   {
    "id": "src/curve/cardinal.js::Cardinal.point",
@@ -665,8 +665,8 @@
    "line": 37,
    "parent": "src/curve/cardinal.js::Cardinal",
    "exported": false,
-   "x": -2214.1,
-   "y": -1319.9
+   "x": -2245.5,
+   "y": -1322.5
   },
   {
    "id": "src/curve/cardinal.js::point",
@@ -676,8 +676,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -1978.4,
-   "y": -1392.5
+   "x": -2010,
+   "y": -1396.9
   },
   {
    "id": "src/curve/cardinalClosed.js::<module>",
@@ -687,8 +687,8 @@
    "line": 50,
    "parent": null,
    "exported": false,
-   "x": 4774.9,
-   "y": -2970.3
+   "x": 4805.3,
+   "y": -2976.3
   },
   {
    "id": "src/curve/cardinalClosed.js::CardinalClosed",
@@ -698,8 +698,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": 4812.1,
-   "y": -2891.5
+   "x": 4842.5,
+   "y": -2897.4
   },
   {
    "id": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
@@ -709,8 +709,8 @@
    "line": 17,
    "parent": "src/curve/cardinalClosed.js::CardinalClosed",
    "exported": false,
-   "x": -2123.9,
-   "y": -1322.7
+   "x": -2156.5,
+   "y": -1328.6
   },
   {
    "id": "src/curve/cardinalClosed.js::CardinalClosed.lineStart",
@@ -720,8 +720,8 @@
    "line": 12,
    "parent": "src/curve/cardinalClosed.js::CardinalClosed",
    "exported": false,
-   "x": -2462.1,
-   "y": -1496.8
+   "x": -2495.9,
+   "y": -1497
   },
   {
    "id": "src/curve/cardinalClosed.js::CardinalClosed.point",
@@ -731,8 +731,8 @@
    "line": 37,
    "parent": "src/curve/cardinalClosed.js::CardinalClosed",
    "exported": false,
-   "x": -2236.9,
-   "y": -1375.1
+   "x": -2269.9,
+   "y": -1379.2
   },
   {
    "id": "src/curve/cardinalOpen.js::<module>",
@@ -742,8 +742,8 @@
    "line": 38,
    "parent": null,
    "exported": false,
-   "x": -1724.1,
-   "y": -6313.2
+   "x": -1724.3,
+   "y": -6354.4
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen",
@@ -753,8 +753,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -1637,
-   "y": -6326.5
+   "x": -1637.3,
+   "y": -6367.4
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen.areaEnd",
@@ -764,8 +764,8 @@
    "line": 12,
    "parent": "src/curve/cardinalOpen.js::CardinalOpen",
    "exported": false,
-   "x": -2392,
-   "y": -1930.6
+   "x": -2429.2,
+   "y": -1932.9
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen.areaStart",
@@ -775,8 +775,8 @@
    "line": 9,
    "parent": "src/curve/cardinalOpen.js::CardinalOpen",
    "exported": false,
-   "x": -2129,
-   "y": -1865.9
+   "x": -2164.2,
+   "y": -1869.3
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen.lineEnd",
@@ -786,8 +786,8 @@
    "line": 20,
    "parent": "src/curve/cardinalOpen.js::CardinalOpen",
    "exported": false,
-   "x": -2198.5,
-   "y": -1447.9
+   "x": -2230.5,
+   "y": -1451.9
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen.lineStart",
@@ -797,8 +797,8 @@
    "line": 15,
    "parent": "src/curve/cardinalOpen.js::CardinalOpen",
    "exported": false,
-   "x": -2331,
-   "y": -1571.3
+   "x": -2366.4,
+   "y": -1573.3
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen.point",
@@ -808,8 +808,8 @@
    "line": 24,
    "parent": "src/curve/cardinalOpen.js::CardinalOpen",
    "exported": false,
-   "x": -2193.8,
-   "y": -1343.2
+   "x": -2228.1,
+   "y": -1347.8
   },
   {
    "id": "src/curve/catmullRom.js::<module>",
@@ -819,8 +819,8 @@
    "line": 77,
    "parent": null,
    "exported": false,
-   "x": 1387,
-   "y": -5926.5
+   "x": 1403.1,
+   "y": -5956.9
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom",
@@ -830,8 +830,8 @@
    "line": 27,
    "parent": null,
    "exported": false,
-   "x": 1458.7,
-   "y": -5876.3
+   "x": 1474.8,
+   "y": -5906.5
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom.areaEnd",
@@ -841,8 +841,8 @@
    "line": 36,
    "parent": "src/curve/catmullRom.js::CatmullRom",
    "exported": false,
-   "x": -2366.7,
-   "y": -1885
+   "x": -2402.2,
+   "y": -1885.1
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom.areaStart",
@@ -852,8 +852,8 @@
    "line": 33,
    "parent": "src/curve/catmullRom.js::CatmullRom",
    "exported": false,
-   "x": -2161.7,
-   "y": -1921.2
+   "x": -2198.7,
+   "y": -1925.2
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom.lineEnd",
@@ -863,8 +863,8 @@
    "line": 46,
    "parent": "src/curve/catmullRom.js::CatmullRom",
    "exported": false,
-   "x": -2155.9,
-   "y": -1367.1
+   "x": -2188.4,
+   "y": -1372.2
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom.lineStart",
@@ -874,8 +874,8 @@
    "line": 39,
    "parent": "src/curve/catmullRom.js::CatmullRom",
    "exported": false,
-   "x": -2373.3,
-   "y": -1582.4
+   "x": -2408.8,
+   "y": -1585.1
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom.point",
@@ -885,8 +885,8 @@
    "line": 54,
    "parent": "src/curve/catmullRom.js::CatmullRom",
    "exported": false,
-   "x": -2186,
-   "y": -1301.4
+   "x": -2217.7,
+   "y": -1304.9
   },
   {
    "id": "src/curve/catmullRom.js::point",
@@ -896,8 +896,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -1931.1,
-   "y": -1264.7
+   "x": -1961.8,
+   "y": -1270.3
   },
   {
    "id": "src/curve/catmullRomClosed.js::<module>",
@@ -907,8 +907,8 @@
    "line": 63,
    "parent": null,
    "exported": false,
-   "x": 4850,
-   "y": -2811.7
+   "x": 4880.3,
+   "y": -2817.5
   },
   {
    "id": "src/curve/catmullRomClosed.js::CatmullRomClosed",
@@ -918,8 +918,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": 4887.4,
-   "y": -2733.1
+   "x": 4917.6,
+   "y": -2738.8
   },
   {
    "id": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
@@ -929,8 +929,8 @@
    "line": 20,
    "parent": "src/curve/catmullRomClosed.js::CatmullRomClosed",
    "exported": false,
-   "x": -2131.4,
-   "y": -1295.9
+   "x": -2164.8,
+   "y": -1302.4
   },
   {
    "id": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineStart",
@@ -940,8 +940,8 @@
    "line": 13,
    "parent": "src/curve/catmullRomClosed.js::CatmullRomClosed",
    "exported": false,
-   "x": -2300.8,
-   "y": -1605
+   "x": -2336.6,
+   "y": -1608.1
   },
   {
    "id": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
@@ -951,8 +951,8 @@
    "line": 40,
    "parent": "src/curve/catmullRomClosed.js::CatmullRomClosed",
    "exported": false,
-   "x": -2248.3,
-   "y": -1343.9
+   "x": -2280.7,
+   "y": -1346.7
   },
   {
    "id": "src/curve/catmullRomOpen.js::<module>",
@@ -962,8 +962,8 @@
    "line": 51,
    "parent": null,
    "exported": false,
-   "x": -1548.6,
-   "y": -6339.6
+   "x": -1548.8,
+   "y": -6380.2
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen",
@@ -973,8 +973,8 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": -1461.5,
-   "y": -6352
+   "x": -1461.6,
+   "y": -6392.4
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.areaEnd",
@@ -984,8 +984,8 @@
    "line": 13,
    "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
    "exported": false,
-   "x": -2476.9,
-   "y": -1975.4
+   "x": -2513.9,
+   "y": -1978.3
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.areaStart",
@@ -995,8 +995,8 @@
    "line": 10,
    "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
    "exported": false,
-   "x": -2057.8,
-   "y": -1957
+   "x": -2096.2,
+   "y": -1960
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineEnd",
@@ -1006,8 +1006,8 @@
    "line": 23,
    "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
    "exported": false,
-   "x": -2132.4,
-   "y": -1455.4
+   "x": -2163.2,
+   "y": -1460.2
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineStart",
@@ -1017,8 +1017,8 @@
    "line": 16,
    "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
    "exported": false,
-   "x": -2343.2,
-   "y": -1605.5
+   "x": -2379.2,
+   "y": -1608.7
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
@@ -1028,8 +1028,8 @@
    "line": 27,
    "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
    "exported": false,
-   "x": -2189.7,
-   "y": -1265.6
+   "x": -2221.7,
+   "y": -1269.2
   },
   {
    "id": "src/curve/linear.js::default",
@@ -1039,8 +1039,8 @@
    "line": 29,
    "parent": null,
    "exported": true,
-   "x": -2533.5,
-   "y": -1526.1
+   "x": -2565.2,
+   "y": -1528.8
   },
   {
    "id": "src/curve/linear.js::Linear",
@@ -1050,8 +1050,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -2861.2,
-   "y": -1712.5
+   "x": -2895.8,
+   "y": -1712.7
   },
   {
    "id": "src/curve/linear.js::Linear.areaEnd",
@@ -1061,8 +1061,8 @@
    "line": 9,
    "parent": "src/curve/linear.js::Linear",
    "exported": false,
-   "x": -2493.3,
-   "y": -1867.7
+   "x": -2529.3,
+   "y": -1869.8
   },
   {
    "id": "src/curve/linear.js::Linear.areaStart",
@@ -1072,8 +1072,8 @@
    "line": 6,
    "parent": "src/curve/linear.js::Linear",
    "exported": false,
-   "x": -2233.3,
-   "y": -1904.8
+   "x": -2269.3,
+   "y": -1909.1
   },
   {
    "id": "src/curve/linear.js::Linear.lineEnd",
@@ -1083,8 +1083,8 @@
    "line": 15,
    "parent": "src/curve/linear.js::Linear",
    "exported": false,
-   "x": -2113.9,
-   "y": -1498
+   "x": -2147.4,
+   "y": -1503
   },
   {
    "id": "src/curve/linear.js::Linear.lineStart",
@@ -1094,8 +1094,8 @@
    "line": 12,
    "parent": "src/curve/linear.js::Linear",
    "exported": false,
-   "x": -2425.3,
-   "y": -1514.6
+   "x": -2458.3,
+   "y": -1514.7
   },
   {
    "id": "src/curve/linear.js::Linear.point",
@@ -1105,8 +1105,8 @@
    "line": 19,
    "parent": "src/curve/linear.js::Linear",
    "exported": false,
-   "x": -2262,
-   "y": -1264.7
+   "x": -2294.8,
+   "y": -1266.7
   },
   {
    "id": "src/curve/linearClosed.js::default",
@@ -1116,8 +1116,8 @@
    "line": 23,
    "parent": null,
    "exported": true,
-   "x": -4098.7,
-   "y": 4526.6
+   "x": -4112.6,
+   "y": 4559.7
   },
   {
    "id": "src/curve/linearClosed.js::LinearClosed",
@@ -1127,8 +1127,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -4156.4,
-   "y": 4475.3
+   "x": -4170.4,
+   "y": 4508.6
   },
   {
    "id": "src/curve/linearClosed.js::LinearClosed.lineEnd",
@@ -1138,8 +1138,8 @@
    "line": 13,
    "parent": "src/curve/linearClosed.js::LinearClosed",
    "exported": false,
-   "x": -2174,
-   "y": -1492.1
+   "x": -2208.3,
+   "y": -1495.7
   },
   {
    "id": "src/curve/linearClosed.js::LinearClosed.lineStart",
@@ -1149,8 +1149,8 @@
    "line": 10,
    "parent": "src/curve/linearClosed.js::LinearClosed",
    "exported": false,
-   "x": -2386.3,
-   "y": -1498.7
+   "x": -2419.6,
+   "y": -1500.1
   },
   {
    "id": "src/curve/linearClosed.js::LinearClosed.point",
@@ -1160,8 +1160,8 @@
    "line": 16,
    "parent": "src/curve/linearClosed.js::LinearClosed",
    "exported": false,
-   "x": -2286.9,
-   "y": -1281.3
+   "x": -2319.4,
+   "y": -1284.9
   },
   {
    "id": "src/curve/monotone.js::<module>",
@@ -1171,8 +1171,8 @@
    "line": 83,
    "parent": null,
    "exported": false,
-   "x": -870,
-   "y": -1239.9
+   "x": -901.1,
+   "y": -1255.7
   },
   {
    "id": "src/curve/monotone.js::monotoneX",
@@ -1182,8 +1182,8 @@
    "line": 98,
    "parent": null,
    "exported": true,
-   "x": -204.2,
-   "y": -1195.9
+   "x": -235.2,
+   "y": -1217.4
   },
   {
    "id": "src/curve/monotone.js::MonotoneX",
@@ -1193,8 +1193,8 @@
    "line": 36,
    "parent": null,
    "exported": false,
-   "x": -544.7,
-   "y": -1218.8
+   "x": -575.9,
+   "y": -1237.4
   },
   {
    "id": "src/curve/monotone.js::MonotoneX.areaEnd",
@@ -1204,8 +1204,8 @@
    "line": 44,
    "parent": "src/curve/monotone.js::MonotoneX",
    "exported": false,
-   "x": -2505.9,
-   "y": -1807.8
+   "x": -2541.9,
+   "y": -1810.2
   },
   {
    "id": "src/curve/monotone.js::MonotoneX.areaStart",
@@ -1215,8 +1215,8 @@
    "line": 41,
    "parent": "src/curve/monotone.js::MonotoneX",
    "exported": false,
-   "x": -2191.9,
-   "y": -2037
+   "x": -2227.7,
+   "y": -2040.8
   },
   {
    "id": "src/curve/monotone.js::MonotoneX.lineEnd",
@@ -1226,8 +1226,8 @@
    "line": 53,
    "parent": "src/curve/monotone.js::MonotoneX",
    "exported": false,
-   "x": -2069.3,
-   "y": -1415.8
+   "x": -2101,
+   "y": -1420
   },
   {
    "id": "src/curve/monotone.js::MonotoneX.lineStart",
@@ -1237,8 +1237,8 @@
    "line": 47,
    "parent": "src/curve/monotone.js::MonotoneX",
    "exported": false,
-   "x": -2449.6,
-   "y": -1463.1
+   "x": -2481.9,
+   "y": -1465.2
   },
   {
    "id": "src/curve/monotone.js::MonotoneX.point",
@@ -1248,8 +1248,8 @@
    "line": 61,
    "parent": "src/curve/monotone.js::MonotoneX",
    "exported": false,
-   "x": -2030.7,
-   "y": -1365
+   "x": -2062.7,
+   "y": -1370.6
   },
   {
    "id": "src/curve/monotone.js::monotoneY",
@@ -1259,8 +1259,8 @@
    "line": 102,
    "parent": null,
    "exported": true,
-   "x": 142,
-   "y": -1006
+   "x": 112.9,
+   "y": -1030.2
   },
   {
    "id": "src/curve/monotone.js::MonotoneY",
@@ -1270,8 +1270,8 @@
    "line": 79,
    "parent": null,
    "exported": false,
-   "x": -187,
-   "y": -1059.2
+   "x": -216.5,
+   "y": -1080.7
   },
   {
    "id": "src/curve/monotone.js::point",
@@ -1281,8 +1281,8 @@
    "line": 27,
    "parent": null,
    "exported": false,
-   "x": -1810.4,
-   "y": -1416.7
+   "x": -1842.9,
+   "y": -1423.8
   },
   {
    "id": "src/curve/monotone.js::ReflectContext",
@@ -1292,8 +1292,8 @@
    "line": 87,
    "parent": null,
    "exported": false,
-   "x": 122.8,
-   "y": -930.5
+   "x": 94.2,
+   "y": -954.5
   },
   {
    "id": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
@@ -1303,8 +1303,8 @@
    "line": 95,
    "parent": "src/curve/monotone.js::ReflectContext",
    "exported": false,
-   "x": -1894.8,
-   "y": -1355.8
+   "x": -1926.1,
+   "y": -1361.4
   },
   {
    "id": "src/curve/monotone.js::ReflectContext.closePath",
@@ -1314,8 +1314,8 @@
    "line": 93,
    "parent": "src/curve/monotone.js::ReflectContext",
    "exported": false,
-   "x": -1981.4,
-   "y": -1193.2
+   "x": -2011.2,
+   "y": -1199.1
   },
   {
    "id": "src/curve/monotone.js::ReflectContext.lineTo",
@@ -1325,8 +1325,8 @@
    "line": 94,
    "parent": "src/curve/monotone.js::ReflectContext",
    "exported": false,
-   "x": -2042,
-   "y": -1147.1
+   "x": -2072.4,
+   "y": -1152.1
   },
   {
    "id": "src/curve/monotone.js::ReflectContext.moveTo",
@@ -1336,8 +1336,8 @@
    "line": 92,
    "parent": "src/curve/monotone.js::ReflectContext",
    "exported": false,
-   "x": -2072.8,
-   "y": -1118.1
+   "x": -2102.3,
+   "y": -1124.6
   },
   {
    "id": "src/curve/monotone.js::sign",
@@ -1347,8 +1347,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -977.6,
-   "y": -1666.5
+   "x": -1012.3,
+   "y": -1680.8
   },
   {
    "id": "src/curve/monotone.js::slope2",
@@ -1358,8 +1358,8 @@
    "line": 19,
    "parent": null,
    "exported": false,
-   "x": -1814.1,
-   "y": -1488.9
+   "x": -1847,
+   "y": -1496.2
   },
   {
    "id": "src/curve/monotone.js::slope3",
@@ -1369,8 +1369,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -1435.7,
-   "y": -1543.9
+   "x": -1469.1,
+   "y": -1555
   },
   {
    "id": "src/curve/natural.js::controlPoints",
@@ -1380,8 +1380,8 @@
    "line": 45,
    "parent": null,
    "exported": false,
-   "x": -1656.6,
-   "y": -1432.9
+   "x": -1687.8,
+   "y": -1441.8
   },
   {
    "id": "src/curve/natural.js::default",
@@ -1391,8 +1391,8 @@
    "line": 63,
    "parent": null,
    "exported": true,
-   "x": 5813.4,
-   "y": -1083.5
+   "x": 5842.9,
+   "y": -1080.9
   },
   {
    "id": "src/curve/natural.js::Natural",
@@ -1402,8 +1402,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": 5818.1,
-   "y": -1006.6
+   "x": 5847.4,
+   "y": -1004
   },
   {
    "id": "src/curve/natural.js::Natural.areaEnd",
@@ -1413,8 +1413,8 @@
    "line": 9,
    "parent": "src/curve/natural.js::Natural",
    "exported": false,
-   "x": -2451.3,
-   "y": -1832.4
+   "x": -2485.2,
+   "y": -1834.5
   },
   {
    "id": "src/curve/natural.js::Natural.areaStart",
@@ -1424,8 +1424,8 @@
    "line": 6,
    "parent": "src/curve/natural.js::Natural",
    "exported": false,
-   "x": -2107.5,
-   "y": -1935.2
+   "x": -2144.3,
+   "y": -1939.6
   },
   {
    "id": "src/curve/natural.js::Natural.lineEnd",
@@ -1435,8 +1435,8 @@
    "line": 16,
    "parent": "src/curve/natural.js::Natural",
    "exported": false,
-   "x": -2080.3,
-   "y": -1331.8
+   "x": -2111.7,
+   "y": -1335.7
   },
   {
    "id": "src/curve/natural.js::Natural.lineStart",
@@ -1446,8 +1446,8 @@
    "line": 12,
    "parent": "src/curve/natural.js::Natural",
    "exported": false,
-   "x": -2391.5,
-   "y": -1624.7
+   "x": -2427.5,
+   "y": -1627.8
   },
   {
    "id": "src/curve/natural.js::Natural.point",
@@ -1457,8 +1457,8 @@
    "line": 38,
    "parent": "src/curve/natural.js::Natural",
    "exported": false,
-   "x": -2355.1,
-   "y": -1415.1
+   "x": -2389.3,
+   "y": -1417.9
   },
   {
    "id": "src/curve/radial.js::curveRadial",
@@ -1468,8 +1468,8 @@
    "line": 27,
    "parent": null,
    "exported": true,
-   "x": -2978.4,
-   "y": -1682.5
+   "x": -3013,
+   "y": -1682.4
   },
   {
    "id": "src/curve/radial.js::curveRadialLinear",
@@ -1479,8 +1479,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -2916.5,
-   "y": -1615
+   "x": -2950.8,
+   "y": -1614.5
   },
   {
    "id": "src/curve/radial.js::Radial",
@@ -1490,8 +1490,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -3251.1,
-   "y": -1806.5
+   "x": -3286.1,
+   "y": -1806
   },
   {
    "id": "src/curve/radial.js::Radial.areaEnd",
@@ -1501,8 +1501,8 @@
    "line": 13,
    "parent": "src/curve/radial.js::Radial",
    "exported": false,
-   "x": -2463.4,
-   "y": -1925.6
+   "x": -2500.3,
+   "y": -1927.8
   },
   {
    "id": "src/curve/radial.js::Radial.areaStart",
@@ -1512,8 +1512,8 @@
    "line": 10,
    "parent": "src/curve/radial.js::Radial",
    "exported": false,
-   "x": -2161.3,
-   "y": -1987.6
+   "x": -2196.5,
+   "y": -1992.5
   },
   {
    "id": "src/curve/radial.js::Radial.lineEnd",
@@ -1523,8 +1523,8 @@
    "line": 19,
    "parent": "src/curve/radial.js::Radial",
    "exported": false,
-   "x": -2167.2,
-   "y": -1456.3
+   "x": -2198.1,
+   "y": -1461.7
   },
   {
    "id": "src/curve/radial.js::Radial.lineStart",
@@ -1534,8 +1534,8 @@
    "line": 16,
    "parent": "src/curve/radial.js::Radial",
    "exported": false,
-   "x": -2416.9,
-   "y": -1569.1
+   "x": -2452.3,
+   "y": -1570.6
   },
   {
    "id": "src/curve/radial.js::Radial.point",
@@ -1545,8 +1545,8 @@
    "line": 22,
    "parent": "src/curve/radial.js::Radial",
    "exported": false,
-   "x": -2298.2,
-   "y": -1364.5
+   "x": -2331.4,
+   "y": -1366.2
   },
   {
    "id": "src/curve/step.js::default",
@@ -1556,8 +1556,8 @@
    "line": 43,
    "parent": null,
    "exported": true,
-   "x": 2474,
-   "y": -5924.9
+   "x": 2498.2,
+   "y": -5950.2
   },
   {
    "id": "src/curve/step.js::Step",
@@ -1567,8 +1567,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": 2551.2,
-   "y": -5962.6
+   "x": 2575.5,
+   "y": -5988.1
   },
   {
    "id": "src/curve/step.js::Step.areaEnd",
@@ -1578,8 +1578,8 @@
    "line": 10,
    "parent": "src/curve/step.js::Step",
    "exported": false,
-   "x": -2406.2,
-   "y": -1855
+   "x": -2442.7,
+   "y": -1858.1
   },
   {
    "id": "src/curve/step.js::Step.areaStart",
@@ -1589,8 +1589,8 @@
    "line": 7,
    "parent": "src/curve/step.js::Step",
    "exported": false,
-   "x": -2247.6,
-   "y": -2009
+   "x": -2282.3,
+   "y": -2013.2
   },
   {
    "id": "src/curve/step.js::Step.lineEnd",
@@ -1600,8 +1600,8 @@
    "line": 17,
    "parent": "src/curve/step.js::Step",
    "exported": false,
-   "x": -2126.8,
-   "y": -1393.1
+   "x": -2159.1,
+   "y": -1397.6
   },
   {
    "id": "src/curve/step.js::Step.lineStart",
@@ -1611,8 +1611,8 @@
    "line": 13,
    "parent": "src/curve/step.js::Step",
    "exported": false,
-   "x": -2416.1,
-   "y": -1472.2
+   "x": -2448.6,
+   "y": -1473.8
   },
   {
    "id": "src/curve/step.js::Step.point",
@@ -1622,8 +1622,8 @@
    "line": 22,
    "parent": "src/curve/step.js::Step",
    "exported": false,
-   "x": -2258.3,
-   "y": -1301.1
+   "x": -2289.7,
+   "y": -1303
   },
   {
    "id": "src/curve/step.js::stepAfter",
@@ -1633,8 +1633,8 @@
    "line": 51,
    "parent": null,
    "exported": true,
-   "x": 2619.8,
-   "y": -5911
+   "x": 2644.1,
+   "y": -5936.5
   },
   {
    "id": "src/curve/step.js::stepBefore",
@@ -1644,8 +1644,8 @@
    "line": 47,
    "parent": null,
    "exported": true,
-   "x": 2549,
-   "y": -6048.5
+   "x": 2573.4,
+   "y": -6074
   },
   {
    "id": "src/descending.js::default",
@@ -1655,8 +1655,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -1292.2,
-   "y": -517.2
+   "x": -1335.2,
+   "y": -488.1
   },
   {
    "id": "src/identity.js::default",
@@ -1666,8 +1666,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -1326,
-   "y": -460.8
+   "x": -1377,
+   "y": -440
   },
   {
    "id": "src/line.js::default",
@@ -1677,8 +1677,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": -2290.8,
-   "y": -1430.2
+   "x": -2323.5,
+   "y": -1432.9
   },
   {
    "id": "src/lineRadial.js::default",
@@ -1688,8 +1688,8 @@
    "line": 17,
    "parent": null,
    "exported": true,
-   "x": -2803.4,
-   "y": -1543.5
+   "x": -2837.4,
+   "y": -1543.2
   },
   {
    "id": "src/lineRadial.js::lineRadial",
@@ -1699,8 +1699,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -3059.9,
-   "y": -1681.7
+   "x": -3094.4,
+   "y": -1681.4
   },
   {
    "id": "src/link.js::link",
@@ -1710,8 +1710,8 @@
    "line": 15,
    "parent": null,
    "exported": true,
-   "x": -2240.6,
-   "y": -1469.6
+   "x": -2274.9,
+   "y": -1472.6
   },
   {
    "id": "src/link.js::linkHorizontal",
@@ -1721,8 +1721,8 @@
    "line": 60,
    "parent": null,
    "exported": true,
-   "x": -1890.9,
-   "y": -1791.3
+   "x": -1927,
+   "y": -1798.1
   },
   {
    "id": "src/link.js::linkRadial",
@@ -1732,8 +1732,8 @@
    "line": 68,
    "parent": null,
    "exported": true,
-   "x": -1842,
-   "y": -1718.4
+   "x": -1877.5,
+   "y": -1725.2
   },
   {
    "id": "src/link.js::linkSource",
@@ -1743,8 +1743,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": -2017.3,
-   "y": -1741.5
+   "x": -2055.2,
+   "y": -1745.9
   },
   {
    "id": "src/link.js::linkTarget",
@@ -1754,8 +1754,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": -2637.3,
-   "y": -1365.2
+   "x": -2670.7,
+   "y": -1366.1
   },
   {
    "id": "src/link.js::linkVertical",
@@ -1765,8 +1765,8 @@
    "line": 64,
    "parent": null,
    "exported": true,
-   "x": -1938.1,
-   "y": -1840.8
+   "x": -1975.4,
+   "y": -1846.6
   },
   {
    "id": "src/math.js::abs",
@@ -1776,8 +1776,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -1348.9,
-   "y": -1031.4
+   "x": -1376,
+   "y": -1042.5
   },
   {
    "id": "src/math.js::acos",
@@ -1787,8 +1787,8 @@
    "line": 14,
    "parent": null,
    "exported": true,
-   "x": -1395.5,
-   "y": -753.2
+   "x": -1421.5,
+   "y": -765
   },
   {
    "id": "src/math.js::asin",
@@ -1798,8 +1798,8 @@
    "line": 18,
    "parent": null,
    "exported": true,
-   "x": -1378.3,
-   "y": -855
+   "x": -1404.2,
+   "y": -865.9
   },
   {
    "id": "src/math.js::atan2",
@@ -1809,8 +1809,8 @@
    "line": 2,
    "parent": null,
    "exported": true,
-   "x": -1425.5,
-   "y": -937.2
+   "x": -1452.3,
+   "y": -946.2
   },
   {
    "id": "src/math.js::cos",
@@ -1820,8 +1820,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -1587.4,
-   "y": -819.3
+   "x": -1610.7,
+   "y": -831.1
   },
   {
    "id": "src/math.js::epsilon",
@@ -1831,8 +1831,8 @@
    "line": 9,
    "parent": null,
    "exported": true,
-   "x": -1591.6,
-   "y": -1109.3
+   "x": -1619.5,
+   "y": -1119.2
   },
   {
    "id": "src/math.js::halfPi",
@@ -1842,8 +1842,8 @@
    "line": 11,
    "parent": null,
    "exported": true,
-   "x": -1418.1,
-   "y": -806.5
+   "x": -1445.7,
+   "y": -818.4
   },
   {
    "id": "src/math.js::max",
@@ -1853,8 +1853,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -1392.8,
-   "y": -279.3
+   "x": -1416.2,
+   "y": -289.5
   },
   {
    "id": "src/math.js::min",
@@ -1864,8 +1864,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": -1821.1,
-   "y": -818.6
+   "x": -1846.9,
+   "y": -825.3
   },
   {
    "id": "src/math.js::pi",
@@ -1875,8 +1875,8 @@
    "line": 10,
    "parent": null,
    "exported": true,
-   "x": -1485.3,
-   "y": -738.7
+   "x": -1510.5,
+   "y": -750.7
   },
   {
    "id": "src/math.js::sin",
@@ -1886,8 +1886,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": -1553.3,
-   "y": -717.4
+   "x": -1570.6,
+   "y": -732.4
   },
   {
    "id": "src/math.js::sqrt",
@@ -1897,8 +1897,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": -1873.5,
-   "y": -816.9
+   "x": -1899,
+   "y": -824.7
   },
   {
    "id": "src/math.js::tau",
@@ -1908,8 +1908,8 @@
    "line": 12,
    "parent": null,
    "exported": true,
-   "x": -1585.8,
-   "y": -752.3
+   "x": -1614.2,
+   "y": -755.4
   },
   {
    "id": "src/noop.js::default",
@@ -1929,8 +1929,8 @@
     "LinearClosed.areaStart",
     "LinearClosed.areaEnd"
    ],
-   "x": -2311.8,
-   "y": -1956.2
+   "x": -2348.9,
+   "y": -1959.1
   },
   {
    "id": "src/offset/diverging.js::default",
@@ -1940,8 +1940,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -6011.5,
-   "y": 2533.7
+   "x": -6041.5,
+   "y": 2559.3
   },
   {
    "id": "src/offset/expand.js::default",
@@ -1951,8 +1951,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -1527.6,
-   "y": 600.9
+   "x": -1546.7,
+   "y": 593.8
   },
   {
    "id": "src/offset/none.js::default",
@@ -1962,8 +1962,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -1689.1,
-   "y": 382
+   "x": -1710.4,
+   "y": 376.5
   },
   {
    "id": "src/offset/silhouette.js::default",
@@ -1973,8 +1973,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -1623.7,
-   "y": 623.6
+   "x": -1642.6,
+   "y": 616.7
   },
   {
    "id": "src/offset/wiggle.js::default",
@@ -1984,8 +1984,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -1569,
-   "y": 670.5
+   "x": -1588.3,
+   "y": 663.7
   },
   {
    "id": "src/order/appearance.js::default",
@@ -1995,8 +1995,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -1634,
-   "y": 1180.9
+   "x": -1647.6,
+   "y": 1174.4
   },
   {
    "id": "src/order/appearance.js::peak",
@@ -2006,8 +2006,8 @@
    "line": 8,
    "parent": null,
    "exported": false,
-   "x": -1631.3,
-   "y": 1421.4
+   "x": -1642.7,
+   "y": 1414.5
   },
   {
    "id": "src/order/ascending.js::default",
@@ -2017,8 +2017,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -1520.3,
-   "y": 1166.3
+   "x": -1534.4,
+   "y": 1158.5
   },
   {
    "id": "src/order/ascending.js::sum",
@@ -2028,8 +2028,8 @@
    "line": 8,
    "parent": null,
    "exported": true,
-   "x": -1456,
-   "y": 1497.4
+   "x": -1466.6,
+   "y": 1488.7
   },
   {
    "id": "src/order/descending.js::default",
@@ -2039,8 +2039,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -1404.5,
-   "y": 1390.1
+   "x": -1416,
+   "y": 1381.1
   },
   {
    "id": "src/order/insideOut.js::default",
@@ -2050,8 +2050,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -1545.6,
-   "y": 1506.9
+   "x": -1556.2,
+   "y": 1499.2
   },
   {
    "id": "src/order/none.js::default",
@@ -2061,8 +2061,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -1712.6,
-   "y": 625
+   "x": -1731.5,
+   "y": 619.6
   },
   {
    "id": "src/order/reverse.js::default",
@@ -2072,8 +2072,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -1666.3,
-   "y": 876.6
+   "x": -1683,
+   "y": 870.1
   },
   {
    "id": "src/path.js::withPath",
@@ -2083,8 +2083,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -2075.9,
-   "y": -1213.2
+   "x": -2106,
+   "y": -1218.9
   },
   {
    "id": "src/pie.js::default",
@@ -2094,8 +2094,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": -1548.9,
-   "y": -627.2
+   "x": -1593.4,
+   "y": -603.3
   },
   {
    "id": "src/point.js::x",
@@ -2105,8 +2105,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -2246,
-   "y": -1573.2
+   "x": -2280.9,
+   "y": -1578.4
   },
   {
    "id": "src/point.js::y",
@@ -2116,8 +2116,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": -2324,
-   "y": -1489.5
+   "x": -2356.1,
+   "y": -1493.5
   },
   {
    "id": "src/pointRadial.js::default",
@@ -2127,8 +2127,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -1748.3,
-   "y": -1598.5
+   "x": -1782.6,
+   "y": -1607.3
   },
   {
    "id": "src/stack.js::default",
@@ -2138,8 +2138,8 @@
    "line": 16,
    "parent": null,
    "exported": true,
-   "x": -1801.9,
-   "y": 116.1
+   "x": -1825.3,
+   "y": 111.5
   },
   {
    "id": "src/stack.js::stackSeries",
@@ -2149,8 +2149,8 @@
    "line": 10,
    "parent": null,
    "exported": false,
-   "x": -1787.6,
-   "y": 377.1
+   "x": -1809,
+   "y": 372
   },
   {
    "id": "src/stack.js::stackValue",
@@ -2160,8 +2160,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": -1769.9,
-   "y": 263.4
+   "x": -1792.6,
+   "y": 258.2
   },
   {
    "id": "src/symbol.js::Symbol",
@@ -2171,8 +2171,8 @@
    "line": 39,
    "parent": null,
    "exported": true,
-   "x": -1891.1,
-   "y": -890.2
+   "x": -1918.3,
+   "y": -896.9
   },
   {
    "id": "src/symbol.js::symbolsFill",
@@ -2182,8 +2182,8 @@
    "line": 18,
    "parent": null,
    "exported": true,
-   "x": 5175.3,
-   "y": -4041.8
+   "x": 5204.7,
+   "y": -4055.1
   },
   {
    "id": "src/symbol.js::symbolsStroke",
@@ -2193,8 +2193,8 @@
    "line": 29,
    "parent": null,
    "exported": true,
-   "x": 388.4,
-   "y": 6030.8
+   "x": 395.7,
+   "y": 6059.5
   },
   {
    "id": "src/symbol/asterisk.js::<module>",
@@ -2204,8 +2204,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -2053.2,
-   "y": -414.1
+   "x": -2076.5,
+   "y": -421.2
   },
   {
    "id": "src/symbol/asterisk.js::<module>/draw",
@@ -2215,8 +2215,8 @@
    "line": 6,
    "parent": "src/symbol/asterisk.js::<module>",
    "exported": false,
-   "x": -1974.1,
-   "y": -849.8
+   "x": -2001.5,
+   "y": -856.1
   },
   {
    "id": "src/symbol/asterisk.js::sqrt3",
@@ -2226,8 +2226,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1878.9,
-   "y": -618.7
+   "x": -1903.8,
+   "y": -626.2
   },
   {
    "id": "src/symbol/circle.js::<module>",
@@ -2237,8 +2237,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1532.6,
-   "y": -418.8
+   "x": -1557.3,
+   "y": -429.8
   },
   {
    "id": "src/symbol/circle.js::<module>/draw",
@@ -2248,8 +2248,8 @@
    "line": 4,
    "parent": "src/symbol/circle.js::<module>",
    "exported": false,
-   "x": -1746.8,
-   "y": -815.6
+   "x": -1772.5,
+   "y": -824.1
   },
   {
    "id": "src/symbol/cross.js::<module>",
@@ -2259,8 +2259,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -2203.2,
-   "y": -711
+   "x": -2227,
+   "y": -716.1
   },
   {
    "id": "src/symbol/cross.js::<module>/draw",
@@ -2270,8 +2270,8 @@
    "line": 4,
    "parent": "src/symbol/cross.js::<module>",
    "exported": false,
-   "x": -1990.3,
-   "y": -990.5
+   "x": -2017.7,
+   "y": -998.2
   },
   {
    "id": "src/symbol/diamond.js::<module>",
@@ -2281,8 +2281,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": -2243.9,
-   "y": -637.2
+   "x": -2273.3,
+   "y": -644
   },
   {
    "id": "src/symbol/diamond.js::<module>/draw",
@@ -2292,8 +2292,8 @@
    "line": 7,
    "parent": "src/symbol/diamond.js::<module>",
    "exported": false,
-   "x": -2023.4,
-   "y": -940.2
+   "x": -2052.2,
+   "y": -946
   },
   {
    "id": "src/symbol/diamond.js::tan30",
@@ -2303,8 +2303,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -2026.5,
-   "y": -679.2
+   "x": -2052.4,
+   "y": -685.3
   },
   {
    "id": "src/symbol/diamond.js::tan30_2",
@@ -2314,8 +2314,8 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": -2122.4,
-   "y": -609.2
+   "x": -2148.3,
+   "y": -615.1
   },
   {
    "id": "src/symbol/diamond2.js::<module>",
@@ -2325,8 +2325,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1601.5,
-   "y": -1003.8
+   "x": -1628,
+   "y": -1013.4
   },
   {
    "id": "src/symbol/diamond2.js::<module>/draw",
@@ -2336,8 +2336,8 @@
    "line": 4,
    "parent": "src/symbol/diamond2.js::<module>",
    "exported": false,
-   "x": -1928.9,
-   "y": -1024.1
+   "x": -1956.8,
+   "y": -1031
   },
   {
    "id": "src/symbol/plus.js::<module>",
@@ -2347,8 +2347,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1967.2,
-   "y": -444
+   "x": -1991.3,
+   "y": -450.6
   },
   {
    "id": "src/symbol/plus.js::<module>/draw",
@@ -2358,8 +2358,8 @@
    "line": 4,
    "parent": "src/symbol/plus.js::<module>",
    "exported": false,
-   "x": -1967,
-   "y": -892.4
+   "x": -1994.8,
+   "y": -898.1
   },
   {
    "id": "src/symbol/square.js::<module>",
@@ -2369,8 +2369,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1642.8,
-   "y": -173.3
+   "x": -1665,
+   "y": -182.1
   },
   {
    "id": "src/symbol/square.js::<module>/draw",
@@ -2380,8 +2380,8 @@
    "line": 4,
    "parent": "src/symbol/square.js::<module>",
    "exported": false,
-   "x": -1786.1,
-   "y": -580.8
+   "x": -1810.3,
+   "y": -588.4
   },
   {
    "id": "src/symbol/square2.js::<module>",
@@ -2391,8 +2391,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1484,
-   "y": -1124.5
+   "x": -1511.6,
+   "y": -1136.5
   },
   {
    "id": "src/symbol/square2.js::<module>/draw",
@@ -2402,8 +2402,8 @@
    "line": 4,
    "parent": "src/symbol/square2.js::<module>",
    "exported": false,
-   "x": -1887.4,
-   "y": -1040.6
+   "x": -1916.1,
+   "y": -1047.7
   },
   {
    "id": "src/symbol/star.js::<module>",
@@ -2413,8 +2413,8 @@
    "line": 8,
    "parent": null,
    "exported": false,
-   "x": -1407,
-   "y": -653.5
+   "x": -1427.9,
+   "y": -667
   },
   {
    "id": "src/symbol/star.js::<module>/draw",
@@ -2424,8 +2424,8 @@
    "line": 9,
    "parent": "src/symbol/star.js::<module>",
    "exported": false,
-   "x": -1792.9,
-   "y": -915
+   "x": -1820.1,
+   "y": -923.4
   },
   {
    "id": "src/symbol/star.js::ka",
@@ -2435,8 +2435,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1633.7,
-   "y": -531.2
+   "x": -1657.9,
+   "y": -541
   },
   {
    "id": "src/symbol/star.js::kr",
@@ -2446,8 +2446,8 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": -1359.9,
-   "y": -533.2
+   "x": -1370.7,
+   "y": -560.2
   },
   {
    "id": "src/symbol/star.js::kx",
@@ -2457,8 +2457,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -1489.5,
-   "y": -598.8
+   "x": -1507.9,
+   "y": -617
   },
   {
    "id": "src/symbol/star.js::ky",
@@ -2468,8 +2468,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": -1473.4,
-   "y": -657.5
+   "x": -1497.8,
+   "y": -672.9
   },
   {
    "id": "src/symbol/times.js::<module>",
@@ -2479,8 +2479,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1838.4,
-   "y": -467.5
+   "x": -1862.6,
+   "y": -475.4
   },
   {
    "id": "src/symbol/times.js::<module>/draw",
@@ -2490,8 +2490,8 @@
    "line": 4,
    "parent": "src/symbol/times.js::<module>",
    "exported": false,
-   "x": -1930.7,
-   "y": -913.9
+   "x": -1957.4,
+   "y": -920.4
   },
   {
    "id": "src/symbol/triangle.js::<module>",
@@ -2501,8 +2501,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -1924.7,
-   "y": -545.3
+   "x": -1949.9,
+   "y": -551.6
   },
   {
    "id": "src/symbol/triangle.js::<module>/draw",
@@ -2512,8 +2512,8 @@
    "line": 6,
    "parent": "src/symbol/triangle.js::<module>",
    "exported": false,
-   "x": -1950,
-   "y": -969.1
+   "x": -1978.5,
+   "y": -975.8
   },
   {
    "id": "src/symbol/triangle.js::sqrt3",
@@ -2523,8 +2523,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1862.7,
-   "y": -700.7
+   "x": -1887.4,
+   "y": -708.8
   },
   {
    "id": "src/symbol/triangle2.js::<module>",
@@ -2534,8 +2534,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -1586.7,
-   "y": -909.1
+   "x": -1613,
+   "y": -920.6
   },
   {
    "id": "src/symbol/triangle2.js::<module>/draw",
@@ -2545,8 +2545,8 @@
    "line": 6,
    "parent": "src/symbol/triangle2.js::<module>",
    "exported": false,
-   "x": -1895.4,
-   "y": -991.3
+   "x": -1923.4,
+   "y": -998.5
   },
   {
    "id": "src/symbol/triangle2.js::sqrt3",
@@ -2556,8 +2556,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1785.2,
-   "y": -722.3
+   "x": -1809.3,
+   "y": -731.3
   },
   {
    "id": "src/symbol/wye.js::<module>",
@@ -2567,8 +2567,8 @@
    "line": 8,
    "parent": null,
    "exported": false,
-   "x": -2184.7,
-   "y": -509.9
+   "x": -2209,
+   "y": -515.3
   },
   {
    "id": "src/symbol/wye.js::<module>/draw",
@@ -2578,8 +2578,8 @@
    "line": 9,
    "parent": "src/symbol/wye.js::<module>",
    "exported": false,
-   "x": -2024.5,
-   "y": -894
+   "x": -2052.8,
+   "y": -900.4
   },
   {
    "id": "src/symbol/wye.js::a",
@@ -2589,8 +2589,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": -2076.7,
-   "y": -521.5
+   "x": -2101.6,
+   "y": -529.1
   },
   {
    "id": "src/symbol/wye.js::c",
@@ -2600,8 +2600,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -2249.8,
-   "y": -554
+   "x": -2273.6,
+   "y": -559.5
   },
   {
    "id": "src/symbol/wye.js::k",
@@ -2611,8 +2611,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -1994.1,
-   "y": -615.5
+   "x": -2018.5,
+   "y": -622.5
   },
   {
    "id": "src/symbol/wye.js::s",
@@ -2622,8 +2622,8 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": -1950.1,
-   "y": -675.1
+   "x": -1975.1,
+   "y": -683.4
   }
  ],
  "edges": [

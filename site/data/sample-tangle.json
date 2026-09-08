@@ -3,7 +3,7 @@
   "name": "sample-tangle",
   "root": ".",
   "language": "synthetic",
-  "generatedAt": "2026-09-08T07:11:20.533Z",
+  "generatedAt": "2026-09-08T07:26:53.280Z",
   "analyzer": "synthetic"
  },
  "declarations": [
@@ -13,8 +13,8 @@
    "kind": "function",
    "file": "src/core/file0.js",
    "line": 1,
-   "x": 318.3,
-   "y": -172.3
+   "x": 317.3,
+   "y": -171.8
   },
   {
    "id": "d1",
@@ -22,8 +22,8 @@
    "kind": "function",
    "file": "src/core/file1.js",
    "line": 2,
-   "x": 367.8,
-   "y": -381.6
+   "x": 366.9,
+   "y": -381.1
   },
   {
    "id": "d2",
@@ -31,8 +31,8 @@
    "kind": "method",
    "file": "src/core/file2.js",
    "line": 3,
-   "x": 337.9,
-   "y": -215.2
+   "x": 336.9,
+   "y": -214.7
   },
   {
    "id": "d3",
@@ -40,8 +40,8 @@
    "kind": "function",
    "file": "src/core/file3.js",
    "line": 4,
-   "x": 541.1,
-   "y": -21.5
+   "x": 540,
+   "y": -20.9
   },
   {
    "id": "d4",
@@ -49,8 +49,8 @@
    "kind": "function",
    "file": "src/util/file4.js",
    "line": 5,
-   "x": 760.6,
-   "y": 20
+   "x": 759.4,
+   "y": 20.7
   },
   {
    "id": "d5",
@@ -58,8 +58,8 @@
    "kind": "function",
    "file": "src/util/file5.js",
    "line": 6,
-   "x": 77.1,
-   "y": -152.6
+   "x": 76.1,
+   "y": -152.4
   },
   {
    "id": "d6",
@@ -67,8 +67,8 @@
    "kind": "function",
    "file": "src/util/file6.js",
    "line": 7,
-   "x": 116,
-   "y": -255.7
+   "x": 115.1,
+   "y": -255.4
   },
   {
    "id": "d7",
@@ -76,8 +76,8 @@
    "kind": "function",
    "file": "src/core/file0.js",
    "line": 8,
-   "x": 180.7,
-   "y": -106
+   "x": 179.7,
+   "y": -105.6
   },
   {
    "id": "d8",
@@ -85,8 +85,8 @@
    "kind": "variable",
    "file": "src/core/file1.js",
    "line": 9,
-   "x": 653.1,
-   "y": 130.6
+   "x": 651.9,
+   "y": 131.3
   },
   {
    "id": "d9",
@@ -94,8 +94,8 @@
    "kind": "variable",
    "file": "src/core/file2.js",
    "line": 10,
-   "x": -143.3,
-   "y": -155.8
+   "x": -144.3,
+   "y": -155.5
   },
   {
    "id": "d10",
@@ -103,8 +103,8 @@
    "kind": "variable",
    "file": "src/core/file3.js",
    "line": 11,
-   "x": 491.7,
-   "y": 42.1
+   "x": 490.5,
+   "y": 42.6
   },
   {
    "id": "d11",
@@ -112,8 +112,8 @@
    "kind": "function",
    "file": "src/util/file4.js",
    "line": 12,
-   "x": 82.6,
-   "y": -356.1
+   "x": 81.6,
+   "y": -355.8
   },
   {
    "id": "d12",
@@ -121,8 +121,8 @@
    "kind": "method",
    "file": "src/util/file5.js",
    "line": 13,
-   "x": -46.8,
-   "y": -148.9
+   "x": -47.8,
+   "y": -148.7
   },
   {
    "id": "d13",
@@ -130,8 +130,8 @@
    "kind": "variable",
    "file": "src/util/file6.js",
    "line": 14,
-   "x": 388.8,
-   "y": -283.1
+   "x": 387.8,
+   "y": -282.6
   },
   {
    "id": "d14",
@@ -139,8 +139,8 @@
    "kind": "method",
    "file": "src/core/file0.js",
    "line": 15,
-   "x": 404,
-   "y": -98.2
+   "x": 402.9,
+   "y": -97.7
   },
   {
    "id": "d15",
@@ -148,8 +148,8 @@
    "kind": "function",
    "file": "src/core/file1.js",
    "line": 16,
-   "x": -116.7,
-   "y": 39.7
+   "x": -117.9,
+   "y": 40
   },
   {
    "id": "d16",
@@ -157,8 +157,8 @@
    "kind": "function",
    "file": "src/core/file2.js",
    "line": 17,
-   "x": -31.6,
-   "y": -47.2
+   "x": -32.8,
+   "y": -46.9
   },
   {
    "id": "d17",
@@ -166,8 +166,8 @@
    "kind": "variable",
    "file": "src/core/file3.js",
    "line": 18,
-   "x": 549.5,
-   "y": 194.4
+   "x": 548.2,
+   "y": 195
   },
   {
    "id": "d18",
@@ -175,8 +175,8 @@
    "kind": "variable",
    "file": "src/util/file4.js",
    "line": 19,
-   "x": 306.5,
-   "y": 164.7
+   "x": 305.2,
+   "y": 165.2
   },
   {
    "id": "d19",
@@ -184,8 +184,8 @@
    "kind": "variable",
    "file": "src/util/file5.js",
    "line": 20,
-   "x": 788.2,
-   "y": -117.4
+   "x": 787.1,
+   "y": -116.7
   },
   {
    "id": "d20",
@@ -193,8 +193,8 @@
    "kind": "method",
    "file": "src/util/file6.js",
    "line": 21,
-   "x": 534.5,
-   "y": -527.5
+   "x": 533.6,
+   "y": -526.9
   },
   {
    "id": "d21",
@@ -202,8 +202,8 @@
    "kind": "function",
    "file": "src/core/file0.js",
    "line": 22,
-   "x": 389.2,
-   "y": 123.2
+   "x": 388,
+   "y": 123.6
   },
   {
    "id": "d22",
@@ -211,8 +211,8 @@
    "kind": "method",
    "file": "src/core/file1.js",
    "line": 23,
-   "x": 568.4,
-   "y": 378.3
+   "x": 567,
+   "y": 378.8
   },
   {
    "id": "d23",
@@ -220,8 +220,8 @@
    "kind": "function",
    "file": "src/core/file2.js",
    "line": 24,
-   "x": 72.6,
-   "y": 1.7
+   "x": 71.5,
+   "y": 1.9
   },
   {
    "id": "d24",
@@ -229,8 +229,8 @@
    "kind": "variable",
    "file": "src/core/file3.js",
    "line": 25,
-   "x": 572.8,
-   "y": -437.2
+   "x": 571.8,
+   "y": -436.6
   },
   {
    "id": "d25",
@@ -238,8 +238,8 @@
    "kind": "class",
    "file": "src/util/file4.js",
    "line": 26,
-   "x": 475.5,
-   "y": 251.2
+   "x": 474.3,
+   "y": 251.7
   },
   {
    "id": "d26",
@@ -247,8 +247,8 @@
    "kind": "function",
    "file": "src/util/file5.js",
    "line": 27,
-   "x": 335.1,
-   "y": 17.9
+   "x": 333.9,
+   "y": 18.4
   },
   {
    "id": "d27",
@@ -256,8 +256,8 @@
    "kind": "class",
    "file": "src/util/file6.js",
    "line": 28,
-   "x": 636.2,
-   "y": -16.5
+   "x": 635.1,
+   "y": -15.9
   },
   {
    "id": "d28",
@@ -265,8 +265,8 @@
    "kind": "function",
    "file": "src/core/file0.js",
    "line": 29,
-   "x": -334.1,
-   "y": 95.9
+   "x": -335.2,
+   "y": 96.1
   },
   {
    "id": "d29",
@@ -274,8 +274,8 @@
    "kind": "function",
    "file": "src/core/file1.js",
    "line": 30,
-   "x": 162.1,
-   "y": 236.8
+   "x": 161,
+   "y": 237.3
   },
   {
    "id": "d30",
@@ -283,8 +283,8 @@
    "kind": "function",
    "file": "src/core/file2.js",
    "line": 31,
-   "x": 37.4,
-   "y": 261.4
+   "x": 36.1,
+   "y": 261.7
   },
   {
    "id": "d31",
@@ -292,8 +292,8 @@
    "kind": "method",
    "file": "src/core/file3.js",
    "line": 32,
-   "x": 673.5,
-   "y": 39.9
+   "x": 672.3,
+   "y": 40.5
   },
   {
    "id": "d32",
@@ -301,8 +301,8 @@
    "kind": "class",
    "file": "src/util/file4.js",
    "line": 33,
-   "x": 129.6,
-   "y": 27.9
+   "x": 128.4,
+   "y": 28.3
   },
   {
    "id": "d33",
@@ -310,8 +310,8 @@
    "kind": "variable",
    "file": "src/util/file5.js",
    "line": 34,
-   "x": 244.7,
-   "y": -419.2
+   "x": 243.8,
+   "y": -418.7
   },
   {
    "id": "d34",
@@ -319,8 +319,8 @@
    "kind": "class",
    "file": "src/util/file6.js",
    "line": 35,
-   "x": 454.1,
-   "y": -178.7
+   "x": 453,
+   "y": -178.1
   },
   {
    "id": "d35",
@@ -328,8 +328,8 @@
    "kind": "function",
    "file": "src/core/file0.js",
    "line": 36,
-   "x": 226.3,
-   "y": 24.5
+   "x": 225.1,
+   "y": 24.9
   },
   {
    "id": "d36",
@@ -337,8 +337,8 @@
    "kind": "method",
    "file": "src/core/file1.js",
    "line": 37,
-   "x": 264.4,
-   "y": 116.9
+   "x": 262.8,
+   "y": 117.4
   },
   {
    "id": "d37",
@@ -346,8 +346,8 @@
    "kind": "class",
    "file": "src/core/file2.js",
    "line": 38,
-   "x": 401.9,
-   "y": 19.6
+   "x": 400.7,
+   "y": 20.3
   },
   {
    "id": "d38",
@@ -355,8 +355,8 @@
    "kind": "class",
    "file": "src/core/file3.js",
    "line": 39,
-   "x": -138,
-   "y": 273.1
+   "x": -139.2,
+   "y": 273.3
   },
   {
    "id": "d39",
@@ -364,8 +364,8 @@
    "kind": "class",
    "file": "src/util/file4.js",
    "line": 40,
-   "x": 145.3,
-   "y": -525.5
+   "x": 144.6,
+   "y": -525.2
   },
   {
    "id": "d40",
@@ -373,8 +373,8 @@
    "kind": "variable",
    "file": "src/util/file5.js",
    "line": 41,
-   "x": -61.2,
-   "y": 88.5
+   "x": -62.4,
+   "y": 88.6
   },
   {
    "id": "d41",
@@ -382,8 +382,8 @@
    "kind": "function",
    "file": "src/util/file6.js",
    "line": 42,
-   "x": 173.5,
-   "y": -356.4
+   "x": 172.5,
+   "y": -356.1
   },
   {
    "id": "d42",
@@ -391,8 +391,8 @@
    "kind": "function",
    "file": "src/core/file0.js",
    "line": 43,
-   "x": 622.6,
-   "y": -720.8
+   "x": 621.8,
+   "y": -720.2
   },
   {
    "id": "d43",
@@ -400,8 +400,8 @@
    "kind": "function",
    "file": "src/core/file1.js",
    "line": 44,
-   "x": 141.4,
-   "y": 187.9
+   "x": 140.1,
+   "y": 188.5
   },
   {
    "id": "d44",
@@ -409,8 +409,8 @@
    "kind": "function",
    "file": "src/core/file2.js",
    "line": 45,
-   "x": -192.8,
-   "y": -50.5
+   "x": -193.9,
+   "y": -50.4
   },
   {
    "id": "d45",
@@ -418,8 +418,8 @@
    "kind": "function",
    "file": "src/core/file3.js",
    "line": 46,
-   "x": 776.9,
-   "y": 179.1
+   "x": 775.6,
+   "y": 179.7
   },
   {
    "id": "d46",
@@ -427,8 +427,8 @@
    "kind": "class",
    "file": "src/util/file4.js",
    "line": 47,
-   "x": 426.5,
-   "y": -37.7
+   "x": 425.2,
+   "y": -37.2
   },
   {
    "id": "d47",
@@ -436,8 +436,8 @@
    "kind": "method",
    "file": "src/util/file5.js",
    "line": 48,
-   "x": 644.1,
-   "y": -210.3
+   "x": 643,
+   "y": -209.7
   },
   {
    "id": "d48",
@@ -445,8 +445,8 @@
    "kind": "class",
    "file": "src/util/file6.js",
    "line": 49,
-   "x": 50.5,
-   "y": 50.2
+   "x": 49.2,
+   "y": 50.3
   },
   {
    "id": "d49",
@@ -454,8 +454,8 @@
    "kind": "function",
    "file": "src/core/file0.js",
    "line": 50,
-   "x": 612.5,
-   "y": -91
+   "x": 611.4,
+   "y": -90.3
   },
   {
    "id": "d50",
@@ -463,8 +463,8 @@
    "kind": "function",
    "file": "src/core/file1.js",
    "line": 51,
-   "x": 238.8,
-   "y": -283.8
+   "x": 237.8,
+   "y": -283.5
   },
   {
    "id": "d51",
@@ -472,8 +472,8 @@
    "kind": "function",
    "file": "src/core/file2.js",
    "line": 52,
-   "x": 101.8,
-   "y": -462.3
+   "x": 101,
+   "y": -462
   },
   {
    "id": "d52",
@@ -481,8 +481,8 @@
    "kind": "function",
    "file": "src/core/file3.js",
    "line": 53,
-   "x": 893.8,
-   "y": -226.7
+   "x": 892.7,
+   "y": -226
   },
   {
    "id": "d53",
@@ -490,8 +490,8 @@
    "kind": "function",
    "file": "src/util/file4.js",
    "line": 54,
-   "x": 395.9,
-   "y": 285.5
+   "x": 394.6,
+   "y": 285.9
   },
   {
    "id": "d54",
@@ -499,8 +499,8 @@
    "kind": "function",
    "file": "src/util/file5.js",
    "line": 55,
-   "x": 18.2,
-   "y": -205.5
+   "x": 17.1,
+   "y": -205.2
   },
   {
    "id": "d55",
@@ -508,8 +508,8 @@
    "kind": "variable",
    "file": "src/util/file6.js",
    "line": 56,
-   "x": 539.8,
-   "y": -73.7
+   "x": 538.7,
+   "y": -73.1
   },
   {
    "id": "d56",
@@ -517,8 +517,8 @@
    "kind": "variable",
    "file": "src/core/file0.js",
    "line": 57,
-   "x": 269,
-   "y": -594.4
+   "x": 268.2,
+   "y": -593.9
   },
   {
    "id": "d57",
@@ -526,8 +526,8 @@
    "kind": "function",
    "file": "src/core/file1.js",
    "line": 58,
-   "x": 613.9,
-   "y": 237.9
+   "x": 612.5,
+   "y": 238.4
   },
   {
    "id": "d58",
@@ -535,8 +535,8 @@
    "kind": "variable",
    "file": "src/core/file2.js",
    "line": 59,
-   "x": 227.2,
-   "y": 175.2
+   "x": 225.8,
+   "y": 175.4
   },
   {
    "id": "d59",
@@ -544,8 +544,8 @@
    "kind": "method",
    "file": "src/core/file3.js",
    "line": 60,
-   "x": 285.2,
-   "y": -74.5
+   "x": 284.1,
+   "y": -74
   }
  ],
  "edges": [
