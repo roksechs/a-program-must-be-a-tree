@@ -3,7 +3,7 @@
   "name": "sample-bindings",
   "root": "samples/bindings",
   "language": "javascript",
-  "generatedAt": "2026-09-08T02:25:25.100Z",
+  "generatedAt": "2026-09-08T02:29:24.106Z",
   "analyzer": "analyzers/ts@0.5.0",
   "files": 7
  },

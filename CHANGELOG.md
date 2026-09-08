@@ -6,6 +6,27 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Work the independence list down
+
+* Following what the corrected ranking pointed at, two more shared operations
+  in `app.js` now exist once instead of at each caller: `applyKindsTo()` (the
+  degrees, heights and cycles a graph's *enabled* edge kinds decide, plus the
+  two panel sections read off them — installing a graph and toggling a kind
+  both arrive there, and CLAUDE.md's "drawing, springs and diagnostics must
+  never disagree" is easier to keep true written once) and
+  `installAndRemember()` / `analyzeFolder()` (every analysis ends by showing
+  the result and remembering it; "Folder…" and "re-analyze" differ only in
+  where the handle came from and which cache key it is filed under).
+* This repository's own independence is 0.604 → 0.615, its scope escapes 243
+  → 237. All four load paths and `applyKinds` have left the ten worst.
+* What is left at the top is not fat. Three of the ten are test modules
+  importing the API under test; one is `app.js`'s own module-level wiring;
+  the rest are panel methods whose shared dependencies are `t()`, `el()` and
+  the colour helpers. Those *should* be shared — every visible string going
+  through `t()` is a project rule — so the metric has a floor well above 1,
+  and pushing past it would mean splitting orchestrators into functions with
+  one caller each, which moves the sharing rather than removing it.
+
 ### Rank the independence list by what can be acted on
 
 * The Diagnostics section is now just "Diagnostics". It still asked "is it a

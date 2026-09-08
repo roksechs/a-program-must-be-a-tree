@@ -179,14 +179,26 @@ const panel = new Panel(document.getElementById("panel"), state, {
   onExportReport: (metric, payload) => exportReport(metric, payload),
 });
 
+/**
+ * Re-derive everything a graph's *active* edge kinds decide: the degrees,
+ * heights and cycles on the model, and the two panel sections read off them.
+ * One switch has to drive drawing, springs and diagnostics together and they
+ * must never disagree (CLAUDE.md), which is a good deal easier to keep true
+ * with the sequence written once than with it spelled out at each caller —
+ * installing a graph and toggling a kind both arrive here.
+ */
+function applyKindsTo(graph, selected) {
+  applyActiveKinds(graph, state.kinds);
+  panel.setMetrics(graph);
+  panel.setSelection(selected, graph);
+}
+
 /** Apply the enabled edge kinds to drawing, springs and diagnostics at once. */
 function applyKinds() {
   renderer.setVisibleKinds(state.kinds);
   state.physics.springKinds = new Set(state.kinds);
   if (state.graph) {
-    applyActiveKinds(state.graph, state.kinds);
-    panel.setMetrics(state.graph);
-    panel.setSelection(renderer.selected, state.graph);
+    applyKindsTo(state.graph, renderer.selected);
     renderer.restyle();
   }
   // Drawing, degrees and diagnostics above already reflect the new kinds
@@ -294,7 +306,11 @@ function ensureTicking() {
 function installGraph(doc, label) {
   state.sim?.stop();
   const graph = buildGraph(doc);
-  applyActiveKinds(graph, state.kinds);
+  // Before seedPositions() and the renderer below: applyKindsTo() is what
+  // recomputes degrees, cycles and call heights for the kinds actually
+  // enabled, and setGraph() reads the heights straight back out to size its
+  // vertical axis. buildGraph() only ever derives them for the control kinds.
+  applyKindsTo(graph, null);
   state.physics.springKinds = new Set(state.kinds);
   state.graph = graph;
   state.doc = doc;
@@ -309,8 +325,6 @@ function installGraph(doc, label) {
   renderer.setColorBy(state.colorBy);
   renderer.setVisibleKinds(state.kinds);
   panel.setMaxDepth(graph.maxDepth, state.zoneMinDepth, state.zoneMaxDepth);
-  panel.setMetrics(graph);
-  panel.setSelection(null, graph);
   panel.setDataInfo({ label, nodes: graph.nodes.length, edges: graph.links.length, files: graph.containers.filter((c) => c.isFile).length });
   updateZones();
 
@@ -407,6 +421,27 @@ function installCustomGraph(doc, label) {
 }
 
 /**
+ * A fresh analysis finished: show it, remember it, and put it at the top of
+ * "Recently opened". Every analysis ends this way — a folder picked, a folder
+ * re-analyzed, a repo fetched — and each of them used to spell the three
+ * steps out.
+ */
+async function installAndRemember(doc, entry) {
+  installCustomGraph(doc, entry.label);
+  await saveAnalysis({ ...entry, doc });
+  await refreshRecent();
+}
+
+/**
+ * Analyze a directory and install what comes out. "Folder…" and "re-analyze"
+ * differ only in where the handle came from, which cache key the result is
+ * filed under, and what to call it — not in any of this.
+ */
+async function analyzeFolder(dirHandle, key, label) {
+  await installAndRemember(await runLocalAnalysis(dirHandle), { kind: "local", key, label, dirHandle });
+}
+
+/**
  * Read and analyze a directory, reporting the file count as it goes and then
  * the analyzer's own phases. Shared by "Folder…" and by "re-analyze" on a
  * remembered folder, which differ only in where the permission comes from
@@ -446,12 +481,9 @@ async function reanalyzeRecent(entry) {
   try {
     const granted = await entry.dirHandle.requestPermission({ mode: "read" });
     if (granted !== "granted") throw new Error("permission was not granted");
-    const doc = await runLocalAnalysis(entry.dirHandle);
-    installCustomGraph(doc, entry.label);
     // Keyed by the entry's own key, so re-analyzing updates that row rather
     // than adding a second one for the same folder.
-    await saveAnalysis({ kind: "local", key: entry.key, label: entry.label, doc, dirHandle: entry.dirHandle });
-    await refreshRecent();
+    await analyzeFolder(entry.dirHandle, entry.key, entry.label);
   } catch (err) {
     setStatus("app.analyzeFailed", { name: entry.label, message: err.message });
   }
@@ -465,10 +497,7 @@ async function loadLocalFolder() {
     return; // the user cancelled the picker
   }
   try {
-    const doc = await runLocalAnalysis(dirHandle);
-    installCustomGraph(doc, dirHandle.name);
-    await saveAnalysis({ kind: "local", key: crypto.randomUUID(), label: dirHandle.name, doc, dirHandle });
-    await refreshRecent();
+    await analyzeFolder(dirHandle, crypto.randomUUID(), dirHandle.name);
   } catch (err) {
     setStatus("app.analyzeFailed", { name: dirHandle.name, message: err.message });
   }
@@ -488,12 +517,10 @@ async function loadGithubRepo(spec) {
       },
       (phase, detail) => reportPhase(phase, detail, fileCount),
     );
-    installCustomGraph(doc, spec);
     // Keyed by the resolved "owner/repo@ref" (doc.meta.root), not the raw
     // input: typing "owner/repo" and "owner/repo@main" for the same default
     // branch collapse to one cache entry once the ref is resolved.
-    await saveAnalysis({ kind: "github", key: doc.meta.root, label: doc.meta.root, doc });
-    await refreshRecent();
+    await installAndRemember(doc, { kind: "github", key: doc.meta.root, label: doc.meta.root });
   } catch (err) {
     setStatus("app.analyzeFailed", { name: spec, message: err.message });
   }
