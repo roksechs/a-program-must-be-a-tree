@@ -3,8 +3,8 @@
   "name": "d3-zoom",
   "root": "node_modules/d3-zoom",
   "language": "javascript",
-  "generatedAt": "2026-09-08T05:43:18.707Z",
-  "analyzer": "analyzers/ts@0.7.0",
+  "generatedAt": "2026-09-08T06:21:59.379Z",
+  "analyzer": "analyzers/ts@0.8.0",
   "files": 6
  },
  "declarations": [
@@ -414,6 +414,41 @@
    "count": 1,
    "time": "use",
    "inferred": true
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/emit",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/end",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/event",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/start",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/zoom",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",

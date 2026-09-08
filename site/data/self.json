@@ -3,8 +3,8 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-08T05:43:15.318Z",
-  "analyzer": "analyzers/ts@0.7.0",
+  "generatedAt": "2026-09-08T06:21:55.298Z",
+  "analyzer": "analyzers/ts@0.8.0",
   "files": 33
  },
  "declarations": [
@@ -2155,7 +2155,7 @@
    "name": "islands",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 226,
+   "line": 235,
    "parent": null,
    "exported": true
   },
@@ -2376,7 +2376,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.render/onchange",
+   "id": "site/js/panel.js::Panel.render/onchange#2",
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2385,7 +2385,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.render/onchange",
+   "id": "site/js/panel.js::Panel.render/onchange#3",
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2394,7 +2394,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.render/onchange",
+   "id": "site/js/panel.js::Panel.render/onchange#4",
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2412,7 +2412,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.render/onclick",
+   "id": "site/js/panel.js::Panel.render/onclick#2",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2421,7 +2421,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.render/onclick",
+   "id": "site/js/panel.js::Panel.render/onclick#3",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2430,7 +2430,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.render/onclick",
+   "id": "site/js/panel.js::Panel.render/onclick#4",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2529,7 +2529,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.setMetrics/onclick",
+   "id": "site/js/panel.js::Panel.setMetrics/onclick#2",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2538,7 +2538,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.setMetrics/onclick",
+   "id": "site/js/panel.js::Panel.setMetrics/onclick#3",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2547,7 +2547,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.setMetrics/onclick",
+   "id": "site/js/panel.js::Panel.setMetrics/onclick#4",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2592,7 +2592,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.setRecent/onclick",
+   "id": "site/js/panel.js::Panel.setRecent/onclick#2",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2601,7 +2601,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.setRecent/onclick",
+   "id": "site/js/panel.js::Panel.setRecent/onclick#3",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -2628,7 +2628,7 @@
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.setSelection/onclick",
+   "id": "site/js/panel.js::Panel.setSelection/onclick#2",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
@@ -3390,6 +3390,20 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze",
+   "target": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze",
+   "target": "analyzers/ts/analyze.mjs::analyze/resolveModuleNames",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze",
    "target": "analyzers/ts/analyze.mjs::listSourceFiles",
    "kind": "call",
    "count": 1,
@@ -3851,6 +3865,13 @@
    "count": 1,
    "time": "definition",
    "inferred": true
+  },
+  {
+   "source": "scripts/vendor.mjs::pathShim",
+   "target": "scripts/vendor.mjs::pathShim/setup",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "scripts/vendor.mjs::queue",
@@ -4766,6 +4787,181 @@
   },
   {
    "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onAutoRotate",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onClearPath",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onColorBy",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onDataset",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onDeleteRecent",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onExportJson",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onExportReport",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onFile",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onFit",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onFocusNode",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onGithub",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onGithubSearch",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onHighlight",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onKinds",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onLabels",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onLayerGap",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onLoadRecent",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onOpenFolder",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onPhysics",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onReanalyzeRecent",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onReheat",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onReset",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onSelectNode",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onTop",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
+   "target": "site/js/app.js::panel/onZones",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel",
    "target": "site/js/app.js::state",
    "kind": "reference",
    "count": 1,
@@ -5178,6 +5374,41 @@
    "time": "definition"
   },
   {
+   "source": "site/js/app.js::rendererCallbacks",
+   "target": "site/js/app.js::rendererCallbacks/onDragEnd",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks",
+   "target": "site/js/app.js::rendererCallbacks/onDragStart",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks",
+   "target": "site/js/app.js::rendererCallbacks/onFindPath",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks",
+   "target": "site/js/app.js::rendererCallbacks/onHover",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::rendererCallbacks",
+   "target": "site/js/app.js::rendererCallbacks/onSelect",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/app.js::rendererCallbacks/onDragEnd",
    "target": "site/js/app.js::state",
    "kind": "reference",
@@ -5458,6 +5689,83 @@
    "time": "use"
   },
   {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/directoryExists",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/fileExists",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/getCanonicalFileName",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/getCurrentDirectory",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/getDirectories",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/getNewLine",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/getSourceFile",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/readFile",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/useCaseSensitiveFileNames",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost",
+   "target": "site/js/browserAnalyzer.js::createHost/writeFile",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
    "target": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
    "kind": "call",
@@ -5708,6 +6016,62 @@
    "count": 1,
    "time": "use",
    "inferred": true
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::Graph3D.bindEvents/a",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::Graph3D.bindEvents/arrowdown",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::Graph3D.bindEvents/arrowup",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::Graph3D.bindEvents/d",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::Graph3D.bindEvents/e",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::Graph3D.bindEvents/q",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::Graph3D.bindEvents/s",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/graph3d.js::Graph3D.bindEvents/w",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "site/js/graph3d.js::Graph3D.bindEvents",
@@ -6430,6 +6794,69 @@
   },
   {
    "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/panel.js::Panel.render/onchange",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/panel.js::Panel.render/onchange#2",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/panel.js::Panel.render/onchange#3",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/panel.js::Panel.render/onchange#4",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/panel.js::Panel.render/onclick",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/panel.js::Panel.render/onclick#2",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/panel.js::Panel.render/onclick#3",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/panel.js::Panel.render/onclick#4",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/panel.js::Panel.render/onmousedown",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.section",
    "kind": "call",
    "count": 7,
@@ -6451,31 +6878,7 @@
   },
   {
    "source": "site/js/panel.js::Panel.render/onchange",
-   "target": "site/js/app.js::panel/onAutoRotate",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/panel.js::Panel.render/onchange",
    "target": "site/js/app.js::panel/onDataset",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/panel.js::Panel.render/onchange",
-   "target": "site/js/app.js::panel/onFile",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/panel.js::Panel.render/onchange",
-   "target": "site/js/app.js::panel/onKinds",
    "kind": "call",
    "count": 1,
    "time": "use",
@@ -6492,19 +6895,42 @@
    "source": "site/js/panel.js::Panel.render/onchange",
    "target": "site/js/panel.js::Panel.setGithubMode",
    "kind": "call",
-   "count": 3,
+   "count": 2,
    "time": "use"
   },
   {
-   "source": "site/js/panel.js::Panel.render/onclick",
-   "target": "site/js/app.js::panel/onExportJson",
+   "source": "site/js/panel.js::Panel.render/onchange#2",
+   "target": "site/js/app.js::panel/onFile",
    "kind": "call",
    "count": 1,
    "time": "use",
    "inferred": true
   },
   {
-   "source": "site/js/panel.js::Panel.render/onclick",
+   "source": "site/js/panel.js::Panel.render/onchange#2",
+   "target": "site/js/panel.js::Panel.setGithubMode",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onchange#3",
+   "target": "site/js/app.js::panel/onAutoRotate",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onchange#4",
+   "target": "site/js/app.js::panel/onKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onclick#2",
    "target": "site/js/app.js::panel/onOpenFolder",
    "kind": "call",
    "count": 1,
@@ -6512,11 +6938,19 @@
    "inferred": true
   },
   {
-   "source": "site/js/panel.js::Panel.render/onclick",
+   "source": "site/js/panel.js::Panel.render/onclick#2",
    "target": "site/js/panel.js::Panel.setGithubMode",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onclick#4",
+   "target": "site/js/app.js::panel/onExportJson",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/panel.js::Panel.section",
@@ -6537,6 +6971,13 @@
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
    "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.select",
+   "target": "site/js/panel.js::Panel.select/onchange",
+   "kind": "reference",
+   "count": 1,
    "time": "use"
   },
   {
@@ -6642,6 +7083,34 @@
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/panel.js::Panel.setMetrics/onclick",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/panel.js::Panel.setMetrics/onclick#2",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/panel.js::Panel.setMetrics/onclick#3",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/panel.js::Panel.setMetrics/onclick#4",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/panel.js::reportNodeShape",
    "kind": "call",
    "count": 1,
@@ -6656,6 +7125,14 @@
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics/onclick",
+   "target": "site/js/app.js::panel/onSelectNode",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/onclick#2",
    "target": "site/js/app.js::panel/onExportReport",
    "kind": "call",
    "count": 1,
@@ -6663,7 +7140,7 @@
    "inferred": true
   },
   {
-   "source": "site/js/panel.js::Panel.setMetrics/onclick",
+   "source": "site/js/panel.js::Panel.setMetrics/onclick#3",
    "target": "site/js/app.js::panel/onHighlight",
    "kind": "call",
    "count": 1,
@@ -6671,8 +7148,8 @@
    "inferred": true
   },
   {
-   "source": "site/js/panel.js::Panel.setMetrics/onclick",
-   "target": "site/js/app.js::panel/onSelectNode",
+   "source": "site/js/panel.js::Panel.setMetrics/onclick#4",
+   "target": "site/js/app.js::panel/onHighlight",
    "kind": "call",
    "count": 1,
    "time": "use",
@@ -6690,6 +7167,13 @@
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
    "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setPathResult",
+   "target": "site/js/panel.js::Panel.setPathResult/onclick",
+   "kind": "reference",
+   "count": 1,
    "time": "use"
   },
   {
@@ -6715,12 +7199,25 @@
    "time": "use"
   },
   {
-   "source": "site/js/panel.js::Panel.setRecent/onclick",
-   "target": "site/js/app.js::panel/onDeleteRecent",
-   "kind": "call",
+   "source": "site/js/panel.js::Panel.setRecent",
+   "target": "site/js/panel.js::Panel.setRecent/onclick",
+   "kind": "reference",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setRecent",
+   "target": "site/js/panel.js::Panel.setRecent/onclick#2",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setRecent",
+   "target": "site/js/panel.js::Panel.setRecent/onclick#3",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setRecent/onclick",
@@ -6732,6 +7229,13 @@
   },
   {
    "source": "site/js/panel.js::Panel.setRecent/onclick",
+   "target": "site/js/panel.js::Panel.setGithubMode",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setRecent/onclick#2",
    "target": "site/js/app.js::panel/onReanalyzeRecent",
    "kind": "call",
    "count": 1,
@@ -6739,11 +7243,12 @@
    "inferred": true
   },
   {
-   "source": "site/js/panel.js::Panel.setRecent/onclick",
-   "target": "site/js/panel.js::Panel.setGithubMode",
+   "source": "site/js/panel.js::Panel.setRecent/onclick#3",
+   "target": "site/js/app.js::panel/onDeleteRecent",
    "kind": "call",
    "count": 1,
-   "time": "use"
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/panel.js::Panel.setSelection",
@@ -6802,12 +7307,18 @@
    "time": "use"
   },
   {
-   "source": "site/js/panel.js::Panel.setSelection/onclick",
-   "target": "site/js/app.js::panel/onFocusNode",
-   "kind": "call",
+   "source": "site/js/panel.js::Panel.setSelection",
+   "target": "site/js/panel.js::Panel.setSelection/onclick",
+   "kind": "reference",
    "count": 1,
-   "time": "use",
-   "inferred": true
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setSelection",
+   "target": "site/js/panel.js::Panel.setSelection/onclick#2",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setSelection/onclick",
@@ -6818,10 +7329,25 @@
    "inferred": true
   },
   {
+   "source": "site/js/panel.js::Panel.setSelection/onclick#2",
+   "target": "site/js/app.js::panel/onFocusNode",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "site/js/panel.js::Panel.slider",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
    "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.slider",
+   "target": "site/js/panel.js::Panel.slider/oninput",
+   "kind": "reference",
+   "count": 1,
    "time": "use"
   },
   {
@@ -6892,14 +7418,14 @@
    "source": "test/analyzer.test.mjs::<module>",
    "target": "analyzers/ts/analyze.mjs::analyze",
    "kind": "call",
-   "count": 22,
+   "count": 24,
    "time": "use"
   },
   {
    "source": "test/analyzer.test.mjs::<module>",
    "target": "test/analyzer.test.mjs::fixture",
    "kind": "call",
-   "count": 21,
+   "count": 23,
    "time": "use"
   },
   {
@@ -6969,7 +7495,7 @@
    "source": "test/dominance.test.mjs::<module>",
    "target": "site/js/metrics.js::islands",
    "kind": "call",
-   "count": 4,
+   "count": 5,
    "time": "use"
   },
   {
@@ -7004,7 +7530,7 @@
    "source": "test/dominance.test.mjs::<module>",
    "target": "site/js/model.js::buildGraph",
    "kind": "call",
-   "count": 4,
+   "count": 5,
    "time": "use"
   },
   {
@@ -7172,6 +7698,83 @@
    "source": "test/local-analyzer.test.mjs::analyzeVirtual",
    "target": "test/local-analyzer.test.mjs::loadLibClosure",
    "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/directoryExists",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/fileExists",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getCanonicalFileName",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getCurrentDirectory",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getDirectories",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getNewLine",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getSourceFile",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/readFile",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/useCaseSensitiveFileNames",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/writeFile",
+   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -7463,6 +8066,83 @@
   {
    "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "target": "test/svelte-analyzer.test.mjs::COMPILER_OPTIONS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/directoryExists",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/fileExists",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getCanonicalFileName",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getCurrentDirectory",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getDirectories",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getNewLine",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getSourceFile",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/readFile",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/useCaseSensitiveFileNames",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/writeFile",
    "kind": "reference",
    "count": 1,
    "time": "use"

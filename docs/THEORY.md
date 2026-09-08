@@ -434,6 +434,19 @@ can be the target of an edge. Hence:
   simplification, would misattribute every call the handler itself makes to
   whoever merely constructed it.
 
+  The declaration doing the handing over gets a `reference` to it. Earlier
+  releases emitted nothing here, and that was an inconsistency rather than a
+  decision: writing the handler as a name (`f({ m })`, `oncommit={bump}`)
+  has always produced a `reference` from resolving that identifier, so the
+  two spellings of one thing disagreed about whether the caller depends on
+  its own handler. Nothing else could supply the edge, either — a local
+  declaration exists precisely because the literal has no path of its own,
+  so the declaration that built it is the only holder there is, which makes
+  the edge exact rather than a guess. The edge is a `reference` and not a
+  `call`: the caller hands the value over, and whoever invokes it — the DOM,
+  a framework, a callee — is a separate matter, so a graph restricted to the
+  control kinds still shows such a handler as an entry point.
+
 Treating the late case as a declaration rather than a store is a design
 decision, not a consequence of the calculus; the flag keeps it visible. The
 same is true of local declarations: nothing forces the choice, but leaving a
@@ -510,7 +523,7 @@ an object is a fixed point `fix(gen_C)`. Under this reading:
 | `d3.scale.linear = …`, `d3` undeclared     | binding on a global             | none        | declares `d3.scale.linear`, parent `d3.scale` once that is bound |
 | `app.h = function () {…}` inside a body    | late binding (Definition 9a)    | `reference` | member `h` flagged `late`; installer → `h` |
 | `el.cb = function () {…}`, `el` a value    | store: the closure escapes      | none        | no declaration; the body belongs to the enclosing declaration |
-| `f({ m: function () {…} })`, argument      | local declaration (Definition 9a) | none      | declares `m`, parent = the declaration calling `f` |
+| `f({ m: function () {…} })`, argument      | local declaration (Definition 9a) | `reference` | declares `m`, parent = the declaration calling `f`; the caller evaluates the function and hands it over, which is what a `reference` is |
 | `o.m(a)`, `o` untyped                      | `(o.m) a`                       | `call`      | `m` by name path or `this`, else every instance member `m` (inferred) |
 
 `f.bind(o)` deserves a note: `f` is the receiver of a projection whose result

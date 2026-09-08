@@ -218,6 +218,15 @@ export function unreferencedDeclarations(graph) {
  * finding: several declarations that clearly belong together, and together
  * belong to nothing.
  *
+ * A `module` node alone — a file's own top-level code — is not an island at
+ * all and is left out of the count, for the reason
+ * `unreferencedDeclarations` already gives: nothing is ever expected to point
+ * at one, so a file whose top-level code happens to call nothing is
+ * structurally isolated rather than adrift. Inside a *group* it stays: a file
+ * whose top-level code only reaches declarations that nothing else reaches is
+ * exactly the finding. So `mainland + adrift` is a count of findings, not a
+ * partition of the graph.
+ *
  * The largest component is taken to be the mainland. On a program that is
  * genuinely two halves that is an arbitrary choice between them, which is why
  * `mainland` is reported alongside: two comparable numbers say "two halves"
@@ -226,14 +235,15 @@ export function unreferencedDeclarations(graph) {
 export function islands(graph) {
   const links = graph.activeLinks ?? graph.links;
   const components = connectedComponents(graph.nodes, links);
-  const [mainland, ...adrift] = components;
+  const [mainland, ...rest] = components;
+  const adrift = rest.filter((c) => c.nodes.length > 1 || c.nodes[0].kind !== "module");
   const groups = adrift.filter((c) => c.nodes.length > 1);
   const singles = adrift.filter((c) => c.nodes.length === 1).map((c) => c.nodes[0]);
   return {
     mainland: mainland?.nodes.length ?? 0,
     groups,
     singles,
-    // Everything not on the mainland, groups and singles alike.
+    // Everything reported adrift, groups and singles alike.
     adrift: adrift.reduce((sum, c) => sum + c.nodes.length, 0),
   };
 }

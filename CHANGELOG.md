@@ -6,6 +6,58 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Analyzer: two ways a declaration could end up unreachable by construction
+
+`analyzers/ts@0.8.0`. Pointing the new islands diagnostic at a real
+application returned hundreds of "islands" that were nothing of the kind, and
+both causes were in the analyzer.
+
+* **Declarations could share one id.** A local declaration is
+  `<parent>/<name>`, and two object literals inside one declaration can each
+  carry an `onclick` — `el("button", { onclick: save })` beside
+  `el("input", { onclick: clear })` — with no name of their own to be told
+  apart by. The viewer keys nodes by id, so the last declaration won, every
+  edge naming that id attached to it, and the earlier ones became nodes no
+  edge could ever reach: in-degree and out-degree 0, adrift by construction
+  and indistinguishable from dead code. This repository had 12 such nodes,
+  `svelte/src` 46. Repeats are now numbered `#2`, `#3`, … in source order,
+  leaving every id that never collided as it was.
+* **A function written into an object literal had no edge from the
+  declaration handing it over.** `f({ m })` has always produced a `reference`
+  by resolving the identifier; `f({ m: () => {} })` produced nothing, so the
+  two spellings of one thing disagreed about whether the caller depends on
+  its own handler — and the inline one, plus whatever only it called, floated
+  off. `docs/THEORY.md` §5 recorded the absence as a decision; it was an
+  inconsistency. Nothing else could supply the edge either: a local
+  declaration exists precisely because the literal has no path of its own, so
+  the declaration that built it is the only holder there is, which makes the
+  edge exact rather than a guess. It is a `reference`, not a `call` — whoever
+  invokes the handler (the DOM, a framework) is a separate matter, so a graph
+  restricted to the control kinds still shows such a handler as an entry
+  point.
+
+| | this repository | `svelte/src` |
+|---|---|---|
+| edges | 593 → **690** | 8,514 → **8,943** |
+| islands of one | 37 → **0** | 267 → **71** |
+| island groups | 1 → 1 | 14 → **4** |
+| entry points (every kind) | 73 → **15** | 693 → **332** |
+| independence | 0.639 → 0.678 | 0.483 → 0.492 |
+
+The entry-point figure moves the most, and deserves a word: a DOM handler is
+now referenced by whoever installed it, so with every edge kind enabled it is
+no longer "uncalled". Turning the graph down to the control kinds shows it as
+an entry point again, which is the reading that inventories what events run.
+
+### Diagnostics: a lone `module` node is not an island
+
+* A file's own top-level code is never pointed at by anything — the reason
+  `unreferencedDeclarations` already skips `module` nodes — so a file whose
+  top-level code happens to call nothing is structurally isolated rather than
+  adrift, and is left out of the count. Inside a *group* it stays: a file
+  whose top-level code reaches only declarations nothing else reaches is
+  exactly the finding.
+
 ### Diagnostics: islands
 
 * A fourth diagnostic. Every connected piece of the graph but the largest is

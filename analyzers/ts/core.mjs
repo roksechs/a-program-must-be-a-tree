@@ -6,7 +6,7 @@
 // files via `ts.sys`) and from the browser's local-folder feature
 // (`site/js/localAnalyzer.js`, a Program built over an in-memory CompilerHost
 // fed by the File System Access API) — one analyzer, two front ends.
-export const ANALYZER_VERSION = "0.7.0";
+export const ANALYZER_VERSION = "0.8.0";
 export const EXTENSIONS = new Set([".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".mts", ".cts", ".svelte"]);
 export const DEFAULT_EXCLUDES = ["node_modules", ".git", "dist", "build", "coverage", "vendor"];
 
@@ -66,8 +66,24 @@ export function createCore(ts) {
     const decls = [];
     const rest = []; // top-level statements that are not declarations: the module's own code
     const assignments = []; // `a.b = v` / `Object.assign(a.b, {...})` at top level
+    const usedIds = new Set();
     const add = (node, name, kind, parent, exported, bodyNodes, nameNode, sep = ".") => {
-      const id = parent ? `${parent.id}${sep}${name}` : `${file}::${name}`;
+      const base = parent ? `${parent.id}${sep}${name}` : `${file}::${name}`;
+      // Two object literals inside the same declaration can each carry an
+      // `onclick`, and there is nothing to tell the ids apart: the literals
+      // are arguments, so they have no names of their own, and the property
+      // path is `onclick` for both — `el("button", { onclick: save })` beside
+      // `el("input", { onclick: clear })`. Sharing one id is not cosmetic.
+      // The viewer keys nodes by id (model.js's `byId`), so the last
+      // declaration wins, every edge naming that id attaches to it, and the
+      // earlier ones become nodes no edge can ever reach: in-degree and
+      // out-degree 0, adrift by construction and indistinguishable from real
+      // dead code. This repository had 12 such nodes and svelte/src 46.
+      // Numbering the repeats in source order leaves every id that never
+      // collided exactly as it was.
+      let id = base;
+      for (let n = 2; usedIds.has(id); n++) id = `${base}#${n}`;
+      usedIds.add(id);
       const entry = { node, id, name, kind, parent: parent?.id ?? null, exported, bodyNodes, nameNode, line: toLine(node.getStart(sf)) };
       decls.push(entry);
       return entry;
@@ -638,6 +654,9 @@ export function createCore(ts) {
     //    case above this closure's body never leaves the declaration that
     //    wrote it - the default graph is the module-level `letrec`, and this
     //    is only ever more of that one declaration's own code.
+    // Pass 1d fills this and pass 2 drains it: `addEdge` does not exist yet
+    // here. See its use below for what the edge means.
+    const handedOverLocals = [];
     const nestLocal = (d) => {
       const ctx = ctxOf.get(d.file);
       const found = [];
@@ -652,7 +671,11 @@ export function createCore(ts) {
       const nested = options.nested || d.file.endsWith(".svelte");
       const walk = (node) => {
         let e = null;
+        // True for a function written *into* an object literal, false for a local
+        // promoted only because `nested` is on.
+        let handedOver = false;
         if (node !== d.node && ts.isPropertyAssignment(node) && isFunctionLike(unwrap(node.initializer))) {
+          handedOver = true;
           const init = unwrap(node.initializer);
           const name = memberName(node.name);
           if (name && !declByNode.has(init)) {
@@ -660,6 +683,7 @@ export function createCore(ts) {
             if (ts.isClassExpression(init)) ctx.addClassMembers(init, e);
           }
         } else if (node !== d.node && ts.isObjectLiteralExpression(node.parent) && (ts.isMethodDeclaration(node) || ts.isGetAccessorDeclaration(node) || ts.isSetAccessorDeclaration(node))) {
+          handedOver = true;
           const name = memberName(node.name);
           if (name) e = ctx.add(node, name, "function", d, false, [node], node.name, "/");
         } else if (nested && node !== d.node && ts.isFunctionDeclaration(node) && node.name) {
@@ -675,6 +699,7 @@ export function createCore(ts) {
         }
         if (e) {
           e.local = true;
+          if (handedOver) handedOverLocals.push({ owner: d, local: e });
           attach(ctx, e);
           attachNew(ctx);
           found.push(e);
@@ -885,6 +910,16 @@ export function createCore(ts) {
       }
       return out;
     };
+
+    // A function written into an object literal is a value the surrounding
+    // declaration evaluates and hands over — to a constructor, a call, the
+    // DOM. Writing the same handler as a name (`{ onFit }`, `oncommit={bump}`)
+    // has always produced a `reference` from that declaration; writing it
+    // inline produced nothing, so the two spellings of one thing disagreed
+    // about whether the declaration depends on its own handler.
+    for (const { owner, local } of handedOverLocals) {
+      addEdge(owner, local, "reference", owner.kind === "module" ? "definition" : "use");
+    }
 
     // Pass 2: syntactic references (docs/THEORY.md §3, definitions 4-6).
     const callSites = []; // { owner, node, time } for the flow analysis below

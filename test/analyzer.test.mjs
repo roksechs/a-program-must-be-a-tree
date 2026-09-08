@@ -629,3 +629,57 @@ test("assignment targets record a reversed write edge (docs/THEORY.md §3.5)", (
   assert.equal(edges("g.js::total", "g.js::checkout").length, 0);
   assert.equal(edges("g.js::checkout", "g.js::total")[0].kind, "reference");
 });
+
+test("two object literals in one declaration each carrying the same key get distinct ids", () => {
+  // Before this, both `fn`s were `render/fn`. The viewer keys nodes by id, so
+  // the last one absorbed every edge naming it and the first became a node no
+  // edge could ever reach: in- and out-degree 0, indistinguishable from dead
+  // code. This repository had 12 such nodes and svelte/src 46.
+  const root = fixture({
+    "src/a.ts": `
+      export function helper(n: number) { return n + 1; }
+      export function el(tag: string, props: object) { return { tag, props }; }
+      export function render() {
+        el("button", { onclick: () => helper(1) });
+        el("input", { onclick: () => helper(2) });
+        el("a", { onclick: () => helper(3) });
+      }
+    `,
+  });
+  const doc = analyze({ name: "fixture", root, include: ["src"], language: "typescript" });
+  const ids = doc.declarations.map((d) => d.id);
+  assert.equal(new Set(ids).size, ids.length, "no id is emitted twice");
+  assert.deepEqual(
+    ids.filter((id) => id.includes("render/onclick")).sort(),
+    ["src/a.ts::render/onclick", "src/a.ts::render/onclick#2", "src/a.ts::render/onclick#3"],
+    "repeats are numbered in source order, and the first keeps the plain id",
+  );
+  // Each really does carry its own edge now, so `helper` hears from all three.
+  assert.equal(doc.edges.filter((e) => e.target === "src/a.ts::helper" && e.kind === "call").length, 3);
+});
+
+test("a function handed over inside an object literal is referenced by the declaration handing it over", () => {
+  // `f({ m })` has always produced a reference by resolving the identifier.
+  // `f({ m: () => {} })` produced nothing, so the two spellings of one thing
+  // disagreed about whether the caller depends on its own handler -- and the
+  // inline one, plus whatever only it called, floated off as an island.
+  const root = fixture({
+    "src/a.ts": `
+      export function reset() { return 0; }
+      export function mount(props: object) { return props; }
+      export function setup() {
+        return mount({ onclick: () => reset() });
+      }
+      export function named() { return mount({ onclick: reset }); }
+    `,
+  });
+  const doc = analyze({ name: "fixture", root, include: ["src"], language: "typescript" });
+  const has = (from, to, kind) => doc.edges.some((e) => e.source === from && e.target === to && e.kind === kind);
+  assert.ok(has("src/a.ts::setup", "src/a.ts::setup/onclick", "reference"), "the inline handler is referenced by its holder");
+  assert.ok(has("src/a.ts::setup/onclick", "src/a.ts::reset", "call"), "and still makes its own call");
+  assert.ok(has("src/a.ts::named", "src/a.ts::reset", "reference"), "the named spelling is unchanged");
+  // A `reference`, not a `call`: whoever invokes the handler -- the DOM, a
+  // framework -- is a separate matter, so the control graph still shows it
+  // as an entry point.
+  assert.equal(has("src/a.ts::setup", "src/a.ts::setup/onclick", "call"), false);
+});

@@ -256,3 +256,32 @@ test("islands follow the enabled edge kinds, so the panel never disagrees with t
   applyActiveKinds(all, new Set(["call", "create", "reference"]));
   assert.equal(islands(all).groups.length, 0, "turning the reference on connects them to the main body");
 });
+
+test("a module node alone is not an island: nothing is ever expected to point at one", () => {
+  // A file whose top-level code calls nothing is structurally isolated, not
+  // adrift -- the same reason unreferencedDeclarations skips module nodes.
+  // Inside a *group* it stays, because a file whose top-level code reaches
+  // only declarations nothing else reaches is exactly the finding.
+  const g = buildGraph({
+    declarations: [
+      { id: "m", name: "main", kind: "function", file: "src/a.js" },
+      { id: "n", name: "next", kind: "function", file: "src/a.js" },
+      { id: "p", name: "prev", kind: "function", file: "src/a.js" },
+      { id: "quiet", name: "<module>", kind: "module", file: "src/quiet.js" },
+      { id: "boot", name: "<module>", kind: "module", file: "src/boot.js" },
+      { id: "only", name: "only", kind: "function", file: "src/boot.js" },
+    ],
+    edges: [
+      { source: "m", target: "n", kind: "call" },
+      { source: "n", target: "p", kind: "call" },
+      { source: "boot", target: "only", kind: "call" },
+    ],
+  });
+  const { groups, singles } = islands(g);
+  assert.deepEqual(singles.map((n) => n.id), [], "the inert module node is not reported");
+  assert.deepEqual(
+    groups.map((c) => c.nodes.map((n) => n.id)),
+    [["boot", "only"]],
+    "but a module node adrift together with what it reaches is a finding",
+  );
+});

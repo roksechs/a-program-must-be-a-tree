@@ -3,8 +3,8 @@
   "name": "d3-force",
   "root": "node_modules/d3-force",
   "language": "javascript",
-  "generatedAt": "2026-09-08T05:43:16.886Z",
-  "analyzer": "analyzers/ts@0.7.0",
+  "generatedAt": "2026-09-08T06:21:57.103Z",
+  "analyzer": "analyzers/ts@0.8.0",
   "files": 12
  },
  "declarations": [
@@ -440,6 +440,90 @@
    "source": "src/simulation.js::default",
    "target": "src/lcg.js::default",
    "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/alpha",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/alphaDecay",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/alphaMin",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/alphaTarget",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/find",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/force",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/nodes",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/on",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/randomSource",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/restart",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/stop",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/simulation.js::default",
+   "target": "src/simulation.js::default/velocityDecay",
+   "kind": "reference",
    "count": 1,
    "time": "use"
   },

@@ -3,8 +3,8 @@
   "name": "d3-shape",
   "root": "node_modules/d3-shape",
   "language": "javascript",
-  "generatedAt": "2026-09-08T05:43:18.068Z",
-  "analyzer": "analyzers/ts@0.7.0",
+  "generatedAt": "2026-09-08T06:21:58.557Z",
+  "analyzer": "analyzers/ts@0.8.0",
   "files": 60
  },
  "declarations": [
@@ -6519,6 +6519,13 @@
    "inferred": true
   },
   {
+   "source": "src/symbol/asterisk.js::<module>",
+   "target": "src/symbol/asterisk.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/asterisk.js::<module>/draw",
    "target": "src/curve/monotone.js::ReflectContext.lineTo",
    "kind": "call",
@@ -6563,6 +6570,13 @@
    "time": "definition"
   },
   {
+   "source": "src/symbol/circle.js::<module>",
+   "target": "src/symbol/circle.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/circle.js::<module>/draw",
    "target": "src/curve/monotone.js::ReflectContext.moveTo",
    "kind": "call",
@@ -6590,6 +6604,13 @@
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/cross.js::<module>",
+   "target": "src/symbol/cross.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/cross.js::<module>/draw",
@@ -6621,6 +6642,13 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/diamond.js::<module>",
+   "target": "src/symbol/diamond.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/diamond.js::<module>/draw",
@@ -6682,6 +6710,13 @@
    "time": "definition"
   },
   {
+   "source": "src/symbol/diamond2.js::<module>",
+   "target": "src/symbol/diamond2.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/diamond2.js::<module>/draw",
    "target": "src/curve/monotone.js::ReflectContext.closePath",
    "kind": "call",
@@ -6711,6 +6746,13 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/plus.js::<module>",
+   "target": "src/symbol/plus.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/plus.js::<module>/draw",
@@ -6743,11 +6785,25 @@
    "time": "use"
   },
   {
+   "source": "src/symbol/square.js::<module>",
+   "target": "src/symbol/square.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/square.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/square2.js::<module>",
+   "target": "src/symbol/square2.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/square2.js::<module>/draw",
@@ -6779,6 +6835,13 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/star.js::<module>",
+   "target": "src/symbol/star.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/star.js::<module>/draw",
@@ -6910,6 +6973,13 @@
    "time": "definition"
   },
   {
+   "source": "src/symbol/times.js::<module>",
+   "target": "src/symbol/times.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/times.js::<module>/draw",
    "target": "src/curve/monotone.js::ReflectContext.lineTo",
    "kind": "call",
@@ -6938,6 +7008,13 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/triangle.js::<module>",
+   "target": "src/symbol/triangle.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/triangle.js::<module>/draw",
@@ -6985,6 +7062,13 @@
    "time": "definition"
   },
   {
+   "source": "src/symbol/triangle2.js::<module>",
+   "target": "src/symbol/triangle2.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/triangle2.js::<module>/draw",
    "target": "src/curve/monotone.js::ReflectContext.closePath",
    "kind": "call",
@@ -7026,6 +7110,13 @@
    "source": "src/symbol/triangle2.js::sqrt3",
    "target": "src/math.js::sqrt",
    "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/symbol/wye.js::<module>",
+   "target": "src/symbol/wye.js::<module>/draw",
+   "kind": "reference",
    "count": 1,
    "time": "definition"
   },
