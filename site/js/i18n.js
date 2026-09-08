@@ -86,7 +86,7 @@ const STRINGS = {
     "view.autoRotate": "Auto-rotate",
     "view.fit": "Fit to view",
     "view.top": "Top view",
-    "view.help": "Drag to look around like an FPS camera — turns in place, never ends up \"upside down\" the wrong way (looping over is just where the look ends up) — shift+drag to pan. The wheel, or the keyboard's ↑/↓ and ←/→, dolly forward/back and strafe sideways: an actual move through the scene, not a zoom. Fly like an aircraft with the rest of the keyboard — W/S pitch, A/D roll, Q/E yaw — pitch and yaw turn around whichever way you're currently rolled, so a roll then a pitch banks into a real turn; roll has no limit and no auto-level, so looping and flying upside down are fair game (\"Fit to view\" resets it). Click a node to inspect it, double-click to focus it, ctrl/cmd+click a second one to highlight the path between them. Top view looks straight down the height axis with no perspective; looking away from it returns to the normal view.",
+    "view.help": "Drag to orbit, shift+drag to pan, wheel to zoom. W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ move forward/back. Click a node to inspect it, double-click to focus it, ctrl/cmd+click a second one to highlight the path between them. Top view looks straight down the height axis with no perspective; orbiting away from it returns to the normal view.",
 
     "physics.reheat": "Recompute (reheat)",
     "physics.reset": "Reset positions",
@@ -260,7 +260,7 @@ const STRINGS = {
     "view.autoRotate": "自動回転",
     "view.fit": "全体表示",
     "view.top": "真上から見る",
-    "view.help": "ドラッグでFPSのように視点を動かせます(その場で向きを変えるだけで、変な形で上下逆さまになることはありません — ループ飛行もその延長です)。Shift+ドラッグでパン。ホイール、またはキーボードの↑/↓と←/→で前後移動(ドリー)・左右移動(ストレイフ)します — ズームではなく、実際にシーン内を移動する操作です。残りのキーボードでは飛行機のように操作できます — W/Sでピッチ、A/Dでロール、Q/Eでヨー — ピッチとヨーはその時点でロールしている向きを軸に回転するので、ロールしてからピッチすると実際に旋回します。ロールに制限や自動水平化はないので、ループ飛行や裏返りも可能です(「全体表示」でリセット)。ノードをクリックすると詳細を表示、ダブルクリックで注視、Ctrl/Cmd+クリックで2つ目のノードとの間の経路をハイライトします。「真上から見る」は遠近感なしで高さの軸を真上から見下ろす視点で、そこから視点を動かすと通常の視点に戻ります。",
+    "view.help": "ドラッグで回転、Shift+ドラッグでパン、ホイールでズーム。W/Sでピッチ、A/Dでロール(離すと自動で水平に戻ります)、Q/Eでヨー、↑/↓で前後移動。ノードをクリックすると詳細を表示、ダブルクリックで注視、Ctrl/Cmd+クリックで2つ目のノードとの間の経路をハイライトします。「真上から見る」は遠近感なしで高さの軸を真上から見下ろす視点で、そこから回転すると通常の視点に戻ります。",
 
     "physics.reheat": "再計算 (リヒート)",
     "physics.reset": "位置をリセット",

@@ -23,38 +23,6 @@ The section for a version becomes the notes of its GitHub release
   checking for as a possible bug in the component itself rather than the
   analyzer. `analyzers/ts@0.5.0`.
 
-### The camera flies like an aircraft, mouse-drag included
-
-* Mouse-drag no longer orbits a fixed subject around a screen-centred pivot
-  — it turns the camera in place, exactly like the keyboard's W/S/Q/E, so
-  there's only ever one notion of "where the camera is" and one way of
-  looking around it, instead of a drag and a flight control disagreeing
-  about what a rotation even pivots on. Nothing clamps pitch any more
-  either, mouse included: composing every rotation onto one quaternion
-  instead of updating a pitch angle directly means there's no discrete
-  "wrong side" of straight up/down left to flip across, which is what the
-  old mouse-drag pitch clamp existed to avoid.
-* The wheel now dollies — an actual move forward/back through the scene,
-  the same mechanism as the up/down arrows — instead of rescaling the zoom:
-  a rescale and a real forward move looked enough alike that which one had
-  just happened was never obvious, so getting closer is one mechanism now
-  instead of two easily confused ones.
-* The keyboard's W/S/Q/E/A/D compose like a real aircraft's controls
-  instead of three independent angles: pitch and yaw turn around whichever
-  way the camera is currently rolled, so banking (rolling) and then
-  pitching swings the nose sideways into a real coordinated turn, not just
-  a tilted-looking pan. Roll has no limit and no auto-level back to level —
-  looping and flying upside down are the point, not an accident to recover
-  from — "Fit to view"/"Top view" reset it for a clean way out. The
-  left/right arrows strafe the camera sideways, alongside the existing
-  up/down dolly, both correctly following the camera's actual current
-  orientation, roll included.
-* The keyboard's five axes (pitch, yaw, roll, dolly, strafe) still ease in
-  and out through their own rate instead of snapping to full speed the
-  instant a key goes down and stopping dead the instant it comes up, so a
-  tap reads as a nudge and a held key reads as accelerating into a cruise
-  and coasting back down on release.
-
 ### Export the currently loaded analysis as JSON
 
 * A new "Export JSON" button in the Data section downloads the raw analyzer
