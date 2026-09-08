@@ -24,10 +24,20 @@ The section for a version becomes the notes of its GitHub release
   adds ~1.3µs per edge — and `alphaDecay` runs ~2,300 of them. That was forty
   seconds of an unscrollable page on every open, whether or not the layout
   needed redoing.
-* Settling cannot simply be moved off the main thread instead: on a
-  2,600-declaration codebase the layout is still visibly moving at 800 ticks
-  and only stops near 2,400, which is 86 seconds. Affordable in a build,
-  impossible on the machine of whoever opens the page.
+* **An analysis the browser ran itself is laid out by the worker that ran
+  it**, before it is handed back, behind the progress the analysis was
+  already reporting. A folder or a repo has no build step to carry a layout,
+  so this is where it comes from; it is off the main thread, and stored with
+  the analysis, so a folder pays for it once and never again.
+  `site/js/layout.js` is the single copy both producers run, so a dataset and
+  a freshly analyzed folder are laid out identically.
+* The run now stops on whichever comes first: the cooling schedule reaching
+  `alphaMin`, or the layout having stopped *moving* (mean displacement per
+  tick under 1e-5 of its own longest side). The tick budget the schedule
+  implies comes from `alphaDecay` alone and has nothing to do with the graph
+  — 2,300 ticks is about right for a few thousand declarations and absurd for
+  the five in a sample. The published datasets now stop between 600 and 1,500
+  ticks instead of always running 2,300.
 * **A run that finishes is kept.** Its positions are written back into the
   document, and for an analysis from "Recently opened", back into IndexedDB —
   so reopening a folder is instant and already settled.
@@ -36,6 +46,11 @@ The section for a version becomes the notes of its GitHub release
   really have reached and pressing reheat does not make the graph jump.
 * Removed two dead callbacks: `onDragStart`/`onDragEnd` were wired in `app.js`
   but never called — `graph3d.js`'s drag is the camera, not a node.
+* Known analyzer gap, found by this repository's own dead-code check while
+  writing the above: a binding destructured out of a dynamic import
+  (`const { f } = await import("./m.js")`) is not resolved, though a member
+  read off its namespace (`const m = await import("./m.js"); m.f()`) is. The
+  two call sites use the namespace form.
 * One consequence is now visible immediately rather than after forty seconds
   of drift: a component connected to nothing else has no spring holding it to
   anything, so the unbounded repulsion pushes it away without limit and a

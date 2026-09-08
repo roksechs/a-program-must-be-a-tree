@@ -3,7 +3,7 @@
   "name": "sample-svelte",
   "root": "samples/svelte-app",
   "language": "svelte",
-  "generatedAt": "2026-09-08T06:51:53.575Z",
+  "generatedAt": "2026-09-08T07:11:20.378Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 3
  },
@@ -18,7 +18,7 @@
    "exported": true,
    "displayName": "App",
    "x": 159.1,
-   "y": 121.5
+   "y": 121.4
   },
   {
    "id": "Counter.svelte::Counter/increment",
@@ -28,8 +28,8 @@
    "line": 7,
    "parent": "Counter.svelte::Counter",
    "exported": false,
-   "x": 53,
-   "y": 195.2
+   "x": 53.5,
+   "y": 195
   },
   {
    "id": "Counter.svelte::Counter/reset",
@@ -39,8 +39,8 @@
    "line": 11,
    "parent": "Counter.svelte::Counter",
    "exported": false,
-   "x": 85.5,
-   "y": 15.2
+   "x": 85.9,
+   "y": 15.5
   },
   {
    "id": "Counter.svelte::Counter",
@@ -51,7 +51,7 @@
    "parent": null,
    "exported": true,
    "displayName": "Counter",
-   "x": 69.1,
+   "x": 69.3,
    "y": 105.2
   },
   {
@@ -62,7 +62,7 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -20.9,
+   "x": -20.3,
    "y": 88.9
   }
  ],

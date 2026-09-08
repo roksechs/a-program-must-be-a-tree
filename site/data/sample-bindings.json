@@ -3,7 +3,7 @@
   "name": "sample-bindings",
   "root": "samples/bindings",
   "language": "javascript",
-  "generatedAt": "2026-09-08T06:51:52.932Z",
+  "generatedAt": "2026-09-08T07:11:19.906Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 7
  },
@@ -19,8 +19,8 @@
    "aliases": [
     "helper"
    ],
-   "x": -1139.7,
-   "y": -976.6
+   "x": -1129.4,
+   "y": -969.6
   },
   {
    "id": "cjs.js::run",
@@ -30,8 +30,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": -1173.2,
-   "y": -907
+   "x": -1162.7,
+   "y": -899.9
   },
   {
    "id": "late.js::app",
@@ -41,8 +41,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 760.3,
-   "y": -118.7
+   "x": 755,
+   "y": -116.8
   },
   {
    "id": "late.js::app.handler",
@@ -53,8 +53,8 @@
    "parent": "late.js::app",
    "exported": false,
    "late": true,
-   "x": 718.4,
-   "y": -208.9
+   "x": 713.6,
+   "y": -206.5
   },
   {
    "id": "late.js::init",
@@ -64,8 +64,8 @@
    "line": 8,
    "parent": null,
    "exported": true,
-   "x": 645.8,
-   "y": -120.6
+   "x": 642,
+   "y": -117.8
   },
   {
    "id": "late.js::route",
@@ -75,8 +75,8 @@
    "line": 14,
    "parent": null,
    "exported": true,
-   "x": 687.7,
-   "y": -74.2
+   "x": 683.3,
+   "y": -71.1
   },
   {
    "id": "main.js::main",
@@ -86,8 +86,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 565.9,
-   "y": 19.3
+   "x": 561.6,
+   "y": 21.1
   },
   {
    "id": "namespace.js::chart.scale",
@@ -97,8 +97,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 482.2,
-   "y": 40.7
+   "x": 478.4,
+   "y": 43.1
   },
   {
    "id": "namespace.js::chart.scale.linear",
@@ -108,8 +108,8 @@
    "line": 7,
    "parent": "namespace.js::chart.scale",
    "exported": true,
-   "x": 517.3,
-   "y": 162.9
+   "x": 514.2,
+   "y": 165.6
   },
   {
    "id": "namespace.js::interpolate",
@@ -119,8 +119,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": 484.8,
-   "y": 299.6
+   "x": 479.8,
+   "y": 301.5
   },
   {
    "id": "prototype.js::add",
@@ -133,8 +133,8 @@
    "aliases": [
     "Moment.add"
    ],
-   "x": 373.2,
-   "y": -170.4
+   "x": 367.6,
+   "y": -168.4
   },
   {
    "id": "prototype.js::Moment",
@@ -144,8 +144,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": 664.5,
-   "y": 139
+   "x": 660.5,
+   "y": 140.9
   },
   {
    "id": "prototype.js::Moment.isValid",
@@ -155,8 +155,8 @@
    "line": 17,
    "parent": "prototype.js::Moment",
    "exported": false,
-   "x": 467.1,
-   "y": -77.4
+   "x": 462.4,
+   "y": -75.8
   },
   {
    "id": "prototype.js::Moment.utc",
@@ -166,8 +166,8 @@
    "line": 22,
    "parent": "prototype.js::Moment",
    "exported": true,
-   "x": 636.4,
-   "y": 82.2
+   "x": 632.7,
+   "y": 83.3
   },
   {
    "id": "prototype.js::proto",
@@ -177,8 +177,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": 748.2,
-   "y": 241.7
+   "x": 744.5,
+   "y": 244.4
   },
   {
    "id": "store.js::<module>",
@@ -188,8 +188,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": -166.7,
-   "y": 230.7
+   "x": -171.3,
+   "y": 230.5
   },
   {
    "id": "store.js::build",
@@ -199,8 +199,8 @@
    "line": 19,
    "parent": null,
    "exported": false,
-   "x": -429.6,
-   "y": 296.6
+   "x": -434.6,
+   "y": 295.2
   },
   {
    "id": "store.js::list",
@@ -210,8 +210,8 @@
    "line": 14,
    "parent": null,
    "exported": false,
-   "x": -317.7,
-   "y": 269.6
+   "x": -322.7,
+   "y": 268.8
   },
   {
    "id": "store.js::setup",
@@ -221,8 +221,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": 314.2,
-   "y": 93.8
+   "x": 310.2,
+   "y": 95
   },
   {
    "id": "util.js::save",
@@ -232,8 +232,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 40.4,
-   "y": 173.7
+   "x": 36.1,
+   "y": 174.4
   },
   {
    "id": "util.js::tick",
@@ -243,8 +243,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 781.3,
-   "y": -317.8
+   "x": 777,
+   "y": -315.3
   }
  ],
  "edges": [

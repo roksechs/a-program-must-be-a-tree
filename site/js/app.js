@@ -431,6 +431,9 @@ function reportPhase(phase, detail, fileCount) {
   if (phase === "compiler") setStatus("app.loadingCompiler");
   else if (phase === "types") setStatus("app.loadingTypes", { count: detail });
   else if (phase === "analyzing") setStatus("app.analyzingFiles", { count: fileCount });
+  // The worker lays the result out before handing it back (analyzeWorker.js),
+  // so this stage is the physics, not the analysis.
+  else if (phase === "layout") setStatus("app.layingOut", { ticks: detail });
 }
 
 async function refreshRecent() {

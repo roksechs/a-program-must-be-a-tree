@@ -395,11 +395,24 @@ its end, the positions are written back into the document — and, for an
 analysis that came from the "Recently opened" cache, back into IndexedDB — so
 reopening a folder is instant and already settled.
 
-Settling cannot be moved into the browser instead. On a 2,600-declaration
-codebase the layout is still visibly moving at 800 ticks (95% of its final
-extent, still drifting 0.09‰ of that extent per tick) and only stops near
-2,400: 86 seconds. That is nothing in a build step and impossible on the
-machine of whoever opens the page, in a worker or anywhere else.
+An analysis the browser ran itself has no build step to carry a layout, so
+the worker that ran it lays the result out before handing it back
+(`analyzeWorker.js`), behind the progress the analysis was already reporting.
+That is the same work — it is off the main thread, so the page stays
+responsive while it happens, and it is stored with the analysis, so a folder
+pays for it once and never again. `site/js/layout.js` is the single copy both
+producers run; `scripts/settle.mjs` is only the build step's way of loading
+d3 before calling it.
+
+The run stops on whichever comes first: the cooling schedule reaching
+`alphaMin`, the same threshold a run in the page stops at, or the layout
+having stopped *moving* — mean displacement per tick under 1e-5 of the
+layout's own longest side. The second is what usually fires, and it is
+measured rather than assumed because the tick budget the cooling schedule
+implies is set by `alphaDecay` alone and has nothing to do with the graph:
+2,300 ticks is about right for a few thousand declarations and absurd for the
+five in a sample. In practice the published datasets stop between 600 and
+1,500 ticks, against the 2,300 the schedule would have run.
 
 One consequence is worth stating because it is now visible immediately rather
 than after forty seconds of drift: a component connected to nothing else has

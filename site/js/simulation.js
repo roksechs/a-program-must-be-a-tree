@@ -169,3 +169,69 @@ export function applyStoredLayout(graph) {
 export function layoutOf(graph) {
   return graph.nodes.map((n) => ({ id: n.id, x: n.x, y: n.y }));
 }
+
+/** Longest side of the layout's bounding box: the scale a movement is small *relative to*. */
+function extentOf(nodes) {
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+  for (const n of nodes) {
+    if (n.x < minX) minX = n.x;
+    if (n.x > maxX) maxX = n.x;
+    if (n.y < minY) minY = n.y;
+    if (n.y > maxY) maxY = n.y;
+  }
+  return Math.max(maxX - minX, maxY - minY, 1);
+}
+
+/**
+ * Run the layout to a stop, off any animation frame, and report progress.
+ *
+ * Used by the build step and by the worker that runs an in-browser analysis,
+ * so a layout is produced by exactly the physics the reheat button applies —
+ * a layout laid out by anything else would make the graph jump the moment
+ * anyone pressed it.
+ *
+ * It stops on whichever comes first:
+ *
+ *  - the cooling schedule reaching `alphaMin`, the same threshold a run in
+ *    the page stops at, or
+ *  - the layout having stopped *moving*: mean displacement per tick under
+ *    `quiet` of the layout's own longest side. Measured rather than assumed,
+ *    because the tick budget the cooling schedule implies is set by
+ *    `alphaDecay` alone and has nothing to do with the graph: 2,300 ticks is
+ *    about right for a few thousand declarations and absurd for the five in
+ *    a sample. On a 2,600-declaration codebase the drift is 0.09‰ of the
+ *    extent per tick at 800 ticks and 0.007‰ at 1,800, so a threshold in
+ *    that range stops where the picture has stopped changing.
+ *
+ * `maxTicks` is only a backstop against a graph that never settles at all.
+ */
+export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, maxTicks = 4000, chunk = 50 } = {}) {
+  if (graph.nodes.length === 0) return { ticks: 0, reason: "empty" };
+  const sim = createSimulation(graph, physics);
+  let ticks = 0;
+  let previous = graph.nodes.map((n) => ({ x: n.x, y: n.y }));
+  let reason = "cooled";
+  while (ticks < maxTicks) {
+    if (sim.alpha() <= sim.alphaMin()) break;
+    const before = ticks;
+    for (let i = 0; i < chunk && ticks < maxTicks && sim.alpha() > sim.alphaMin(); i++) {
+      sim.tick();
+      ticks++;
+    }
+    let moved = 0;
+    graph.nodes.forEach((n, i) => (moved += Math.hypot(n.x - previous[i].x, n.y - previous[i].y)));
+    const perTick = moved / graph.nodes.length / Math.max(ticks - before, 1);
+    previous = graph.nodes.map((n) => ({ x: n.x, y: n.y }));
+    onProgress?.({ ticks, maxTicks, alpha: sim.alpha() });
+    if (perTick / extentOf(graph.nodes) < quiet) {
+      reason = "still";
+      break;
+    }
+  }
+  if (ticks >= maxTicks) reason = "capped";
+  sim.stop();
+  return { ticks, reason };
+}

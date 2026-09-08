@@ -3,7 +3,7 @@
   "name": "d3-selection",
   "root": "node_modules/d3-selection",
   "language": "javascript",
-  "generatedAt": "2026-09-08T06:51:41.485Z",
+  "generatedAt": "2026-09-08T07:11:14.505Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 54
  },
@@ -16,8 +16,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": 482.8,
-   "y": 1289.4
+   "x": 488.5,
+   "y": 1280.4
   },
   {
    "id": "src/constant.js::default",
@@ -27,8 +27,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 93.3,
-   "y": 711.5
+   "x": 113.1,
+   "y": 689.8
   },
   {
    "id": "src/create.js::default",
@@ -38,8 +38,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": 358.2,
-   "y": 317.4
+   "x": 377.3,
+   "y": 312.4
   },
   {
    "id": "src/creator.js::creatorFixed",
@@ -49,8 +49,8 @@
    "line": 14,
    "parent": null,
    "exported": false,
-   "x": 630,
-   "y": -57.4
+   "x": 651.8,
+   "y": -59
   },
   {
    "id": "src/creator.js::creatorInherit",
@@ -60,7 +60,7 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": 734.3,
+   "x": 756.1,
    "y": -102.9
   },
   {
@@ -71,8 +71,8 @@
    "line": 20,
    "parent": null,
    "exported": true,
-   "x": 529.2,
-   "y": 16.4
+   "x": 550,
+   "y": 13.3
   },
   {
    "id": "src/identity.js::default",
@@ -82,8 +82,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 673.8,
-   "y": 4584.8
+   "x": 657.4,
+   "y": 4497.5
   },
   {
    "id": "src/local.js::local",
@@ -93,8 +93,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": 4587.3,
-   "y": -104.7
+   "x": 4504.2,
+   "y": -106.4
   },
   {
    "id": "src/local.js::Local",
@@ -107,8 +107,8 @@
    "aliases": [
     "Local.constructor"
    ],
-   "x": 4535.6,
-   "y": -32.9
+   "x": 4452.7,
+   "y": -34.4
   },
   {
    "id": "src/local.js::Local.get",
@@ -118,8 +118,8 @@
    "line": 13,
    "parent": "src/local.js::Local",
    "exported": false,
-   "x": 15.4,
-   "y": 400.8
+   "x": 30.7,
+   "y": 376.4
   },
   {
    "id": "src/local.js::Local.remove",
@@ -129,8 +129,8 @@
    "line": 21,
    "parent": "src/local.js::Local",
    "exported": false,
-   "x": -718.8,
-   "y": 521
+   "x": -703.7,
+   "y": 507.4
   },
   {
    "id": "src/local.js::Local.set",
@@ -140,8 +140,8 @@
    "line": 18,
    "parent": "src/local.js::Local",
    "exported": false,
-   "x": 71.7,
-   "y": 359.6
+   "x": 84.2,
+   "y": 335.4
   },
   {
    "id": "src/local.js::Local.toString",
@@ -151,8 +151,8 @@
    "line": 24,
    "parent": "src/local.js::Local",
    "exported": false,
-   "x": 4460.7,
-   "y": -80.1
+   "x": 4377.9,
+   "y": -81.6
   },
   {
    "id": "src/local.js::nextId",
@@ -162,8 +162,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": 4545.8,
-   "y": 30.1
+   "x": 4462.9,
+   "y": 28.6
   },
   {
    "id": "src/matcher.js::childMatcher",
@@ -173,8 +173,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": 631.8,
-   "y": 696.7
+   "x": 634.4,
+   "y": 682.9
   },
   {
    "id": "src/matcher.js::default",
@@ -184,8 +184,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 35,
-   "y": 908.6
+   "x": 50.8,
+   "y": 896.7
   },
   {
    "id": "src/namespace.js::default",
@@ -195,8 +195,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -151.8,
-   "y": -247.8
+   "x": -130.1,
+   "y": -254.1
   },
   {
    "id": "src/namespaces.js::<module>",
@@ -206,8 +206,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": 1262.7,
-   "y": -367.1
+   "x": 1284.9,
+   "y": -361.6
   },
   {
    "id": "src/namespaces.js::xhtml",
@@ -217,8 +217,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 1057.1,
-   "y": -269.1
+   "x": 1079.2,
+   "y": -265.1
   },
   {
    "id": "src/pointer.js::default",
@@ -228,8 +228,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -4699.3,
-   "y": 982.3
+   "x": -4610.5,
+   "y": 964.5
   },
   {
    "id": "src/pointers.js::default",
@@ -239,8 +239,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -4719.1,
-   "y": 907.3
+   "x": -4630.3,
+   "y": 889.5
   },
   {
    "id": "src/select.js::default",
@@ -250,8 +250,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": 495.4,
-   "y": 721.8
+   "x": 508.9,
+   "y": 718.5
   },
   {
    "id": "src/selectAll.js::default",
@@ -261,8 +261,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": 421.7,
-   "y": 1134.7
+   "x": 431.9,
+   "y": 1125.7
   },
   {
    "id": "src/selection/append.js::default",
@@ -275,8 +275,8 @@
    "aliases": [
     "Selection.append"
    ],
-   "x": 159.2,
-   "y": 291.3
+   "x": 177.2,
+   "y": 284.3
   },
   {
    "id": "src/selection/attr.js::attrConstant",
@@ -286,8 +286,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": -842.4,
-   "y": -513.7
+   "x": -818.8,
+   "y": -523.8
   },
   {
    "id": "src/selection/attr.js::attrConstantNS",
@@ -297,8 +297,8 @@
    "line": 21,
    "parent": null,
    "exported": false,
-   "x": -762.1,
-   "y": -575.1
+   "x": -741,
+   "y": -584.1
   },
   {
    "id": "src/selection/attr.js::attrFunction",
@@ -308,8 +308,8 @@
    "line": 27,
    "parent": null,
    "exported": false,
-   "x": -729.7,
-   "y": -470.3
+   "x": -709.2,
+   "y": -480
   },
   {
    "id": "src/selection/attr.js::attrFunctionNS",
@@ -319,8 +319,8 @@
    "line": 35,
    "parent": null,
    "exported": false,
-   "x": -819.4,
-   "y": -570.1
+   "x": -797.8,
+   "y": -579
   },
   {
    "id": "src/selection/attr.js::attrRemove",
@@ -330,8 +330,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -719.9,
-   "y": -530.8
+   "x": -699,
+   "y": -540.8
   },
   {
    "id": "src/selection/attr.js::attrRemoveNS",
@@ -341,8 +341,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -780.8,
-   "y": -508.7
+   "x": -759,
+   "y": -518.1
   },
   {
    "id": "src/selection/attr.js::default",
@@ -355,8 +355,8 @@
    "aliases": [
     "Selection.attr"
    ],
-   "x": -812.4,
-   "y": -417.4
+   "x": -792.1,
+   "y": -427.7
   },
   {
    "id": "src/selection/call.js::default",
@@ -369,8 +369,8 @@
    "aliases": [
     "Selection.call"
    ],
-   "x": -53.5,
-   "y": 393.9
+   "x": -38.2,
+   "y": 381.4
   },
   {
    "id": "src/selection/classed.js::classArray",
@@ -380,8 +380,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -1358.2,
-   "y": 258.5
+   "x": -1340.8,
+   "y": 240.1
   },
   {
    "id": "src/selection/classed.js::classedAdd",
@@ -391,8 +391,8 @@
    "line": 34,
    "parent": null,
    "exported": false,
-   "x": -1142.5,
-   "y": 412.4
+   "x": -1127.2,
+   "y": 393.9
   },
   {
    "id": "src/selection/classed.js::classedFalse",
@@ -402,8 +402,8 @@
    "line": 50,
    "parent": null,
    "exported": false,
-   "x": -1110.9,
-   "y": 218
+   "x": -1094.6,
+   "y": 200.8
   },
   {
    "id": "src/selection/classed.js::classedFunction",
@@ -413,8 +413,8 @@
    "line": 56,
    "parent": null,
    "exported": false,
-   "x": -1109.8,
-   "y": 303.6
+   "x": -1094.2,
+   "y": 285.3
   },
   {
    "id": "src/selection/classed.js::classedRemove",
@@ -424,8 +424,8 @@
    "line": 39,
    "parent": null,
    "exported": false,
-   "x": -991.1,
-   "y": 386.1
+   "x": -976.7,
+   "y": 369.5
   },
   {
    "id": "src/selection/classed.js::classedTrue",
@@ -435,8 +435,8 @@
    "line": 44,
    "parent": null,
    "exported": false,
-   "x": -1201.6,
-   "y": 222.9
+   "x": -1184.5,
+   "y": 204.3
   },
   {
    "id": "src/selection/classed.js::classList",
@@ -446,8 +446,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -1201.2,
-   "y": 345.9
+   "x": -1184.1,
+   "y": 327.5
   },
   {
    "id": "src/selection/classed.js::ClassList",
@@ -457,8 +457,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -1406.9,
-   "y": 400.5
+   "x": -1390.7,
+   "y": 382.1
   },
   {
    "id": "src/selection/classed.js::ClassList.add",
@@ -468,8 +468,8 @@
    "line": 15,
    "parent": "src/selection/classed.js::ClassList",
    "exported": false,
-   "x": -797.8,
-   "y": 561.4
+   "x": -783,
+   "y": 547.4
   },
   {
    "id": "src/selection/classed.js::ClassList.contains",
@@ -479,8 +479,8 @@
    "line": 29,
    "parent": "src/selection/classed.js::ClassList",
    "exported": false,
-   "x": -1314.1,
-   "y": 135.1
+   "x": -1295.9,
+   "y": 115.7
   },
   {
    "id": "src/selection/classed.js::ClassList.remove",
@@ -490,8 +490,8 @@
    "line": 22,
    "parent": "src/selection/classed.js::ClassList",
    "exported": false,
-   "x": -615.7,
-   "y": 531.9
+   "x": -601.1,
+   "y": 518.7
   },
   {
    "id": "src/selection/classed.js::default",
@@ -504,8 +504,8 @@
    "aliases": [
     "Selection.classed"
    ],
-   "x": -1135.2,
-   "y": 105.3
+   "x": -1116.7,
+   "y": 88
   },
   {
    "id": "src/selection/clone.js::default",
@@ -518,8 +518,8 @@
    "aliases": [
     "Selection.clone"
    ],
-   "x": 385.6,
-   "y": 52
+   "x": 402.5,
+   "y": 44.4
   },
   {
    "id": "src/selection/clone.js::selection_cloneDeep",
@@ -529,8 +529,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": 281,
-   "y": -146.2
+   "x": 298.1,
+   "y": -153.3
   },
   {
    "id": "src/selection/clone.js::selection_cloneShallow",
@@ -540,8 +540,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": 310.8,
-   "y": -193.3
+   "x": 328.2,
+   "y": -200.3
   },
   {
    "id": "src/selection/data.js::arraylike",
@@ -551,8 +551,8 @@
    "line": 124,
    "parent": null,
    "exported": false,
-   "x": 198.9,
-   "y": 572.7
+   "x": 224.8,
+   "y": 556.7
   },
   {
    "id": "src/selection/data.js::bindIndex",
@@ -562,8 +562,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": 119.5,
-   "y": 567.1
+   "x": 138.3,
+   "y": 541.9
   },
   {
    "id": "src/selection/data.js::bindKey",
@@ -573,8 +573,8 @@
    "line": 31,
    "parent": null,
    "exported": false,
-   "x": 18,
-   "y": 494.3
+   "x": 35.8,
+   "y": 475.6
   },
   {
    "id": "src/selection/data.js::datum",
@@ -584,8 +584,8 @@
    "line": 75,
    "parent": null,
    "exported": false,
-   "x": 229.4,
-   "y": 625.7
+   "x": 257.2,
+   "y": 629.2
   },
   {
    "id": "src/selection/data.js::default",
@@ -598,8 +598,8 @@
    "aliases": [
     "Selection.data"
    ],
-   "x": 58.9,
-   "y": 585.6
+   "x": 78,
+   "y": 567.7
   },
   {
    "id": "src/selection/datum.js::default",
@@ -612,8 +612,8 @@
    "aliases": [
     "Selection.datum"
    ],
-   "x": -1089,
-   "y": -454
+   "x": -1070.6,
+   "y": -470.4
   },
   {
    "id": "src/selection/dispatch.js::default",
@@ -626,8 +626,8 @@
    "aliases": [
     "Selection.dispatch"
    ],
-   "x": -1552.5,
-   "y": -279.3
+   "x": -1533.9,
+   "y": -288.3
   },
   {
    "id": "src/selection/dispatch.js::dispatchConstant",
@@ -637,8 +637,8 @@
    "line": 18,
    "parent": null,
    "exported": false,
-   "x": -1760.5,
-   "y": -312.3
+   "x": -1742.3,
+   "y": -319.9
   },
   {
    "id": "src/selection/dispatch.js::dispatchEvent",
@@ -648,8 +648,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1926.7,
-   "y": -428.4
+   "x": -1909.3,
+   "y": -433.8
   },
   {
    "id": "src/selection/dispatch.js::dispatchFunction",
@@ -659,8 +659,8 @@
    "line": 24,
    "parent": null,
    "exported": false,
-   "x": -1749.3,
-   "y": -363.4
+   "x": -1731.1,
+   "y": -371.1
   },
   {
    "id": "src/selection/each.js::default",
@@ -673,8 +673,8 @@
    "aliases": [
     "Selection.each"
    ],
-   "x": -937.4,
-   "y": -153.3
+   "x": -918.8,
+   "y": -166.1
   },
   {
    "id": "src/selection/empty.js::default",
@@ -687,8 +687,8 @@
    "aliases": [
     "Selection.empty"
    ],
-   "x": -1195,
-   "y": -344.1
+   "x": -1180.4,
+   "y": -364.6
   },
   {
    "id": "src/selection/enter.js::default",
@@ -701,8 +701,8 @@
    "aliases": [
     "Selection.enter"
    ],
-   "x": -189.1,
-   "y": 794.4
+   "x": -173.8,
+   "y": 781.6
   },
   {
    "id": "src/selection/enter.js::EnterNode",
@@ -715,8 +715,8 @@
    "aliases": [
     "EnterNode.constructor"
    ],
-   "x": 125.3,
-   "y": 477.9
+   "x": 141.2,
+   "y": 454.1
   },
   {
    "id": "src/selection/enter.js::EnterNode.appendChild",
@@ -726,8 +726,8 @@
    "line": 18,
    "parent": "src/selection/enter.js::EnterNode",
    "exported": false,
-   "x": 34.7,
-   "y": -433.8
+   "x": 53.8,
+   "y": -441.7
   },
   {
    "id": "src/selection/enter.js::EnterNode.insertBefore",
@@ -737,8 +737,8 @@
    "line": 19,
    "parent": "src/selection/enter.js::EnterNode",
    "exported": false,
-   "x": 101.8,
-   "y": -184
+   "x": 118,
+   "y": -190.7
   },
   {
    "id": "src/selection/enter.js::EnterNode.querySelector",
@@ -748,8 +748,8 @@
    "line": 20,
    "parent": "src/selection/enter.js::EnterNode",
    "exported": false,
-   "x": 788.2,
-   "y": 629.8
+   "x": 800,
+   "y": 634.7
   },
   {
    "id": "src/selection/enter.js::EnterNode.querySelectorAll",
@@ -759,8 +759,8 @@
    "line": 21,
    "parent": "src/selection/enter.js::EnterNode",
    "exported": false,
-   "x": 514.3,
-   "y": 1400.4
+   "x": 518.2,
+   "y": 1393.1
   },
   {
    "id": "src/selection/exit.js::default",
@@ -773,8 +773,8 @@
    "aliases": [
     "Selection.exit"
    ],
-   "x": -154.8,
-   "y": 763.5
+   "x": -139.8,
+   "y": 750.2
   },
   {
    "id": "src/selection/filter.js::default",
@@ -787,8 +787,8 @@
    "aliases": [
     "Selection.filter"
    ],
-   "x": 26.5,
-   "y": 675.8
+   "x": 41.8,
+   "y": 660
   },
   {
    "id": "src/selection/html.js::default",
@@ -801,8 +801,8 @@
    "aliases": [
     "Selection.html"
    ],
-   "x": -1116.5,
-   "y": -375.4
+   "x": -1097.2,
+   "y": -390.3
   },
   {
    "id": "src/selection/html.js::htmlConstant",
@@ -812,8 +812,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -1182,
-   "y": -508
+   "x": -1160.8,
+   "y": -523.7
   },
   {
    "id": "src/selection/html.js::htmlFunction",
@@ -823,8 +823,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": -1217.5,
-   "y": -464.5
+   "x": -1198.8,
+   "y": -482.8
   },
   {
    "id": "src/selection/html.js::htmlRemove",
@@ -834,8 +834,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -1255,
-   "y": -610.2
+   "x": -1235.2,
+   "y": -630.2
   },
   {
    "id": "src/selection/index.js::<module>",
@@ -845,8 +845,8 @@
    "line": 90,
    "parent": null,
    "exported": false,
-   "x": 598.8,
-   "y": 1173.4
+   "x": 613.4,
+   "y": 1166.8
   },
   {
    "id": "src/selection/index.js::root",
@@ -856,8 +856,8 @@
    "line": 36,
    "parent": null,
    "exported": true,
-   "x": 531.7,
-   "y": 1015.3
+   "x": 546.4,
+   "y": 1008.5
   },
   {
    "id": "src/selection/index.js::selection",
@@ -867,8 +867,8 @@
    "line": 43,
    "parent": null,
    "exported": false,
-   "x": 401.4,
-   "y": 1000.1
+   "x": 416.3,
+   "y": 988.8
   },
   {
    "id": "src/selection/index.js::Selection",
@@ -881,8 +881,8 @@
    "aliases": [
     "Selection.constructor"
    ],
-   "x": 167.6,
-   "y": 789.7
+   "x": 181.9,
+   "y": 774.7
   },
   {
    "id": "src/selection/index.js::selection_selection",
@@ -895,8 +895,8 @@
    "aliases": [
     "Selection.selection"
    ],
-   "x": -381.8,
-   "y": 688.1
+   "x": -366.8,
+   "y": 677
   },
   {
    "id": "src/selection/insert.js::constantNull",
@@ -906,8 +906,8 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": 855.6,
-   "y": 174.4
+   "x": 875.3,
+   "y": 177.3
   },
   {
    "id": "src/selection/insert.js::default",
@@ -920,8 +920,8 @@
    "aliases": [
     "Selection.insert"
    ],
-   "x": 628,
-   "y": 236.4
+   "x": 644,
+   "y": 234.6
   },
   {
    "id": "src/selection/iterator.js::default",
@@ -934,8 +934,8 @@
    "aliases": [
     "Selection.[Symbol.iterator]"
    ],
-   "x": 1729.3,
-   "y": -4349.7
+   "x": 1698,
+   "y": -4277.5
   },
   {
    "id": "src/selection/join.js::default",
@@ -948,8 +948,8 @@
    "aliases": [
     "Selection.join"
    ],
-   "x": -413.5,
-   "y": 553.2
+   "x": -398.6,
+   "y": 541.4
   },
   {
    "id": "src/selection/lower.js::default",
@@ -962,8 +962,8 @@
    "aliases": [
     "Selection.lower"
    ],
-   "x": -582.1,
-   "y": -241.6
+   "x": -564.1,
+   "y": -251.5
   },
   {
    "id": "src/selection/lower.js::lower",
@@ -973,8 +973,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -126.7,
-   "y": -308
+   "x": -110.1,
+   "y": -316.1
   },
   {
    "id": "src/selection/merge.js::default",
@@ -987,8 +987,8 @@
    "aliases": [
     "Selection.merge"
    ],
-   "x": -206,
-   "y": 699.7
+   "x": -189.8,
+   "y": 687.1
   },
   {
    "id": "src/selection/node.js::default",
@@ -1001,8 +1001,8 @@
    "aliases": [
     "Selection.node"
    ],
-   "x": -1063.1,
-   "y": -282
+   "x": -1045.7,
+   "y": -297.2
   },
   {
    "id": "src/selection/nodes.js::default",
@@ -1015,8 +1015,8 @@
    "aliases": [
     "Selection.nodes"
    ],
-   "x": 3793.3,
-   "y": 2811.7
+   "x": 3725.3,
+   "y": 2762.9
   },
   {
    "id": "src/selection/on.js::contextListener",
@@ -1026,8 +1026,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -341.8,
-   "y": 161.3
+   "x": -329.9,
+   "y": 147.9
   },
   {
    "id": "src/selection/on.js::default",
@@ -1040,8 +1040,8 @@
    "aliases": [
     "Selection.on"
    ],
-   "x": -893.2,
-   "y": -191.7
+   "x": -878,
+   "y": -207.5
   },
   {
    "id": "src/selection/on.js::onAdd",
@@ -1051,8 +1051,8 @@
    "line": 31,
    "parent": null,
    "exported": false,
-   "x": -737,
-   "y": -99.9
+   "x": -722.5,
+   "y": -114.8
   },
   {
    "id": "src/selection/on.js::onRemove",
@@ -1062,8 +1062,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": -830.8,
-   "y": -216.8
+   "x": -816.6,
+   "y": -235.2
   },
   {
    "id": "src/selection/on.js::parseTypenames",
@@ -1073,8 +1073,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": -897.2,
-   "y": -288.3
+   "x": -885.4,
+   "y": -305.8
   },
   {
    "id": "src/selection/order.js::default",
@@ -1087,8 +1087,8 @@
    "aliases": [
     "Selection.order"
    ],
-   "x": -137.4,
-   "y": 380.9
+   "x": -124.2,
+   "y": 374.1
   },
   {
    "id": "src/selection/property.js::default",
@@ -1101,8 +1101,8 @@
    "aliases": [
     "Selection.property"
    ],
-   "x": -1020.5,
-   "y": -464.2
+   "x": -1002.5,
+   "y": -481.4
   },
   {
    "id": "src/selection/property.js::propertyConstant",
@@ -1112,8 +1112,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": -1010,
-   "y": -595.5
+   "x": -989.6,
+   "y": -613.7
   },
   {
    "id": "src/selection/property.js::propertyFunction",
@@ -1123,8 +1123,8 @@
    "line": 13,
    "parent": null,
    "exported": false,
-   "x": -1080.5,
-   "y": -597.1
+   "x": -1060.9,
+   "y": -615.7
   },
   {
    "id": "src/selection/property.js::propertyRemove",
@@ -1134,8 +1134,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -1043.6,
-   "y": -641.8
+   "x": -1023,
+   "y": -660.1
   },
   {
    "id": "src/selection/raise.js::default",
@@ -1148,8 +1148,8 @@
    "aliases": [
     "Selection.raise"
    ],
-   "x": -611.9,
-   "y": -357.9
+   "x": -592.6,
+   "y": -370
   },
   {
    "id": "src/selection/raise.js::raise",
@@ -1159,8 +1159,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -232.1,
-   "y": -536.6
+   "x": -211.4,
+   "y": -547.1
   },
   {
    "id": "src/selection/remove.js::default",
@@ -1173,8 +1173,8 @@
    "aliases": [
     "Selection.remove"
    ],
-   "x": -777.3,
-   "y": 267.1
+   "x": -761.2,
+   "y": 253.7
   },
   {
    "id": "src/selection/remove.js::remove",
@@ -1184,8 +1184,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -837.1,
-   "y": 365.5
+   "x": -822.6,
+   "y": 351.5
   },
   {
    "id": "src/selection/select.js::default",
@@ -1198,8 +1198,8 @@
    "aliases": [
     "Selection.select"
    ],
-   "x": 359.4,
-   "y": 425.2
+   "x": 372.9,
+   "y": 416.4
   },
   {
    "id": "src/selection/selectAll.js::arrayAll",
@@ -1209,8 +1209,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": 350.2,
-   "y": 1171.9
+   "x": 360.5,
+   "y": 1156.4
   },
   {
    "id": "src/selection/selectAll.js::default",
@@ -1223,8 +1223,8 @@
    "aliases": [
     "Selection.selectAll"
    ],
-   "x": 238,
-   "y": 880.6
+   "x": 267.5,
+   "y": 866.4
   },
   {
    "id": "src/selection/selectChild.js::childFind",
@@ -1234,8 +1234,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": 289.7,
-   "y": 366.5
+   "x": 305.4,
+   "y": 352.4
   },
   {
    "id": "src/selection/selectChild.js::childFirst",
@@ -1245,8 +1245,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": 790.1,
-   "y": 475.1
+   "x": 803.5,
+   "y": 463
   },
   {
    "id": "src/selection/selectChild.js::default",
@@ -1259,8 +1259,8 @@
    "aliases": [
     "Selection.selectChild"
    ],
-   "x": 547.2,
-   "y": 471.2
+   "x": 559.2,
+   "y": 460.7
   },
   {
    "id": "src/selection/selectChild.js::find",
@@ -1270,8 +1270,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": 473.5,
-   "y": 263.6
+   "x": 486.2,
+   "y": 247.9
   },
   {
    "id": "src/selection/selectChildren.js::children",
@@ -1281,8 +1281,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": 672.6,
-   "y": 959.8
+   "x": 664,
+   "y": 941.5
   },
   {
    "id": "src/selection/selectChildren.js::childrenFilter",
@@ -1292,8 +1292,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": 238.2,
-   "y": 679.5
+   "x": 216.5,
+   "y": 658.8
   },
   {
    "id": "src/selection/selectChildren.js::default",
@@ -1306,8 +1306,8 @@
    "aliases": [
     "Selection.selectChildren"
    ],
-   "x": 463.1,
-   "y": 850
+   "x": 460.5,
+   "y": 832.2
   },
   {
    "id": "src/selection/selectChildren.js::filter",
@@ -1317,8 +1317,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": 315.2,
-   "y": 827.7
+   "x": 238,
+   "y": 838.8
   },
   {
    "id": "src/selection/size.js::default",
@@ -1331,8 +1331,8 @@
    "aliases": [
     "Selection.size"
    ],
-   "x": 4714.3,
-   "y": 1019.6
+   "x": 4634.6,
+   "y": 997.8
   },
   {
    "id": "src/selection/sort.js::ascending",
@@ -1342,8 +1342,8 @@
    "line": 22,
    "parent": null,
    "exported": false,
-   "x": -9.4,
-   "y": 982.5
+   "x": -2.1,
+   "y": 973.6
   },
   {
    "id": "src/selection/sort.js::default",
@@ -1356,8 +1356,8 @@
    "aliases": [
     "Selection.sort"
    ],
-   "x": 14.9,
-   "y": 836.9
+   "x": 24.1,
+   "y": 826.3
   },
   {
    "id": "src/selection/sparse.js::default",
@@ -1367,8 +1367,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -236.7,
-   "y": 928.2
+   "x": -221.5,
+   "y": 915.8
   },
   {
    "id": "src/selection/style.js::default",
@@ -1381,8 +1381,8 @@
    "aliases": [
     "Selection.style"
    ],
-   "x": -1290.5,
-   "y": -346.6
+   "x": -1272.6,
+   "y": -361.2
   },
   {
    "id": "src/selection/style.js::styleConstant",
@@ -1392,8 +1392,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -1382.7,
-   "y": -456.6
+   "x": -1363.3,
+   "y": -469.7
   },
   {
    "id": "src/selection/style.js::styleFunction",
@@ -1403,8 +1403,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": -1413.3,
-   "y": -365.6
+   "x": -1395.9,
+   "y": -380.5
   },
   {
    "id": "src/selection/style.js::styleRemove",
@@ -1414,8 +1414,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": -1423.3,
-   "y": -421.5
+   "x": -1403.9,
+   "y": -435.9
   },
   {
    "id": "src/selection/style.js::styleValue",
@@ -1425,8 +1425,8 @@
    "line": 32,
    "parent": null,
    "exported": true,
-   "x": -1637,
-   "y": -509.8
+   "x": -1620.1,
+   "y": -520.5
   },
   {
    "id": "src/selection/text.js::default",
@@ -1439,8 +1439,8 @@
    "aliases": [
     "Selection.text"
    ],
-   "x": -1126.2,
-   "y": -179.1
+   "x": -1108,
+   "y": -193.7
   },
   {
    "id": "src/selection/text.js::textConstant",
@@ -1450,8 +1450,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -1227,
-   "y": -191.7
+   "x": -1208.8,
+   "y": -207.6
   },
   {
    "id": "src/selection/text.js::textFunction",
@@ -1461,8 +1461,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": -1213.1,
-   "y": -129.7
+   "x": -1194.3,
+   "y": -145.8
   },
   {
    "id": "src/selection/text.js::textRemove",
@@ -1472,8 +1472,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -1331.7,
-   "y": -152.9
+   "x": -1313.4,
+   "y": -169.4
   },
   {
    "id": "src/selector.js::default",
@@ -1483,8 +1483,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": 699,
-   "y": 423
+   "x": 712.4,
+   "y": 425.8
   },
   {
    "id": "src/selector.js::none",
@@ -1494,8 +1494,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": 949,
-   "y": 430.5
+   "x": 962.4,
+   "y": 440.6
   },
   {
    "id": "src/selectorAll.js::default",
@@ -1505,8 +1505,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 395.9,
-   "y": 1306
+   "x": 403.9,
+   "y": 1293.7
   },
   {
    "id": "src/selectorAll.js::empty",
@@ -1516,8 +1516,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": 463.4,
-   "y": 1535.9
+   "x": 460.3,
+   "y": 1527.4
   },
   {
    "id": "src/sourceEvent.js::default",
@@ -1527,8 +1527,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -4645.5,
-   "y": 927.9
+   "x": -4556.8,
+   "y": 910.1
   },
   {
    "id": "src/window.js::default",
@@ -1538,8 +1538,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -1926.7,
-   "y": -557.7
+   "x": -1910.2,
+   "y": -563.7
   }
  ],
  "edges": [
