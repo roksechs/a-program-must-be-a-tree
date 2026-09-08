@@ -1,8 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildGraph } from "../site/js/model.js";
+import { applyActiveKinds, buildGraph } from "../site/js/model.js";
 import { dominatorTree } from "../site/js/dominance.js";
-import { entryPoints, independence, linkLift, naturalScope, scopeEscapes, unreferencedDeclarations } from "../site/js/metrics.js";
+import { entryPoints, independence, islands, linkLift, naturalScope, scopeEscapes, unreferencedDeclarations } from "../site/js/metrics.js";
 
 const decl = (id) => ({ id, name: id, kind: "function", file: "src/a.js" });
 const edge = (source, target, kind = "call") => ({ source, target, kind });
@@ -200,4 +200,59 @@ test("unreferencedDeclarations counts every edge kind, not just the currently ac
     unreferencedDeclarations(g).map((n) => n.id),
     ["a"],
   );
+});
+
+test("islands are the connected pieces standing apart from the largest one", () => {
+  // A mainland of four, a group of three adrift, and one declaration alone.
+  const g = graph(
+    ["main", "a", "b", "c", "x", "y", "z", "lonely"],
+    [edge("main", "a"), edge("main", "b"), edge("b", "c"), edge("x", "y"), edge("y", "z")],
+  );
+  const { mainland, groups, singles, adrift } = islands(g);
+  assert.equal(mainland, 4, "main, a, b, c");
+  assert.equal(groups.length, 1, "only the x/y/z group is a listed island");
+  assert.deepEqual(
+    groups[0].nodes.map((n) => n.name),
+    ["x", "y", "z"],
+    "members come back name-ordered so a report reads the same way twice",
+  );
+  assert.equal(groups[0].links.length, 2, "and the island carries its own edges, for the highlight");
+  assert.deepEqual(
+    singles.map((n) => n.name),
+    ["lonely"],
+    "an island of one is reported apart from the groups",
+  );
+  assert.equal(adrift, 4, "x, y, z and lonely are all off the mainland");
+});
+
+test("an island is undirected: a piece nothing calls is still one piece", () => {
+  // y and z both call x and nothing calls any of them. Reachability would
+  // split this into three; the group is what is actually adrift together.
+  const g = graph(["main", "a", "b", "x", "y", "z"], [edge("main", "a"), edge("main", "b"), edge("y", "x"), edge("z", "x")]);
+  const { groups } = islands(g);
+  assert.equal(groups.length, 1);
+  assert.deepEqual(
+    groups[0].nodes.map((n) => n.name),
+    ["x", "y", "z"],
+  );
+});
+
+test("islands follow the enabled edge kinds, so the panel never disagrees with the view", () => {
+  // The only thing joining the pair to the rest is a `reference`, which the
+  // default control graph leaves out — so with it hidden they really are
+  // adrift on screen, and the diagnostic has to say so.
+  const doc = {
+    declarations: ["main", "a", "x", "y"].map((id) => ({ id, name: id, kind: "function", file: "src/a.js" })),
+    edges: [
+      { source: "main", target: "a", kind: "call" },
+      { source: "x", target: "y", kind: "call" },
+      { source: "main", target: "x", kind: "reference" },
+    ],
+  };
+  const control = islands(buildGraph(doc));
+  assert.equal(control.groups.length, 1, "with only call/create active the pair is an island");
+
+  const all = buildGraph(doc);
+  applyActiveKinds(all, new Set(["call", "create", "reference"]));
+  assert.equal(islands(all).groups.length, 0, "turning the reference on connects them to the main body");
 });

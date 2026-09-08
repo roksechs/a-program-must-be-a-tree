@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-08T04:49:28.313Z",
+  "generatedAt": "2026-09-08T05:43:16.599Z",
   "analyzer": "analyzers/ts@0.7.0",
   "files": 33
  },
@@ -2623,7 +2623,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 265,
+   "line": 277,
    "parent": null,
    "exported": false
   },
@@ -2632,7 +2632,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 269,
+   "line": 281,
    "parent": null,
    "exported": true
   },
@@ -2641,7 +2641,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 278,
+   "line": 290,
    "parent": null,
    "exported": true
   },
@@ -2650,7 +2650,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 302,
+   "line": 314,
    "parent": null,
    "exported": true
   },
@@ -2668,7 +2668,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 266,
+   "line": 278,
    "parent": null,
    "exported": false
   },
@@ -2677,7 +2677,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 308,
+   "line": 320,
    "parent": null,
    "exported": true
   },
@@ -2686,7 +2686,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 289,
+   "line": 301,
    "parent": null,
    "exported": true
   },
@@ -2695,7 +2695,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 282,
+   "line": 294,
    "parent": null,
    "exported": true
   },
@@ -2713,7 +2713,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 295,
+   "line": 307,
    "parent": null,
    "exported": true
   },
@@ -2776,7 +2776,7 @@
    "name": "calleesWithLift",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 59,
+   "line": 64,
    "parent": null,
    "exported": false
   },
@@ -2785,7 +2785,7 @@
    "name": "dominance",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 16,
+   "line": 21,
    "parent": null,
    "exported": true
   },
@@ -2794,7 +2794,7 @@
    "name": "entryPoints",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 82,
+   "line": 87,
    "parent": null,
    "exported": true
   },
@@ -2803,7 +2803,16 @@
    "name": "independence",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 157,
+   "line": 162,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/metrics.js::islands",
+   "name": "islands",
+   "kind": "function",
+   "file": "site/js/metrics.js",
+   "line": 226,
    "parent": null,
    "exported": true
   },
@@ -2812,7 +2821,7 @@
    "name": "linkLift",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 43,
+   "line": 48,
    "parent": null,
    "exported": true
   },
@@ -2821,7 +2830,7 @@
    "name": "naturalScope",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 30,
+   "line": 35,
    "parent": null,
    "exported": true
   },
@@ -2830,7 +2839,7 @@
    "name": "scopeEscapes",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 99,
+   "line": 104,
    "parent": null,
    "exported": true
   },
@@ -2839,7 +2848,7 @@
    "name": "unreferencedDeclarations",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 192,
+   "line": 197,
    "parent": null,
    "exported": true
   },
@@ -2848,7 +2857,7 @@
    "name": "isLocal",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 195,
+   "line": 200,
    "parent": "site/js/metrics.js::unreferencedDeclarations",
    "exported": false
   },
@@ -2898,21 +2907,21 @@
    "exported": true
   },
   {
-   "id": "site/js/model.js::connectedComponentCount",
-   "name": "connectedComponentCount",
+   "id": "site/js/model.js::connectedComponents",
+   "name": "connectedComponents",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 267,
+   "line": 277,
    "parent": null,
    "exported": true
   },
   {
-   "id": "site/js/model.js::connectedComponentCount/find",
+   "id": "site/js/model.js::connectedComponents/find",
    "name": "find",
    "kind": "function",
    "file": "site/js/model.js",
-   "line": 270,
-   "parent": "site/js/model.js::connectedComponentCount",
+   "line": 280,
+   "parent": "site/js/model.js::connectedComponents",
    "exported": false
   },
   {
@@ -2974,7 +2983,7 @@
    "name": "loadOpenSections",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 666,
+   "line": 708,
    "parent": null,
    "exported": false
   },
@@ -3253,7 +3262,7 @@
    "name": "exportButton",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 501,
+   "line": 502,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3262,7 +3271,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 502,
+   "line": 503,
    "parent": "site/js/panel.js::Panel.setMetrics/exportButton",
    "exported": false
   },
@@ -3271,7 +3280,7 @@
    "name": "heading",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 492,
+   "line": 493,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3280,7 +3289,7 @@
    "name": "hint",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 493,
+   "line": 494,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3289,7 +3298,7 @@
    "name": "more",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 507,
+   "line": 508,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3298,7 +3307,7 @@
    "name": "nodeLink",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 494,
+   "line": 495,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3307,7 +3316,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 498,
+   "line": 499,
    "parent": "site/js/panel.js::Panel.setMetrics/nodeLink",
    "exported": false
   },
@@ -3316,7 +3325,16 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 528,
+   "line": 529,
+   "parent": "site/js/panel.js::Panel.setMetrics",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setMetrics/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 559,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3325,7 +3343,7 @@
    "name": "setPathResult",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 639,
+   "line": 681,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3334,7 +3352,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 645,
+   "line": 687,
    "parent": "site/js/panel.js::Panel.setPathResult",
    "exported": false
   },
@@ -3379,7 +3397,7 @@
    "name": "setSelection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 577,
+   "line": 619,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3388,7 +3406,7 @@
    "name": "list",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 594,
+   "line": 636,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
@@ -3397,7 +3415,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 603,
+   "line": 645,
    "parent": "site/js/panel.js::Panel.setSelection/list",
    "exported": false
   },
@@ -3406,7 +3424,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 623,
+   "line": 665,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
@@ -3433,7 +3451,7 @@
    "name": "reportNodeShape",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 686,
+   "line": 728,
    "parent": null,
    "exported": false
   },
@@ -3442,7 +3460,7 @@
    "name": "saveOpenSections",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 677,
+   "line": 719,
    "parent": null,
    "exported": false
   },
@@ -8308,6 +8326,13 @@
    "time": "use"
   },
   {
+   "source": "site/js/metrics.js::islands",
+   "target": "site/js/model.js::connectedComponents",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/metrics.js::linkLift",
    "target": "site/js/metrics.js::dominance",
    "kind": "call",
@@ -8385,10 +8410,10 @@
    "time": "use"
   },
   {
-   "source": "site/js/model.js::connectedComponentCount",
-   "target": "site/js/model.js::connectedComponentCount/find",
+   "source": "site/js/model.js::connectedComponents",
+   "target": "site/js/model.js::connectedComponents/find",
    "kind": "call",
-   "count": 2,
+   "count": 4,
    "time": "use"
   },
   {
@@ -8849,7 +8874,7 @@
    "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 7,
+   "count": 12,
    "time": "use"
   },
   {
@@ -8868,6 +8893,13 @@
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/metrics.js::islands",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/metrics.js::scopeEscapes",
    "kind": "call",
    "count": 1,
@@ -8877,28 +8909,28 @@
    "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 12,
+   "count": 19,
    "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/panel.js::Panel.setMetrics/exportButton",
    "kind": "call",
-   "count": 3,
+   "count": 4,
    "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/panel.js::Panel.setMetrics/heading",
    "kind": "call",
-   "count": 3,
+   "count": 4,
    "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/panel.js::Panel.setMetrics/hint",
    "kind": "call",
-   "count": 3,
+   "count": 4,
    "time": "use"
   },
   {
@@ -8926,7 +8958,7 @@
    "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/panel.js::reportNodeShape",
    "kind": "reference",
-   "count": 1,
+   "count": 3,
    "time": "use"
   },
   {
@@ -9361,6 +9393,13 @@
   },
   {
    "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/metrics.js::islands",
+   "kind": "call",
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
    "target": "site/js/metrics.js::naturalScope",
    "kind": "call",
    "count": 4,
@@ -9382,23 +9421,30 @@
   },
   {
    "source": "test/dominance.test.mjs::<module>",
+   "target": "site/js/model.js::applyActiveKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/dominance.test.mjs::<module>",
    "target": "site/js/model.js::buildGraph",
    "kind": "call",
-   "count": 2,
+   "count": 4,
    "time": "use"
   },
   {
    "source": "test/dominance.test.mjs::<module>",
    "target": "test/dominance.test.mjs::edge",
    "kind": "call",
-   "count": 47,
+   "count": 56,
    "time": "use"
   },
   {
    "source": "test/dominance.test.mjs::<module>",
    "target": "test/dominance.test.mjs::graph",
    "kind": "call",
-   "count": 10,
+   "count": 12,
    "time": "use"
   },
   {
@@ -9676,7 +9722,7 @@
    "source": "test/model.test.mjs::<module>",
    "target": "site/js/model.js::buildGraph",
    "kind": "call",
-   "count": 10,
+   "count": 11,
    "time": "use"
   },
   {
@@ -9688,9 +9734,9 @@
   },
   {
    "source": "test/model.test.mjs::<module>",
-   "target": "site/js/model.js::connectedComponentCount",
+   "target": "site/js/model.js::connectedComponents",
    "kind": "call",
-   "count": 1,
+   "count": 2,
    "time": "use"
   },
   {
@@ -9718,14 +9764,14 @@
    "source": "test/model.test.mjs::<module>",
    "target": "test/model.test.mjs::decl",
    "kind": "call",
-   "count": 13,
+   "count": 14,
    "time": "use"
   },
   {
    "source": "test/model.test.mjs::<module>",
    "target": "test/model.test.mjs::edge",
    "kind": "call",
-   "count": 34,
+   "count": 37,
    "time": "use"
   },
   {

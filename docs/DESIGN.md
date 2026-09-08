@@ -54,7 +54,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | module          | role |
 |-----------------|------|
 | `model.js`      | Normalises the document: nodes, merged links, containers (directory tree derived from file paths), SCCs and call heights. |
-| `metrics.js`    | The three diagnostics — entry points, scope escapes, independence — all read off the dominator tree. |
+| `metrics.js`    | The four diagnostics — entry points, scope escapes, independence (all read off the dominator tree) and islands (read off the connected components). |
 | `dominance.js`  | Dominator tree of the condensed graph: the deepest nesting the program admits, and the lift of every edge. |
 | `paths.js`      | "How does A reach B": every node/edge on some path between two declarations, plus the shortest one — see "Path highlighting". |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
@@ -621,6 +621,7 @@ edge.
 | Entry points | declarations with in-degree 0 | how many separate trees the program actually is; in an application, what startup and events run |
 | Scope escapes | edges with lift > 0, bucketed by lift | how far the sharing reaches — lift 1 is two siblings sharing a helper, a high lift is a declaration visible across many levels that one place needed |
 | Independence | per node, the mean of `1 / (1 + lift)` over its distinct callees | how much of what a declaration depends on is its alone: 1 when everything it uses could live inside it |
+| Islands | connected components other than the largest | the pieces that share no dependency at all with the main body: a family reached only from outside, or code nothing reaches any more |
 
 The independence list is ranked by `shared` (`callees - Σ 1/(1 + lift)`, how
 many whole dependencies' worth of ownership the node does not have) and not
@@ -635,8 +636,29 @@ much there was to own puts no single-dependency node in the top 30 at all,
 and matches what `scopeEscapes` already reports beside its buckets: a total,
 not only a ratio.
 
-The three are deliberately one quantity at three granularities rather than
-five independent ratios averaged into a score. A score compresses away the
+Islands are the one figure here not read off the lift. The lift describes an
+edge, and the pieces of a program that share no edge with the rest have none
+to describe, so they are read off the undirected connected components
+instead (`connectedComponents` in `model.js`). Undirected on purpose: two
+declarations that only ever call a third are still one piece of program, and
+asking whether either can *reach* the other would split that piece into
+three. The largest component is taken to be the mainland — on a program that
+is genuinely two halves that is an arbitrary choice between them, which is
+why `mainland` is reported beside the count: two comparable numbers say "two
+halves" where a count of islands alone would not. Islands of one are counted
+but not listed; they are the common case by far (738 of 761 on a
+2,600-declaration codebase), a list of them would bury the groups, and a
+declaration that neither calls nor is called is already what entry points
+reports. The export carries them.
+
+Like every other diagnostic here, islands are read on the enabled edge
+kinds, so the panel counts what the view draws. That matters more here than
+elsewhere: an island is usually *visible* as a clump drifting away on its
+own, and a figure that disagreed with what is on screen would be worse than
+no figure.
+
+The first three are deliberately one quantity at three granularities rather
+than five independent ratios averaged into a score. A score compresses away the
 thing worth acting on: "0.62" does not say which dependencies to look at,
 and a five-way average lets a good ratio hide a bad one. A bucketed
 histogram and a ranked list do, and every row in either is clickable

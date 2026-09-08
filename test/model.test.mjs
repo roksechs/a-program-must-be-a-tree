@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { applyActiveKinds, buildGraph, computeHeights, connectedComponentCount, stronglyConnectedComponents } from "../site/js/model.js";
+import { applyActiveKinds, buildGraph, computeHeights, connectedComponents, stronglyConnectedComponents } from "../site/js/model.js";
 import { entryPoints, independence, scopeEscapes } from "../site/js/metrics.js";
 
 const decl = (id, file = "src/a.js", kind = "function") => ({ id, name: id, kind, file });
@@ -99,7 +99,7 @@ test("strongly connected components", () => {
   assert.equal(id("a"), id("b"));
   assert.equal(id("b"), id("c"));
   assert.notEqual(id("c"), id("d"));
-  assert.equal(connectedComponentCount(g.nodes, g.links), 1);
+  assert.equal(connectedComponents(g.nodes, g.links).length, 1);
   assert.equal(computeHeights(g.nodes, g.links).maxHeight, 1);
 });
 
@@ -191,4 +191,26 @@ test("heights, degrees and diagnostics use the control graph only", () => {
   assert.deepEqual(independence(g).nodes, []);
   applyActiveKinds(g, new Set(["call", "create"]));
   assert.equal(g.byId.get("main").inCycle, false);
+});
+
+test("connectedComponents returns the pieces themselves, largest first, with their own links", () => {
+  const g = buildGraph({
+    declarations: ["m", "a", "b", "x", "y", "alone"].map((id) => decl(id)),
+    edges: [edge("m", "a"), edge("a", "b"), edge("x", "y")],
+  });
+  const comps = connectedComponents(g.nodes, g.links);
+  assert.deepEqual(
+    comps.map((c) => c.nodes.map((n) => n.name)),
+    [
+      ["a", "b", "m"],
+      ["x", "y"],
+      ["alone"],
+    ],
+    "largest first, members name-ordered inside each",
+  );
+  assert.deepEqual(
+    comps.map((c) => c.links.length),
+    [2, 1, 0],
+    "every link lands in the component holding both its endpoints",
+  );
 });

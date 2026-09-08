@@ -724,6 +724,21 @@ p.small {
   background: rgba(var(--md-primary-rgb), var(--state-hover));
 }
 
+/* An island's label is a list of declaration names, not a two-word "lift 3",
+   so it gets the row instead of sharing it with a bar that only restates the
+   count already printed on the right. One line, clipped: the names are there
+   to recognise the island by, and the export carries all of them. */
+.island-row {
+  grid-template-columns: minmax(0, 1fr) 40px;
+}
+
+.island-row .lift-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
+}
+
 .lift-label {
   color: var(--muted);
 }

@@ -6,6 +6,32 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Diagnostics: islands
+
+* A fourth diagnostic. Every connected piece of the graph but the largest is
+  an island: declarations that depend on each other and on nothing else the
+  analysis can see, and that nothing else depends on. On `d3-shape` that is
+  nine groups — `cardinal, Cardinal, catmullRom, CatmullRom` and its siblings,
+  each a curve family reached only by the library's consumers — against a
+  mainland of 193.
+* It is the one figure not read off the lift. The lift describes an edge, and
+  a piece of the program that shares no edge with the rest has none to
+  describe, so islands are read off the undirected connected components
+  instead. Undirected on purpose: two declarations that only ever call a third
+  are still one piece, and asking whether either can *reach* the other would
+  split that piece into three.
+* Islands of one are counted, not listed — 738 of 761 on a 2,600-declaration
+  codebase, and a list of them would bury the groups. The export carries them.
+  `mainland` is reported beside the count, so a program that is genuinely two
+  halves reads as two comparable numbers rather than as "one island".
+* Read on the enabled edge kinds, like every other diagnostic. That matters
+  more here than elsewhere: an island is usually visible as a clump drifting
+  away on its own, and a count that disagreed with the view would be worse
+  than no count.
+* `model.js`'s `connectedComponentCount` becomes `connectedComponents`,
+  returning the pieces themselves — largest first, members name-ordered, each
+  carrying its own links so a row can highlight itself.
+
 ### Analyzer: answer a property read by the object, not just by the name
 
 * `analyzers/ts@0.7.0`. Resolving a property purely by its name — which is

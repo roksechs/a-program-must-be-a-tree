@@ -7,7 +7,7 @@ import { EDGE_KINDS, edgeColor, kindColor } from "./colors.js";
 import { POPULAR_REPOS } from "./githubAnalyzer.js";
 import { kindLabel, t } from "./i18n.js";
 import { localFolderSupported } from "./localAnalyzer.js";
-import { entryPoints, independence, linkLift, naturalScope, scopeEscapes } from "./metrics.js";
+import { entryPoints, independence, islands, linkLift, naturalScope, scopeEscapes } from "./metrics.js";
 
 const GITHUB_SEARCH_DEBOUNCE_MS = 400;
 
@@ -488,6 +488,7 @@ export class Panel {
     const entries = entryPoints(graph);
     const escapes = scopeEscapes(graph);
     const owned = independence(graph);
+    const adrift = islands(graph);
 
     const heading = (key, figure) => this.el("h3", { class: "metric-head" }, this.el("span", {}, t(key)), this.el("b", {}, figure));
     const hint = (key) => this.el("p", { class: "muted small metric-hint" }, t(key));
@@ -543,6 +544,30 @@ export class Panel {
     if (owned.nodes.length === 0) ownedList.append(this.el("li", { class: "muted" }, t("metric.independence.none")));
     else ownedList.append(more(Math.min(LIST_LIMIT, owned.nodes.length), owned.nodes.length));
 
+    // 4. Islands, largest first. One row per group; islands of one are only
+    // counted (see metrics.js's islands), since they would bury the groups.
+    const islandList = this.el("div", { class: "lift-list" });
+    for (const group of adrift.groups.slice(0, LIST_LIMIT)) {
+      const names = group.nodes.slice(0, 4).map((n) => n.name).join(", ");
+      islandList.append(
+        this.el(
+          "button",
+          {
+            type: "button",
+            class: "lift-row island-row",
+            title: t("metric.islands.show"),
+            onclick: () => this.h.onHighlight(new Set(group.nodes), new Set(group.links)),
+          },
+          this.el("span", { class: "lift-label" }, group.nodes.length > 4 ? t("metric.islands.andMore", { names, count: group.nodes.length - 4 }) : names),
+          this.el("span", { class: "metric-value" }, String(group.nodes.length)),
+        ),
+      );
+    }
+    if (adrift.groups.length === 0) islandList.append(this.el("p", { class: "muted small" }, t("metric.islands.none")));
+    else if (adrift.groups.length > LIST_LIMIT) {
+      islandList.append(this.el("p", { class: "muted small" }, t("metric.more", { count: adrift.groups.length - LIST_LIMIT })));
+    }
+
     this.metricsBody.replaceChildren(
       heading("metric.entryPoints", String(entries.length)),
       hint("metric.entryPoints.hint"),
@@ -570,6 +595,23 @@ export class Panel {
       exportButton("independence", () => ({
         overall: owned.overall,
         nodes: owned.nodes.map(({ node, score, callees, shared }) => ({ ...reportNodeShape(node), independence: score, callees, shared })),
+      })),
+
+      heading("metric.islands", String(adrift.groups.length)),
+      hint("metric.islands.hint"),
+      this.el("p", { class: "muted small metric-hint" }, t("metric.islands.summary", { mainland: adrift.mainland, singles: adrift.singles.length })),
+      islandList,
+      exportButton("islands", () => ({
+        mainland: adrift.mainland,
+        adrift: adrift.adrift,
+        groups: adrift.groups.map((g) => ({
+          size: g.nodes.length,
+          nodes: g.nodes.map(reportNodeShape),
+          edges: g.links.map((l) => ({ source: l.source.id, target: l.target.id, kind: l.kind })),
+        })),
+        // Listed here even though the panel only counts them: a report is
+        // read at leisure, and a lone declaration adrift is still a finding.
+        alone: adrift.singles.map(reportNodeShape),
       })),
     );
   }

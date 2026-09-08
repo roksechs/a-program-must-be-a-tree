@@ -263,8 +263,18 @@ export function computeHeights(nodes, links) {
   return { compCount, compSize, maxHeight };
 }
 
-/** Undirected connected components; returns their count. */
-export function connectedComponentCount(nodes, links) {
+/**
+ * Undirected connected components, largest first, with the links inside each.
+ *
+ * Undirected on purpose: two declarations that only ever call a third are
+ * still part of the same piece of program, and asking whether one can *reach*
+ * the other would split that piece in two. What this separates is the pieces
+ * that share no dependency at all in either direction.
+ *
+ * Members of a component and components of the same size are ordered by name,
+ * so a report generated twice from the same graph reads the same way.
+ */
+export function connectedComponents(nodes, links) {
   const parent = new Int32Array(nodes.length);
   for (let i = 0; i < parent.length; i++) parent[i] = i;
   const find = (i) => {
@@ -274,14 +284,23 @@ export function connectedComponentCount(nodes, links) {
     }
     return i;
   };
-  let count = nodes.length;
   for (const l of links) {
     const a = find(l.source.index);
     const b = find(l.target.index);
-    if (a !== b) {
-      parent[a] = b;
-      count--;
-    }
+    if (a !== b) parent[a] = b;
   }
-  return count;
+  const groups = new Map();
+  for (const n of nodes) {
+    const root = find(n.index);
+    let g = groups.get(root);
+    if (!g) groups.set(root, (g = { nodes: [], links: [] }));
+    g.nodes.push(n);
+  }
+  // A link's endpoints are in the same component by construction, so one
+  // lookup places it.
+  for (const l of links) groups.get(find(l.source.index)).links.push(l);
+  const out = [...groups.values()];
+  for (const g of out) g.nodes.sort((a, b) => a.name.localeCompare(b.name));
+  out.sort((a, b) => b.nodes.length - a.nodes.length || a.nodes[0].name.localeCompare(b.nodes[0].name));
+  return out;
 }

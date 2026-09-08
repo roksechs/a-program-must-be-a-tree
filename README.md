@@ -31,9 +31,13 @@ force-directed graph, and measure how close that graph is to a tree.
   nothing calls (how many separate trees the program actually is, and in an
   application what startup and events run); **scope escapes** buckets the
   hoisted dependencies by how far they had to go; **independence** scores each
-  declaration by how much of what it depends on is its alone. Each one lists
-  the declarations or dependencies behind its number, highlights them in the
-  view, and exports them as a JSON report.
+  declaration by how much of what it depends on is its alone. **Islands** is
+  the exception: it is read off the connected components rather than the
+  lift, because a piece of the program that shares no dependency at all with
+  the rest has no edge for a lift to describe — a family reached only from
+  outside, or code nothing reaches any more. Each one lists the declarations
+  or dependencies behind its number, highlights them in the view, and exports
+  them as a JSON report.
 * **Edge kinds** follow a small theory (`docs/THEORY.md`): calls, constructions,
   references (callbacks and other value flows), writes (a variable's edge to
   whoever assigns it, reversed since the variable's next value depends on the
@@ -111,7 +115,7 @@ handle has keyboard focus, and is likewise remembered.
 | View & Physics | label mode, colour by kind or call height, layer gap (how far apart two consecutive call heights sit), auto-rotate, fit, top view (perspective-free, straight down the height axis); orbit around the selected subject by dragging, pan with shift-drag, zoom with the wheel, or turn and move like a flight camera with the keyboard — W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ forward/back; recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |
 | Zones       | directory / file depth *range* (a two-handled slider): both ends start at 0 (nothing shown); the high handle reveals outward from the top like a single depth slider always did, down to the files at the maximum, while the low handle can raise the outer edge to show an inner band on its own |
-| Diagnostics | entry points, scope escapes by lift, and independence — each with the declarations or dependencies behind it, clickable to select or highlight, and exportable as a JSON report |
+| Diagnostics | entry points, scope escapes by lift, independence, and islands (the groups standing apart from the main body) — each with the declarations or dependencies behind it, clickable to select or highlight, and exportable as a JSON report |
 | Selection   | callers and callees of the clicked node, with the lift of each edge, the declaration's natural scope, a Focus button that centres the camera on it, and (ctrl/cmd+click a second node) the path between the two, highlighted in the view |
 
 ## Repository layout
