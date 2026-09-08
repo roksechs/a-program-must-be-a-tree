@@ -6,6 +6,16 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Remove the layer planes
+
+* The translucent plane drawn per call height, and its two switches ("Layer
+  planes", "Fade layers by focus"), are gone. On any graph with more than a
+  handful of layers they read as clutter rather than as a guide, and they
+  were the only thing in the renderer needing a second, clamping projection
+  (`projectClamped()`) and a radial-gradient fade of their own — a lot of
+  machinery for a background shape that mostly got in the way. "Layer gap"
+  stays: it still sets how far apart two consecutive heights sit.
+
 ### Remove the article page
 
 * `article.html` and everything only it used — `site/js/article.js`,

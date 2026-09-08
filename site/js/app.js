@@ -17,8 +17,6 @@ const state = {
   labelMode: "auto",
   colorBy: "kind",
   layerGap: 80,
-  showLayers: false,
-  layerFade: true,
   autoRotate: false,
   // No container has depth 0 (1 = top-level directory, model.js's
   // buildContainers), so this range starts as empty on purpose: nothing
@@ -159,14 +157,6 @@ const panel = new Panel(document.getElementById("panel"), state, {
   onLayerGap: (gap) => {
     state.layerGap = gap;
     renderer.setLayerGap(gap);
-  },
-  onShowLayers: (show) => {
-    state.showLayers = show;
-    renderer.setShowLayers(show);
-  },
-  onLayerFade: (fade) => {
-    state.layerFade = fade;
-    renderer.setLayerFade(fade);
   },
   onAutoRotate: (on) => {
     state.autoRotate = on;

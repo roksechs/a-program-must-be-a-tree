@@ -60,7 +60,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `motifs.js`     | Structural motif detectors (cycle, hub, diamond, chain) — see "Motif highlighting". |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
-| `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer. |
+| `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, an orthographic "Top view" preset. The only renderer. |
 | `panel.js`      | Property panel (controls + diagnostics + selection details). |
 | `app.js`        | Data loading and wiring. |
 | `browserAnalyzer.js` | The part of the in-browser analyzer shared by `localAnalyzer.js` and `githubAnalyzer.js`: a custom `ts.CompilerHost` over an in-memory file map, fed to `analyzers/ts/core.mjs`, with a `.svelte` file transformed through `vendor/svelte2tsx.js` first (see "Analyzing Svelte components"). Loads `vendor/typescript.js` (~9MB) and, only when a `.svelte` file is present, `vendor/svelte2tsx.js` lazily, on first use; every vendored asset is addressed by a URL resolved against `import.meta.url`, so the same code works whether it runs on the main thread or inside `analyzeWorker.js`. |
@@ -366,10 +366,14 @@ its shallowest caller as the rest of the graph allows — all the way to the
 top plane for one with no caller at all — rather than only however far it
 happens to sit above its own deepest callee. Members of a cycle share one
 height. The x/y coordinates are the ones computed by the 2D simulation, so
-the 3D view is a lift of the 2D layout rather than a different layout. A
-translucent plane is drawn per height so the layers are easy to count;
-"Layer planes" (View & Physics) starts unchecked, since a plane per layer on
-a graph with many of them is more clutter than guide until asked for.
+the 3D view is a lift of the 2D layout rather than a different layout. The
+"Layer gap" control (View & Physics) sets how far apart two consecutive
+heights sit; nothing else is drawn at a height of its own. A translucent
+plane per height used to be, as a way to count the layers, but on any graph
+with more than a handful it read as clutter rather than as a guide, and it
+was the only thing in the renderer that needed a second, clamping
+projection and a radial-gradient fade of its own — a lot of machinery for a
+background shape that mostly got in the way.
 
 `computeHeights()` (`model.js`) gets there in two passes over the same
 condensation DAG. First, bottom-up (ascending component id — Tarjan emits
@@ -403,9 +407,8 @@ up/down continues the orbit into a full vertical loop rather than stopping,
 the same way yaw already spins all the way around, and it is never pushed
 away from a *level* orientation either (pitch a multiple of `PI`): at those
 elevations the camera's forward axis is horizontal, so height stops
-contributing to the perspective divide and the layer planes (drawn edge-on)
-flatten to lines for that one instant (true of any look-at camera, not just
-this one). An earlier version kept pitch a fixed distance away from every
+contributing to the perspective divide, so the scene flattens for that one
+instant (true of any look-at camera, not just this one). An earlier version kept pitch a fixed distance away from every
 such point to avoid that, which traded a momentary, purely cosmetic flattening
 for a real interaction bug: since an orbit drag can only land on discrete
 steps, a value that must stay outside a band has to skip over it however
@@ -432,19 +435,12 @@ to extent keeps the lens "normal" regardless of how far the `1/d` repulsion
 happens to spread a given graph. Points whose scale would still exceed
 `MAX_MAGNIFICATION` are left undrawn rather than magnified without bound —
 a real camera doesn't render what's pressed against the lens, it just falls
-out of frame. A layer plane's own corners use `projectClamped()` instead,
-which clamps to that same boundary scale rather than leaving a corner out:
-dropping an entire plane because one corner alone would have clipped made a
-layer disappear far more often than any single node would, so a background
-shape like this is drawn at whatever scale the near plane allows rather than
-not at all. Always drawing the full plane this way means it can now cover
-much of the screen at a steep angle or up close, so its fill and stroke fade
-outward (a radial gradient) from wherever the camera's own `target` projects
-onto that height instead of one flat colour throughout — what the camera is
-actually looking at stays crisp, the rest recedes like fog, rather than
-every pixel of a plane that might span the whole view competing at the same
-strength regardless of how far off-focus it is. `layerFade` (View & Physics)
-turns this off in favour of the older flat fill.
+out of frame. Everything the renderer draws is a node, an edge or a zone
+hull, and clipping is the right answer for all three; the one shape that
+wanted the opposite treatment — a layer plane's corner, drawn at the
+boundary's own scale rather than dropped, through a `projectClamped()` and
+a radial-gradient fade that existed only for it — went away with the layer
+planes themselves.
 
 The orbit camera doesn't pivot on the world origin; it pivots on an explicit
 `target` point that always projects to screen centre regardless of yaw or

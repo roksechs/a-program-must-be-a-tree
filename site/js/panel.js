@@ -233,8 +233,6 @@ export class Panel {
       h.onColorBy,
     );
     this.layerGap = this.slider(t("view.layerGap"), "layerGap", 10, 300, 5, h.onLayerGap);
-    const layers = this.el("input", { type: "checkbox", checked: s.showLayers ? "" : null, onchange: (e) => h.onShowLayers(e.target.checked) });
-    const layerFade = this.el("input", { type: "checkbox", checked: s.layerFade ? "" : null, onchange: (e) => h.onLayerFade(e.target.checked) });
     const rotate = this.el("input", { type: "checkbox", checked: s.autoRotate ? "" : null, onchange: (e) => h.onAutoRotate(e.target.checked) });
     this.host.append(
       this.section(
@@ -242,8 +240,6 @@ export class Panel {
         this.el("label", { class: "control" }, this.el("span", {}, t("view.labels")), labelSelect),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.colourBy")), colorSelect),
         this.layerGap,
-        this.el("label", { class: "control" }, this.el("span", {}, t("view.layerPlanes")), layers),
-        this.el("label", { class: "control" }, this.el("span", {}, t("view.layerFade")), layerFade),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.autoRotate")), rotate),
         this.el(
           "div",

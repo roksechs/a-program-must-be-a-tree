@@ -67,8 +67,6 @@ const STRINGS = {
     "edge.implements": "implements",
     "edge.override": "override",
     "view.layerGap": "Layer gap",
-    "view.layerPlanes": "Layer planes",
-    "view.layerFade": "Fade layers by focus",
     "view.autoRotate": "Auto-rotate",
     "view.fit": "Fit to view",
     "view.top": "Top view",
@@ -166,7 +164,6 @@ const STRINGS = {
     "edges.help": "An enabled kind is drawn, acts as a spring in the physics and counts for degrees, call heights and the diagnostics; a disabled kind does none of these. Every kind starts enabled; turn `write` back off if its reversed direction (variable to writer) is throwing off a dominator-tree-based reading of the diagnostics.",
     "legend.inferred": "dashed = found by flow analysis",
 
-    "graph3d.height": "height {height}",
   },
   ja: {
     "app.title": "A program must be a tree",
@@ -227,8 +224,6 @@ const STRINGS = {
     "edge.implements": "実装",
     "edge.override": "オーバーライド",
     "view.layerGap": "層の間隔",
-    "view.layerPlanes": "層の平面",
-    "view.layerFade": "フォーカスで層をぼかす",
     "view.autoRotate": "自動回転",
     "view.fit": "全体表示",
     "view.top": "真上から見る",
@@ -326,7 +321,6 @@ const STRINGS = {
     "edges.help": "有効な種別は描画され、物理でばねとして働き、次数・呼び出し高さ・診断に数えられます。無効な種別はそのどれにも関与しません。すべての種別は既定で有効です。「書き込み」は向きが逆（変数から書き込み元へ）なので、支配木に基づく診断の読み取りを乱す場合はオフに戻してください。",
     "legend.inferred": "破線 = フロー解析で見つかった呼び出し",
 
-    "graph3d.height": "高さ {height}",
   },
 };
 
