@@ -54,10 +54,9 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | module          | role |
 |-----------------|------|
 | `model.js`      | Normalises the document: nodes, merged links, containers (directory tree derived from file paths), SCCs and call heights. |
-| `metrics.js`    | Tree-likeness diagnostics. |
+| `metrics.js`    | The three diagnostics — entry points, scope escapes, independence — all read off the dominator tree. |
 | `dominance.js`  | Dominator tree of the condensed graph: the deepest nesting the program admits, and the lift of every edge. |
 | `paths.js`      | "How does A reach B": every node/edge on some path between two declarations, plus the shortest one — see "Path highlighting". |
-| `motifs.js`     | Structural motif detectors (cycle, hub, diamond, chain) — see "Motif highlighting". |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
 | `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, an orthographic "Top view" preset. The only renderer. |
@@ -106,7 +105,7 @@ Widths from the analysed source (a long camelCase identifier, a deep file
 path) used to decide how wide the panel wanted to be, and `overflow-y: auto`
 with no `overflow-x` computes the other axis to `auto`, so the panel carried
 a horizontal scrollbar at almost any content. The fix is on the content: the
-grid tracks in `.control`, `.kind-list`, `.metric-grid` and `.metric-bar`
+grid tracks in `.control`, `.kind-list` and the diagnostics' own rows
 are `minmax(0, …)` so they may actually shrink to the panel they are in
 (a track's default floor is its content's min-content width), and the node
 lists wrap with `overflow-wrap: anywhere`. `overflow-x: hidden` on `#panel`
@@ -573,7 +572,7 @@ a union type resolves to one member per constituent, and `map[key].m()`, where
 the checker gives up entirely, is resolved against the property types of
 `map`. Both emit an edge to every candidate, marked inferred.
 
-## Tree-likeness diagnostics
+## Diagnostics
 
 All structural diagnostics, the degrees and the call heights are computed on
 the edge kinds enabled in the Edges section, the same set that is drawn and
@@ -585,79 +584,59 @@ reading of the diagnostics: mixing a reversed edge into these numbers without
 noticing would misread the tree, so `write` is its own lens (`THEORY.md`
 §3.5, §7) that the toggle makes it easy to set aside.
 
-For `n` nodes, `m` control edges and `c` weakly connected components:
+Everything below is read off one array. `dominance.js` condenses the active
+graph, builds the dominator tree of the condensation — the deepest nesting
+the program admits (`THEORY.md` Definition 10) — and returns `lifts[i]`, the
+lift of `links[i]` (Definition 11): how many scopes that edge's target had to
+be hoisted out of its caller to stay reachable from its other users, or `-1`
+for a link inside a cycle, which is not an edge of the condensation and has
+no lift. Lift 0 means the caller *is* the target's natural parent, so the
+target could simply be nested inside it. Every other value is a *sharing*
+edge.
 
-| metric              | definition | 1 means |
-|---------------------|------------|---------|
-| Spanning ratio      | `(n - r) / m`, `r` = roots | no declaration has a second caller |
-| Acyclicity          | `1 - (nodes in a cycle) / n` | no recursion, direct or mutual |
-| Single caller ratio | `1 - (nodes with > 1 caller) / n` | every declaration has one parent |
-| DAG-ness            | `1 - (edges inside SCCs) / m` | no edge closes a cycle |
-| Locality            | mean of `1 / (1 + lift)` over the edges of the condensation | every edge is a nesting edge |
-| Tree score          | mean of the five | a forest |
+| metric | what it is | read it as |
+|---|---|---|
+| Entry points | declarations with in-degree 0 | how many separate trees the program actually is; in an application, what startup and events run |
+| Scope escapes | edges with lift > 0, bucketed by lift | how far the sharing reaches — lift 1 is two siblings sharing a helper, a high lift is a declaration visible across many levels that one place needed |
+| Independence | per node, the mean of `1 / (1 + lift)` over its distinct callees | how much of what a declaration depends on is its alone: 1 when everything it uses could live inside it |
 
-The spanning ratio counts *roots*, not weakly connected components. With
-components it would be blind to direction: `A -> S <- B` has `n - c = 2 = m`
-and would score 1 although `S` has two callers. A directed forest has exactly
-one incoming edge per non-root, so `(n - r) / m` is 1 only when no declaration
-is shared.
+The three are deliberately one quantity at three granularities rather than
+five independent ratios averaged into a score. A score compresses away the
+thing worth acting on: "0.62" does not say which dependencies to look at,
+and a five-way average lets a good ratio hide a bad one. A bucketed
+histogram and a ranked list do, and every row in either is clickable
+(selecting the node, or highlighting the bucket's edges through the path
+overlay — see below) and exportable as a report, so what the number is
+pointing at can be worked through outside the viewer.
 
-Locality answers the other half of the question — *who* shares a declaration.
-The graph is condensed, a virtual root is made the parent of every component
-without callers, and the dominator tree of the result is computed (Cooper,
-Harvey and Kennedy 2001). For an edge `a -> b`, the lift
-`depth(a) - depth(idom(b))` is the number of scopes `b` had to be hoisted out
-of `a` to remain reachable from its other users (Definition 11 in
-`THEORY.md`): 0 for a nesting edge, 1 when two siblings share `b`, more when
-the callers sit in unrelated parts of the program. Being called twice from the
-same scope and being called twice from opposite ends of the codebase are the
-same number of extra callers but very different amounts of tangle, and the
-lift is what separates them. The same numbers drive the "most costly sharing"
-list, which ranks declarations by the sum of the lifts of their incoming
-edges, and the selection panel, which names the *natural scope* of a
-declaration: the immediate dominator, i.e. where it could live if the program
-were a tree.
+Two properties are worth stating because they are easy to misread:
 
-Also reported: components, roots (uncalled), leaves (calling nothing), longest
-call chain, surplus edges (extra incoming edges, `sum of max(0, indeg - 1)`),
-nesting edges (lift 0), the largest lift, the number of non-trivial SCCs, self
-loops, the costliest shared declarations, and *initialisation cycles*:
-declarations on a cycle of definition-time dependencies (evaluated while the
-module loads), which are genuine errors rather than recursion.
+* **Weighting by lift, not by how many others share it.** A count of outside
+  users cannot tell "shared with a sibling" from "shared across the whole
+  program" — both are simply "used elsewhere". The lift can, and the
+  project's own claim depends on the difference (`THEORY.md` §7): sharing
+  between siblings costs one scope of nesting, sharing across unrelated parts
+  of the program costs many.
+* **`overall` independence is an average over edges, so it does not compare
+  two codebases.** A large program with plenty of well-nested dependencies
+  dilutes its badly shared ones and can score above a small one whose sharing
+  is far more local. It says how a graph is doing against itself; the ranked
+  list is what to read across codebases.
 
-`convergentOperations(graph, minWidth = 2)` finds a different shape than lift
-does: a declaration `x` that directly calls several distinct declarations
-(`via`), every one of which independently calls the same shared node `y` —
-`x -> via[i] -> y` for every `i`. This is what a single logical operation
-looks like once it has been decomposed into several independent steps instead
-of one, e.g. `installGraph()` calling five setters that each separately
-trigger `Graph3D#draw`, where one call to a single `load()`-shaped method
-would do; the pattern was found this way (by running the analyzer on this
-project itself) before the fix that collapsed it existed. It is read straight
-off call-graph topology and knows nothing about `y` itself, so it cannot tell
-a genuinely costly, stateful `y` (worth consolidating at `x`) from a cheap,
-pure one (harmless to reach from several siblings, same as any other shared
-utility) — that judgement is the same one every shared declaration already
-needs (see "Edge kinds" above on `nodeRadius`). That is a read error for a
-person to make, same as any other finding this tool surfaces, not something
-the metric resolves on its own.
+Nodes that depend on nothing — or only on their own cycle — get no
+independence score rather than a misleading 1 or 0: there is nothing for them
+to own. Parallel links between the same pair (a `call` *and* a `reference`,
+say) count once, since the lift depends only on where the two sit in the
+dominator tree and both links carry the same value.
 
-A different, sharper false positive this same finder turned up while running
-on this project itself: a handler object's several one-line arrow functions
-(each firing on a different, unrelated user action, e.g. a property panel's
-`{ onFit, onLabels, onColorBy, … }`) used to be attributed to whichever named
-declaration merely constructed the object literal, making genuinely
-independent handlers look like one converging operation. That was not a
-judgement call left to a person — it was the analyzer failing to name
-something that has a name (docs/THEORY.md §4.1, Definition 9a's "local
-declaration": a function-valued object literal property, passed straight
-into a call with no name of its own in between, is declared and parented to
-the calling declaration, the same as a `--nested` local, because ECMAScript
-already names it by NamedEvaluation and the value never escapes anywhere
-else to be found by control-flow analysis instead). Fixed at the analyzer
-level, not by the metric: `panel -> {onFit, onLabels, …} -> draw` no longer
-appears, because `onFit` and friends are now their own declarations with
-their own, correctly separate, calls to `draw`.
+An earlier version of this section scored tree-likeness five ways (spanning
+ratio, acyclicity, single-caller ratio, DAG-ness, locality) and averaged them
+into one "tree score", alongside a Patterns section highlighting four
+structural motifs (cycles, hubs, diamonds, chains). Both are gone. The
+ratios measured real things, but a program's owner could not do anything
+with them: they said a graph was 0.78 of a tree without saying which edges
+made it so. The motifs had the opposite problem — they showed exactly where
+a shape occurred, but "this is a diamond" is not by itself a defect.
 
 ## Path highlighting
 
@@ -692,47 +671,6 @@ highlight being a separate rendering pass layered on top. Selecting a
 different node (including clearing the selection) drops the path instead
 of drawing one whose endpoint no longer matches what's selected, since a
 path is only ever meaningful relative to the selection it was asked for.
-
-## Motif highlighting
-
-A path highlight isolates one relationship; a motif is a *category* to spot
-across the whole graph instead, so `motifs.js`'s four detectors — `cycleMotif`,
-`hubMotif`, `diamondMotif`, `chainMotif` — and their panel toggles (any
-number on at once, off by default) draw as an additive overlay rather than
-dimming everything that doesn't match. Each returns the same `{ nodes, edges }`
-shape over `graph.activeLinks` as `pathBetween` does, for the same reason:
-a switched-off edge kind should be invisible to a motif query too.
-
-* **Cycle**: every node in a nontrivial SCC (`n.inCycle`, already computed by
-  `computeHeights` for the diagnostics) and every edge that stays inside one
-  — the same underlying fact the diagnostics' acyclicity score and each
-  node's always-on red stroke already reflect, made an explicit, toggleable
-  overlay instead of a fixed part of the node's own outline.
-* **Hub**: a node whose in+out degree (over active edges, recomputed here
-  rather than reusing the model's whole-graph `inDegree`/`outDegree`, which
-  do not shrink when a kind is switched off) sits at or above both a fixed
-  floor and a percentile of every other degree in the *current* graph — so
-  "stands out" adapts to how connected the graph as a whole happens to be,
-  rather than a single absolute number that reads very differently on a
-  sparse graph than a dense one.
-* **Diamond**: `A -> B, A -> C, B -> D, C -> D` — two distinct 2-hop routes
-  between the same pair. Found by counting, per node `A`, how many of its
-  out-neighbours' own out-neighbours land on the same node `D`; two or more
-  distinct intermediates means a diamond.
-* **Chain**: a maximal run of declarations connected one to the next with
-  nothing else attached along the way — every node strictly inside the run
-  has exactly one active in-edge and one active out-edge — long enough
-  (`minLength`, node count) to be worth calling out. This is exactly the
-  shape a tree-likeness score never penalizes, since nothing forks or
-  merges along it; the motif exists to make that "boring but blameless"
-  shape visible on request rather than implicit in a good score.
-
-Rendering draws a coloured ring per matching node (one motif kind, one
-colour) and a thicker stroke over matching edges, layered on top of the
-ordinary node/edge/label passes rather than folded into their own dimming
-logic — unlike the path highlight, a node can and often does belong to more
-than one motif at once (a hub that is also in a cycle, say), so it can carry
-one ring per kind rather than one motif "winning" over the others.
 
 ## Roadmap
 

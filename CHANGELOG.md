@@ -6,6 +6,36 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Replace the diagnostics and Patterns with three metrics you can act on
+
+* The tree score and its five ratios (spanning, acyclicity, single-caller,
+  DAG-ness, locality), the fifteen counts beside them, the "costliest
+  sharing" list and the whole Patterns section (cycles, hubs, diamonds,
+  chains) are gone, and so are `motifs.js` and the parts of `metrics.js`
+  behind them. The ratios measured real things but could not be acted on —
+  they said a graph was 0.78 of a tree without saying which edges made it
+  so — and a five-way average let a good ratio hide a bad one. The motifs
+  had the opposite problem: they showed exactly where a shape occurred, but
+  "this is a diamond" is not by itself a defect.
+* In their place, three readings of one measurement — the lift of each
+  dependency in the dominator tree (docs/THEORY.md Definition 11):
+  * **Entry points**: declarations nothing calls. How many separate trees
+    the program actually is, and in an application, what startup and events
+    run.
+  * **Scope escapes**: the dependencies whose target had to be hoisted out
+    of its caller's scope, bucketed by how many scopes that took. Lift 1 is
+    two siblings sharing a helper; a high lift is a declaration visible
+    across many levels that one place needed.
+  * **Independence**: per declaration, the mean of `1 / (1 + lift)` over
+    what it depends on — how much of that is its alone. Weighted by lift
+    rather than by a count of other users, because a count cannot tell
+    "shared with a sibling" from "shared across the program", which is the
+    distinction the project's whole claim rests on.
+* Each one lists what its number is pointing at: clicking a declaration
+  selects it, clicking a lift bucket highlights those dependencies in the
+  view, and a button exports the whole set as a JSON report (with the edge
+  kinds it was computed on, so it can be reproduced).
+
 ### The property panel collapses, resizes, and stops scrolling sideways
 
 * Every section is now collapsible, and which ones are open is remembered

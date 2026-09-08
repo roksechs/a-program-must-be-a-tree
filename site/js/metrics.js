@@ -1,5 +1,13 @@
-// Diagnostics: how tree-like is the call graph?
-import { connectedComponentCount, stronglyConnectedComponents } from "./model.js";
+// Diagnostics: where the program is not a tree, and what it costs.
+//
+// Every figure here is read off the dominator tree of the active graph
+// (docs/THEORY.md §7): it is the deepest nesting the program admits, so an
+// edge that is not one of its edges is a declaration used from two places
+// that neither contains the other. The three metrics are the three questions
+// worth asking about that — where control enters (entryPoints), how far the
+// sharing reaches (scopeEscapes), and how much of what a declaration uses is
+// its own (independence) — and all three are measured on the same per-edge
+// quantity, the lift, so they never disagree.
 import { dominatorTree } from "./dominance.js";
 
 /**
@@ -40,158 +48,114 @@ export function linkLift(graph, link) {
 }
 
 /**
- * Compute tree-likeness metrics for a graph. All ratios are in [0, 1] where 1
- * means "perfectly tree-like" for that criterion.
- *
- * - treeScore (spanning ratio): (n - roots) / m. A directed forest has exactly
- *   one incoming edge per non-root, so this is 1 iff no declaration has two
- *   callers. Counting weakly connected components instead would be blind to
- *   direction: two unrelated callers of one shared node would still score 1.
- * - acyclicity: fraction of nodes that are not part of any cycle.
- * - singleCallerRatio: fraction of nodes with at most one caller. In a tree every
- *   node has exactly one parent.
- * - dagness: 1 - (edges inside non-trivial SCCs, plus self loops) / m.
- * - locality: mean of 1 / (1 + lift) over the edges of the condensation. An
- *   edge whose caller is the natural parent of its target has lift 0 and scores
- *   1; sharing between two siblings scores 1/2; a caller ten levels away from
- *   the target's natural scope scores 1/11.
+ * Every distinct declaration a node depends on, with the lift of that
+ * dependency (docs/THEORY.md Definition 11). Parallel links — the same pair
+ * joined by both a `call` and a `reference`, say — are one entry: the lift
+ * depends only on where the two sit in the dominator tree, so both links
+ * carry the same value and counting them twice would weight that one callee
+ * twice in every average below. Links inside a cycle (lift -1) are left out
+ * entirely; they are not edges of the condensation and have no lift.
  */
-export function computeMetrics(graph) {
-  const { nodes } = graph;
-  // Structural metrics are defined on the active edge kinds (see applyActiveKinds).
-  const links = graph.activeLinks ?? graph.links;
-  const n = nodes.length;
-  const m = links.length;
-  const components = n > 0 ? connectedComponentCount(nodes, links) : 0;
-  const { comp, compCount } = stronglyConnectedComponents(nodes, links);
-
-  const sccSize = new Int32Array(compCount);
-  for (let i = 0; i < n; i++) sccSize[comp[i]]++;
-  let nontrivialSccs = 0;
-  let nodesInCycles = 0;
-  for (let c = 0; c < compCount; c++) {
-    if (sccSize[c] > 1) {
-      nontrivialSccs++;
-      nodesInCycles += sccSize[c];
-    }
-  }
-  let selfLoops = 0;
-  let cycleEdges = 0;
-  const selfLoopNodes = new Set();
-  for (const l of links) {
-    if (l.source === l.target) {
-      selfLoops++;
-      cycleEdges++;
-      selfLoopNodes.add(l.source.index);
-    } else if (comp[l.source.index] === comp[l.target.index]) {
-      cycleEdges++;
-    }
-  }
-  // A self loop makes its node part of a cycle even though its SCC is trivial.
-  for (const i of selfLoopNodes) if (sccSize[comp[i]] === 1) nodesInCycles++;
-
-  const multiCallers = nodes.filter((x) => x.inDegree > 1).length;
-  const roots = nodes.filter((x) => x.inDegree === 0).length;
-  const leaves = nodes.filter((x) => x.outDegree === 0).length;
-  const maxHeight = nodes.reduce((h, x) => Math.max(h, x.height), 0);
-  // Edges that would have to go for every declaration to have a single caller.
-  const surplusEdges = nodes.reduce((s, x) => s + Math.max(0, x.inDegree - 1), 0);
-  const dom = dominance(graph);
-
-  const treeScore = m === 0 ? 1 : Math.min(1, (n - roots) / m);
-  const acyclicity = n === 0 ? 1 : 1 - nodesInCycles / n;
-  const singleCallerRatio = n === 0 ? 1 : 1 - multiCallers / n;
-  const dagness = m === 0 ? 1 : 1 - cycleEdges / m;
-  const locality = dom.locality;
-  const overall = (treeScore + acyclicity + singleCallerRatio + dagness + locality) / 5;
-
-  return {
-    nodes: n,
-    edges: graph.links.length,
-    activeEdges: m,
-    initCycles: initializationCycles(graph),
-    components,
-    roots,
-    leaves,
-    maxHeight,
-    surplusEdges,
-    nontrivialSccs,
-    selfLoops,
-    nodesInCycles,
-    multiCallers,
-    nestingEdges: dom.treeEdges,
-    maxLift: dom.maxLift,
-    treeScore,
-    acyclicity,
-    singleCallerRatio,
-    dagness,
-    locality,
-    overall,
-    dropped: graph.dropped ?? 0,
-  };
-}
-
-/**
- * The declarations that cost the most tree-likeness: many callers, and callers
- * far from the declaration's natural scope. The cost of a node is the sum of
- * the lifts of its incoming edges, so being called twice from the same scope
- * ranks below being called twice from unrelated parts of the program.
- */
-export function topSharedNodes(graph, limit = 8) {
+function calleesWithLift(graph) {
   const dom = dominance(graph);
   const links = graph.activeLinks ?? graph.links;
-  const cost = new Map();
+  const perSource = new Map();
   for (let i = 0; i < links.length; i++) {
-    if (dom.lifts[i] <= 0) continue;
-    const t = links[i].target;
-    cost.set(t, (cost.get(t) ?? 0) + dom.lifts[i]);
+    const lift = dom.lifts[i];
+    if (lift < 0) continue;
+    const { source, target } = links[i];
+    let callees = perSource.get(source);
+    if (!callees) perSource.set(source, (callees = new Map()));
+    callees.set(target, lift);
   }
-  return [...graph.nodes]
-    .filter((n) => n.inDegree > 1)
-    .map((n) => ({ node: n, cost: cost.get(n) ?? 0 }))
-    .sort((a, b) => b.cost - a.cost || b.node.inDegree - a.node.inDegree || a.node.name.localeCompare(b.node.name))
-    .slice(0, limit);
+  return perSource;
 }
 
 /**
- * Convergent operations: a declaration `x` that directly calls several
- * distinct declarations (`via`), all of which independently call the same
- * shared node `y`. This is the shape a single logical operation takes when
- * it has been decomposed into several independent steps instead of one: `x`
- * calling five setters that each separately trigger a shared re-render is
- * indistinguishable, structurally, from `x` genuinely needing five unrelated
- * things done. The pattern is found from call-graph topology alone (`x` ->
- * `via[i]` -> `y` for every `i`) and says nothing about whether `y` is worth
- * consolidating: an expensive, stateful `y` (a full re-render) converged on
- * this way is the redundant-work pattern worth collapsing into one operation
- * at `x`'s level; a cheap, pure `y` (a translation lookup) converged on the
- * same way is harmless. Telling those two apart needs the same reading a
- * person already gives any shared declaration — this only narrows down
- * where to look, and at which caller the fix belongs (the highest point
- * that actually causes the convergence, not `y` itself and not `via`'s
- * members individually).
+ * Declarations nothing calls: where control enters the program at all. In a
+ * forest these are exactly the roots (docs/THEORY.md Definition 10), so their
+ * number is the number of separate trees the program actually is — and in an
+ * application they are what runs on startup or in response to an event, which
+ * makes the list a rough inventory of the states the UI can be driven into.
+ * Counted over the enabled edge kinds, like everything else here.
  */
-export function convergentOperations(graph, minWidth = 2) {
+export function entryPoints(graph) {
+  return graph.nodes.filter((n) => n.inDegree === 0).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/**
+ * The edges that had to hoist their target out of their caller's scope,
+ * grouped by how far (docs/THEORY.md Definition 11). Lift 0 — the caller is
+ * the target's natural parent, so the target could simply be nested inside it
+ * — is the tree-shaped case and is reported separately as `nesting` rather
+ * than as a bucket. Every other edge is a *sharing* edge: its target is used
+ * from two places neither of which contains the other, so it has to live at a
+ * common ancestor and everything between that ancestor and the caller can see
+ * it. The lift is how many scopes that is, which is why one bucket per lift
+ * says much more than a single average: lift 1 is two siblings sharing a
+ * helper, lift 5 is a declaration visible across five levels that only one
+ * place actually needed.
+ */
+export function scopeEscapes(graph) {
+  const dom = dominance(graph);
   const links = graph.activeLinks ?? graph.links;
-  const callersOf = new Map();
-  const calleesOf = new Map();
-  for (const l of links) {
-    if (l.source === l.target) continue;
-    if (!callersOf.has(l.target)) callersOf.set(l.target, new Set());
-    callersOf.get(l.target).add(l.source);
-    if (!calleesOf.has(l.source)) calleesOf.set(l.source, new Set());
-    calleesOf.get(l.source).add(l.target);
-  }
-  const results = [];
-  for (const [y, callers] of callersOf) {
-    if (callers.size < minWidth) continue;
-    for (const [x, callees] of calleesOf) {
-      if (x === y) continue;
-      const via = [...callers].filter((c) => c !== x && callees.has(c));
-      if (via.length >= minWidth) results.push({ x, y, via });
+  const byLift = new Map();
+  let nesting = 0;
+  let liftSum = 0;
+  for (let i = 0; i < links.length; i++) {
+    const lift = dom.lifts[i];
+    if (lift < 0) continue;
+    if (lift === 0) {
+      nesting++;
+      continue;
     }
+    liftSum += lift;
+    let bucket = byLift.get(lift);
+    if (!bucket) byLift.set(lift, (bucket = []));
+    bucket.push(links[i]);
   }
-  return results.sort((a, b) => b.via.length - a.via.length || a.x.name.localeCompare(b.x.name));
+  const buckets = [...byLift.entries()].sort((a, b) => a[0] - b[0]).map(([lift, edges]) => ({ lift, edges }));
+  return { nesting, liftSum, escapes: buckets.reduce((n, b) => n + b.edges.length, 0), buckets };
+}
+
+/**
+ * How much of what a declaration depends on is its alone.
+ *
+ *     independence(n) = mean over n's callees c of 1 / (1 + lift(n -> c))
+ *
+ * A callee the node is the natural parent of (lift 0) could be nested inside
+ * it and scores 1; one shared with a sibling scores 1/2; one hoisted five
+ * scopes up scores 1/6. So the score is 1 exactly when everything the node
+ * depends on could live inside it, and falls as its dependencies turn out to
+ * be shared — the further away the users it is shared with, the further it
+ * falls. Weighting by lift rather than by a count of outside users is what
+ * distinguishes "shared with a sibling" from "shared across the program",
+ * which a count cannot: both are simply "used elsewhere".
+ *
+ * `overall` is the same quantity over every dependency in the graph, so the
+ * headline figure and the per-node figures never disagree about what they
+ * measure. It is an average over edges, though, so it says how a graph is
+ * doing against itself and not how two graphs compare: a program with plenty
+ * of well-nested dependencies dilutes its badly shared ones and can score
+ * above a smaller program whose sharing is far more local. The ranked list is
+ * what to read across codebases. Nodes that depend on nothing (or only on
+ * their own cycle) have no callees to own and get no score at all rather than
+ * a misleading 1 or 0.
+ */
+export function independence(graph) {
+  const perSource = calleesWithLift(graph);
+  const nodes = [];
+  let total = 0;
+  let count = 0;
+  for (const [node, callees] of perSource) {
+    let sum = 0;
+    for (const lift of callees.values()) sum += 1 / (1 + lift);
+    total += sum;
+    count += callees.size;
+    nodes.push({ node, score: sum / callees.size, callees: callees.size });
+  }
+  nodes.sort((a, b) => a.score - b.score || b.callees - a.callees || a.node.name.localeCompare(b.node.name));
+  return { overall: count === 0 ? 1 : total / count, nodes };
 }
 
 /**
@@ -215,21 +179,4 @@ export function unreferencedDeclarations(graph) {
   for (const l of graph.links) inDegree.set(l.target, (inDegree.get(l.target) ?? 0) + 1);
   const isLocal = (id) => (id.split("::")[1] ?? "").includes("/");
   return graph.nodes.filter((n) => n.kind !== "module" && !isLocal(n.id) && inDegree.get(n) === 0);
-}
-
-/**
- * Cycles among definition-time term-level edges. These are evaluated while the
- * module initialises, so a cycle means a declaration is read before it exists
- * (docs/THEORY.md §4). Returns the number of declarations involved.
- */
-export function initializationCycles(graph) {
-  const links = graph.links.filter((l) => l.time === "definition" && l.kind !== "type" && l.kind !== "implements" && l.kind !== "override");
-  if (links.length === 0) return 0;
-  const { comp, compCount } = stronglyConnectedComponents(graph.nodes, links);
-  const size = new Int32Array(compCount);
-  for (const n of graph.nodes) size[comp[n.index]]++;
-  const involved = new Set();
-  for (const n of graph.nodes) if (size[comp[n.index]] > 1) involved.add(n.index);
-  for (const l of links) if (l.source === l.target) involved.add(l.source.index);
-  return involved.size;
 }

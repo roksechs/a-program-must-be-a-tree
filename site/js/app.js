@@ -7,7 +7,6 @@ import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
-import { MOTIF_COLORS, MOTIF_DETECTORS } from "./motifs.js";
 import { Panel } from "./panel.js";
 import { pathBetween } from "./paths.js";
 import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
@@ -29,8 +28,6 @@ const state = {
   // direction (THEORY.md §7) is the one worth turning back off if it confuses
   // a dominator-tree-based reading of the diagnostics.
   kinds: new Set(EDGE_KINDS.filter((k) => !DEFAULT_OFF_KINDS.has(k))),
-  // Which motif kinds (motifs.js) are currently highlighted; none by default.
-  motifs: new Set(),
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
   datasets: [],
@@ -173,11 +170,13 @@ const panel = new Panel(document.getElementById("panel"), state, {
     renderer.setPath(null, null);
     panel.setPathResult(null);
   },
-  onMotifs: (kind, enabled) => {
-    if (enabled) state.motifs.add(kind);
-    else state.motifs.delete(kind);
-    updateMotifs();
-  },
+  // Highlighting a diagnostic's edges reuses the path overlay rather than
+  // adding a second "show me this set" mechanism: what it has to do — draw
+  // these edges and their endpoints, dim everything else — is exactly what
+  // the overlay already does, and the Selection section's existing "clear"
+  // button then clears this too.
+  onHighlight: (nodes, edges) => renderer.setPath(nodes, edges),
+  onExportReport: (metric, payload) => exportReport(metric, payload),
 });
 
 /** Apply the enabled edge kinds to drawing, springs and diagnostics at once. */
@@ -189,7 +188,6 @@ function applyKinds() {
     panel.setMetrics(state.graph);
     panel.setSelection(renderer.selected, state.graph);
     renderer.restyle();
-    updateMotifs(); // a motif's own edges/nodes depend on which kinds are active, same as the diagnostics above
   }
   // Drawing, degrees and diagnostics above already reflect the new kinds
   // immediately; the spring set (below) takes effect on the simulation's own
@@ -205,19 +203,21 @@ function updateZones() {
   renderer.setZones(containers);
 }
 
-/** Recompute every enabled motif (motifs.js) over the graph's current active edges and hand the result to the renderer. */
-function updateMotifs() {
-  if (!state.graph) return;
-  if (state.motifs.size === 0) {
-    renderer.setMotifs(null);
-    return;
-  }
-  const result = new Map();
-  for (const kind of state.motifs) {
-    const { nodes, edges } = MOTIF_DETECTORS[kind](state.graph);
-    result.set(kind, { nodes, edges, color: MOTIF_COLORS[kind] });
-  }
-  renderer.setMotifs(result);
+
+/** The dataset's own name, reduced to something safe to put in a filename. */
+function exportBaseName() {
+  return (state.doc?.meta?.name ?? state.docLabel ?? "graph").replace(/[^A-Za-z0-9._-]+/g, "-");
+}
+
+/** Hand `value` to the browser as a downloaded JSON file. */
+function downloadJson(filename, value) {
+  const blob = new Blob([JSON.stringify(value, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 /**
@@ -229,14 +229,28 @@ function updateMotifs() {
  */
 function exportJson() {
   if (!state.doc) return;
-  const name = (state.doc.meta?.name ?? state.docLabel ?? "graph").replace(/[^A-Za-z0-9._-]+/g, "-");
-  const blob = new Blob([JSON.stringify(state.doc, null, 2)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${name}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadJson(`${exportBaseName()}.json`, state.doc);
+}
+
+/**
+ * Download what one diagnostic is actually pointing at, as a report: the
+ * figure on screen plus every declaration or dependency behind it. A number
+ * in the panel says a program is not a tree; this says which parts of it are
+ * not, in a form that can be worked through away from the viewer. `payload`
+ * is whatever that metric has to say for itself (see panel.js's Diagnostics
+ * section, which builds it).
+ */
+function exportReport(metric, payload) {
+  if (!state.graph) return;
+  downloadJson(`${exportBaseName()}-${metric}.json`, {
+    dataset: state.docLabel ?? null,
+    generatedAt: new Date().toISOString(),
+    // Every diagnostic is computed on the enabled edge kinds only, so a
+    // report that did not say which they were could not be reproduced.
+    edgeKinds: [...state.kinds].sort(),
+    metric,
+    ...payload,
+  });
 }
 
 let statusMessage = { key: "app.loading", params: {} };
@@ -299,7 +313,6 @@ function installGraph(doc, label) {
   panel.setSelection(null, graph);
   panel.setDataInfo({ label, nodes: graph.nodes.length, edges: graph.links.length, files: graph.containers.filter((c) => c.isFile).length });
   updateZones();
-  updateMotifs();
 
   // The camera is never moved on its own — not on load, not while the
   // simulation is running, not once it settles. "Fit to view" is the only

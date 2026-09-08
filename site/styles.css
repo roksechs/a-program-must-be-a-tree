@@ -660,31 +660,69 @@ p.small {
   line-height: 1.4;
 }
 
-.metrics .metric-bar {
-  display: grid;
-  grid-template-columns: minmax(0, 96px) minmax(0, 1fr) 48px;
-  align-items: center;
-  gap: 8px;
-  margin: 6px 0;
-  font-size: 12px;
-}
-
-.metric-bar .bar {
-  height: 6px;
-  background: var(--md-surface-container-highest);
-  border-radius: var(--shape-full);
-  overflow: hidden;
-}
-
-.metric-bar .bar i {
-  display: block;
-  height: 100%;
-  border-radius: var(--shape-full);
-  background: var(--md-secondary);
-}
-
 .metric-bar:first-child .bar i {
   background: var(--md-primary);
+}
+
+/* Diagnostics: three headings, each with its figure, a reading of it, the
+   declarations or dependencies behind it, and a button that exports those. */
+.metric-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--md-on-surface-variant);
+  margin: 16px 0 4px;
+}
+
+.metric-head:first-child {
+  margin-top: 0;
+}
+
+.metric-head b {
+  font-size: 15px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-hint {
+  margin: 0 0 6px;
+}
+
+/* One row per lift: a button, because clicking it highlights that bucket's
+   edges in the view. */
+.lift-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 6px;
+}
+
+.lift-row {
+  display: grid;
+  grid-template-columns: minmax(0, 68px) minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 3px 6px;
+  border: none;
+  border-radius: var(--shape-xs);
+  background: none;
+  font: inherit;
+  font-size: 12px;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lift-row:hover {
+  background: rgba(var(--md-primary-rgb), var(--state-hover));
+}
+
+.lift-label {
+  color: var(--muted);
 }
 
 .metric-value {
@@ -692,22 +730,20 @@ p.small {
   font-variant-numeric: tabular-nums;
 }
 
-.metric-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 4px 12px;
-  margin-top: 10px;
-  font-size: 12px;
+.metric-bar .bar,
+.lift-row .bar {
+  height: 6px;
+  background: var(--md-surface-container-highest);
+  border-radius: var(--shape-full);
+  overflow: hidden;
 }
 
-.metric-kv {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.metric-kv span {
-  color: var(--muted);
+.metric-bar .bar i,
+.lift-row .bar i {
+  display: block;
+  height: 100%;
+  border-radius: var(--shape-full);
+  background: var(--md-secondary);
 }
 
 ol.shared,

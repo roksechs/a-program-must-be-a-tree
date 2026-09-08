@@ -7,8 +7,7 @@ import { EDGE_KINDS, edgeColor, kindColor } from "./colors.js";
 import { POPULAR_REPOS } from "./githubAnalyzer.js";
 import { kindLabel, t } from "./i18n.js";
 import { localFolderSupported } from "./localAnalyzer.js";
-import { computeMetrics, linkLift, naturalScope, topSharedNodes } from "./metrics.js";
-import { MOTIF_COLORS, MOTIF_KINDS } from "./motifs.js";
+import { entryPoints, independence, linkLift, naturalScope, scopeEscapes } from "./metrics.js";
 
 const GITHUB_SEARCH_DEBOUNCE_MS = 400;
 
@@ -25,7 +24,7 @@ export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onExportJson, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onMotifs }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onExportJson, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onHighlight, onExportReport }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -318,27 +317,15 @@ export class Panel {
     this.depthSlider = this.rangeSlider(t("zones.depth"), s.zoneMinDepth, s.zoneMaxDepth, 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => v);
     this.host.append(this.section("zones", t("section.zones"), this.depthSlider, this.el("p", { class: "muted small" }, t("zones.help"))));
 
-    // Patterns: structural motifs, spotted within the whole graph rather
-    // than isolating one relationship (contrast the path highlight above,
-    // in Selection) — off by default, any number can be on at once.
-    const motifList = this.el("div", { class: "kind-list" });
-    for (const kind of MOTIF_KINDS) {
-      const box = this.el("input", { type: "checkbox", checked: s.motifs.has(kind) ? "" : null, onchange: (e) => h.onMotifs(kind, e.target.checked) });
-      motifList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${MOTIF_COLORS[kind]}` }), t(`motif.${kind}`)));
-    }
-    this.host.append(this.section("patterns", t("section.patterns"), motifList, this.el("p", { class: "muted small" }, t("patterns.help"))));
-
-    // Diagnostics
+    // Diagnostics: three questions, each with the declarations or
+    // dependencies behind its number (see setMetrics).
     this.metricsBody = this.el("div", { class: "metrics" });
-    this.sharedList = this.el("ol", { class: "shared" });
     this.host.append(
       this.section(
         "diagnostics",
         t("section.diagnostics"),
         this.el("p", { class: "muted small", style: "margin:0 0 6px" }, t("metric.scope")),
         this.metricsBody,
-        this.el("h3", {}, t("metric.shared")),
-        this.sharedList,
       ),
     );
 
@@ -408,57 +395,102 @@ export class Panel {
     this.depthSlider.refresh();
   }
 
+  /**
+   * Render the three diagnostics. Each is a heading with its own figure, a
+   * short reading of what that figure means, the declarations or dependencies
+   * it is actually pointing at, and a button that downloads exactly those as
+   * a report (app.js's exportReport). A number alone says a program is not a
+   * tree; the list is what makes it something to act on.
+   */
   setMetrics(graph) {
     this.graph = graph;
-    const m = computeMetrics(graph);
-    const pct = (v) => `${(v * 100).toFixed(1)}%`;
-    const bar = (key, v) =>
+    const entries = entryPoints(graph);
+    const escapes = scopeEscapes(graph);
+    const owned = independence(graph);
+
+    const heading = (key, figure) => this.el("h3", { class: "metric-head" }, this.el("span", {}, t(key)), this.el("b", {}, figure));
+    const hint = (key) => this.el("p", { class: "muted small metric-hint" }, t(key));
+    const nodeLink = (node, trailing) =>
       this.el(
-        "div",
-        { class: "metric-bar", title: t(`${key}.hint`) },
-        this.el("span", { class: "metric-label" }, t(key)),
-        this.el("span", { class: "bar" }, this.el("i", { style: `width:${Math.max(0, Math.min(1, v)) * 100}%` })),
-        this.el("span", { class: "metric-value" }, pct(v)),
-      );
-    const kv = (key, v, hint = true) => this.el("div", { class: "metric-kv", title: hint ? t(`${key}.hint`) : null }, this.el("span", {}, t(key)), this.el("b", {}, String(v)));
-    this.metricsBody.replaceChildren(
-      bar("metric.treeScore", m.overall),
-      bar("metric.spanning", m.treeScore),
-      bar("metric.acyclicity", m.acyclicity),
-      bar("metric.singleCaller", m.singleCallerRatio),
-      bar("metric.dagness", m.dagness),
-      bar("metric.locality", m.locality),
-      this.el(
-        "div",
-        { class: "metric-grid" },
-        kv("metric.declarations", m.nodes, false),
-        kv("metric.edges", m.edges, false),
-        kv("metric.activeEdges", m.activeEdges),
-        kv("metric.initCycles", m.initCycles),
-        kv("metric.components", m.components),
-        kv("metric.roots", m.roots),
-        kv("metric.leaves", m.leaves),
-        kv("metric.maxHeight", m.maxHeight),
-        kv("metric.surplus", m.surplusEdges),
-        kv("metric.cycles", m.nontrivialSccs),
-        kv("metric.selfLoops", m.selfLoops),
-        kv("metric.multiCallers", m.multiCallers),
-        kv("metric.nestingEdges", m.nestingEdges),
-        kv("metric.maxLift", m.maxLift),
-        kv("metric.dropped", m.dropped),
-      ),
-    );
-    this.sharedList.replaceChildren();
-    for (const { node, cost } of topSharedNodes(graph)) {
-      const li = this.el(
         "li",
         {},
         this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(node)) }, node.name),
-        this.el("span", { class: "muted" }, ` ${t("metric.shared.callers", { count: node.inDegree, lift: cost })}`),
+        trailing ? this.el("span", { class: "muted" }, ` ${trailing}`) : "",
       );
-      this.sharedList.append(li);
+    const exportButton = (metric, build) =>
+      this.el("div", { class: "buttons" }, this.el("button", { type: "button", onclick: () => this.h.onExportReport(metric, build()) }, t("metric.export")));
+    // A list long enough to read, with the rest reachable through the export
+    // — a panel that printed every one of several hundred entry points would
+    // be a worse way to look at them than the file it can hand over.
+    const LIST_LIMIT = 12;
+    const more = (shown, total) => (total > shown ? this.el("li", { class: "muted" }, t("metric.more", { count: total - shown })) : "");
+
+    // 1. Entry points.
+    const entryList = this.el("ol", { class: "shared" });
+    for (const node of entries.slice(0, LIST_LIMIT)) entryList.append(nodeLink(node, `${node.kind} · ${node.file}`));
+    if (entries.length === 0) entryList.append(this.el("li", { class: "muted" }, t("metric.entryPoints.none")));
+    else entryList.append(more(Math.min(LIST_LIMIT, entries.length), entries.length));
+
+    // 2. Scope escapes, one row per lift.
+    const escapeList = this.el("div", { class: "lift-list" });
+    for (const { lift, edges } of escapes.buckets) {
+      escapeList.append(
+        this.el(
+          "button",
+          {
+            type: "button",
+            class: "lift-row",
+            title: t("metric.escapes.show"),
+            // Highlighting the bucket goes through the path overlay (see
+            // app.js's onHighlight): both endpoints of every edge, so the
+            // edges have something to be drawn between.
+            onclick: () => this.h.onHighlight(new Set(edges.flatMap((l) => [l.source, l.target])), new Set(edges)),
+          },
+          this.el("span", { class: "lift-label" }, t("metric.escapes.lift", { lift })),
+          this.el("span", { class: "bar" }, this.el("i", { style: `width:${escapes.escapes === 0 ? 0 : (edges.length / escapes.escapes) * 100}%` })),
+          this.el("span", { class: "metric-value" }, String(edges.length)),
+        ),
+      );
     }
-    if (this.sharedList.children.length === 0) this.sharedList.append(this.el("li", { class: "muted" }, t("metric.shared.none")));
+    if (escapes.buckets.length === 0) escapeList.append(this.el("p", { class: "muted small" }, t("metric.escapes.none")));
+
+    // 3. Independence, least first.
+    const ownedList = this.el("ol", { class: "shared" });
+    for (const { node, score, callees } of owned.nodes.slice(0, LIST_LIMIT)) {
+      ownedList.append(nodeLink(node, t("metric.independence.of", { score: score.toFixed(2), count: callees })));
+    }
+    if (owned.nodes.length === 0) ownedList.append(this.el("li", { class: "muted" }, t("metric.independence.none")));
+    else ownedList.append(more(Math.min(LIST_LIMIT, owned.nodes.length), owned.nodes.length));
+
+    this.metricsBody.replaceChildren(
+      heading("metric.entryPoints", String(entries.length)),
+      hint("metric.entryPoints.hint"),
+      entryList,
+      exportButton("entry-points", () => ({ count: entries.length, nodes: entries.map(reportNodeShape) })),
+
+      heading("metric.escapes", String(escapes.escapes)),
+      hint("metric.escapes.hint"),
+      this.el("p", { class: "muted small metric-hint" }, t("metric.escapes.summary", { nesting: escapes.nesting, liftSum: escapes.liftSum })),
+      escapeList,
+      exportButton("scope-escapes", () => ({
+        escapes: escapes.escapes,
+        nestingEdges: escapes.nesting,
+        liftSum: escapes.liftSum,
+        byLift: escapes.buckets.map(({ lift, edges }) => ({
+          lift,
+          count: edges.length,
+          edges: edges.map((l) => ({ source: l.source.id, target: l.target.id, kind: l.kind, lift })),
+        })),
+      })),
+
+      heading("metric.independence", owned.overall.toFixed(2)),
+      hint("metric.independence.hint"),
+      ownedList,
+      exportButton("independence", () => ({
+        overall: owned.overall,
+        nodes: owned.nodes.map(({ node, score, callees }) => ({ ...reportNodeShape(node), independence: score, callees })),
+      })),
+    );
   }
 
   setSelection(node, graph) {
@@ -567,4 +599,9 @@ function saveOpenSections(ids) {
   } catch {
     // Not being able to remember the layout is not worth interrupting anything for.
   }
+}
+
+/** The fields of a declaration an exported report carries (see app.js's exportReport). */
+function reportNodeShape(node) {
+  return { id: node.id, name: node.name, kind: node.kind, file: node.file, line: node.line, in: node.inDegree, out: node.outDegree, height: node.height };
 }

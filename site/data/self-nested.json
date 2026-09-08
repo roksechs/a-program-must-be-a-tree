@@ -3,9 +3,9 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-08T01:57:01.089Z",
+  "generatedAt": "2026-09-08T02:09:36.176Z",
   "analyzer": "analyzers/ts@0.5.0",
-  "files": 35
+  "files": 33
  },
  "declarations": [
   {
@@ -1093,7 +1093,7 @@
    "name": "app",
    "kind": "module",
    "file": "site/js/app.js",
-   "line": 55,
+   "line": 52,
    "parent": null,
    "exported": false
   },
@@ -1102,7 +1102,7 @@
    "name": "applyKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 184,
+   "line": 183,
    "parent": null,
    "exported": false
   },
@@ -1111,7 +1111,7 @@
    "name": "applyStaticTranslations",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 71,
+   "line": 68,
    "parent": null,
    "exported": false
   },
@@ -1120,7 +1120,16 @@
    "name": "deleteRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 393,
+   "line": 406,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::downloadJson",
+   "name": "downloadJson",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 213,
    "parent": null,
    "exported": false
   },
@@ -1129,7 +1138,7 @@
    "name": "endPanelResize",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 554,
+   "line": 567,
    "parent": null,
    "exported": false
   },
@@ -1138,7 +1147,7 @@
    "name": "ensureTicking",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 266,
+   "line": 280,
    "parent": null,
    "exported": false
   },
@@ -1147,8 +1156,17 @@
    "name": "frame",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 269,
+   "line": 283,
    "parent": "site/js/app.js::ensureTicking",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::exportBaseName",
+   "name": "exportBaseName",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 208,
+   "parent": null,
    "exported": false
   },
   {
@@ -1161,11 +1179,20 @@
    "exported": false
   },
   {
+   "id": "site/js/app.js::exportReport",
+   "name": "exportReport",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 243,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "site/js/app.js::installGraph",
    "name": "installGraph",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 280,
+   "line": 294,
    "parent": null,
    "exported": false
   },
@@ -1174,7 +1201,7 @@
    "name": "languageSelect",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 51,
+   "line": 48,
    "parent": null,
    "exported": false
   },
@@ -1183,7 +1210,7 @@
    "name": "value",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 67,
+   "line": 64,
    "parent": "site/js/app.js::languageSelect",
    "exported": false
   },
@@ -1192,7 +1219,7 @@
    "name": "loadDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 313,
+   "line": 326,
    "parent": null,
    "exported": false
   },
@@ -1201,7 +1228,7 @@
    "name": "loadFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 332,
+   "line": 345,
    "parent": null,
    "exported": false
   },
@@ -1210,7 +1237,7 @@
    "name": "loadFromCache",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 387,
+   "line": 400,
    "parent": null,
    "exported": false
   },
@@ -1219,7 +1246,7 @@
    "name": "loadGithubRepo",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 459,
+   "line": 472,
    "parent": null,
    "exported": false
   },
@@ -1228,7 +1255,7 @@
    "name": "loadLocalFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 429,
+   "line": 442,
    "parent": null,
    "exported": false
   },
@@ -1237,7 +1264,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 486,
+   "line": 499,
    "parent": null,
    "exported": false
   },
@@ -1246,7 +1273,7 @@
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 500,
+   "line": 513,
    "parent": null,
    "exported": false
   },
@@ -1255,7 +1282,7 @@
    "name": "panel",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 116,
+   "line": 113,
    "parent": null,
    "exported": false
   },
@@ -1264,7 +1291,7 @@
    "name": "PANEL_MIN_WIDTH",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 525,
+   "line": 538,
    "parent": null,
    "exported": false
   },
@@ -1273,7 +1300,7 @@
    "name": "onAutoRotate",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 165,
+   "line": 162,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1282,7 +1309,7 @@
    "name": "onClearPath",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 172,
+   "line": 169,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1291,7 +1318,7 @@
    "name": "onColorBy",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 157,
+   "line": 154,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1300,7 +1327,7 @@
    "name": "onDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 117,
+   "line": 114,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1309,7 +1336,7 @@
    "name": "onDeleteRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 125,
+   "line": 122,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1318,7 +1345,16 @@
    "name": "onExportJson",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 121,
+   "line": 118,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onExportReport",
+   "name": "onExportReport",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 179,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1327,7 +1363,7 @@
    "name": "onFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 118,
+   "line": 115,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1336,7 +1372,7 @@
    "name": "onFit",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 141,
+   "line": 138,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1345,7 +1381,7 @@
    "name": "onFocusNode",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 171,
+   "line": 168,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1354,7 +1390,7 @@
    "name": "onGithub",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 120,
+   "line": 117,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1363,7 +1399,16 @@
    "name": "onGithubSearch",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 122,
+   "line": 119,
+   "parent": "site/js/app.js::panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::panel/onHighlight",
+   "name": "onHighlight",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 178,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1372,7 +1417,7 @@
    "name": "onKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 152,
+   "line": 149,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1381,7 +1426,7 @@
    "name": "onLabels",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 148,
+   "line": 145,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1390,7 +1435,7 @@
    "name": "onLayerGap",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 161,
+   "line": 158,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1399,16 +1444,7 @@
    "name": "onLoadRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 123,
-   "parent": "site/js/app.js::panel",
-   "exported": false
-  },
-  {
-   "id": "site/js/app.js::panel/onMotifs",
-   "name": "onMotifs",
-   "kind": "function",
-   "file": "site/js/app.js",
-   "line": 176,
+   "line": 120,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1417,7 +1453,7 @@
    "name": "onOpenFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 119,
+   "line": 116,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1426,7 +1462,7 @@
    "name": "onPhysics",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 126,
+   "line": 123,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1435,7 +1471,7 @@
    "name": "onReanalyzeRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 124,
+   "line": 121,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1444,7 +1480,7 @@
    "name": "onReheat",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 135,
+   "line": 132,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1453,7 +1489,7 @@
    "name": "onReset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 136,
+   "line": 133,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1462,7 +1498,7 @@
    "name": "onSelectNode",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 170,
+   "line": 167,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1471,7 +1507,7 @@
    "name": "onTop",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 142,
+   "line": 139,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1480,7 +1516,7 @@
    "name": "onZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 143,
+   "line": 140,
    "parent": "site/js/app.js::panel",
    "exported": false
   },
@@ -1489,7 +1525,7 @@
    "name": "panelResizer",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 526,
+   "line": 539,
    "parent": null,
    "exported": false
   },
@@ -1498,7 +1534,7 @@
    "name": "panelWidthLimit",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 527,
+   "line": 540,
    "parent": null,
    "exported": false
   },
@@ -1507,7 +1543,7 @@
    "name": "reanalyzeRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 399,
+   "line": 412,
    "parent": null,
    "exported": false
   },
@@ -1516,7 +1552,7 @@
    "name": "refreshRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 382,
+   "line": 395,
    "parent": null,
    "exported": false
   },
@@ -1525,7 +1561,7 @@
    "name": "renderer",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 82,
+   "line": 79,
    "parent": null,
    "exported": false
   },
@@ -1534,7 +1570,7 @@
    "name": "rendererCallbacks",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 84,
+   "line": 81,
    "parent": null,
    "exported": false
   },
@@ -1543,7 +1579,7 @@
    "name": "onDragEnd",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 94,
+   "line": 91,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -1552,7 +1588,7 @@
    "name": "onDragStart",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 93,
+   "line": 90,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -1561,7 +1597,7 @@
    "name": "onFindPath",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 87,
+   "line": 84,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -1570,7 +1606,7 @@
    "name": "onHover",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 95,
+   "line": 92,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -1579,7 +1615,7 @@
    "name": "onSelect",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 86,
+   "line": 83,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false
   },
@@ -1588,7 +1624,7 @@
    "name": "reportPhase",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 376,
+   "line": 389,
    "parent": null,
    "exported": false
   },
@@ -1597,7 +1633,7 @@
    "name": "runAnalysisInWorker",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 352,
+   "line": 365,
    "parent": null,
    "exported": false
   },
@@ -1606,7 +1642,7 @@
    "name": "savedLanguage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 54,
+   "line": 51,
    "parent": null,
    "exported": false
   },
@@ -1615,7 +1651,7 @@
    "name": "setPanelWidth",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 528,
+   "line": 541,
    "parent": null,
    "exported": false
   },
@@ -1624,7 +1660,7 @@
    "name": "setStatus",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 243,
+   "line": 257,
    "parent": null,
    "exported": false
   },
@@ -1633,7 +1669,7 @@
    "name": "stage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 48,
+   "line": 45,
    "parent": null,
    "exported": false
   },
@@ -1642,7 +1678,7 @@
    "name": "state",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 16,
+   "line": 15,
    "parent": null,
    "exported": false
   },
@@ -1651,7 +1687,7 @@
    "name": "status",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 50,
+   "line": 47,
    "parent": null,
    "exported": false
   },
@@ -1660,7 +1696,7 @@
    "name": "statusMessage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 242,
+   "line": 256,
    "parent": null,
    "exported": false
   },
@@ -1669,7 +1705,7 @@
    "name": "ticking",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 265,
+   "line": 279,
    "parent": null,
    "exported": false
   },
@@ -1678,16 +1714,7 @@
    "name": "tooltip",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 49,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/app.js::updateMotifs",
-   "name": "updateMotifs",
-   "kind": "function",
-   "file": "site/js/app.js",
-   "line": 209,
+   "line": 46,
    "parent": null,
    "exported": false
   },
@@ -1696,7 +1723,7 @@
    "name": "updateZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 202,
+   "line": 200,
    "parent": null,
    "exported": false
   },
@@ -2002,7 +2029,7 @@
    "name": "dominatorTree",
    "kind": "function",
    "file": "site/js/dominance.js",
-   "line": 35,
+   "line": 33,
    "parent": null,
    "exported": true
   },
@@ -2011,7 +2038,7 @@
    "name": "intersect",
    "kind": "function",
    "file": "site/js/dominance.js",
-   "line": 86,
+   "line": 81,
    "parent": "site/js/dominance.js::dominatorTree",
    "exported": false
   },
@@ -2128,7 +2155,7 @@
    "name": "drawArrow",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 768,
+   "line": 722,
    "parent": null,
    "exported": false
   },
@@ -2155,7 +2182,7 @@
    "name": "bindEvents",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 118,
+   "line": 110,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2164,7 +2191,7 @@
    "name": "a",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 217,
+   "line": 209,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2173,7 +2200,7 @@
    "name": "arrowdown",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 228,
+   "line": 220,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2182,7 +2209,7 @@
    "name": "arrowup",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 225,
+   "line": 217,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2191,7 +2218,7 @@
    "name": "d",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 220,
+   "line": 212,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2200,7 +2227,7 @@
    "name": "e",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 224,
+   "line": 216,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2209,7 +2236,7 @@
    "name": "end",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 162,
+   "line": 154,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2218,7 +2245,7 @@
    "name": "isTyping",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 234,
+   "line": 226,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2227,7 +2254,7 @@
    "name": "keyStep",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 238,
+   "line": 230,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2236,7 +2263,7 @@
    "name": "q",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 223,
+   "line": 215,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2245,7 +2272,7 @@
    "name": "s",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 216,
+   "line": 208,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2254,7 +2281,7 @@
    "name": "w",
    "kind": "function",
    "file": "site/js/graph3d.js",
-   "line": 215,
+   "line": 207,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false
   },
@@ -2272,7 +2299,7 @@
    "name": "dolly",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 330,
+   "line": 322,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2281,7 +2308,7 @@
    "name": "draw",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 533,
+   "line": 520,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2290,7 +2317,7 @@
    "name": "fit",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 695,
+   "line": 649,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2299,7 +2326,7 @@
    "name": "focusOn",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 735,
+   "line": 689,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2308,7 +2335,7 @@
    "name": "forwardVector",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 316,
+   "line": 308,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2317,7 +2344,7 @@
    "name": "hitTest",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 504,
+   "line": 491,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2326,7 +2353,7 @@
    "name": "neighbourSet",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 518,
+   "line": 505,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2335,7 +2362,7 @@
    "name": "panScreen",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 280,
+   "line": 272,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2344,7 +2371,7 @@
    "name": "project",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 477,
+   "line": 464,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2353,7 +2380,7 @@
    "name": "resize",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 364,
+   "line": 356,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2362,7 +2389,7 @@
    "name": "restyle",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 394,
+   "line": 386,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2371,7 +2398,7 @@
    "name": "rotateInPlace",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 350,
+   "line": 342,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2380,7 +2407,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 419,
+   "line": 411,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2389,7 +2416,7 @@
    "name": "setColorBy",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 404,
+   "line": 396,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2398,7 +2425,7 @@
    "name": "setGraph",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 377,
+   "line": 369,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2407,7 +2434,7 @@
    "name": "setLabelMode",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 399,
+   "line": 391,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2416,16 +2443,7 @@
    "name": "setLayerGap",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 414,
-   "parent": "site/js/graph3d.js::Graph3D",
-   "exported": false
-  },
-  {
-   "id": "site/js/graph3d.js::Graph3D.setMotifs",
-   "name": "setMotifs",
-   "kind": "method",
-   "file": "site/js/graph3d.js",
-   "line": 439,
+   "line": 406,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2434,7 +2452,7 @@
    "name": "setPath",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 432,
+   "line": 424,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2443,7 +2461,7 @@
    "name": "setVisibleKinds",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 409,
+   "line": 401,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2452,7 +2470,7 @@
    "name": "setZones",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 388,
+   "line": 380,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2461,7 +2479,7 @@
    "name": "tick",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 528,
+   "line": 515,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2470,7 +2488,7 @@
    "name": "viewSpace",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 455,
+   "line": 442,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2479,7 +2497,7 @@
    "name": "viewTop",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 754,
+   "line": 708,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2488,7 +2506,7 @@
    "name": "zOf",
    "kind": "method",
    "file": "site/js/graph3d.js",
-   "line": 500,
+   "line": 487,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false
   },
@@ -2506,7 +2524,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 329,
+   "line": 261,
    "parent": null,
    "exported": false
   },
@@ -2515,7 +2533,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 333,
+   "line": 265,
    "parent": null,
    "exported": true
   },
@@ -2524,7 +2542,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 342,
+   "line": 274,
    "parent": null,
    "exported": true
   },
@@ -2533,7 +2551,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 366,
+   "line": 298,
    "parent": null,
    "exported": true
   },
@@ -2551,7 +2569,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 330,
+   "line": 262,
    "parent": null,
    "exported": false
   },
@@ -2560,7 +2578,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 372,
+   "line": 304,
    "parent": null,
    "exported": true
   },
@@ -2569,7 +2587,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 353,
+   "line": 285,
    "parent": null,
    "exported": true
   },
@@ -2578,7 +2596,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 346,
+   "line": 278,
    "parent": null,
    "exported": true
   },
@@ -2596,7 +2614,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 359,
+   "line": 291,
    "parent": null,
    "exported": true
   },
@@ -2655,38 +2673,38 @@
    "exported": false
   },
   {
-   "id": "site/js/metrics.js::computeMetrics",
-   "name": "computeMetrics",
+   "id": "site/js/metrics.js::calleesWithLift",
+   "name": "calleesWithLift",
    "kind": "function",
    "file": "site/js/metrics.js",
    "line": 59,
    "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/metrics.js::convergentOperations",
-   "name": "convergentOperations",
-   "kind": "function",
-   "file": "site/js/metrics.js",
-   "line": 174,
-   "parent": null,
-   "exported": true
+   "exported": false
   },
   {
    "id": "site/js/metrics.js::dominance",
    "name": "dominance",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 8,
+   "line": 16,
    "parent": null,
    "exported": true
   },
   {
-   "id": "site/js/metrics.js::initializationCycles",
-   "name": "initializationCycles",
+   "id": "site/js/metrics.js::entryPoints",
+   "name": "entryPoints",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 225,
+   "line": 82,
+   "parent": null,
+   "exported": true
+  },
+  {
+   "id": "site/js/metrics.js::independence",
+   "name": "independence",
+   "kind": "function",
+   "file": "site/js/metrics.js",
+   "line": 145,
    "parent": null,
    "exported": true
   },
@@ -2695,7 +2713,7 @@
    "name": "linkLift",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 35,
+   "line": 43,
    "parent": null,
    "exported": true
   },
@@ -2704,16 +2722,16 @@
    "name": "naturalScope",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 22,
+   "line": 30,
    "parent": null,
    "exported": true
   },
   {
-   "id": "site/js/metrics.js::topSharedNodes",
-   "name": "topSharedNodes",
+   "id": "site/js/metrics.js::scopeEscapes",
+   "name": "scopeEscapes",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 140,
+   "line": 99,
    "parent": null,
    "exported": true
   },
@@ -2722,7 +2740,7 @@
    "name": "unreferencedDeclarations",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 213,
+   "line": 177,
    "parent": null,
    "exported": true
   },
@@ -2731,7 +2749,7 @@
    "name": "isLocal",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 216,
+   "line": 180,
    "parent": "site/js/metrics.js::unreferencedDeclarations",
    "exported": false
   },
@@ -2817,83 +2835,11 @@
    "exported": true
   },
   {
-   "id": "site/js/motifs.js::chainMotif",
-   "name": "chainMotif",
-   "kind": "function",
-   "file": "site/js/motifs.js",
-   "line": 100,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/motifs.js::chainMotif/isPassThrough",
-   "name": "isPassThrough",
-   "kind": "function",
-   "file": "site/js/motifs.js",
-   "line": 116,
-   "parent": "site/js/motifs.js::chainMotif",
-   "exported": false
-  },
-  {
-   "id": "site/js/motifs.js::cycleMotif",
-   "name": "cycleMotif",
-   "kind": "function",
-   "file": "site/js/motifs.js",
-   "line": 10,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/motifs.js::diamondMotif",
-   "name": "diamondMotif",
-   "kind": "function",
-   "file": "site/js/motifs.js",
-   "line": 57,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/motifs.js::hubMotif",
-   "name": "hubMotif",
-   "kind": "function",
-   "file": "site/js/motifs.js",
-   "line": 35,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/motifs.js::MOTIF_COLORS",
-   "name": "MOTIF_COLORS",
-   "kind": "variable",
-   "file": "site/js/motifs.js",
-   "line": 150,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/motifs.js::MOTIF_DETECTORS",
-   "name": "MOTIF_DETECTORS",
-   "kind": "variable",
-   "file": "site/js/motifs.js",
-   "line": 143,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/motifs.js::MOTIF_KINDS",
-   "name": "MOTIF_KINDS",
-   "kind": "variable",
-   "file": "site/js/motifs.js",
-   "line": 141,
-   "parent": null,
-   "exported": true
-  },
-  {
    "id": "site/js/panel.js::DEFAULT_OPEN_SECTIONS",
    "name": "DEFAULT_OPEN_SECTIONS",
    "kind": "variable",
    "file": "site/js/panel.js",
-   "line": 21,
+   "line": 20,
    "parent": null,
    "exported": false
   },
@@ -2902,7 +2848,7 @@
    "name": "GITHUB_SEARCH_DEBOUNCE_MS",
    "kind": "variable",
    "file": "site/js/panel.js",
-   "line": 13,
+   "line": 12,
    "parent": null,
    "exported": false
   },
@@ -2911,7 +2857,7 @@
    "name": "loadOpenSections",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 553,
+   "line": 585,
    "parent": null,
    "exported": false
   },
@@ -2920,7 +2866,7 @@
    "name": "Panel",
    "kind": "class",
    "file": "site/js/panel.js",
-   "line": 24,
+   "line": 23,
    "parent": null,
    "exported": true
   },
@@ -2929,7 +2875,7 @@
    "name": "constructor",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 30,
+   "line": 29,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2938,7 +2884,7 @@
    "name": "el",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 50,
+   "line": 49,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2947,7 +2893,7 @@
    "name": "openSection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 85,
+   "line": 84,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2956,7 +2902,7 @@
    "name": "rangeSlider",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 121,
+   "line": 120,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2965,7 +2911,7 @@
    "name": "pct",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 127,
+   "line": 126,
    "parent": "site/js/panel.js::Panel.rangeSlider",
    "exported": false
   },
@@ -2974,7 +2920,7 @@
    "name": "refresh",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 128,
+   "line": 127,
    "parent": "site/js/panel.js::Panel.rangeSlider",
    "exported": false
   },
@@ -2983,7 +2929,7 @@
    "name": "refresh",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 162,
+   "line": 161,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2992,7 +2938,7 @@
    "name": "render",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 174,
+   "line": 173,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3001,7 +2947,7 @@
    "name": "hideResults",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 190,
+   "line": 189,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3010,7 +2956,16 @@
    "name": "loadGithub",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 191,
+   "line": 190,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onchange",
+   "name": "onchange",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 179,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3028,7 +2983,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 181,
+   "line": 278,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3037,25 +2992,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 279,
-   "parent": "site/js/panel.js::Panel.render",
-   "exported": false
-  },
-  {
-   "id": "site/js/panel.js::Panel.render/onchange",
-   "name": "onchange",
-   "kind": "function",
-   "file": "site/js/panel.js",
-   "line": 312,
-   "parent": "site/js/panel.js::Panel.render",
-   "exported": false
-  },
-  {
-   "id": "site/js/panel.js::Panel.render/onchange",
-   "name": "onchange",
-   "kind": "function",
-   "file": "site/js/panel.js",
-   "line": 326,
+   "line": 311,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3064,7 +3001,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 187,
+   "line": 186,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3073,7 +3010,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 243,
+   "line": 242,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3082,7 +3019,7 @@
    "name": "showGithubResults",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 198,
+   "line": 197,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3091,7 +3028,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 203,
+   "line": 202,
    "parent": "site/js/panel.js::Panel.render/showGithubResults",
    "exported": false
   },
@@ -3100,7 +3037,7 @@
    "name": "onmousedown",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 203,
+   "line": 202,
    "parent": "site/js/panel.js::Panel.render/showGithubResults",
    "exported": false
   },
@@ -3109,7 +3046,7 @@
    "name": "submitGithub",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 196,
+   "line": 195,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -3118,7 +3055,7 @@
    "name": "section",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 68,
+   "line": 67,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3127,7 +3064,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 155,
+   "line": 154,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3136,7 +3073,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 156,
+   "line": 155,
    "parent": "site/js/panel.js::Panel.select",
    "exported": false
   },
@@ -3145,7 +3082,7 @@
    "name": "setDataInfo",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 373,
+   "line": 360,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3154,7 +3091,7 @@
    "name": "setDatasets",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 362,
+   "line": 349,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3163,7 +3100,7 @@
    "name": "setMaxDepth",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 401,
+   "line": 388,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3172,26 +3109,71 @@
    "name": "setMetrics",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 411,
+   "line": 405,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.setMetrics/bar",
-   "name": "bar",
+   "id": "site/js/panel.js::Panel.setMetrics/exportButton",
+   "name": "exportButton",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 415,
+   "line": 420,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
   {
-   "id": "site/js/panel.js::Panel.setMetrics/kv",
-   "name": "kv",
+   "id": "site/js/panel.js::Panel.setMetrics/exportButton/onclick",
+   "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 423,
+   "line": 421,
+   "parent": "site/js/panel.js::Panel.setMetrics/exportButton",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setMetrics/heading",
+   "name": "heading",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 411,
    "parent": "site/js/panel.js::Panel.setMetrics",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setMetrics/hint",
+   "name": "hint",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 412,
+   "parent": "site/js/panel.js::Panel.setMetrics",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setMetrics/more",
+   "name": "more",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 426,
+   "parent": "site/js/panel.js::Panel.setMetrics",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setMetrics/nodeLink",
+   "name": "nodeLink",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 413,
+   "parent": "site/js/panel.js::Panel.setMetrics",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setMetrics/nodeLink/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 417,
+   "parent": "site/js/panel.js::Panel.setMetrics/nodeLink",
    "exported": false
   },
   {
@@ -3199,16 +3181,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 456,
-   "parent": "site/js/panel.js::Panel.setMetrics",
-   "exported": false
-  },
-  {
-   "id": "site/js/panel.js::Panel.setMetrics/pct",
-   "name": "pct",
-   "kind": "function",
-   "file": "site/js/panel.js",
-   "line": 414,
+   "line": 447,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -3217,7 +3190,7 @@
    "name": "setPathResult",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 526,
+   "line": 558,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3226,7 +3199,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 532,
+   "line": 564,
    "parent": "site/js/panel.js::Panel.setPathResult",
    "exported": false
   },
@@ -3235,7 +3208,7 @@
    "name": "setRecent",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 379,
+   "line": 366,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3244,7 +3217,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 392,
+   "line": 379,
    "parent": "site/js/panel.js::Panel.setRecent",
    "exported": false
   },
@@ -3253,7 +3226,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 394,
+   "line": 381,
    "parent": "site/js/panel.js::Panel.setRecent",
    "exported": false
   },
@@ -3262,7 +3235,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 395,
+   "line": 382,
    "parent": "site/js/panel.js::Panel.setRecent",
    "exported": false
   },
@@ -3271,7 +3244,7 @@
    "name": "setSelection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 464,
+   "line": 496,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3280,7 +3253,7 @@
    "name": "list",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 481,
+   "line": 513,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
@@ -3289,7 +3262,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 490,
+   "line": 522,
    "parent": "site/js/panel.js::Panel.setSelection/list",
    "exported": false
   },
@@ -3298,7 +3271,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 510,
+   "line": 542,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
@@ -3307,7 +3280,7 @@
    "name": "slider",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 92,
+   "line": 91,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -3316,8 +3289,17 @@
    "name": "oninput",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 101,
+   "line": 100,
    "parent": "site/js/panel.js::Panel.slider",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::reportNodeShape",
+   "name": "reportNodeShape",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 605,
+   "parent": null,
    "exported": false
   },
   {
@@ -3325,7 +3307,7 @@
    "name": "saveOpenSections",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 564,
+   "line": 596,
    "parent": null,
    "exported": false
   },
@@ -3334,7 +3316,7 @@
    "name": "SECTIONS_STORAGE_KEY",
    "kind": "variable",
    "file": "site/js/panel.js",
-   "line": 22,
+   "line": 21,
    "parent": null,
    "exported": false
   },
@@ -3969,15 +3951,6 @@
    "exported": false
   },
   {
-   "id": "test/model.test.mjs::<module>/time",
-   "name": "time",
-   "kind": "function",
-   "file": "test/model.test.mjs",
-   "line": 200,
-   "parent": "test/model.test.mjs::<module>",
-   "exported": false
-  },
-  {
    "id": "test/model.test.mjs::decl",
    "name": "decl",
    "kind": "function",
@@ -3992,51 +3965,6 @@
    "kind": "function",
    "file": "test/model.test.mjs",
    "line": 7,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "test/motifs.test.mjs::<module>",
-   "name": "motifs.test",
-   "kind": "module",
-   "file": "test/motifs.test.mjs",
-   "line": 19,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "test/motifs.test.mjs::decl",
-   "name": "decl",
-   "kind": "function",
-   "file": "test/motifs.test.mjs",
-   "line": 6,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "test/motifs.test.mjs::edge",
-   "name": "edge",
-   "kind": "function",
-   "file": "test/motifs.test.mjs",
-   "line": 7,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "test/motifs.test.mjs::graphOf",
-   "name": "graphOf",
-   "kind": "function",
-   "file": "test/motifs.test.mjs",
-   "line": 9,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "test/motifs.test.mjs::names",
-   "name": "names",
-   "kind": "function",
-   "file": "test/motifs.test.mjs",
-   "line": 15,
    "parent": null,
    "exported": false
   },
@@ -5943,13 +5871,6 @@
   },
   {
    "source": "site/js/app.js::applyKinds",
-   "target": "site/js/app.js::updateMotifs",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::applyKinds",
    "target": "site/js/graph3d.js::Graph3D.restyle",
    "kind": "call",
    "count": 1,
@@ -6075,10 +5996,52 @@
    "time": "use"
   },
   {
+   "source": "site/js/app.js::exportBaseName",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::exportJson",
+   "target": "site/js/app.js::downloadJson",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::exportJson",
+   "target": "site/js/app.js::exportBaseName",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/app.js::exportJson",
    "target": "site/js/app.js::state",
    "kind": "reference",
-   "count": 4,
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::exportReport",
+   "target": "site/js/app.js::downloadJson",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::exportReport",
+   "target": "site/js/app.js::exportBaseName",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::exportReport",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 3,
    "time": "use"
   },
   {
@@ -6107,13 +6070,6 @@
    "target": "site/js/app.js::state",
    "kind": "reference",
    "count": 19,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::installGraph",
-   "target": "site/js/app.js::updateMotifs",
-   "kind": "call",
-   "count": 1,
    "time": "use"
   },
   {
@@ -6642,6 +6598,13 @@
    "time": "use"
   },
   {
+   "source": "site/js/app.js::panel/onExportReport",
+   "target": "site/js/app.js::exportReport",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/app.js::panel/onFile",
    "target": "site/js/app.js::loadFile",
    "kind": "call",
@@ -6686,6 +6649,20 @@
   {
    "source": "site/js/app.js::panel/onGithubSearch",
    "target": "site/js/githubAnalyzer.js::searchGithubRepos",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onHighlight",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::panel/onHighlight",
+   "target": "site/js/graph3d.js::Graph3D.setPath",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -6749,20 +6726,6 @@
   {
    "source": "site/js/app.js::panel/onLoadRecent",
    "target": "site/js/app.js::loadFromCache",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel/onMotifs",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::panel/onMotifs",
-   "target": "site/js/app.js::updateMotifs",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -7177,41 +7140,6 @@
    "source": "site/js/app.js::ticking",
    "target": "site/js/app.js::ensureTicking/frame",
    "kind": "write",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::updateMotifs",
-   "target": "site/js/app.js::renderer",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::updateMotifs",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 4,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::updateMotifs",
-   "target": "site/js/graph3d.js::Graph3D.setMotifs",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::updateMotifs",
-   "target": "site/js/motifs.js::MOTIF_COLORS",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::updateMotifs",
-   "target": "site/js/motifs.js::MOTIF_DETECTORS",
-   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -7846,13 +7774,6 @@
    "time": "use"
   },
   {
-   "source": "site/js/graph3d.js::Graph3D.setMotifs",
-   "target": "site/js/graph3d.js::Graph3D.draw",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
    "source": "site/js/graph3d.js::Graph3D.setPath",
    "target": "site/js/graph3d.js::Graph3D.draw",
    "kind": "call",
@@ -7993,29 +7914,8 @@
    "time": "use"
   },
   {
-   "source": "site/js/metrics.js::computeMetrics",
+   "source": "site/js/metrics.js::calleesWithLift",
    "target": "site/js/metrics.js::dominance",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/metrics.js::computeMetrics",
-   "target": "site/js/metrics.js::initializationCycles",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/metrics.js::computeMetrics",
-   "target": "site/js/model.js::connectedComponentCount",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/metrics.js::computeMetrics",
-   "target": "site/js/model.js::stronglyConnectedComponents",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -8028,8 +7928,8 @@
    "time": "use"
   },
   {
-   "source": "site/js/metrics.js::initializationCycles",
-   "target": "site/js/model.js::stronglyConnectedComponents",
+   "source": "site/js/metrics.js::independence",
+   "target": "site/js/metrics.js::calleesWithLift",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -8049,7 +7949,7 @@
    "time": "use"
   },
   {
-   "source": "site/js/metrics.js::topSharedNodes",
+   "source": "site/js/metrics.js::scopeEscapes",
    "target": "site/js/metrics.js::dominance",
    "kind": "call",
    "count": 1,
@@ -8117,41 +8017,6 @@
    "kind": "call",
    "count": 2,
    "time": "use"
-  },
-  {
-   "source": "site/js/motifs.js::chainMotif",
-   "target": "site/js/motifs.js::chainMotif/isPassThrough",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/motifs.js::MOTIF_DETECTORS",
-   "target": "site/js/motifs.js::chainMotif",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/motifs.js::MOTIF_DETECTORS",
-   "target": "site/js/motifs.js::cycleMotif",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/motifs.js::MOTIF_DETECTORS",
-   "target": "site/js/motifs.js::diamondMotif",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/motifs.js::MOTIF_DETECTORS",
-   "target": "site/js/motifs.js::hubMotif",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
   },
   {
    "source": "site/js/panel.js::loadOpenSections",
@@ -8297,7 +8162,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 47,
+   "count": 43,
    "time": "use"
   },
   {
@@ -8316,20 +8181,6 @@
   },
   {
    "source": "site/js/panel.js::Panel.render",
-   "target": "site/js/motifs.js::MOTIF_COLORS",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/panel.js::Panel.render",
-   "target": "site/js/motifs.js::MOTIF_KINDS",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::GITHUB_SEARCH_DEBOUNCE_MS",
    "kind": "reference",
    "count": 1,
@@ -8339,7 +8190,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 62,
+   "count": 55,
    "time": "use"
   },
   {
@@ -8395,7 +8246,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.section",
    "kind": "call",
-   "count": 8,
+   "count": 7,
    "time": "use"
   },
   {
@@ -8494,19 +8345,26 @@
    "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 2,
+   "count": 7,
    "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
-   "target": "site/js/metrics.js::computeMetrics",
+   "target": "site/js/metrics.js::entryPoints",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
-   "target": "site/js/metrics.js::topSharedNodes",
+   "target": "site/js/metrics.js::independence",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/metrics.js::scopeEscapes",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -8515,53 +8373,116 @@
    "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 5,
+   "count": 12,
    "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
-   "target": "site/js/panel.js::Panel.setMetrics/bar",
+   "target": "site/js/panel.js::Panel.setMetrics/exportButton",
    "kind": "call",
-   "count": 6,
+   "count": 3,
    "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
-   "target": "site/js/panel.js::Panel.setMetrics/kv",
+   "target": "site/js/panel.js::Panel.setMetrics/heading",
    "kind": "call",
-   "count": 15,
+   "count": 3,
    "time": "use"
   },
   {
-   "source": "site/js/panel.js::Panel.setMetrics/bar",
-   "target": "site/js/i18n.js::t",
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/panel.js::Panel.setMetrics/hint",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/panel.js::Panel.setMetrics/more",
    "kind": "call",
    "count": 2,
    "time": "use"
   },
   {
-   "source": "site/js/panel.js::Panel.setMetrics/bar",
-   "target": "site/js/panel.js::Panel.el",
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/panel.js::Panel.setMetrics/nodeLink",
    "kind": "call",
-   "count": 5,
+   "count": 2,
    "time": "use"
   },
   {
-   "source": "site/js/panel.js::Panel.setMetrics/bar",
-   "target": "site/js/panel.js::Panel.setMetrics/pct",
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/panel.js::reportNodeShape",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
-   "source": "site/js/panel.js::Panel.setMetrics/kv",
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/panel.js::reportNodeShape",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/exportButton",
    "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/exportButton",
+   "target": "site/js/panel.js::Panel.el",
    "kind": "call",
    "count": 2,
    "time": "use"
   },
   {
-   "source": "site/js/panel.js::Panel.setMetrics/kv",
+   "source": "site/js/panel.js::Panel.setMetrics/heading",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/heading",
+   "target": "site/js/panel.js::Panel.el",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/hint",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/hint",
+   "target": "site/js/panel.js::Panel.el",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/more",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/more",
+   "target": "site/js/panel.js::Panel.el",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/nodeLink",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
    "count": 3,
@@ -8828,16 +8749,16 @@
   },
   {
    "source": "test/dominance.test.mjs::<module>",
-   "target": "site/js/metrics.js::computeMetrics",
+   "target": "site/js/metrics.js::entryPoints",
    "kind": "call",
-   "count": 3,
+   "count": 1,
    "time": "use"
   },
   {
    "source": "test/dominance.test.mjs::<module>",
-   "target": "site/js/metrics.js::convergentOperations",
+   "target": "site/js/metrics.js::independence",
    "kind": "call",
-   "count": 3,
+   "count": 7,
    "time": "use"
   },
   {
@@ -8849,9 +8770,9 @@
   },
   {
    "source": "test/dominance.test.mjs::<module>",
-   "target": "site/js/metrics.js::topSharedNodes",
+   "target": "site/js/metrics.js::scopeEscapes",
    "kind": "call",
-   "count": 1,
+   "count": 5,
    "time": "use"
   },
   {
@@ -8872,14 +8793,14 @@
    "source": "test/dominance.test.mjs::<module>",
    "target": "test/dominance.test.mjs::edge",
    "kind": "call",
-   "count": 44,
+   "count": 36,
    "time": "use"
   },
   {
    "source": "test/dominance.test.mjs::<module>",
    "target": "test/dominance.test.mjs::graph",
    "kind": "call",
-   "count": 8,
+   "count": 9,
    "time": "use"
   },
   {
@@ -9087,16 +9008,23 @@
   },
   {
    "source": "test/model.test.mjs::<module>",
-   "target": "site/js/metrics.js::computeMetrics",
+   "target": "site/js/metrics.js::entryPoints",
+   "kind": "call",
+   "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "test/model.test.mjs::<module>",
+   "target": "site/js/metrics.js::independence",
    "kind": "call",
    "count": 6,
    "time": "use"
   },
   {
    "source": "test/model.test.mjs::<module>",
-   "target": "site/js/metrics.js::topSharedNodes",
+   "target": "site/js/metrics.js::scopeEscapes",
    "kind": "call",
-   "count": 2,
+   "count": 5,
    "time": "use"
   },
   {
@@ -9110,7 +9038,7 @@
    "source": "test/model.test.mjs::<module>",
    "target": "site/js/model.js::buildGraph",
    "kind": "call",
-   "count": 11,
+   "count": 10,
    "time": "use"
   },
   {
@@ -9150,114 +9078,16 @@
   },
   {
    "source": "test/model.test.mjs::<module>",
-   "target": "test/model.test.mjs::<module>/time",
-   "kind": "call",
-   "count": 5,
-   "time": "use"
-  },
-  {
-   "source": "test/model.test.mjs::<module>",
    "target": "test/model.test.mjs::decl",
    "kind": "call",
-   "count": 14,
+   "count": 13,
    "time": "use"
   },
   {
    "source": "test/model.test.mjs::<module>",
    "target": "test/model.test.mjs::edge",
    "kind": "call",
-   "count": 39,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "site/js/model.js::applyActiveKinds",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "site/js/model.js::buildGraph",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "site/js/motifs.js::chainMotif",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "site/js/motifs.js::cycleMotif",
-   "kind": "call",
-   "count": 4,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "site/js/motifs.js::diamondMotif",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "site/js/motifs.js::hubMotif",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "test/motifs.test.mjs::decl",
-   "kind": "call",
-   "count": 30,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "test/motifs.test.mjs::decl",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "test/motifs.test.mjs::edge",
-   "kind": "call",
-   "count": 25,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "test/motifs.test.mjs::graphOf",
-   "kind": "call",
-   "count": 8,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::<module>",
-   "target": "test/motifs.test.mjs::names",
-   "kind": "call",
-   "count": 4,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::graphOf",
-   "target": "site/js/model.js::applyActiveKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "test/motifs.test.mjs::graphOf",
-   "target": "site/js/model.js::buildGraph",
-   "kind": "call",
-   "count": 1,
+   "count": 34,
    "time": "use"
   },
   {

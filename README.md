@@ -21,15 +21,19 @@ force-directed graph, and measure how close that graph is to a tree.
   leaf ending the graph's own single longest call chain is guaranteed to sit
   at the bottom. A Top view preset looks straight down that axis with no
   perspective — the same x/y layout a 2D-only rendering would show.
-* **Diagnostics** quantify tree-likeness on the enabled edge kinds: spanning
-  ratio, acyclicity, single-caller ratio, DAG-ness and locality. They are
-  directed: `A -> S <- B` is not a tree, and sharing a declaration between two
-  siblings costs less than calling it from an unrelated part of the program.
-  The distance is measured in the dominator tree — the deepest nesting the
-  program admits — which also gives every declaration a *natural scope*: where
-  it could live if the program were a tree. Plus the usual counts (components,
-  cycles, roots, leaves, longest call chain, initialisation cycles) and a list
-  of the declarations whose sharing costs the most.
+* **Diagnostics** are three readings of one measurement, on the enabled edge
+  kinds. Every dependency is scored by its *lift* in the dominator tree — the
+  deepest nesting the program admits — which is how many scopes its target had
+  to be hoisted out of its caller to stay reachable from everything else that
+  uses it. That makes them directed and distance-aware: `A -> S <- B` is not a
+  tree, and sharing a declaration between two siblings costs less than calling
+  it from an unrelated part of the program. **Entry points** counts what
+  nothing calls (how many separate trees the program actually is, and in an
+  application what startup and events run); **scope escapes** buckets the
+  hoisted dependencies by how far they had to go; **independence** scores each
+  declaration by how much of what it depends on is its alone. Each one lists
+  the declarations or dependencies behind its number, highlights them in the
+  view, and exports them as a JSON report.
 * **Edge kinds** follow a small theory (`docs/THEORY.md`): calls, constructions,
   references (callbacks and other value flows), writes (a variable's edge to
   whoever assigns it, reversed since the variable's next value depends on the
@@ -107,8 +111,7 @@ handle has keyboard focus, and is likewise remembered.
 | View & Physics | label mode, colour by kind or call height, layer gap (how far apart two consecutive call heights sit), auto-rotate, fit, top view (perspective-free, straight down the height axis); orbit around the selected subject by dragging, pan with shift-drag, zoom with the wheel, or turn and move like a flight camera with the keyboard — W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ forward/back; recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |
 | Zones       | directory / file depth *range* (a two-handled slider): both ends start at 0 (nothing shown); the high handle reveals outward from the top like a single depth slider always did, down to the files at the maximum, while the low handle can raise the outer edge to show an inner band on its own |
-| Patterns    | structural motifs — cycles, hubs, diamonds, chains — highlighted anywhere they occur in the graph, any number on at once, each its own colour |
-| Diagnostics | tree score and its five components, counts, costliest sharing |
+| Diagnostics | entry points, scope escapes by lift, and independence — each with the declarations or dependencies behind it, clickable to select or highlight, and exportable as a JSON report |
 | Selection   | callers and callees of the clicked node, with the lift of each edge, the declaration's natural scope, a Focus button that centres the camera on it, and (ctrl/cmd+click a second node) the path between the two, highlighted in the view |
 
 ## Repository layout
