@@ -33,7 +33,7 @@ const STRINGS = {
     "section.edges": "Edges",
     "section.physics": "Physics",
     "section.zones": "Zones",
-    "section.diagnostics": "Diagnostics: where it is not a tree",
+    "section.diagnostics": "Diagnostics",
     "section.selection": "Selection",
     "section.legend": "Legend",
 
@@ -159,7 +159,7 @@ const STRINGS = {
     "section.edges": "エッジ",
     "section.physics": "物理",
     "section.zones": "ゾーン",
-    "section.diagnostics": "診断: どこが木になっていないか",
+    "section.diagnostics": "診断",
     "section.selection": "選択",
     "section.legend": "凡例",
 

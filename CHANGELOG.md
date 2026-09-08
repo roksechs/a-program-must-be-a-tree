@@ -8,8 +8,9 @@ The section for a version becomes the notes of its GitHub release
 
 ### Rank the independence list by what can be acted on
 
-* The Diagnostics section is now "Diagnostics: where it is not a tree". It
-  still asked "is it a tree?" after the tree score it referred to was gone.
+* The Diagnostics section is now just "Diagnostics". It still asked "is it a
+  tree?" after the tree score it referred to was gone, and no other section
+  carries a subtitle.
 * The independence list is ranked by how much a declaration gives up in
   total, not by its score. Running the metric on this repository is what
   found the problem: 88 of 194 scored declarations depend on exactly one

@@ -3,7 +3,7 @@
   "name": "d3-selection",
   "root": "node_modules/d3-selection",
   "language": "javascript",
-  "generatedAt": "2026-09-08T02:23:50.055Z",
+  "generatedAt": "2026-09-08T02:25:23.055Z",
   "analyzer": "analyzers/ts@0.5.0",
   "files": 54
  },
