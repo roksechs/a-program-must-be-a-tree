@@ -3,8 +3,8 @@
   "name": "d3-shape",
   "root": "node_modules/d3-shape",
   "language": "javascript",
-  "generatedAt": "2026-09-08T02:29:23.203Z",
-  "analyzer": "analyzers/ts@0.5.0",
+  "generatedAt": "2026-09-08T03:05:17.162Z",
+  "analyzer": "analyzers/ts@0.6.0",
   "files": 60
  },
  "declarations": [
@@ -6413,6 +6413,110 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/asterisk.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/circle.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/cross.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/diamond.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/diamond2.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/plus.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/square.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/square2.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/star.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/times.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/triangle.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/triangle2.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/wye.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "src/symbol/asterisk.js::<module>/draw",

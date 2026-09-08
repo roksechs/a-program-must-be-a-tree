@@ -3,8 +3,8 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-08T02:29:21.606Z",
-  "analyzer": "analyzers/ts@0.5.0",
+  "generatedAt": "2026-09-08T03:05:15.106Z",
+  "analyzer": "analyzers/ts@0.6.0",
   "files": 33
  },
  "declarations": [
@@ -202,7 +202,7 @@
    "name": "calleeValues",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1017,
+   "line": 1038,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -256,7 +256,7 @@
    "name": "evalExpr",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 980,
+   "line": 993,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -265,7 +265,7 @@
    "name": "flowPass",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1041,
+   "line": 1062,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -274,7 +274,7 @@
    "name": "walk",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1044,
+   "line": 1065,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram/flowPass",
    "exported": false
   },
@@ -283,7 +283,7 @@
    "name": "fnNodeOf",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 977,
+   "line": 990,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -310,7 +310,7 @@
    "name": "isCallable",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 978,
+   "line": 991,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -382,7 +382,7 @@
    "name": "paramsOf",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1036,
+   "line": 1057,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -418,7 +418,7 @@
    "name": "setFor",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 972,
+   "line": 985,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -445,7 +445,7 @@
    "name": "union",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 964,
+   "line": 977,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -454,7 +454,7 @@
    "name": "variableValues",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1007,
+   "line": 1028,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -3672,11 +3672,29 @@
    "exported": false
   },
   {
+   "id": "test/analyzer.test.mjs::<module>/edge",
+   "name": "edge",
+   "kind": "function",
+   "file": "test/analyzer.test.mjs",
+   "line": 531,
+   "parent": "test/analyzer.test.mjs::<module>",
+   "exported": false
+  },
+  {
+   "id": "test/analyzer.test.mjs::<module>/edge",
+   "name": "edge",
+   "kind": "function",
+   "file": "test/analyzer.test.mjs",
+   "line": 563,
+   "parent": "test/analyzer.test.mjs::<module>",
+   "exported": false
+  },
+  {
    "id": "test/analyzer.test.mjs::<module>/edges",
    "name": "edges",
    "kind": "function",
    "file": "test/analyzer.test.mjs",
-   "line": 518,
+   "line": 583,
    "parent": "test/analyzer.test.mjs::<module>",
    "exported": false
   },
@@ -4381,10 +4399,66 @@
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "target": "analyzers/ts/svelte.mjs::createSvelteSupport/transform",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
    "target": "analyzers/ts/svelte.mjs::SVELTE_EXTENSION",
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "target": "site/js/browserAnalyzer.js::createHost/getSourceFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "target": "site/js/browserAnalyzer.js::createHost/readFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getSourceFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/readFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getSourceFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/readFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "analyzers/ts/analyze.mjs::analyze/resolveModuleNames",
@@ -4392,6 +4466,30 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/resolveModuleNames",
+   "target": "site/js/browserAnalyzer.js::createHost/fileExists",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/resolveModuleNames",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/fileExists",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/analyze.mjs::analyze/resolveModuleNames",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/fileExists",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "analyzers/ts/analyze.mjs::listSourceFiles",
@@ -4570,10 +4668,26 @@
   },
   {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "target": "analyzers/ts/core.mjs::stripRoot",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/allInterfaces",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/attach",
@@ -4640,6 +4754,14 @@
   },
   {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/bindProperties",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/bindProperties",
    "target": "analyzers/ts/core.mjs::createCore/memberName",
    "kind": "call",
    "count": 1,
@@ -4679,6 +4801,22 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/bindSlot",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/bindSlot",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/addClassMembers",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/bindSlot",
@@ -4744,6 +4882,30 @@
    "time": "use"
   },
   {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/calleeValues",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/constructorTarget",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/denote",
+   "target": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/denote",
    "target": "analyzers/ts/core.mjs::createCore/analyzeProgram/denote",
    "kind": "call",
@@ -4784,6 +4946,38 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/denote",
+   "target": "site/js/browserAnalyzer.js::createHost/getSourceFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/denote",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getSourceFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/denote",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getSourceFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/descendants",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/dispatchTargets",
@@ -4884,6 +5078,14 @@
    "time": "use"
   },
   {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/evalExpr",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/flowPass",
    "target": "analyzers/ts/core.mjs::createCore/analyzeProgram/evalExpr",
    "kind": "call",
@@ -4936,7 +5138,7 @@
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/flowPass/walk",
    "target": "analyzers/ts/core.mjs::createCore/analyzeProgram/evalExpr",
    "kind": "call",
-   "count": 4,
+   "count": 7,
    "time": "use"
   },
   {
@@ -4957,7 +5159,7 @@
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/flowPass/walk",
    "target": "analyzers/ts/core.mjs::createCore/analyzeProgram/setFor",
    "kind": "call",
-   "count": 4,
+   "count": 8,
    "time": "use"
   },
   {
@@ -4971,8 +5173,16 @@
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/flowPass/walk",
    "target": "analyzers/ts/core.mjs::createCore/analyzeProgram/union",
    "kind": "call",
-   "count": 4,
+   "count": 8,
    "time": "use"
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/inheritedMember",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/memberNamed",
@@ -5015,6 +5225,22 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/nestLocal/walk",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/nestLocal/walk",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/addClassMembers",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/nestLocal/walk",
@@ -5073,11 +5299,27 @@
    "time": "use"
   },
   {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/union",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/variableValues",
    "target": "analyzers/ts/core.mjs::createCore/analyzeProgram/evalExpr",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/variableValues",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "analyzers/ts/core.mjs::createCore/analyzeProgram/visit",
@@ -5277,6 +5519,14 @@
   },
   {
    "source": "analyzers/ts/svelte.mjs::cleanupSvelteDocument",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "analyzers/ts/svelte.mjs::cleanupSvelteDocument",
    "target": "analyzers/ts/svelte.mjs::cleanupSvelteDocument/rewriteId",
    "kind": "call",
    "count": 4,
@@ -5424,6 +5674,14 @@
    "time": "use"
   },
   {
+   "source": "scripts/analyze-examples.mjs::syntheticTangle/addEdge",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "scripts/analyze-examples.mjs::syntheticTree",
    "target": "scripts/analyze-examples.mjs::syntheticTree/build",
    "kind": "call",
@@ -5478,6 +5736,14 @@
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "scripts/vendor.mjs::<module>",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "definition",
+   "inferred": true
   },
   {
    "source": "scripts/vendor.mjs::<module>",
@@ -5562,6 +5828,30 @@
    "kind": "reference",
    "count": 1,
    "time": "definition"
+  },
+  {
+   "source": "scripts/vendor.mjs::defaultLib",
+   "target": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "definition",
+   "inferred": true
+  },
+  {
+   "source": "scripts/vendor.mjs::defaultLib",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "definition",
+   "inferred": true
+  },
+  {
+   "source": "scripts/vendor.mjs::defaultLib",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "definition",
+   "inferred": true
   },
   {
    "source": "scripts/vendor.mjs::queue",
@@ -5730,6 +6020,14 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/app.js::<module>",
@@ -6680,6 +6978,14 @@
   },
   {
    "source": "site/js/app.js::panel/onKinds",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/app.js::panel/onKinds",
    "target": "site/js/app.js::applyKinds",
    "kind": "call",
    "count": 1,
@@ -7204,6 +7510,30 @@
    "time": "use"
   },
   {
+   "source": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::createHost/getSourceFile",
+   "target": "analyzers/ts/svelte.mjs::createSvelteSupport/transform",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "site/js/browserAnalyzer.js::createHost/getSourceFile",
    "target": "site/js/browserAnalyzer.js::createHost/read",
    "kind": "call",
@@ -7219,10 +7549,34 @@
   },
   {
    "source": "site/js/browserAnalyzer.js::loadLibClosure",
+   "target": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::loadLibClosure",
    "target": "site/js/browserAnalyzer.js::readLib",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::loadLibClosure",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/browserAnalyzer.js::loadLibClosure",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/browserAnalyzer.js::loadSvelte2tsx",
@@ -7331,6 +7685,14 @@
   },
   {
    "source": "site/js/dominance.js::dominatorTree",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/dominance.js::dominatorTree",
    "target": "site/js/dominance.js::dominatorTree/intersect",
    "kind": "call",
    "count": 1,
@@ -7429,6 +7791,22 @@
   },
   {
    "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
+   "target": "site/js/app.js::rendererCallbacks/onHover",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents",
    "target": "site/js/graph3d.js::Graph3D.bindEvents/end",
    "kind": "reference",
    "count": 1,
@@ -7503,6 +7881,14 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.bindEvents/end",
+   "target": "site/js/app.js::rendererCallbacks/onFindPath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/graph3d.js::Graph3D.bindEvents/end",
@@ -7680,6 +8066,14 @@
    "time": "use"
   },
   {
+   "source": "site/js/graph3d.js::Graph3D.neighbourSet",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "site/js/graph3d.js::Graph3D.panScreen",
    "target": "site/js/graph3d.js::Graph3D.draw",
    "kind": "call",
@@ -7720,6 +8114,14 @@
    "kind": "call",
    "count": 2,
    "time": "use"
+  },
+  {
+   "source": "site/js/graph3d.js::Graph3D.select",
+   "target": "site/js/app.js::rendererCallbacks/onSelect",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/graph3d.js::Graph3D.select",
@@ -7832,6 +8234,14 @@
    "kind": "reference",
    "count": 3,
    "time": "use"
+  },
+  {
+   "source": "site/js/i18n.js::onLanguageChange",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/i18n.js::onLanguageChange",
@@ -7989,6 +8399,14 @@
   },
   {
    "source": "site/js/model.js::computeHeights",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/model.js::computeHeights",
    "target": "site/js/model.js::stronglyConnectedComponents",
    "kind": "call",
    "count": 1,
@@ -8031,10 +8449,26 @@
   },
   {
    "source": "site/js/panel.js::Panel.openSection",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.openSection",
    "target": "site/js/panel.js::saveOpenSections",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.rangeSlider",
+   "target": "site/js/app.js::panel/onZones",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/panel.js::Panel.rangeSlider",
@@ -8112,6 +8546,22 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/app.js::panel/onGithubSearch",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.render",
+   "target": "site/js/app.js::panel/onPhysics",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/panel.js::Panel.render",
@@ -8248,10 +8698,50 @@
   },
   {
    "source": "site/js/panel.js::Panel.render/loadGithub",
+   "target": "site/js/app.js::panel/onGithub",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/loadGithub",
    "target": "site/js/panel.js::Panel.render/hideResults",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onchange",
+   "target": "site/js/app.js::panel/onAutoRotate",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onchange",
+   "target": "site/js/app.js::panel/onDataset",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onchange",
+   "target": "site/js/app.js::panel/onFile",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onchange",
+   "target": "site/js/app.js::panel/onKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/panel.js::Panel.render/onchange",
@@ -8266,6 +8756,22 @@
    "kind": "call",
    "count": 3,
    "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onclick",
+   "target": "site/js/app.js::panel/onExportJson",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onclick",
+   "target": "site/js/app.js::panel/onOpenFolder",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/panel.js::Panel.render/onclick",
@@ -8297,6 +8803,14 @@
   },
   {
    "source": "site/js/panel.js::Panel.section",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.section",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
    "count": 4,
@@ -8315,6 +8829,22 @@
    "kind": "call",
    "count": 2,
    "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.select/onchange",
+   "target": "site/js/app.js::panel/onColorBy",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.select/onchange",
+   "target": "site/js/app.js::panel/onLabels",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/panel.js::Panel.setDataInfo",
@@ -8350,6 +8880,14 @@
    "kind": "call",
    "count": 3,
    "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMaxDepth",
+   "target": "site/js/panel.js::Panel.rangeSlider/refresh",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/panel.js::Panel.setMaxDepth",
@@ -8458,6 +8996,14 @@
    "time": "use"
   },
   {
+   "source": "site/js/panel.js::Panel.setMetrics/exportButton/onclick",
+   "target": "site/js/app.js::panel/onExportReport",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "site/js/panel.js::Panel.setMetrics/heading",
    "target": "site/js/i18n.js::t",
    "kind": "call",
@@ -8507,6 +9053,22 @@
    "time": "use"
   },
   {
+   "source": "site/js/panel.js::Panel.setMetrics/nodeLink/onclick",
+   "target": "site/js/app.js::panel/onSelectNode",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/onclick",
+   "target": "site/js/app.js::panel/onHighlight",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "site/js/panel.js::Panel.setPathResult",
    "target": "site/js/i18n.js::t",
    "kind": "call",
@@ -8521,6 +9083,14 @@
    "time": "use"
   },
   {
+   "source": "site/js/panel.js::Panel.setPathResult/onclick",
+   "target": "site/js/app.js::panel/onClearPath",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "site/js/panel.js::Panel.setRecent",
    "target": "site/js/i18n.js::t",
    "kind": "call",
@@ -8533,6 +9103,30 @@
    "kind": "call",
    "count": 6,
    "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setRecent/onclick",
+   "target": "site/js/app.js::panel/onDeleteRecent",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.setRecent/onclick",
+   "target": "site/js/app.js::panel/onLoadRecent",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.setRecent/onclick",
+   "target": "site/js/app.js::panel/onReanalyzeRecent",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/panel.js::Panel.setRecent/onclick",
@@ -8619,6 +9213,22 @@
    "time": "use"
   },
   {
+   "source": "site/js/panel.js::Panel.setSelection/list/onclick",
+   "target": "site/js/app.js::panel/onSelectNode",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.setSelection/onclick",
+   "target": "site/js/app.js::panel/onFocusNode",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "site/js/panel.js::Panel.slider",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
@@ -8626,11 +9236,27 @@
    "time": "use"
   },
   {
+   "source": "site/js/panel.js::Panel.slider/oninput",
+   "target": "site/js/app.js::panel/onLayerGap",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "site/js/panel.js::saveOpenSections",
    "target": "site/js/panel.js::SECTIONS_STORAGE_KEY",
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/paths.js::bfs",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "site/js/paths.js::pathBetween",
@@ -8692,14 +9318,14 @@
    "source": "test/analyzer.test.mjs::<module>",
    "target": "analyzers/ts/analyze.mjs::analyze",
    "kind": "call",
-   "count": 19,
+   "count": 21,
    "time": "use"
   },
   {
    "source": "test/analyzer.test.mjs::<module>",
    "target": "test/analyzer.test.mjs::<module>/edge",
    "kind": "call",
-   "count": 81,
+   "count": 86,
    "time": "use"
   },
   {
@@ -8720,7 +9346,7 @@
    "source": "test/analyzer.test.mjs::<module>",
    "target": "test/analyzer.test.mjs::fixture",
    "kind": "call",
-   "count": 18,
+   "count": 20,
    "time": "use"
   },
   {
@@ -8729,6 +9355,14 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "test/dead-code.test.mjs::<module>",
+   "target": "analyzers/ts/core.mjs::createCore/collectDeclarations/add",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "test/dead-code.test.mjs::<module>",
@@ -8990,6 +9624,22 @@
    "time": "use"
   },
   {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "target": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "test/local-analyzer.test.mjs::createVirtualHost/getSourceFile",
    "target": "test/local-analyzer.test.mjs::createVirtualHost/read",
    "kind": "call",
@@ -9005,6 +9655,14 @@
   },
   {
    "source": "test/local-analyzer.test.mjs::loadLibClosure",
+   "target": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::loadLibClosure",
    "target": "test/local-analyzer.test.mjs::COMPILER_OPTIONS",
    "kind": "reference",
    "count": 1,
@@ -9012,10 +9670,26 @@
   },
   {
    "source": "test/local-analyzer.test.mjs::loadLibClosure",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::loadLibClosure",
    "target": "test/local-analyzer.test.mjs::readLib",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "test/local-analyzer.test.mjs::loadLibClosure",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "test/local-analyzer.test.mjs::readLib",
@@ -9284,6 +9958,30 @@
    "time": "use"
   },
   {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "target": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::createVirtualHost/getSourceFile",
+   "target": "analyzers/ts/svelte.mjs::createSvelteSupport/transform",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
    "source": "test/svelte-analyzer.test.mjs::createVirtualHost/getSourceFile",
    "target": "analyzers/ts/svelte.mjs::SVELTE_EXTENSION",
    "kind": "reference",
@@ -9306,10 +10004,34 @@
   },
   {
    "source": "test/svelte-analyzer.test.mjs::loadLibClosure",
+   "target": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::loadLibClosure",
+   "target": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::loadLibClosure",
    "target": "test/svelte-analyzer.test.mjs::COMPILER_OPTIONS",
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::loadLibClosure",
+   "target": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
   },
   {
    "source": "test/svelte-analyzer.test.mjs::loadLibClosure",

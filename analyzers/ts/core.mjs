@@ -6,7 +6,7 @@
 // files via `ts.sys`) and from the browser's local-folder feature
 // (`site/js/localAnalyzer.js`, a Program built over an in-memory CompilerHost
 // fed by the File System Access API) — one analyzer, two front ends.
-export const ANALYZER_VERSION = "0.5.0";
+export const ANALYZER_VERSION = "0.6.0";
 export const EXTENSIONS = new Set([".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".mts", ".cts", ".svelte"]);
 export const DEFAULT_EXCLUDES = ["node_modules", ".git", "dist", "build", "coverage", "vendor"];
 
@@ -954,10 +954,23 @@ export function createCore(ts) {
     // ---------------------------------------------------------------------------
     // Pass 3: bounded 0-CFA (docs/THEORY.md §3.2). Abstract values are sets of
     // declared functions, methods and classes. Values flow through local
-    // bindings, parameters of declared callees and return values of declared
-    // functions; property stores and anonymous functions are not modelled, so a
-    // callback handed to an external library stays a `reference`.
+    // bindings, parameters of declared callees, return values of declared
+    // functions, and object properties.
     const env = new Map(); // local symbol -> Set(entry)
+    // Property stores, keyed by property NAME alone rather than by which object
+    // the property is on: `this.t = deps.t` and `{ onSelect: fn }` both file
+    // their value under the bare name, and `x.onSelect()` reads it back without
+    // having to work out what `x` is. That is the standard field-insensitive
+    // abstraction — one abstract location per field name — and it is what makes
+    // the two-hop shape this codebase itself uses (`this.callbacks.onSelect?.()`,
+    // where the callbacks object is built somewhere else entirely) resolvable at
+    // all. It over-approximates: two unrelated classes with a `.render` each are
+    // one location, so a call through one can name the other's. Fact 4
+    // (THEORY.md §3.2) asks exactly for that direction — the CFA relation must
+    // CONTAIN the real one — and missing these edges, which is what happened
+    // before, is the direction that is unsound. Only consulted when ordinary
+    // name resolution has already failed, so a real method call is unaffected.
+    const fieldValues = new Map(); // property name -> Set(entry)
     const returns = new Map(); // entry -> Set(entry)
     const varValues = new Map(); // variable entry -> Set(entry) (memoised)
     let changed = false;
@@ -980,6 +993,13 @@ export function createCore(ts) {
     const evalExpr = (node) => {
       if (!node) return new Set();
       if (ts.isParenthesizedExpression(node) || ts.isAsExpression(node) || ts.isTypeAssertionExpression(node) || ts.isNonNullExpression(node) || ts.isSatisfiesExpression?.(node)) return evalExpr(node.expression);
+      // An inline function is its own declaration when the analyzer made one
+      // for it (an options-object callback, a named local under --nested), so
+      // handing one straight to something is a value flow like any other.
+      if (ts.isFunctionLike(node)) {
+        const own = declByNode.get(node);
+        return own ? new Set([own]) : new Set();
+      }
       if (ts.isIdentifier(node) || ts.isPropertyAccessExpression(node)) {
         const r = denote(node);
         const target = r && !r.viaPrototype ? r.entry : null;
@@ -988,7 +1008,8 @@ export function createCore(ts) {
           if (target.kind === "variable") return variableValues(target);
           return new Set();
         }
-        const sym = ts.isIdentifier(node) ? symbolOf(node) : null;
+        if (ts.isPropertyAccessExpression(node)) return new Set(fieldValues.get(node.name.text) ?? []);
+        const sym = symbolOf(node);
         return sym && env.has(sym) ? new Set(env.get(sym)) : new Set();
       }
       if (ts.isCallExpression(node)) {
@@ -1048,6 +1069,25 @@ export function createCore(ts) {
           } else if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.EqualsToken && ts.isIdentifier(node.left)) {
             const sym = symbolOf(node.left);
             if (sym && !denote(node.left)?.entry) union(setFor(env, sym), evalExpr(node.right));
+          } else if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.EqualsToken && ts.isPropertyAccessExpression(node.left)) {
+            // `this.t = deps.t`, `obj.handler = fn` — a property store.
+            union(setFor(fieldValues, node.left.name.text), evalExpr(node.right));
+          } else if (ts.isObjectLiteralExpression(node)) {
+            // `{ onSelect: fn }`, `{ onSelect }`, `{ onSelect() {} }` — the
+            // shape dependency injection actually arrives in.
+            for (const prop of node.properties) {
+              if (!prop.name || !ts.isIdentifier(prop.name)) continue;
+              const key = prop.name.text;
+              // A property whose value is a function is a declaration in its
+              // own right, and it is the PROPERTY that carries the node (see
+              // the nesting walk in pass 1) — not the function expression
+              // inside it, which is why this asks about `prop` and not about
+              // the initializer.
+              const own = declByNode.get(prop);
+              if (own) union(setFor(fieldValues, key), new Set([own]));
+              else if (ts.isPropertyAssignment(prop)) union(setFor(fieldValues, key), evalExpr(prop.initializer));
+              else if (ts.isShorthandPropertyAssignment(prop)) union(setFor(fieldValues, key), evalExpr(prop.name));
+            }
           } else if (ts.isReturnStatement(node) && node.expression && fn) {
             // Only returns of the declaration's own function body count; inner anonymous functions are not modelled.
             let a = node.parent;

@@ -6,6 +6,34 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Analyzer: an injected dependency is no longer invisible
+
+* The bounded 0-CFA (docs/THEORY.md §3.2) now flows values through object
+  properties as well as through bindings, parameters and returns. A
+  dependency stored on `this` and called off it (`this.t = deps.t`, then
+  `this.t(...)`), a callback in an injected object literal, and the two-hop
+  shape in between (`this.callbacks.onSelect?.()`, where the object was built
+  somewhere else) all produce the inferred `call` edge they always should
+  have. `analyzers/ts@0.6.0`.
+* This was a soundness bug, not a missing nicety. Fact 4 requires the CFA
+  relation to *contain* the real call relation; modelling no properties left
+  it a strict under-approximation, so **a dependency that was injected rather
+  than named left no edge at all**. The diagnostics built on top would then
+  reward hiding a dependency exactly as much as removing one — converting a
+  shared helper to constructor injection would have improved this project's
+  own independence score without changing a thing about its coupling.
+* It was already happening here: `Graph3D` takes its callbacks by injection
+  and calls `this.callbacks.onSelect?.(node)`, and the analyzer recorded zero
+  callers for it. 83 of 83 object-literal callbacks and nested helpers had no
+  incoming edge; 37 of them now do, and this repository's graph gained 56
+  edges (533 → 589).
+* Properties are keyed by name alone (field-insensitive: one abstract
+  location per property name), which over-approximates — two unrelated
+  `.render` properties share a location — and is the direction Fact 4 asks
+  for. A declaration reachable only from outside the analyzed code (a DOM
+  event handler, a `ts.CompilerHost` method, an esbuild hook) is a separate
+  matter and correctly still has no caller: there is none to find.
+
 ### Work the independence list down
 
 * Following what the corrected ranking pointed at, two more shared operations

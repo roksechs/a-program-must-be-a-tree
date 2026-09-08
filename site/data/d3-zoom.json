@@ -3,8 +3,8 @@
   "name": "d3-zoom",
   "root": "node_modules/d3-zoom",
   "language": "javascript",
-  "generatedAt": "2026-09-08T02:29:23.867Z",
-  "analyzer": "analyzers/ts@0.5.0",
+  "generatedAt": "2026-09-08T03:05:17.980Z",
+  "analyzer": "analyzers/ts@0.6.0",
   "files": 6
  },
  "declarations": [
@@ -410,6 +410,38 @@
   {
    "source": "src/zoom.js::default",
    "target": "src/transform.js::Transform.translate",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/end",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/event",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/start",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/zoom",
    "kind": "call",
    "count": 1,
    "time": "use",

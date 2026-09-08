@@ -504,6 +504,71 @@ test("a call through a union type or a record index reaches every candidate", ()
   }
 });
 
+test("a call through an injected dependency reaches it: property store, object literal, and the two-hop shape", () => {
+  const root = fixture({
+    "n.js": `
+      export function t(key) { return key; }
+
+      // constructor injection: the value is stored on \`this\` and called off it
+      export class Panel {
+        constructor(deps) { this.t = deps.t; }
+        render() { return this.t("x"); }
+      }
+
+      // the two-hop shape: an object of callbacks is injected whole, and one
+      // of its properties is called off the stored object
+      export class Renderer {
+        constructor(callbacks) { this.callbacks = callbacks; }
+        select(n) { return this.callbacks.onSelect?.(n); }
+      }
+      export function wire() {
+        new Panel({ t });
+        new Renderer({ onSelect: (n) => t(n) });
+      }
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+
+  // Injecting a dependency must not hide it. Before the flow analysis
+  // modelled property stores these edges were simply absent, which made a
+  // codebase look more tree-like the more of it was wired by injection.
+  const stored = edge("n.js::Panel.render", "n.js::t");
+  assert.ok(stored, "a call off a this-stored dependency should reach it");
+  assert.equal(stored.kind, "call");
+  assert.equal(stored.inferred, true);
+
+  const twoHop = edge("n.js::Renderer.select", "n.js::wire/onSelect");
+  assert.ok(twoHop, "a call off a property of an injected object should reach that property");
+  assert.equal(twoHop.kind, "call");
+  assert.equal(twoHop.inferred, true);
+});
+
+test("a dependency passed as a parameter is traced too, and an unrelated declaration of the same name is not dragged in", () => {
+  const root = fixture({
+    "n.js": `
+      export function t(key) { return key; }
+      export function render(translate) { return translate("x"); }
+      export function wire() { return render(t); }
+      // never stored on any property, so nothing may resolve to it by name
+      export function onSelect() { return 1; }
+      export class R {
+        constructor(cb) { this.cb = cb; }
+        go() { return this.cb.onSelect(); }
+      }
+      export function wireR() { return new R({ onSelect: () => t("y") }); }
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  assert.equal(edge("n.js::render", "n.js::t")?.inferred, true);
+  // Property values are keyed by name, so the one that was actually stored is
+  // reached — but a top-level function that merely shares the name is not a
+  // property value and stays out of it.
+  assert.ok(edge("n.js::R.go", "n.js::wireR/onSelect"), "should reach the stored property");
+  assert.equal(edge("n.js::R.go", "n.js::onSelect"), undefined, "should not reach an unrelated same-named function");
+});
+
 test("assignment targets record a reversed write edge (docs/THEORY.md §3.5)", () => {
   const root = fixture({
     "g.js": `

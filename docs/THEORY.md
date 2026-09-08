@@ -198,8 +198,26 @@ originating elsewhere.
 The TypeScript analyzer runs a bounded 0-CFA after the syntactic pass:
 abstract values are sets of declared functions, methods and classes, and
 they flow through local bindings, through the parameters of declared callees
-(including dispatched method targets) and through the return values of
-declared functions, to a fixed point. A call whose callee evaluates to a
+(including dispatched method targets), through the return values of declared
+functions, and through object properties, to a fixed point.
+
+Properties are *field-insensitive*: one abstract location per property name,
+shared by every object that has a property of that name. `this.t = deps.t`
+and `{ onSelect: fn }` both file their value under the bare name, and
+`x.onSelect()` reads it back without having to determine what `x` is — which
+is what makes an injected object whose properties are called off it
+(`this.callbacks.onSelect?.()`, where the callbacks object was built
+somewhere else entirely) resolvable at all. This over-approximates: two
+unrelated classes with a `.render` each share one location, so a call
+through one can name the other's. Fact 4 asks for exactly that direction.
+Modelling no properties at all, which is what this did previously, errs the
+other way and is unsound: a dependency that is *injected* rather than named
+directly then leaves no edge, so a codebase looks more tree-like the more of
+it is wired that way — a diagnostic built on the result would reward hiding
+a dependency over removing one. A declaration only reachable from outside
+the analyzed code (a DOM event handler, a `ts.CompilerHost` method, a build
+plugin's hook) is a different matter: its caller genuinely is not there to
+find, and it stays a `reference`. A call whose callee evaluates to a
 declared function produces a `call` edge marked `inferred` from the
 declaration that contains the operator position; a plain (non-call)
 occurrence that merely reads a variable produces a further `reference` edge
