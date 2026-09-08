@@ -211,7 +211,13 @@ about the receiver.
 2. **The receiver is unknown and the name belongs to the standard library.**
    Nothing is said. The set of such names is collected from the `lib.*.d.ts`
    files the program already loads, so it states "the language owns this
-   name" rather than a hand-picked list of names that looked risky.
+   name" rather than a hand-picked list of names that looked risky. Which
+   files those are is asked of the program itself, never inferred from the
+   shape of a file name: the Node CLI resolves them to absolute paths inside
+   the TypeScript package, while the in-browser host holds the very same
+   files under bare names (`lib.es2022.d.ts`), and a rule written for one
+   silently matches nothing in the other — turning this step off wherever it
+   is needed most without failing anywhere visible.
 3. **The receiver is unknown and the name is the codebase's own.** The read is
    answered by name: one abstract location per property name, shared by every
    object having a property so called.

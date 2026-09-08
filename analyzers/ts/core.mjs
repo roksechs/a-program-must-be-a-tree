@@ -1021,7 +1021,15 @@ export function createCore(ts) {
     // looked risky to me".
     const stdlibMembers = new Set();
     for (const sf of program.getSourceFiles()) {
-      if (!sf.isDeclarationFile || !/[\\/]lib\.[^\\/]*\.d\.ts$/.test(sf.fileName)) continue;
+      // Ask the program, not the path. The CLI sees these as absolute paths
+      // under the TypeScript package; the in-browser host (browserAnalyzer.js)
+      // holds the very same files under their bare names, and a pattern
+      // written for one silently matches nothing in the other — which is how
+      // this guard came to be dead in every browser analysis while looking
+      // fine from the CLI. The name test stays as a fallback for a host whose
+      // program cannot answer.
+      const isLib = program.isSourceFileDefaultLibrary?.(sf) ?? /(^|[\\/])lib\.[^\\/]*\.d\.ts$/.test(sf.fileName);
+      if (!sf.isDeclarationFile || !isLib) continue;
       const collect = (n) => {
         if ((ts.isMethodSignature(n) || ts.isPropertySignature(n) || ts.isMethodDeclaration(n) || ts.isPropertyDeclaration(n)) && n.name && ts.isIdentifier(n.name)) stdlibMembers.add(n.name.text);
         ts.forEachChild(n, collect);

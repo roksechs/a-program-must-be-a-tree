@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-08T04:38:29.014Z",
+  "generatedAt": "2026-09-08T04:49:26.922Z",
   "analyzer": "analyzers/ts@0.7.0",
   "files": 33
  },
@@ -7355,7 +7355,7 @@
    "source": "test/svelte-analyzer.test.mjs::<module>",
    "target": "test/svelte-analyzer.test.mjs::analyzeVirtual",
    "kind": "call",
-   "count": 1,
+   "count": 2,
    "time": "use"
   },
   {

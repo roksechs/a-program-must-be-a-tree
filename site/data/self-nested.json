@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-08T04:38:30.416Z",
+  "generatedAt": "2026-09-08T04:49:28.313Z",
   "analyzer": "analyzers/ts@0.7.0",
   "files": 33
  },
@@ -202,7 +202,7 @@
    "name": "calleeValues",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1133,
+   "line": 1141,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -220,7 +220,7 @@
    "name": "collect",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1025,
+   "line": 1033,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -283,7 +283,7 @@
    "name": "evalExpr",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1050,
+   "line": 1058,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -301,7 +301,7 @@
    "name": "flowPass",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1157,
+   "line": 1165,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -310,7 +310,7 @@
    "name": "walk",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1160,
+   "line": 1168,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram/flowPass",
    "exported": false
   },
@@ -319,7 +319,7 @@
    "name": "fnNodeOf",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1047,
+   "line": 1055,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -346,7 +346,7 @@
    "name": "isCallable",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1048,
+   "line": 1056,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -436,7 +436,7 @@
    "name": "paramsOf",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1152,
+   "line": 1160,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -472,7 +472,7 @@
    "name": "setFor",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1042,
+   "line": 1050,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -499,7 +499,7 @@
    "name": "union",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1034,
+   "line": 1042,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -508,7 +508,7 @@
    "name": "variableValues",
    "kind": "function",
    "file": "analyzers/ts/core.mjs",
-   "line": 1123,
+   "line": 1131,
    "parent": "analyzers/ts/core.mjs::createCore/analyzeProgram",
    "exported": false
   },
@@ -4181,6 +4181,15 @@
    "kind": "function",
    "file": "test/svelte-analyzer.test.mjs",
    "line": 141,
+   "parent": "test/svelte-analyzer.test.mjs::<module>",
+   "exported": false
+  },
+  {
+   "id": "test/svelte-analyzer.test.mjs::<module>/has",
+   "name": "has",
+   "kind": "function",
+   "file": "test/svelte-analyzer.test.mjs",
+   "line": 278,
    "parent": "test/svelte-analyzer.test.mjs::<module>",
    "exported": false
   },
@@ -9812,9 +9821,16 @@
   },
   {
    "source": "test/svelte-analyzer.test.mjs::<module>",
+   "target": "test/svelte-analyzer.test.mjs::<module>/has",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "test/svelte-analyzer.test.mjs::<module>",
    "target": "test/svelte-analyzer.test.mjs::analyzeVirtual",
    "kind": "call",
-   "count": 1,
+   "count": 2,
    "time": "use"
   },
   {

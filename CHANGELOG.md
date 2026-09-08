@@ -25,6 +25,13 @@ The section for a version becomes the notes of its GitHub release
   is no identity to follow — a callback spread into a new object, or hung on
   an object a library handed over, both of which this repository does — and
   name alone is what invented the edges above.
+* The standard-library step asks the program which files are the default
+  library instead of matching the shape of a file name. The name pattern
+  required a directory separator before `lib.`, which the Node CLI's absolute
+  paths supply and the in-browser host's bare `lib.es2022.d.ts` does not, so
+  the step was inoperative in exactly the place the local-folder and GitHub
+  features run: analyzing through that host, edges 10,951 → 7,403 and
+  inferred 57% → 36%, with the analysis itself 6.9s → 5.7s.
 * On `svelte/src` (370 files): edges 12,172 → 8,514, inferred 51% → 30%,
   landing back on the 8,454 of the release before properties were modelled
   plus 60 genuine injected-dependency edges. The viewer feels it more than
