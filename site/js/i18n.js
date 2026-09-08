@@ -33,7 +33,7 @@ const STRINGS = {
     "section.edges": "Edges",
     "section.physics": "Physics",
     "section.zones": "Zones",
-    "section.diagnostics": "Diagnostics: is it a tree?",
+    "section.diagnostics": "Diagnostics: where it is not a tree",
     "section.selection": "Selection",
     "section.legend": "Legend",
 
@@ -97,7 +97,7 @@ const STRINGS = {
     "metric.escapes.show": "Highlight these in the view",
     "metric.escapes.none": "Nothing is hoisted: every dependency could be nested inside its caller.",
     "metric.independence": "Independence",
-    "metric.independence.hint": "How much of what a declaration depends on is its alone, averaged over its dependencies as 1 / (1 + lift). It is 1 when everything it uses could live inside it, and falls as those turn out to be shared — the further away the other users, the further it falls. Least independent first.",
+    "metric.independence.hint": "How much of what a declaration depends on is its alone, averaged over its dependencies as 1 / (1 + lift). It is 1 when everything it uses could live inside it, and falls as those turn out to be shared — the further away the other users, the further it falls. Ranked by how much a declaration gives up in total, not by the score alone: one dependency that happens to be shared says little, the same score across a dozen says a lot.",
     "metric.independence.of": "{score} — depends on {count}",
     "metric.independence.none": "Nothing here depends on anything.",
 
@@ -159,7 +159,7 @@ const STRINGS = {
     "section.edges": "エッジ",
     "section.physics": "物理",
     "section.zones": "ゾーン",
-    "section.diagnostics": "診断: 木になっているか",
+    "section.diagnostics": "診断: どこが木になっていないか",
     "section.selection": "選択",
     "section.legend": "凡例",
 
@@ -223,7 +223,7 @@ const STRINGS = {
     "metric.escapes.show": "ビューで強調表示する",
     "metric.escapes.none": "持ち上げは発生していません。すべての依存が呼び出し元の中に入れられます。",
     "metric.independence": "独立度",
-    "metric.independence.hint": "その宣言が依存しているもののうち、どれだけが自分だけのものかを、各依存の 1 / (1 + 段数) の平均で表します。使っているものすべてを自分の中に置けるなら 1 で、それらが共有されているほど下がります。共有相手が遠いほど大きく下がります。独立度の低い順です。",
+    "metric.independence.hint": "その宣言が依存しているもののうち、どれだけが自分だけのものかを、各依存の 1 / (1 + 段数) の平均で表します。使っているものすべてを自分の中に置けるなら 1 で、それらが共有されているほど下がります。共有相手が遠いほど大きく下がります。並び順はスコアではなく「合計でどれだけ手放しているか」です。共有された依存が1件だけならほとんど何も言えませんが、同じスコアが十数件にわたるなら重大だからです。",
     "metric.independence.of": "{score}(依存 {count} 件)",
     "metric.independence.none": "何にも依存していません。",
 

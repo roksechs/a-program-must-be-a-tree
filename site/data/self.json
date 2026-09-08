@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-08T02:15:25.660Z",
+  "generatedAt": "2026-09-08T02:23:47.965Z",
   "analyzer": "analyzers/ts@0.5.0",
   "files": 33
  },
@@ -580,7 +580,7 @@
    "name": "deleteRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 406,
+   "line": 435,
    "parent": null,
    "exported": false
   },
@@ -639,6 +639,15 @@
    "exported": false
   },
   {
+   "id": "site/js/app.js::installCustomGraph",
+   "name": "installCustomGraph",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 403,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "site/js/app.js::installGraph",
    "name": "installGraph",
    "kind": "function",
@@ -688,7 +697,7 @@
    "name": "loadFromCache",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 400,
+   "line": 431,
    "parent": null,
    "exported": false
   },
@@ -697,7 +706,7 @@
    "name": "loadGithubRepo",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 472,
+   "line": 477,
    "parent": null,
    "exported": false
   },
@@ -706,7 +715,7 @@
    "name": "loadLocalFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 442,
+   "line": 460,
    "parent": null,
    "exported": false
   },
@@ -715,7 +724,7 @@
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 499,
+   "line": 502,
    "parent": null,
    "exported": false
   },
@@ -994,7 +1003,7 @@
    "name": "reanalyzeRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 412,
+   "line": 441,
    "parent": null,
    "exported": false
   },
@@ -1003,7 +1012,7 @@
    "name": "refreshRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 395,
+   "line": 392,
    "parent": null,
    "exported": false
   },
@@ -1075,7 +1084,7 @@
    "name": "reportPhase",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 389,
+   "line": 386,
    "parent": null,
    "exported": false
   },
@@ -1084,7 +1093,16 @@
    "name": "runAnalysisInWorker",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 365,
+   "line": 362,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/app.js::runLocalAnalysis",
+   "name": "runLocalAnalysis",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 415,
    "parent": null,
    "exported": false
   },
@@ -2101,7 +2119,7 @@
    "name": "independence",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 145,
+   "line": 157,
    "parent": null,
    "exported": true
   },
@@ -2137,7 +2155,7 @@
    "name": "unreferencedDeclarations",
    "kind": "function",
    "file": "site/js/metrics.js",
-   "line": 177,
+   "line": 192,
    "parent": null,
    "exported": true
   },
@@ -2211,7 +2229,7 @@
    "file": "site/js/panel.js",
    "line": 30,
    "parent": null,
-   "exported": false
+   "exported": true
   },
   {
    "id": "site/js/panel.js::DEFAULT_OPEN_SECTIONS",
@@ -4203,6 +4221,41 @@
    "time": "use"
   },
   {
+   "source": "site/js/app.js::installCustomGraph",
+   "target": "site/js/app.js::installGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::installCustomGraph",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::installCustomGraph",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::installCustomGraph",
+   "target": "site/js/panel.js::CUSTOM_OPTION",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::installCustomGraph",
+   "target": "site/js/panel.js::Panel.setDatasets",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
    "source": "site/js/app.js::installGraph",
    "target": "site/js/app.js::panel",
    "kind": "reference",
@@ -4372,15 +4425,8 @@
   },
   {
    "source": "site/js/app.js::loadFile",
-   "target": "site/js/app.js::installGraph",
+   "target": "site/js/app.js::installCustomGraph",
    "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadFile",
-   "target": "site/js/app.js::panel",
-   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -4392,43 +4438,8 @@
    "time": "use"
   },
   {
-   "source": "site/js/app.js::loadFile",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadFile",
-   "target": "site/js/panel.js::Panel.setDatasets",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
    "source": "site/js/app.js::loadFromCache",
-   "target": "site/js/app.js::installGraph",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadFromCache",
-   "target": "site/js/app.js::panel",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadFromCache",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadFromCache",
-   "target": "site/js/panel.js::Panel.setDatasets",
+   "target": "site/js/app.js::installCustomGraph",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -4442,15 +4453,8 @@
   },
   {
    "source": "site/js/app.js::loadGithubRepo",
-   "target": "site/js/app.js::installGraph",
+   "target": "site/js/app.js::installCustomGraph",
    "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadGithubRepo",
-   "target": "site/js/app.js::panel",
-   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -4483,20 +4487,6 @@
    "time": "use"
   },
   {
-   "source": "site/js/app.js::loadGithubRepo",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadGithubRepo",
-   "target": "site/js/panel.js::Panel.setDatasets",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
    "source": "site/js/app.js::loadLocalFolder",
    "target": "site/js/analysisCache.js::saveAnalysis",
    "kind": "call",
@@ -4505,15 +4495,8 @@
   },
   {
    "source": "site/js/app.js::loadLocalFolder",
-   "target": "site/js/app.js::installGraph",
+   "target": "site/js/app.js::installCustomGraph",
    "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadLocalFolder",
-   "target": "site/js/app.js::panel",
-   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -4526,14 +4509,7 @@
   },
   {
    "source": "site/js/app.js::loadLocalFolder",
-   "target": "site/js/app.js::reportPhase",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadLocalFolder",
-   "target": "site/js/app.js::runAnalysisInWorker",
+   "target": "site/js/app.js::runLocalAnalysis",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -4542,34 +4518,13 @@
    "source": "site/js/app.js::loadLocalFolder",
    "target": "site/js/app.js::setStatus",
    "kind": "call",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadLocalFolder",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadLocalFolder",
-   "target": "site/js/panel.js::Panel.setDatasets",
-   "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
    "source": "site/js/app.js::loadRemote",
-   "target": "site/js/app.js::installGraph",
+   "target": "site/js/app.js::installCustomGraph",
    "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadRemote",
-   "target": "site/js/app.js::panel",
-   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -4578,20 +4533,6 @@
    "target": "site/js/app.js::setStatus",
    "kind": "call",
    "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadRemote",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::loadRemote",
-   "target": "site/js/panel.js::Panel.setDatasets",
-   "kind": "call",
-   "count": 1,
    "time": "use"
   },
   {
@@ -4634,6 +4575,13 @@
    "target": "site/js/app.js::state",
    "kind": "reference",
    "count": 5,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::main",
+   "target": "site/js/panel.js::CUSTOM_OPTION",
+   "kind": "reference",
+   "count": 1,
    "time": "use"
   },
   {
@@ -4995,7 +4943,7 @@
   },
   {
    "source": "site/js/app.js::reanalyzeRecent",
-   "target": "site/js/app.js::installGraph",
+   "target": "site/js/app.js::installCustomGraph",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -5009,13 +4957,6 @@
   },
   {
    "source": "site/js/app.js::reanalyzeRecent",
-   "target": "site/js/app.js::panel",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::reanalyzeRecent",
    "target": "site/js/app.js::refreshRecent",
    "kind": "call",
    "count": 1,
@@ -5023,14 +4964,7 @@
   },
   {
    "source": "site/js/app.js::reanalyzeRecent",
-   "target": "site/js/app.js::reportPhase",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::reanalyzeRecent",
-   "target": "site/js/app.js::runAnalysisInWorker",
+   "target": "site/js/app.js::runLocalAnalysis",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -5038,20 +4972,6 @@
   {
    "source": "site/js/app.js::reanalyzeRecent",
    "target": "site/js/app.js::setStatus",
-   "kind": "call",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::reanalyzeRecent",
-   "target": "site/js/app.js::state",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/app.js::reanalyzeRecent",
-   "target": "site/js/panel.js::Panel.setDatasets",
    "kind": "call",
    "count": 1,
    "time": "use"
@@ -5208,6 +5128,27 @@
    "target": "site/js/app.js::setStatus",
    "kind": "call",
    "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::runLocalAnalysis",
+   "target": "site/js/app.js::reportPhase",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::runLocalAnalysis",
+   "target": "site/js/app.js::runAnalysisInWorker",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::runLocalAnalysis",
+   "target": "site/js/app.js::setStatus",
+   "kind": "call",
+   "count": 2,
    "time": "use"
   },
   {
@@ -6615,7 +6556,7 @@
    "source": "test/dominance.test.mjs::<module>",
    "target": "site/js/metrics.js::independence",
    "kind": "call",
-   "count": 7,
+   "count": 8,
    "time": "use"
   },
   {
@@ -6650,14 +6591,14 @@
    "source": "test/dominance.test.mjs::<module>",
    "target": "test/dominance.test.mjs::edge",
    "kind": "call",
-   "count": 36,
+   "count": 47,
    "time": "use"
   },
   {
    "source": "test/dominance.test.mjs::<module>",
    "target": "test/dominance.test.mjs::graph",
    "kind": "call",
-   "count": 9,
+   "count": 10,
    "time": "use"
   },
   {

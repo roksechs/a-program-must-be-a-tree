@@ -6,6 +6,25 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Rank the independence list by what can be acted on
+
+* The Diagnostics section is now "Diagnostics: where it is not a tree". It
+  still asked "is it a tree?" after the tree score it referred to was gone.
+* The independence list is ranked by how much a declaration gives up in
+  total, not by its score. Running the metric on this repository is what
+  found the problem: 88 of 194 scored declarations depend on exactly one
+  thing, so their average *is* that one edge, and 16 of the 30 worst-scoring
+  were one-line setters whose single dependency was a widely shared
+  `draw()`. Nothing can be done about `setLayerGap`, and ranking it above a
+  genuinely tangled function aimed the list at what nobody could act on. No
+  single-dependency declaration is in the top 30 now.
+* Acting on what the corrected list then pointed at: the six load paths in
+  `app.js` each spelled out the same "mark the dropdown custom, then install"
+  pair, and the folder analysis was written twice. Both are extracted
+  (`installCustomGraph`, `runLocalAnalysis`), which moved this repository's
+  own independence from 0.604 to 0.609 and dropped `loadGithubRepo` out of
+  the ten worst entirely.
+
 ### One place to choose a source in the Data section
 
 * "Open JSON" and "Open folder…" are one row of two buttons — a folder or a

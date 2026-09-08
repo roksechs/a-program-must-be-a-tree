@@ -27,7 +27,7 @@ const SECTIONS_STORAGE_KEY = "panelSections";
 // data/index.json at all — a folder, a JSON file, a repo, a cached analysis
 // or a ?data=<url>.
 const GITHUB_OPTION = "__github__";
-const CUSTOM_OPTION = "__custom__";
+export const CUSTOM_OPTION = "__custom__";
 
 export class Panel {
   /**
@@ -569,7 +569,7 @@ export class Panel {
       ownedList,
       exportButton("independence", () => ({
         overall: owned.overall,
-        nodes: owned.nodes.map(({ node, score, callees }) => ({ ...reportNodeShape(node), independence: score, callees })),
+        nodes: owned.nodes.map(({ node, score, callees, shared }) => ({ ...reportNodeShape(node), independence: score, callees, shared })),
       })),
     );
   }

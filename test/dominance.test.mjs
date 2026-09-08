@@ -121,6 +121,37 @@ test("independence is 1 for a node that owns everything it calls, and absent for
   assert.equal(scores[0].callees, 2);
 });
 
+test("independence ranks by how much is given up in total, not by the score", () => {
+  // "tiny" delegates to one widely shared helper and can do nothing about it;
+  // "tangled" owns half of six dependencies. Both average badly, but only one
+  // of them is a thing anyone can act on — running this metric on its own
+  // repository turned up a list whose top was almost entirely the first kind.
+  const g = graph(
+    ["r", "tiny", "tangled", "helper", "a", "b", "c", "d", "e", "f"],
+    [
+      edge("r", "tiny"),
+      edge("r", "tangled"),
+      edge("r", "helper"),
+      edge("tiny", "helper"), // its one dependency is shared with r: lift 1
+      edge("tangled", "a"),
+      edge("tangled", "b"),
+      edge("tangled", "c"),
+      edge("tangled", "helper"),
+      edge("r", "a"),
+      edge("r", "b"),
+      edge("r", "c"),
+    ],
+  );
+  const ranked = independence(g).nodes;
+  const tiny = ranked.find((s) => s.node.id === "tiny");
+  const tangled = ranked.find((s) => s.node.id === "tangled");
+  assert.equal(tiny.score, 0.5); // one dependency, one scope out
+  assert.equal(tangled.score, 0.5); // four dependencies, every one of them one scope out
+  assert.equal(tiny.shared, 0.5);
+  assert.equal(tangled.shared, 2);
+  assert.ok(ranked.indexOf(tangled) < ranked.indexOf(tiny), "the one with more to give up ranks first");
+});
+
 test("entryPoints are the declarations nothing calls", () => {
   const g = graph(["main", "other", "shared"], [edge("main", "shared"), edge("other", "shared")]);
   assert.deepEqual(

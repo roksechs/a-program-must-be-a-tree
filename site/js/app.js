@@ -7,7 +7,7 @@ import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
-import { Panel } from "./panel.js";
+import { CUSTOM_OPTION, Panel } from "./panel.js";
 import { pathBetween } from "./paths.js";
 import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
 import { visibleContainers } from "./zones.js";
@@ -346,10 +346,7 @@ function loadFile(file) {
   const reader = new FileReader();
   reader.onload = () => {
     try {
-      const doc = JSON.parse(reader.result);
-      state.datasetId = "__custom__";
-      panel.setDatasets(state.datasets, "__custom__");
-      installGraph(doc, file.name);
+      installCustomGraph(JSON.parse(reader.result), file.name);
     } catch (err) {
       setStatus("app.parseFailed", { file: file.name, message: err.message });
     }
@@ -396,11 +393,43 @@ async function refreshRecent() {
   panel.setRecent(await listRecentAnalyses());
 }
 
+/**
+ * Install a document that did not come from `data/index.json` — a JSON file,
+ * a folder, a repo, a cached analysis, a `?data=<url>`. All of those have to
+ * say so in the dropdown as well as install the graph, and every one of them
+ * used to spell the pair out; the diagnostics ranked the load paths among
+ * the least independent declarations in this codebase for exactly that.
+ */
+function installCustomGraph(doc, label) {
+  state.datasetId = CUSTOM_OPTION;
+  panel.setDatasets(state.datasets, CUSTOM_OPTION);
+  installGraph(doc, label);
+}
+
+/**
+ * Read and analyze a directory, reporting the file count as it goes and then
+ * the analyzer's own phases. Shared by "Folder…" and by "re-analyze" on a
+ * remembered folder, which differ only in where the permission comes from
+ * and which cache key the result is filed under.
+ */
+function runLocalAnalysis(dirHandle) {
+  let fileCount = 0;
+  setStatus("app.readingFiles", { count: 0 });
+  return runAnalysisInWorker(
+    "local",
+    { dirHandle },
+    {},
+    (count) => {
+      fileCount = count;
+      setStatus("app.readingFiles", { count });
+    },
+    (phase, detail) => reportPhase(phase, detail, fileCount),
+  );
+}
+
 /** A "Recently opened" entry, clicked: show its cached graph, no re-reading. */
 function loadFromCache(entry) {
-  state.datasetId = "__custom__";
-  panel.setDatasets(state.datasets, "__custom__");
-  installGraph(entry.doc, entry.label);
+  installCustomGraph(entry.doc, entry.label);
 }
 
 async function deleteRecent(entry) {
@@ -414,26 +443,15 @@ async function reanalyzeRecent(entry) {
     await loadGithubRepo(entry.key);
     return;
   }
-  let fileCount = 0;
-  setStatus("app.readingFiles", { count: 0 });
   try {
     const granted = await entry.dirHandle.requestPermission({ mode: "read" });
     if (granted !== "granted") throw new Error("permission was not granted");
-    const doc = await runAnalysisInWorker(
-      "local",
-      { dirHandle: entry.dirHandle },
-      {},
-      (count) => {
-        fileCount = count;
-        setStatus("app.readingFiles", { count });
-      },
-      (phase, detail) => reportPhase(phase, detail, fileCount),
-    );
+    const doc = await runLocalAnalysis(entry.dirHandle);
+    installCustomGraph(doc, entry.label);
+    // Keyed by the entry's own key, so re-analyzing updates that row rather
+    // than adding a second one for the same folder.
     await saveAnalysis({ kind: "local", key: entry.key, label: entry.label, doc, dirHandle: entry.dirHandle });
     await refreshRecent();
-    state.datasetId = "__custom__";
-    panel.setDatasets(state.datasets, "__custom__");
-    installGraph(doc, entry.label);
   } catch (err) {
     setStatus("app.analyzeFailed", { name: entry.label, message: err.message });
   }
@@ -446,22 +464,9 @@ async function loadLocalFolder() {
   } catch {
     return; // the user cancelled the picker
   }
-  let fileCount = 0;
-  setStatus("app.readingFiles", { count: 0 });
   try {
-    const doc = await runAnalysisInWorker(
-      "local",
-      { dirHandle },
-      {},
-      (count) => {
-        fileCount = count;
-        setStatus("app.readingFiles", { count });
-      },
-      (phase, detail) => reportPhase(phase, detail, fileCount),
-    );
-    state.datasetId = "__custom__";
-    panel.setDatasets(state.datasets, "__custom__");
-    installGraph(doc, dirHandle.name);
+    const doc = await runLocalAnalysis(dirHandle);
+    installCustomGraph(doc, dirHandle.name);
     await saveAnalysis({ kind: "local", key: crypto.randomUUID(), label: dirHandle.name, doc, dirHandle });
     await refreshRecent();
   } catch (err) {
@@ -483,9 +488,7 @@ async function loadGithubRepo(spec) {
       },
       (phase, detail) => reportPhase(phase, detail, fileCount),
     );
-    state.datasetId = "__custom__";
-    panel.setDatasets(state.datasets, "__custom__");
-    installGraph(doc, spec);
+    installCustomGraph(doc, spec);
     // Keyed by the resolved "owner/repo@ref" (doc.meta.root), not the raw
     // input: typing "owner/repo" and "owner/repo@main" for the same default
     // branch collapse to one cache entry once the ref is resolved.
@@ -501,10 +504,7 @@ async function loadRemote(url) {
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-    const doc = await res.json();
-    state.datasetId = "__custom__";
-    panel.setDatasets(state.datasets, "__custom__");
-    installGraph(doc, url);
+    installCustomGraph(await res.json(), url);
   } catch (err) {
     setStatus("app.loadFailed", { file: url, message: err.message });
   }
@@ -517,7 +517,7 @@ async function main() {
   const params = new URLSearchParams(location.search);
   const wanted = params.get("data");
   if (wanted && /^https?:\/\//.test(wanted)) {
-    panel.setDatasets(state.datasets, "__custom__");
+    panel.setDatasets(state.datasets, CUSTOM_OPTION);
     await loadRemote(wanted);
   } else if (wanted && state.datasets.some((d) => d.id === wanted)) {
     await loadDataset(wanted);

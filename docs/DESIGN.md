@@ -622,6 +622,19 @@ edge.
 | Scope escapes | edges with lift > 0, bucketed by lift | how far the sharing reaches — lift 1 is two siblings sharing a helper, a high lift is a declaration visible across many levels that one place needed |
 | Independence | per node, the mean of `1 / (1 + lift)` over its distinct callees | how much of what a declaration depends on is its alone: 1 when everything it uses could live inside it |
 
+The independence list is ranked by `shared` (`callees - Σ 1/(1 + lift)`, how
+many whole dependencies' worth of ownership the node does not have) and not
+by the score. Running the metric on this repository is what settled that: 88
+of 194 scored declarations depend on exactly one thing, so their "average" is
+that single edge and can only ever be one of 1, ½, ⅓, ¼…, and **16 of the 30
+worst-scoring were one-line setters** (`setLayerGap`, `setZones`, `restyle`)
+whose one dependency was a widely shared `draw()`. Nothing can be done about
+`setLayerGap`; ranking it above a genuinely tangled 18-dependency function
+aimed the list at the one thing in it nobody could act on. Weighting by how
+much there was to own puts no single-dependency node in the top 30 at all,
+and matches what `scopeEscapes` already reports beside its buckets: a total,
+not only a ratio.
+
 The three are deliberately one quantity at three granularities rather than
 five independent ratios averaged into a score. A score compresses away the
 thing worth acting on: "0.62" does not say which dependencies to look at,

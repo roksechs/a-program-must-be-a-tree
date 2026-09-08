@@ -132,6 +132,18 @@ export function scopeEscapes(graph) {
  * distinguishes "shared with a sibling" from "shared across the program",
  * which a count cannot: both are simply "used elsewhere".
  *
+ * The list is ranked by `shared` — `callees - Σ 1/(1 + lift)`, how many
+ * whole dependencies' worth of ownership the node does not have — and not by
+ * the score. Running this on its own repository is what settled that: 88 of
+ * 194 scored declarations there depend on exactly one thing, so their
+ * "average" is that single edge and can only ever be one of 1, ½, ⅓, ¼…, and
+ * 16 of the 30 worst-scoring were one-line setters whose one dependency was
+ * a widely shared `draw()`. Nothing can be done about `setLayerGap`; ranking
+ * it above an 18-dependency function that is genuinely tangled pointed the
+ * list at the one thing in it nobody can act on. Multiplying by how much
+ * there was to own fixes that, and matches what `scopeEscapes` already
+ * reports alongside its buckets: a total, not only a ratio.
+ *
  * `overall` is the same quantity over every dependency in the graph, so the
  * headline figure and the per-node figures never disagree about what they
  * measure. It is an average over edges, though, so it says how a graph is
@@ -152,9 +164,12 @@ export function independence(graph) {
     for (const lift of callees.values()) sum += 1 / (1 + lift);
     total += sum;
     count += callees.size;
-    nodes.push({ node, score: sum / callees.size, callees: callees.size });
+    // `shared` is what the ranking uses: how many of this node's dependencies
+    // it does not get to keep, in whole-dependency terms. See the note on
+    // ranking above for why the score alone is the wrong sort key.
+    nodes.push({ node, score: sum / callees.size, callees: callees.size, shared: callees.size - sum });
   }
-  nodes.sort((a, b) => a.score - b.score || b.callees - a.callees || a.node.name.localeCompare(b.node.name));
+  nodes.sort((a, b) => b.shared - a.shared || a.score - b.score || a.node.name.localeCompare(b.node.name));
   return { overall: count === 0 ? 1 : total / count, nodes };
 }
 
