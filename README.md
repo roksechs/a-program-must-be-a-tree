@@ -116,7 +116,6 @@ site/            static site (the root a static host publishes)
   vendor/        d3 and TypeScript (copied by `npm run vendor`; TypeScript is regenerated on every build, not committed — see .gitignore)
 analyzers/ts/    JavaScript / TypeScript / Svelte analyzer
 samples/         small source programs analyzed into the bundled `sample-*` datasets
-site/content/    the article's chapters, one Markdown file per chapter per language (`article.html`)
 scripts/         data generation, vendoring, dev server
 test/            node:test unit tests
 docs/            design notes, the data format and the theory behind the edge kinds
@@ -146,8 +145,7 @@ in this repository) with these settings:
 `npm run build:site` is a shorthand for the same sequence, but the build
 command above is spelled out so it also works on branches that predate the
 script. Preview deployments are on by default for every other branch; the
-Cloudflare GitHub app comments the preview URL on each pull request. The
-article lives at `/article.html`.
+Cloudflare GitHub app comments the preview URL on each pull request.
 
 If the project was created as a **Workers** project instead (Workers & Pages →
 Create → Workers → Import a repository), the same build command applies and

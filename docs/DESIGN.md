@@ -60,7 +60,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `motifs.js`     | Structural motif detectors (cycle, hub, diamond, chain) — see "Motif highlighting". |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
 | `zones.js`      | Which containers are visible for a chosen depth, padded hull geometry. |
-| `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer, used by both the main viewer and the article's live figures. |
+| `graph3d.js`    | Canvas renderer: x/y from the simulation, z = call height, orbit camera, layer planes, an orthographic "Top view" preset. The only renderer. |
 | `panel.js`      | Property panel (controls + diagnostics + selection details). |
 | `app.js`        | Data loading and wiring. |
 | `browserAnalyzer.js` | The part of the in-browser analyzer shared by `localAnalyzer.js` and `githubAnalyzer.js`: a custom `ts.CompilerHost` over an in-memory file map, fed to `analyzers/ts/core.mjs`, with a `.svelte` file transformed through `vendor/svelte2tsx.js` first (see "Analyzing Svelte components"). Loads `vendor/typescript.js` (~9MB) and, only when a `.svelte` file is present, `vendor/svelte2tsx.js` lazily, on first use; every vendored asset is addressed by a URL resolved against `import.meta.url`, so the same code works whether it runs on the main thread or inside `analyzeWorker.js`. |
@@ -68,15 +68,11 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `githubAnalyzer.js` | Fetches a public GitHub repository's file tree and contents into the same file map. |
 | `analyzeWorker.js`  | Runs `localAnalyzer.js` / `githubAnalyzer.js` inside a dedicated worker so the page stays responsive during the analysis itself — see below. |
 | `analysisCache.js`  | Persists local-folder / GitHub-repo analysis results in IndexedDB, so the panel's "Recently opened" list can show a graph again without re-reading or re-analyzing — see below. |
-| `markdown.js`   | Small Markdown renderer for the article chapters (escaped, no raw HTML; `<!-- key: value -->` comments are page directives). |
-| `article.js`    | The article page (`article.html`): chapters from `content/<lang>/`, each with the live graphs its directives ask for, rendered by the same modules on the same datasets as the viewer. |
 
-Both the main viewer (`index.html`) and the article's live figures render
-only in 3D. A 2D renderer without perspective is exactly `graph3d.js`'s own
-Top view (`viewTop()`), so a separate SVG renderer (`graph2d.js`, removed)
-would only have been a second, heavier way to draw the same picture; a
-figure that wants a flat, label-readable layout asks for `view: top`
-instead and gets `graph3d.js`'s Top view.
+The viewer renders only in 3D. A 2D renderer without perspective is exactly
+`graph3d.js`'s own Top view (`viewTop()`), so a separate SVG renderer
+(`graph2d.js`, removed) would only have been a second, heavier way to draw
+the same picture.
 
 ### Keeping a large analysis off the main thread
 

@@ -13,10 +13,7 @@ Guidance for AI assistants and contributors working in this repository.
 3. **Code and documentation are written in English.** This includes comments,
    commit messages, README, docs, data files and the English source strings of
    the UI. Conversation with the owner may happen in Japanese, but nothing
-   committed is, except translations inside `site/js/i18n.js` and the
-   per-language article content under `site/content/<lang>/`, where the
-   Japanese text is content in its own right (drafted first, for review by
-   the owner) and every chapter must exist in every language.
+   committed is, except the translations inside `site/js/i18n.js`.
 4. **The UI is internationalised.** Every user-visible string goes through
    `t()` from `site/js/i18n.js`; never hard-code UI text in components. When
    adding a string, add it to every language (English and Japanese today); the
@@ -65,7 +62,6 @@ site/            static site (deployment root)
                  browserAnalyzer/localAnalyzer/githubAnalyzer/analyzeWorker (analyzer running in-browser),
                  analysisCache ("Recently opened", IndexedDB)
   data/          generated datasets, listed in index.json
-  content/       article chapters: chapters.json, then <lang>/<chapter>.md per language
   vendor/        d3 and TypeScript (copied by `npm run vendor`, do not edit; TypeScript is regenerated on every build, not committed)
 analyzers/ts/    JavaScript / TypeScript / Svelte analyzer (TypeScript compiler API, svelte2tsx for `.svelte`); core.mjs is the portable half shared with the browser's local-folder feature
 samples/         small source programs analyzed into the bundled sample datasets

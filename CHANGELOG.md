@@ -6,6 +6,18 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Remove the article page
+
+* `article.html` and everything only it used — `site/js/article.js`,
+  `site/js/markdown.js`, `site/article.css`, the chapters under
+  `site/content/` and their `article.*` translations — are gone, along with
+  the header link to them. The page had been left unmaintained, and it was
+  the last consumer of several viewer details (the tree-score readout, four
+  design tokens) that the panel is about to be rebuilt around; keeping a
+  page nobody was updating as a constraint on that rebuild was the wrong
+  trade. The chapters remain in the git history if the article is picked
+  back up.
+
 ### Analyzer: a reference can flow through a variable to a nested declaration
 
 * The bounded 0-CFA (docs/THEORY.md §3.2) already turned a call through a

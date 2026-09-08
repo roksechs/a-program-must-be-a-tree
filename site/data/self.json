@@ -3,9 +3,9 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-08T00:46:19.278Z",
+  "generatedAt": "2026-09-08T01:48:24.864Z",
   "analyzer": "analyzers/ts@0.5.0",
-  "files": 38
+  "files": 35
  },
  "declarations": [
   {
@@ -1125,231 +1125,6 @@
    "exported": false
   },
   {
-   "id": "site/js/article.js::<module>",
-   "name": "article",
-   "kind": "module",
-   "file": "site/js/article.js",
-   "line": 22,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::applyStaticTranslations",
-   "name": "applyStaticTranslations",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 32,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::chapterIds",
-   "name": "chapterIds",
-   "kind": "variable",
-   "file": "site/js/article.js",
-   "line": 50,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::chaptersEl",
-   "name": "chaptersEl",
-   "kind": "variable",
-   "file": "site/js/article.js",
-   "line": 15,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::createFigure",
-   "name": "createFigure",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 104,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::createFigure/deselect",
-   "name": "deselect",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 277,
-   "parent": "site/js/article.js::createFigure",
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::createFigure/onclick",
-   "name": "onclick",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 122,
-   "parent": "site/js/article.js::createFigure",
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::createFigure/onclick",
-   "name": "onclick",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 123,
-   "parent": "site/js/article.js::createFigure",
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::createFigure/onclick",
-   "name": "onclick",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 124,
-   "parent": "site/js/article.js::createFigure",
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::createFigure/onDragEnd",
-   "name": "onDragEnd",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 148,
-   "parent": "site/js/article.js::createFigure",
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::createFigure/onDragStart",
-   "name": "onDragStart",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 147,
-   "parent": "site/js/article.js::createFigure",
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::createFigure/onHover",
-   "name": "onHover",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 149,
-   "parent": "site/js/article.js::createFigure",
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::createFigure/onSelect",
-   "name": "onSelect",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 142,
-   "parent": "site/js/article.js::createFigure",
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::createFigure/resize",
-   "name": "resize",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 276,
-   "parent": "site/js/article.js::createFigure",
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::datasets",
-   "name": "datasets",
-   "kind": "variable",
-   "file": "site/js/article.js",
-   "line": 51,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::el",
-   "name": "el",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 39,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::fetchText",
-   "name": "fetchText",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 54,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::figures",
-   "name": "figures",
-   "kind": "variable",
-   "file": "site/js/article.js",
-   "line": 52,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::languageSelect",
-   "name": "languageSelect",
-   "kind": "variable",
-   "file": "site/js/article.js",
-   "line": 18,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::languageSelect.value",
-   "name": "value",
-   "kind": "variable",
-   "file": "site/js/article.js",
-   "line": 29,
-   "parent": "site/js/article.js::languageSelect",
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::main",
-   "name": "main",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 303,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::renderChapters",
-   "name": "renderChapters",
-   "kind": "function",
-   "file": "site/js/article.js",
-   "line": 60,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::savedLanguage",
-   "name": "savedLanguage",
-   "kind": "variable",
-   "file": "site/js/article.js",
-   "line": 21,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::status",
-   "name": "status",
-   "kind": "variable",
-   "file": "site/js/article.js",
-   "line": 17,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/article.js::tocEl",
-   "name": "tocEl",
-   "kind": "variable",
-   "file": "site/js/article.js",
-   "line": 16,
-   "parent": null,
-   "exported": false
-  },
-  {
    "id": "site/js/browserAnalyzer.js::analyzeFiles",
    "name": "analyzeFiles",
    "kind": "function",
@@ -2137,7 +1912,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 361,
+   "line": 333,
    "parent": null,
    "exported": false
   },
@@ -2146,7 +1921,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 365,
+   "line": 337,
    "parent": null,
    "exported": true
   },
@@ -2155,7 +1930,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 374,
+   "line": 346,
    "parent": null,
    "exported": true
   },
@@ -2164,7 +1939,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 398,
+   "line": 370,
    "parent": null,
    "exported": true
   },
@@ -2182,7 +1957,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 362,
+   "line": 334,
    "parent": null,
    "exported": false
   },
@@ -2191,7 +1966,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 404,
+   "line": 376,
    "parent": null,
    "exported": true
   },
@@ -2200,7 +1975,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 385,
+   "line": 357,
    "parent": null,
    "exported": true
   },
@@ -2209,7 +1984,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 378,
+   "line": 350,
    "parent": null,
    "exported": true
   },
@@ -2227,7 +2002,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 391,
+   "line": 363,
    "parent": null,
    "exported": true
   },
@@ -2282,60 +2057,6 @@
    "kind": "function",
    "file": "site/js/localAnalyzer.js",
    "line": 21,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/markdown.js::escapeHtml",
-   "name": "escapeHtml",
-   "kind": "function",
-   "file": "site/js/markdown.js",
-   "line": 11,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/markdown.js::ESCAPES",
-   "name": "ESCAPES",
-   "kind": "variable",
-   "file": "site/js/markdown.js",
-   "line": 8,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "site/js/markdown.js::parseDirective",
-   "name": "parseDirective",
-   "kind": "function",
-   "file": "site/js/markdown.js",
-   "line": 16,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/markdown.js::renderInline",
-   "name": "renderInline",
-   "kind": "function",
-   "file": "site/js/markdown.js",
-   "line": 30,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/markdown.js::renderMarkdown",
-   "name": "renderMarkdown",
-   "kind": "function",
-   "file": "site/js/markdown.js",
-   "line": 47,
-   "parent": null,
-   "exported": true
-  },
-  {
-   "id": "site/js/markdown.js::renderTable",
-   "name": "renderTable",
-   "kind": "function",
-   "file": "site/js/markdown.js",
-   "line": 138,
    "parent": null,
    "exported": false
   },
@@ -2992,24 +2713,6 @@
    "name": "fixture",
    "kind": "function",
    "file": "test/analyzer.test.mjs",
-   "line": 8,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "test/article.test.mjs::<module>",
-   "name": "article.test",
-   "kind": "module",
-   "file": "test/article.test.mjs",
-   "line": 10,
-   "parent": null,
-   "exported": false
-  },
-  {
-   "id": "test/article.test.mjs::content",
-   "name": "content",
-   "kind": "variable",
-   "file": "test/article.test.mjs",
    "line": 8,
    "parent": null,
    "exported": false
@@ -5603,527 +5306,6 @@
    "time": "use"
   },
   {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/article.js::applyStaticTranslations",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/article.js::el",
-   "kind": "call",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/article.js::figures",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/article.js::languageSelect",
-   "kind": "reference",
-   "count": 2,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/article.js::languageSelect",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/article.js::languageSelect.value",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/article.js::main",
-   "kind": "call",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/article.js::renderChapters",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/article.js::savedLanguage",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/graph3d.js::Graph3D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/graph3d.js::Graph3D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "definition",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/i18n.js::detectLanguage",
-   "kind": "call",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/i18n.js::getLanguage",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/i18n.js::LANGUAGES",
-   "kind": "reference",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/i18n.js::onLanguageChange",
-   "kind": "call",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/i18n.js::setLanguage",
-   "kind": "call",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/i18n.js::setLanguage",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::<module>",
-   "target": "site/js/panel.js::Panel.select",
-   "kind": "call",
-   "count": 1,
-   "time": "definition",
-   "inferred": true
-  },
-  {
-   "source": "site/js/article.js::applyStaticTranslations",
-   "target": "site/js/article.js::languageSelect",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::applyStaticTranslations",
-   "target": "site/js/article.js::languageSelect.value",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::applyStaticTranslations",
-   "target": "site/js/i18n.js::getLanguage",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::applyStaticTranslations",
-   "target": "site/js/i18n.js::t",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::chapterIds",
-   "target": "site/js/article.js::main",
-   "kind": "write",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/article.js::datasets",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/article.js::el",
-   "kind": "call",
-   "count": 17,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.constructor",
-   "kind": "create",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.draw",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.setColorBy",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.setGraph",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.setLabelMode",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.setVisibleKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.setZones",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.tick",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/graph3d.js::Graph3D.viewTop",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/i18n.js::getLanguage",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/i18n.js::kindLabel",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/i18n.js::t",
-   "kind": "call",
-   "count": 13,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/kinds.js::EDGE_KINDS",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/metrics.js::computeMetrics",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/metrics.js::naturalScope",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/model.js::applyActiveKinds",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/model.js::buildGraph",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/simulation.js::createSimulation",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/simulation.js::DEFAULT_PHYSICS",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/simulation.js::seedPositions",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure",
-   "target": "site/js/zones.js::visibleContainers",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure/deselect",
-   "target": "site/js/graph3d.js::Graph3D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure/onclick",
-   "target": "site/js/graph3d.js::Graph3D.fit",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure/onclick",
-   "target": "site/js/graph3d.js::Graph3D.viewTop",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure/onHover",
-   "target": "site/js/i18n.js::kindLabel",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure/onHover",
-   "target": "site/js/i18n.js::t",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure/onSelect",
-   "target": "site/js/graph3d.js::Graph3D.select",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::createFigure/resize",
-   "target": "site/js/graph3d.js::Graph3D.resize",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::datasets",
-   "target": "site/js/article.js::main",
-   "kind": "write",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::languageSelect.value",
-   "target": "site/js/i18n.js::getLanguage",
-   "kind": "call",
-   "count": 1,
-   "time": "definition"
-  },
-  {
-   "source": "site/js/article.js::main",
-   "target": "site/js/article.js::applyStaticTranslations",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::main",
-   "target": "site/js/article.js::renderChapters",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::main",
-   "target": "site/js/article.js::status",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::main",
-   "target": "site/js/i18n.js::t",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/article.js::chapterIds",
-   "kind": "reference",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/article.js::chaptersEl",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/article.js::createFigure",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/article.js::el",
-   "kind": "call",
-   "count": 4,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/article.js::fetchText",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/article.js::figures",
-   "kind": "reference",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/article.js::status",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/article.js::tocEl",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/i18n.js::getLanguage",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/i18n.js::t",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::renderChapters",
-   "target": "site/js/markdown.js::renderMarkdown",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/article.js::savedLanguage",
-   "target": "site/js/article.js::<module>",
-   "kind": "write",
-   "count": 2,
-   "time": "definition"
-  },
-  {
    "source": "site/js/browserAnalyzer.js::analyzeFiles",
    "target": "site/js/browserAnalyzer.js::compilerOptions",
    "kind": "call",
@@ -6845,62 +6027,6 @@
    "time": "use"
   },
   {
-   "source": "site/js/markdown.js::escapeHtml",
-   "target": "site/js/markdown.js::ESCAPES",
-   "kind": "reference",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/markdown.js::renderInline",
-   "target": "site/js/markdown.js::escapeHtml",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/markdown.js::renderMarkdown",
-   "target": "site/js/markdown.js::escapeHtml",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "site/js/markdown.js::renderMarkdown",
-   "target": "site/js/markdown.js::parseDirective",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/markdown.js::renderMarkdown",
-   "target": "site/js/markdown.js::renderInline",
-   "kind": "call",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "site/js/markdown.js::renderMarkdown",
-   "target": "site/js/markdown.js::renderMarkdown",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/markdown.js::renderMarkdown",
-   "target": "site/js/markdown.js::renderTable",
-   "kind": "call",
-   "count": 1,
-   "time": "use"
-  },
-  {
-   "source": "site/js/markdown.js::renderTable",
-   "target": "site/js/markdown.js::renderInline",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
    "source": "site/js/metrics.js::computeMetrics",
    "target": "site/js/metrics.js::dominance",
    "kind": "call",
@@ -7417,41 +6543,6 @@
    "target": "test/analyzer.test.mjs::fixture",
    "kind": "call",
    "count": 18,
-   "time": "use"
-  },
-  {
-   "source": "test/article.test.mjs::<module>",
-   "target": "site/js/i18n.js::LANGUAGES",
-   "kind": "reference",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "test/article.test.mjs::<module>",
-   "target": "site/js/markdown.js::parseDirective",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "test/article.test.mjs::<module>",
-   "target": "site/js/markdown.js::renderInline",
-   "kind": "call",
-   "count": 2,
-   "time": "use"
-  },
-  {
-   "source": "test/article.test.mjs::<module>",
-   "target": "site/js/markdown.js::renderMarkdown",
-   "kind": "call",
-   "count": 3,
-   "time": "use"
-  },
-  {
-   "source": "test/article.test.mjs::<module>",
-   "target": "test/article.test.mjs::content",
-   "kind": "reference",
-   "count": 5,
    "time": "use"
   },
   {

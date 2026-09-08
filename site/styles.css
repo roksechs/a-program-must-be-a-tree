@@ -14,8 +14,6 @@
 
   --md-surface-container-lowest: #ffffff;
   --md-surface-container-low: #f4f3f9;
-  --md-surface-container: #eeedf4;
-  --md-surface-container-high: #e8e7ee;
   --md-surface-container-highest: #e2e2e9;
   --md-on-surface: #1b1b21;
   --md-on-surface-variant: #46464f;
@@ -27,8 +25,6 @@
   /* Shape scale (corner radius). */
   --shape-xs: 4px;
   --shape-sm: 8px;
-  --shape-md: 12px;
-  --shape-lg: 16px;
   --shape-full: 999px;
 
   /* Elevation (tonal shadow). */
@@ -38,14 +34,13 @@
   /* State-layer opacity (overlay of on-<surface> colour on interaction). */
   --state-hover: 0.08;
 
-  /* Back-compat aliases: article.css and the panel markup already use these
-     names; point them at the M3 roles above instead of re-plumbing callers. */
+  /* Back-compat aliases: the panel markup already uses these names; point
+     them at the M3 roles above instead of re-plumbing callers. */
   --bg: var(--md-surface-container-low);
   --panel-bg: var(--md-surface-container-lowest);
   --border: var(--md-outline-variant);
   --text: var(--md-on-surface);
   --muted: var(--md-on-surface-variant);
-  --accent: var(--md-primary);
   --panel-width: 336px;
 
   font-family: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -65,8 +60,6 @@
 
     --md-surface-container-lowest: #0e0e13;
     --md-surface-container-low: #1b1b21;
-    --md-surface-container: #1f1f25;
-    --md-surface-container-high: #29292f;
     --md-surface-container-highest: #34343a;
     --md-on-surface: #e4e2e9;
     --md-on-surface-variant: #c7c5d0;
