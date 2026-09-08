@@ -209,7 +209,18 @@ function shapeOf(nodes) {
  * a layout laid out by anything else would make the graph jump the moment
  * anyone pressed it.
  *
- * It stops on whichever comes first:
+ * *Runs*, plural: it anneals repeatedly until two in a row land in the same
+ * place. One run is not enough, and that is measurable rather than a matter
+ * of taste. On a 2,138-declaration project, pressing "Recompute (reheat)" on
+ * the layout a single run produced moved the arrangement by 0.45 of its own
+ * median radius — half the picture. Pressing it again moved it 0.17, then
+ * 0.10, then 0.05, while the extent converged on a limit; the layout was not
+ * wrong, it was shallow, and each further anneal found a better arrangement
+ * than the last. A layout the reheat button visibly rearranges is not one to
+ * ship, so this keeps going until a run changes the shape by less than
+ * `settled`.
+ *
+ * Within one run it stops on whichever comes first:
  *
  *  - the cooling schedule reaching `alphaMin`, the same threshold a run in
  *    the page stops at, or
@@ -218,16 +229,17 @@ function shapeOf(nodes) {
  *
  * The arrangement, not the positions. Absolute displacement stops too early,
  * because it falls as much from the layout inflating as from the picture
- * settling: on a 2,138-declaration project, a threshold of 1e-5 on absolute
+ * settling: on that same project, a threshold of 1e-5 on absolute
  * displacement fires around tick 1,300, where the shape is still changing at
  * 87e-6 per tick — eight times the same threshold. By tick 1,900 the shape is
  * down to 12e-6 and by 2,300 to 6e-6.
  *
- * That descent is the annealing, not a fixed point being reached: held at a
- * high alpha instead, the same graph plateaus at about 60e-6 and never
- * improves, because the temperature keeps nudging it. Cooling is what settles
- * a shape, so on a large graph this criterion mostly agrees with the schedule
- * and it is the small graphs — where 2,300 ticks is absurd — that stop early.
+ * Cooling is what settles a shape, and the residual movement at a *fixed*
+ * temperature is heat rather than structure: held at a constant alpha, the
+ * per-tick change is proportional to that alpha (221e-6 at 0.2, 115e-6 at
+ * 0.05, 32e-6 at 0.01, 8.6e-6 at 0.002), so it goes to zero only as the
+ * temperature does. That is why a run has to be annealed to its end, and why
+ * a settled layout genuinely does not move on its own.
  *
  * Twice in a row because the measure is noisy from chunk to chunk (86 then 90
  * then 42, on the run above), and one dip below the line is not a layout that
@@ -235,33 +247,62 @@ function shapeOf(nodes) {
  *
  * `maxTicks` is only a backstop against a graph that never settles at all.
  */
-export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, maxTicks = 4000, chunk = 50 } = {}) {
-  if (graph.nodes.length === 0) return { ticks: 0, reason: "empty" };
+export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, settled = 0.02, maxRuns = 12, maxTicks = 40000, chunk = 50 } = {}) {
+  if (graph.nodes.length === 0) return { ticks: 0, runs: 0, reason: "empty" };
   const sim = createSimulation(graph, physics);
   let ticks = 0;
-  let previous = shapeOf(graph.nodes);
-  let quietRuns = 0;
-  let reason = "cooled";
-  while (ticks < maxTicks) {
-    if (sim.alpha() <= sim.alphaMin()) break;
-    const before = ticks;
-    for (let i = 0; i < chunk && ticks < maxTicks && sim.alpha() > sim.alphaMin(); i++) {
-      sim.tick();
-      ticks++;
+  let runs = 0;
+  let reason = "settled";
+  let beforeRun = shapeOf(graph.nodes);
+  let bestDrift = Infinity;
+  while (ticks < maxTicks && runs < maxRuns) {
+    // One annealing run: alpha back to 1, cooling to alphaMin.
+    sim.alpha(1);
+    runs++;
+    let previous = shapeOf(graph.nodes);
+    let quietChunks = 0;
+    while (ticks < maxTicks && sim.alpha() > sim.alphaMin()) {
+      const before = ticks;
+      for (let i = 0; i < chunk && ticks < maxTicks && sim.alpha() > sim.alphaMin(); i++) {
+        sim.tick();
+        ticks++;
+      }
+      const now = shapeOf(graph.nodes);
+      let moved = 0;
+      for (let i = 0; i < now.length; i++) moved += Math.hypot(now[i].x - previous[i].x, now[i].y - previous[i].y);
+      const perTick = moved / now.length / Math.max(ticks - before, 1);
+      previous = now;
+      onProgress?.({ ticks, runs, maxTicks, alpha: sim.alpha() });
+      quietChunks = perTick < quiet ? quietChunks + 1 : 0;
+      if (quietChunks >= 2) break;
     }
-    const now = shapeOf(graph.nodes);
-    let moved = 0;
-    for (let i = 0; i < now.length; i++) moved += Math.hypot(now[i].x - previous[i].x, now[i].y - previous[i].y);
-    const perTick = moved / now.length / Math.max(ticks - before, 1);
-    previous = now;
-    onProgress?.({ ticks, maxTicks, alpha: sim.alpha() });
-    quietRuns = perTick < quiet ? quietRuns + 1 : 0;
-    if (quietRuns >= 2) {
-      reason = "still";
+    // How much did this run change the picture?
+    const afterRun = shapeOf(graph.nodes);
+    let drift = 0;
+    for (let i = 0; i < afterRun.length; i++) drift += Math.hypot(afterRun[i].x - beforeRun[i].x, afterRun[i].y - beforeRun[i].y);
+    drift /= afterRun.length;
+    beforeRun = afterRun;
+    if (drift < settled) {
+      reason = "settled";
       break;
     }
+    // Stop when the runs stop *improving*, not only when they are small.
+    // The sequence on a large graph falls steeply and then flattens out
+    // (0.45, 0.17, 0.10, 0.05, then a floor near 0.03), and the floor is the
+    // wander a full-temperature reheat has no matter how good the layout is.
+    // A small graph reaches its floor almost immediately and high: there are
+    // simply several comparable arrangements of thirty nodes, and reheating
+    // picks among them. Waiting for such a graph to fall under a fixed
+    // threshold means waiting forever, which is exactly what a first attempt
+    // at this did — eight of twelve datasets ran to the tick cap.
+    if (drift > bestDrift * 0.9) {
+      reason = "floor";
+      break;
+    }
+    bestDrift = Math.min(bestDrift, drift);
   }
   if (ticks >= maxTicks) reason = "capped";
+  else if (runs >= maxRuns) reason = "runs";
   sim.stop();
-  return { ticks, reason };
+  return { ticks, runs, reason };
 }

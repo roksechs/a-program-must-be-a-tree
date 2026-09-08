@@ -18,10 +18,10 @@ const write = (id, name, description, doc) => {
   const file = `${id}.json`;
   // Every published dataset carries its layout, so the page opens on a
   // settled graph and runs no physics until asked (scripts/settle.mjs).
-  const { ticks, reason } = settle(doc);
+  const { ticks, runs, reason } = settle(doc);
   writeFileSync(join(dataDir, file), JSON.stringify(doc, null, 1) + "\n");
   index.push({ id, name, description, file: `data/${file}` });
-  console.error(`${name}: ${doc.declarations.length} declarations, ${doc.edges.length} edges, laid out in ${ticks} ticks (${reason}) -> site/data/${file}`);
+  console.error(`${name}: ${doc.declarations.length} declarations, ${doc.edges.length} edges, laid out in ${runs} runs / ${ticks} ticks (${reason}) -> site/data/${file}`);
 };
 
 // 1. Self.

@@ -94,7 +94,7 @@ test("a document's stored layout is used when it is complete, and ignored when i
   assert.ok(layoutOf(none).every((p) => Number.isFinite(p.x) && Number.isFinite(p.y)));
 });
 
-test("laying a document out fills in every position, and stops when it has stopped moving", async () => {
+test("laying a document out fills in every position, and anneals until the runs stop improving", async () => {
   // The layout is what the build step writes into a dataset and what the
   // worker computes after an in-browser analysis (site/js/layout.js is the
   // single copy both run). d3 is a global there, the way the browser loads it.
@@ -114,13 +114,17 @@ test("laying a document out fills in every position, and stops when it has stopp
   const result = layOutDocument(doc);
   assert.equal(result.nodes, 5);
   assert.ok(doc.declarations.every((d) => Number.isFinite(d.x) && Number.isFinite(d.y)), "every declaration gets a position");
-  assert.equal(result.reason, "still", "it stops on the measured criterion, not by exhausting the cap");
-  assert.ok(result.ticks > 0 && result.ticks < 4000);
+  // "settled" = successive annealing runs agreed; "floor" = they stopped
+  // improving. Either is a measured stop; "capped"/"runs" would mean it gave
+  // up against a backstop, which on a graph this small would be a bug.
+  assert.ok(["settled", "floor"].includes(result.reason), `stopped on a measured criterion, not a backstop (got ${result.reason})`);
+  assert.ok(result.runs >= 1, "it anneals at least once");
+  assert.ok(result.ticks > 0 && result.ticks < 40000);
 
   // And what it wrote is what the viewer opens on.
   const laid = buildGraph(doc);
   assert.equal(applyStoredLayout(laid), true);
 
   // An empty document is not an error.
-  assert.deepEqual(layOutDocument({ declarations: [], edges: [] }), { ticks: 0, reason: "empty", nodes: 0 });
+  assert.deepEqual(layOutDocument({ declarations: [], edges: [] }), { ticks: 0, runs: 0, reason: "empty", nodes: 0 });
 });

@@ -3,7 +3,7 @@
   "name": "d3-scale",
   "root": "node_modules/d3-scale",
   "language": "javascript",
-  "generatedAt": "2026-09-08T07:26:46.467Z",
+  "generatedAt": "2026-09-08T08:14:22.951Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 24
  },
@@ -16,8 +16,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": -432.5,
-   "y": 441.9
+   "x": 991.8,
+   "y": 1427.9
   },
   {
    "id": "src/band.js::point",
@@ -27,8 +27,8 @@
    "line": 99,
    "parent": null,
    "exported": true,
-   "x": -819.3,
-   "y": 367.2
+   "x": 685.2,
+   "y": 1667.4
   },
   {
    "id": "src/band.js::pointish",
@@ -38,8 +38,8 @@
    "line": 85,
    "parent": null,
    "exported": false,
-   "x": -1091.9,
-   "y": 308.8
+   "x": 462.5,
+   "y": 1833.2
   },
   {
    "id": "src/colors.js::colors",
@@ -49,8 +49,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 2835,
-   "y": 2422.1
+   "x": 5913.7,
+   "y": 4983.5
   },
   {
    "id": "src/constant.js::constants",
@@ -60,8 +60,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 178.4,
-   "y": -31.5
+   "x": 1007.1,
+   "y": 695.8
   },
   {
    "id": "src/continuous.js::bimap",
@@ -71,8 +71,8 @@
    "line": 26,
    "parent": null,
    "exported": false,
-   "x": 348.3,
-   "y": 374.7
+   "x": 1415.1,
+   "y": 790.9
   },
   {
    "id": "src/continuous.js::clamper",
@@ -82,8 +82,8 @@
    "line": 18,
    "parent": null,
    "exported": false,
-   "x": 293.4,
-   "y": 501.2
+   "x": 1585,
+   "y": 953.4
   },
   {
    "id": "src/continuous.js::continuous",
@@ -93,8 +93,8 @@
    "line": 123,
    "parent": null,
    "exported": true,
-   "x": 221.9,
-   "y": 497.1
+   "x": 1449.3,
+   "y": 954
   },
   {
    "id": "src/continuous.js::copy",
@@ -104,8 +104,8 @@
    "line": 56,
    "parent": null,
    "exported": true,
-   "x": 107.7,
-   "y": 389.5
+   "x": 1284.3,
+   "y": 982.2
   },
   {
    "id": "src/continuous.js::identity",
@@ -115,8 +115,8 @@
    "line": 8,
    "parent": null,
    "exported": true,
-   "x": 569.3,
-   "y": 603.1
+   "x": 1730.5,
+   "y": 741.9
   },
   {
    "id": "src/continuous.js::normalize",
@@ -126,8 +126,8 @@
    "line": 12,
    "parent": null,
    "exported": false,
-   "x": 262.3,
-   "y": 187.2
+   "x": 1222.6,
+   "y": 749.1
   },
   {
    "id": "src/continuous.js::polymap",
@@ -137,8 +137,8 @@
    "line": 33,
    "parent": null,
    "exported": false,
-   "x": 303.1,
-   "y": 395.4
+   "x": 1406.1,
+   "y": 839.9
   },
   {
    "id": "src/continuous.js::transformer",
@@ -148,8 +148,8 @@
    "line": 65,
    "parent": null,
    "exported": true,
-   "x": 354.1,
-   "y": 517.7
+   "x": 1528.5,
+   "y": 866.8
   },
   {
    "id": "src/continuous.js::unit",
@@ -159,8 +159,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": 411.6,
-   "y": 445.6
+   "x": 1503.9,
+   "y": 777.6
   },
   {
    "id": "src/diverging.js::diverging",
@@ -170,8 +170,8 @@
    "line": 62,
    "parent": null,
    "exported": true,
-   "x": 663.4,
-   "y": 619.3
+   "x": 1798.2,
+   "y": 673.6
   },
   {
    "id": "src/diverging.js::divergingLog",
@@ -181,8 +181,8 @@
    "line": 72,
    "parent": null,
    "exported": true,
-   "x": 776.4,
-   "y": 367.1
+   "x": 1663.5,
+   "y": 439.4
   },
   {
    "id": "src/diverging.js::divergingPow",
@@ -192,8 +192,8 @@
    "line": 92,
    "parent": null,
    "exported": true,
-   "x": 810.3,
-   "y": 704
+   "x": 1954.4,
+   "y": 613.2
   },
   {
    "id": "src/diverging.js::divergingSqrt",
@@ -203,8 +203,8 @@
    "line": 102,
    "parent": null,
    "exported": true,
-   "x": 966.6,
-   "y": 850.1
+   "x": 2162.9,
+   "y": 570.4
   },
   {
    "id": "src/diverging.js::divergingSymlog",
@@ -214,8 +214,8 @@
    "line": 82,
    "parent": null,
    "exported": true,
-   "x": 789.8,
-   "y": 512.2
+   "x": 1791.6,
+   "y": 515.2
   },
   {
    "id": "src/diverging.js::transformer",
@@ -225,8 +225,8 @@
    "line": 10,
    "parent": null,
    "exported": false,
-   "x": 702.1,
-   "y": 553
+   "x": 1769.8,
+   "y": 604.6
   },
   {
    "id": "src/identity.js::identity",
@@ -236,8 +236,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": 243.5,
-   "y": 846.3
+   "x": 1745.9,
+   "y": 1159.1
   },
   {
    "id": "src/init.js::initInterpolator",
@@ -247,8 +247,8 @@
    "line": 10,
    "parent": null,
    "exported": true,
-   "x": 818.1,
-   "y": 587.3
+   "x": 1867.9,
+   "y": 539.3
   },
   {
    "id": "src/init.js::initRange",
@@ -258,8 +258,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -70.8,
-   "y": 499.4
+   "x": 1265.9,
+   "y": 1192.2
   },
   {
    "id": "src/linear.js::linear",
@@ -269,8 +269,8 @@
    "line": 60,
    "parent": null,
    "exported": true,
-   "x": 90,
-   "y": 538.4
+   "x": 1394.3,
+   "y": 1086
   },
   {
    "id": "src/linear.js::linearish",
@@ -280,8 +280,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 369.9,
-   "y": 691.3
+   "x": 1684,
+   "y": 958.5
   },
   {
    "id": "src/log.js::log",
@@ -291,8 +291,8 @@
    "line": 135,
    "parent": null,
    "exported": true,
-   "x": 247.3,
-   "y": 312.7
+   "x": 1304.4,
+   "y": 827.5
   },
   {
    "id": "src/log.js::loggish",
@@ -302,8 +302,8 @@
    "line": 44,
    "parent": null,
    "exported": true,
-   "x": 606.1,
-   "y": 67.7
+   "x": 1317.8,
+   "y": 394.7
   },
   {
    "id": "src/log.js::loggish/ceil",
@@ -313,8 +313,8 @@
    "line": 128,
    "parent": "src/log.js::loggish",
    "exported": false,
-   "x": 495.3,
-   "y": -108.6
+   "x": 1110.7,
+   "y": 384.2
   },
   {
    "id": "src/log.js::loggish/floor",
@@ -324,8 +324,8 @@
    "line": 127,
    "parent": "src/log.js::loggish",
    "exported": false,
-   "x": 524,
-   "y": -65.7
+   "x": 1163.5,
+   "y": 381.7
   },
   {
    "id": "src/log.js::logp",
@@ -335,8 +335,8 @@
    "line": 33,
    "parent": null,
    "exported": false,
-   "x": 690.3,
-   "y": -0.9
+   "x": 1343.2,
+   "y": 267.9
   },
   {
    "id": "src/log.js::pow10",
@@ -346,8 +346,8 @@
    "line": 23,
    "parent": null,
    "exported": false,
-   "x": 570.4,
-   "y": -154.2
+   "x": 1114,
+   "y": 296.8
   },
   {
    "id": "src/log.js::powp",
@@ -357,8 +357,8 @@
    "line": 27,
    "parent": null,
    "exported": false,
-   "x": 629.9,
-   "y": -114.5
+   "x": 1180.4,
+   "y": 271.6
   },
   {
    "id": "src/log.js::reflect",
@@ -368,8 +368,8 @@
    "line": 40,
    "parent": null,
    "exported": false,
-   "x": 639.2,
-   "y": -181.2
+   "x": 1130.5,
+   "y": 225.7
   },
   {
    "id": "src/log.js::transformExp",
@@ -379,8 +379,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": 795.1,
-   "y": -75.5
+   "x": 1300.6,
+   "y": 164.4
   },
   {
    "id": "src/log.js::transformExpn",
@@ -390,8 +390,8 @@
    "line": 19,
    "parent": null,
    "exported": false,
-   "x": 783.7,
-   "y": 12.3
+   "x": 1370.8,
+   "y": 197.9
   },
   {
    "id": "src/log.js::transformLog",
@@ -401,8 +401,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": 731.6,
-   "y": -135.5
+   "x": 1223.6,
+   "y": 172.8
   },
   {
    "id": "src/log.js::transformLogn",
@@ -412,8 +412,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": 720.4,
-   "y": -58.6
+   "x": 1266.6,
+   "y": 253.8
   },
   {
    "id": "src/nice.js::nice",
@@ -423,8 +423,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 383.6,
-   "y": 0.8
+   "x": 1136.4,
+   "y": 534.6
   },
   {
    "id": "src/number.js::number",
@@ -434,8 +434,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 193.1,
-   "y": 701.4
+   "x": 1605.5,
+   "y": 1112.8
   },
   {
    "id": "src/ordinal.js::implicit",
@@ -445,8 +445,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -566.5,
-   "y": 494
+   "x": 952.3,
+   "y": 1571.6
   },
   {
    "id": "src/ordinal.js::ordinal",
@@ -456,8 +456,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": -367,
-   "y": 489.8
+   "x": 1072.1,
+   "y": 1412.4
   },
   {
    "id": "src/pow.js::pow",
@@ -467,8 +467,8 @@
    "line": 36,
    "parent": null,
    "exported": true,
-   "x": 205.1,
-   "y": 590.2
+   "x": 1496,
+   "y": 1029.7
   },
   {
    "id": "src/pow.js::powish",
@@ -478,8 +478,8 @@
    "line": 19,
    "parent": null,
    "exported": true,
-   "x": 570.6,
-   "y": 743.7
+   "x": 1842.6,
+   "y": 827.7
   },
   {
    "id": "src/pow.js::sqrt",
@@ -489,8 +489,8 @@
    "line": 48,
    "parent": null,
    "exported": true,
-   "x": 94.3,
-   "y": 779.2
+   "x": 1571.8,
+   "y": 1233.8
   },
   {
    "id": "src/pow.js::transformPow",
@@ -500,8 +500,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": 663.4,
-   "y": 916.9
+   "x": 2046.4,
+   "y": 856.2
   },
   {
    "id": "src/pow.js::transformSqrt",
@@ -511,8 +511,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": 625.2,
-   "y": 977.3
+   "x": 2059,
+   "y": 926.4
   },
   {
    "id": "src/pow.js::transformSquare",
@@ -522,8 +522,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": 554.1,
-   "y": 942.4
+   "x": 1991.4,
+   "y": 951.3
   },
   {
    "id": "src/quantile.js::quantile",
@@ -533,8 +533,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -257,
-   "y": 463.4
+   "x": 1136.8,
+   "y": 1324.9
   },
   {
    "id": "src/quantize.js::quantize",
@@ -544,8 +544,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 76.9,
-   "y": 672.8
+   "x": 1432.6,
+   "y": 1176.6
   },
   {
    "id": "src/radial.js::radial",
@@ -555,8 +555,8 @@
    "line": 14,
    "parent": null,
    "exported": true,
-   "x": 44.7,
-   "y": 633
+   "x": 1490.1,
+   "y": 1185.6
   },
   {
    "id": "src/radial.js::square",
@@ -566,8 +566,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": -59.8,
-   "y": 695.3
+   "x": 1482.3,
+   "y": 1311
   },
   {
    "id": "src/radial.js::unsquare",
@@ -577,8 +577,8 @@
    "line": 10,
    "parent": null,
    "exported": false,
-   "x": -127,
-   "y": 764.4
+   "x": 1506,
+   "y": 1407.6
   },
   {
    "id": "src/sequential.js::copy",
@@ -588,8 +588,8 @@
    "line": 57,
    "parent": null,
    "exported": true,
-   "x": 860.9,
-   "y": 569.9
+   "x": 1873.4,
+   "y": 498.3
   },
   {
    "id": "src/sequential.js::sequential",
@@ -599,8 +599,8 @@
    "line": 65,
    "parent": null,
    "exported": true,
-   "x": 703.1,
-   "y": 655.1
+   "x": 1837.2,
+   "y": 697.9
   },
   {
    "id": "src/sequential.js::sequentialLog",
@@ -610,8 +610,8 @@
    "line": 75,
    "parent": null,
    "exported": true,
-   "x": 824.5,
-   "y": 383.8
+   "x": 1705.6,
+   "y": 412.1
   },
   {
    "id": "src/sequential.js::sequentialPow",
@@ -621,8 +621,8 @@
    "line": 95,
    "parent": null,
    "exported": true,
-   "x": 865.2,
-   "y": 689.1
+   "x": 1976.2,
+   "y": 562.6
   },
   {
    "id": "src/sequential.js::sequentialSqrt",
@@ -632,8 +632,8 @@
    "line": 105,
    "parent": null,
    "exported": true,
-   "x": 1064.3,
-   "y": 769.3
+   "x": 2157.9,
+   "y": 446.3
   },
   {
    "id": "src/sequential.js::sequentialSymlog",
@@ -643,8 +643,8 @@
    "line": 85,
    "parent": null,
    "exported": true,
-   "x": 854.3,
-   "y": 522.2
+   "x": 1840.2,
+   "y": 466
   },
   {
    "id": "src/sequential.js::transformer",
@@ -654,8 +654,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": 750.4,
-   "y": 586.7
+   "x": 1826.5,
+   "y": 595.2
   },
   {
    "id": "src/sequentialQuantile.js::sequentialQuantile",
@@ -665,8 +665,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 669.4,
-   "y": 687.2
+   "x": 1878.9,
+   "y": 686
   },
   {
    "id": "src/symlog.js::symlog",
@@ -676,8 +676,8 @@
    "line": 27,
    "parent": null,
    "exported": true,
-   "x": 172.2,
-   "y": 483.7
+   "x": 1395.6,
+   "y": 983.2
   },
   {
    "id": "src/symlog.js::symlogish",
@@ -687,8 +687,8 @@
    "line": 17,
    "parent": null,
    "exported": true,
-   "x": 537.6,
-   "y": 548.3
+   "x": 1665.5,
+   "y": 733.4
   },
   {
    "id": "src/symlog.js::transformSymexp",
@@ -698,8 +698,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": 597.7,
-   "y": 434.4
+   "x": 1605.6,
+   "y": 615.2
   },
   {
    "id": "src/symlog.js::transformSymlog",
@@ -709,8 +709,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": 506,
-   "y": 688.4
+   "x": 1752.6,
+   "y": 834.5
   },
   {
    "id": "src/threshold.js::threshold",
@@ -720,8 +720,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -265.2,
-   "y": 568.8
+   "x": 1208.8,
+   "y": 1394.2
   },
   {
    "id": "src/tickFormat.js::tickFormat",
@@ -731,8 +731,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": 337.5,
-   "y": 891.8
+   "x": 1829.1,
+   "y": 1099.4
   },
   {
    "id": "src/time.js::calendar",
@@ -742,8 +742,8 @@
    "line": 15,
    "parent": null,
    "exported": true,
-   "x": 66.8,
-   "y": 198
+   "x": 1112.6,
+   "y": 903.1
   },
   {
    "id": "src/time.js::date",
@@ -753,8 +753,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": -29.6,
-   "y": 16.7
+   "x": 912.5,
+   "y": 875.1
   },
   {
    "id": "src/time.js::number",
@@ -764,8 +764,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": -89.8,
-   "y": 60.8
+   "x": 912,
+   "y": 948.7
   },
   {
    "id": "src/time.js::time",
@@ -775,8 +775,8 @@
    "line": 69,
    "parent": null,
    "exported": true,
-   "x": -90.2,
-   "y": 328
+   "x": 1126.4,
+   "y": 1098.5
   },
   {
    "id": "src/utcTime.js::utcTime",
@@ -786,8 +786,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": -95.1,
-   "y": 279.6
+   "x": 1078.7,
+   "y": 1086.3
   }
  ],
  "edges": [

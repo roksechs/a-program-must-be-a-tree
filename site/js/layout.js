@@ -28,9 +28,9 @@ export function layOutDocument(doc, { onProgress } = {}) {
   const kinds = new Set(EDGE_KINDS.filter((k) => !DEFAULT_OFF_KINDS.has(k)));
   const graph = buildGraph(doc);
   applyActiveKinds(graph, kinds);
-  if (graph.nodes.length === 0) return { ticks: 0, reason: "empty", nodes: 0 };
+  if (graph.nodes.length === 0) return { ticks: 0, runs: 0, reason: "empty", nodes: 0 };
   seedPositions(graph);
-  const { ticks, reason } = settleLayout(graph, { ...DEFAULT_PHYSICS, springKinds: kinds }, { onProgress });
+  const { ticks, runs, reason } = settleLayout(graph, { ...DEFAULT_PHYSICS, springKinds: kinds }, { onProgress });
   const byId = new Map(layoutOf(graph).map((p) => [p.id, p]));
   for (const d of doc.declarations) {
     const p = byId.get(d.id);
@@ -40,5 +40,5 @@ export function layOutDocument(doc, { onProgress } = {}) {
     d.x = Math.round(p.x * 10) / 10;
     d.y = Math.round(p.y * 10) / 10;
   }
-  return { ticks, reason, nodes: graph.nodes.length };
+  return { ticks, runs, reason, nodes: graph.nodes.length };
 }

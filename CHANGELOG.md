@@ -40,19 +40,27 @@ The section for a version becomes the notes of its GitHub release
   the analysis, so a folder pays for it once and never again.
   `site/js/layout.js` is the single copy both producers run, so a dataset and
   a freshly analyzed folder are laid out identically.
-* The run stops on whichever comes first: the cooling schedule reaching
-  `alphaMin`, or the *arrangement* having stopped changing — the per-tick
-  change in the layout taken as a shape (centred, scaled by the median
-  distance from the centroid) under 1e-5, twice in a row. Not absolute
-  displacement, which reads as convergence far too early: it falls as much
-  from the layout inflating as from the picture settling, and the inflation
-  never stops, since an island has nothing holding it back. On a
-  2,138-declaration project a 1e-5 threshold on absolute displacement fires
-  at tick 1,300, where the shape is still changing eight times that fast.
-  It now stops at 2,000, and the layout differs from running the full
-  schedule by 0.0016 of the median radius. Small graphs still stop early,
-  which is the point: the published datasets range from 400 to 2,100 ticks
-  against the schedule's flat 2,300.
+* **The layout is annealed repeatedly, until the runs stop improving.** One
+  annealing run leaves a layout that "Recompute (reheat)" visibly
+  rearranges — on a 2,138-declaration project it moved the arrangement by
+  0.45 of its own median radius, half the picture. Pressing it again moved it
+  0.17, then 0.10, then 0.05, with the extent converging: the layout was not
+  wrong, it was shallow. Annealed to the floor (7 runs, 8,900 ticks on that
+  project) a reheat moves it 0.029 and stays there.
+* The stop is "the runs stopped improving" and not "the runs got small",
+  because that floor is the wander a full-temperature reheat has whatever the
+  layout is, and a small graph reaches a high floor immediately — there are
+  several comparable arrangements of thirty nodes and reheating picks among
+  them. A first attempt used a fixed threshold and eight of the twelve
+  published datasets ran to the tick cap; with the improvement test they take
+  2 to 6 runs.
+* Within a run, the criterion is the change in the *arrangement* — the layout
+  centred and scaled by the median distance from its centroid — and not
+  absolute displacement, which reads as convergence far too early because it
+  falls as much from the layout inflating as from the picture settling. The
+  movement left at a fixed temperature is heat, not structure: it is
+  proportional to alpha (221e-6 at 0.2 down to 8.6e-6 at 0.002), so only
+  cooling removes it.
 * **A run that finishes is kept.** Its positions are written back into the
   document, and for an analysis from "Recently opened", back into IndexedDB —
   so reopening a folder is instant and already settled.

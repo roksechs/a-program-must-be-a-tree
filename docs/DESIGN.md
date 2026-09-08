@@ -413,8 +413,25 @@ pays for it once and never again. `site/js/layout.js` is the single copy both
 producers run; `scripts/settle.mjs` is only the build step's way of loading
 d3 before calling it.
 
-The run stops on whichever comes first: the cooling schedule reaching
-`alphaMin`, the same threshold a run in the page stops at, or the
+It anneals *repeatedly*, until the runs stop finding anything better. One
+run is not enough, and that is measurable rather than a matter of taste: on a
+2,138-declaration project, pressing "Recompute (reheat)" on the layout one
+run produced moved the arrangement by 0.45 of its own median radius — half
+the picture, which is exactly what a reader notices. Pressing it again moved
+it 0.17, then 0.10, then 0.05, while the extent converged on a limit. The
+layout was not wrong, it was shallow. After annealing to the floor (7 runs,
+8,900 ticks on that project) a reheat moves it 0.029, and stays there.
+
+That floor is the wander a full-temperature reheat has whatever the layout,
+so the stop is "the runs stopped improving" and not "the runs got small". A
+small graph hits its floor immediately and high — there are simply several
+comparable arrangements of thirty nodes, and reheating picks among them — so
+a fixed threshold never fires for one. A first attempt used one, and eight of
+the twelve published datasets ran to the tick cap; with the improvement test
+they take 2 to 6 runs.
+
+Each individual run stops on whichever comes first: the cooling schedule
+reaching `alphaMin`, the same threshold a run in the page stops at, or the
 *arrangement* having stopped changing — the per-tick change in the layout
 taken as a shape (centred on its centroid, scaled so the median distance from
 it is 1) falling under 1e-5, twice in a row.
@@ -431,14 +448,13 @@ reason the criterion exists at all: a handful of islands heading for infinity
 would otherwise set it, and everything else would look like it was converging
 by shrinking.
 
-That descent is the annealing rather than a fixed point being reached. Held
-at a high alpha instead of cooled, the same graph plateaus at about 60e-6 and
-never improves, because the temperature keeps nudging it — cooling is what
-settles a shape. So on a large graph this criterion mostly agrees with the
-schedule (that project stops at 2,000 of the schedule's 2,300 ticks, and the
-two layouts differ by 0.0016 of the median radius — nothing) and it is the
-small graphs, where 2,300 ticks is absurd, that stop early. The published
-datasets stop between 400 and 2,100 ticks.
+Cooling is what settles a shape, and the movement left at a *fixed*
+temperature is heat rather than structure: held at a constant alpha, the
+per-tick change is proportional to that alpha (221e-6 at 0.2, 115e-6 at 0.05,
+32e-6 at 0.01, 8.6e-6 at 0.002), so it reaches zero only as the temperature
+does. That is why a run has to be annealed to its end, and why a settled
+layout genuinely does not move on its own — what moves it is the reheat
+button, which is the whole reason for annealing more than once above.
 
 Twice in a row because the measure is noisy from chunk to chunk, and one dip
 below the line is not a layout that has come to rest.

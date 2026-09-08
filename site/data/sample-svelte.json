@@ -3,7 +3,7 @@
   "name": "sample-svelte",
   "root": "samples/svelte-app",
   "language": "svelte",
-  "generatedAt": "2026-09-08T07:26:53.071Z",
+  "generatedAt": "2026-09-08T08:14:43.021Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 3
  },
@@ -17,8 +17,8 @@
    "parent": null,
    "exported": true,
    "displayName": "App",
-   "x": 159.4,
-   "y": 121.2
+   "x": 154.8,
+   "y": 121.8
   },
   {
    "id": "Counter.svelte::Counter/increment",
@@ -28,8 +28,8 @@
    "line": 7,
    "parent": "Counter.svelte::Counter",
    "exported": false,
-   "x": 54.1,
-   "y": 194.8
+   "x": 49.7,
+   "y": 195.3
   },
   {
    "id": "Counter.svelte::Counter/reset",
@@ -39,8 +39,8 @@
    "line": 11,
    "parent": "Counter.svelte::Counter",
    "exported": false,
-   "x": 86.5,
-   "y": 15.8
+   "x": 82.1,
+   "y": 16.4
   },
   {
    "id": "Counter.svelte::Counter",
@@ -51,8 +51,8 @@
    "parent": null,
    "exported": true,
    "displayName": "Counter",
-   "x": 69.7,
-   "y": 105.1
+   "x": 65.2,
+   "y": 105.7
   },
   {
    "id": "format.ts::formatCount",
@@ -62,8 +62,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -19.7,
-   "y": 88.8
+   "x": -24,
+   "y": 89.4
   }
  ],
  "edges": [
