@@ -3,7 +3,7 @@
   "name": "d3-force",
   "root": "node_modules/d3-force",
   "language": "javascript",
-  "generatedAt": "2026-09-08T08:14:16.738Z",
+  "generatedAt": "2026-09-08T09:07:42.071Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 12
  },
@@ -16,8 +16,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 2664.9,
-   "y": 2908.9
+   "x": 15856.4,
+   "y": 6024.1
   },
   {
    "id": "src/collide.js::default",
@@ -27,8 +27,8 @@
    "line": 13,
    "parent": null,
    "exported": true,
-   "x": -731.8,
-   "y": 1367.1
+   "x": -4540.2,
+   "y": 12076.4
   },
   {
    "id": "src/collide.js::x",
@@ -38,8 +38,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -714.7,
-   "y": 1504.2
+   "x": -4430.5,
+   "y": 12012.9
   },
   {
    "id": "src/collide.js::y",
@@ -49,8 +49,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -636.7,
-   "y": 1453.7
+   "x": -4417.6,
+   "y": 12111.6
   },
   {
    "id": "src/constant.js::default",
@@ -60,8 +60,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -814.9,
-   "y": 1297
+   "x": -4647.6,
+   "y": 12123.4
   },
   {
    "id": "src/jiggle.js::default",
@@ -71,8 +71,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -770.8,
-   "y": 1234.3
+   "x": -4660,
+   "y": 12056.4
   },
   {
    "id": "src/lcg.js::a",
@@ -82,8 +82,8 @@
    "line": 2,
    "parent": null,
    "exported": false,
-   "x": 1921.3,
-   "y": -864.6
+   "x": 4871.5,
+   "y": 7496
   },
   {
    "id": "src/lcg.js::c",
@@ -93,8 +93,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": 1807.6,
-   "y": -733.9
+   "x": 5043.7,
+   "y": 7474.3
   },
   {
    "id": "src/lcg.js::default",
@@ -104,8 +104,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 1783.9,
-   "y": -868.4
+   "x": 4943.4,
+   "y": 7379.3
   },
   {
    "id": "src/lcg.js::m",
@@ -115,8 +115,8 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": 1889.1,
-   "y": -777.9
+   "x": 4961.7,
+   "y": 7517.6
   },
   {
    "id": "src/link.js::default",
@@ -126,8 +126,8 @@
    "line": 14,
    "parent": null,
    "exported": true,
-   "x": -884.2,
-   "y": 1190
+   "x": -4757.3,
+   "y": 12173.5
   },
   {
    "id": "src/link.js::find",
@@ -137,8 +137,8 @@
    "line": 8,
    "parent": null,
    "exported": false,
-   "x": -938.6,
-   "y": 1076.5
+   "x": -4885.8,
+   "y": 12195.1
   },
   {
    "id": "src/link.js::index",
@@ -148,8 +148,8 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": -963.9,
-   "y": 1161.1
+   "x": -4808.5,
+   "y": 12242.6
   },
   {
    "id": "src/manyBody.js::default",
@@ -159,8 +159,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": -692.2,
-   "y": 1230.4
+   "x": -4659,
+   "y": 11971.9
   },
   {
    "id": "src/radial.js::default",
@@ -170,8 +170,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -924.8,
-   "y": 1386.3
+   "x": -4749.1,
+   "y": 12079.2
   },
   {
    "id": "src/simulation.js::default",
@@ -181,8 +181,8 @@
    "line": 16,
    "parent": null,
    "exported": true,
-   "x": 1650.1,
-   "y": -988
+   "x": 4917.7,
+   "y": 7201.7
   },
   {
    "id": "src/simulation.js::default/alpha",
@@ -192,8 +192,8 @@
    "line": 101,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1715.7,
-   "y": -1072.3
+   "x": 4889.2,
+   "y": 7285.6
   },
   {
    "id": "src/simulation.js::default/alphaDecay",
@@ -203,8 +203,8 @@
    "line": 109,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1564.2,
-   "y": -947.5
+   "x": 4810.5,
+   "y": 7283.1
   },
   {
    "id": "src/simulation.js::default/alphaMin",
@@ -214,8 +214,8 @@
    "line": 105,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1628,
-   "y": -1089.5
+   "x": 4990.2,
+   "y": 7142.8
   },
   {
    "id": "src/simulation.js::default/alphaTarget",
@@ -225,8 +225,8 @@
    "line": 113,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1596.7,
-   "y": -852.8
+   "x": 4995.3,
+   "y": 7269.4
   },
   {
    "id": "src/simulation.js::default/find",
@@ -236,8 +236,8 @@
    "line": 129,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1556.8,
-   "y": -1039.5
+   "x": 5060.6,
+   "y": 7226.8
   },
   {
    "id": "src/simulation.js::default/force",
@@ -247,8 +247,8 @@
    "line": 125,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1785.7,
-   "y": -1058.4
+   "x": 4826.1,
+   "y": 7172.1
   },
   {
    "id": "src/simulation.js::default/nodes",
@@ -258,8 +258,8 @@
    "line": 97,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1482.7,
-   "y": -967.5
+   "x": 4896.8,
+   "y": 7102
   },
   {
    "id": "src/simulation.js::default/on",
@@ -269,8 +269,8 @@
    "line": 152,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1615.1,
-   "y": -1163.8
+   "x": 4757.7,
+   "y": 7224.9
   },
   {
    "id": "src/simulation.js::default/randomSource",
@@ -280,8 +280,8 @@
    "line": 121,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1667.2,
-   "y": -889.2
+   "x": 5071,
+   "y": 7147.8
   },
   {
    "id": "src/simulation.js::default/restart",
@@ -291,8 +291,8 @@
    "line": 89,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1478.6,
-   "y": -1051.2
+   "x": 4756.8,
+   "y": 7133.6
   },
   {
    "id": "src/simulation.js::default/stop",
@@ -302,8 +302,8 @@
    "line": 93,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1708.4,
-   "y": -1149.7
+   "x": 5030.8,
+   "y": 7071
   },
   {
    "id": "src/simulation.js::default/velocityDecay",
@@ -313,8 +313,8 @@
    "line": 117,
    "parent": "src/simulation.js::default",
    "exported": false,
-   "x": 1517.9,
-   "y": -885
+   "x": 4959.9,
+   "y": 7036.4
   },
   {
    "id": "src/simulation.js::initialAngle",
@@ -324,8 +324,8 @@
    "line": 14,
    "parent": null,
    "exported": false,
-   "x": 1533.9,
-   "y": -1124.5
+   "x": 4808.5,
+   "y": 7070.9
   },
   {
    "id": "src/simulation.js::initialRadius",
@@ -335,8 +335,8 @@
    "line": 13,
    "parent": null,
    "exported": false,
-   "x": 1748,
-   "y": -976
+   "x": 4877.4,
+   "y": 7024.6
   },
   {
    "id": "src/simulation.js::x",
@@ -346,8 +346,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": -566.9,
-   "y": 1240.6
+   "x": -4718.5,
+   "y": 11858.5
   },
   {
    "id": "src/simulation.js::y",
@@ -357,8 +357,8 @@
    "line": 9,
    "parent": null,
    "exported": true,
-   "x": -609.7,
-   "y": 1142.4
+   "x": -4617.3,
+   "y": 11850.7
   },
   {
    "id": "src/x.js::default",
@@ -368,8 +368,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -845.4,
-   "y": 1414.3
+   "x": -4565,
+   "y": 12207.1
   },
   {
    "id": "src/y.js::default",
@@ -379,8 +379,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": -926.2,
-   "y": 1305.5
+   "x": -4640.6,
+   "y": 12248.3
   }
  ],
  "edges": [

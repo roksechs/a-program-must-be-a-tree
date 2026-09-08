@@ -459,6 +459,32 @@ button, which is the whole reason for annealing more than once above.
 Twice in a row because the measure is noisy from chunk to chunk, and one dip
 below the line is not a layout that has come to rest.
 
+Each run starts at an alpha of 16, not 1. Alpha is d3's cooling parameter and
+by convention runs from 1, but nothing clamps it — it is only the multiplier
+on each tick's displacement, so a larger one explores further before the
+schedule brings it down. The value was measured across the ten datasets here
+by the thing that actually goes wrong without it: how far a subsequent press
+of "Recompute (reheat)" moves the picture. Starting at 1 was the worst of the
+temperatures tried on nine of the ten, and on this repository's own graph a
+single run from 16 reached 0.008 in 3,200 ticks where repeated runs from 1
+reached only 0.048 in 5,800.
+
+It is not a trick of scale. A hot run does leave the layout several times
+larger, but uniformly scaling a cold layout up to the same size makes it
+*worse* — 0.13 to 0.27 — because that pulls every spring off its rest length.
+
+There is an upper limit: this is explicit Euler integration, and with a big
+enough step it does not settle but throws the graph apart. A run starting at
+48 was past any usable extent within 50 ticks, and the quadtree the repulsion
+builds then subdivides until it exhausts memory. So a run that leaves the
+bounds is undone, the temperature quartered, and the run retried; 16 diverged
+on none of the twelve datasets here, but "none of twelve" is not "none".
+
+Two runs from a hot start reach the floor. On a 2,138-declaration project,
+forcing six runs instead of two costs 12,000 ticks against 4,150 and buys
+0.0009 — the remaining 0.07 is the wander a full-temperature reheat has
+however good the layout is, not something more settling can remove.
+
 One consequence is worth stating because it is now visible immediately rather
 than after forty seconds of drift: a component connected to nothing else has
 no spring holding it to anything, so the unbounded repulsion pushes it away

@@ -3,7 +3,7 @@
   "name": "d3-hierarchy",
   "root": "node_modules/d3-hierarchy",
   "language": "javascript",
-  "generatedAt": "2026-09-08T08:14:38.435Z",
+  "generatedAt": "2026-09-08T09:08:03.355Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 34
  },
@@ -16,8 +16,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 788.1,
-   "y": -232
+   "x": 30857.8,
+   "y": -16138.1
   },
   {
    "id": "src/accessors.js::required",
@@ -27,8 +27,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 721.7,
-   "y": -208
+   "x": 30812.5,
+   "y": -16076.7
   },
   {
    "id": "src/array.js::default",
@@ -38,8 +38,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 113.7,
-   "y": -1235.9
+   "x": 29599,
+   "y": -15974.5
   },
   {
    "id": "src/array.js::shuffle",
@@ -49,8 +49,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": -199.1,
-   "y": -1555.1
+   "x": 29169.7,
+   "y": -15847
   },
   {
    "id": "src/cluster.js::default",
@@ -60,8 +60,8 @@
    "line": 33,
    "parent": null,
    "exported": true,
-   "x": -203.6,
-   "y": 272.7
+   "x": 30757.4,
+   "y": -15041.3
   },
   {
    "id": "src/cluster.js::defaultSeparation",
@@ -71,8 +71,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -274.8,
-   "y": 304.6
+   "x": 30745.9,
+   "y": -14965.1
   },
   {
    "id": "src/cluster.js::leafLeft",
@@ -82,8 +82,8 @@
    "line": 21,
    "parent": null,
    "exported": false,
-   "x": -282.1,
-   "y": 393.8
+   "x": 30815.9,
+   "y": -14910.5
   },
   {
    "id": "src/cluster.js::leafRight",
@@ -93,8 +93,8 @@
    "line": 27,
    "parent": null,
    "exported": false,
-   "x": -347.9,
-   "y": 256.3
+   "x": 30670.2,
+   "y": -14926
   },
   {
    "id": "src/cluster.js::maxY",
@@ -104,8 +104,8 @@
    "line": 13,
    "parent": null,
    "exported": false,
-   "x": -387,
-   "y": 447.3
+   "x": 30677.3,
+   "y": -14802.9
   },
   {
    "id": "src/cluster.js::maxYReduce",
@@ -115,8 +115,8 @@
    "line": 17,
    "parent": null,
    "exported": false,
-   "x": -536.3,
-   "y": 580.4
+   "x": 30625.5,
+   "y": -14611
   },
   {
    "id": "src/cluster.js::meanX",
@@ -126,8 +126,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -448.4,
-   "y": 331.7
+   "x": 30808.8,
+   "y": -14793.1
   },
   {
    "id": "src/cluster.js::meanXReduce",
@@ -137,8 +137,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -639.9,
-   "y": 386.6
+   "x": 30841.9,
+   "y": -14596.3
   },
   {
    "id": "src/constant.js::constantZero",
@@ -148,8 +148,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 555.9,
-   "y": -280.7
+   "x": 30663.6,
+   "y": -15950
   },
   {
    "id": "src/constant.js::default",
@@ -159,8 +159,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 548.7,
-   "y": -185.1
+   "x": 30741,
+   "y": -15908
   },
   {
    "id": "src/hierarchy/ancestors.js::default",
@@ -173,8 +173,8 @@
    "aliases": [
     "Node.ancestors"
    ],
-   "x": -7273.2,
-   "y": 1504.9
+   "x": -33358.3,
+   "y": 10091.5
   },
   {
    "id": "src/hierarchy/count.js::count",
@@ -184,8 +184,8 @@
    "line": 1,
    "parent": null,
    "exported": false,
-   "x": -33.3,
-   "y": 306
+   "x": 30855.7,
+   "y": -15172.9
   },
   {
    "id": "src/hierarchy/count.js::default",
@@ -198,8 +198,8 @@
    "aliases": [
     "Node.count"
    ],
-   "x": 66.9,
-   "y": 191
+   "x": 30823.1,
+   "y": -15313.7
   },
   {
    "id": "src/hierarchy/descendants.js::default",
@@ -212,8 +212,8 @@
    "aliases": [
     "Node.descendants"
    ],
-   "x": -7596.5,
-   "y": -1342.7
+   "x": -35774.5,
+   "y": -6442.5
   },
   {
    "id": "src/hierarchy/each.js::default",
@@ -226,8 +226,8 @@
    "aliases": [
     "Node.each"
    ],
-   "x": 3869.3,
-   "y": -6781.9
+   "x": -5758.9,
+   "y": -40150.6
   },
   {
    "id": "src/hierarchy/eachAfter.js::default",
@@ -240,8 +240,8 @@
    "aliases": [
     "Node.eachAfter"
    ],
-   "x": 220.7,
-   "y": 69.5
+   "x": 30810.5,
+   "y": -15504.6
   },
   {
    "id": "src/hierarchy/eachBefore.js::default",
@@ -254,8 +254,8 @@
    "aliases": [
     "Node.eachBefore"
    ],
-   "x": 791.2,
-   "y": 42.5
+   "x": 31080.4,
+   "y": -15994.6
   },
   {
    "id": "src/hierarchy/find.js::default",
@@ -268,8 +268,8 @@
    "aliases": [
     "Node.find"
    ],
-   "x": 7915.6,
-   "y": 574.3
+   "x": 50534.2,
+   "y": 16534.9
   },
   {
    "id": "src/hierarchy/index.js::computeHeight",
@@ -279,8 +279,8 @@
    "line": 62,
    "parent": null,
    "exported": true,
-   "x": 1106.1,
-   "y": 22.7
+   "x": 31248.8,
+   "y": -16276.7
   },
   {
    "id": "src/hierarchy/index.js::copyData",
@@ -290,8 +290,8 @@
    "line": 57,
    "parent": null,
    "exported": false,
-   "x": 1035.5,
-   "y": 337
+   "x": 31442.1,
+   "y": -16037.2
   },
   {
    "id": "src/hierarchy/index.js::hierarchy",
@@ -301,8 +301,8 @@
    "line": 15,
    "parent": null,
    "exported": true,
-   "x": 1050.3,
-   "y": 153.8
+   "x": 31307.7,
+   "y": -16151.7
   },
   {
    "id": "src/hierarchy/index.js::mapChildren",
@@ -312,8 +312,8 @@
    "line": 53,
    "parent": null,
    "exported": false,
-   "x": 1119.9,
-   "y": 235
+   "x": 31409.5,
+   "y": -16157.7
   },
   {
    "id": "src/hierarchy/index.js::Node",
@@ -326,8 +326,8 @@
    "aliases": [
     "Node.constructor"
    ],
-   "x": 1162.8,
-   "y": 103.4
+   "x": 31350.8,
+   "y": -16282.5
   },
   {
    "id": "src/hierarchy/index.js::node_copy",
@@ -340,8 +340,8 @@
    "aliases": [
     "Node.copy"
    ],
-   "x": 947.8,
-   "y": 171.2
+   "x": 31266.3,
+   "y": -16058
   },
   {
    "id": "src/hierarchy/index.js::objectChildren",
@@ -351,8 +351,8 @@
    "line": 49,
    "parent": null,
    "exported": false,
-   "x": 1167,
-   "y": 201.1
+   "x": 31408.7,
+   "y": -16214.5
   },
   {
    "id": "src/hierarchy/iterator.js::default",
@@ -365,8 +365,8 @@
    "aliases": [
     "Node.[Symbol.iterator]"
    ],
-   "x": 6911.6,
-   "y": 3993.4
+   "x": 22089.2,
+   "y": 37881.4
   },
   {
    "id": "src/hierarchy/leaves.js::default",
@@ -379,8 +379,8 @@
    "aliases": [
     "Node.leaves"
    ],
-   "x": 801.9,
-   "y": 130.4
+   "x": 31159.5,
+   "y": -15968.7
   },
   {
    "id": "src/hierarchy/links.js::default",
@@ -393,8 +393,8 @@
    "aliases": [
     "Node.links"
    ],
-   "x": 3803.2,
-   "y": -6821.2
+   "x": -5831.4,
+   "y": -40175.4
   },
   {
    "id": "src/hierarchy/path.js::default",
@@ -407,8 +407,8 @@
    "aliases": [
     "Node.path"
    ],
-   "x": -7231.9,
-   "y": 1660.5
+   "x": -33325.6,
+   "y": 10248.4
   },
   {
    "id": "src/hierarchy/path.js::leastCommonAncestor",
@@ -418,8 +418,8 @@
    "line": 17,
    "parent": null,
    "exported": false,
-   "x": -7252.1,
-   "y": 1582.6
+   "x": -33342,
+   "y": 10169.9
   },
   {
    "id": "src/hierarchy/sort.js::default",
@@ -432,8 +432,8 @@
    "aliases": [
     "Node.sort"
    ],
-   "x": 870.9,
-   "y": 18.5
+   "x": 31066.7,
+   "y": -16087.2
   },
   {
    "id": "src/hierarchy/sum.js::default",
@@ -446,8 +446,8 @@
    "aliases": [
     "Node.sum"
    ],
-   "x": 92.5,
-   "y": 66.2
+   "x": 30740.3,
+   "y": -15400.3
   },
   {
    "id": "src/lcg.js::a",
@@ -457,8 +457,8 @@
    "line": 2,
    "parent": null,
    "exported": false,
-   "x": 160.2,
-   "y": -720.5
+   "x": 30119.7,
+   "y": -15738.7
   },
   {
    "id": "src/lcg.js::c",
@@ -468,8 +468,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": 115.5,
-   "y": -649.9
+   "x": 30082.5,
+   "y": -15817.1
   },
   {
    "id": "src/lcg.js::default",
@@ -479,8 +479,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 239.3,
-   "y": -630
+   "x": 30200.4,
+   "y": -15835.6
   },
   {
    "id": "src/lcg.js::m",
@@ -490,8 +490,8 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": 252.4,
-   "y": -750.6
+   "x": 30101.2,
+   "y": -15909.5
   },
   {
    "id": "src/pack/enclose.js::default",
@@ -501,8 +501,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": 0.4,
-   "y": -1046.6
+   "x": 29714.1,
+   "y": -15806.8
   },
   {
    "id": "src/pack/enclose.js::encloseBasis",
@@ -512,8 +512,8 @@
    "line": 68,
    "parent": null,
    "exported": false,
-   "x": -237.2,
-   "y": -1716.4
+   "x": 29008.3,
+   "y": -15881.4
   },
   {
    "id": "src/pack/enclose.js::encloseBasis1",
@@ -523,8 +523,8 @@
    "line": 76,
    "parent": null,
    "exported": false,
-   "x": -228.9,
-   "y": -1895.5
+   "x": 28852.3,
+   "y": -15967.5
   },
   {
    "id": "src/pack/enclose.js::encloseBasis2",
@@ -534,8 +534,8 @@
    "line": 84,
    "parent": null,
    "exported": false,
-   "x": -359,
-   "y": -1791.3
+   "x": 28903.9,
+   "y": -15864.8
   },
   {
    "id": "src/pack/enclose.js::encloseBasis3",
@@ -545,8 +545,8 @@
    "line": 96,
    "parent": null,
    "exported": false,
-   "x": -300.6,
-   "y": -1803.3
+   "x": 28885.2,
+   "y": -15807.3
   },
   {
    "id": "src/pack/enclose.js::enclosesNot",
@@ -556,8 +556,8 @@
    "line": 49,
    "parent": null,
    "exported": false,
-   "x": -478,
-   "y": -1813
+   "x": 28807.6,
+   "y": -15712.2
   },
   {
    "id": "src/pack/enclose.js::enclosesWeak",
@@ -567,8 +567,8 @@
    "line": 54,
    "parent": null,
    "exported": false,
-   "x": -354.2,
-   "y": -1558.1
+   "x": 29099.6,
+   "y": -15713.2
   },
   {
    "id": "src/pack/enclose.js::enclosesWeakAll",
@@ -578,8 +578,8 @@
    "line": 59,
    "parent": null,
    "exported": false,
-   "x": -460.6,
-   "y": -1672.3
+   "x": 28950.6,
+   "y": -15666.4
   },
   {
    "id": "src/pack/enclose.js::extendBasis",
@@ -589,8 +589,8 @@
    "line": 20,
    "parent": null,
    "exported": false,
-   "x": -349.6,
-   "y": -1682.7
+   "x": 28987.6,
+   "y": -15768.9
   },
   {
    "id": "src/pack/enclose.js::packEncloseRandom",
@@ -600,8 +600,8 @@
    "line": 8,
    "parent": null,
    "exported": true,
-   "x": -181.7,
-   "y": -1455.7
+   "x": 29266,
+   "y": -15818.5
   },
   {
    "id": "src/pack/index.js::default",
@@ -611,8 +611,8 @@
    "line": 10,
    "parent": null,
    "exported": true,
-   "x": 463.1,
-   "y": -259.8
+   "x": 30638.7,
+   "y": -15866.5
   },
   {
    "id": "src/pack/index.js::defaultRadius",
@@ -622,8 +622,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": 365.8,
-   "y": -336.2
+   "x": 30523.3,
+   "y": -15930.7
   },
   {
    "id": "src/pack/index.js::packChildrenRandom",
@@ -633,8 +633,8 @@
    "line": 55,
    "parent": null,
    "exported": false,
-   "x": 340.7,
-   "y": -613.2
+   "x": 30261.9,
+   "y": -15909.6
   },
   {
    "id": "src/pack/index.js::radiusLeaf",
@@ -644,8 +644,8 @@
    "line": 47,
    "parent": null,
    "exported": false,
-   "x": 340.7,
-   "y": -280.5
+   "x": 30512.1,
+   "y": -15869.2
   },
   {
    "id": "src/pack/index.js::translateChild",
@@ -655,8 +655,8 @@
    "line": 72,
    "parent": null,
    "exported": false,
-   "x": 457.7,
-   "y": -383.9
+   "x": 30558.6,
+   "y": -15780.4
   },
   {
    "id": "src/pack/siblings.js::default",
@@ -666,8 +666,8 @@
    "line": 117,
    "parent": null,
    "exported": true,
-   "x": 121.2,
-   "y": -927
+   "x": 29876,
+   "y": -15859.7
   },
   {
    "id": "src/pack/siblings.js::intersects",
@@ -677,8 +677,8 @@
    "line": 29,
    "parent": null,
    "exported": false,
-   "x": 7.5,
-   "y": -1275
+   "x": 29553.5,
+   "y": -15773.6
   },
   {
    "id": "src/pack/siblings.js::Node",
@@ -688,8 +688,8 @@
    "line": 43,
    "parent": null,
    "exported": false,
-   "x": -62.5,
-   "y": -1250.8
+   "x": 29501.1,
+   "y": -15831.2
   },
   {
    "id": "src/pack/siblings.js::packSiblingsRandom",
@@ -699,8 +699,8 @@
    "line": 49,
    "parent": null,
    "exported": true,
-   "x": 32.1,
-   "y": -1155.5
+   "x": 29627.2,
+   "y": -15872.1
   },
   {
    "id": "src/pack/siblings.js::place",
@@ -710,8 +710,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -86.6,
-   "y": -1176.8
+   "x": 29520.7,
+   "y": -15985.6
   },
   {
    "id": "src/pack/siblings.js::score",
@@ -721,8 +721,8 @@
    "line": 34,
    "parent": null,
    "exported": false,
-   "x": 75.6,
-   "y": -1305.6
+   "x": 29504.7,
+   "y": -15908.2
   },
   {
    "id": "src/partition.js::default",
@@ -732,8 +732,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": 926.5,
-   "y": 678.6
+   "x": 31665.7,
+   "y": -15738.6
   },
   {
    "id": "src/stratify.js::ambiguous",
@@ -743,8 +743,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": 1206,
-   "y": -184.6
+   "x": 31020.5,
+   "y": -16444.2
   },
   {
    "id": "src/stratify.js::default",
@@ -754,8 +754,8 @@
    "line": 16,
    "parent": null,
    "exported": true,
-   "x": 1047.9,
-   "y": -111.4
+   "x": 31121.6,
+   "y": -16305.2
   },
   {
    "id": "src/stratify.js::defaultId",
@@ -765,8 +765,8 @@
    "line": 8,
    "parent": null,
    "exported": false,
-   "x": 1120.7,
-   "y": -126.6
+   "x": 31072.9,
+   "y": -16367.7
   },
   {
    "id": "src/stratify.js::defaultParentId",
@@ -776,8 +776,8 @@
    "line": 12,
    "parent": null,
    "exported": false,
-   "x": 1065.4,
-   "y": -191.8
+   "x": 31153.5,
+   "y": -16375
   },
   {
    "id": "src/stratify.js::imputed",
@@ -787,8 +787,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": 1263,
-   "y": -131.5
+   "x": 31238.8,
+   "y": -16447.9
   },
   {
    "id": "src/stratify.js::normalize",
@@ -798,8 +798,8 @@
    "line": 118,
    "parent": null,
    "exported": false,
-   "x": 1242.2,
-   "y": -270
+   "x": 31183.8,
+   "y": -16554.3
   },
   {
    "id": "src/stratify.js::parentof",
@@ -809,8 +809,8 @@
    "line": 128,
    "parent": null,
    "exported": false,
-   "x": 1145.8,
-   "y": -221.8
+   "x": 31156.4,
+   "y": -16454.5
   },
   {
    "id": "src/stratify.js::preroot",
@@ -820,8 +820,8 @@
    "line": 4,
    "parent": null,
    "exported": false,
-   "x": 1214.2,
-   "y": -77.6
+   "x": 31082.8,
+   "y": -16495
   },
   {
    "id": "src/stratify.js::slash",
@@ -831,8 +831,8 @@
    "line": 138,
    "parent": null,
    "exported": false,
-   "x": 1329.4,
-   "y": -336.7
+   "x": 31209.2,
+   "y": -16664.6
   },
   {
    "id": "src/tree.js::<module>",
@@ -842,8 +842,8 @@
    "line": 74,
    "parent": null,
    "exported": false,
-   "x": 1215.7,
-   "y": 380.4
+   "x": 31606.7,
+   "y": -16185.9
   },
   {
    "id": "src/tree.js::default",
@@ -853,8 +853,8 @@
    "line": 100,
    "parent": null,
    "exported": true,
-   "x": 543,
-   "y": 157.4
+   "x": 31072.9,
+   "y": -15729.8
   },
   {
    "id": "src/tree.js::defaultSeparation",
@@ -864,8 +864,8 @@
    "line": 3,
    "parent": null,
    "exported": false,
-   "x": 549.1,
-   "y": 220.5
+   "x": 31030.8,
+   "y": -15681.5
   },
   {
    "id": "src/tree.js::executeShifts",
@@ -875,8 +875,8 @@
    "line": 40,
    "parent": null,
    "exported": false,
-   "x": 556,
-   "y": 314.2
+   "x": 31192.9,
+   "y": -15686.7
   },
   {
    "id": "src/tree.js::moveSubtree",
@@ -886,8 +886,8 @@
    "line": 28,
    "parent": null,
    "exported": false,
-   "x": 405.2,
-   "y": 244
+   "x": 31045.3,
+   "y": -15592.6
   },
   {
    "id": "src/tree.js::nextAncestor",
@@ -897,8 +897,8 @@
    "line": 56,
    "parent": null,
    "exported": false,
-   "x": 471.7,
-   "y": 267.7
+   "x": 31127.5,
+   "y": -15633.6
   },
   {
    "id": "src/tree.js::nextLeft",
@@ -908,8 +908,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": 472,
-   "y": 342.4
+   "x": 31133.7,
+   "y": -15554.9
   },
   {
    "id": "src/tree.js::nextRight",
@@ -919,8 +919,8 @@
    "line": 21,
    "parent": null,
    "exported": false,
-   "x": 436.2,
-   "y": 157.2
+   "x": 31211.7,
+   "y": -15601.5
   },
   {
    "id": "src/tree.js::TreeNode",
@@ -930,8 +930,8 @@
    "line": 60,
    "parent": null,
    "exported": false,
-   "x": 1026.5,
-   "y": 508.4
+   "x": 31621.8,
+   "y": -15966.6
   },
   {
    "id": "src/tree.js::treeRoot",
@@ -941,8 +941,8 @@
    "line": 76,
    "parent": null,
    "exported": false,
-   "x": 728,
-   "y": 389.7
+   "x": 31371.4,
+   "y": -15776.8
   },
   {
    "id": "src/treemap/binary.js::default",
@@ -952,8 +952,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 7043,
-   "y": -3607.8
+   "x": 30997.1,
+   "y": -43034
   },
   {
    "id": "src/treemap/dice.js::default",
@@ -963,8 +963,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 1119.8,
-   "y": 1474
+   "x": 32421.8,
+   "y": -15437.2
   },
   {
    "id": "src/treemap/index.js::default",
@@ -974,8 +974,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 666.2,
-   "y": -98.2
+   "x": 30875.7,
+   "y": -15957.6
   },
   {
    "id": "src/treemap/resquarify.js::<module>",
@@ -985,8 +985,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": 1174,
-   "y": 1730.7
+   "x": 32659.8,
+   "y": -15336.2
   },
   {
    "id": "src/treemap/round.js::default",
@@ -996,8 +996,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 801.2,
-   "y": 313.8
+   "x": 31283.8,
+   "y": -15842.4
   },
   {
    "id": "src/treemap/slice.js::default",
@@ -1007,8 +1007,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 1127.3,
-   "y": 1691.7
+   "x": 32601.7,
+   "y": -15318.1
   },
   {
    "id": "src/treemap/sliceDice.js::default",
@@ -1018,8 +1018,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": 1120.6,
-   "y": 1594.1
+   "x": 32518.6,
+   "y": -15368.2
   },
   {
    "id": "src/treemap/squarify.js::<module>",
@@ -1029,8 +1029,8 @@
    "line": 55,
    "parent": null,
    "exported": false,
-   "x": 1279.5,
-   "y": 1848.4
+   "x": 32815.2,
+   "y": -15355.6
   },
   {
    "id": "src/treemap/squarify.js::phi",
@@ -1040,8 +1040,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": 1217.1,
-   "y": 1897.5
+   "x": 32821,
+   "y": -15276.9
   },
   {
    "id": "src/treemap/squarify.js::squarifyRatio",
@@ -1051,8 +1051,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 1213.8,
-   "y": 1681.7
+   "x": 32642.2,
+   "y": -15396.2
   }
  ],
  "edges": [

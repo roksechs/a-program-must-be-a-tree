@@ -3,7 +3,7 @@
   "name": "d3-zoom",
   "root": "node_modules/d3-zoom",
   "language": "javascript",
-  "generatedAt": "2026-09-08T08:14:41.155Z",
+  "generatedAt": "2026-09-08T09:08:10.430Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 6
  },
@@ -16,8 +16,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -804.3,
-   "y": -1284
+   "x": 711.3,
+   "y": -1467.7
   },
   {
    "id": "src/event.js::ZoomEvent",
@@ -27,8 +27,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -831.1,
-   "y": -872.8
+   "x": 532.7,
+   "y": -1731.1
   },
   {
    "id": "src/noevent.js::default",
@@ -38,8 +38,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": -584.3,
-   "y": -1235.5
+   "x": 755.4,
+   "y": -1393.5
   },
   {
    "id": "src/noevent.js::nopropagation",
@@ -49,8 +49,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": -763,
-   "y": -1207.7
+   "x": 704.8,
+   "y": -1347.3
   },
   {
    "id": "src/transform.js::<module>",
@@ -60,8 +60,8 @@
    "line": 46,
    "parent": null,
    "exported": false,
-   "x": -394.3,
-   "y": -1498.5
+   "x": 500.4,
+   "y": -971.6
   },
   {
    "id": "src/transform.js::identity",
@@ -71,8 +71,8 @@
    "line": 44,
    "parent": null,
    "exported": true,
-   "x": -487.8,
-   "y": -1356.6
+   "x": 491.2,
+   "y": -1145.3
   },
   {
    "id": "src/transform.js::transform",
@@ -82,8 +82,8 @@
    "line": 48,
    "parent": null,
    "exported": true,
-   "x": -326.2,
-   "y": -1438.3
+   "x": 410.4,
+   "y": -988.9
   },
   {
    "id": "src/transform.js::Transform",
@@ -96,8 +96,8 @@
    "aliases": [
     "Transform.constructor"
    ],
-   "x": -554.6,
-   "y": -1406.7
+   "x": 574.3,
+   "y": -1134
   },
   {
    "id": "src/transform.js::Transform.apply",
@@ -107,8 +107,8 @@
    "line": 15,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": -510.8,
-   "y": -1199.3
+   "x": 408.8,
+   "y": -1299.8
   },
   {
    "id": "src/transform.js::Transform.applyX",
@@ -118,8 +118,8 @@
    "line": 18,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": -3476.9,
-   "y": 1782.6
+   "x": -18363.3,
+   "y": 14465.4
   },
   {
    "id": "src/transform.js::Transform.applyY",
@@ -129,8 +129,8 @@
    "line": 21,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": 2684.3,
-   "y": -2886.1
+   "x": 8244.9,
+   "y": -23688.8
   },
   {
    "id": "src/transform.js::Transform.invert",
@@ -140,8 +140,8 @@
    "line": 24,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": -639,
-   "y": -1062.8
+   "x": 455.7,
+   "y": -1453.7
   },
   {
    "id": "src/transform.js::Transform.invertX",
@@ -151,8 +151,8 @@
    "line": 27,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": -983.8,
-   "y": -1419.1
+   "x": 962.1,
+   "y": -1295.5
   },
   {
    "id": "src/transform.js::Transform.invertY",
@@ -162,8 +162,8 @@
    "line": 30,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": -876.9,
-   "y": -1541.2
+   "x": 916.9,
+   "y": -1146.5
   },
   {
    "id": "src/transform.js::Transform.rescaleX",
@@ -173,8 +173,8 @@
    "line": 33,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": -1146.6,
-   "y": -1448.4
+   "x": 1129.7,
+   "y": -1326.4
   },
   {
    "id": "src/transform.js::Transform.rescaleY",
@@ -184,8 +184,8 @@
    "line": 36,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": -958.8,
-   "y": -1673.8
+   "x": 1055.9,
+   "y": -1061.6
   },
   {
    "id": "src/transform.js::Transform.scale",
@@ -195,8 +195,8 @@
    "line": 9,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": -600.5,
-   "y": -1356.7
+   "x": 576.6,
+   "y": -1202.6
   },
   {
    "id": "src/transform.js::Transform.toString",
@@ -206,8 +206,8 @@
    "line": 39,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": -4175.4,
-   "y": -582.7
+   "x": -23743.8,
+   "y": -233.9
   },
   {
    "id": "src/transform.js::Transform.translate",
@@ -217,8 +217,8 @@
    "line": 12,
    "parent": "src/transform.js::Transform",
    "exported": false,
-   "x": -671.6,
-   "y": -1397.9
+   "x": 665.6,
+   "y": -1192.4
   },
   {
    "id": "src/zoom.js::default",
@@ -228,8 +228,8 @@
    "line": 53,
    "parent": null,
    "exported": true,
-   "x": -674.6,
-   "y": -1248.5
+   "x": 594.3,
+   "y": -1326
   },
   {
    "id": "src/zoom.js::default/emit",
@@ -239,8 +239,8 @@
    "line": 217,
    "parent": "src/zoom.js::default",
    "exported": false,
-   "x": -770.4,
-   "y": -1039.7
+   "x": 555.4,
+   "y": -1554.3
   },
   {
    "id": "src/zoom.js::default/end",
@@ -250,8 +250,8 @@
    "line": 210,
    "parent": "src/zoom.js::default",
    "exported": false,
-   "x": -743.6,
-   "y": -1111.4
+   "x": 571.3,
+   "y": -1480.6
   },
   {
    "id": "src/zoom.js::default/event",
@@ -261,8 +261,8 @@
    "line": 191,
    "parent": "src/zoom.js::default",
    "exported": false,
-   "x": -572.2,
-   "y": -1094
+   "x": 418.1,
+   "y": -1379.9
   },
   {
    "id": "src/zoom.js::default/start",
@@ -272,8 +272,8 @@
    "line": 195,
    "parent": "src/zoom.js::default",
    "exported": false,
-   "x": -810.8,
-   "y": -1105.4
+   "x": 624.5,
+   "y": -1523.5
   },
   {
    "id": "src/zoom.js::default/zoom",
@@ -283,8 +283,8 @@
    "line": 202,
    "parent": "src/zoom.js::default",
    "exported": false,
-   "x": -699.1,
-   "y": -1049.6
+   "x": 499.9,
+   "y": -1501.5
   },
   {
    "id": "src/zoom.js::defaultConstrain",
@@ -294,8 +294,8 @@
    "line": 42,
    "parent": null,
    "exported": false,
-   "x": -773,
-   "y": -1364.7
+   "x": 739,
+   "y": -1262.1
   },
   {
    "id": "src/zoom.js::defaultExtent",
@@ -305,8 +305,8 @@
    "line": 17,
    "parent": null,
    "exported": false,
-   "x": -637.8,
-   "y": -1160.7
+   "x": 663.2,
+   "y": -1273.1
   },
   {
    "id": "src/zoom.js::defaultFilter",
@@ -316,8 +316,8 @@
    "line": 13,
    "parent": null,
    "exported": false,
-   "x": -517.7,
-   "y": -1132.8
+   "x": 486.6,
+   "y": -1308.8
   },
   {
    "id": "src/zoom.js::defaultTouchable",
@@ -327,8 +327,8 @@
    "line": 38,
    "parent": null,
    "exported": false,
-   "x": -713.6,
-   "y": -1327.6
+   "x": 643.9,
+   "y": -1417.9
   },
   {
    "id": "src/zoom.js::defaultTransform",
@@ -338,8 +338,8 @@
    "line": 30,
    "parent": null,
    "exported": false,
-   "x": -513.3,
-   "y": -1289.7
+   "x": 475,
+   "y": -1217.5
   },
   {
    "id": "src/zoom.js::defaultWheelDelta",
@@ -349,8 +349,8 @@
    "line": 34,
    "parent": null,
    "exported": false,
-   "x": -846.3,
-   "y": -1212.2
+   "x": 522.5,
+   "y": -1387.3
   }
  ],
  "edges": [

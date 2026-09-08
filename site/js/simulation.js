@@ -202,6 +202,19 @@ function shapeOf(nodes) {
 }
 
 /**
+ * Coordinates a layout can still be one at. A diverging run leaves the graph
+ * spread over distances no camera frames and no quadtree survives, so this is
+ * the line between "expanded" and "thrown apart".
+ */
+const RUNAWAY = 1e7;
+function withinBounds(nodes) {
+  for (const n of nodes) {
+    if (!Number.isFinite(n.x) || !Number.isFinite(n.y) || Math.abs(n.x) > RUNAWAY || Math.abs(n.y) > RUNAWAY) return false;
+  }
+  return true;
+}
+
+/**
  * Run the layout to a stop, off any animation frame, and report progress.
  *
  * Used by the build step and by the worker that runs an in-browser analysis,
@@ -247,7 +260,7 @@ function shapeOf(nodes) {
  *
  * `maxTicks` is only a backstop against a graph that never settles at all.
  */
-export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, settled = 0.02, maxRuns = 12, maxTicks = 40000, chunk = 50 } = {}) {
+export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, settled = 0.02, heat = 16, improve = 0.9, maxRuns = 12, maxTicks = 40000, chunk = 50 } = {}) {
   if (graph.nodes.length === 0) return { ticks: 0, runs: 0, reason: "empty" };
   const sim = createSimulation(graph, physics);
   let ticks = 0;
@@ -255,10 +268,14 @@ export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, settled
   let reason = "settled";
   let beforeRun = shapeOf(graph.nodes);
   let bestDrift = Infinity;
+  let temperature = heat;
   while (ticks < maxTicks && runs < maxRuns) {
-    // One annealing run: alpha back to 1, cooling to alphaMin.
-    sim.alpha(1);
+    // One annealing run, from `temperature` down to alphaMin. A snapshot
+    // first: a run hot enough to diverge has to be undoable.
+    const snapshot = graph.nodes.map((n) => ({ x: n.x, y: n.y }));
+    sim.alpha(temperature);
     runs++;
+    let diverged = false;
     let previous = shapeOf(graph.nodes);
     let quietChunks = 0;
     while (ticks < maxTicks && sim.alpha() > sim.alphaMin()) {
@@ -266,6 +283,10 @@ export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, settled
       for (let i = 0; i < chunk && ticks < maxTicks && sim.alpha() > sim.alphaMin(); i++) {
         sim.tick();
         ticks++;
+      }
+      if (!withinBounds(graph.nodes)) {
+        diverged = true;
+        break;
       }
       const now = shapeOf(graph.nodes);
       let moved = 0;
@@ -275,6 +296,27 @@ export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, settled
       onProgress?.({ ticks, runs, maxTicks, alpha: sim.alpha() });
       quietChunks = perTick < quiet ? quietChunks + 1 : 0;
       if (quietChunks >= 2) break;
+    }
+    if (diverged) {
+      // Put the layout back and try again cooler. Explicit Euler with a big
+      // enough step does not settle, it throws the graph apart: measured on
+      // this repository, a run starting at 48 was past any usable extent
+      // within 50 ticks, and the quadtree the repulsion builds subdivides
+      // until it exhausts memory. 16 diverged on none of the twelve datasets
+      // here, but "none of twelve" is not "none", so this is the way out.
+      graph.nodes.forEach((n, i) => {
+        n.x = snapshot[i].x;
+        n.y = snapshot[i].y;
+        n.vx = 0;
+        n.vy = 0;
+      });
+      beforeRun = shapeOf(graph.nodes);
+      if (temperature <= 1) {
+        reason = "diverged";
+        break;
+      }
+      temperature = Math.max(1, temperature / 4);
+      continue;
     }
     // How much did this run change the picture?
     const afterRun = shapeOf(graph.nodes);
@@ -295,7 +337,21 @@ export function settleLayout(graph, physics, { onProgress, quiet = 1e-5, settled
     // picks among them. Waiting for such a graph to fall under a fixed
     // threshold means waiting forever, which is exactly what a first attempt
     // at this did — eight of twelve datasets ran to the tick cap.
-    if (drift > bestDrift * 0.9) {
+    //
+    // On `heat`: alpha is d3's cooling parameter and by convention runs from
+    // 1, but nothing clamps it — it is only the multiplier on each tick's
+    // displacement, so a larger one explores further before the schedule
+    // brings it down. Starting each run at 16 rather than 1 was measured
+    // across the ten datasets here by the thing that actually bothered
+    // someone: how far a subsequent press of "Recompute (reheat)" moves the
+    // picture. Starting at 1 was the worst of the temperatures tried on nine
+    // of the ten; on this repository's own graph a single run from 16 reached
+    // 0.008 in 3,200 ticks where repeated runs from 1 reached only 0.048 in
+    // 5,800. It is not a trick of scale — a hot run does leave the layout
+    // several times larger, but uniformly scaling a cold layout up to the
+    // same size makes it *worse* (0.13 to 0.27), because that pulls every
+    // spring off its rest length.
+    if (drift > bestDrift * improve) {
       reason = "floor";
       break;
     }

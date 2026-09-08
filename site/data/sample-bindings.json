@@ -3,7 +3,7 @@
   "name": "sample-bindings",
   "root": "samples/bindings",
   "language": "javascript",
-  "generatedAt": "2026-09-08T08:14:42.063Z",
+  "generatedAt": "2026-09-08T09:08:12.611Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 7
  },
@@ -19,8 +19,8 @@
    "aliases": [
     "helper"
    ],
-   "x": -3046.4,
-   "y": -1816.8
+   "x": -13120.9,
+   "y": -4472
   },
   {
    "id": "cjs.js::run",
@@ -30,8 +30,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": -3077.6,
-   "y": -1746.5
+   "x": -13066.8,
+   "y": -4417.5
   },
   {
    "id": "late.js::app",
@@ -41,8 +41,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 1610,
-   "y": -978
+   "x": -1478.3,
+   "y": 4579.3
   },
   {
    "id": "late.js::app.handler",
@@ -53,8 +53,8 @@
    "parent": "late.js::app",
    "exported": false,
    "late": true,
-   "x": 1532.4,
-   "y": -1037.2
+   "x": -1521.6,
+   "y": 4490.5
   },
   {
    "id": "late.js::init",
@@ -64,8 +64,8 @@
    "line": 8,
    "parent": null,
    "exported": true,
-   "x": 1509.7,
-   "y": -926.1
+   "x": -1549.8,
+   "y": 4624.9
   },
   {
    "id": "late.js::route",
@@ -75,8 +75,8 @@
    "line": 14,
    "parent": null,
    "exported": true,
-   "x": 1568.1,
-   "y": -904.2
+   "x": -1592.6,
+   "y": 4579
   },
   {
    "id": "main.js::main",
@@ -86,8 +86,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": 1503,
-   "y": -766.2
+   "x": -1671.6,
+   "y": 4717
   },
   {
    "id": "namespace.js::chart.scale",
@@ -97,8 +97,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 1436,
-   "y": -712.9
+   "x": -1754.8,
+   "y": 4742.9
   },
   {
    "id": "namespace.js::chart.scale.linear",
@@ -108,8 +108,8 @@
    "line": 7,
    "parent": "namespace.js::chart.scale",
    "exported": true,
-   "x": 1518.3,
-   "y": -615.5
+   "x": -1717.2,
+   "y": 4863.6
   },
   {
    "id": "namespace.js::interpolate",
@@ -119,8 +119,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": 1545.3,
-   "y": -478.2
+   "x": -1749.8,
+   "y": 4999.5
   },
   {
    "id": "prototype.js::add",
@@ -133,8 +133,8 @@
    "aliases": [
     "Moment.add"
    ],
-   "x": 1243.3,
-   "y": -851.7
+   "x": -1868.6,
+   "y": 4532.4
   },
   {
    "id": "prototype.js::Moment",
@@ -144,8 +144,8 @@
    "line": 3,
    "parent": null,
    "exported": true,
-   "x": 1646.7,
-   "y": -706
+   "x": -1563.6,
+   "y": 4831.3
   },
   {
    "id": "prototype.js::Moment.isValid",
@@ -155,8 +155,8 @@
    "line": 17,
    "parent": "prototype.js::Moment",
    "exported": false,
-   "x": 1370.3,
-   "y": -809.6
+   "x": -1772.6,
+   "y": 4622.4
   },
   {
    "id": "prototype.js::Moment.utc",
@@ -166,8 +166,8 @@
    "line": 22,
    "parent": "prototype.js::Moment",
    "exported": true,
-   "x": 1593.1,
-   "y": -739.4
+   "x": -1608.3,
+   "y": 4786.3
   },
   {
    "id": "prototype.js::proto",
@@ -177,8 +177,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": 1767.6,
-   "y": -651.4
+   "x": -1473.2,
+   "y": 4929.5
   },
   {
    "id": "store.js::<module>",
@@ -188,8 +188,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": 956.6,
-   "y": -239.4
+   "x": -2408.4,
+   "y": 4907.3
   },
   {
    "id": "store.js::build",
@@ -199,8 +199,8 @@
    "line": 19,
    "parent": null,
    "exported": false,
-   "x": 763.1,
-   "y": -52.3
+   "x": -2671.3,
+   "y": 4966.9
   },
   {
    "id": "store.js::list",
@@ -210,8 +210,8 @@
    "line": 14,
    "parent": null,
    "exported": false,
-   "x": 845.9,
-   "y": -132
+   "x": -2559.6,
+   "y": 4942.5
   },
   {
    "id": "store.js::setup",
@@ -221,8 +221,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": 1312.9,
-   "y": -587.6
+   "x": -1925.3,
+   "y": 4785.8
   },
   {
    "id": "util.js::save",
@@ -232,8 +232,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": 1109.3,
-   "y": -388.5
+   "x": -2200.9,
+   "y": 4856.4
   },
   {
    "id": "util.js::tick",
@@ -243,8 +243,8 @@
    "line": 1,
    "parent": null,
    "exported": true,
-   "x": 1538.7,
-   "y": -1161.4
+   "x": -1461.3,
+   "y": 4381.2
   }
  ],
  "edges": [

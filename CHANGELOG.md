@@ -8,6 +8,22 @@ The section for a version becomes the notes of its GitHub release
 
 ### The physics runs only when asked, and datasets carry their layout
 
+* **Each annealing run starts at an alpha of 16, not 1.** Alpha is d3's
+  cooling parameter and by convention runs from 1, but nothing clamps it — it
+  is only the multiplier on each tick's displacement, so a larger one
+  explores further before the schedule brings it down. Measured across the
+  ten datasets here by how far a subsequent press of "Recompute (reheat)"
+  moves the picture: starting at 1 was the worst temperature tried on nine of
+  the ten. On a 2,138-declaration project the layout went from moving 0.45 of
+  its median radius on a reheat to 0.07, in 4,150 ticks against the 16,000
+  the previous approach spent. Not a trick of scale — scaling a cold layout
+  up to a hot one's size makes it worse (0.13 to 0.27), since that pulls
+  every spring off its rest length.
+* A run that diverges is undone and retried a quarter as hot. This is
+  explicit Euler: with a big enough step it does not settle but throws the
+  graph apart — a run starting at 48 was past any usable extent within 50
+  ticks and exhausted memory building the repulsion's quadtree.
+
 * **The camera frames a document when it is installed**, and still never
   moves on its own while a run is going or when one settles — the moments a
   view may already have been framed by hand. This is required by the change
