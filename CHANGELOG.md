@@ -8,6 +8,15 @@ The section for a version becomes the notes of its GitHub release
 
 ### The physics runs only when asked, and datasets carry their layout
 
+* **The camera frames a document when it is installed**, and still never
+  moves on its own while a run is going or when one settles — the moments a
+  view may already have been framed by hand. This is required by the change
+  below, not a taste: a graph used to arrive on the seed, a compact disc
+  around the origin the default camera happened to show, and grow into its
+  real extent while the user watched. Carrying a settled layout means it
+  arrives at that extent — tens of thousands of units across, centred
+  wherever the physics left it — and opening a document without the fit
+  painted between almost nothing and, for `d3-shape`, nothing at all.
 * **A graph opens laid out, having run nothing.** A document may now carry
   `x`/`y` per declaration (`docs/DATA_FORMAT.md`), and `npm run build:data`
   settles every published dataset into one. The viewer opens on it; a document

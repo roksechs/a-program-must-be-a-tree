@@ -339,9 +339,22 @@ function installGraph(doc, label) {
   panel.setDataInfo({ label, nodes: graph.nodes.length, edges: graph.links.length, files: graph.containers.filter((c) => c.isFile).length });
   updateZones();
 
-  // The camera is never moved on its own — not on load, not while the
-  // simulation is running, not once it settles. "Fit to view" is the only
-  // way the view reframes; the user asks for it, or does not.
+  // Frame the graph that just arrived, and only then. The camera is still
+  // never moved on its own while the simulation is running or once it
+  // settles: those are the moments the user may already have framed a view
+  // by hand, and overriding it would take the view away from them. A
+  // document being installed is not one of them — nobody can have framed a
+  // graph that did not exist a moment ago.
+  //
+  // It is also no longer optional. A graph used to arrive on the phyllotaxis
+  // seed, a compact disc around the origin that the default camera happened
+  // to show, and to grow into its real extent while the user watched. Now it
+  // arrives at that extent: tens of thousands of units across and centred
+  // wherever the physics left it, since nothing pulls it toward the origin.
+  // Measured on the datasets in this repository, opening one without this
+  // painted between "almost nothing" and, for d3-shape, literally nothing.
+  renderer.fit();
+
   const sim = createSimulation(graph, state.physics);
   sim.on("tick", () => renderer.tick());
   // A run that reaches its end is worth keeping: settling this graph again

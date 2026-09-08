@@ -354,13 +354,22 @@ Nothing defines a centre. Two attempts at one were removed:
   plane where no point should be special.
 
 Where the graph sits is therefore a question for the camera, not the physics:
-"Fit to view" frames whatever the simulation produced. Nothing calls it on the
-app's own initiative — not a fresh load, not a run settling — only the button
-itself, Top view, and orbiting away from Top view ever move the camera. A run
-can take a while to settle (see `alphaDecay` above), long enough for the user
-to have framed their own view of it by hand in the meantime; an automatic fit
-firing at whatever moment that happens to end would override a camera they
-already took hold of, so there is no automatic fit to fire.
+"Fit to view" frames whatever the simulation produced. It runs once, when a
+document is installed, and never again on the app's own initiative — not
+while a run is going, not when one settles. Those are the moments the user
+may already have framed a view by hand, and an automatic fit firing at
+whatever moment a run happens to end would take that view away from them. A
+document being installed is not one of them: nobody can have framed a graph
+that did not exist a moment ago.
+
+The fit at install is not a convenience. A graph used to arrive on the
+phyllotaxis seed — a compact disc around the origin that the default camera
+happened to show — and to grow into its real extent while the user watched.
+Now that documents carry a settled layout (below) it arrives at that extent:
+tens of thousands of units across, centred wherever the physics left it,
+since nothing pulls it toward the origin. Measured across the datasets in
+this repository, opening one without the fit painted between almost nothing
+and, for `d3-shape`, nothing at all.
 
 Directories and files have no influence on the physics: no force reads the
 containers, and the initial positions are seeded on a spiral in declaration
