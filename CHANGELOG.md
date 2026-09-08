@@ -6,6 +6,43 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### The physics runs only when asked, and datasets carry their layout
+
+* **A graph opens laid out, having run nothing.** A document may now carry
+  `x`/`y` per declaration (`docs/DATA_FORMAT.md`), and `npm run build:data`
+  settles every published dataset into one. The viewer opens on it; a document
+  without a layout opens on the deterministic seed and says so in the status
+  line.
+* **"Recompute (reheat)" is the only thing that starts a run.** The
+  simulation is created stopped. Opening a document, changing a slider and
+  toggling an edge kind no longer set anything in motion — the parameters are
+  stored and take effect on the next run.
+* Why: a tick costs the whole graph. Both forces are node-against-node, so
+  the cost is set by the node count and barely moves with the edges. Measured
+  in a browser at 2,138 nodes with positions held fixed so the edge count was
+  the only variable, a tick is 21–25ms from 0 edges to 8,000 while drawing
+  adds ~1.3µs per edge — and `alphaDecay` runs ~2,300 of them. That was forty
+  seconds of an unscrollable page on every open, whether or not the layout
+  needed redoing.
+* Settling cannot simply be moved off the main thread instead: on a
+  2,600-declaration codebase the layout is still visibly moving at 800 ticks
+  and only stops near 2,400, which is 86 seconds. Affordable in a build,
+  impossible on the machine of whoever opens the page.
+* **A run that finishes is kept.** Its positions are written back into the
+  document, and for an analysis from "Recently opened", back into IndexedDB —
+  so reopening a folder is instant and already settled.
+* `scripts/settle.mjs` imports `site/js/simulation.js` rather than
+  reimplementing the forces, so a stored layout is a point this physics would
+  really have reached and pressing reheat does not make the graph jump.
+* Removed two dead callbacks: `onDragStart`/`onDragEnd` were wired in `app.js`
+  but never called — `graph3d.js`'s drag is the camera, not a node.
+* One consequence is now visible immediately rather than after forty seconds
+  of drift: a component connected to nothing else has no spring holding it to
+  anything, so the unbounded repulsion pushes it away without limit and a
+  settled layout has its islands very far out. "Fit to view" frames all of it,
+  which makes the main body small. That is the documented physics doing what
+  it says; the Islands diagnostic, not the camera, is the way to those pieces.
+
 ### Analyzer: two ways a declaration could end up unreachable by construction
 
 `analyzers/ts@0.8.0`. Pointing the new islands diagnostic at a real

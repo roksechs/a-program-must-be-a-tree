@@ -95,6 +95,15 @@ export function createSimulation(graph, physics) {
     .force("collide", d3.forceCollide().radius((n) => n.radius + 2).iterations(1))
     .alphaDecay(physics.alphaDecay)
     .velocityDecay(VELOCITY_DECAY);
+  // Created cold. d3 starts a simulation the moment it is made, and every
+  // tick of it costs the whole graph: the two forces are the repulsion and
+  // the collide core, both of which are node-against-node, so a 2,138-node
+  // graph spends ~22ms per tick before anything is drawn and keeps that up
+  // for the ~2,300 ticks the slow `alphaDecay` above buys — 40 seconds of a
+  // page that cannot be scrolled smoothly, whether or not the layout needed
+  // redoing. Nothing here starts on its own; "Recompute (reheat)" is the one
+  // thing that does.
+  sim.stop();
   return sim;
 }
 
@@ -126,4 +135,37 @@ export function seedPositions(graph) {
     n.fx = null;
     n.fy = null;
   });
+}
+
+/**
+ * Start from the layout the document carried, if it carried one.
+ *
+ * Settling a graph is slow in a way no amount of tuning fixes: on a
+ * 2,600-declaration codebase the layout is still visibly moving after 800
+ * ticks and only stops near 2,400, which is 86 seconds of physics. That is
+ * affordable once, in a build step, and not at all on the machine of whoever
+ * opens the page. So a document may carry `x`/`y` per declaration
+ * (docs/DATA_FORMAT.md) and the viewer opens on it without running anything.
+ *
+ * Returns false when there is nothing to apply, so the caller can fall back
+ * to `seedPositions`. Partial layouts are refused rather than half-applied:
+ * a few nodes at the origin among settled ones reads as a bug, and the seed
+ * is a better starting point than that.
+ */
+export function applyStoredLayout(graph) {
+  if (graph.nodes.length === 0 || !graph.nodes.every((n) => Number.isFinite(n.storedX) && Number.isFinite(n.storedY))) return false;
+  for (const n of graph.nodes) {
+    n.x = n.storedX;
+    n.y = n.storedY;
+    n.vx = 0;
+    n.vy = 0;
+    n.fx = null;
+    n.fy = null;
+  }
+  return true;
+}
+
+/** The current layout, in the shape docs/DATA_FORMAT.md stores it. */
+export function layoutOf(graph) {
+  return graph.nodes.map((n) => ({ id: n.id, x: n.x, y: n.y }));
 }

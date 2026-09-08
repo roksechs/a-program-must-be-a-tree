@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { buildGraph } from "../site/js/model.js";
 import { visibleContainers } from "../site/js/zones.js";
-import { DEFAULT_PHYSICS, seedPositions } from "../site/js/simulation.js";
+import { DEFAULT_PHYSICS, applyStoredLayout, layoutOf, seedPositions } from "../site/js/simulation.js";
 
 const decl = (id, file) => ({ id, name: id, kind: "function", file });
 
@@ -57,4 +57,39 @@ test("physics has no container-dependent parameters and seeding ignores files", 
     a.nodes.map((n) => [n.x, n.y]),
     b.nodes.map((n) => [n.x, n.y]),
   );
+});
+
+test("a document's stored layout is used when it is complete, and ignored when it is not", () => {
+  const doc = (positions) => ({
+    declarations: [
+      { id: "a", name: "a", kind: "function", file: "src/a.js", ...(positions[0] ?? {}) },
+      { id: "b", name: "b", kind: "function", file: "src/a.js", ...(positions[1] ?? {}) },
+    ],
+    edges: [{ source: "a", target: "b", kind: "call" }],
+  });
+
+  const full = buildGraph(doc([{ x: 10, y: -20 }, { x: 30, y: 40 }]));
+  assert.equal(applyStoredLayout(full), true);
+  assert.deepEqual(
+    full.nodes.map((n) => [n.x, n.y]),
+    [
+      [10, -20],
+      [30, 40],
+    ],
+  );
+
+  // Half a layout is worse than none: settled nodes beside nodes at the
+  // origin read as a bug, so the caller falls back to the seed instead.
+  const partial = buildGraph(doc([{ x: 10, y: -20 }]));
+  assert.equal(applyStoredLayout(partial), false);
+  const none = buildGraph(doc([]));
+  assert.equal(applyStoredLayout(none), false);
+
+  // And what it hands back is what the format stores.
+  seedPositions(none);
+  assert.deepEqual(
+    layoutOf(none).map((p) => p.id),
+    ["a", "b"],
+  );
+  assert.ok(layoutOf(none).every((p) => Number.isFinite(p.x) && Number.isFinite(p.y)));
 });

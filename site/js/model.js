@@ -31,6 +31,12 @@ export function buildGraph(doc) {
       exported: Boolean(d.exported),
       dirs,
       fileName,
+      // A layout the document carried (docs/DATA_FORMAT.md), kept apart from
+      // the live `x`/`y` the simulation writes so that reseeding never
+      // destroys it. simulation.js's applyStoredLayout decides whether it is
+      // complete enough to open on.
+      storedX: typeof d.x === "number" ? d.x : null,
+      storedY: typeof d.y === "number" ? d.y : null,
       inDegree: 0,
       outDegree: 0,
       height: 0,

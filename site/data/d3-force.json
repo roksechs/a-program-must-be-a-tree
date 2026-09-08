@@ -3,7 +3,7 @@
   "name": "d3-force",
   "root": "node_modules/d3-force",
   "language": "javascript",
-  "generatedAt": "2026-09-08T06:21:57.103Z",
+  "generatedAt": "2026-09-08T06:51:40.513Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 12
  },
@@ -15,7 +15,9 @@
    "file": "src/center.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 1513.9,
+   "y": 1615
   },
   {
    "id": "src/collide.js::default",
@@ -24,7 +26,9 @@
    "file": "src/collide.js",
    "line": 13,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -187.3,
+   "y": 1002.8
   },
   {
    "id": "src/collide.js::x",
@@ -33,7 +37,9 @@
    "file": "src/collide.js",
    "line": 5,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -200.3,
+   "y": 1139
   },
   {
    "id": "src/collide.js::y",
@@ -42,7 +48,9 @@
    "file": "src/collide.js",
    "line": 9,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -108.4,
+   "y": 1107.7
   },
   {
    "id": "src/constant.js::default",
@@ -51,7 +59,9 @@
    "file": "src/constant.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -257.6,
+   "y": 915
   },
   {
    "id": "src/jiggle.js::default",
@@ -60,7 +70,9 @@
    "file": "src/jiggle.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -196.6,
+   "y": 872.5
   },
   {
    "id": "src/lcg.js::a",
@@ -69,7 +81,9 @@
    "file": "src/lcg.js",
    "line": 2,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 611,
+   "y": -735.6
   },
   {
    "id": "src/lcg.js::c",
@@ -78,7 +92,9 @@
    "file": "src/lcg.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 487.9,
+   "y": -619.9
   },
   {
    "id": "src/lcg.js::default",
@@ -87,7 +103,9 @@
    "file": "src/lcg.js",
    "line": 6,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 471.8,
+   "y": -753.8
   },
   {
    "id": "src/lcg.js::m",
@@ -96,7 +114,9 @@
    "file": "src/lcg.js",
    "line": 4,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 571.9,
+   "y": -654.3
   },
   {
    "id": "src/link.js::default",
@@ -105,7 +125,9 @@
    "file": "src/link.js",
    "line": 14,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -289.5,
+   "y": 791.6
   },
   {
    "id": "src/link.js::find",
@@ -114,7 +136,9 @@
    "file": "src/link.js",
    "line": 8,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -317.7,
+   "y": 670.8
   },
   {
    "id": "src/link.js::index",
@@ -123,7 +147,9 @@
    "file": "src/link.js",
    "line": 4,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -362.2,
+   "y": 745.1
   },
   {
    "id": "src/manyBody.js::default",
@@ -132,7 +158,9 @@
    "file": "src/manyBody.js",
    "line": 6,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -119.7,
+   "y": 883.5
   },
   {
    "id": "src/radial.js::default",
@@ -141,7 +169,9 @@
    "file": "src/radial.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -381.3,
+   "y": 979.2
   },
   {
    "id": "src/simulation.js::default",
@@ -150,7 +180,9 @@
    "file": "src/simulation.js",
    "line": 16,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 342.1,
+   "y": -882.7
   },
   {
    "id": "src/simulation.js::default/alpha",
@@ -159,7 +191,9 @@
    "file": "src/simulation.js",
    "line": 101,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 408.3,
+   "y": -952.7
   },
   {
    "id": "src/simulation.js::default/alphaDecay",
@@ -168,7 +202,9 @@
    "file": "src/simulation.js",
    "line": 109,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 252.8,
+   "y": -842.2
   },
   {
    "id": "src/simulation.js::default/alphaMin",
@@ -177,7 +213,9 @@
    "file": "src/simulation.js",
    "line": 105,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 322.2,
+   "y": -981.5
   },
   {
    "id": "src/simulation.js::default/alphaTarget",
@@ -186,7 +224,9 @@
    "file": "src/simulation.js",
    "line": 113,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 309.4,
+   "y": -757.2
   },
   {
    "id": "src/simulation.js::default/find",
@@ -195,7 +235,9 @@
    "file": "src/simulation.js",
    "line": 129,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 249.9,
+   "y": -935.1
   },
   {
    "id": "src/simulation.js::default/force",
@@ -204,7 +246,9 @@
    "file": "src/simulation.js",
    "line": 125,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 477.3,
+   "y": -977
   },
   {
    "id": "src/simulation.js::default/nodes",
@@ -213,7 +257,9 @@
    "file": "src/simulation.js",
    "line": 97,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 172.5,
+   "y": -857
   },
   {
    "id": "src/simulation.js::default/on",
@@ -222,7 +268,9 @@
    "file": "src/simulation.js",
    "line": 152,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 311.5,
+   "y": -1057.9
   },
   {
    "id": "src/simulation.js::default/randomSource",
@@ -231,7 +279,9 @@
    "file": "src/simulation.js",
    "line": 121,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 381.4,
+   "y": -805.1
   },
   {
    "id": "src/simulation.js::default/restart",
@@ -240,7 +290,9 @@
    "file": "src/simulation.js",
    "line": 89,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 173.6,
+   "y": -944.9
   },
   {
    "id": "src/simulation.js::default/stop",
@@ -249,7 +301,9 @@
    "file": "src/simulation.js",
    "line": 93,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 400.2,
+   "y": -1041.2
   },
   {
    "id": "src/simulation.js::default/velocityDecay",
@@ -258,7 +312,9 @@
    "file": "src/simulation.js",
    "line": 117,
    "parent": "src/simulation.js::default",
-   "exported": false
+   "exported": false,
+   "x": 224.1,
+   "y": -770.2
   },
   {
    "id": "src/simulation.js::initialAngle",
@@ -267,7 +323,9 @@
    "file": "src/simulation.js",
    "line": 14,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 229.7,
+   "y": -1021.4
   },
   {
    "id": "src/simulation.js::initialRadius",
@@ -276,7 +334,9 @@
    "file": "src/simulation.js",
    "line": 13,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 462.4,
+   "y": -883.1
   },
   {
    "id": "src/simulation.js::x",
@@ -285,7 +345,9 @@
    "file": "src/simulation.js",
    "line": 5,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 3,
+   "y": 920.9
   },
   {
    "id": "src/simulation.js::y",
@@ -294,7 +356,9 @@
    "file": "src/simulation.js",
    "line": 9,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -14.6,
+   "y": 822.4
   },
   {
    "id": "src/x.js::default",
@@ -303,7 +367,9 @@
    "file": "src/x.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -312.4,
+   "y": 1021.7
   },
   {
    "id": "src/y.js::default",
@@ -312,7 +378,9 @@
    "file": "src/y.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -375,
+   "y": 898.6
   }
  ],
  "edges": [

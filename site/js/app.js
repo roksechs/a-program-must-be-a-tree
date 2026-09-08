@@ -9,7 +9,7 @@ import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, 
 import { applyActiveKinds, buildGraph } from "./model.js";
 import { CUSTOM_OPTION, Panel } from "./panel.js";
 import { pathBetween } from "./paths.js";
-import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
+import { DEFAULT_PHYSICS, applyPhysics, applyStoredLayout, createSimulation, layoutOf, seedPositions } from "./simulation.js";
 import { visibleContainers } from "./zones.js";
 
 const state = {
@@ -40,6 +40,12 @@ const state = {
   // analysis that looks wrong without having to reproduce it.
   doc: null,
   docLabel: null,
+  // The "Recently opened" entry the current document came from, when it came
+  // from one. A layout is expensive enough that settling it once and keeping
+  // it is the difference between reopening a folder instantly and paying the
+  // whole cooling curve again, so a run that reaches its end writes the
+  // positions back here (see installGraph).
+  cacheEntry: null,
 };
 
 const stage = document.getElementById("stage");
@@ -87,8 +93,6 @@ function rendererCallbacks() {
       renderer.setPath(result.reachable ? result.nodes : null, result.reachable ? result.edges : null);
       panel.setPathResult(result, from, to);
     },
-    onDragStart: () => state.sim?.alphaTarget(0.3).restart(),
-    onDragEnd: () => state.sim?.alphaTarget(0),
     onHover: (node, event) => {
       if (!node) {
         tooltip.hidden = true;
@@ -122,11 +126,11 @@ const panel = new Panel(document.getElementById("panel"), state, {
   onDeleteRecent: (entry) => deleteRecent(entry),
   onPhysics: (key, value) => {
     state.physics[key] = value;
-    // Apply the new parameter without forcing a reheat: a settled layout the
+    // Apply the new parameter without starting anything: a settled layout the
     // user has been looking at should not be flung back into motion just for
-    // touching a slider. If the simulation is still warm the new value takes
-    // effect on its very next tick either way; "Recompute (reheat)" is the
-    // explicit way to ask for a fresh layout.
+    // touching a slider. The physics is idle unless it was reheated, so the
+    // value is stored and takes effect on the next run; "Recompute (reheat)"
+    // is the one thing that asks for one.
     if (state.sim) applyPhysics(state.sim, state.physics);
   },
   onReheat: () => state.sim?.alpha(1).restart(),
@@ -202,10 +206,10 @@ function applyKinds() {
     renderer.restyle();
   }
   // Drawing, degrees and diagnostics above already reflect the new kinds
-  // immediately; the spring set (below) takes effect on the simulation's own
-  // schedule instead of being forced with a reheat, so switching a kind on or
-  // off while exploring a graph never flings a layout the user just settled
-  // back into motion (see onPhysics for the same reasoning).
+  // immediately; the spring set (below) is stored for the next run rather
+  // than forced with a reheat, so switching a kind on or off while exploring
+  // a graph never flings a settled layout back into motion (see onPhysics for
+  // the same reasoning).
   if (state.sim) applyPhysics(state.sim, state.physics);
 }
 
@@ -305,6 +309,10 @@ function ensureTicking() {
 
 function installGraph(doc, label) {
   state.sim?.stop();
+  // Set again by the two paths that have one (installAndRemember,
+  // loadFromCache); every other way of loading a document has nowhere to
+  // write a settled layout back to.
+  state.cacheEntry = null;
   const graph = buildGraph(doc);
   // Before seedPositions() and the renderer below: applyKindsTo() is what
   // recomputes degrees, cycles and call heights for the kinds actually
@@ -318,7 +326,10 @@ function installGraph(doc, label) {
   state.maxDepth = graph.maxDepth;
   state.zoneMinDepth = Math.min(state.zoneMinDepth, graph.maxDepth);
   state.zoneMaxDepth = Math.min(state.zoneMaxDepth, graph.maxDepth);
-  seedPositions(graph);
+  // A layout that came with the document if there is one, the phyllotaxis
+  // seed otherwise. Either way nothing runs until asked: see createSimulation.
+  const settled = applyStoredLayout(graph);
+  if (!settled) seedPositions(graph);
 
   renderer.setGraph(graph);
   renderer.setLabelMode(state.labelMode);
@@ -333,8 +344,27 @@ function installGraph(doc, label) {
   // way the view reframes; the user asks for it, or does not.
   const sim = createSimulation(graph, state.physics);
   sim.on("tick", () => renderer.tick());
+  // A run that reaches its end is worth keeping: settling this graph again
+  // would cost the same tens of seconds, and the document is the one place
+  // the result survives a reload. Cached analyses get it written back to
+  // IndexedDB so reopening the folder is instant and already settled; a
+  // dataset loaded from a file keeps it in memory, which is enough for
+  // "Export JSON" to hand it on.
+  sim.on("end", () => {
+    if (!state.doc || state.graph !== graph) return;
+    const byId = new Map(layoutOf(graph).map((p) => [p.id, p]));
+    for (const d of state.doc.declarations ?? []) {
+      const p = byId.get(d.id);
+      if (p) {
+        d.x = p.x;
+        d.y = p.y;
+      }
+    }
+    setStatus("app.statusSettled", { nodes: graph.nodes.length, edges: graph.links.length });
+    if (state.cacheEntry) saveAnalysis({ ...state.cacheEntry, doc: state.doc }).catch(() => {});
+  });
   state.sim = sim;
-  setStatus("app.status", { nodes: graph.nodes.length, edges: graph.links.length });
+  setStatus(settled ? "app.status" : "app.statusUnsettled", { nodes: graph.nodes.length, edges: graph.links.length });
 }
 
 async function loadDataset(id) {
@@ -428,6 +458,7 @@ function installCustomGraph(doc, label) {
  */
 async function installAndRemember(doc, entry) {
   installCustomGraph(doc, entry.label);
+  state.cacheEntry = entry;
   await saveAnalysis({ ...entry, doc });
   await refreshRecent();
 }
@@ -465,6 +496,7 @@ function runLocalAnalysis(dirHandle) {
 /** A "Recently opened" entry, clicked: show its cached graph, no re-reading. */
 function loadFromCache(entry) {
   installCustomGraph(entry.doc, entry.label);
+  state.cacheEntry = entry;
 }
 
 async function deleteRecent(entry) {

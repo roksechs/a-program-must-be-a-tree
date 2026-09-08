@@ -368,17 +368,55 @@ order without looking at file paths. The layout therefore reflects the call
 graph alone, and the zones merely show where the declarations of a file or
 directory ended up.
 
-"Recompute" resets the simulation alpha to 1 (reheat), "Reset positions"
-re-seeds the coordinates first. Dragging a node pins it while the pointer is
-down.
+### Nothing runs until asked
+
+The simulation is created stopped, and "Recompute (reheat)" is the only thing
+that starts it. ("Reset positions" re-seeds the coordinates and then starts it
+too, being the same request with a blank slate.)
+
+This is not a preference about idleness. A tick costs the whole graph: the two
+forces are the 1/d repulsion and the collide core, both node-against-node, so
+the cost is set by the node count and barely moves with the edges. Measured in
+a browser at 2,138 nodes with positions held fixed so the edge count was the
+only variable, a tick is 21-25ms from 0 edges to 8,000, while drawing adds
+about 1.3µs per edge — so at 3,365 edges the nodes are ~79% of a 30ms frame.
+With the `alphaDecay` below that is ~2,300 such frames: forty seconds of a
+page that cannot be scrolled smoothly, every time a document is opened,
+whether or not its layout needed redoing.
+
+So a document may carry the layout instead (`x`/`y` per declaration,
+docs/DATA_FORMAT.md). `npm run build:data` settles every published dataset
+through this very module (`scripts/settle.mjs` imports `site/js/simulation.js`
+rather than reimplementing the forces, so a layout is a point this physics
+would really have reached and pressing reheat does not make the graph jump),
+and the viewer opens on it having run nothing. A document without one opens on
+the deterministic seed and says so in the status line. When a run does reach
+its end, the positions are written back into the document — and, for an
+analysis that came from the "Recently opened" cache, back into IndexedDB — so
+reopening a folder is instant and already settled.
+
+Settling cannot be moved into the browser instead. On a 2,600-declaration
+codebase the layout is still visibly moving at 800 ticks (95% of its final
+extent, still drifting 0.09‰ of that extent per tick) and only stops near
+2,400: 86 seconds. That is nothing in a build step and impossible on the
+machine of whoever opens the page, in a worker or anywhere else.
+
+One consequence is worth stating because it is now visible immediately rather
+than after forty seconds of drift: a component connected to nothing else has
+no spring holding it to anything, so the unbounded repulsion pushes it away
+without limit, and a settled layout has its islands very far out. "Fit to
+view" frames all of it, which makes the main body small. That is the physics
+above doing exactly what it says; the Islands diagnostic is the way to find
+those pieces, not the camera.
+
+Dragging a node pins it while the pointer is down.
 
 Changing a physics parameter or an edge kind's toggle applies immediately —
 the spring set and the force strengths are updated right away — but does not
 itself reheat: a layout the user has been looking at should not be flung back
 into motion just for touching a slider or a checkbox while exploring which
-edge kinds to look at. If the simulation is still cooling from a previous run
-the new values simply take effect on its very next tick; the explicit
-"Recompute (reheat)" button is how to ask for a fresh layout under the
+edge kinds to look at. The values are stored and take effect on the next run;
+the explicit "Recompute (reheat)" button is how to ask for one under the
 current parameters. `alphaDecay` is also tuned well below d3's own default
 (0.0228, ~300 ticks) so a run stays warm for roughly 1200 ticks instead —
 long enough, on a graph of any size, for repulsion and every edge kind's

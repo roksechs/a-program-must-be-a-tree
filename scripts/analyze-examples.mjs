@@ -7,6 +7,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { analyze } from "../analyzers/ts/analyze.mjs";
+import { settle } from "./settle.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = join(root, "site", "data");
@@ -15,9 +16,12 @@ mkdirSync(dataDir, { recursive: true });
 const index = [];
 const write = (id, name, description, doc) => {
   const file = `${id}.json`;
+  // Every published dataset carries its layout, so the page opens on a
+  // settled graph and runs no physics until asked (scripts/settle.mjs).
+  const ticks = settle(doc);
   writeFileSync(join(dataDir, file), JSON.stringify(doc, null, 1) + "\n");
   index.push({ id, name, description, file: `data/${file}` });
-  console.error(`${name}: ${doc.declarations.length} declarations, ${doc.edges.length} edges -> site/data/${file}`);
+  console.error(`${name}: ${doc.declarations.length} declarations, ${doc.edges.length} edges, settled in ${ticks} ticks -> site/data/${file}`);
 };
 
 // 1. Self.
