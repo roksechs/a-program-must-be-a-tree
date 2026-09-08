@@ -68,12 +68,12 @@ in the header switches it at any time. Translations live in `site/js/i18n.js`.
 
 Three ways, no server involved in any of them:
 
-* **From the panel, live.** "Open folder…" picks a local directory with the
-  File System Access API (Chrome or Edge) and analyzes it in the browser; the
-  "GitHub repo" field takes `owner/repo`, `owner/repo@ref` or a `github.com`
-  URL — or searches GitHub as you type, showing a few popular JS/TS repos to
-  try when it's empty — and fetches the repository's files client-side to
-  analyze the same way. Both run the real TypeScript-compiler-based analyzer
+* **From the panel, live.** "Folder…" picks a local directory with the File
+  System Access API (Chrome or Edge) and analyzes it in the browser;
+  choosing "GitHub repo…" in the dataset dropdown reveals a field that takes
+  `owner/repo`, `owner/repo@ref` or a `github.com` URL — or searches GitHub
+  as you type, showing a few popular JS/TS repos to try when it's empty — and
+  fetches the repository's files client-side to analyze the same way. Both run the real TypeScript-compiler-based analyzer
   entirely in the page (`site/js/localAnalyzer.js`, `site/js/githubAnalyzer.js`),
   `.svelte` files included (a component's script *and* template, transformed
   through `svelte2tsx` — `docs/DESIGN.md`'s "Analyzing Svelte components") —
@@ -106,7 +106,7 @@ handle has keyboard focus, and is likewise remembered.
 
 | Section     | Controls |
 |-------------|----------|
-| Data        | bundled datasets, open a local JSON file, open a local folder, load a GitHub repo, "Recently opened" (folders/repos the browser has already analyzed, reopened instantly from IndexedDB — see below) |
+| Data        | the dataset dropdown — bundled datasets plus a "GitHub repo…" entry that reveals the repo field — one "Open" row for a local folder or a single JSON file, "Recently opened" (folders/repos the browser has already analyzed, reopened instantly from IndexedDB — see below), and Export JSON |
 | Header      | language selector (English / Japanese) |
 | View & Physics | label mode, colour by kind or call height, layer gap (how far apart two consecutive call heights sit), auto-rotate, fit, top view (perspective-free, straight down the height axis); orbit around the selected subject by dragging, pan with shift-drag, zoom with the wheel, or turn and move like a flight camera with the keyboard — W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ forward/back; recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |

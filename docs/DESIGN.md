@@ -37,7 +37,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
   itself has three front ends over one shared core (`analyzers/ts/core.mjs`,
   which touches nothing outside the `ts` module it is handed): `analyze.mjs`
   builds a `ts.Program` from files read off disk (the CLI, `npm run
-  build:data`); the viewer's "Open folder…" and "GitHub repo" panel controls
+  build:data`); the viewer's "Folder…" button and its "GitHub repo…" dropdown entry
   each build one from files read a different way (the File System Access API,
   the GitHub REST API plus `raw.githubusercontent.com`) over a custom
   `ts.CompilerHost` backed by an in-memory map — so analyzing a project needs
@@ -100,6 +100,28 @@ the *same* token, so there was nothing to see. The panel now sits on
 Because only the flex sizes change and the window never resizes, the drag
 has to call `renderer.resize()` itself — nothing else would tell the canvas
 its box moved.
+
+The Data section keeps one place to choose a source: the dataset dropdown,
+whose entries are the bundled datasets plus a "GitHub repo…" sentinel that
+reveals the repo field rather than loading anything, and a disabled "(local
+file)" sentinel selected whenever what is on screen came from somewhere that
+is not `data/index.json` at all. Whether the repo field is showing is Panel
+state (`githubMode`), not something read back off the dropdown: loading a
+repo re-selects the "(local file)" sentinel, which would otherwise hide the
+field the instant it had been used, and `render()` would lose it on a
+language change. Anything that starts a load from elsewhere clears it, so
+two sources are never offered at once.
+
+Opening something off this machine is one row of two buttons, because no one
+native dialog can offer both — `showDirectoryPicker()` takes a directory,
+`<input type=file>` takes a file. The file input is hidden and clicked by its
+button: bare, it renders as native "Choose File / no file selected" chrome
+that matches nothing around it and does not fit a narrow panel, and
+`.click()` from a button handler still counts as the user gesture the picker
+requires. The row has no visible label — a `.control`'s label column is
+110px, a third of a narrow panel, for a word that adds nothing beside
+"Folder…" and "JSON file…" — but it is a `role="group"` with that word as its
+accessible name.
 
 Widths from the analysed source (a long camelCase identifier, a deep file
 path) used to decide how wide the panel wanted to be, and `overflow-y: auto`

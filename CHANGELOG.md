@@ -6,6 +6,18 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### One place to choose a source in the Data section
+
+* "Open JSON" and "Open folder…" are one row of two buttons — a folder or a
+  single JSON file — instead of two rows, one of which was a bare file input
+  rendering as native "Choose File / no file selected" chrome that matched
+  nothing around it and did not fit a narrow panel.
+* The GitHub repo field is no longer always on screen. The dataset dropdown
+  gained a "GitHub repo…" entry that reveals it, so the dropdown is the one
+  place a source is chosen, and the field appears only when it is wanted.
+  It stays open (and selected) after a repo loads, so a second one can be
+  tried, and closes as soon as anything else is loaded.
+
 ### Replace the diagnostics and Patterns with three metrics you can act on
 
 * The tree score and its five ratios (spanning, acyclicity, single-caller,

@@ -490,6 +490,9 @@ input[type="range"]::-moz-range-thumb {
   font: inherit;
   font-size: 13px;
   font-weight: 500;
+  /* Wrap the row, never a label: a button broken across two lines mid-word
+     reads as damage rather than as a narrow panel. */
+  white-space: nowrap;
   padding: 8px 18px;
   border: 1px solid var(--md-outline);
   background: transparent;

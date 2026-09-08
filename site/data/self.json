@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-08T02:09:34.868Z",
+  "generatedAt": "2026-09-08T02:15:25.660Z",
   "analyzer": "analyzers/ts@0.5.0",
   "files": 33
  },
@@ -1921,7 +1921,7 @@
    "name": "current",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 261,
+   "line": 265,
    "parent": null,
    "exported": false
   },
@@ -1930,7 +1930,7 @@
    "name": "detectLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 265,
+   "line": 269,
    "parent": null,
    "exported": true
   },
@@ -1939,7 +1939,7 @@
    "name": "getLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 274,
+   "line": 278,
    "parent": null,
    "exported": true
   },
@@ -1948,7 +1948,7 @@
    "name": "kindLabel",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 298,
+   "line": 302,
    "parent": null,
    "exported": true
   },
@@ -1966,7 +1966,7 @@
    "name": "listeners",
    "kind": "variable",
    "file": "site/js/i18n.js",
-   "line": 262,
+   "line": 266,
    "parent": null,
    "exported": false
   },
@@ -1975,7 +1975,7 @@
    "name": "missingKeys",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 304,
+   "line": 308,
    "parent": null,
    "exported": true
   },
@@ -1984,7 +1984,7 @@
    "name": "onLanguageChange",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 285,
+   "line": 289,
    "parent": null,
    "exported": true
   },
@@ -1993,7 +1993,7 @@
    "name": "setLanguage",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 278,
+   "line": 282,
    "parent": null,
    "exported": true
   },
@@ -2011,7 +2011,7 @@
    "name": "t",
    "kind": "function",
    "file": "site/js/i18n.js",
-   "line": 291,
+   "line": 295,
    "parent": null,
    "exported": true
   },
@@ -2205,11 +2205,29 @@
    "exported": true
   },
   {
+   "id": "site/js/panel.js::CUSTOM_OPTION",
+   "name": "CUSTOM_OPTION",
+   "kind": "variable",
+   "file": "site/js/panel.js",
+   "line": 30,
+   "parent": null,
+   "exported": false
+  },
+  {
    "id": "site/js/panel.js::DEFAULT_OPEN_SECTIONS",
    "name": "DEFAULT_OPEN_SECTIONS",
    "kind": "variable",
    "file": "site/js/panel.js",
    "line": 20,
+   "parent": null,
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::GITHUB_OPTION",
+   "name": "GITHUB_OPTION",
+   "kind": "variable",
+   "file": "site/js/panel.js",
+   "line": 29,
    "parent": null,
    "exported": false
   },
@@ -2227,7 +2245,7 @@
    "name": "loadOpenSections",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 585,
+   "line": 666,
    "parent": null,
    "exported": false
   },
@@ -2236,7 +2254,7 @@
    "name": "Panel",
    "kind": "class",
    "file": "site/js/panel.js",
-   "line": 23,
+   "line": 32,
    "parent": null,
    "exported": true
   },
@@ -2245,7 +2263,7 @@
    "name": "constructor",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 29,
+   "line": 38,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2254,7 +2272,7 @@
    "name": "el",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 49,
+   "line": 64,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2263,7 +2281,7 @@
    "name": "openSection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 84,
+   "line": 111,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2272,7 +2290,7 @@
    "name": "rangeSlider",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 120,
+   "line": 147,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2281,7 +2299,7 @@
    "name": "refresh",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 161,
+   "line": 188,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2290,7 +2308,7 @@
    "name": "render",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 173,
+   "line": 200,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2299,7 +2317,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 179,
+   "line": 213,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2308,7 +2326,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 180,
+   "line": 231,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2317,7 +2335,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 278,
+   "line": 354,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2326,7 +2344,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 311,
+   "line": 387,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2335,7 +2353,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 186,
+   "line": 238,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2344,7 +2362,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 202,
+   "line": 250,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2353,7 +2371,16 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 242,
+   "line": 274,
+   "parent": "site/js/panel.js::Panel.render",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.render/onclick",
+   "name": "onclick",
+   "kind": "function",
+   "file": "site/js/panel.js",
+   "line": 315,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2362,7 +2389,7 @@
    "name": "onmousedown",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 202,
+   "line": 274,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false
   },
@@ -2371,7 +2398,7 @@
    "name": "section",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 67,
+   "line": 82,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2380,7 +2407,7 @@
    "name": "select",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 154,
+   "line": 181,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2389,7 +2416,7 @@
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 155,
+   "line": 182,
    "parent": "site/js/panel.js::Panel.select",
    "exported": false
   },
@@ -2398,7 +2425,7 @@
    "name": "setDataInfo",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 360,
+   "line": 441,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2407,7 +2434,16 @@
    "name": "setDatasets",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 349,
+   "line": 425,
+   "parent": "site/js/panel.js::Panel",
+   "exported": false
+  },
+  {
+   "id": "site/js/panel.js::Panel.setGithubMode",
+   "name": "setGithubMode",
+   "kind": "method",
+   "file": "site/js/panel.js",
+   "line": 103,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2416,7 +2452,7 @@
    "name": "setMaxDepth",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 388,
+   "line": 469,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2425,7 +2461,7 @@
    "name": "setMetrics",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 405,
+   "line": 486,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2434,7 +2470,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 417,
+   "line": 498,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -2443,7 +2479,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 421,
+   "line": 502,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -2452,7 +2488,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 447,
+   "line": 528,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false
   },
@@ -2461,7 +2497,7 @@
    "name": "setPathResult",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 558,
+   "line": 639,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2470,7 +2506,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 564,
+   "line": 645,
    "parent": "site/js/panel.js::Panel.setPathResult",
    "exported": false
   },
@@ -2479,7 +2515,7 @@
    "name": "setRecent",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 366,
+   "line": 447,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2488,7 +2524,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 379,
+   "line": 460,
    "parent": "site/js/panel.js::Panel.setRecent",
    "exported": false
   },
@@ -2497,7 +2533,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 381,
+   "line": 462,
    "parent": "site/js/panel.js::Panel.setRecent",
    "exported": false
   },
@@ -2506,7 +2542,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 382,
+   "line": 463,
    "parent": "site/js/panel.js::Panel.setRecent",
    "exported": false
   },
@@ -2515,7 +2551,7 @@
    "name": "setSelection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 496,
+   "line": 577,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2524,7 +2560,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 522,
+   "line": 603,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
@@ -2533,7 +2569,7 @@
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 542,
+   "line": 623,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false
   },
@@ -2542,7 +2578,7 @@
    "name": "slider",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 91,
+   "line": 118,
    "parent": "site/js/panel.js::Panel",
    "exported": false
   },
@@ -2551,7 +2587,7 @@
    "name": "oninput",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 100,
+   "line": 127,
    "parent": "site/js/panel.js::Panel.slider",
    "exported": false
   },
@@ -2560,7 +2596,7 @@
    "name": "reportNodeShape",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 605,
+   "line": 686,
    "parent": null,
    "exported": false
   },
@@ -2569,7 +2605,7 @@
    "name": "saveOpenSections",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 596,
+   "line": 677,
    "parent": null,
    "exported": false
   },
@@ -6186,7 +6222,7 @@
    "source": "site/js/panel.js::Panel.render",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 58,
+   "count": 57,
    "time": "use"
   },
   {
@@ -6215,6 +6251,27 @@
    "target": "site/js/panel.js::Panel.slider",
    "kind": "call",
    "count": 4,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onchange",
+   "target": "site/js/panel.js::GITHUB_OPTION",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onchange",
+   "target": "site/js/panel.js::Panel.setGithubMode",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.render/onclick",
+   "target": "site/js/panel.js::Panel.setGithubMode",
+   "kind": "call",
+   "count": 1,
    "time": "use"
   },
   {
@@ -6249,6 +6306,20 @@
    "source": "site/js/panel.js::Panel.setDatasets",
    "target": "site/js/i18n.js::t",
    "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setDatasets",
+   "target": "site/js/panel.js::CUSTOM_OPTION",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setDatasets",
+   "target": "site/js/panel.js::GITHUB_OPTION",
+   "kind": "reference",
    "count": 1,
    "time": "use"
   },
@@ -6256,7 +6327,7 @@
    "source": "site/js/panel.js::Panel.setDatasets",
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
-   "count": 2,
+   "count": 3,
    "time": "use"
   },
   {
@@ -6342,6 +6413,13 @@
    "target": "site/js/panel.js::Panel.el",
    "kind": "call",
    "count": 6,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setRecent/onclick",
+   "target": "site/js/panel.js::Panel.setGithubMode",
+   "kind": "call",
+   "count": 1,
    "time": "use"
   },
   {

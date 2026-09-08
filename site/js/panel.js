@@ -20,6 +20,15 @@ const GITHUB_SEARCH_DEBOUNCE_MS = 400;
 const DEFAULT_OPEN_SECTIONS = ["data", "view"];
 const SECTIONS_STORAGE_KEY = "panelSections";
 
+// Sentinel values in the dataset dropdown, which is the one place a source is
+// chosen. Neither is a dataset id: GITHUB_OPTION reveals the repo field
+// instead of loading anything (setGithubMode), and CUSTOM_OPTION is the
+// disabled entry shown whenever what is loaded did not come from
+// data/index.json at all — a folder, a JSON file, a repo, a cached analysis
+// or a ?data=<url>.
+const GITHUB_OPTION = "__github__";
+const CUSTOM_OPTION = "__custom__";
+
 export class Panel {
   /**
    * @param {HTMLElement} host
@@ -37,6 +46,12 @@ export class Panel {
     this.recent = [];
     this.graph = null;
     this.selected = null;
+    // Whether the GitHub repo field is showing. Panel state rather than
+    // something derived from the dropdown's value: loading a repo re-selects
+    // the dropdown's "(local file)" sentinel, which would otherwise hide the
+    // field the moment it had been used, and render() would lose it on a
+    // language change.
+    this.githubMode = false;
     // Which sections are expanded, by the stable id section() is given (never
     // the translated title). Kept on the instance because render() rebuilds
     // every section from scratch — on a language change, say — and a freshly
@@ -78,6 +93,18 @@ export class Panel {
       saveOpenSections(this.openSections);
     });
     return box;
+  }
+
+  /**
+   * Show or hide the GitHub repo field. Selecting "GitHub repo…" in the
+   * dataset dropdown turns it on; anything that starts a load from somewhere
+   * else turns it back off, so the panel never offers two sources at once.
+   */
+  setGithubMode(on) {
+    this.githubMode = on;
+    this.githubRow.hidden = !on;
+    if (on) this.githubInput.focus();
+    else this.githubResults.hidden = true;
   }
 
   /** Expand a section from code (Selection, when a node is selected). */
@@ -176,16 +203,61 @@ export class Panel {
     this.host.replaceChildren();
 
     // Data
-    this.datasetSelect = this.el("select", { onchange: (e) => h.onDataset(e.target.value) });
-    const fileInput = this.el("input", { type: "file", accept: ".json,application/json", onchange: (e) => e.target.files[0] && h.onFile(e.target.files[0]) });
+    // The dataset dropdown is the one place a source is chosen: the bundled
+    // datasets, plus a "GitHub repo…" entry that reveals the repo field
+    // below rather than loading anything itself (see setGithubMode). Opening
+    // something off this machine is the other entry, one row with the two
+    // things a browser can actually pick — a folder or a single JSON file,
+    // which no one native dialog can offer together.
+    this.datasetSelect = this.el("select", {
+      onchange: (e) => {
+        const value = e.target.value;
+        if (value === GITHUB_OPTION) {
+          this.setGithubMode(true);
+          return;
+        }
+        this.setGithubMode(false);
+        h.onDataset(value);
+      },
+    });
+    // Hidden, and clicked by the button beside it: a bare file input renders
+    // as native chrome ("Choose File / no file selected") that neither
+    // matches the buttons around it nor fits a narrow panel, and .click()
+    // from a button handler keeps the user gesture the picker needs.
+    const fileInput = this.el("input", {
+      type: "file",
+      accept: ".json,application/json",
+      hidden: "",
+      onchange: (e) => {
+        if (!e.target.files[0]) return;
+        this.setGithubMode(false);
+        h.onFile(e.target.files[0]);
+        e.target.value = ""; // so re-picking the same file fires change again
+      },
+    });
+    const jsonBtn = this.el("button", { type: "button", onclick: () => fileInput.click() }, t("data.openJson"));
     // The local-folder and GitHub-repo features analyze source in the
     // browser (no bundled JSON, no server): see site/js/localAnalyzer.js and
     // site/js/githubAnalyzer.js. showDirectoryPicker() is Chromium-only, so
     // that button is disabled with an explanatory title elsewhere.
     const folderSupported = localFolderSupported();
-    const folderBtn = this.el("button", { type: "button", disabled: folderSupported ? null : "", title: folderSupported ? null : t("data.folderUnsupported"), onclick: () => h.onOpenFolder() }, t("data.openFolder"));
-    const githubInput = this.el("input", { type: "text", placeholder: t("data.githubPlaceholder"), autocomplete: "off" });
-    const githubResults = this.el("div", { class: "github-results", hidden: "" });
+    const folderBtn = this.el(
+      "button",
+      {
+        type: "button",
+        disabled: folderSupported ? null : "",
+        title: folderSupported ? null : t("data.folderUnsupported"),
+        onclick: () => {
+          this.setGithubMode(false);
+          h.onOpenFolder();
+        },
+      },
+      t("data.openFolder"),
+    );
+    this.githubInput = this.el("input", { type: "text", placeholder: t("data.githubPlaceholder"), autocomplete: "off" });
+    const githubInput = this.githubInput;
+    this.githubResults = this.el("div", { class: "github-results", hidden: "" });
+    const githubResults = this.githubResults;
     const hideResults = () => (githubResults.hidden = true);
     const loadGithub = (spec) => {
       hideResults();
@@ -235,6 +307,7 @@ export class Panel {
       if (e.key === "Enter") submitGithub();
       else if (e.key === "Escape") hideResults();
     });
+    this.githubRow = this.el("div", { hidden: this.githubMode ? null : "" }, this.el("label", { class: "control" }, this.el("span", {}, t("data.github")), githubInput, githubBtn), githubResults);
     this.dataInfoEl = this.el("p", { class: "muted small" });
     // Downloads the raw analyzer document exactly as installed — see
     // app.js's exportJson() — so a graph that looks wrong can be inspected
@@ -250,10 +323,13 @@ export class Panel {
         "data",
         t("section.data"),
         this.el("label", { class: "control" }, this.el("span", {}, t("data.dataset")), this.datasetSelect),
-        this.el("label", { class: "control" }, this.el("span", {}, t("data.openJson")), fileInput),
-        this.el("label", { class: "control" }, this.el("span", {}, t("data.openFolder")), folderBtn),
-        this.el("label", { class: "control" }, this.el("span", {}, t("data.github")), githubInput, githubBtn),
-        githubResults,
+        this.githubRow,
+        // One row, the two things a browser can actually be asked to open.
+        // No visible label: a .control's label column is 110px, a third of a
+        // narrow panel, and would push these two onto separate lines for a
+        // word that adds nothing next to "Folder…" and "JSON file…". The
+        // group keeps its name for anything reading the page aloud.
+        this.el("div", { class: "buttons", role: "group", "aria-label": t("data.open") }, folderBtn, jsonBtn, fileInput),
         this.dataInfoEl,
         this.el("div", { class: "buttons" }, exportBtn),
         this.el("h3", {}, t("data.recent")),
@@ -353,7 +429,12 @@ export class Panel {
     for (const d of datasets) {
       this.datasetSelect.append(this.el("option", { value: d.id, selected: d.id === current ? "" : null }, d.name));
     }
-    this.datasetSelect.append(this.el("option", { value: "__custom__", disabled: "", selected: current === "__custom__" ? "" : null }, t("data.localFile")));
+    // While the repo field is showing, its own entry stays selected even
+    // though loading a repo sets `current` to the custom sentinel: the
+    // dropdown should say where the data on screen came from, and leave the
+    // field open for another repo.
+    this.datasetSelect.append(this.el("option", { value: GITHUB_OPTION, selected: this.githubMode ? "" : null }, t("data.githubOption")));
+    this.datasetSelect.append(this.el("option", { value: CUSTOM_OPTION, disabled: "", selected: !this.githubMode && current === CUSTOM_OPTION ? "" : null }, t("data.localFile")));
   }
 
   /** @param {object} info { label, nodes, edges, files } */
@@ -376,7 +457,7 @@ export class Panel {
         this.el(
           "div",
           { class: "recent-item" },
-          this.el("button", { type: "button", class: "recent-label", title: entry.label, onclick: () => this.h.onLoadRecent(entry) }, entry.label),
+          this.el("button", { type: "button", class: "recent-label", title: entry.label, onclick: () => (this.setGithubMode(false), this.h.onLoadRecent(entry)) }, entry.label),
           this.el("span", { class: "muted small" }, when.format(entry.analyzedAt)),
           this.el("button", { type: "button", class: "icon-button", title: t("data.reanalyze"), onclick: () => this.h.onReanalyzeRecent(entry) }, "↻"),
           this.el("button", { type: "button", class: "icon-button", title: t("data.remove"), onclick: () => this.h.onDeleteRecent(entry) }, "×"),
