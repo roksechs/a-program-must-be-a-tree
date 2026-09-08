@@ -74,6 +74,44 @@ The viewer renders only in 3D. A 2D renderer without perspective is exactly
 (`graph2d.js`, removed) would only have been a second, heavier way to draw
 the same picture.
 
+### The panel's shape
+
+Each section is a native `<details>`/`<summary>` rather than a hand-rolled
+toggle, so the keyboard behaviour, the ARIA semantics and the open state
+come from the element instead of from code that would have to reimplement
+all three. `Panel#section()` takes a stable id alongside the translated
+title, and the set of expanded ids lives on the Panel instance and in
+`localStorage`: `render()` rebuilds every section from scratch on a language
+change, and a freshly built `<details>` would otherwise silently discard
+whatever the user had opened. Selection expands itself when a node is
+selected — a click on a node is a request to see what it is, and answering
+that shouldn't take two steps — but a *de*selection leaves it alone, since
+collapsing a section someone is reading is worse than leaving an empty one
+they can close.
+
+The panel's width is a drag handle (`#panel-resize`, wired in `app.js`)
+writing straight to the `--panel-width` custom property the stylesheet
+already read, clamped to 260px…720px and remembered in `localStorage`. It
+sits between the stage and the panel as a flex item of its own, which makes
+it the boundary between the two as well as the control for it: before this
+the panel was meant to be told apart from the graph "by tone and elevation
+instead of a hard border", but `--bg` and the panel's background resolved to
+the *same* token, so there was nothing to see. The panel now sits on
+`--panel-bg`, a genuinely different surface, with the handle as the rule.
+Because only the flex sizes change and the window never resizes, the drag
+has to call `renderer.resize()` itself — nothing else would tell the canvas
+its box moved.
+
+Widths from the analysed source (a long camelCase identifier, a deep file
+path) used to decide how wide the panel wanted to be, and `overflow-y: auto`
+with no `overflow-x` computes the other axis to `auto`, so the panel carried
+a horizontal scrollbar at almost any content. The fix is on the content: the
+grid tracks in `.control`, `.kind-list`, `.metric-grid` and `.metric-bar`
+are `minmax(0, …)` so they may actually shrink to the panel they are in
+(a track's default floor is its content's min-content width), and the node
+lists wrap with `overflow-wrap: anywhere`. `overflow-x: hidden` on `#panel`
+is the backstop behind that, not the fix.
+
 ### Keeping a large analysis off the main thread
 
 Building a `ts.Program` and walking it with the type checker is real,

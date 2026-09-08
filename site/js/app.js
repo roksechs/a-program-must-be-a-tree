@@ -71,6 +71,10 @@ languageSelect.addEventListener("change", () => setLanguage(languageSelect.value
 function applyStaticTranslations() {
   document.documentElement.lang = getLanguage();
   for (const el of document.querySelectorAll("[data-i18n]")) el.textContent = t(el.dataset.i18n);
+  // The panel's resize handle is focusable and has no text of its own, so its
+  // only accessible name is this label; data-i18n above sets textContent,
+  // which would be wrong for an element that must stay empty.
+  document.getElementById("panel-resize").setAttribute("aria-label", t("panel.resize"));
   languageSelect.value = getLanguage();
 }
 applyStaticTranslations();
@@ -512,6 +516,62 @@ async function main() {
 }
 
 window.addEventListener("resize", () => renderer.resize());
+
+// Panel width: a drag handle on the panel's own left edge, writing the width
+// straight to the `--panel-width` custom property the stylesheet already
+// reads. The stage is the flex item that absorbs the difference, so the
+// canvas has to be told its box changed — nothing else does that, since the
+// window itself never resized.
+const PANEL_MIN_WIDTH = 260;
+const panelResizer = document.getElementById("panel-resize");
+const panelWidthLimit = () => Math.max(PANEL_MIN_WIDTH, Math.min(720, window.innerWidth - 320));
+const setPanelWidth = (px) => {
+  const width = Math.round(Math.max(PANEL_MIN_WIDTH, Math.min(panelWidthLimit(), px)));
+  document.documentElement.style.setProperty("--panel-width", `${width}px`);
+  renderer.resize();
+  return width;
+};
+
+try {
+  const saved = Number(localStorage.getItem("panelWidth"));
+  if (Number.isFinite(saved) && saved > 0) setPanelWidth(saved);
+} catch {
+  // A browser that refuses storage just gets the stylesheet's default width.
+}
+
+panelResizer.addEventListener("pointerdown", (e) => {
+  e.preventDefault(); // otherwise the drag selects the panel's text as it passes over it
+  panelResizer.setPointerCapture(e.pointerId);
+  panelResizer.classList.add("dragging");
+});
+panelResizer.addEventListener("pointermove", (e) => {
+  if (!panelResizer.hasPointerCapture(e.pointerId)) return;
+  // Width from the window's right edge rather than a delta, so a fast drag
+  // that outruns the pointermove stream still lands where the cursor is
+  // instead of drifting by whatever the missed events were worth.
+  setPanelWidth(window.innerWidth - e.clientX);
+});
+const endPanelResize = (e) => {
+  if (!panelResizer.hasPointerCapture(e.pointerId)) return;
+  panelResizer.releasePointerCapture(e.pointerId);
+  panelResizer.classList.remove("dragging");
+  try {
+    localStorage.setItem("panelWidth", String(document.getElementById("panel").getBoundingClientRect().width));
+  } catch {
+    // See above: not remembering the width is not worth interrupting for.
+  }
+};
+panelResizer.addEventListener("pointerup", endPanelResize);
+panelResizer.addEventListener("pointercancel", endPanelResize);
+// Keyboard equivalent, since the handle is focusable and a pointer drag is
+// not something every input device can do.
+panelResizer.addEventListener("keydown", (e) => {
+  const step = e.shiftKey ? 64 : 16;
+  if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+  e.preventDefault();
+  const current = document.getElementById("panel").getBoundingClientRect().width;
+  setPanelWidth(current + (e.key === "ArrowLeft" ? step : -step));
+});
 
 d3.select(window).on("keydown", (event) => {
   if (event.key === "Escape") renderer.select(null);

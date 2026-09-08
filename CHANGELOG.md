@@ -6,6 +6,23 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### The property panel collapses, resizes, and stops scrolling sideways
+
+* Every section is now collapsible, and which ones are open is remembered
+  between visits — Data and View & Physics start open, the rest closed, and
+  Selection expands itself when you click a node.
+* The panel's width is set by dragging its left edge (or the arrow keys once
+  that handle has focus), between 260px and 720px, and is remembered too.
+* That same edge is now a visible boundary. The panel was meant to be told
+  apart from the graph by tone, but its background token and the stage's
+  resolved to the same colour, so there was nothing to see; the panel now
+  sits on a genuinely different surface with the drag handle as the rule
+  between them.
+* The panel no longer scrolls horizontally. Its grid rows refused to shrink
+  below their content's natural width (a text input's default size, a long
+  identifier, a deep file path), and setting only `overflow-y` leaves the
+  other axis at `auto`, so a scrollbar appeared under almost any content.
+
 ### Remove the layer planes
 
 * The translucent plane drawn per call height, and its two switches ("Layer

@@ -94,6 +94,12 @@ Three ways, no server involved in any of them:
 
 ## Property panel
 
+Every section is collapsible, and which ones are open is remembered between
+visits (Data and View & Physics start open; Selection opens itself when you
+click a node). The panel's width is set by dragging its left edge — the same
+strip that separates it from the graph — or with the arrow keys once that
+handle has keyboard focus, and is likewise remembered.
+
 | Section     | Controls |
 |-------------|----------|
 | Data        | bundled datasets, open a local JSON file, open a local folder, load a GitHub repo, "Recently opened" (folders/repos the browser has already analyzed, reopened instantly from IndexedDB — see below) |

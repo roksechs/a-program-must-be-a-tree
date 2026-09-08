@@ -26,6 +26,7 @@ const STRINGS = {
     "app.dataInfo": "{label}: {nodes} declarations, {edges} edges, {files} files",
     "app.tooltip": "{name}  ({kind})  {location}  in {in} / out {out} / height {height}",
     "app.language": "Language",
+    "panel.resize": "Resize the panel (drag, or arrow keys when focused)",
 
     "section.data": "Data",
     "section.view": "View & Physics",
@@ -183,6 +184,7 @@ const STRINGS = {
     "app.dataInfo": "{label}: 宣言 {nodes}、エッジ {edges}、ファイル {files}",
     "app.tooltip": "{name}  ({kind})  {location}  入 {in} / 出 {out} / 高さ {height}",
     "app.language": "言語",
+    "panel.resize": "パネルの幅を変える(ドラッグ、またはフォーカス中に矢印キー)",
 
     "section.data": "データ",
     "section.view": "表示・物理",

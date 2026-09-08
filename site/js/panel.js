@@ -12,6 +12,15 @@ import { MOTIF_COLORS, MOTIF_KINDS } from "./motifs.js";
 
 const GITHUB_SEARCH_DEBOUNCE_MS = 400;
 
+// Which sections start expanded on a browser that has never been here. The
+// panel has more sections than fit a screen at once, so most start collapsed
+// and the two anyone needs to get a graph on screen at all start open;
+// Selection also opens itself the moment a node is actually selected (see
+// setSelection), since that is the one section whose content arrives in
+// response to something the user just did.
+const DEFAULT_OPEN_SECTIONS = ["data", "view"];
+const SECTIONS_STORAGE_KEY = "panelSections";
+
 export class Panel {
   /**
    * @param {HTMLElement} host
@@ -29,6 +38,12 @@ export class Panel {
     this.recent = [];
     this.graph = null;
     this.selected = null;
+    // Which sections are expanded, by the stable id section() is given (never
+    // the translated title). Kept on the instance because render() rebuilds
+    // every section from scratch — on a language change, say — and a freshly
+    // built <details> would otherwise come back at its default state and
+    // silently discard what the user had opened.
+    this.openSections = new Set(loadOpenSections());
     this.render();
   }
 
@@ -43,8 +58,35 @@ export class Panel {
     return e;
   }
 
-  section(title, ...children) {
-    return this.el("section", { class: "panel-section" }, this.el("h2", {}, title), ...children);
+  /**
+   * One collapsible section. `id` is a stable key (not the translated title)
+   * so the expanded/collapsed state survives both a language change and a
+   * reload. A native <details>/<summary> rather than a hand-rolled toggle:
+   * the keyboard behaviour, the ARIA semantics and the open state all come
+   * for free, and `hidden` on the body would have had to reimplement each.
+   */
+  section(id, title, ...children) {
+    const box = this.el(
+      "details",
+      { class: "panel-section", open: this.openSections.has(id) ? "" : null },
+      this.el("summary", {}, this.el("h2", {}, title)),
+      this.el("div", { class: "panel-body" }, ...children),
+    );
+    box.dataset.section = id;
+    box.addEventListener("toggle", () => {
+      if (box.open) this.openSections.add(id);
+      else this.openSections.delete(id);
+      saveOpenSections(this.openSections);
+    });
+    return box;
+  }
+
+  /** Expand a section from code (Selection, when a node is selected). */
+  openSection(id) {
+    this.openSections.add(id);
+    const box = this.host.querySelector(`[data-section="${id}"]`);
+    if (box) box.open = true;
+    saveOpenSections(this.openSections);
   }
 
   slider(label, key, min, max, step, onChange, format = (v) => v) {
@@ -206,6 +248,7 @@ export class Panel {
     this.recentEl = this.el("div", { class: "recent-list" });
     this.host.append(
       this.section(
+        "data",
         t("section.data"),
         this.el("label", { class: "control" }, this.el("span", {}, t("data.dataset")), this.datasetSelect),
         this.el("label", { class: "control" }, this.el("span", {}, t("data.openJson")), fileInput),
@@ -236,6 +279,7 @@ export class Panel {
     const rotate = this.el("input", { type: "checkbox", checked: s.autoRotate ? "" : null, onchange: (e) => h.onAutoRotate(e.target.checked) });
     this.host.append(
       this.section(
+        "view",
         t("section.view"),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.labels")), labelSelect),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.colourBy")), colorSelect),
@@ -268,11 +312,11 @@ export class Panel {
       const box = this.el("input", { type: "checkbox", checked: s.kinds.has(kind) ? "" : null, onchange: (e) => h.onKinds(kind, e.target.checked) });
       kindList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
     }
-    this.host.append(this.section(t("section.edges"), kindList, this.el("p", { class: "muted small" }, t("edges.help"))));
+    this.host.append(this.section("edges", t("section.edges"), kindList, this.el("p", { class: "muted small" }, t("edges.help"))));
 
     // Zones
     this.depthSlider = this.rangeSlider(t("zones.depth"), s.zoneMinDepth, s.zoneMaxDepth, 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => v);
-    this.host.append(this.section(t("section.zones"), this.depthSlider, this.el("p", { class: "muted small" }, t("zones.help"))));
+    this.host.append(this.section("zones", t("section.zones"), this.depthSlider, this.el("p", { class: "muted small" }, t("zones.help"))));
 
     // Patterns: structural motifs, spotted within the whole graph rather
     // than isolating one relationship (contrast the path highlight above,
@@ -282,13 +326,14 @@ export class Panel {
       const box = this.el("input", { type: "checkbox", checked: s.motifs.has(kind) ? "" : null, onchange: (e) => h.onMotifs(kind, e.target.checked) });
       motifList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${MOTIF_COLORS[kind]}` }), t(`motif.${kind}`)));
     }
-    this.host.append(this.section(t("section.patterns"), motifList, this.el("p", { class: "muted small" }, t("patterns.help"))));
+    this.host.append(this.section("patterns", t("section.patterns"), motifList, this.el("p", { class: "muted small" }, t("patterns.help"))));
 
     // Diagnostics
     this.metricsBody = this.el("div", { class: "metrics" });
     this.sharedList = this.el("ol", { class: "shared" });
     this.host.append(
       this.section(
+        "diagnostics",
         t("section.diagnostics"),
         this.el("p", { class: "muted small", style: "margin:0 0 6px" }, t("metric.scope")),
         this.metricsBody,
@@ -300,7 +345,7 @@ export class Panel {
     // Selection
     this.selectionBody = this.el("div", { class: "selection muted small" }, t("selection.empty"));
     this.pathResultEl = this.el("div", { class: "path-result", hidden: "" });
-    this.host.append(this.section(t("section.selection"), this.selectionBody, this.pathResultEl));
+    this.host.append(this.section("selection", t("section.selection"), this.selectionBody, this.pathResultEl));
 
     // Legend
     const legend = this.el("div", { class: "legend" });
@@ -311,7 +356,7 @@ export class Panel {
     const edgeLegend = this.el("div", { class: "legend" });
     for (const kind of EDGE_KINDS) edgeLegend.append(this.el("span", { class: "legend-item" }, this.el("i", { class: "edge", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
     edgeLegend.append(this.el("span", { class: "legend-item muted" }, t("legend.inferred")));
-    this.host.append(this.section(t("section.legend"), legend, this.el("h3", {}, t("legend.edges")), edgeLegend));
+    this.host.append(this.section("legend", t("section.legend"), legend, this.el("h3", {}, t("legend.edges")), edgeLegend));
   }
 
   setDatasets(datasets, current) {
@@ -419,6 +464,12 @@ export class Panel {
   setSelection(node, graph) {
     this.selected = node;
     this.pathResultEl.hidden = true;
+    // Clicking a node in the view is a request to see what it is, so the
+    // section that answers that opens itself rather than making the click a
+    // two-step affair. Only on the way in: a deselect leaves it as it is,
+    // since collapsing a section the user is reading would be worse than an
+    // empty one they can close themselves.
+    if (node) this.openSection("selection");
     if (!node) {
       this.selectionBody.className = "selection muted small";
       this.selectionBody.replaceChildren(t("selection.empty"));
@@ -489,5 +540,31 @@ export class Panel {
       this.el("div", { class: "small mono path-route" }, names),
       clearButton,
     );
+  }
+}
+
+/**
+ * The expanded sections remembered from a previous visit, falling back to
+ * DEFAULT_OPEN_SECTIONS. Storage can throw outright (a browser set to block
+ * site data), so every access is guarded and a failure just means the
+ * defaults — a panel that opens at its default shape is a far smaller
+ * problem than one that fails to render.
+ */
+function loadOpenSections() {
+  try {
+    const raw = localStorage.getItem(SECTIONS_STORAGE_KEY);
+    if (raw === null) return DEFAULT_OPEN_SECTIONS;
+    const ids = JSON.parse(raw);
+    return Array.isArray(ids) ? ids.filter((id) => typeof id === "string") : DEFAULT_OPEN_SECTIONS;
+  } catch {
+    return DEFAULT_OPEN_SECTIONS;
+  }
+}
+
+function saveOpenSections(ids) {
+  try {
+    localStorage.setItem(SECTIONS_STORAGE_KEY, JSON.stringify([...ids]));
+  } catch {
+    // Not being able to remember the layout is not worth interrupting anything for.
   }
 }
