@@ -7,7 +7,7 @@ import { EDGE_KINDS, edgeColor, kindColor } from "./colors.js";
 import { POPULAR_REPOS } from "./githubAnalyzer.js";
 import { kindLabel, t } from "./i18n.js";
 import { localFolderSupported } from "./localAnalyzer.js";
-import { entryPoints, independence, islands, linkLift, naturalScope, scopeEscapes } from "./metrics.js";
+import { elevationGaps, entryPoints, independence, islands, linkLift, naturalScope } from "./metrics.js";
 
 const GITHUB_SEARCH_DEBOUNCE_MS = 400;
 
@@ -518,7 +518,7 @@ export class Panel {
   }
 
   /**
-   * Render the three diagnostics. Each is a heading with its own figure, a
+   * Render the four diagnostics. Each is a heading with its own figure, a
    * short reading of what that figure means, the declarations or dependencies
    * it is actually pointing at, and a button that downloads exactly those as
    * a report (app.js's exportReport). A number alone says a program is not a
@@ -527,7 +527,7 @@ export class Panel {
   setMetrics(graph) {
     this.graph = graph;
     const entries = entryPoints(graph);
-    const escapes = scopeEscapes(graph);
+    const gaps = elevationGaps(graph);
     const owned = independence(graph);
     const adrift = islands(graph);
 
@@ -554,28 +554,28 @@ export class Panel {
     if (entries.length === 0) entryList.append(this.el("li", { class: "muted" }, t("metric.entryPoints.none")));
     else entryList.append(more(Math.min(LIST_LIMIT, entries.length), entries.length));
 
-    // 2. Scope escapes, one row per lift.
-    const escapeList = this.el("div", { class: "lift-list" });
-    for (const { lift, edges } of escapes.buckets) {
-      escapeList.append(
+    // 2. Elevation gaps, one row per gap size.
+    const gapList = this.el("div", { class: "lift-list" });
+    for (const { gap, edges } of gaps.buckets) {
+      gapList.append(
         this.el(
           "button",
           {
             type: "button",
             class: "lift-row",
-            title: t("metric.escapes.show"),
+            title: t("metric.elevationGaps.show"),
             // Highlighting the bucket goes through the path overlay (see
             // app.js's onHighlight): both endpoints of every edge, so the
             // edges have something to be drawn between.
             onclick: () => this.h.onHighlight(new Set(edges.flatMap((l) => [l.source, l.target])), new Set(edges)),
           },
-          this.el("span", { class: "lift-label" }, t("metric.escapes.lift", { lift })),
-          this.el("span", { class: "bar" }, this.el("i", { style: `width:${escapes.escapes === 0 ? 0 : (edges.length / escapes.escapes) * 100}%` })),
+          this.el("span", { class: "lift-label" }, t("metric.elevationGaps.gap", { gap })),
+          this.el("span", { class: "bar" }, this.el("i", { style: `width:${gaps.total === 0 ? 0 : (edges.length / gaps.total) * 100}%` })),
           this.el("span", { class: "metric-value" }, String(edges.length)),
         ),
       );
     }
-    if (escapes.buckets.length === 0) escapeList.append(this.el("p", { class: "muted small" }, t("metric.escapes.none")));
+    if (gaps.buckets.length === 0) gapList.append(this.el("p", { class: "muted small" }, t("metric.elevationGaps.none")));
 
     // 3. Independence, least first.
     const ownedList = this.el("ol", { class: "shared" });
@@ -638,18 +638,18 @@ export class Panel {
       entryList,
       exportButton("entry-points", () => ({ count: entries.length, nodes: entries.map(reportNodeShape) })),
 
-      heading("metric.escapes", String(escapes.escapes)),
-      hint("metric.escapes.hint"),
-      this.el("p", { class: "muted small metric-hint" }, t("metric.escapes.summary", { nesting: escapes.nesting, liftSum: escapes.liftSum })),
-      escapeList,
-      exportButton("scope-escapes", () => ({
-        escapes: escapes.escapes,
-        nestingEdges: escapes.nesting,
-        liftSum: escapes.liftSum,
-        byLift: escapes.buckets.map(({ lift, edges }) => ({
-          lift,
+      heading("metric.elevationGaps", String(gaps.total)),
+      hint("metric.elevationGaps.hint"),
+      this.el("p", { class: "muted small metric-hint" }, t("metric.elevationGaps.summary", { flat: gaps.flat, gapSum: gaps.gapSum })),
+      gapList,
+      exportButton("elevation-gaps", () => ({
+        total: gaps.total,
+        flatEdges: gaps.flat,
+        gapSum: gaps.gapSum,
+        byGap: gaps.buckets.map(({ gap, edges }) => ({
+          gap,
           count: edges.length,
-          edges: edges.map((l) => ({ source: l.source.id, target: l.target.id, kind: l.kind, lift })),
+          edges: edges.map((l) => ({ source: l.source.id, target: l.target.id, kind: l.kind, gap })),
         })),
       })),
 

@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { applyActiveKinds, buildGraph } from "../site/js/model.js";
 import { dominatorTree } from "../site/js/dominance.js";
-import { entryPoints, independence, islands, linkLift, naturalScope, scopeEscapes, unreferencedDeclarations } from "../site/js/metrics.js";
+import { elevationGaps, entryPoints, independence, islands, linkLift, naturalScope, unreferencedDeclarations } from "../site/js/metrics.js";
 
 const decl = (id) => ({ id, name: id, kind: "function", file: "src/a.js" });
 const edge = (source, target, kind = "call") => ({ source, target, kind });
@@ -13,9 +13,9 @@ test("a chain is its own dominator tree", () => {
   const g = graph(["a", "b", "c"], [edge("a", "b"), edge("b", "c")]);
   const dom = dominatorTree(g.nodes, g.activeLinks);
   assert.deepEqual([...dom.lifts], [0, 0]);
-  const escapes = scopeEscapes(g);
-  assert.equal(escapes.escapes, 0); // nothing had to be hoisted anywhere
-  assert.equal(escapes.nesting, 2);
+  const gaps = elevationGaps(g);
+  assert.equal(gaps.total, 0); // every call reaches exactly the layer below it
+  assert.equal(gaps.flat, 2);
   assert.equal(independence(g).overall, 1);
 });
 
@@ -23,13 +23,13 @@ test("two unrelated callers of one declaration are not a tree", () => {
   // The whole point: A -> S <- B is a spanning forest when direction is
   // ignored, so the old (n - components) / m scored it 1.
   const g = graph(["a", "b", "s"], [edge("a", "s"), edge("b", "s")]);
-  const escapes = scopeEscapes(g);
-  assert.equal(escapes.escapes, 2); // both callers had to hoist s out of themselves
-  assert.equal(escapes.nesting, 0);
-  assert.deepEqual(
-    escapes.buckets.map((b) => [b.lift, b.edges.length]),
-    [[1, 2]],
-  );
+  // elevationGaps reads a different axis than the dominator tree: both
+  // callers sit at the same call height, so `s` lands exactly one layer
+  // below each of them — no cliff, even though (see the lift below) it is
+  // shared and not nested in either caller's own scope.
+  const gaps = elevationGaps(g);
+  assert.equal(gaps.total, 0);
+  assert.equal(gaps.flat, 2);
   assert.equal(independence(g).overall, 0.5); // both callers sit one scope below the natural one
   assert.equal(lift(g, "a", "s"), 1);
   const scope = naturalScope(g, g.byId.get("s"));
@@ -45,14 +45,12 @@ test("sharing between siblings costs less than sharing across the program", () =
   );
   assert.equal(lift(near, "a", "s"), 1);
   assert.equal(lift(far, "a2", "s"), 3);
-  assert.deepEqual(
-    scopeEscapes(near).buckets.map((b) => b.lift),
-    [1],
-  );
-  assert.deepEqual(
-    scopeEscapes(far).buckets.map((b) => b.lift),
-    [3],
-  );
+  // elevationGaps measures a different thing again: both branches are the
+  // same length in each graph, so `s` sits exactly one layer below both of
+  // its callers either way — sibling sharing and distant sharing look
+  // identical on this axis, unlike on the dominator tree above.
+  assert.equal(elevationGaps(near).total, 0);
+  assert.equal(elevationGaps(far).total, 0);
   // The same one shared declaration, reached from three scopes further out:
   // the caller that shares it scores as markedly less independent. Compared
   // per node, not through `overall` — that is an edge-weighted mean, so the
@@ -160,11 +158,11 @@ test("entryPoints are the declarations nothing calls", () => {
   );
 });
 
-test("a cycle's own edges are neither hoisted nor counted against independence", () => {
+test("a cycle's own edges have no elevation gap and are not counted against independence", () => {
   const g = graph(["r", "a", "b"], [edge("r", "a"), edge("a", "b"), edge("b", "a")]);
-  const escapes = scopeEscapes(g);
-  assert.equal(escapes.escapes, 0);
-  assert.equal(escapes.nesting, 1); // only r -> a; a <-> b is inside the component
+  const gaps = elevationGaps(g);
+  assert.equal(gaps.total, 0);
+  assert.equal(gaps.flat, 1); // only r -> a; a <-> b shares one call height, with no direction to measure a drop across
   assert.deepEqual(
     independence(g).nodes.map((s) => s.node.id),
     ["r"],

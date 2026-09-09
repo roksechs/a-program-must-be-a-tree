@@ -1,17 +1,18 @@
 // Diagnostics: where the program is not a tree, and what it costs.
 //
-// Every figure here is read off the dominator tree of the active graph
-// (docs/THEORY.md §7): it is the deepest nesting the program admits, so an
-// edge that is not one of its edges is a declaration used from two places
-// that neither contains the other. The three metrics are the three questions
-// worth asking about that — where control enters (entryPoints), how far the
-// sharing reaches (scopeEscapes), and how much of what a declaration uses is
-// its own (independence) — and all three are measured on the same per-edge
-// quantity, the lift, so they never disagree.
+// entryPoints and independence are read off the dominator tree of the active
+// graph (docs/THEORY.md §7): it is the deepest nesting the program admits, so
+// an edge that is not one of its edges is a declaration used from two places
+// that neither contains the other, and the lift of that edge is how far
+// apart. elevationGaps reads a different axis instead — call height
+// (model.js's computeHeights, the same quantity the 3D view's vertical axis
+// draws) — so a bucket there is a jump already visible in the graph: a caller
+// reaching straight down past several layers instead of into the one right
+// below it.
 //
-// `islands` asks a question the lift cannot: the lift describes an edge, and
-// the pieces of a program that share no edge with the rest have none to
-// describe. It is read off the connected components instead.
+// `islands` asks a question neither axis can: a piece of the program that
+// shares no edge with the rest has no lift and no height gap to describe. It
+// is read off the connected components instead.
 import { dominatorTree } from "./dominance.js";
 import { connectedComponents } from "./model.js";
 
@@ -89,38 +90,47 @@ export function entryPoints(graph) {
 }
 
 /**
- * The edges that had to hoist their target out of their caller's scope,
- * grouped by how far (docs/THEORY.md Definition 11). Lift 0 — the caller is
- * the target's natural parent, so the target could simply be nested inside it
- * — is the tree-shaped case and is reported separately as `nesting` rather
- * than as a bucket. Every other edge is a *sharing* edge: its target is used
- * from two places neither of which contains the other, so it has to live at a
- * common ancestor and everything between that ancestor and the caller can see
- * it. The lift is how many scopes that is, which is why one bucket per lift
- * says much more than a single average: lift 1 is two siblings sharing a
- * helper, lift 5 is a declaration visible across five levels that only one
- * place actually needed.
+ * Every call edge's elevation gap: how many layers of call height
+ * (model.js's `computeHeights`, `n.height`) it skips beyond the one layer a
+ * call always crosses. Gap 0 is the edge that actually set the callee's
+ * height — its shallowest caller, one layer up — or any other edge that
+ * happens to land exactly one layer up too; that is the tree-shaped case and
+ * is reported separately as `flat` rather than as a bucket. A positive gap is
+ * a caller reaching past intermediate layers straight down to something
+ * several levels below it: 1 is a caller one layer higher than it needed to
+ * be, a large gap is a top-of-the-graph declaration reaching all the way to
+ * the bottom. Always ≥ 0 for an edge between two different components,
+ * because `computeHeights` places every declaration exactly one layer below
+ * its *shallowest* caller — a steeper caller can only be higher still, never
+ * lower.
+ *
+ * An edge inside a cycle (its two ends share a `scc`, including a self-loop)
+ * has no gap to report: cycle members share one call height, so neither end
+ * is "above" the other for this to measure.
+ *
+ * Unlike `entryPoints`/`independence`, this is not read off the dominator
+ * tree at all — it is the same axis the 3D view already draws, so a bucket
+ * here is a jump you can see, not one that has to be looked up.
  */
-export function scopeEscapes(graph) {
-  const dom = dominance(graph);
+export function elevationGaps(graph) {
   const links = graph.activeLinks ?? graph.links;
-  const byLift = new Map();
-  let nesting = 0;
-  let liftSum = 0;
-  for (let i = 0; i < links.length; i++) {
-    const lift = dom.lifts[i];
-    if (lift < 0) continue;
-    if (lift === 0) {
-      nesting++;
+  const byGap = new Map();
+  let flat = 0;
+  let gapSum = 0;
+  for (const l of links) {
+    if (l.source.scc === l.target.scc) continue;
+    const gap = l.source.height - l.target.height - 1;
+    if (gap === 0) {
+      flat++;
       continue;
     }
-    liftSum += lift;
-    let bucket = byLift.get(lift);
-    if (!bucket) byLift.set(lift, (bucket = []));
-    bucket.push(links[i]);
+    gapSum += gap;
+    let bucket = byGap.get(gap);
+    if (!bucket) byGap.set(gap, (bucket = []));
+    bucket.push(l);
   }
-  const buckets = [...byLift.entries()].sort((a, b) => a[0] - b[0]).map(([lift, edges]) => ({ lift, edges }));
-  return { nesting, liftSum, escapes: buckets.reduce((n, b) => n + b.edges.length, 0), buckets };
+  const buckets = [...byGap.entries()].sort((a, b) => a[0] - b[0]).map(([gap, edges]) => ({ gap, edges }));
+  return { flat, gapSum, total: buckets.reduce((n, b) => n + b.edges.length, 0), buckets };
 }
 
 /**
@@ -146,7 +156,7 @@ export function scopeEscapes(graph) {
  * a widely shared `draw()`. Nothing can be done about `setLayerGap`; ranking
  * it above an 18-dependency function that is genuinely tangled pointed the
  * list at the one thing in it nobody can act on. Multiplying by how much
- * there was to own fixes that, and matches what `scopeEscapes` already
+ * there was to own fixes that, and matches what `elevationGaps` already
  * reports alongside its buckets: a total, not only a ratio.
  *
  * `overall` is the same quantity over every dependency in the graph, so the

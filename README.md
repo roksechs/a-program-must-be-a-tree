@@ -21,23 +21,27 @@ force-directed graph, and measure how close that graph is to a tree.
   leaf ending the graph's own single longest call chain is guaranteed to sit
   at the bottom. A Top view preset looks straight down that axis with no
   perspective — the same x/y layout a 2D-only rendering would show.
-* **Diagnostics** are three readings of one measurement, on the enabled edge
-  kinds. Every dependency is scored by its *lift* in the dominator tree — the
-  deepest nesting the program admits — which is how many scopes its target had
-  to be hoisted out of its caller to stay reachable from everything else that
-  uses it. That makes them directed and distance-aware: `A -> S <- B` is not a
-  tree, and sharing a declaration between two siblings costs less than calling
-  it from an unrelated part of the program. **Entry points** counts what
+* **Diagnostics** are four questions, on the enabled edge kinds, each read off
+  whichever quantity actually answers it. **Entry points** and
+  **independence** share one: every dependency's *lift* in the dominator
+  tree — the deepest nesting the program admits — how many scopes its target
+  had to be hoisted out of its caller to stay reachable from everything else
+  that uses it. That makes them directed and distance-aware: `A -> S <- B` is
+  not a tree, and sharing a declaration between two siblings costs less than
+  calling it from an unrelated part of the program. Entry points counts what
   nothing calls (how many separate trees the program actually is, and in an
-  application what startup and events run); **scope escapes** buckets the
-  hoisted dependencies by how far they had to go; **independence** scores each
-  declaration by how much of what it depends on is its alone. **Islands** is
-  the exception: it is read off the connected components rather than the
-  lift, because a piece of the program that shares no dependency at all with
-  the rest has no edge for a lift to describe — a family reached only from
-  outside, or code nothing reaches any more. Each one lists the declarations
-  or dependencies behind its number, highlights them in the view, and exports
-  them as a JSON report.
+  application what startup and events run); independence scores each
+  declaration by how much of what it depends on is its alone. **Elevation
+  gaps** reads a different axis — call height, the same quantity the 3D
+  view's vertical position already draws — bucketing calls by how many layers
+  they skip past the one right below them: a declaration near the top of the
+  graph reaching straight down past everything in between to one near the
+  bottom. **Islands** reads neither: it is read off the connected components,
+  because a piece of the program that shares no dependency at all with the
+  rest has no edge for either quantity to describe — a family reached only
+  from outside, or code nothing reaches any more. Each one lists the
+  declarations or dependencies behind its number, highlights them in the
+  view, and exports them as a JSON report.
 * **Edge kinds** follow a small theory (`docs/THEORY.md`): calls, constructions,
   references (callbacks and other value flows), writes (a variable's edge to
   whoever assigns it, reversed since the variable's next value depends on the
@@ -115,7 +119,7 @@ handle has keyboard focus, and is likewise remembered.
 | View & Physics | label mode, colour by kind or call height, layer gap (how far apart two consecutive call heights sit), auto-rotate, fit, top view (perspective-free, straight down the height axis); orbit around the selected subject by dragging, pan with shift-drag, zoom with the wheel, or turn and move like a flight camera with the keyboard — W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ forward/back; recompute (reheat), reset positions, repulsion, spring stiffness, rest length. The physics runs only when asked: the published datasets carry a settled layout (`npm run build:data` computes it), so a graph opens laid out having run nothing, and recompute is the one thing that starts a run. A document with no stored layout opens on the seed and says so. Fit frames the mainland (see Islands below), not every node — an island can drift arbitrarily far away, and a fit that had to include one would leave the connected majority tiny in the view |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |
 | Zones       | directory / file depth *range* (a two-handled slider): both ends start at 0 (nothing shown); the high handle reveals outward from the top like a single depth slider always did, down to the files at the maximum, while the low handle can raise the outer edge to show an inner band on its own |
-| Diagnostics | entry points, scope escapes by lift, independence, and islands (the groups standing apart from the main body, plus the main body itself) — each with the declarations or dependencies behind it, clickable to select, highlight or (an island or the main body) frame in the view, and exportable as a JSON report |
+| Diagnostics | entry points, elevation gaps (calls grouped by how many call-height layers they skip), independence, and islands (the groups standing apart from the main body, plus the main body itself) — each with the declarations or dependencies behind it, clickable to select, highlight or (an island or the main body) frame in the view, and exportable as a JSON report |
 | Selection   | callers and callees of the clicked node, with the lift of each edge, the declaration's natural scope, a Focus button that centres the camera on it, and (ctrl/cmd+click a second node) the path between the two, highlighted in the view |
 
 ## Repository layout

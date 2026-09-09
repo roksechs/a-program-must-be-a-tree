@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { applyActiveKinds, buildGraph, computeHeights, connectedComponents, stronglyConnectedComponents } from "../site/js/model.js";
-import { entryPoints, independence, scopeEscapes } from "../site/js/metrics.js";
+import { elevationGaps, entryPoints, independence } from "../site/js/metrics.js";
 
 const decl = (id, file = "src/a.js", kind = "function") => ({ id, name: id, kind, file });
 const edge = (source, target, kind = "call") => ({ source, target, kind });
@@ -108,10 +108,10 @@ test("a perfect tree needs no hoisting and every node owns what it calls", () =>
     declarations: ["r", "a", "b", "c", "d"].map((id) => decl(id)),
     edges: [edge("r", "a"), edge("r", "b"), edge("a", "c"), edge("a", "d")],
   });
-  const escapes = scopeEscapes(g);
-  assert.equal(escapes.escapes, 0);
-  assert.equal(escapes.nesting, 4);
-  assert.equal(escapes.liftSum, 0);
+  const gaps = elevationGaps(g);
+  assert.equal(gaps.total, 0);
+  assert.equal(gaps.flat, 4);
+  assert.equal(gaps.gapSum, 0);
   assert.equal(independence(g).overall, 1);
   assert.deepEqual(
     entryPoints(g).map((n) => n.id),
@@ -127,12 +127,18 @@ test("sharing and cycles show up as hoisting and lost independence", () => {
   // "a" and "shared" are mutually reachable, so they share one tree position
   // and the edges between them have no lift at all. What is left is r's two
   // dependencies (lift 0) and b -> shared, one scope below where it must live.
-  const escapes = scopeEscapes(g);
+  //
+  // On the height axis it plays out differently: the {a, shared} cycle calls
+  // nothing outside itself, so as a unit it sits at the very bottom — while
+  // r, two calls above it, reaches straight down to `a` in one hop. That is
+  // a real gap of 1, even though r->b and b->shared are each a clean single
+  // layer.
+  const gaps = elevationGaps(g);
   assert.deepEqual(
-    escapes.buckets.map((bucket) => [bucket.lift, bucket.edges.length]),
+    gaps.buckets.map((bucket) => [bucket.gap, bucket.edges.length]),
     [[1, 1]],
   );
-  assert.equal(escapes.nesting, 2);
+  assert.equal(gaps.flat, 2);
   assert.equal(independence(g).overall, (1 + 1 + 1 / 2) / 3);
   const score = new Map(independence(g).nodes.map((entry) => [entry.node.id, entry.score]));
   assert.equal(score.get("r"), 1); // owns both of its dependencies outright
@@ -147,7 +153,7 @@ test("empty graph does not divide by zero", () => {
   const g = buildGraph({ declarations: [], edges: [] });
   assert.equal(independence(g).overall, 1);
   assert.deepEqual(independence(g).nodes, []);
-  assert.equal(scopeEscapes(g).escapes, 0);
+  assert.equal(elevationGaps(g).total, 0);
   assert.deepEqual(entryPoints(g), []);
 });
 
@@ -169,7 +175,7 @@ test("heights, degrees and diagnostics use the control graph only", () => {
   assert.equal(g.byId.get("main").height, 1);
   assert.equal(g.byId.get("Base").height, 0);
   assert.equal(g.byId.get("main").inCycle, false);
-  assert.equal(scopeEscapes(g).nesting, 2); // both active edges are nesting edges
+  assert.equal(elevationGaps(g).flat, 2); // both active edges reach exactly the layer below main
   // A type-only target nothing calls is still an entry point of the control
   // graph, which is what the diagnostics are computed on. Sorted by name the
   // way the panel lists them, so the order is a collation, not the id order.
@@ -183,11 +189,12 @@ test("heights, degrees and diagnostics use the control graph only", () => {
   assert.equal(g.byId.get("main").inCycle, true);
   assert.equal(g.byId.get("main").inDegree, 1);
   assert.equal(g.byId.get("Impl").inDegree, 0);
-  // main and helper are now one cycle, so they are one tree position: their
-  // edges are inside it and have no lift, leaving nothing to hoist at all.
-  const cyclic = scopeEscapes(g);
-  assert.equal(cyclic.escapes, 0);
-  assert.equal(cyclic.nesting, 0);
+  // main and helper are now one cycle, so they share one call height: both
+  // edges between them have no direction to measure a drop across, and
+  // neither counts even as flat.
+  const cyclic = elevationGaps(g);
+  assert.equal(cyclic.total, 0);
+  assert.equal(cyclic.flat, 0);
   assert.deepEqual(independence(g).nodes, []);
   applyActiveKinds(g, new Set(["call", "create"]));
   assert.equal(g.byId.get("main").inCycle, false);

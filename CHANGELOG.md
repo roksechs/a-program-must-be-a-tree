@@ -6,6 +6,34 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### "Scope escapes" replaced by "Elevation gaps", read off call height instead of the dominator tree
+
+* Scope escapes bucketed edges by *lift* — how many scopes a dependency had
+  to be hoisted out of its caller's scope, in the dominator tree, to stay
+  reachable from its other users. That answers a real question, but not the
+  one this section was meant to: how far an edge actually reaches on the
+  axis the 3D view draws, the terrain itself rather than a structure derived
+  from it.
+* `elevationGaps` (`metrics.js`) replaces it, reading `model.js`'s call
+  height directly: `gap(a -> b) = height(a) - height(b) - 1`. 0 is the edge
+  that actually set `b`'s height (its shallowest caller, one layer up, which
+  `computeHeights` guarantees); positive is a caller reaching past
+  intermediate layers straight down to something several levels below it. An
+  edge inside a cycle has no gap to report (its ends share one call height,
+  so neither is above the other), and the value is always ≥ 0 otherwise —
+  `computeHeights` places every declaration exactly one layer below its
+  *shallowest* caller, so a steeper caller can only be higher, never lower.
+* The two readings genuinely disagree on the same edge sometimes: two
+  unrelated callers at the same height both land their edge at gap 0, the
+  `A -> S <- B` case Independence still reads as real sharing (lift 1 for
+  both). That is expected, not a bug — the lift describes the dominator
+  tree, the gap describes the terrain, and a declaration can be structurally
+  "shared" while sitting at a perfectly ordinary height, or vice versa.
+* Independence and Entry points are unaffected — they still read the lift —
+  and the Selection panel's own per-edge lift readout is unchanged too;
+  `elevationGaps` is a new, additional lens, not a change to what `lift`
+  means anywhere else in the codebase.
+
 ### One dropdown for everything the Data section used to spread across four widgets
 
 * The dataset `<select>`, the "Folder…"/"JSON file…" buttons and the

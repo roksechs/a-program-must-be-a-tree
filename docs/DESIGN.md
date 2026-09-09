@@ -54,7 +54,7 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | module          | role |
 |-----------------|------|
 | `model.js`      | Normalises the document: nodes, merged links, containers (directory tree derived from file paths), SCCs and call heights. |
-| `metrics.js`    | The four diagnostics — entry points, scope escapes, independence (all read off the dominator tree) and islands (read off the connected components). |
+| `metrics.js`    | The four diagnostics — entry points and independence (read off the dominator tree), elevation gaps (read off call height, `model.js`'s `computeHeights`) and islands (read off the connected components). |
 | `dominance.js`  | Dominator tree of the condensed graph: the deepest nesting the program admits, and the lift of every edge. |
 | `paths.js`      | "How does A reach B": every node/edge on some path between two declarations, plus the shortest one — see "Path highlighting". |
 | `simulation.js` | d3-force setup, the spring force, seeding of initial positions (containers are never consulted). |
@@ -768,20 +768,20 @@ reading of the diagnostics: mixing a reversed edge into these numbers without
 noticing would misread the tree, so `write` is its own lens (`THEORY.md`
 §3.5, §7) that the toggle makes it easy to set aside.
 
-Everything below is read off one array. `dominance.js` condenses the active
-graph, builds the dominator tree of the condensation — the deepest nesting
-the program admits (`THEORY.md` Definition 10) — and returns `lifts[i]`, the
-lift of `links[i]` (Definition 11): how many scopes that edge's target had to
-be hoisted out of its caller to stay reachable from its other users, or `-1`
-for a link inside a cycle, which is not an edge of the condensation and has
-no lift. Lift 0 means the caller *is* the target's natural parent, so the
-target could simply be nested inside it. Every other value is a *sharing*
-edge.
+Entry points and independence are read off one array. `dominance.js`
+condenses the active graph, builds the dominator tree of the condensation —
+the deepest nesting the program admits (`THEORY.md` Definition 10) — and
+returns `lifts[i]`, the lift of `links[i]` (Definition 11): how many scopes
+that edge's target had to be hoisted out of its caller to stay reachable
+from its other users, or `-1` for a link inside a cycle, which is not an
+edge of the condensation and has no lift. Lift 0 means the caller *is* the
+target's natural parent, so the target could simply be nested inside it.
+Every other value is a *sharing* edge.
 
 | metric | what it is | read it as |
 |---|---|---|
 | Entry points | declarations with in-degree 0 | how many separate trees the program actually is; in an application, what startup and events run |
-| Scope escapes | edges with lift > 0, bucketed by lift | how far the sharing reaches — lift 1 is two siblings sharing a helper, a high lift is a declaration visible across many levels that one place needed |
+| Elevation gaps | edges with gap > 0, bucketed by gap (call height, not the dominator tree — see below) | how far a call reaches past the layer right below it — gap 1 is a caller one layer higher than it needed to be, a large gap is a declaration near the top of the graph reaching straight down to one near the bottom |
 | Independence | per node, the mean of `1 / (1 + lift)` over its distinct callees | how much of what a declaration depends on is its alone: 1 when everything it uses could live inside it |
 | Islands | connected components other than the largest | the pieces that share no dependency at all with the main body: a family reached only from outside, or code nothing reaches any more |
 
@@ -795,13 +795,36 @@ whose one dependency was a widely shared `draw()`. Nothing can be done about
 `setLayerGap`; ranking it above a genuinely tangled 18-dependency function
 aimed the list at the one thing in it nobody could act on. Weighting by how
 much there was to own puts no single-dependency node in the top 30 at all,
-and matches what `scopeEscapes` already reports beside its buckets: a total,
+and matches what `elevationGaps` already reports beside its buckets: a total,
 not only a ratio.
 
-Islands are the one figure here not read off the lift. The lift describes an
-edge, and the pieces of a program that share no edge with the rest have none
-to describe, so they are read off the undirected connected components
-instead (`connectedComponents` in `model.js`). Undirected on purpose: two
+Elevation gaps is read off a different axis entirely: not the dominator tree
+but call height (`computeHeights` in `model.js`, the same quantity
+`graph3d.js` draws as the vertical position). For an edge `a -> b`,
+`gap(a -> b) = height(a) - height(b) - 1`: `0` for the edge that actually set
+`b`'s height — its shallowest caller, which `computeHeights` always places
+exactly one layer below it — or for any other edge that happens to land on
+that same layer too; positive whenever some *other* caller of `b` sits
+higher still, reaching straight down past the layers in between. It is
+always ≥ 0 between two different components for exactly that reason (a
+steeper caller can only be higher, never lower), and an edge inside a cycle
+(its two ends share an `scc`) is left out of the count entirely, flat or
+otherwise: cycle members share one call height, so neither end is above the
+other for a gap to measure.
+
+A gap of 0 says nothing about how widely `b` is shared, unlike a lift of 0 —
+two unrelated callers at the same height both land their edge at gap 0, the
+`A -> S <- B` case Independence and Entry points read as real sharing. The
+two diagnostics can and do disagree about the very same edge; each is
+answering a different question, one about the tree of scopes, the other
+about the terrain the 3D view already draws.
+
+Two figures here are not read off the lift at all, for two different
+reasons. Elevation gaps, just above, deliberately reads a different axis.
+Islands reads neither axis: the lift describes an edge, and the pieces of a
+program that share no edge with the rest have none to describe, so they are
+read off the undirected connected components instead
+(`connectedComponents` in `model.js`). Undirected on purpose: two
 declarations that only ever call a third are still one piece of program, and
 asking whether either can *reach* the other would split that piece into
 three. The largest component is taken to be the mainland — on a program that
@@ -824,9 +847,11 @@ clicking one highlights that piece and points the camera's `fit()` (above)
 at just its nodes, so "which piece is this" and "let me look at only that
 piece" are the same click.
 
-The first three are deliberately one quantity at three granularities rather
-than five independent ratios averaged into a score. A score compresses away the
-thing worth acting on: "0.62" does not say which dependencies to look at,
+Entry points and independence are deliberately one quantity (the lift) at two
+granularities; elevation gaps and islands each read an axis of their own.
+None of the four collapses into a single averaged score, and that is
+deliberate: a score compresses away the thing worth acting on — "0.62" does
+not say which dependencies to look at,
 and a five-way average lets a good ratio hide a bad one. A bucketed
 histogram and a ranked list do, and every row in either is clickable
 (selecting the node, or highlighting the bucket's edges through the path
