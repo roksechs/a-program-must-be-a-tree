@@ -51,6 +51,15 @@ force-directed graph, and measure how close that graph is to a tree.
   runs, dispatches method calls to overriding implementations, and lifts
   callbacks into calls at the declaration that invokes them with a bounded
   control-flow analysis.
+* **An agent can read the diagnosis without downloading it.** The page
+  exposes its four diagnostics as callable tools — over WebMCP where the
+  browser has it, and on `window.programTree` always — so an AI acting on
+  the analysis the browser just ran does not have to be handed an exported
+  file or re-run it elsewhere. It can look a finding up (`get_declaration`
+  gives the file and line, every caller and callee), edit the source *with
+  its own tools*, then call `reanalyze` and see whether the number moved.
+  The page itself can never write a file; see "Tools for an agent" in
+  `docs/DESIGN.md` for why that split is deliberate.
 
 The viewer is a static page (D3.js, no build step) served from Cloudflare, see
 Deployment. Analyzers turn a codebase into a small JSON document

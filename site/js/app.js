@@ -2,6 +2,7 @@
 // renderer to the property panel.
 /* global d3 */
 import { deleteAnalysis, listRecentAnalyses, saveAnalysis } from "./analysisCache.js";
+import { installAgentTools } from "./agentTools.js";
 import { searchGithubRepos } from "./githubAnalyzer.js";
 import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
@@ -185,6 +186,36 @@ const panel = new Panel(document.getElementById("panel"), state, {
   // button then clears this too.
   onHighlight: (nodes, edges) => renderer.setPath(nodes, edges),
   onExportReport: (metric, payload) => exportReport(metric, payload),
+});
+
+// Tools an agent can call against whatever is on screen, over WebMCP where
+// the browser has it and on `window.programTree` always (agentTools.js).
+// Everything they can reach, the panel can already do; the point is that the
+// analysis the page is holding does not have to be exported to a file and
+// re-read somewhere else to be acted on.
+installAgentTools({
+  getGraph: () => state.graph,
+  getLabel: () => state.docLabel ?? null,
+  getEdgeKinds: () => [...state.kinds].sort(),
+  setEdgeKinds: (kinds) => {
+    state.kinds = new Set(EDGE_KINDS.filter((k) => kinds.includes(k)));
+    applyKinds();
+    panel.refresh();
+  },
+  highlight: (nodes) => {
+    const set = new Set(nodes);
+    const links = (state.graph?.activeLinks ?? []).filter((l) => set.has(l.source) && set.has(l.target));
+    renderer.setPath(set.size > 0 ? set : null, set.size > 0 ? new Set(links) : null);
+  },
+  // The one thing the page can do that an agent's own file access cannot:
+  // re-read the folder or repo through the handle it already holds, with the
+  // vendored compiler, in the worker. Only a document that came from an
+  // analysis has something to re-run (see installAndRemember).
+  reanalyze: async () => {
+    if (!state.cacheEntry) return { error: "Nothing re-analyzable is open: this document came from a bundled dataset or a JSON file, not from a folder or repository the viewer analyzed." };
+    await reanalyzeRecent(state.cacheEntry);
+    return {};
+  },
 });
 
 /**

@@ -67,6 +67,8 @@ codebase --(analyzer)--> graph.json --(viewer)--> layout + diagnostics
 | `githubAnalyzer.js` | Fetches a public GitHub repository's file tree and contents into the same file map. |
 | `analyzeWorker.js`  | Runs `localAnalyzer.js` / `githubAnalyzer.js` inside a dedicated worker so the page stays responsive during the analysis itself — see below. |
 | `analysisCache.js`  | Persists local-folder / GitHub-repo analysis results in IndexedDB, so the panel's "Recently opened" list can show a graph again without re-reading or re-analyzing — see below. |
+| `reports.js`    | The four diagnostics as plain data, each with the description the panel shows. The one copy the export buttons and the agent tools both use. |
+| `agentTools.js` | The same figures as callable tools, over WebMCP where the browser has it and `window.programTree` always — see "Tools for an agent". |
 
 The viewer renders only in 3D. A 2D renderer without perspective is exactly
 `graph3d.js`'s own Top view (`viewTop()`), so a separate SVG renderer
@@ -905,6 +907,52 @@ ratios measured real things, but a program's owner could not do anything
 with them: they said a graph was 0.78 of a tree without saying which edges
 made it so. The motifs had the opposite problem — they showed exactly where
 a shape occurred, but "this is a diamond" is not by itself a defect.
+
+## Tools for an agent
+
+The browser has just spent seconds analyzing a folder or a repository, and
+is holding the result. An agent that wants to act on the diagnosis should
+not have to be handed a downloaded file, or re-run the whole analysis in
+another process, to see it. `agentTools.js` exposes it directly:
+
+| tool | what it answers |
+|---|---|
+| `get_diagnostics` | All four diagnostics of what is open, each with its description. |
+| `find_declarations` | "This finding names `installGraph` — where is that?" |
+| `get_declaration` | One declaration's callers and callees, each edge with its own lift and elevation gap. |
+| `set_edge_kinds` | Re-read every figure on another lens (`["call", "create"]` is the control graph). |
+| `highlight` | Show these declarations on screen, for a human watching. |
+| `reanalyze` | Re-read the folder or repo and re-measure. |
+
+`get_diagnostics` summarises by default. A full diagnosis of a real codebase
+lists every edge of every gap bucket and every declaration of every island —
+on `d3-shape`, 76KB against the summary's 7KB, and that is a small library.
+The summary keeps the figures, the descriptions and the worst few of each;
+`detail: "full"` returns byte-for-byte what the export button downloads.
+
+**The page cannot write a file, and that is the design.** The loop an agent
+runs is: read the diagnosis, ask where a finding lives, *edit the source
+with its own tools*, call `reanalyze`, and see whether the number moved. The
+edit step is deliberately not a tool here. A page that could rewrite a
+source tree is a far larger thing to trust than one that can describe it,
+and the agents worth pointing at this already have file access granted and
+reviewed through their own front door. What the page uniquely has is the
+directory handle, the vendored compiler and the worker — so re-analysis is
+what it offers, and that is enough to close the loop.
+
+Transport is WebMCP (`navigator.modelContext`) when the browser has it. That
+is an emerging API, absent in most browsers and with a shape that has moved,
+so registration is best-effort and silent when it fails — a viewer whose job
+is drawing a graph should not throw because a proposal is not implemented.
+The same tools are always on `window.programTree`, which is what an
+extension, a devtools console, a Playwright-driven agent and this
+repository's own tests use; `window.programTree.webmcp` says which path
+registration took, and `window.programTree.tools()` lists the descriptors.
+
+Nothing here can reach past what the panel can already do, and the two are
+read off the same `reports.js`: a figure an agent is told and a figure a
+human is shown cannot disagree, for the same reason the edge-kind switches
+drive drawing, springs and diagnostics together.
 
 ## Path highlighting
 

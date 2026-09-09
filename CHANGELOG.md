@@ -6,6 +6,32 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### An agent can read the diagnosis straight out of the page
+
+* `agentTools.js` exposes the four diagnostics as callable tools:
+  `get_diagnostics`, `find_declarations`, `get_declaration`,
+  `set_edge_kinds`, `highlight`, `reanalyze`. The browser has just spent
+  seconds analyzing a folder or a repository and is holding the result;
+  before this, the only way for an agent to act on it was an exported file
+  or a second analysis somewhere else.
+* Registered with **WebMCP** (`navigator.modelContext`) when the browser has
+  it — an emerging API, absent in most browsers, so registration is
+  best-effort and silent when it fails — and always available on
+  `window.programTree` for an extension, a console or a test.
+  `window.programTree.webmcp` reports which path registration took.
+* `get_diagnostics` summarises by default: on `d3-shape` the full diagnosis
+  is 76KB against the summary's 7KB, and that is a small library. `detail:
+  "full"` returns byte-for-byte what the export button downloads.
+* **The page still cannot write a file.** The loop is: read the diagnosis,
+  look a finding up, edit the source with the agent's *own* tools, call
+  `reanalyze`, see whether the number moved. Re-analysis is the part only
+  the page can do — it holds the directory handle, the vendored compiler and
+  the worker — and it is enough to close the loop without handing a web page
+  a source tree to rewrite.
+* The report shapes moved out of `panel.js` into `reports.js`, so the
+  figures an agent is told and the figures a human downloads are one piece
+  of code and cannot drift apart.
+
 ### Every diagnostic report explains itself, and one button exports all four
 
 * Each of the four exported reports (entry points, elevation gaps,

@@ -60,7 +60,8 @@ edges. Required features, all of which must keep working:
 site/            static site (deployment root)
   js/            ES modules: model, metrics, dominance, simulation, zones, graph3d, panel, app, i18n,
                  browserAnalyzer/localAnalyzer/githubAnalyzer/analyzeWorker (analyzer running in-browser),
-                 analysisCache ("Recently opened", IndexedDB)
+                 analysisCache ("Recently opened", IndexedDB),
+                 reports (the four diagnostics as data) and agentTools (those tools over WebMCP / window.programTree)
   data/          generated datasets, listed in index.json
   vendor/        d3 and TypeScript (copied by `npm run vendor`, do not edit; TypeScript is regenerated on every build, not committed)
 analyzers/ts/    JavaScript / TypeScript / Svelte analyzer (TypeScript compiler API, svelte2tsx for `.svelte`); core.mjs is the portable half shared with the browser's local-folder feature

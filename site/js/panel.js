@@ -8,6 +8,7 @@ import { POPULAR_REPOS } from "./githubAnalyzer.js";
 import { kindLabel, t } from "./i18n.js";
 import { localFolderSupported } from "./localAnalyzer.js";
 import { elevationGaps, entryPoints, independence, islands, linkLift, naturalScope } from "./metrics.js";
+import { allReports, elevationGapsReport, entryPointsReport, independenceReport, islandsReport } from "./reports.js";
 
 const GITHUB_SEARCH_DEBOUNCE_MS = 400;
 
@@ -542,61 +543,17 @@ export class Panel {
       );
     const exportButton = (metric, build) =>
       this.el("div", { class: "buttons" }, this.el("button", { type: "button", onclick: () => this.h.onExportReport(metric, build()) }, t("metric.export")));
-    // Every report — this one included — leads with `description`: the same
-    // text as the section's own hint, so a report opened away from the
-    // viewer (the whole point of exporting one) still says what the number
-    // meant, not just what it was.
-    const entryPointsReport = () => ({ description: t("metric.entryPoints.hint"), count: entries.length, nodes: entries.map(reportNodeShape) });
-    const elevationGapsReport = () => ({
-      description: t("metric.elevationGaps.hint"),
-      total: gaps.total,
-      flatEdges: gaps.flat,
-      gapSum: gaps.gapSum,
-      byGap: gaps.buckets.map(({ gap, edges }) => ({
-        gap,
-        count: edges.length,
-        edges: edges.map((l) => ({ source: l.source.id, target: l.target.id, kind: l.kind, gap })),
-      })),
-    });
-    const independenceReport = () => ({
-      description: t("metric.independence.hint"),
-      overall: owned.overall,
-      nodes: owned.nodes.map(({ node, score, callees, shared }) => ({ ...reportNodeShape(node), independence: score, callees, shared })),
-    });
-    const islandsReport = () => ({
-      description: t("metric.islands.hint"),
-      mainland: adrift.mainland,
-      adrift: adrift.adrift,
-      groups: adrift.groups.map((g) => ({
-        size: g.nodes.length,
-        nodes: g.nodes.map(reportNodeShape),
-        edges: g.links.map((l) => ({ source: l.source.id, target: l.target.id, kind: l.kind })),
-      })),
-      // Listed here even though the panel only counts them: a report is
-      // read at leisure, and a lone declaration adrift is still a finding.
-      alone: adrift.singles.map(reportNodeShape),
-    });
     // One file with all four, each keyed by the same metric id its own
     // export uses — for handing the whole diagnosis to someone at once
-    // rather than four separate downloads.
+    // rather than four separate downloads. The shapes themselves live in
+    // reports.js, because the agent tools serve the same ones (agentTools.js)
+    // and the two must never disagree about a number.
     const exportAllButton = this.el(
       "div",
       { class: "buttons" },
       this.el(
         "button",
-        {
-          type: "button",
-          class: "primary",
-          onclick: () =>
-            this.h.onExportReport("all", {
-              metrics: {
-                "entry-points": entryPointsReport(),
-                "elevation-gaps": elevationGapsReport(),
-                independence: independenceReport(),
-                islands: islandsReport(),
-              },
-            }),
-        },
+        { type: "button", class: "primary", onclick: () => this.h.onExportReport("all", { metrics: allReports(graph) }) },
         t("metric.exportAll"),
       ),
     );
@@ -697,25 +654,25 @@ export class Panel {
       heading("metric.entryPoints", String(entries.length)),
       hint("metric.entryPoints.hint"),
       entryList,
-      exportButton("entry-points", entryPointsReport),
+      exportButton("entry-points", () => entryPointsReport(graph)),
 
       heading("metric.elevationGaps", String(gaps.total)),
       hint("metric.elevationGaps.hint"),
       this.el("p", { class: "muted small metric-hint" }, t("metric.elevationGaps.summary", { flat: gaps.flat, gapSum: gaps.gapSum })),
       ...(gapRange ? [gapRange] : []),
       gapCountEl,
-      exportButton("elevation-gaps", elevationGapsReport),
+      exportButton("elevation-gaps", () => elevationGapsReport(graph)),
 
       heading("metric.independence", owned.overall.toFixed(2)),
       hint("metric.independence.hint"),
       ownedList,
-      exportButton("independence", independenceReport),
+      exportButton("independence", () => independenceReport(graph)),
 
       heading("metric.islands", String(adrift.groups.length)),
       hint("metric.islands.hint"),
       this.el("p", { class: "muted small metric-hint" }, t("metric.islands.summary", { mainland: adrift.mainland, singles: adrift.singles.length })),
       islandList,
-      exportButton("islands", islandsReport),
+      exportButton("islands", () => islandsReport(graph)),
     );
   }
 
@@ -825,9 +782,4 @@ function saveOpenSections(ids) {
   } catch {
     // Not being able to remember the layout is not worth interrupting anything for.
   }
-}
-
-/** The fields of a declaration an exported report carries (see app.js's exportReport). */
-function reportNodeShape(node) {
-  return { id: node.id, name: node.name, kind: node.kind, file: node.file, line: node.line, in: node.inDegree, out: node.outDegree, height: node.height };
 }

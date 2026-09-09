@@ -3,9 +3,9 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-09T07:11:45.831Z",
+  "generatedAt": "2026-09-09T07:34:49.915Z",
   "analyzer": "analyzers/ts@0.8.0",
-  "files": 35
+  "files": 38
  },
  "declarations": [
   {
@@ -16,8 +16,8 @@
    "line": 30,
    "parent": null,
    "exported": false,
-   "x": -2591.5,
-   "y": 7592.1
+   "x": -2256.9,
+   "y": 6276.3
   },
   {
    "id": "analyzers/ts/analyze.mjs::analyze",
@@ -27,8 +27,8 @@
    "line": 84,
    "parent": null,
    "exported": true,
-   "x": -2883.5,
-   "y": 7446.4
+   "x": -1898.4,
+   "y": 6397.5
   },
   {
    "id": "analyzers/ts/analyze.mjs::analyze/getSourceFile",
@@ -38,8 +38,8 @@
    "line": 123,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false,
-   "x": -2233,
-   "y": 7649.9
+   "x": -2573.8,
+   "y": 6060.9
   },
   {
    "id": "analyzers/ts/analyze.mjs::analyze/resolveModuleNames",
@@ -49,8 +49,8 @@
    "line": 137,
    "parent": "analyzers/ts/analyze.mjs::analyze",
    "exported": false,
-   "x": -2268.6,
-   "y": 7545.2
+   "x": -2456.7,
+   "y": 6013.5
   },
   {
    "id": "analyzers/ts/analyze.mjs::listSourceFiles",
@@ -60,8 +60,8 @@
    "line": 34,
    "parent": null,
    "exported": true,
-   "x": -2964,
-   "y": 7642.5
+   "x": -1938.9,
+   "y": 6571.8
   },
   {
    "id": "analyzers/ts/analyze.mjs::matches",
@@ -71,8 +71,8 @@
    "line": 63,
    "parent": null,
    "exported": false,
-   "x": -2972.2,
-   "y": 7792.2
+   "x": -2050.7,
+   "y": 6684.7
   },
   {
    "id": "analyzers/ts/analyze.mjs::parseArgs",
@@ -82,8 +82,8 @@
    "line": 160,
    "parent": null,
    "exported": false,
-   "x": -2676.6,
-   "y": 7697.4
+   "x": -2295,
+   "y": 6405.4
   },
   {
    "id": "analyzers/ts/analyze.mjs::svelteSupport",
@@ -93,8 +93,8 @@
    "line": 31,
    "parent": null,
    "exported": false,
-   "x": -1973.7,
-   "y": 8133.3
+   "x": -3135.8,
+   "y": 6174.4
   },
   {
    "id": "analyzers/ts/core.mjs::ANALYZER_VERSION",
@@ -104,8 +104,8 @@
    "line": 9,
    "parent": null,
    "exported": true,
-   "x": -2213.9,
-   "y": 7860.4
+   "x": -2762.4,
+   "y": 6182.9
   },
   {
    "id": "analyzers/ts/core.mjs::createCore",
@@ -115,8 +115,8 @@
    "line": 32,
    "parent": null,
    "exported": true,
-   "x": -2207.5,
-   "y": 7703.9
+   "x": -2637.4,
+   "y": 6076.1
   },
   {
    "id": "analyzers/ts/core.mjs::DEFAULT_EXCLUDES",
@@ -126,8 +126,8 @@
    "line": 11,
    "parent": null,
    "exported": true,
-   "x": -3063.9,
-   "y": 7747.9
+   "x": -1937.1,
+   "y": 6696.1
   },
   {
    "id": "analyzers/ts/core.mjs::EXTENSIONS",
@@ -137,8 +137,8 @@
    "line": 10,
    "parent": null,
    "exported": true,
-   "x": -3038.8,
-   "y": 7831.1
+   "x": -2009,
+   "y": 6748.4
   },
   {
    "id": "analyzers/ts/core.mjs::stripRoot",
@@ -148,8 +148,8 @@
    "line": 20,
    "parent": null,
    "exported": true,
-   "x": -2160.3,
-   "y": 7904.7
+   "x": -2831,
+   "y": 6172.7
   },
   {
    "id": "analyzers/ts/svelte.mjs::BASE64_CHARS",
@@ -159,8 +159,8 @@
    "line": 30,
    "parent": null,
    "exported": false,
-   "x": -591.1,
-   "y": 10004.4
+   "x": -5602.1,
+   "y": 6204.8
   },
   {
    "id": "analyzers/ts/svelte.mjs::BASE64_VALUE",
@@ -170,8 +170,8 @@
    "line": 31,
    "parent": null,
    "exported": false,
-   "x": -716.1,
-   "y": 9835.6
+   "x": -5380.9,
+   "y": 6207.8
   },
   {
    "id": "analyzers/ts/svelte.mjs::basename",
@@ -181,8 +181,8 @@
    "line": 19,
    "parent": null,
    "exported": false,
-   "x": -1580.3,
-   "y": 8696.5
+   "x": -3856.6,
+   "y": 6230.2
   },
   {
    "id": "analyzers/ts/svelte.mjs::buildLineMap",
@@ -192,8 +192,8 @@
    "line": 62,
    "parent": null,
    "exported": false,
-   "x": -1291.9,
-   "y": 9042.1
+   "x": -4338.9,
+   "y": 6201.8
   },
   {
    "id": "analyzers/ts/svelte.mjs::cleanupSvelteDocument",
@@ -203,8 +203,8 @@
    "line": 161,
    "parent": null,
    "exported": true,
-   "x": -2456.2,
-   "y": 7776.1
+   "x": -2489.2,
+   "y": 6295.3
   },
   {
    "id": "analyzers/ts/svelte.mjs::COMPONENT_SUFFIX",
@@ -214,8 +214,8 @@
    "line": 137,
    "parent": null,
    "exported": false,
-   "x": -2543.9,
-   "y": 7929.5
+   "x": -2550.3,
+   "y": 6455
   },
   {
    "id": "analyzers/ts/svelte.mjs::createSvelteSupport",
@@ -225,8 +225,8 @@
    "line": 97,
    "parent": null,
    "exported": true,
-   "x": -1678.5,
-   "y": 8477.4
+   "x": -3618,
+   "y": 6163.9
   },
   {
    "id": "analyzers/ts/svelte.mjs::decodeVLQSegment",
@@ -236,8 +236,8 @@
    "line": 34,
    "parent": null,
    "exported": false,
-   "x": -934.4,
-   "y": 9538.3
+   "x": -4987.5,
+   "y": 6210.4
   },
   {
    "id": "analyzers/ts/svelte.mjs::RENDER_FUNCTION_NAME",
@@ -247,8 +247,8 @@
    "line": 138,
    "parent": null,
    "exported": false,
-   "x": -2512.7,
-   "y": 7998.6
+   "x": -2619.3,
+   "y": 6481.5
   },
   {
    "id": "analyzers/ts/svelte.mjs::resolveSvelteModule",
@@ -258,8 +258,8 @@
    "line": 117,
    "parent": null,
    "exported": true,
-   "x": -2129.3,
-   "y": 7790.5
+   "x": -2748.1,
+   "y": 6065.8
   },
   {
    "id": "analyzers/ts/svelte.mjs::SVELTE_EXTENSION",
@@ -269,8 +269,8 @@
    "line": 16,
    "parent": null,
    "exported": true,
-   "x": -2415.8,
-   "y": 7674.8
+   "x": -2444.4,
+   "y": 6204.3
   },
   {
    "id": "scripts/analyze-examples.mjs::<module>",
@@ -280,8 +280,8 @@
    "line": 14,
    "parent": null,
    "exported": false,
-   "x": -3567.7,
-   "y": 7228.9
+   "x": -1263.8,
+   "y": 6778.1
   },
   {
    "id": "scripts/analyze-examples.mjs::d3Packages",
@@ -291,8 +291,8 @@
    "line": 46,
    "parent": null,
    "exported": false,
-   "x": -3492.5,
-   "y": 7260.6
+   "x": -1337.3,
+   "y": 6731.5
   },
   {
    "id": "scripts/analyze-examples.mjs::dataDir",
@@ -302,8 +302,8 @@
    "line": 13,
    "parent": null,
    "exported": false,
-   "x": -3848.4,
-   "y": 7148.7
+   "x": -1006.6,
+   "y": 6939.4
   },
   {
    "id": "scripts/analyze-examples.mjs::index",
@@ -313,8 +313,8 @@
    "line": 16,
    "parent": null,
    "exported": false,
-   "x": -3912,
-   "y": 7108.1
+   "x": -928.5,
+   "y": 6962.8
   },
   {
    "id": "scripts/analyze-examples.mjs::root",
@@ -324,8 +324,8 @@
    "line": 12,
    "parent": null,
    "exported": false,
-   "x": -3707.2,
-   "y": 7219.8
+   "x": -1169.8,
+   "y": 6878.2
   },
   {
    "id": "scripts/analyze-examples.mjs::syntheticTangle",
@@ -335,8 +335,8 @@
    "line": 94,
    "parent": null,
    "exported": false,
-   "x": -3546.4,
-   "y": 7344.9
+   "x": -1378.9,
+   "y": 6814.6
   },
   {
    "id": "scripts/analyze-examples.mjs::syntheticTree",
@@ -346,8 +346,8 @@
    "line": 77,
    "parent": null,
    "exported": false,
-   "x": -3621.8,
-   "y": 7336
+   "x": -1333.4,
+   "y": 6881.4
   },
   {
    "id": "scripts/analyze-examples.mjs::write",
@@ -357,8 +357,8 @@
    "line": 17,
    "parent": null,
    "exported": false,
-   "x": -4276.7,
-   "y": 6932.7
+   "x": -509.6,
+   "y": 7134.1
   },
   {
    "id": "scripts/serve.mjs::<module>",
@@ -368,8 +368,8 @@
    "line": 19,
    "parent": null,
    "exported": false,
-   "x": -27907.5,
-   "y": 56483.9
+   "x": 1987.2,
+   "y": 53811.9
   },
   {
    "id": "scripts/serve.mjs::port",
@@ -379,8 +379,8 @@
    "line": 8,
    "parent": null,
    "exported": false,
-   "x": -27970.9,
-   "y": 56480.7
+   "x": 2048.8,
+   "y": 53795.4
   },
   {
    "id": "scripts/serve.mjs::root",
@@ -390,8 +390,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": -27848.7,
-   "y": 56549.5
+   "x": 1948.6,
+   "y": 53891.3
   },
   {
    "id": "scripts/serve.mjs::types",
@@ -401,8 +401,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -27842.1,
-   "y": 56424.9
+   "x": 1913.7,
+   "y": 53763.3
   },
   {
    "id": "scripts/settle.mjs::<module>",
@@ -412,8 +412,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": -6590,
-   "y": -55072.2
+   "x": 10701.1,
+   "y": -45468.9
   },
   {
    "id": "scripts/settle.mjs::layout",
@@ -423,8 +423,8 @@
    "line": 19,
    "parent": null,
    "exported": false,
-   "x": -5928,
-   "y": 6177.2
+   "x": 1352.8,
+   "y": 7938.2
   },
   {
    "id": "scripts/settle.mjs::settle",
@@ -434,8 +434,8 @@
    "line": 22,
    "parent": null,
    "exported": true,
-   "x": -6037.6,
-   "y": 6053.1
+   "x": 1543.8,
+   "y": 7935.3
   },
   {
    "id": "scripts/vendor.mjs::<module>",
@@ -445,8 +445,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": 2514.7,
-   "y": 10008.8
+   "x": -7628.7,
+   "y": 3278.9
   },
   {
    "id": "scripts/vendor.mjs::d3Pkg",
@@ -456,8 +456,8 @@
    "line": 13,
    "parent": null,
    "exported": false,
-   "x": 2652.7,
-   "y": 10163.4
+   "x": -7782.6,
+   "y": 3129.8
   },
   {
    "id": "scripts/vendor.mjs::defaultLib",
@@ -467,8 +467,8 @@
    "line": 34,
    "parent": null,
    "exported": false,
-   "x": -905.3,
-   "y": 7930
+   "x": -3752.4,
+   "y": 5172.7
   },
   {
    "id": "scripts/vendor.mjs::libFiles",
@@ -478,8 +478,8 @@
    "line": 35,
    "parent": null,
    "exported": false,
-   "x": 2575.4,
-   "y": 9926.1
+   "x": -7587.5,
+   "y": 3204.9
   },
   {
    "id": "scripts/vendor.mjs::pathShim",
@@ -489,8 +489,8 @@
    "line": 70,
    "parent": null,
    "exported": false,
-   "x": 3053.8,
-   "y": 10283.8
+   "x": -8165.7,
+   "y": 2961.3
   },
   {
    "id": "scripts/vendor.mjs::pathShim/setup",
@@ -500,8 +500,8 @@
    "line": 72,
    "parent": "scripts/vendor.mjs::pathShim",
    "exported": false,
-   "x": 3226.6,
-   "y": 10372.1
+   "x": -8335,
+   "y": 2856
   },
   {
    "id": "scripts/vendor.mjs::queue",
@@ -511,8 +511,8 @@
    "line": 36,
    "parent": null,
    "exported": false,
-   "x": 1053.9,
-   "y": 9113.7
+   "x": -5969.9,
+   "y": 4086
   },
   {
    "id": "scripts/vendor.mjs::root",
@@ -522,8 +522,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": 2702.2,
-   "y": 10114.4
+   "x": -7831.4,
+   "y": 3182.7
   },
   {
    "id": "scripts/vendor.mjs::svelte2tsxBundle",
@@ -533,8 +533,8 @@
    "line": 105,
    "parent": null,
    "exported": false,
-   "x": 2790.1,
-   "y": 10149.8
+   "x": -7905.3,
+   "y": 3120.8
   },
   {
    "id": "scripts/vendor.mjs::svelte2tsxPkg",
@@ -544,8 +544,8 @@
    "line": 68,
    "parent": null,
    "exported": false,
-   "x": 2625.7,
-   "y": 10094
+   "x": -7759.9,
+   "y": 3206.6
   },
   {
    "id": "scripts/vendor.mjs::sveltePkg",
@@ -555,8 +555,8 @@
    "line": 69,
    "parent": null,
    "exported": false,
-   "x": 2718.5,
-   "y": 10046.7
+   "x": -7839.7,
+   "y": 3252.3
   },
   {
    "id": "scripts/vendor.mjs::tsLibDir",
@@ -566,8 +566,8 @@
    "line": 25,
    "parent": null,
    "exported": false,
-   "x": 2679.8,
-   "y": 10005.5
+   "x": -7748.4,
+   "y": 3260.7
   },
   {
    "id": "scripts/vendor.mjs::tsPkg",
@@ -577,8 +577,8 @@
    "line": 24,
    "parent": null,
    "exported": false,
-   "x": 2632.9,
-   "y": 10041
+   "x": -7796.1,
+   "y": 3292.2
   },
   {
    "id": "scripts/vendor.mjs::vendorDir",
@@ -588,8 +588,8 @@
    "line": 10,
    "parent": null,
    "exported": false,
-   "x": 2587.5,
-   "y": 10143.9
+   "x": -7725.3,
+   "y": 3148.9
   },
   {
    "id": "scripts/vendor.mjs::vendorLibDir",
@@ -599,8 +599,184 @@
    "line": 26,
    "parent": null,
    "exported": false,
-   "x": 2512.1,
-   "y": 10129.8
+   "x": -7654.7,
+   "y": 3137.6
+  },
+  {
+   "id": "site/js/agentTools.js::createAgentTools",
+   "name": "createAgentTools",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 108,
+   "parent": null,
+   "exported": true,
+   "x": 4993.3,
+   "y": 7935.6
+  },
+  {
+   "id": "site/js/agentTools.js::createAgentTools/find_declarations",
+   "name": "find_declarations",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 129,
+   "parent": "site/js/agentTools.js::createAgentTools",
+   "exported": false,
+   "x": 4773.7,
+   "y": 7752.1
+  },
+  {
+   "id": "site/js/agentTools.js::createAgentTools/get_declaration",
+   "name": "get_declaration",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 141,
+   "parent": "site/js/agentTools.js::createAgentTools",
+   "exported": false,
+   "x": 4692.7,
+   "y": 7713.7
+  },
+  {
+   "id": "site/js/agentTools.js::createAgentTools/get_diagnostics",
+   "name": "get_diagnostics",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 117,
+   "parent": "site/js/agentTools.js::createAgentTools",
+   "exported": false,
+   "x": 4825.8,
+   "y": 7986.7
+  },
+  {
+   "id": "site/js/agentTools.js::createAgentTools/highlight",
+   "name": "highlight",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 167,
+   "parent": "site/js/agentTools.js::createAgentTools",
+   "exported": false,
+   "x": 4933.1,
+   "y": 8078.7
+  },
+  {
+   "id": "site/js/agentTools.js::createAgentTools/reanalyze",
+   "name": "reanalyze",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 174,
+   "parent": "site/js/agentTools.js::createAgentTools",
+   "exported": false,
+   "x": 4852.7,
+   "y": 8038
+  },
+  {
+   "id": "site/js/agentTools.js::createAgentTools/set_edge_kinds",
+   "name": "set_edge_kinds",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 160,
+   "parent": "site/js/agentTools.js::createAgentTools",
+   "exported": false,
+   "x": 4813.8,
+   "y": 8098.1
+  },
+  {
+   "id": "site/js/agentTools.js::descriptors",
+   "name": "descriptors",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 184,
+   "parent": null,
+   "exported": false,
+   "x": 6369.1,
+   "y": 7685.4
+  },
+  {
+   "id": "site/js/agentTools.js::descriptors/execute",
+   "name": "execute",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 202,
+   "parent": "site/js/agentTools.js::descriptors",
+   "exported": false,
+   "x": 6628,
+   "y": 7519.4
+  },
+  {
+   "id": "site/js/agentTools.js::edgeShape",
+   "name": "edgeShape",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 90,
+   "parent": null,
+   "exported": false,
+   "x": 4424,
+   "y": 7664.7
+  },
+  {
+   "id": "site/js/agentTools.js::GLOBAL_NAME",
+   "name": "GLOBAL_NAME",
+   "kind": "variable",
+   "file": "site/js/agentTools.js",
+   "line": 34,
+   "parent": null,
+   "exported": false,
+   "x": 5762.4,
+   "y": 8070.4
+  },
+  {
+   "id": "site/js/agentTools.js::installAgentTools",
+   "name": "installAgentTools",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 235,
+   "parent": null,
+   "exported": true,
+   "x": 5479.6,
+   "y": 8289
+  },
+  {
+   "id": "site/js/agentTools.js::installAgentTools/tools",
+   "name": "tools",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 237,
+   "parent": "site/js/agentTools.js::installAgentTools",
+   "exported": false,
+   "x": 6059.6,
+   "y": 7925.3
+  },
+  {
+   "id": "site/js/agentTools.js::registerWithWebMcp",
+   "name": "registerWithWebMcp",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 212,
+   "parent": null,
+   "exported": false,
+   "x": 6026.3,
+   "y": 7879
+  },
+  {
+   "id": "site/js/agentTools.js::summarize",
+   "name": "summarize",
+   "kind": "function",
+   "file": "site/js/agentTools.js",
+   "line": 46,
+   "parent": null,
+   "exported": false,
+   "x": 4931.2,
+   "y": 7871.8
+  },
+  {
+   "id": "site/js/agentTools.js::TOP_N",
+   "name": "TOP_N",
+   "kind": "variable",
+   "file": "site/js/agentTools.js",
+   "line": 44,
+   "parent": null,
+   "exported": false,
+   "x": 5132.1,
+   "y": 7503
   },
   {
    "id": "site/js/analysisCache.js::DB_NAME",
@@ -610,8 +786,8 @@
    "line": 8,
    "parent": null,
    "exported": false,
-   "x": -7847.3,
-   "y": 3055.9
+   "x": 4096.2,
+   "y": 11130.3
   },
   {
    "id": "site/js/analysisCache.js::DB_VERSION",
@@ -621,8 +797,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -7911.3,
-   "y": 3015
+   "x": 4168.3,
+   "y": 11150.8
   },
   {
    "id": "site/js/analysisCache.js::deleteAnalysis",
@@ -632,8 +808,8 @@
    "line": 72,
    "parent": null,
    "exported": true,
-   "x": -8060.8,
-   "y": 3256.6
+   "x": 4268.8,
+   "y": 10851
   },
   {
    "id": "site/js/analysisCache.js::idFor",
@@ -643,8 +819,8 @@
    "line": 24,
    "parent": null,
    "exported": false,
-   "x": -8058.7,
-   "y": 3446.6
+   "x": 4301.3,
+   "y": 10707.7
   },
   {
    "id": "site/js/analysisCache.js::listRecentAnalyses",
@@ -654,8 +830,8 @@
    "line": 54,
    "parent": null,
    "exported": true,
-   "x": -8203.1,
-   "y": 3486.6
+   "x": 4309.6,
+   "y": 10557.5
   },
   {
    "id": "site/js/analysisCache.js::openDb",
@@ -665,8 +841,8 @@
    "line": 12,
    "parent": null,
    "exported": false,
-   "x": -8023,
-   "y": 3315.8
+   "x": 4206.9,
+   "y": 10818.5
   },
   {
    "id": "site/js/analysisCache.js::saveAnalysis",
@@ -676,8 +852,8 @@
    "line": 34,
    "parent": null,
    "exported": true,
-   "x": -8293.1,
-   "y": 3873.7
+   "x": 4356.9,
+   "y": 10211.1
   },
   {
    "id": "site/js/analysisCache.js::STORE",
@@ -687,8 +863,8 @@
    "line": 10,
    "parent": null,
    "exported": false,
-   "x": -8088,
-   "y": 3377.8
+   "x": 4238.1,
+   "y": 10730.3
   },
   {
    "id": "site/js/analyzeWorker.js::<module>",
@@ -698,8 +874,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": -5359.9,
-   "y": 5782.6
+   "x": 1160.9,
+   "y": 7299.1
   },
   {
    "id": "site/js/analyzeWorker.js::<module>/onProgress",
@@ -709,833 +885,899 @@
    "line": 50,
    "parent": "site/js/analyzeWorker.js::<module>",
    "exported": false,
-   "x": -5232.4,
-   "y": 5791.4
+   "x": 1046.6,
+   "y": 7186.1
   },
   {
    "id": "site/js/app.js::<module>",
    "name": "app",
    "kind": "module",
    "file": "site/js/app.js",
-   "line": 59,
+   "line": 60,
    "parent": null,
    "exported": false,
-   "x": -9341.5,
-   "y": 4494.3
+   "x": 5147.2,
+   "y": 9075.5
+  },
+  {
+   "id": "site/js/app.js::<module>/getEdgeKinds",
+   "name": "getEdgeKinds",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 199,
+   "parent": "site/js/app.js::<module>",
+   "exported": false,
+   "x": 4896,
+   "y": 8614.3
+  },
+  {
+   "id": "site/js/app.js::<module>/getGraph",
+   "name": "getGraph",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 197,
+   "parent": "site/js/app.js::<module>",
+   "exported": false,
+   "x": 4988.3,
+   "y": 8719.3
+  },
+  {
+   "id": "site/js/app.js::<module>/getLabel",
+   "name": "getLabel",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 198,
+   "parent": "site/js/app.js::<module>",
+   "exported": false,
+   "x": 4920.8,
+   "y": 8579.1
+  },
+  {
+   "id": "site/js/app.js::<module>/highlight",
+   "name": "highlight",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 205,
+   "parent": "site/js/app.js::<module>",
+   "exported": false,
+   "x": 5027,
+   "y": 9027.5
+  },
+  {
+   "id": "site/js/app.js::<module>/reanalyze",
+   "name": "reanalyze",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 214,
+   "parent": "site/js/app.js::<module>",
+   "exported": false,
+   "x": 4938.5,
+   "y": 8992.4
+  },
+  {
+   "id": "site/js/app.js::<module>/setEdgeKinds",
+   "name": "setEdgeKinds",
+   "kind": "function",
+   "file": "site/js/app.js",
+   "line": 200,
+   "parent": "site/js/app.js::<module>",
+   "exported": false,
+   "x": 4761.3,
+   "y": 9001.3
   },
   {
    "id": "site/js/app.js::analyzeFolder",
    "name": "analyzeFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 515,
+   "line": 546,
    "parent": null,
    "exported": false,
-   "x": -9160.3,
-   "y": 3758.7
+   "x": 4714.4,
+   "y": 10096.2
   },
   {
    "id": "site/js/app.js::applyKinds",
    "name": "applyKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 205,
+   "line": 236,
    "parent": null,
    "exported": false,
-   "x": -8833.8,
-   "y": 4844.3
+   "x": 4808.8,
+   "y": 9214.2
   },
   {
    "id": "site/js/app.js::applyKindsTo",
    "name": "applyKindsTo",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 198,
+   "line": 229,
    "parent": null,
    "exported": false,
-   "x": -8513.5,
-   "y": 4628.6
+   "x": 4478.8,
+   "y": 8956.4
   },
   {
    "id": "site/js/app.js::applyStaticTranslations",
    "name": "applyStaticTranslations",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 75,
+   "line": 76,
    "parent": null,
    "exported": false,
-   "x": -9424.9,
-   "y": 4344.9
+   "x": 5167.3,
+   "y": 8913
   },
   {
    "id": "site/js/app.js::deleteRecent",
    "name": "deleteRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 546,
+   "line": 577,
    "parent": null,
    "exported": false,
-   "x": -8326.6,
-   "y": 3622.8
+   "x": 4393.9,
+   "y": 10351.7
   },
   {
    "id": "site/js/app.js::downloadJson",
    "name": "downloadJson",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 246,
+   "line": 277,
    "parent": null,
    "exported": false,
-   "x": -8372,
-   "y": 5032.8
+   "x": 4263.2,
+   "y": 9872.4
   },
   {
    "id": "site/js/app.js::endPanelResize",
    "name": "endPanelResize",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 670,
+   "line": 701,
    "parent": null,
    "exported": false,
-   "x": -9688.4,
-   "y": 4473.5
+   "x": 5512.9,
+   "y": 9001
   },
   {
    "id": "site/js/app.js::ensureTicking",
    "name": "ensureTicking",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 313,
+   "line": 344,
    "parent": null,
    "exported": false,
-   "x": -8848.9,
-   "y": 4970.8
+   "x": 4876.3,
+   "y": 9495.4
   },
   {
    "id": "site/js/app.js::exportBaseName",
    "name": "exportBaseName",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 241,
+   "line": 272,
    "parent": null,
    "exported": false,
-   "x": -8522,
-   "y": 4938.8
+   "x": 4477.6,
+   "y": 9632.3
   },
   {
    "id": "site/js/app.js::exportJson",
    "name": "exportJson",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 263,
+   "line": 294,
    "parent": null,
    "exported": false,
-   "x": -8515.9,
-   "y": 4868.5
+   "x": 4402.5,
+   "y": 9685.2
   },
   {
    "id": "site/js/app.js::exportReport",
    "name": "exportReport",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 276,
+   "line": 307,
    "parent": null,
    "exported": false,
-   "x": -8445.6,
-   "y": 4865.3
+   "x": 4448,
+   "y": 9498.1
   },
   {
    "id": "site/js/app.js::fitToMainland",
    "name": "fitToMainland",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 235,
+   "line": 266,
    "parent": null,
    "exported": false,
-   "x": -8688.6,
-   "y": 4858.3
+   "x": 4721.8,
+   "y": 9137.6
   },
   {
    "id": "site/js/app.js::installAndRemember",
    "name": "installAndRemember",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 503,
+   "line": 534,
    "parent": null,
    "exported": false,
-   "x": -8715,
-   "y": 4140.1
+   "x": 4575.6,
+   "y": 9829.7
   },
   {
    "id": "site/js/app.js::installCustomGraph",
    "name": "installCustomGraph",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 491,
+   "line": 522,
    "parent": null,
    "exported": false,
-   "x": -8762.8,
-   "y": 4459.4
+   "x": 4603.8,
+   "y": 9465.8
   },
   {
    "id": "site/js/app.js::installGraph",
    "name": "installGraph",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 327,
+   "line": 358,
    "parent": null,
    "exported": false,
-   "x": -8617.1,
-   "y": 4729.8
+   "x": 4510.2,
+   "y": 9233.8
   },
   {
    "id": "site/js/app.js::languageSelect",
    "name": "languageSelect",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 55,
+   "line": 56,
    "parent": null,
    "exported": false,
-   "x": -9496.8,
-   "y": 4432.7
+   "x": 5281.3,
+   "y": 8991.8
   },
   {
    "id": "site/js/app.js::languageSelect.value",
    "name": "value",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 71,
+   "line": 72,
    "parent": "site/js/app.js::languageSelect",
    "exported": false,
-   "x": -9607.4,
-   "y": 4361.5
+   "x": 5374,
+   "y": 8903.8
   },
   {
    "id": "site/js/app.js::loadDataset",
    "name": "loadDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 406,
+   "line": 437,
    "parent": null,
    "exported": false,
-   "x": -8841,
-   "y": 4467.1
+   "x": 4635.8,
+   "y": 9350
   },
   {
    "id": "site/js/app.js::loadFile",
    "name": "loadFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 425,
+   "line": 456,
    "parent": null,
    "exported": false,
-   "x": -9033.1,
-   "y": 4250.7
+   "x": 4708,
+   "y": 9708.9
   },
   {
    "id": "site/js/app.js::loadFromCache",
    "name": "loadFromCache",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 541,
+   "line": 572,
    "parent": null,
    "exported": false,
-   "x": -8600.6,
-   "y": 4380.5
+   "x": 4500.3,
+   "y": 9577.2
   },
   {
    "id": "site/js/app.js::loadGithubRepo",
    "name": "loadGithubRepo",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 582,
+   "line": 613,
    "parent": null,
    "exported": false,
-   "x": -9134.5,
-   "y": 3925.6
+   "x": 4751.4,
+   "y": 9894.1
   },
   {
    "id": "site/js/app.js::loadLocalFolder",
    "name": "loadLocalFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 568,
+   "line": 599,
    "parent": null,
    "exported": false,
-   "x": -9190.3,
-   "y": 3868.4
+   "x": 4661.1,
+   "y": 9921.5
   },
   {
    "id": "site/js/app.js::loadRemote",
    "name": "loadRemote",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 605,
+   "line": 636,
    "parent": null,
    "exported": false,
-   "x": -9016.7,
-   "y": 4320.4
+   "x": 4757.5,
+   "y": 9611.9
   },
   {
    "id": "site/js/app.js::main",
    "name": "main",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 616,
+   "line": 647,
    "parent": null,
    "exported": false,
-   "x": -8951.6,
-   "y": 4415.1
+   "x": 4768.8,
+   "y": 9379.2
   },
   {
    "id": "site/js/app.js::panel",
    "name": "panel",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 118,
+   "line": 119,
    "parent": null,
    "exported": false,
-   "x": -8853.9,
-   "y": 4542.3
+   "x": 4723.5,
+   "y": 9308.5
   },
   {
    "id": "site/js/app.js::PANEL_MIN_WIDTH",
    "name": "PANEL_MIN_WIDTH",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 641,
+   "line": 672,
    "parent": null,
    "exported": false,
-   "x": -9918.9,
-   "y": 4588.5
+   "x": 5799.6,
+   "y": 9088
   },
   {
    "id": "site/js/app.js::panel/onAutoRotate",
    "name": "onAutoRotate",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 170,
+   "line": 171,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8839.3,
-   "y": 4744
+   "x": 4804,
+   "y": 9347.5
   },
   {
    "id": "site/js/app.js::panel/onClearPath",
    "name": "onClearPath",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 177,
+   "line": 178,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -9014.7,
-   "y": 4621
+   "x": 4902.3,
+   "y": 9224.5
   },
   {
    "id": "site/js/app.js::panel/onColorBy",
    "name": "onColorBy",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 162,
+   "line": 163,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8935.4,
-   "y": 4725.3
+   "x": 4889.3,
+   "y": 9380
   },
   {
    "id": "site/js/app.js::panel/onDataset",
    "name": "onDataset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 119,
+   "line": 120,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8868.8,
-   "y": 4221.9
+   "x": 4420.2,
+   "y": 9408.1
   },
   {
    "id": "site/js/app.js::panel/onDeleteRecent",
    "name": "onDeleteRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 127,
+   "line": 128,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8528.3,
-   "y": 3954.8
+   "x": 4457,
+   "y": 9893
   },
   {
    "id": "site/js/app.js::panel/onExportJson",
    "name": "onExportJson",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 123,
+   "line": 124,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8565.4,
-   "y": 4553
+   "x": 4385.6,
+   "y": 9565
   },
   {
    "id": "site/js/app.js::panel/onExportReport",
    "name": "onExportReport",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 187,
+   "line": 188,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8440.7,
-   "y": 4614.9
+   "x": 4527.6,
+   "y": 9055.2
   },
   {
    "id": "site/js/app.js::panel/onFile",
    "name": "onFile",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 120,
+   "line": 121,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8961.5,
-   "y": 4223.5
+   "x": 4595.1,
+   "y": 9609.9
   },
   {
    "id": "site/js/app.js::panel/onFit",
    "name": "onFit",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 143,
+   "line": 144,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8706.2,
-   "y": 4778
+   "x": 4785.6,
+   "y": 9278
   },
   {
    "id": "site/js/app.js::panel/onFitNodes",
    "name": "onFitNodes",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 147,
+   "line": 148,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8816.3,
-   "y": 4682.5
+   "x": 4830.7,
+   "y": 9088.6
   },
   {
    "id": "site/js/app.js::panel/onFocusNode",
    "name": "onFocusNode",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 176,
+   "line": 177,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -9176.8,
-   "y": 4716.2
+   "x": 5111.8,
+   "y": 9297.4
   },
   {
    "id": "site/js/app.js::panel/onGithub",
    "name": "onGithub",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 122,
+   "line": 123,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8932.4,
-   "y": 4090.7
+   "x": 4532.1,
+   "y": 9438.7
   },
   {
    "id": "site/js/app.js::panel/onGithubSearch",
    "name": "onGithubSearch",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 124,
+   "line": 125,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8230.5,
-   "y": 4396.2
+   "x": 3969.5,
+   "y": 8854.2
   },
   {
    "id": "site/js/app.js::panel/onHighlight",
    "name": "onHighlight",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 186,
+   "line": 187,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8838.9,
-   "y": 4624.4
+   "x": 4826.8,
+   "y": 9045
   },
   {
    "id": "site/js/app.js::panel/onKinds",
    "name": "onKinds",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 157,
+   "line": 158,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8749.6,
-   "y": 4629.1
+   "x": 4613.3,
+   "y": 9299.7
   },
   {
    "id": "site/js/app.js::panel/onLabels",
    "name": "onLabels",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 153,
+   "line": 154,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8910.8,
-   "y": 4761.4
+   "x": 4878.4,
+   "y": 9337.3
   },
   {
    "id": "site/js/app.js::panel/onLayerGap",
    "name": "onLayerGap",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 166,
+   "line": 167,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8901.2,
-   "y": 4683
+   "x": 4844.9,
+   "y": 9406
   },
   {
    "id": "site/js/app.js::panel/onLoadRecent",
    "name": "onLoadRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 125,
+   "line": 126,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8766,
-   "y": 4152
+   "x": 4356.5,
+   "y": 9480.1
   },
   {
    "id": "site/js/app.js::panel/onOpenFolder",
    "name": "onOpenFolder",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 121,
+   "line": 122,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8971.2,
-   "y": 4014.4
+   "x": 4414.5,
+   "y": 9611.6
   },
   {
    "id": "site/js/app.js::panel/onPhysics",
    "name": "onPhysics",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 128,
+   "line": 129,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8725.2,
-   "y": 4443.6
+   "x": 4553.1,
+   "y": 9215.8
   },
   {
    "id": "site/js/app.js::panel/onReanalyzeRecent",
    "name": "onReanalyzeRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 126,
+   "line": 127,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -9114.2,
-   "y": 4071
+   "x": 4646.4,
+   "y": 9704.5
   },
   {
    "id": "site/js/app.js::panel/onReheat",
    "name": "onReheat",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 137,
+   "line": 138,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8676,
-   "y": 4655
+   "x": 4691.7,
+   "y": 9491.4
   },
   {
    "id": "site/js/app.js::panel/onReset",
    "name": "onReset",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 138,
+   "line": 139,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8523.9,
-   "y": 4777.7
+   "x": 4369.8,
+   "y": 9239.7
   },
   {
    "id": "site/js/app.js::panel/onSelectNode",
    "name": "onSelectNode",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 175,
+   "line": 176,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -9064.2,
-   "y": 4654.3
+   "x": 5014.9,
+   "y": 9135.2
   },
   {
    "id": "site/js/app.js::panel/onTop",
    "name": "onTop",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 144,
+   "line": 145,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -9114.3,
-   "y": 4791.2
+   "x": 5052.5,
+   "y": 9510.1
   },
   {
    "id": "site/js/app.js::panel/onZones",
    "name": "onZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 148,
+   "line": 149,
    "parent": "site/js/app.js::panel",
    "exported": false,
-   "x": -8676.3,
-   "y": 4591.1
+   "x": 4612.5,
+   "y": 9173.5
   },
   {
    "id": "site/js/app.js::panelResizer",
    "name": "panelResizer",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 642,
+   "line": 673,
    "parent": null,
    "exported": false,
-   "x": -9572.4,
-   "y": 4486.2
+   "x": 5386.6,
+   "y": 9020.7
   },
   {
    "id": "site/js/app.js::panelWidthLimit",
    "name": "panelWidthLimit",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 643,
+   "line": 674,
    "parent": null,
    "exported": false,
-   "x": -9931.9,
-   "y": 4532.2
+   "x": 5807.6,
+   "y": 9144.7
   },
   {
    "id": "site/js/app.js::reanalyzeRecent",
    "name": "reanalyzeRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 552,
+   "line": 583,
    "parent": null,
    "exported": false,
-   "x": -9237.7,
-   "y": 3912.3
+   "x": 4823,
+   "y": 9777.2
   },
   {
    "id": "site/js/app.js::refreshRecent",
    "name": "refreshRecent",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 475,
+   "line": 506,
    "parent": null,
    "exported": false,
-   "x": -8635.9,
-   "y": 4075.9
+   "x": 4552.8,
+   "y": 9769.1
   },
   {
    "id": "site/js/app.js::renderer",
    "name": "renderer",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 86,
+   "line": 87,
    "parent": null,
    "exported": false,
-   "x": -9015.2,
-   "y": 4771.7
+   "x": 4982,
+   "y": 9245.2
   },
   {
    "id": "site/js/app.js::rendererCallbacks",
    "name": "rendererCallbacks",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 88,
+   "line": 89,
    "parent": null,
    "exported": false,
-   "x": -9190.7,
-   "y": 4785
+   "x": 5162,
+   "y": 9174.6
   },
   {
    "id": "site/js/app.js::rendererCallbacks/onFindPath",
    "name": "onFindPath",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 91,
+   "line": 92,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false,
-   "x": -9010,
-   "y": 4844.5
+   "x": 4976.5,
+   "y": 9197.5
   },
   {
    "id": "site/js/app.js::rendererCallbacks/onHover",
    "name": "onHover",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 97,
+   "line": 98,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false,
-   "x": -9479.2,
-   "y": 4707.9
+   "x": 5423.6,
+   "y": 9091.4
   },
   {
    "id": "site/js/app.js::rendererCallbacks/onSelect",
    "name": "onSelect",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 90,
+   "line": 91,
    "parent": "site/js/app.js::rendererCallbacks",
    "exported": false,
-   "x": -8960.8,
-   "y": 4578.8
+   "x": 4878.3,
+   "y": 9135.4
   },
   {
    "id": "site/js/app.js::reportPhase",
    "name": "reportPhase",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 466,
+   "line": 497,
    "parent": null,
    "exported": false,
-   "x": -9308.2,
-   "y": 3870.2
+   "x": 4851.7,
+   "y": 9965.8
   },
   {
    "id": "site/js/app.js::runAnalysisInWorker",
    "name": "runAnalysisInWorker",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 442,
+   "line": 473,
    "parent": null,
    "exported": false,
-   "x": -9378.4,
-   "y": 3609.2
+   "x": 4830.5,
+   "y": 10260.1
   },
   {
    "id": "site/js/app.js::runLocalAnalysis",
    "name": "runLocalAnalysis",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 525,
+   "line": 556,
    "parent": null,
    "exported": false,
-   "x": -9332.9,
-   "y": 3776.4
+   "x": 4842.2,
+   "y": 10062.6
   },
   {
    "id": "site/js/app.js::savedLanguage",
    "name": "savedLanguage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 58,
+   "line": 59,
    "parent": null,
    "exported": false,
-   "x": -9513.7,
-   "y": 4505
+   "x": 5327.4,
+   "y": 9052.8
   },
   {
    "id": "site/js/app.js::setPanelWidth",
    "name": "setPanelWidth",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 644,
+   "line": 675,
    "parent": null,
    "exported": false,
-   "x": -9463.5,
-   "y": 4614
+   "x": 5340.3,
+   "y": 9146.5
   },
   {
    "id": "site/js/app.js::setStatus",
    "name": "setStatus",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 290,
+   "line": 321,
    "parent": null,
    "exported": false,
-   "x": -9125.6,
-   "y": 4241.9
+   "x": 4812.4,
+   "y": 9477.5
   },
   {
    "id": "site/js/app.js::stage",
    "name": "stage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 52,
+   "line": 53,
    "parent": null,
    "exported": false,
-   "x": -9361.1,
-   "y": 4831.8
+   "x": 5406.2,
+   "y": 9211
   },
   {
    "id": "site/js/app.js::state",
    "name": "state",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 16,
+   "line": 17,
    "parent": null,
    "exported": false,
-   "x": -8707.8,
-   "y": 4697.1
+   "x": 4657.4,
+   "y": 9258.1
   },
   {
    "id": "site/js/app.js::status",
    "name": "status",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 54,
+   "line": 55,
    "parent": null,
    "exported": false,
-   "x": -9409.7,
-   "y": 3937.1
+   "x": 4977.1,
+   "y": 9900.7
   },
   {
    "id": "site/js/app.js::statusMessage",
    "name": "statusMessage",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 289,
+   "line": 320,
    "parent": null,
    "exported": false,
-   "x": -9369.9,
-   "y": 4298
+   "x": 5141.9,
+   "y": 9373.3
   },
   {
    "id": "site/js/app.js::ticking",
    "name": "ticking",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 312,
+   "line": 343,
    "parent": null,
    "exported": false,
-   "x": -8860.7,
-   "y": 5210.1
+   "x": 4992.9,
+   "y": 9757.9
   },
   {
    "id": "site/js/app.js::tooltip",
    "name": "tooltip",
    "kind": "variable",
    "file": "site/js/app.js",
-   "line": 53,
+   "line": 54,
    "parent": null,
    "exported": false,
-   "x": -9871.3,
-   "y": 4728.2
+   "x": 5854.3,
+   "y": 8989.4
   },
   {
    "id": "site/js/app.js::updateZones",
    "name": "updateZones",
    "kind": "function",
    "file": "site/js/app.js",
-   "line": 220,
+   "line": 251,
    "parent": null,
    "exported": false,
-   "x": -8748.1,
-   "y": 4877.9
+   "x": 4699.1,
+   "y": 9242.3
   },
   {
    "id": "site/js/browserAnalyzer.js::analyzeFiles",
@@ -1545,8 +1787,8 @@
    "line": 188,
    "parent": null,
    "exported": true,
-   "x": -2551.1,
-   "y": 6706.3
+   "x": -1705.6,
+   "y": 5746.7
   },
   {
    "id": "site/js/browserAnalyzer.js::compilerOptions",
@@ -1556,8 +1798,8 @@
    "line": 78,
    "parent": null,
    "exported": false,
-   "x": -2208.6,
-   "y": 6915
+   "x": -2106.3,
+   "y": 5597.8
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost",
@@ -1567,8 +1809,8 @@
    "line": 133,
    "parent": null,
    "exported": false,
-   "x": -1930.5,
-   "y": 7187.1
+   "x": -2499.8,
+   "y": 5544.6
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/directoryExists",
@@ -1578,8 +1820,8 @@
    "line": 163,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -1839.4,
-   "y": 7004.4
+   "x": -2451.9,
+   "y": 5346.5
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/fileExists",
@@ -1589,8 +1831,8 @@
    "line": 161,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -2070.5,
-   "y": 7310.2
+   "x": -2466.5,
+   "y": 5719.5
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/getCanonicalFileName",
@@ -1600,8 +1842,8 @@
    "line": 158,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -1920.5,
-   "y": 7055.1
+   "x": -2416.7,
+   "y": 5423
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/getCurrentDirectory",
@@ -1611,8 +1853,8 @@
    "line": 157,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -1847.3,
-   "y": 7079.6
+   "x": -2491.8,
+   "y": 5431
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/getDefaultLibFileName",
@@ -1622,8 +1864,8 @@
    "line": 155,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -1369.3,
-   "y": 7632.1
+   "x": -3222.7,
+   "y": 5395.1
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/getDirectories",
@@ -1633,8 +1875,8 @@
    "line": 164,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -1762,
-   "y": 7040.2
+   "x": -2605.2,
+   "y": 5346.1
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/getNewLine",
@@ -1644,8 +1886,8 @@
    "line": 160,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -1731.1,
-   "y": 7106.5
+   "x": -2524.6,
+   "y": 5318.7
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/getSourceFile",
@@ -1655,8 +1897,8 @@
    "line": 137,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -2092.1,
-   "y": 7494.1
+   "x": -2587.9,
+   "y": 5858.9
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/readFile",
@@ -1666,8 +1908,8 @@
    "line": 162,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -2042.1,
-   "y": 7399.4
+   "x": -2558.6,
+   "y": 5760.3
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/useCaseSensitiveFileNames",
@@ -1677,8 +1919,8 @@
    "line": 159,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -1824.3,
-   "y": 7151.3
+   "x": -2558.8,
+   "y": 5404.4
   },
   {
    "id": "site/js/browserAnalyzer.js::createHost/writeFile",
@@ -1688,8 +1930,8 @@
    "line": 156,
    "parent": "site/js/browserAnalyzer.js::createHost",
    "exported": false,
-   "x": -1760,
-   "y": 7181
+   "x": -2615.2,
+   "y": 5450.5
   },
   {
    "id": "site/js/browserAnalyzer.js::libCache",
@@ -1699,8 +1941,8 @@
    "line": 97,
    "parent": null,
    "exported": false,
-   "x": -1373.3,
-   "y": 6766.8
+   "x": -2598.4,
+   "y": 4862.6
   },
   {
    "id": "site/js/browserAnalyzer.js::loadLibClosure",
@@ -1710,8 +1952,8 @@
    "line": 107,
    "parent": null,
    "exported": false,
-   "x": -1569.2,
-   "y": 7368.7
+   "x": -2888.4,
+   "y": 5390.5
   },
   {
    "id": "site/js/browserAnalyzer.js::loadSvelte2tsx",
@@ -1721,8 +1963,8 @@
    "line": 62,
    "parent": null,
    "exported": true,
-   "x": -2284.8,
-   "y": 6528.6
+   "x": -1769.5,
+   "y": 5424.3
   },
   {
    "id": "site/js/browserAnalyzer.js::loadTypeScript",
@@ -1732,8 +1974,8 @@
    "line": 39,
    "parent": null,
    "exported": true,
-   "x": -2211.2,
-   "y": 6547
+   "x": -1835.4,
+   "y": 5386.7
   },
   {
    "id": "site/js/browserAnalyzer.js::readLib",
@@ -1743,8 +1985,8 @@
    "line": 98,
    "parent": null,
    "exported": false,
-   "x": -1583.5,
-   "y": 6900.9
+   "x": -2543.5,
+   "y": 5107.6
   },
   {
    "id": "site/js/browserAnalyzer.js::svelte2tsxPromise",
@@ -1754,8 +1996,8 @@
    "line": 55,
    "parent": null,
    "exported": false,
-   "x": -2243.5,
-   "y": 6414.7
+   "x": -1717.8,
+   "y": 5316.9
   },
   {
    "id": "site/js/browserAnalyzer.js::tsPromise",
@@ -1765,8 +2007,8 @@
    "line": 37,
    "parent": null,
    "exported": false,
-   "x": -2126.1,
-   "y": 6446.4
+   "x": -1824.1,
+   "y": 5257.9
   },
   {
    "id": "site/js/browserAnalyzer.js::vendorUrl",
@@ -1776,8 +2018,8 @@
    "line": 33,
    "parent": null,
    "exported": false,
-   "x": -1977.7,
-   "y": 6593.5
+   "x": -2035.2,
+   "y": 5228.1
   },
   {
    "id": "site/js/colors.js::BOW_STEP",
@@ -1787,8 +2029,8 @@
    "line": 64,
    "parent": null,
    "exported": false,
-   "x": -8589.2,
-   "y": 5489.1
+   "x": 3944.4,
+   "y": 9701.9
   },
   {
    "id": "site/js/colors.js::EDGE_BOW",
@@ -1798,8 +2040,8 @@
    "line": 65,
    "parent": null,
    "exported": false,
-   "x": -8586.9,
-   "y": 5127.5
+   "x": 4260.9,
+   "y": 9365.8
   },
   {
    "id": "site/js/colors.js::EDGE_COLORS",
@@ -1809,8 +2051,8 @@
    "line": 40,
    "parent": null,
    "exported": true,
-   "x": -9552.3,
-   "y": 3977.6
+   "x": 5178.9,
+   "y": 8577.2
   },
   {
    "id": "site/js/colors.js::edgeBowOffset",
@@ -1820,8 +2062,8 @@
    "line": 77,
    "parent": null,
    "exported": true,
-   "x": -9205.9,
-   "y": 5210.7
+   "x": 5068.9,
+   "y": 9622.4
   },
   {
    "id": "site/js/colors.js::edgeColor",
@@ -1831,8 +2073,8 @@
    "line": 51,
    "parent": null,
    "exported": true,
-   "x": -9166.6,
-   "y": 4312
+   "x": 4892,
+   "y": 8940.5
   },
   {
    "id": "site/js/colors.js::heightColor",
@@ -1842,8 +2084,8 @@
    "line": 87,
    "parent": null,
    "exported": true,
-   "x": -9811.4,
-   "y": 5065.2
+   "x": 5730.5,
+   "y": 9639.2
   },
   {
    "id": "site/js/colors.js::KIND_COLORS",
@@ -1853,8 +2095,8 @@
    "line": 7,
    "parent": null,
    "exported": true,
-   "x": -9615.2,
-   "y": 4080.6
+   "x": 5255.7,
+   "y": 8665.4
   },
   {
    "id": "site/js/colors.js::kindColor",
@@ -1864,8 +2106,8 @@
    "line": 19,
    "parent": null,
    "exported": true,
-   "x": -9173.8,
-   "y": 4352.6
+   "x": 4892.1,
+   "y": 8984.3
   },
   {
    "id": "site/js/colors.js::zoneColor",
@@ -1875,8 +2117,8 @@
    "line": 26,
    "parent": null,
    "exported": true,
-   "x": -9999.3,
-   "y": 5041.8
+   "x": 5863.4,
+   "y": 9755.4
   },
   {
    "id": "site/js/colors.js::zoneScale",
@@ -1886,8 +2128,8 @@
    "line": 23,
    "parent": null,
    "exported": false,
-   "x": -10442,
-   "y": 5192.2
+   "x": 6252.3,
+   "y": 10052
   },
   {
    "id": "site/js/dominance.js::dominatorTree",
@@ -1897,8 +2139,8 @@
    "line": 33,
    "parent": null,
    "exported": true,
-   "x": -7300.5,
-   "y": 4677.8
+   "x": 3676.2,
+   "y": 7819
   },
   {
    "id": "site/js/githubAnalyzer.js::analyzeGithubRepo",
@@ -1908,8 +2150,8 @@
    "line": 72,
    "parent": null,
    "exported": true,
-   "x": -4135.5,
-   "y": 6012.2
+   "x": -82.7,
+   "y": 6609.2
   },
   {
    "id": "site/js/githubAnalyzer.js::API",
@@ -1919,8 +2161,8 @@
    "line": 10,
    "parent": null,
    "exported": false,
-   "x": -4548.5,
-   "y": 5690.1
+   "x": 356.1,
+   "y": 6839.4
   },
   {
    "id": "site/js/githubAnalyzer.js::CONCURRENCY",
@@ -1930,8 +2172,8 @@
    "line": 11,
    "parent": null,
    "exported": false,
-   "x": -3818.1,
-   "y": 5880.3
+   "x": -256,
+   "y": 6353.9
   },
   {
    "id": "site/js/githubAnalyzer.js::fetchBlobs",
@@ -1941,8 +2183,8 @@
    "line": 51,
    "parent": null,
    "exported": false,
-   "x": -3963.9,
-   "y": 5954.3
+   "x": -185.6,
+   "y": 6480.5
   },
   {
    "id": "site/js/githubAnalyzer.js::fetchTree",
@@ -1952,8 +2194,8 @@
    "line": 44,
    "parent": null,
    "exported": false,
-   "x": -4314.6,
-   "y": 5861.9
+   "x": 123,
+   "y": 6710.2
   },
   {
    "id": "site/js/githubAnalyzer.js::githubJson",
@@ -1963,8 +2205,8 @@
    "line": 23,
    "parent": null,
    "exported": false,
-   "x": -4661.7,
-   "y": 5733.8
+   "x": 452.8,
+   "y": 6903.4
   },
   {
    "id": "site/js/githubAnalyzer.js::hasSourceExtension",
@@ -1974,8 +2216,8 @@
    "line": 31,
    "parent": null,
    "exported": false,
-   "x": -4199.4,
-   "y": 5847.3
+   "x": 81.1,
+   "y": 6597
   },
   {
    "id": "site/js/githubAnalyzer.js::parseGithubSpec",
@@ -1985,8 +2227,8 @@
    "line": 14,
    "parent": null,
    "exported": true,
-   "x": -4902.6,
-   "y": 5516.2
+   "x": 656.6,
+   "y": 7025
   },
   {
    "id": "site/js/githubAnalyzer.js::pathExcluded",
@@ -1996,8 +2238,8 @@
    "line": 38,
    "parent": null,
    "exported": false,
-   "x": -4211.3,
-   "y": 5765.5
+   "x": 19.8,
+   "y": 6691.7
   },
   {
    "id": "site/js/githubAnalyzer.js::POPULAR_REPOS",
@@ -2007,8 +2249,8 @@
    "line": 89,
    "parent": null,
    "exported": true,
-   "x": -7718.5,
-   "y": 4210.6
+   "x": 3327.2,
+   "y": 8496.4
   },
   {
    "id": "site/js/githubAnalyzer.js::searchGithubRepos",
@@ -2018,8 +2260,8 @@
    "line": 105,
    "parent": null,
    "exported": true,
-   "x": -6244.8,
-   "y": 5107.3
+   "x": 2025.2,
+   "y": 7793.8
   },
   {
    "id": "site/js/graph3d.js::drawArrow",
@@ -2029,8 +2271,8 @@
    "line": 747,
    "parent": null,
    "exported": false,
-   "x": -9844.5,
-   "y": 4930.8
+   "x": 5691.6,
+   "y": 9694.8
   },
   {
    "id": "site/js/graph3d.js::FOCAL_EXTENT_RATIO",
@@ -2040,8 +2282,8 @@
    "line": 16,
    "parent": null,
    "exported": false,
-   "x": -9312.4,
-   "y": 5419.4
+   "x": 5523.6,
+   "y": 9752.7
   },
   {
    "id": "site/js/graph3d.js::Graph3D",
@@ -2051,8 +2293,8 @@
    "line": 24,
    "parent": null,
    "exported": true,
-   "x": -9084.4,
-   "y": 5133.2
+   "x": 5230.8,
+   "y": 9594.9
   },
   {
    "id": "site/js/graph3d.js::Graph3D.bindEvents",
@@ -2062,8 +2304,8 @@
    "line": 110,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9647.6,
-   "y": 5111.1
+   "x": 5720,
+   "y": 9390.1
   },
   {
    "id": "site/js/graph3d.js::Graph3D.bindEvents/a",
@@ -2073,8 +2315,8 @@
    "line": 216,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false,
-   "x": -9818.6,
-   "y": 5334.9
+   "x": 6033.5,
+   "y": 9417
   },
   {
    "id": "site/js/graph3d.js::Graph3D.bindEvents/arrowdown",
@@ -2084,8 +2326,8 @@
    "line": 227,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false,
-   "x": -9916.9,
-   "y": 5270.6
+   "x": 6022.4,
+   "y": 9541.9
   },
   {
    "id": "site/js/graph3d.js::Graph3D.bindEvents/arrowup",
@@ -2095,8 +2337,8 @@
    "line": 224,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false,
-   "x": -9974.2,
-   "y": 5271.4
+   "x": 6054,
+   "y": 9590.5
   },
   {
    "id": "site/js/graph3d.js::Graph3D.bindEvents/d",
@@ -2106,8 +2348,8 @@
    "line": 219,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false,
-   "x": -9799.6,
-   "y": 5413.5
+   "x": 6091.1,
+   "y": 9364.8
   },
   {
    "id": "site/js/graph3d.js::Graph3D.bindEvents/e",
@@ -2117,8 +2359,8 @@
    "line": 223,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false,
-   "x": -10114.5,
-   "y": 5416.7
+   "x": 6266.6,
+   "y": 9619
   },
   {
    "id": "site/js/graph3d.js::Graph3D.bindEvents/q",
@@ -2128,8 +2370,8 @@
    "line": 222,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false,
-   "x": -10102.2,
-   "y": 5479.9
+   "x": 6312.7,
+   "y": 9576.7
   },
   {
    "id": "site/js/graph3d.js::Graph3D.bindEvents/s",
@@ -2139,8 +2381,8 @@
    "line": 215,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false,
-   "x": -10057.1,
-   "y": 5441.1
+   "x": 6256.7,
+   "y": 9555.8
   },
   {
    "id": "site/js/graph3d.js::Graph3D.bindEvents/w",
@@ -2150,8 +2392,8 @@
    "line": 214,
    "parent": "site/js/graph3d.js::Graph3D.bindEvents",
    "exported": false,
-   "x": -10042.6,
-   "y": 5501.8
+   "x": 6303.3,
+   "y": 9513.8
   },
   {
    "id": "site/js/graph3d.js::Graph3D.constructor",
@@ -2161,8 +2403,8 @@
    "line": 25,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9237.2,
-   "y": 4959.7
+   "x": 5226.9,
+   "y": 9288.9
   },
   {
    "id": "site/js/graph3d.js::Graph3D.dolly",
@@ -2172,8 +2414,8 @@
    "line": 329,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9966.3,
-   "y": 5194.5
+   "x": 5978.8,
+   "y": 9628.4
   },
   {
    "id": "site/js/graph3d.js::Graph3D.draw",
@@ -2183,8 +2425,8 @@
    "line": 527,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9526.7,
-   "y": 4906.4
+   "x": 5453.1,
+   "y": 9416
   },
   {
    "id": "site/js/graph3d.js::Graph3D.fit",
@@ -2194,8 +2436,8 @@
    "line": 664,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9170.3,
-   "y": 5034.8
+   "x": 5246.2,
+   "y": 9374.7
   },
   {
    "id": "site/js/graph3d.js::Graph3D.focusOn",
@@ -2205,8 +2447,8 @@
    "line": 714,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9614,
-   "y": 5007.2
+   "x": 5613.3,
+   "y": 9450.3
   },
   {
    "id": "site/js/graph3d.js::Graph3D.forwardVector",
@@ -2216,8 +2458,8 @@
    "line": 315,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -10333.3,
-   "y": 5510.7
+   "x": 6473.6,
+   "y": 9762.4
   },
   {
    "id": "site/js/graph3d.js::Graph3D.hitTest",
@@ -2227,8 +2469,8 @@
    "line": 498,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9877.6,
-   "y": 5376.7
+   "x": 6092.1,
+   "y": 9456.6
   },
   {
    "id": "site/js/graph3d.js::Graph3D.neighbourSet",
@@ -2238,8 +2480,8 @@
    "line": 512,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9836.3,
-   "y": 4996
+   "x": 5776.7,
+   "y": 9582.9
   },
   {
    "id": "site/js/graph3d.js::Graph3D.panScreen",
@@ -2249,8 +2491,8 @@
    "line": 279,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9724.9,
-   "y": 5129.7
+   "x": 5775.3,
+   "y": 9461.3
   },
   {
    "id": "site/js/graph3d.js::Graph3D.project",
@@ -2260,8 +2502,8 @@
    "line": 471,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -10094.7,
-   "y": 4944.4
+   "x": 5831.9,
+   "y": 9892
   },
   {
    "id": "site/js/graph3d.js::Graph3D.resize",
@@ -2271,8 +2513,8 @@
    "line": 363,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9523.4,
-   "y": 4760.8
+   "x": 5434.6,
+   "y": 9265.8
   },
   {
    "id": "site/js/graph3d.js::Graph3D.restyle",
@@ -2282,8 +2524,8 @@
    "line": 393,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9327.1,
-   "y": 5032.3
+   "x": 5325.7,
+   "y": 9434.4
   },
   {
    "id": "site/js/graph3d.js::Graph3D.rotateInPlace",
@@ -2293,8 +2535,8 @@
    "line": 349,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -10299,
-   "y": 5619.5
+   "x": 6550.9,
+   "y": 9668.3
   },
   {
    "id": "site/js/graph3d.js::Graph3D.select",
@@ -2304,8 +2546,8 @@
    "line": 418,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9417.1,
-   "y": 4735.3
+   "x": 5341.4,
+   "y": 9231.4
   },
   {
    "id": "site/js/graph3d.js::Graph3D.setColorBy",
@@ -2315,8 +2557,8 @@
    "line": 403,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9102.8,
-   "y": 4884.8
+   "x": 5033.6,
+   "y": 9461.8
   },
   {
    "id": "site/js/graph3d.js::Graph3D.setGraph",
@@ -2326,8 +2568,8 @@
    "line": 376,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9149,
-   "y": 4960.5
+   "x": 5122.8,
+   "y": 9481.4
   },
   {
    "id": "site/js/graph3d.js::Graph3D.setLabelMode",
@@ -2337,8 +2579,8 @@
    "line": 398,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9073.3,
-   "y": 4922.6
+   "x": 5056.1,
+   "y": 9419
   },
   {
    "id": "site/js/graph3d.js::Graph3D.setLayerGap",
@@ -2348,8 +2590,8 @@
    "line": 413,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9383.7,
-   "y": 4928.3
+   "x": 5344.9,
+   "y": 9596.6
   },
   {
    "id": "site/js/graph3d.js::Graph3D.setPath",
@@ -2359,8 +2601,8 @@
    "line": 431,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9238.4,
-   "y": 4834.3
+   "x": 5187,
+   "y": 9235.1
   },
   {
    "id": "site/js/graph3d.js::Graph3D.setVisibleKinds",
@@ -2370,8 +2612,8 @@
    "line": 408,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9027.5,
-   "y": 4956.9
+   "x": 5020.2,
+   "y": 9363.8
   },
   {
    "id": "site/js/graph3d.js::Graph3D.setZones",
@@ -2381,8 +2623,8 @@
    "line": 387,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9272.3,
-   "y": 5081.3
+   "x": 5268,
+   "y": 9493.7
   },
   {
    "id": "site/js/graph3d.js::Graph3D.tick",
@@ -2392,8 +2634,8 @@
    "line": 522,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -8818,
-   "y": 5093.1
+   "x": 4664,
+   "y": 9404.1
   },
   {
    "id": "site/js/graph3d.js::Graph3D.viewSpace",
@@ -2403,8 +2645,8 @@
    "line": 449,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -10492.9,
-   "y": 4938.7
+   "x": 6072.1,
+   "y": 10238.7
   },
   {
    "id": "site/js/graph3d.js::Graph3D.viewTop",
@@ -2414,8 +2656,8 @@
    "line": 733,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9499.7,
-   "y": 5019.6
+   "x": 5465.1,
+   "y": 9631.8
   },
   {
    "id": "site/js/graph3d.js::Graph3D.zOf",
@@ -2425,8 +2667,8 @@
    "line": 494,
    "parent": "site/js/graph3d.js::Graph3D",
    "exported": false,
-   "x": -9729.9,
-   "y": 5021.9
+   "x": 5699.8,
+   "y": 9532.5
   },
   {
    "id": "site/js/graph3d.js::MAX_MAGNIFICATION",
@@ -2436,8 +2678,8 @@
    "line": 22,
    "parent": null,
    "exported": false,
-   "x": -10502.2,
-   "y": 5018.1
+   "x": 6141.6,
+   "y": 10200.2
   },
   {
    "id": "site/js/i18n.js::current",
@@ -2447,8 +2689,8 @@
    "line": 289,
    "parent": null,
    "exported": false,
-   "x": -9463.2,
-   "y": 4139.3
+   "x": 5153.1,
+   "y": 8729.4
   },
   {
    "id": "site/js/i18n.js::detectLanguage",
@@ -2458,8 +2700,8 @@
    "line": 293,
    "parent": null,
    "exported": true,
-   "x": -9554.8,
-   "y": 4151.7
+   "x": 5251.9,
+   "y": 8733.9
   },
   {
    "id": "site/js/i18n.js::getLanguage",
@@ -2469,8 +2711,8 @@
    "line": 302,
    "parent": null,
    "exported": true,
-   "x": -9566.7,
-   "y": 4263.9
+   "x": 5298,
+   "y": 8828.5
   },
   {
    "id": "site/js/i18n.js::kindLabel",
@@ -2480,8 +2722,8 @@
    "line": 326,
    "parent": null,
    "exported": true,
-   "x": -9102.2,
-   "y": 4010.8
+   "x": 4752.9,
+   "y": 8694.7
   },
   {
    "id": "site/js/i18n.js::LANGUAGES",
@@ -2491,8 +2733,8 @@
    "line": 5,
    "parent": null,
    "exported": true,
-   "x": -9628,
-   "y": 4227.1
+   "x": 5348.6,
+   "y": 8778.8
   },
   {
    "id": "site/js/i18n.js::listeners",
@@ -2502,8 +2744,8 @@
    "line": 290,
    "parent": null,
    "exported": false,
-   "x": -9857.5,
-   "y": 4102.5
+   "x": 5573,
+   "y": 8664.5
   },
   {
    "id": "site/js/i18n.js::missingKeys",
@@ -2513,8 +2755,8 @@
    "line": 332,
    "parent": null,
    "exported": true,
-   "x": -9658.6,
-   "y": 3859.4
+   "x": 5275.1,
+   "y": 8457.2
   },
   {
    "id": "site/js/i18n.js::onLanguageChange",
@@ -2524,8 +2766,8 @@
    "line": 313,
    "parent": null,
    "exported": true,
-   "x": -9693.2,
-   "y": 4196
+   "x": 5416,
+   "y": 8758.7
   },
   {
    "id": "site/js/i18n.js::setLanguage",
@@ -2535,8 +2777,8 @@
    "line": 306,
    "parent": null,
    "exported": true,
-   "x": -9509.2,
-   "y": 4240.9
+   "x": 5236.4,
+   "y": 8825.2
   },
   {
    "id": "site/js/i18n.js::STRINGS",
@@ -2546,8 +2788,8 @@
    "line": 10,
    "parent": null,
    "exported": false,
-   "x": -9402.6,
-   "y": 4014.9
+   "x": 5049.9,
+   "y": 8617.7
   },
   {
    "id": "site/js/i18n.js::t",
@@ -2557,8 +2799,8 @@
    "line": 319,
    "parent": null,
    "exported": true,
-   "x": -9032.9,
-   "y": 4146.2
+   "x": 4704,
+   "y": 8773.3
   },
   {
    "id": "site/js/kinds.js::CONTROL_KINDS",
@@ -2568,8 +2810,8 @@
    "line": 13,
    "parent": null,
    "exported": true,
-   "x": -7265.6,
-   "y": 5334.1
+   "x": 3306.3,
+   "y": 8219.4
   },
   {
    "id": "site/js/kinds.js::DEFAULT_OFF_KINDS",
@@ -2579,8 +2821,8 @@
    "line": 10,
    "parent": null,
    "exported": true,
-   "x": -8032.4,
-   "y": 5004.8
+   "x": 3859.8,
+   "y": 8913.6
   },
   {
    "id": "site/js/kinds.js::EDGE_KINDS",
@@ -2590,8 +2832,8 @@
    "line": 4,
    "parent": null,
    "exported": true,
-   "x": -8461.2,
-   "y": 4801.1
+   "x": 4308.3,
+   "y": 9067.8
   },
   {
    "id": "site/js/layout.js::layOutDocument",
@@ -2601,8 +2843,8 @@
    "line": 27,
    "parent": null,
    "exported": true,
-   "x": -7456.8,
-   "y": 5290.3
+   "x": 3270.7,
+   "y": 8540.1
   },
   {
    "id": "site/js/localAnalyzer.js::analyzeLocalFolder",
@@ -2612,8 +2854,8 @@
    "line": 43,
    "parent": null,
    "exported": true,
-   "x": -3728.3,
-   "y": 6268
+   "x": -477.3,
+   "y": 6363.5
   },
   {
    "id": "site/js/localAnalyzer.js::localFolderSupported",
@@ -2623,8 +2865,8 @@
    "line": 11,
    "parent": null,
    "exported": true,
-   "x": -8653.3,
-   "y": 3695.7
+   "x": 4197.2,
+   "y": 8771.9
   },
   {
    "id": "site/js/localAnalyzer.js::readDirectory",
@@ -2634,8 +2876,8 @@
    "line": 21,
    "parent": null,
    "exported": false,
-   "x": -3570.2,
-   "y": 6210.3
+   "x": -567.6,
+   "y": 6210.5
   },
   {
    "id": "site/js/metrics.js::calleesWithLift",
@@ -2645,8 +2887,8 @@
    "line": 65,
    "parent": null,
    "exported": false,
-   "x": -7408.9,
-   "y": 4448.3
+   "x": 3885.5,
+   "y": 7791.6
   },
   {
    "id": "site/js/metrics.js::dominance",
@@ -2656,8 +2898,8 @@
    "line": 22,
    "parent": null,
    "exported": true,
-   "x": -7525.6,
-   "y": 4397
+   "x": 3964.7,
+   "y": 7795
   },
   {
    "id": "site/js/metrics.js::elevationGaps",
@@ -2667,8 +2909,8 @@
    "line": 115,
    "parent": null,
    "exported": true,
-   "x": -7732.4,
-   "y": 4729.6
+   "x": 4000.8,
+   "y": 8265.8
   },
   {
    "id": "site/js/metrics.js::entryPoints",
@@ -2678,8 +2920,8 @@
    "line": 88,
    "parent": null,
    "exported": true,
-   "x": -7735.3,
-   "y": 4688.6
+   "x": 4048.1,
+   "y": 8243.6
   },
   {
    "id": "site/js/metrics.js::independence",
@@ -2689,8 +2931,8 @@
    "line": 172,
    "parent": null,
    "exported": true,
-   "x": -7675.4,
-   "y": 4649.4
+   "x": 4006,
+   "y": 8176.5
   },
   {
    "id": "site/js/metrics.js::islands",
@@ -2700,8 +2942,8 @@
    "line": 245,
    "parent": null,
    "exported": true,
-   "x": -8012.7,
-   "y": 4707.2
+   "x": 4225.3,
+   "y": 8438
   },
   {
    "id": "site/js/metrics.js::linkLift",
@@ -2711,8 +2953,8 @@
    "line": 49,
    "parent": null,
    "exported": true,
-   "x": -7967.8,
-   "y": 4290.1
+   "x": 4255,
+   "y": 8040.4
   },
   {
    "id": "site/js/metrics.js::naturalScope",
@@ -2722,8 +2964,8 @@
    "line": 36,
    "parent": null,
    "exported": true,
-   "x": -7880,
-   "y": 4473.1
+   "x": 4083.7,
+   "y": 8166.1
   },
   {
    "id": "site/js/metrics.js::unreferencedDeclarations",
@@ -2733,8 +2975,8 @@
    "line": 207,
    "parent": null,
    "exported": true,
-   "x": -6417.7,
-   "y": 5521.7
+   "x": 2418.6,
+   "y": 7763
   },
   {
    "id": "site/js/model.js::applyActiveKinds",
@@ -2744,8 +2986,8 @@
    "line": 85,
    "parent": null,
    "exported": true,
-   "x": -7562.5,
-   "y": 5054.7
+   "x": 3618.8,
+   "y": 8345.6
   },
   {
    "id": "site/js/model.js::buildContainers",
@@ -2755,8 +2997,8 @@
    "line": 112,
    "parent": null,
    "exported": true,
-   "x": -7199.1,
-   "y": 5306.4
+   "x": 3338.3,
+   "y": 8125.2
   },
   {
    "id": "site/js/model.js::buildGraph",
@@ -2766,8 +3008,8 @@
    "line": 17,
    "parent": null,
    "exported": true,
-   "x": -7457.2,
-   "y": 5157
+   "x": 3585.9,
+   "y": 8296.3
   },
   {
    "id": "site/js/model.js::computeHeights",
@@ -2777,8 +3019,8 @@
    "line": 224,
    "parent": null,
    "exported": true,
-   "x": -7323.1,
-   "y": 4978.6
+   "x": 3522.9,
+   "y": 8046.6
   },
   {
    "id": "site/js/model.js::connectedComponents",
@@ -2788,8 +3030,8 @@
    "line": 283,
    "parent": null,
    "exported": true,
-   "x": -7584.8,
-   "y": 4832.4
+   "x": 3843.7,
+   "y": 8153.3
   },
   {
    "id": "site/js/model.js::splitPath",
@@ -2799,8 +3041,8 @@
    "line": 6,
    "parent": null,
    "exported": true,
-   "x": -7221.4,
-   "y": 5239.3
+   "x": 3274.9,
+   "y": 8148.5
   },
   {
    "id": "site/js/model.js::stronglyConnectedComponents",
@@ -2810,547 +3052,536 @@
    "line": 152,
    "parent": null,
    "exported": true,
-   "x": -7234.4,
-   "y": 4860.4
+   "x": 3539,
+   "y": 7860.7
   },
   {
    "id": "site/js/panel.js::CUSTOM_OPTION",
    "name": "CUSTOM_OPTION",
    "kind": "variable",
    "file": "site/js/panel.js",
-   "line": 39,
+   "line": 40,
    "parent": null,
    "exported": true,
-   "x": -8866.7,
-   "y": 4307.5
+   "x": 4593.4,
+   "y": 9409.6
   },
   {
    "id": "site/js/panel.js::DEFAULT_OPEN_SECTIONS",
    "name": "DEFAULT_OPEN_SECTIONS",
    "kind": "variable",
    "file": "site/js/panel.js",
-   "line": 20,
+   "line": 21,
    "parent": null,
    "exported": false,
-   "x": -9072.9,
-   "y": 2661.5
+   "x": 3251.1,
+   "y": 10166.6
   },
   {
    "id": "site/js/panel.js::FOLDER_OPTION",
    "name": "FOLDER_OPTION",
    "kind": "variable",
    "file": "site/js/panel.js",
-   "line": 36,
+   "line": 37,
    "parent": null,
    "exported": false,
-   "x": -8871.9,
-   "y": 3699.8
+   "x": 4055.9,
+   "y": 9182.9
   },
   {
    "id": "site/js/panel.js::GITHUB_OPTION",
    "name": "GITHUB_OPTION",
    "kind": "variable",
    "file": "site/js/panel.js",
-   "line": 38,
+   "line": 39,
    "parent": null,
    "exported": false,
-   "x": -8781.8,
-   "y": 3768.5
+   "x": 4194.4,
+   "y": 9108.8
   },
   {
    "id": "site/js/panel.js::GITHUB_SEARCH_DEBOUNCE_MS",
    "name": "GITHUB_SEARCH_DEBOUNCE_MS",
    "kind": "variable",
    "file": "site/js/panel.js",
-   "line": 12,
+   "line": 13,
    "parent": null,
    "exported": false,
-   "x": -8861.2,
-   "y": 3605.2
+   "x": 4118.4,
+   "y": 8807.9
   },
   {
    "id": "site/js/panel.js::JSON_OPTION",
    "name": "JSON_OPTION",
    "kind": "variable",
    "file": "site/js/panel.js",
-   "line": 37,
+   "line": 38,
    "parent": null,
    "exported": false,
-   "x": -8811.3,
-   "y": 3701.3
+   "x": 4088.5,
+   "y": 9142.9
   },
   {
    "id": "site/js/panel.js::loadOpenSections",
    "name": "loadOpenSections",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 811,
+   "line": 768,
    "parent": null,
    "exported": false,
-   "x": -8996.4,
-   "y": 3015.2
+   "x": 3517.5,
+   "y": 9885.1
   },
   {
    "id": "site/js/panel.js::Panel",
    "name": "Panel",
    "kind": "class",
    "file": "site/js/panel.js",
-   "line": 46,
+   "line": 47,
    "parent": null,
    "exported": true,
-   "x": -9106.7,
-   "y": 4560.3
+   "x": 4847,
+   "y": 9689.7
   },
   {
    "id": "site/js/panel.js::Panel.applySelectValue",
    "name": "applySelectValue",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 498,
+   "line": 499,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8825.9,
-   "y": 3901
+   "x": 4421.2,
+   "y": 9053.4
   },
   {
    "id": "site/js/panel.js::Panel.applySelectValue/onclick",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 504,
+   "line": 505,
    "parent": "site/js/panel.js::Panel.applySelectValue",
    "exported": false,
-   "x": -9048.8,
-   "y": 3704.6
+   "x": 4300.8,
+   "y": 9539.6
   },
   {
    "id": "site/js/panel.js::Panel.applySelectValue/onclick#2",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 505,
+   "line": 506,
    "parent": "site/js/panel.js::Panel.applySelectValue",
    "exported": false,
-   "x": -8565.8,
-   "y": 3690.4
+   "x": 4230.1,
+   "y": 9641.6
   },
   {
    "id": "site/js/panel.js::Panel.constructor",
    "name": "constructor",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 52,
+   "line": 53,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8889.1,
-   "y": 3869.2
+   "x": 4188.2,
+   "y": 9400.3
   },
   {
    "id": "site/js/panel.js::Panel.el",
    "name": "el",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 81,
+   "line": 82,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8713.1,
-   "y": 4057.6
+   "x": 4453.8,
+   "y": 8863.2
   },
   {
    "id": "site/js/panel.js::Panel.openSection",
    "name": "openSection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 128,
+   "line": 129,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8781.7,
-   "y": 3506.6
+   "x": 4021,
+   "y": 8963.4
   },
   {
    "id": "site/js/panel.js::Panel.rangeSlider",
    "name": "rangeSlider",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 164,
+   "line": 165,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8559.9,
-   "y": 4176
+   "x": 4406.6,
+   "y": 8792
   },
   {
    "id": "site/js/panel.js::Panel.refresh",
    "name": "refresh",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 205,
+   "line": 206,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8810.5,
-   "y": 4229.6
+   "x": 4636.6,
+   "y": 8889.3
   },
   {
    "id": "site/js/panel.js::Panel.render",
    "name": "render",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 217,
+   "line": 218,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8786.6,
-   "y": 4016
+   "x": 4370.3,
+   "y": 8956.7
   },
   {
    "id": "site/js/panel.js::Panel.render/onchange",
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 252,
+   "line": 253,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false,
-   "x": -8842.4,
-   "y": 3807.8
+   "x": 4135.8,
+   "y": 9299.3
   },
   {
    "id": "site/js/panel.js::Panel.render/onchange#2",
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 287,
+   "line": 288,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false,
-   "x": -8937.9,
-   "y": 3897.3
+   "x": 4291.3,
+   "y": 9304.8
   },
   {
    "id": "site/js/panel.js::Panel.render/onchange#3",
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 386,
+   "line": 387,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false,
-   "x": -8728.7,
-   "y": 4285.6
+   "x": 4461.3,
+   "y": 9138.7
   },
   {
    "id": "site/js/panel.js::Panel.render/onchange#4",
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 419,
+   "line": 420,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false,
-   "x": -8651.4,
-   "y": 4177.4
+   "x": 4319.7,
+   "y": 9140.4
   },
   {
    "id": "site/js/panel.js::Panel.render/onclick",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 310,
+   "line": 311,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false,
-   "x": -8742.9,
-   "y": 3595.4
+   "x": 4173.9,
+   "y": 8857.7
   },
   {
    "id": "site/js/panel.js::Panel.render/onclick#2",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 358,
+   "line": 359,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false,
-   "x": -8523.8,
-   "y": 4105.8
+   "x": 4187.6,
+   "y": 9275.6
   },
   {
    "id": "site/js/panel.js::Panel.render/onmousedown",
    "name": "onmousedown",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 310,
+   "line": 311,
    "parent": "site/js/panel.js::Panel.render",
    "exported": false,
-   "x": -8653.8,
-   "y": 3619.8
+   "x": 4110.2,
+   "y": 8899.3
   },
   {
    "id": "site/js/panel.js::Panel.section",
    "name": "section",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 99,
+   "line": 100,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8741.8,
-   "y": 3663.5
+   "x": 4106.6,
+   "y": 9015.6
   },
   {
    "id": "site/js/panel.js::Panel.select",
    "name": "select",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 198,
+   "line": 199,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -9037.3,
-   "y": 4187.9
+   "x": 4711.5,
+   "y": 8976.4
   },
   {
    "id": "site/js/panel.js::Panel.select/onchange",
    "name": "onchange",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 199,
+   "line": 200,
    "parent": "site/js/panel.js::Panel.select",
    "exported": false,
-   "x": -9050.7,
-   "y": 4561.6
+   "x": 4953.4,
+   "y": 9307.4
   },
   {
    "id": "site/js/panel.js::Panel.setDataInfo",
    "name": "setDataInfo",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 473,
+   "line": 474,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8792.7,
-   "y": 4361.7
+   "x": 4578.3,
+   "y": 8907.4
   },
   {
    "id": "site/js/panel.js::Panel.setDatasets",
    "name": "setDatasets",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 457,
+   "line": 458,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8863.4,
-   "y": 4173
+   "x": 4594.8,
+   "y": 9098.3
   },
   {
    "id": "site/js/panel.js::Panel.setGithubMode",
    "name": "setGithubMode",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 120,
+   "line": 121,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8911.7,
-   "y": 3398
+   "x": 3824.2,
+   "y": 9541.7
   },
   {
    "id": "site/js/panel.js::Panel.setMaxDepth",
    "name": "setMaxDepth",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 510,
+   "line": 511,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8665.7,
-   "y": 4390.7
+   "x": 4555.7,
+   "y": 8978
   },
   {
    "id": "site/js/panel.js::Panel.setMetrics",
    "name": "setMetrics",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 527,
+   "line": 528,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8419.1,
-   "y": 4370.9
+   "x": 4457.5,
+   "y": 8574.2
   },
   {
    "id": "site/js/panel.js::Panel.setMetrics/onclick",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 540,
+   "line": 541,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false,
-   "x": -8590,
-   "y": 4485.5
+   "x": 4727.8,
+   "y": 8649.6
   },
   {
    "id": "site/js/panel.js::Panel.setMetrics/onclick#2",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 544,
+   "line": 545,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false,
-   "x": -8253.5,
-   "y": 4494.4
+   "x": 4414.3,
+   "y": 8670
   },
   {
    "id": "site/js/panel.js::Panel.setMetrics/onclick#3",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 590,
+   "line": 556,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false,
-   "x": -8276.4,
-   "y": 4446.5
+   "x": 4556.8,
+   "y": 8452.4
   },
   {
    "id": "site/js/panel.js::Panel.setMetrics/onclick#4",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 667,
+   "line": 624,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false,
-   "x": -8164.3,
-   "y": 4163.8
+   "x": 4332.7,
+   "y": 8347.9
   },
   {
    "id": "site/js/panel.js::Panel.setMetrics/onclick#5",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 682,
+   "line": 639,
    "parent": "site/js/panel.js::Panel.setMetrics",
    "exported": false,
-   "x": -8141.1,
-   "y": 4233.8
+   "x": 4372.7,
+   "y": 8283.8
   },
   {
    "id": "site/js/panel.js::Panel.setPathResult",
    "name": "setPathResult",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 784,
+   "line": 741,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -9011.8,
-   "y": 4384.8
+   "x": 4790.7,
+   "y": 8924.4
   },
   {
    "id": "site/js/panel.js::Panel.setPathResult/onclick",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 790,
+   "line": 747,
    "parent": "site/js/panel.js::Panel.setPathResult",
    "exported": false,
-   "x": -9195.5,
-   "y": 4496.9
+   "x": 5014.3,
+   "y": 8971.3
   },
   {
    "id": "site/js/panel.js::Panel.setRecent",
    "name": "setRecent",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 479,
+   "line": 480,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8682.3,
-   "y": 3952.6
+   "x": 4433.1,
+   "y": 9238.4
   },
   {
    "id": "site/js/panel.js::Panel.setSelection",
    "name": "setSelection",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 722,
+   "line": 679,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8765.2,
-   "y": 4218.4
+   "x": 4595.4,
+   "y": 8724.4
   },
   {
    "id": "site/js/panel.js::Panel.setSelection/onclick",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 748,
+   "line": 705,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false,
-   "x": -8934.5,
-   "y": 4364.5
+   "x": 4852,
+   "y": 8771.5
   },
   {
    "id": "site/js/panel.js::Panel.setSelection/onclick#2",
    "name": "onclick",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 768,
+   "line": 725,
    "parent": "site/js/panel.js::Panel.setSelection",
    "exported": false,
-   "x": -9074,
-   "y": 4418.2
+   "x": 4922.7,
+   "y": 8843.5
   },
   {
    "id": "site/js/panel.js::Panel.slider",
    "name": "slider",
    "kind": "method",
    "file": "site/js/panel.js",
-   "line": 135,
+   "line": 136,
    "parent": "site/js/panel.js::Panel",
    "exported": false,
-   "x": -8641.8,
-   "y": 3912.6
+   "x": 4297,
+   "y": 8951.3
   },
   {
    "id": "site/js/panel.js::Panel.slider/oninput",
    "name": "oninput",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 144,
+   "line": 145,
    "parent": "site/js/panel.js::Panel.slider",
    "exported": false,
-   "x": -8619.9,
-   "y": 4259.6
+   "x": 4450.1,
+   "y": 9323.4
   },
   {
    "id": "site/js/panel.js::recentOptionValue",
    "name": "recentOptionValue",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 42,
+   "line": 43,
    "parent": null,
    "exported": true,
-   "x": -8535.3,
-   "y": 4023.9
-  },
-  {
-   "id": "site/js/panel.js::reportNodeShape",
-   "name": "reportNodeShape",
-   "kind": "function",
-   "file": "site/js/panel.js",
-   "line": 831,
-   "parent": null,
-   "exported": false,
-   "x": -8273.7,
-   "y": 4287.2
+   "x": 4398.1,
+   "y": 9770.1
   },
   {
    "id": "site/js/panel.js::saveOpenSections",
    "name": "saveOpenSections",
    "kind": "function",
    "file": "site/js/panel.js",
-   "line": 822,
+   "line": 779,
    "parent": null,
    "exported": false,
-   "x": -8816.6,
-   "y": 3124
+   "x": 3624,
+   "y": 9326.6
   },
   {
    "id": "site/js/panel.js::SECTIONS_STORAGE_KEY",
    "name": "SECTIONS_STORAGE_KEY",
    "kind": "variable",
    "file": "site/js/panel.js",
-   "line": 21,
+   "line": 22,
    "parent": null,
    "exported": false,
-   "x": -8926.5,
-   "y": 2825.6
+   "x": 3353.8,
+   "y": 9754.8
   },
   {
    "id": "site/js/paths.js::bfs",
@@ -3360,8 +3591,8 @@
    "line": 22,
    "parent": null,
    "exported": false,
-   "x": -8126.8,
-   "y": 5625.8
+   "x": 3781,
+   "y": 8525
   },
   {
    "id": "site/js/paths.js::buildAdjacency",
@@ -3371,8 +3602,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -8182.7,
-   "y": 5682.1
+   "x": 3722.1,
+   "y": 8587.9
   },
   {
    "id": "site/js/paths.js::pathBetween",
@@ -3382,8 +3613,74 @@
    "line": 47,
    "parent": null,
    "exported": true,
-   "x": -8237.5,
-   "y": 5329.3
+   "x": 4035.2,
+   "y": 8659.3
+  },
+  {
+   "id": "site/js/reports.js::allReports",
+   "name": "allReports",
+   "kind": "function",
+   "file": "site/js/reports.js",
+   "line": 73,
+   "parent": null,
+   "exported": true,
+   "x": 4644.6,
+   "y": 8100.8
+  },
+  {
+   "id": "site/js/reports.js::elevationGapsReport",
+   "name": "elevationGapsReport",
+   "kind": "function",
+   "file": "site/js/reports.js",
+   "line": 27,
+   "parent": null,
+   "exported": true,
+   "x": 4468.2,
+   "y": 8395.7
+  },
+  {
+   "id": "site/js/reports.js::entryPointsReport",
+   "name": "entryPointsReport",
+   "kind": "function",
+   "file": "site/js/reports.js",
+   "line": 22,
+   "parent": null,
+   "exported": true,
+   "x": 4517.5,
+   "y": 8341.7
+  },
+  {
+   "id": "site/js/reports.js::independenceReport",
+   "name": "independenceReport",
+   "kind": "function",
+   "file": "site/js/reports.js",
+   "line": 42,
+   "parent": null,
+   "exported": true,
+   "x": 4471.2,
+   "y": 8327.8
+  },
+  {
+   "id": "site/js/reports.js::islandsReport",
+   "name": "islandsReport",
+   "kind": "function",
+   "file": "site/js/reports.js",
+   "line": 51,
+   "parent": null,
+   "exported": true,
+   "x": 4549.5,
+   "y": 8384.2
+  },
+  {
+   "id": "site/js/reports.js::reportNodeShape",
+   "name": "reportNodeShape",
+   "kind": "function",
+   "file": "site/js/reports.js",
+   "line": 18,
+   "parent": null,
+   "exported": true,
+   "x": 4510.6,
+   "y": 8184.6
   },
   {
    "id": "site/js/simulation.js::applyPhysics",
@@ -3393,8 +3690,8 @@
    "line": 111,
    "parent": null,
    "exported": true,
-   "x": -8736.8,
-   "y": 4813.1
+   "x": 4711.9,
+   "y": 9423.9
   },
   {
    "id": "site/js/simulation.js::applyStoredLayout",
@@ -3404,8 +3701,8 @@
    "line": 155,
    "parent": null,
    "exported": true,
-   "x": -8160.1,
-   "y": 5006.3
+   "x": 3896.1,
+   "y": 9051.6
   },
   {
    "id": "site/js/simulation.js::createSimulation",
@@ -3415,8 +3712,8 @@
    "line": 90,
    "parent": null,
    "exported": true,
-   "x": -8326.3,
-   "y": 5267.8
+   "x": 3819.4,
+   "y": 9352.6
   },
   {
    "id": "site/js/simulation.js::DEFAULT_PHYSICS",
@@ -3426,8 +3723,8 @@
    "line": 10,
    "parent": null,
    "exported": true,
-   "x": -7976.3,
-   "y": 5091
+   "x": 3787.1,
+   "y": 8852.5
   },
   {
    "id": "site/js/simulation.js::forceSpring",
@@ -3437,8 +3734,8 @@
    "line": 33,
    "parent": null,
    "exported": true,
-   "x": -8271.9,
-   "y": 5563.5
+   "x": 3462.2,
+   "y": 9523.1
   },
   {
    "id": "site/js/simulation.js::layoutOf",
@@ -3448,8 +3745,8 @@
    "line": 169,
    "parent": null,
    "exported": true,
-   "x": -7918.4,
-   "y": 5100.5
+   "x": 3702.3,
+   "y": 8855.6
   },
   {
    "id": "site/js/simulation.js::RUNAWAY",
@@ -3459,8 +3756,8 @@
    "line": 209,
    "parent": null,
    "exported": false,
-   "x": -7779.9,
-   "y": 6258
+   "x": 2656.3,
+   "y": 9465.1
   },
   {
    "id": "site/js/simulation.js::seedPositions",
@@ -3470,8 +3767,8 @@
    "line": 125,
    "parent": null,
    "exported": true,
-   "x": -8038.5,
-   "y": 5054.5
+   "x": 3804,
+   "y": 8939
   },
   {
    "id": "site/js/simulation.js::settleLayout",
@@ -3481,8 +3778,8 @@
    "line": 263,
    "parent": null,
    "exported": true,
-   "x": -7995.1,
-   "y": 5471.4
+   "x": 3512.1,
+   "y": 9112.9
   },
   {
    "id": "site/js/simulation.js::shapeOf",
@@ -3492,8 +3789,8 @@
    "line": 190,
    "parent": null,
    "exported": false,
-   "x": -7884.8,
-   "y": 5746.8
+   "x": 3182.8,
+   "y": 9212.6
   },
   {
    "id": "site/js/simulation.js::VELOCITY_DECAY",
@@ -3503,8 +3800,8 @@
    "line": 26,
    "parent": null,
    "exported": true,
-   "x": -8329.2,
-   "y": 5618.3
+   "x": 3501.5,
+   "y": 9592.2
   },
   {
    "id": "site/js/simulation.js::withinBounds",
@@ -3514,8 +3811,8 @@
    "line": 210,
    "parent": null,
    "exported": false,
-   "x": -7860.1,
-   "y": 5936.5
+   "x": 2998.4,
+   "y": 9313.4
   },
   {
    "id": "site/js/zones.js::closedLine",
@@ -3525,8 +3822,8 @@
    "line": 31,
    "parent": null,
    "exported": false,
-   "x": -10316.6,
-   "y": 5097.9
+   "x": 6097.1,
+   "y": 10002.3
   },
   {
    "id": "site/js/zones.js::hullPath",
@@ -3536,8 +3833,8 @@
    "line": 46,
    "parent": null,
    "exported": true,
-   "x": -10129.3,
-   "y": 5052.5
+   "x": 5945.7,
+   "y": 9863.8
   },
   {
    "id": "site/js/zones.js::visibleContainers",
@@ -3547,8 +3844,151 @@
    "line": 17,
    "parent": null,
    "exported": true,
-   "x": -8189.4,
-   "y": 5156.5
+   "x": 3949.4,
+   "y": 9001.7
+  },
+  {
+   "id": "test/agent-tools.test.mjs::<module>",
+   "name": "agent-tools.test",
+   "kind": "module",
+   "file": "test/agent-tools.test.mjs",
+   "line": 28,
+   "parent": null,
+   "exported": false,
+   "x": 4528.7,
+   "y": 7913.6
+  },
+  {
+   "id": "test/agent-tools.test.mjs::<module>/highlight",
+   "name": "highlight",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 99,
+   "parent": "test/agent-tools.test.mjs::<module>",
+   "exported": false,
+   "x": 4493.2,
+   "y": 7570
+  },
+  {
+   "id": "test/agent-tools.test.mjs::<module>/reanalyze",
+   "name": "reanalyze",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 93,
+   "parent": "test/agent-tools.test.mjs::<module>",
+   "exported": false,
+   "x": 4560.4,
+   "y": 7564.1
+  },
+  {
+   "id": "test/agent-tools.test.mjs::decl",
+   "name": "decl",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 7,
+   "parent": null,
+   "exported": false,
+   "x": 3919.3,
+   "y": 7512.8
+  },
+  {
+   "id": "test/agent-tools.test.mjs::edge",
+   "name": "edge",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 8,
+   "parent": null,
+   "exported": false,
+   "x": 3844.9,
+   "y": 7529.9
+  },
+  {
+   "id": "test/agent-tools.test.mjs::sample",
+   "name": "sample",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 11,
+   "parent": null,
+   "exported": false,
+   "x": 3983.7,
+   "y": 7871.7
+  },
+  {
+   "id": "test/agent-tools.test.mjs::toolsFor",
+   "name": "toolsFor",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 17,
+   "parent": null,
+   "exported": false,
+   "x": 4869.1,
+   "y": 7674.5
+  },
+  {
+   "id": "test/agent-tools.test.mjs::toolsFor/getEdgeKinds",
+   "name": "getEdgeKinds",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 21,
+   "parent": "test/agent-tools.test.mjs::toolsFor",
+   "exported": false,
+   "x": 4861,
+   "y": 7805
+  },
+  {
+   "id": "test/agent-tools.test.mjs::toolsFor/getGraph",
+   "name": "getGraph",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 19,
+   "parent": "test/agent-tools.test.mjs::toolsFor",
+   "exported": false,
+   "x": 5042.7,
+   "y": 7604.2
+  },
+  {
+   "id": "test/agent-tools.test.mjs::toolsFor/getLabel",
+   "name": "getLabel",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 20,
+   "parent": "test/agent-tools.test.mjs::toolsFor",
+   "exported": false,
+   "x": 4917.4,
+   "y": 7779.9
+  },
+  {
+   "id": "test/agent-tools.test.mjs::toolsFor/highlight",
+   "name": "highlight",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 23,
+   "parent": "test/agent-tools.test.mjs::toolsFor",
+   "exported": false,
+   "x": 5042.9,
+   "y": 7680.6
+  },
+  {
+   "id": "test/agent-tools.test.mjs::toolsFor/reanalyze",
+   "name": "reanalyze",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 24,
+   "parent": "test/agent-tools.test.mjs::toolsFor",
+   "exported": false,
+   "x": 4939.4,
+   "y": 7632.2
+  },
+  {
+   "id": "test/agent-tools.test.mjs::toolsFor/setEdgeKinds",
+   "name": "setEdgeKinds",
+   "kind": "function",
+   "file": "test/agent-tools.test.mjs",
+   "line": 22,
+   "parent": "test/agent-tools.test.mjs::toolsFor",
+   "exported": false,
+   "x": 4943.4,
+   "y": 7714.1
   },
   {
    "id": "test/analyzer.test.mjs::<module>",
@@ -3558,8 +3998,8 @@
    "line": 17,
    "parent": null,
    "exported": false,
-   "x": -2972,
-   "y": 7479.3
+   "x": -1965.8,
+   "y": 6452.8
   },
   {
    "id": "test/analyzer.test.mjs::fixture",
@@ -3569,8 +4009,8 @@
    "line": 8,
    "parent": null,
    "exported": false,
-   "x": -3074.1,
-   "y": 7536.2
+   "x": -2064.9,
+   "y": 6536
   },
   {
    "id": "test/dead-code.test.mjs::<module>",
@@ -3580,8 +4020,8 @@
    "line": 17,
    "parent": null,
    "exported": false,
-   "x": -5383.9,
-   "y": 6188.4
+   "x": 1134.2,
+   "y": 7440.6
   },
   {
    "id": "test/dead-code.test.mjs::CSS_DECL",
@@ -3591,8 +4031,8 @@
    "line": 28,
    "parent": null,
    "exported": false,
-   "x": -5351.7,
-   "y": 6312.4
+   "x": 999.7,
+   "y": 7479.6
   },
   {
    "id": "test/dead-code.test.mjs::CSS_USE",
@@ -3602,8 +4042,8 @@
    "line": 29,
    "parent": null,
    "exported": false,
-   "x": -5265.4,
-   "y": 6220.8
+   "x": 1014.4,
+   "y": 7365.9
   },
   {
    "id": "test/dead-code.test.mjs::root",
@@ -3613,8 +4053,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": -5273.9,
-   "y": 6301.8
+   "x": 954.3,
+   "y": 7416.3
   },
   {
    "id": "test/dominance.test.mjs::<module>",
@@ -3624,8 +4064,8 @@
    "line": 12,
    "parent": null,
    "exported": false,
-   "x": -7465,
-   "y": 4873.8
+   "x": 3711.3,
+   "y": 8138
   },
   {
    "id": "test/dominance.test.mjs::decl",
@@ -3635,8 +4075,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": -6965,
-   "y": 5153
+   "x": 3157,
+   "y": 7856.5
   },
   {
    "id": "test/dominance.test.mjs::edge",
@@ -3646,8 +4086,8 @@
    "line": 8,
    "parent": null,
    "exported": false,
-   "x": -7187.6,
-   "y": 4798.8
+   "x": 3520.4,
+   "y": 7923.5
   },
   {
    "id": "test/dominance.test.mjs::graph",
@@ -3657,8 +4097,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -7272.8,
-   "y": 5073.6
+   "x": 3458.7,
+   "y": 8087.3
   },
   {
    "id": "test/dominance.test.mjs::lift",
@@ -3668,8 +4108,8 @@
    "line": 10,
    "parent": null,
    "exported": false,
-   "x": -7530.4,
-   "y": 4578.3
+   "x": 3877.8,
+   "y": 7944.6
   },
   {
    "id": "test/github-analyzer.test.mjs::<module>",
@@ -3679,8 +4119,8 @@
    "line": 10,
    "parent": null,
    "exported": false,
-   "x": -6174.3,
-   "y": 4834.5
+   "x": 1872.3,
+   "y": 7709.5
   },
   {
    "id": "test/i18n.test.mjs::<module>",
@@ -3690,8 +4130,8 @@
    "line": 5,
    "parent": null,
    "exported": false,
-   "x": -9488.3,
-   "y": 4062
+   "x": 5146.1,
+   "y": 8660
   },
   {
    "id": "test/local-analyzer.test.mjs::<module>",
@@ -3701,8 +4141,8 @@
    "line": 21,
    "parent": null,
    "exported": false,
-   "x": -2307.9,
-   "y": 7584.7
+   "x": -2469.5,
+   "y": 6063.5
   },
   {
    "id": "test/local-analyzer.test.mjs::analyzeVirtual",
@@ -3712,8 +4152,8 @@
    "line": 98,
    "parent": null,
    "exported": false,
-   "x": -1485.2,
-   "y": 7667
+   "x": -3149.2,
+   "y": 5507.3
   },
   {
    "id": "test/local-analyzer.test.mjs::COMPILER_OPTIONS",
@@ -3723,8 +4163,8 @@
    "line": 32,
    "parent": null,
    "exported": false,
-   "x": -1204.4,
-   "y": 7803.9
+   "x": -3459.6,
+   "y": 5396.8
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost",
@@ -3734,8 +4174,8 @@
    "line": 73,
    "parent": null,
    "exported": false,
-   "x": -1315.9,
-   "y": 7587.3
+   "x": -3212.3,
+   "y": 5330
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/directoryExists",
@@ -3745,8 +4185,8 @@
    "line": 92,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1089.4,
-   "y": 7548.5
+   "x": -3452.6,
+   "y": 5192.2
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/fileExists",
@@ -3756,8 +4196,8 @@
    "line": 90,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1687.1,
-   "y": 7553.2
+   "x": -2907,
+   "y": 5585
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/getCanonicalFileName",
@@ -3767,8 +4207,8 @@
    "line": 87,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1131.5,
-   "y": 7450.8
+   "x": -3331.7,
+   "y": 5152.8
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/getCurrentDirectory",
@@ -3778,8 +4218,8 @@
    "line": 86,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1050.3,
-   "y": 7484.4
+   "x": -3263.2,
+   "y": 5083.5
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
@@ -3789,8 +4229,8 @@
    "line": 84,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1271.9,
-   "y": 7694.5
+   "x": -3334,
+   "y": 5359.4
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/getDirectories",
@@ -3800,8 +4240,8 @@
    "line": 93,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1017.8,
-   "y": 7580.4
+   "x": -3349.2,
+   "y": 5071.4
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/getNewLine",
@@ -3811,8 +4251,8 @@
    "line": 89,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1053.1,
-   "y": 7660
+   "x": -3417.7,
+   "y": 5118.4
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/getSourceFile",
@@ -3822,8 +4262,8 @@
    "line": 77,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1867.1,
-   "y": 7651.9
+   "x": -2852.4,
+   "y": 5787.9
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/readFile",
@@ -3833,8 +4273,8 @@
    "line": 91,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1716,
-   "y": 7634.9
+   "x": -2952.5,
+   "y": 5662.6
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/useCaseSensitiveFileNames",
@@ -3844,8 +4284,8 @@
    "line": 88,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1164.9,
-   "y": 7520.2
+   "x": -3376.6,
+   "y": 5211
   },
   {
    "id": "test/local-analyzer.test.mjs::createVirtualHost/writeFile",
@@ -3855,8 +4295,8 @@
    "line": 85,
    "parent": "test/local-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1120.1,
-   "y": 7618.4
+   "x": -3251.4,
+   "y": 5160.7
   },
   {
    "id": "test/local-analyzer.test.mjs::fixture",
@@ -3866,8 +4306,8 @@
    "line": 23,
    "parent": null,
    "exported": false,
-   "x": -2320.4,
-   "y": 7465.7
+   "x": -2382.4,
+   "y": 6091.8
   },
   {
    "id": "test/local-analyzer.test.mjs::libTextCache",
@@ -3877,8 +4317,8 @@
    "line": 47,
    "parent": null,
    "exported": false,
-   "x": -456,
-   "y": 7839.7
+   "x": -4020.2,
+   "y": 4857.7
   },
   {
    "id": "test/local-analyzer.test.mjs::loadLibClosure",
@@ -3888,8 +4328,8 @@
    "line": 58,
    "parent": null,
    "exported": false,
-   "x": -1181.5,
-   "y": 7737.5
+   "x": -3432.2,
+   "y": 5329.8
   },
   {
    "id": "test/local-analyzer.test.mjs::PROJECT",
@@ -3899,8 +4339,8 @@
    "line": 106,
    "parent": null,
    "exported": false,
-   "x": -2396.5,
-   "y": 7539.7
+   "x": -2394,
+   "y": 5969.4
   },
   {
    "id": "test/local-analyzer.test.mjs::readLib",
@@ -3910,8 +4350,8 @@
    "line": 48,
    "parent": null,
    "exported": false,
-   "x": -718.5,
-   "y": 7828.3
+   "x": -3828.3,
+   "y": 5044.1
   },
   {
    "id": "test/local-analyzer.test.mjs::tsLibDir",
@@ -3921,8 +4361,8 @@
    "line": 46,
    "parent": null,
    "exported": false,
-   "x": -467.9,
-   "y": 7919
+   "x": -4070.3,
+   "y": 4919.8
   },
   {
    "id": "test/model.test.mjs::<module>",
@@ -3932,8 +4372,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -7430.3,
-   "y": 4932.4
+   "x": 3663.6,
+   "y": 8116.8
   },
   {
    "id": "test/model.test.mjs::decl",
@@ -3943,8 +4383,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": -7129,
-   "y": 4916.1
+   "x": 3447.3,
+   "y": 7825.7
   },
   {
    "id": "test/model.test.mjs::edge",
@@ -3954,8 +4394,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": -7151.1,
-   "y": 4986.8
+   "x": 3401.5,
+   "y": 7893.4
   },
   {
    "id": "test/paths.test.mjs::<module>",
@@ -3965,8 +4405,8 @@
    "line": 15,
    "parent": null,
    "exported": false,
-   "x": -7570,
-   "y": 5291.6
+   "x": 3487.2,
+   "y": 8356.1
   },
   {
    "id": "test/paths.test.mjs::decl",
@@ -3976,8 +4416,8 @@
    "line": 6,
    "parent": null,
    "exported": false,
-   "x": -7421.8,
-   "y": 5543.9
+   "x": 3147.4,
+   "y": 8315.6
   },
   {
    "id": "test/paths.test.mjs::edge",
@@ -3987,8 +4427,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": -7362.3,
-   "y": 5501.7
+   "x": 3144.6,
+   "y": 8239.1
   },
   {
    "id": "test/paths.test.mjs::graphOf",
@@ -3998,8 +4438,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -7433.9,
-   "y": 5226.3
+   "x": 3442.3,
+   "y": 8278.8
   },
   {
    "id": "test/svelte-analyzer.test.mjs::<module>",
@@ -4009,8 +4449,8 @@
    "line": 21,
    "parent": null,
    "exported": false,
-   "x": -2355.5,
-   "y": 7780.4
+   "x": -2569.8,
+   "y": 6226.3
   },
   {
    "id": "test/svelte-analyzer.test.mjs::analyzeVirtual",
@@ -4020,8 +4460,8 @@
    "line": 236,
    "parent": null,
    "exported": false,
-   "x": -1867.9,
-   "y": 7991.6
+   "x": -3102.5,
+   "y": 6001.5
   },
   {
    "id": "test/svelte-analyzer.test.mjs::COMPILER_OPTIONS",
@@ -4031,8 +4471,8 @@
    "line": 152,
    "parent": null,
    "exported": false,
-   "x": -1598.2,
-   "y": 7962.8
+   "x": -3285.5,
+   "y": 5782.9
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost",
@@ -4042,8 +4482,8 @@
    "line": 194,
    "parent": null,
    "exported": false,
-   "x": -1702.4,
-   "y": 7937.4
+   "x": -3188.2,
+   "y": 5851.5
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/directoryExists",
@@ -4053,8 +4493,8 @@
    "line": 224,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1544.1,
-   "y": 8165.7
+   "x": -3463.4,
+   "y": 5898.1
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/fileExists",
@@ -4064,8 +4504,8 @@
    "line": 222,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1911.3,
-   "y": 7788
+   "x": -2916.7,
+   "y": 5914.4
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getCanonicalFileName",
@@ -4075,8 +4515,8 @@
    "line": 219,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1686.1,
-   "y": 8149.3
+   "x": -3356.5,
+   "y": 5978.8
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getCurrentDirectory",
@@ -4086,8 +4526,8 @@
    "line": 218,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1617,
-   "y": 8183.5
+   "x": -3428.8,
+   "y": 5960.9
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getDefaultLibFileName",
@@ -4097,8 +4537,8 @@
    "line": 216,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1336.8,
-   "y": 7750.4
+   "x": -3329,
+   "y": 5446.3
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getDirectories",
@@ -4108,8 +4548,8 @@
    "line": 225,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1522.4,
-   "y": 8025.8
+   "x": -3466.4,
+   "y": 5823.7
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getNewLine",
@@ -4119,8 +4559,8 @@
    "line": 221,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1492.5,
-   "y": 8104.1
+   "x": -3399.4,
+   "y": 5774
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/getSourceFile",
@@ -4130,8 +4570,8 @@
    "line": 198,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -2073.5,
-   "y": 7777.7
+   "x": -2793,
+   "y": 6027.6
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/readFile",
@@ -4141,8 +4581,8 @@
    "line": 223,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1931.5,
-   "y": 7861.5
+   "x": -2961.8,
+   "y": 5978.9
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/useCaseSensitiveFileNames",
@@ -4152,8 +4592,8 @@
    "line": 220,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1649.7,
-   "y": 8082.2
+   "x": -3339.8,
+   "y": 5905.5
   },
   {
    "id": "test/svelte-analyzer.test.mjs::createVirtualHost/writeFile",
@@ -4163,8 +4603,8 @@
    "line": 217,
    "parent": "test/svelte-analyzer.test.mjs::createVirtualHost",
    "exported": false,
-   "x": -1575.3,
-   "y": 8082.5
+   "x": -3380.1,
+   "y": 5847.2
   },
   {
    "id": "test/svelte-analyzer.test.mjs::fixture",
@@ -4174,8 +4614,8 @@
    "line": 23,
    "parent": null,
    "exported": false,
-   "x": -2379.9,
-   "y": 7960.3
+   "x": -2688.7,
+   "y": 6355.8
   },
   {
    "id": "test/svelte-analyzer.test.mjs::libTextCache",
@@ -4185,8 +4625,8 @@
    "line": 168,
    "parent": null,
    "exported": false,
-   "x": -798,
-   "y": 8321.1
+   "x": -4122.5,
+   "y": 5425
   },
   {
    "id": "test/svelte-analyzer.test.mjs::loadLibClosure",
@@ -4196,8 +4636,8 @@
    "line": 179,
    "parent": null,
    "exported": false,
-   "x": -1367.6,
-   "y": 7868.3
+   "x": -3389.9,
+   "y": 5550.6
   },
   {
    "id": "test/svelte-analyzer.test.mjs::PROJECT",
@@ -4207,8 +4647,8 @@
    "line": 32,
    "parent": null,
    "exported": false,
-   "x": -2345.2,
-   "y": 8020.7
+   "x": -2753,
+   "y": 6384.4
   },
   {
    "id": "test/svelte-analyzer.test.mjs::readLib",
@@ -4218,8 +4658,8 @@
    "line": 169,
    "parent": null,
    "exported": false,
-   "x": -988,
-   "y": 8141.1
+   "x": -3855,
+   "y": 5448.1
   },
   {
    "id": "test/svelte-analyzer.test.mjs::tsLibDir",
@@ -4229,8 +4669,8 @@
    "line": 167,
    "parent": null,
    "exported": false,
-   "x": -746.2,
-   "y": 8261.3
+   "x": -4111,
+   "y": 5347.2
   },
   {
    "id": "test/zones.test.mjs::<module>",
@@ -4240,8 +4680,8 @@
    "line": 9,
    "parent": null,
    "exported": false,
-   "x": -7779.2,
-   "y": 5188
+   "x": 3583.1,
+   "y": 8714.1
   },
   {
    "id": "test/zones.test.mjs::decl",
@@ -4251,8 +4691,8 @@
    "line": 7,
    "parent": null,
    "exported": false,
-   "x": -7647.9,
-   "y": 5416.3
+   "x": 3250.3,
+   "y": 8742.3
   }
  ],
  "edges": [
@@ -4847,6 +5287,288 @@
    "time": "definition"
   },
   {
+   "source": "site/js/agentTools.js::createAgentTools",
+   "target": "site/js/agentTools.js::createAgentTools/find_declarations",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools",
+   "target": "site/js/agentTools.js::createAgentTools/get_declaration",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools",
+   "target": "site/js/agentTools.js::createAgentTools/get_diagnostics",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools",
+   "target": "site/js/agentTools.js::createAgentTools/highlight",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools",
+   "target": "site/js/agentTools.js::createAgentTools/reanalyze",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools",
+   "target": "site/js/agentTools.js::createAgentTools/set_edge_kinds",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools",
+   "target": "site/js/app.js::<module>/getGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools",
+   "target": "test/agent-tools.test.mjs::toolsFor/getGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/get_declaration",
+   "target": "site/js/agentTools.js::edgeShape",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/get_diagnostics",
+   "target": "site/js/agentTools.js::summarize",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/get_diagnostics",
+   "target": "site/js/app.js::<module>/getEdgeKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/get_diagnostics",
+   "target": "site/js/app.js::<module>/getLabel",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/get_diagnostics",
+   "target": "site/js/reports.js::allReports",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/get_diagnostics",
+   "target": "test/agent-tools.test.mjs::toolsFor/getEdgeKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/get_diagnostics",
+   "target": "test/agent-tools.test.mjs::toolsFor/getLabel",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/highlight",
+   "target": "site/js/app.js::<module>/highlight",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/highlight",
+   "target": "test/agent-tools.test.mjs::toolsFor/highlight",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/reanalyze",
+   "target": "site/js/agentTools.js::summarize",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/reanalyze",
+   "target": "site/js/app.js::<module>/getLabel",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/reanalyze",
+   "target": "site/js/app.js::<module>/reanalyze",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/reanalyze",
+   "target": "site/js/reports.js::allReports",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/reanalyze",
+   "target": "test/agent-tools.test.mjs::toolsFor/getLabel",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/reanalyze",
+   "target": "test/agent-tools.test.mjs::toolsFor/reanalyze",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/set_edge_kinds",
+   "target": "site/js/agentTools.js::summarize",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/set_edge_kinds",
+   "target": "site/js/app.js::<module>/getEdgeKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/set_edge_kinds",
+   "target": "site/js/app.js::<module>/setEdgeKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/set_edge_kinds",
+   "target": "site/js/reports.js::allReports",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/set_edge_kinds",
+   "target": "test/agent-tools.test.mjs::toolsFor/getEdgeKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::createAgentTools/set_edge_kinds",
+   "target": "test/agent-tools.test.mjs::toolsFor/setEdgeKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "site/js/agentTools.js::descriptors",
+   "target": "site/js/agentTools.js::descriptors/execute",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::edgeShape",
+   "target": "site/js/metrics.js::linkLift",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::installAgentTools",
+   "target": "site/js/agentTools.js::createAgentTools",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::installAgentTools",
+   "target": "site/js/agentTools.js::GLOBAL_NAME",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::installAgentTools",
+   "target": "site/js/agentTools.js::installAgentTools/tools",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::installAgentTools",
+   "target": "site/js/agentTools.js::registerWithWebMcp",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::installAgentTools/tools",
+   "target": "site/js/agentTools.js::descriptors",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::registerWithWebMcp",
+   "target": "site/js/agentTools.js::descriptors",
+   "kind": "call",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/agentTools.js::summarize",
+   "target": "site/js/agentTools.js::TOP_N",
+   "kind": "reference",
+   "count": 6,
+   "time": "use"
+  },
+  {
    "source": "site/js/analysisCache.js::deleteAnalysis",
    "target": "site/js/analysisCache.js::idFor",
    "kind": "call",
@@ -4950,6 +5672,55 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/agentTools.js::installAgentTools",
+   "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::<module>/getEdgeKinds",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::<module>/getGraph",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::<module>/getLabel",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::<module>/highlight",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::<module>/reanalyze",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "site/js/app.js::<module>",
+   "target": "site/js/app.js::<module>/setEdgeKinds",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "site/js/app.js::<module>",
@@ -5148,6 +5919,97 @@
    "count": 1,
    "time": "definition",
    "inferred": true
+  },
+  {
+   "source": "site/js/app.js::<module>/getEdgeKinds",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/getGraph",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/getLabel",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/highlight",
+   "target": "site/js/app.js::renderer",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/highlight",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/highlight",
+   "target": "site/js/graph3d.js::Graph3D.setPath",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/reanalyze",
+   "target": "site/js/app.js::reanalyzeRecent",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/reanalyze",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/setEdgeKinds",
+   "target": "site/js/app.js::applyKinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/setEdgeKinds",
+   "target": "site/js/app.js::panel",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/setEdgeKinds",
+   "target": "site/js/app.js::state",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/setEdgeKinds",
+   "target": "site/js/kinds.js::EDGE_KINDS",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/app.js::<module>/setEdgeKinds",
+   "target": "site/js/panel.js::Panel.refresh",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "site/js/app.js::analyzeFolder",
@@ -8168,7 +9030,7 @@
    "source": "site/js/panel.js::Panel.setMetrics",
    "target": "site/js/i18n.js::t",
    "kind": "call",
-   "count": 24,
+   "count": 20,
    "time": "use"
   },
   {
@@ -8250,16 +9112,30 @@
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
-   "target": "site/js/panel.js::reportNodeShape",
+   "target": "site/js/reports.js::elevationGapsReport",
    "kind": "call",
    "count": 1,
    "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setMetrics",
-   "target": "site/js/panel.js::reportNodeShape",
-   "kind": "reference",
-   "count": 3,
+   "target": "site/js/reports.js::entryPointsReport",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/reports.js::independenceReport",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics",
+   "target": "site/js/reports.js::islandsReport",
+   "kind": "call",
+   "count": 1,
    "time": "use"
   },
   {
@@ -8285,6 +9161,13 @@
    "count": 1,
    "time": "use",
    "inferred": true
+  },
+  {
+   "source": "site/js/panel.js::Panel.setMetrics/onclick#3",
+   "target": "site/js/reports.js::allReports",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "site/js/panel.js::Panel.setPathResult",
@@ -8466,6 +9349,111 @@
    "time": "use"
   },
   {
+   "source": "site/js/reports.js::allReports",
+   "target": "site/js/reports.js::elevationGapsReport",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::allReports",
+   "target": "site/js/reports.js::entryPointsReport",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::allReports",
+   "target": "site/js/reports.js::independenceReport",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::allReports",
+   "target": "site/js/reports.js::islandsReport",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::elevationGapsReport",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::elevationGapsReport",
+   "target": "site/js/metrics.js::elevationGaps",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::entryPointsReport",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::entryPointsReport",
+   "target": "site/js/metrics.js::entryPoints",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::entryPointsReport",
+   "target": "site/js/reports.js::reportNodeShape",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::independenceReport",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::independenceReport",
+   "target": "site/js/metrics.js::independence",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::independenceReport",
+   "target": "site/js/reports.js::reportNodeShape",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::islandsReport",
+   "target": "site/js/i18n.js::t",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::islandsReport",
+   "target": "site/js/metrics.js::islands",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "site/js/reports.js::islandsReport",
+   "target": "site/js/reports.js::reportNodeShape",
+   "kind": "reference",
+   "count": 2,
+   "time": "use"
+  },
+  {
    "source": "site/js/simulation.js::createSimulation",
    "target": "site/js/simulation.js::forceSpring",
    "kind": "call",
@@ -8532,6 +9520,160 @@
   {
    "source": "site/js/zones.js::hullPath",
    "target": "site/js/zones.js::closedLine",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "site/js/agentTools.js::createAgentTools/find_declarations",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "site/js/agentTools.js::createAgentTools/get_declaration",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "site/js/agentTools.js::createAgentTools/get_diagnostics",
+   "kind": "call",
+   "count": 3,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "site/js/agentTools.js::createAgentTools/highlight",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "site/js/agentTools.js::createAgentTools/reanalyze",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "site/js/agentTools.js::createAgentTools/set_edge_kinds",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "site/js/reports.js::allReports",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "test/agent-tools.test.mjs::<module>/highlight",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "test/agent-tools.test.mjs::<module>/reanalyze",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "test/agent-tools.test.mjs::sample",
+   "kind": "call",
+   "count": 7,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::<module>",
+   "target": "test/agent-tools.test.mjs::toolsFor",
+   "kind": "call",
+   "count": 7,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::sample",
+   "target": "site/js/model.js::buildGraph",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::sample",
+   "target": "test/agent-tools.test.mjs::decl",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::sample",
+   "target": "test/agent-tools.test.mjs::edge",
+   "kind": "call",
+   "count": 7,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::toolsFor",
+   "target": "site/js/agentTools.js::createAgentTools",
+   "kind": "call",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::toolsFor",
+   "target": "test/agent-tools.test.mjs::toolsFor/getEdgeKinds",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::toolsFor",
+   "target": "test/agent-tools.test.mjs::toolsFor/getGraph",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::toolsFor",
+   "target": "test/agent-tools.test.mjs::toolsFor/getLabel",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::toolsFor",
+   "target": "test/agent-tools.test.mjs::toolsFor/highlight",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::toolsFor",
+   "target": "test/agent-tools.test.mjs::toolsFor/reanalyze",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "test/agent-tools.test.mjs::toolsFor",
+   "target": "test/agent-tools.test.mjs::toolsFor/setEdgeKinds",
    "kind": "reference",
    "count": 1,
    "time": "use"
