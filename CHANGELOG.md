@@ -4,6 +4,516 @@ The section for a version becomes the notes of its GitHub release
 (`.github/workflows/release.yml`), which is cut when the version in
 `package.json` reaches the default branch.
 
+## v0.4.0
+
+### An agent can read the diagnosis straight out of the page
+
+* `agentTools.js` exposes the four diagnostics as callable tools:
+  `get_diagnostics`, `find_declarations`, `get_declaration`,
+  `set_edge_kinds`, `highlight`, `reanalyze`. The browser has just spent
+  seconds analyzing a folder or a repository and is holding the result;
+  before this, the only way for an agent to act on it was an exported file
+  or a second analysis somewhere else.
+* Registered with **WebMCP** (`navigator.modelContext`) when the browser has
+  it — an emerging API, absent in most browsers, so registration is
+  best-effort and silent when it fails — and always available on
+  `window.programTree` for an extension, a console or a test.
+  `window.programTree.webmcp` reports which path registration took.
+* `get_diagnostics` summarises by default: on `d3-shape` the full diagnosis
+  is 76KB against the summary's 7KB, and that is a small library. `detail:
+  "full"` returns byte-for-byte what the export button downloads.
+* **The page still cannot write a file.** The loop is: read the diagnosis,
+  look a finding up, edit the source with the agent's *own* tools, call
+  `reanalyze`, see whether the number moved. Re-analysis is the part only
+  the page can do — it holds the directory handle, the vendored compiler and
+  the worker — and it is enough to close the loop without handing a web page
+  a source tree to rewrite.
+* The report shapes moved out of `panel.js` into `reports.js`, so the
+  figures an agent is told and the figures a human downloads are one piece
+  of code and cannot drift apart.
+
+### Every diagnostic report explains itself, and one button exports all four
+
+* Each of the four exported reports (entry points, elevation gaps,
+  independence, islands) now leads with `description`: the same sentence
+  the panel gives for what the figure means. A report is read away from the
+  viewer — the point of exporting one — so the number by itself did not say
+  what it was measuring.
+* A new "Export all four as one report" button, above the four individual
+  ones, downloads a single file with all four under `metrics`, keyed by the
+  same id (`entry-points`, `elevation-gaps`, `independence`, `islands`) each
+  one's own filename already uses.
+
+### "Scope escapes" replaced by "Elevation gaps", read off call height instead of the dominator tree
+
+* Scope escapes bucketed edges by *lift* — how many scopes a dependency had
+  to be hoisted out of its caller's scope, in the dominator tree, to stay
+  reachable from its other users. That answers a real question, but not the
+  one this section was meant to: how far an edge actually reaches on the
+  axis the 3D view draws, the terrain itself rather than a structure derived
+  from it.
+* `elevationGaps` (`metrics.js`) replaces it, reading `model.js`'s call
+  height directly: `gap(a -> b) = height(a) - height(b) - 1`. 0 is the edge
+  that actually set `b`'s height (its shallowest caller, one layer up, which
+  `computeHeights` guarantees); positive is a caller reaching past
+  intermediate layers straight down to something several levels below it. An
+  edge inside a cycle has no gap to report (its ends share one call height,
+  so neither is above the other), and the value is always ≥ 0 otherwise —
+  `computeHeights` places every declaration exactly one layer below its
+  *shallowest* caller, so a steeper caller can only be higher, never lower.
+* The two readings genuinely disagree on the same edge sometimes: two
+  unrelated callers at the same height both land their edge at gap 0, the
+  `A -> S <- B` case Independence still reads as real sharing (lift 1 for
+  both). That is expected, not a bug — the lift describes the dominator
+  tree, the gap describes the terrain, and a declaration can be structurally
+  "shared" while sitting at a perfectly ordinary height, or vice versa.
+* Independence and Entry points are unaffected — they still read the lift —
+  and the Selection panel's own per-edge lift readout is unchanged too;
+  `elevationGaps` is a new, additional lens, not a change to what `lift`
+  means anywhere else in the codebase.
+* Its panel row is a two-handled range over the gap axis (`Panel.rangeSlider`,
+  the same control Zones uses for depth) rather than one button per distinct
+  gap value: a real codebase's gaps run into the dozens, and a row each would
+  be exactly the wall of numbers the diagnostics were rebuilt to avoid.
+  Dragging either handle re-highlights the union of every bucket the span now
+  covers and updates a live count beside it; nothing highlights until a
+  handle moves. The now-unused per-bucket bar chart and its CSS
+  (`.bar`/`.metric-bar`, and the two custom properties only they referenced)
+  are gone with it.
+
+### One dropdown for everything the Data section used to spread across four widgets
+
+* The dataset `<select>`, the "Folder…"/"JSON file…" buttons and the
+  "Recently opened" list were three separate pieces of UI for what is, to
+  whoever is looking at the panel, one decision: what to look at. They are
+  now one `<select>`, grouped into "Examples", "Recently opened" and "Load
+  new" — the last holds "Folder…", "JSON file…" and "GitHub repo…", since
+  picking one of those is a command (open a picker, reveal a field), not a
+  selection, and the dropdown puts its value straight back rather than
+  parking on the command once it has fired one.
+* Re-analyze and remove, previously an icon button beside every row in
+  "Recently opened", are now a row of two buttons that appears under the
+  dropdown only for whichever "Recently opened" entry is actually loaded —
+  a plain `<option>` has nowhere to put a button of its own.
+* Fixed in passing: the row's `hidden` attribute did nothing, because
+  `.buttons { display: flex }` and the browser's own `[hidden] { display:
+  none }` have equal specificity and the author rule is later in the
+  cascade, so it always won — the same gotcha `.github-results[hidden]`
+  already had its own override for. `.buttons[hidden]` now has one too.
+
+### "Fit to view" frames the mainland, and any island can be framed on its own
+
+* `fit()`'s default target used to be every node, so a graph with an island
+  far from the rest — nothing bounds how far one can drift under this
+  physics — fit to a box that included it, leaving the connected majority
+  tiny in the middle of the view. It now takes an optional node subset and
+  defaults to the mainland (the largest connected component of the enabled
+  edge kinds), both on install and from the "Fit to view" button; a graph
+  with no islands has one component, so this changes nothing there.
+* The Islands diagnostic's rows (including a new one for the mainland
+  itself) now do two things on click instead of one: highlight that piece,
+  as before, and point the camera at just its nodes. Selecting which island
+  to look at and fitting the view to it are the same action.
+
+### Fix: a large graph could "Fit to view" to nothing at all
+
+* `fit()`'s zoom-to-extent had a floor of 0.05, shared with the mouse
+  wheel's own zoom gesture. A graph whose settled layout spans more than
+  ~14,000 units at the default viewport needs less than that to fit — a
+  2,139-declaration project measured at 236,714 units across needed 0.003 —
+  and with the floor in the way, "Fit to view" (which now runs on every
+  install, see below) projected the whole graph to roughly 11,800px across:
+  not small, entirely off-screen, the canvas blank.
+* `fit()`'s zoom now has only an upper bound (2, so a small graph is not
+  blown up past a sane scale); the wheel's zoom lost its floor too, since
+  the same 0.05 would otherwise have snapped a fitted view straight back to
+  it on the very first scroll. Nothing in `project()` divides by `zoomK`, so
+  an arbitrarily small one is just an arbitrarily wide view, never a
+  numerical problem.
+
+### The physics runs only when asked, and datasets carry their layout
+
+* **Each annealing run starts at an alpha of 16, not 1.** Alpha is d3's
+  cooling parameter and by convention runs from 1, but nothing clamps it — it
+  is only the multiplier on each tick's displacement, so a larger one
+  explores further before the schedule brings it down. Measured across the
+  ten datasets here by how far a subsequent press of "Recompute (reheat)"
+  moves the picture: starting at 1 was the worst temperature tried on nine of
+  the ten. On a 2,138-declaration project the layout went from moving 0.45 of
+  its median radius on a reheat to 0.07, in 4,150 ticks against the 16,000
+  the previous approach spent. Not a trick of scale — scaling a cold layout
+  up to a hot one's size makes it worse (0.13 to 0.27), since that pulls
+  every spring off its rest length.
+* A run that diverges is undone and retried a quarter as hot. This is
+  explicit Euler: with a big enough step it does not settle but throws the
+  graph apart — a run starting at 48 was past any usable extent within 50
+  ticks and exhausted memory building the repulsion's quadtree.
+
+* **The camera frames a document when it is installed**, and still never
+  moves on its own while a run is going or when one settles — the moments a
+  view may already have been framed by hand. This is required by the change
+  below, not a taste: a graph used to arrive on the seed, a compact disc
+  around the origin the default camera happened to show, and grow into its
+  real extent while the user watched. Carrying a settled layout means it
+  arrives at that extent — tens of thousands of units across, centred
+  wherever the physics left it — and opening a document without the fit
+  painted between almost nothing and, for `d3-shape`, nothing at all.
+* **A graph opens laid out, having run nothing.** A document may now carry
+  `x`/`y` per declaration (`docs/DATA_FORMAT.md`), and `npm run build:data`
+  settles every published dataset into one. The viewer opens on it; a document
+  without a layout opens on the deterministic seed and says so in the status
+  line.
+* **"Recompute (reheat)" is the only thing that starts a run.** The
+  simulation is created stopped. Opening a document, changing a slider and
+  toggling an edge kind no longer set anything in motion — the parameters are
+  stored and take effect on the next run.
+* Why: a tick costs the whole graph. Both forces are node-against-node, so
+  the cost is set by the node count and barely moves with the edges. Measured
+  in a browser at 2,138 nodes with positions held fixed so the edge count was
+  the only variable, a tick is 21–25ms from 0 edges to 8,000 while drawing
+  adds ~1.3µs per edge — and `alphaDecay` runs ~2,300 of them. That was forty
+  seconds of an unscrollable page on every open, whether or not the layout
+  needed redoing.
+* **An analysis the browser ran itself is laid out by the worker that ran
+  it**, before it is handed back, behind the progress the analysis was
+  already reporting. A folder or a repo has no build step to carry a layout,
+  so this is where it comes from; it is off the main thread, and stored with
+  the analysis, so a folder pays for it once and never again.
+  `site/js/layout.js` is the single copy both producers run, so a dataset and
+  a freshly analyzed folder are laid out identically.
+* **The layout is annealed repeatedly, until the runs stop improving.** One
+  annealing run leaves a layout that "Recompute (reheat)" visibly
+  rearranges — on a 2,138-declaration project it moved the arrangement by
+  0.45 of its own median radius, half the picture. Pressing it again moved it
+  0.17, then 0.10, then 0.05, with the extent converging: the layout was not
+  wrong, it was shallow. Annealed to the floor (7 runs, 8,900 ticks on that
+  project) a reheat moves it 0.029 and stays there.
+* The stop is "the runs stopped improving" and not "the runs got small",
+  because that floor is the wander a full-temperature reheat has whatever the
+  layout is, and a small graph reaches a high floor immediately — there are
+  several comparable arrangements of thirty nodes and reheating picks among
+  them. A first attempt used a fixed threshold and eight of the twelve
+  published datasets ran to the tick cap; with the improvement test they take
+  2 to 6 runs.
+* Within a run, the criterion is the change in the *arrangement* — the layout
+  centred and scaled by the median distance from its centroid — and not
+  absolute displacement, which reads as convergence far too early because it
+  falls as much from the layout inflating as from the picture settling. The
+  movement left at a fixed temperature is heat, not structure: it is
+  proportional to alpha (221e-6 at 0.2 down to 8.6e-6 at 0.002), so only
+  cooling removes it.
+* **A run that finishes is kept.** Its positions are written back into the
+  document, and for an analysis from "Recently opened", back into IndexedDB —
+  so reopening a folder is instant and already settled.
+* `scripts/settle.mjs` imports `site/js/simulation.js` rather than
+  reimplementing the forces, so a stored layout is a point this physics would
+  really have reached and pressing reheat does not make the graph jump.
+* Removed two dead callbacks: `onDragStart`/`onDragEnd` were wired in `app.js`
+  but never called — `graph3d.js`'s drag is the camera, not a node.
+* Known analyzer gap, found by this repository's own dead-code check while
+  writing the above: a binding destructured out of a dynamic import
+  (`const { f } = await import("./m.js")`) is not resolved, though a member
+  read off its namespace (`const m = await import("./m.js"); m.f()`) is. The
+  two call sites use the namespace form.
+* One consequence is now visible immediately rather than after forty seconds
+  of drift: a component connected to nothing else has no spring holding it to
+  anything, so the unbounded repulsion pushes it away without limit and a
+  settled layout has its islands very far out. "Fit to view" frames all of it,
+  which makes the main body small. That is the documented physics doing what
+  it says; the Islands diagnostic, not the camera, is the way to those pieces.
+
+### Analyzer: two ways a declaration could end up unreachable by construction
+
+`analyzers/ts@0.8.0`. Pointing the new islands diagnostic at a real
+application returned hundreds of "islands" that were nothing of the kind, and
+both causes were in the analyzer.
+
+* **Declarations could share one id.** A local declaration is
+  `<parent>/<name>`, and two object literals inside one declaration can each
+  carry an `onclick` — `el("button", { onclick: save })` beside
+  `el("input", { onclick: clear })` — with no name of their own to be told
+  apart by. The viewer keys nodes by id, so the last declaration won, every
+  edge naming that id attached to it, and the earlier ones became nodes no
+  edge could ever reach: in-degree and out-degree 0, adrift by construction
+  and indistinguishable from dead code. This repository had 12 such nodes,
+  `svelte/src` 46. Repeats are now numbered `#2`, `#3`, … in source order,
+  leaving every id that never collided as it was.
+* **A function written into an object literal had no edge from the
+  declaration handing it over.** `f({ m })` has always produced a `reference`
+  by resolving the identifier; `f({ m: () => {} })` produced nothing, so the
+  two spellings of one thing disagreed about whether the caller depends on
+  its own handler — and the inline one, plus whatever only it called, floated
+  off. `docs/THEORY.md` §5 recorded the absence as a decision; it was an
+  inconsistency. Nothing else could supply the edge either: a local
+  declaration exists precisely because the literal has no path of its own, so
+  the declaration that built it is the only holder there is, which makes the
+  edge exact rather than a guess. It is a `reference`, not a `call` — whoever
+  invokes the handler (the DOM, a framework) is a separate matter, so a graph
+  restricted to the control kinds still shows such a handler as an entry
+  point.
+
+| | this repository | `svelte/src` |
+|---|---|---|
+| edges | 593 → **690** | 8,514 → **8,943** |
+| islands of one | 37 → **0** | 267 → **71** |
+| island groups | 1 → 1 | 14 → **4** |
+| entry points (every kind) | 73 → **15** | 693 → **332** |
+| independence | 0.639 → 0.678 | 0.483 → 0.492 |
+
+The entry-point figure moves the most, and deserves a word: a DOM handler is
+now referenced by whoever installed it, so with every edge kind enabled it is
+no longer "uncalled". Turning the graph down to the control kinds shows it as
+an entry point again, which is the reading that inventories what events run.
+
+### Diagnostics: a lone `module` node is not an island
+
+* A file's own top-level code is never pointed at by anything — the reason
+  `unreferencedDeclarations` already skips `module` nodes — so a file whose
+  top-level code happens to call nothing is structurally isolated rather than
+  adrift, and is left out of the count. Inside a *group* it stays: a file
+  whose top-level code reaches only declarations nothing else reaches is
+  exactly the finding.
+
+### Diagnostics: islands
+
+* A fourth diagnostic. Every connected piece of the graph but the largest is
+  an island: declarations that depend on each other and on nothing else the
+  analysis can see, and that nothing else depends on. On `d3-shape` that is
+  nine groups — `cardinal, Cardinal, catmullRom, CatmullRom` and its siblings,
+  each a curve family reached only by the library's consumers — against a
+  mainland of 193.
+* It is the one figure not read off the lift. The lift describes an edge, and
+  a piece of the program that shares no edge with the rest has none to
+  describe, so islands are read off the undirected connected components
+  instead. Undirected on purpose: two declarations that only ever call a third
+  are still one piece, and asking whether either can *reach* the other would
+  split that piece into three.
+* Islands of one are counted, not listed — 738 of 761 on a 2,600-declaration
+  codebase, and a list of them would bury the groups. The export carries them.
+  `mainland` is reported beside the count, so a program that is genuinely two
+  halves reads as two comparable numbers rather than as "one island".
+* Read on the enabled edge kinds, like every other diagnostic. That matters
+  more here than elsewhere: an island is usually visible as a clump drifting
+  away on its own, and a count that disagreed with the view would be worse
+  than no count.
+* `model.js`'s `connectedComponentCount` becomes `connectedComponents`,
+  returning the pieces themselves — largest first, members name-ordered, each
+  carrying its own links so a row can highlight itself.
+
+### Analyzer: answer a property read by the object, not just by the name
+
+* `analyzers/ts@0.7.0`. Resolving a property purely by its name — which is
+  what the previous release did — made a codebase that declares a function
+  called `map` or `get` collect an edge from every `xs.map(…)` and
+  `cache.get(…)` whose receiver TypeScript could not pin down. In a Svelte
+  project, where `any` arrives from every direction, that was **the majority
+  of the graph**: 51% of edges inferred, against 29% before properties were
+  modelled at all.
+* A property read is now answered in three steps: from the receiver's own
+  object when one was identified (an object literal, or `this` in a class);
+  by nothing at all when the receiver is unknown and the name belongs to the
+  standard library; and by name otherwise. The standard-library names are
+  collected from the `lib.*.d.ts` files the program already loads, so the
+  rule is "the language owns this name", not a hand-written denylist.
+* All three steps are needed. Identity alone drops real edges wherever there
+  is no identity to follow — a callback spread into a new object, or hung on
+  an object a library handed over, both of which this repository does — and
+  name alone is what invented the edges above.
+* The standard-library step asks the program which files are the default
+  library instead of matching the shape of a file name. The name pattern
+  required a directory separator before `lib.`, which the Node CLI's absolute
+  paths supply and the in-browser host's bare `lib.es2022.d.ts` does not, so
+  the step was inoperative in exactly the place the local-folder and GitHub
+  features run: analyzing through that host, edges 10,951 → 7,403 and
+  inferred 57% → 36%, with the analysis itself 6.9s → 5.7s.
+* On `svelte/src` (370 files): edges 12,172 → 8,514, inferred 51% → 30%,
+  landing back on the 8,454 of the release before properties were modelled
+  plus 60 genuine injected-dependency edges. The viewer feels it more than
+  the analyzer does, since it pays per frame rather than once: first render
+  880ms → 489ms, and 18fps → 28fps on the same graph.
+
+### Analyzer: an injected dependency is no longer invisible
+
+* The bounded 0-CFA (docs/THEORY.md §3.2) now flows values through object
+  properties as well as through bindings, parameters and returns. A
+  dependency stored on `this` and called off it (`this.t = deps.t`, then
+  `this.t(...)`), a callback in an injected object literal, and the two-hop
+  shape in between (`this.callbacks.onSelect?.()`, where the object was built
+  somewhere else) all produce the inferred `call` edge they always should
+  have. `analyzers/ts@0.6.0`.
+* This was a soundness bug, not a missing nicety. Fact 4 requires the CFA
+  relation to *contain* the real call relation; modelling no properties left
+  it a strict under-approximation, so **a dependency that was injected rather
+  than named left no edge at all**. The diagnostics built on top would then
+  reward hiding a dependency exactly as much as removing one — converting a
+  shared helper to constructor injection would have improved this project's
+  own independence score without changing a thing about its coupling.
+* It was already happening here: `Graph3D` takes its callbacks by injection
+  and calls `this.callbacks.onSelect?.(node)`, and the analyzer recorded zero
+  callers for it. 83 of 83 object-literal callbacks and nested helpers had no
+  incoming edge; 37 of them now do, and this repository's graph gained 56
+  edges (533 → 589).
+* Properties are keyed by name alone (field-insensitive: one abstract
+  location per property name), which over-approximates — two unrelated
+  `.render` properties share a location — and is the direction Fact 4 asks
+  for. A declaration reachable only from outside the analyzed code (a DOM
+  event handler, a `ts.CompilerHost` method, an esbuild hook) is a separate
+  matter and correctly still has no caller: there is none to find.
+
+### Work the independence list down
+
+* Following what the corrected ranking pointed at, two more shared operations
+  in `app.js` now exist once instead of at each caller: `applyKindsTo()` (the
+  degrees, heights and cycles a graph's *enabled* edge kinds decide, plus the
+  two panel sections read off them — installing a graph and toggling a kind
+  both arrive there, and CLAUDE.md's "drawing, springs and diagnostics must
+  never disagree" is easier to keep true written once) and
+  `installAndRemember()` / `analyzeFolder()` (every analysis ends by showing
+  the result and remembering it; "Folder…" and "re-analyze" differ only in
+  where the handle came from and which cache key it is filed under).
+* This repository's own independence is 0.604 → 0.615, its scope escapes 243
+  → 237. All four load paths and `applyKinds` have left the ten worst.
+* What is left at the top is not fat. Three of the ten are test modules
+  importing the API under test; one is `app.js`'s own module-level wiring;
+  the rest are panel methods whose shared dependencies are `t()`, `el()` and
+  the colour helpers. Those *should* be shared — every visible string going
+  through `t()` is a project rule — so the metric has a floor well above 1,
+  and pushing past it would mean splitting orchestrators into functions with
+  one caller each, which moves the sharing rather than removing it.
+
+### Rank the independence list by what can be acted on
+
+* The Diagnostics section is now just "Diagnostics". It still asked "is it a
+  tree?" after the tree score it referred to was gone, and no other section
+  carries a subtitle.
+* The independence list is ranked by how much a declaration gives up in
+  total, not by its score. Running the metric on this repository is what
+  found the problem: 88 of 194 scored declarations depend on exactly one
+  thing, so their average *is* that one edge, and 16 of the 30 worst-scoring
+  were one-line setters whose single dependency was a widely shared
+  `draw()`. Nothing can be done about `setLayerGap`, and ranking it above a
+  genuinely tangled function aimed the list at what nobody could act on. No
+  single-dependency declaration is in the top 30 now.
+* Acting on what the corrected list then pointed at: the six load paths in
+  `app.js` each spelled out the same "mark the dropdown custom, then install"
+  pair, and the folder analysis was written twice. Both are extracted
+  (`installCustomGraph`, `runLocalAnalysis`), which moved this repository's
+  own independence from 0.604 to 0.609 and dropped `loadGithubRepo` out of
+  the ten worst entirely.
+
+### One place to choose a source in the Data section
+
+* "Open JSON" and "Open folder…" are one row of two buttons — a folder or a
+  single JSON file — instead of two rows, one of which was a bare file input
+  rendering as native "Choose File / no file selected" chrome that matched
+  nothing around it and did not fit a narrow panel.
+* The GitHub repo field is no longer always on screen. The dataset dropdown
+  gained a "GitHub repo…" entry that reveals it, so the dropdown is the one
+  place a source is chosen, and the field appears only when it is wanted.
+  It stays open (and selected) after a repo loads, so a second one can be
+  tried, and closes as soon as anything else is loaded.
+
+### Replace the diagnostics and Patterns with three metrics you can act on
+
+* The tree score and its five ratios (spanning, acyclicity, single-caller,
+  DAG-ness, locality), the fifteen counts beside them, the "costliest
+  sharing" list and the whole Patterns section (cycles, hubs, diamonds,
+  chains) are gone, and so are `motifs.js` and the parts of `metrics.js`
+  behind them. The ratios measured real things but could not be acted on —
+  they said a graph was 0.78 of a tree without saying which edges made it
+  so — and a five-way average let a good ratio hide a bad one. The motifs
+  had the opposite problem: they showed exactly where a shape occurred, but
+  "this is a diamond" is not by itself a defect.
+* In their place, three readings of one measurement — the lift of each
+  dependency in the dominator tree (docs/THEORY.md Definition 11):
+  * **Entry points**: declarations nothing calls. How many separate trees
+    the program actually is, and in an application, what startup and events
+    run.
+  * **Scope escapes**: the dependencies whose target had to be hoisted out
+    of its caller's scope, bucketed by how many scopes that took. Lift 1 is
+    two siblings sharing a helper; a high lift is a declaration visible
+    across many levels that one place needed.
+  * **Independence**: per declaration, the mean of `1 / (1 + lift)` over
+    what it depends on — how much of that is its alone. Weighted by lift
+    rather than by a count of other users, because a count cannot tell
+    "shared with a sibling" from "shared across the program", which is the
+    distinction the project's whole claim rests on.
+* Each one lists what its number is pointing at: clicking a declaration
+  selects it, clicking a lift bucket highlights those dependencies in the
+  view, and a button exports the whole set as a JSON report (with the edge
+  kinds it was computed on, so it can be reproduced).
+
+### The property panel collapses, resizes, and stops scrolling sideways
+
+* Every section is now collapsible, and which ones are open is remembered
+  between visits — Data and View & Physics start open, the rest closed, and
+  Selection expands itself when you click a node.
+* The panel's width is set by dragging its left edge (or the arrow keys once
+  that handle has focus), between 260px and 720px, and is remembered too.
+* That same edge is now a visible boundary. The panel was meant to be told
+  apart from the graph by tone, but its background token and the stage's
+  resolved to the same colour, so there was nothing to see; the panel now
+  sits on a genuinely different surface with the drag handle as the rule
+  between them.
+* The panel no longer scrolls horizontally. Its grid rows refused to shrink
+  below their content's natural width (a text input's default size, a long
+  identifier, a deep file path), and setting only `overflow-y` leaves the
+  other axis at `auto`, so a scrollbar appeared under almost any content.
+
+### Remove the layer planes
+
+* The translucent plane drawn per call height, and its two switches ("Layer
+  planes", "Fade layers by focus"), are gone. On any graph with more than a
+  handful of layers they read as clutter rather than as a guide, and they
+  were the only thing in the renderer needing a second, clamping projection
+  (`projectClamped()`) and a radial-gradient fade of their own — a lot of
+  machinery for a background shape that mostly got in the way. "Layer gap"
+  stays: it still sets how far apart two consecutive heights sit.
+
+### Remove the article page
+
+* `article.html` and everything only it used — `site/js/article.js`,
+  `site/js/markdown.js`, `site/article.css`, the chapters under
+  `site/content/` and their `article.*` translations — are gone, along with
+  the header link to them. The page had been left unmaintained, and it was
+  the last consumer of several viewer details (the tree-score readout, four
+  design tokens) that the panel is about to be rebuilt around; keeping a
+  page nobody was updating as a constraint on that rebuild was the wrong
+  trade. The chapters remain in the git history if the article is picked
+  back up.
+
+### Analyzer: a reference can flow through a variable to a nested declaration
+
+* The bounded 0-CFA (docs/THEORY.md §3.2) already turned a call through a
+  stored callback into a further `call` edge to whatever the flow analysis
+  traced it to; it now does the same for a plain (non-call) reference —
+  handing a variable to something else, a template prop binding, an event
+  handler — producing a further, inferred `reference` edge to whatever the
+  variable's value was traced to. This is what lets, say, a template
+  binding reach a nested declaration a factory function returned into a
+  captor variable, one hop further than the existing direct edge to the
+  captor variable itself. It does not, and cannot soundly, resolve a
+  binding that names a function declared *only* inside another local
+  function with no such value-flow path at all — under real JS/Svelte
+  scoping that name was never in scope there to begin with, which is worth
+  checking for as a possible bug in the component itself rather than the
+  analyzer. `analyzers/ts@0.5.0`.
+
+### Export the currently loaded analysis as JSON
+
+* A new "Export JSON" button in the Data section downloads the raw analyzer
+  document exactly as installed (docs/DATA_FORMAT.md), before `buildGraph()`
+  merges/drops edges or derives anything — for debugging an analysis that
+  looks wrong (a reference that should have connected two declarations but
+  didn't, say) without having to reproduce it.
+
+### Drop the GitHub Pages deployment
+
+* `.github/workflows/pages.yml` is removed; Cloudflare (Pages or Workers) is
+  now the only documented host. It builds every branch, gives each pull
+  request its own preview URL (which GitHub Pages couldn't), and needed no
+  separate workflow to begin with.
+
 ## v0.3.0
 
 ### Lift call heights toward their caller

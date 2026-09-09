@@ -3,8 +3,8 @@
   "name": "d3-zoom",
   "root": "node_modules/d3-zoom",
   "language": "javascript",
-  "generatedAt": "2026-09-07T07:09:29.843Z",
-  "analyzer": "analyzers/ts@0.4.0",
+  "generatedAt": "2026-09-09T07:35:37.754Z",
+  "analyzer": "analyzers/ts@0.8.0",
   "files": 6
  },
  "declarations": [
@@ -15,7 +15,9 @@
    "file": "src/constant.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 711.3,
+   "y": -1467.7
   },
   {
    "id": "src/event.js::ZoomEvent",
@@ -24,7 +26,9 @@
    "file": "src/event.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 532.7,
+   "y": -1731.1
   },
   {
    "id": "src/noevent.js::default",
@@ -33,7 +37,9 @@
    "file": "src/noevent.js",
    "line": 5,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 755.4,
+   "y": -1393.5
   },
   {
    "id": "src/noevent.js::nopropagation",
@@ -42,7 +48,9 @@
    "file": "src/noevent.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 704.8,
+   "y": -1347.3
   },
   {
    "id": "src/transform.js::<module>",
@@ -51,7 +59,9 @@
    "file": "src/transform.js",
    "line": 46,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 500.4,
+   "y": -971.6
   },
   {
    "id": "src/transform.js::identity",
@@ -60,7 +70,9 @@
    "file": "src/transform.js",
    "line": 44,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 491.2,
+   "y": -1145.3
   },
   {
    "id": "src/transform.js::transform",
@@ -69,7 +81,9 @@
    "file": "src/transform.js",
    "line": 48,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 410.4,
+   "y": -988.9
   },
   {
    "id": "src/transform.js::Transform",
@@ -81,7 +95,9 @@
    "exported": true,
    "aliases": [
     "Transform.constructor"
-   ]
+   ],
+   "x": 574.3,
+   "y": -1134
   },
   {
    "id": "src/transform.js::Transform.apply",
@@ -90,7 +106,9 @@
    "file": "src/transform.js",
    "line": 15,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": 408.8,
+   "y": -1299.8
   },
   {
    "id": "src/transform.js::Transform.applyX",
@@ -99,7 +117,9 @@
    "file": "src/transform.js",
    "line": 18,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": -18363.3,
+   "y": 14465.4
   },
   {
    "id": "src/transform.js::Transform.applyY",
@@ -108,7 +128,9 @@
    "file": "src/transform.js",
    "line": 21,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": 8244.9,
+   "y": -23688.8
   },
   {
    "id": "src/transform.js::Transform.invert",
@@ -117,7 +139,9 @@
    "file": "src/transform.js",
    "line": 24,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": 455.7,
+   "y": -1453.7
   },
   {
    "id": "src/transform.js::Transform.invertX",
@@ -126,7 +150,9 @@
    "file": "src/transform.js",
    "line": 27,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": 962.1,
+   "y": -1295.5
   },
   {
    "id": "src/transform.js::Transform.invertY",
@@ -135,7 +161,9 @@
    "file": "src/transform.js",
    "line": 30,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": 916.9,
+   "y": -1146.5
   },
   {
    "id": "src/transform.js::Transform.rescaleX",
@@ -144,7 +172,9 @@
    "file": "src/transform.js",
    "line": 33,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": 1129.7,
+   "y": -1326.4
   },
   {
    "id": "src/transform.js::Transform.rescaleY",
@@ -153,7 +183,9 @@
    "file": "src/transform.js",
    "line": 36,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": 1055.9,
+   "y": -1061.6
   },
   {
    "id": "src/transform.js::Transform.scale",
@@ -162,7 +194,9 @@
    "file": "src/transform.js",
    "line": 9,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": 576.6,
+   "y": -1202.6
   },
   {
    "id": "src/transform.js::Transform.toString",
@@ -171,7 +205,9 @@
    "file": "src/transform.js",
    "line": 39,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": -23743.8,
+   "y": -233.9
   },
   {
    "id": "src/transform.js::Transform.translate",
@@ -180,7 +216,9 @@
    "file": "src/transform.js",
    "line": 12,
    "parent": "src/transform.js::Transform",
-   "exported": false
+   "exported": false,
+   "x": 665.6,
+   "y": -1192.4
   },
   {
    "id": "src/zoom.js::default",
@@ -189,7 +227,9 @@
    "file": "src/zoom.js",
    "line": 53,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 594.3,
+   "y": -1326
   },
   {
    "id": "src/zoom.js::default/emit",
@@ -198,7 +238,9 @@
    "file": "src/zoom.js",
    "line": 217,
    "parent": "src/zoom.js::default",
-   "exported": false
+   "exported": false,
+   "x": 555.4,
+   "y": -1554.3
   },
   {
    "id": "src/zoom.js::default/end",
@@ -207,7 +249,9 @@
    "file": "src/zoom.js",
    "line": 210,
    "parent": "src/zoom.js::default",
-   "exported": false
+   "exported": false,
+   "x": 571.3,
+   "y": -1480.6
   },
   {
    "id": "src/zoom.js::default/event",
@@ -216,7 +260,9 @@
    "file": "src/zoom.js",
    "line": 191,
    "parent": "src/zoom.js::default",
-   "exported": false
+   "exported": false,
+   "x": 418.1,
+   "y": -1379.9
   },
   {
    "id": "src/zoom.js::default/start",
@@ -225,7 +271,9 @@
    "file": "src/zoom.js",
    "line": 195,
    "parent": "src/zoom.js::default",
-   "exported": false
+   "exported": false,
+   "x": 624.5,
+   "y": -1523.5
   },
   {
    "id": "src/zoom.js::default/zoom",
@@ -234,7 +282,9 @@
    "file": "src/zoom.js",
    "line": 202,
    "parent": "src/zoom.js::default",
-   "exported": false
+   "exported": false,
+   "x": 499.9,
+   "y": -1501.5
   },
   {
    "id": "src/zoom.js::defaultConstrain",
@@ -243,7 +293,9 @@
    "file": "src/zoom.js",
    "line": 42,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 739,
+   "y": -1262.1
   },
   {
    "id": "src/zoom.js::defaultExtent",
@@ -252,7 +304,9 @@
    "file": "src/zoom.js",
    "line": 17,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 663.2,
+   "y": -1273.1
   },
   {
    "id": "src/zoom.js::defaultFilter",
@@ -261,7 +315,9 @@
    "file": "src/zoom.js",
    "line": 13,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 486.6,
+   "y": -1308.8
   },
   {
    "id": "src/zoom.js::defaultTouchable",
@@ -270,7 +326,9 @@
    "file": "src/zoom.js",
    "line": 38,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 643.9,
+   "y": -1417.9
   },
   {
    "id": "src/zoom.js::defaultTransform",
@@ -279,7 +337,9 @@
    "file": "src/zoom.js",
    "line": 30,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 475,
+   "y": -1217.5
   },
   {
    "id": "src/zoom.js::defaultWheelDelta",
@@ -288,7 +348,9 @@
    "file": "src/zoom.js",
    "line": 34,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 522.5,
+   "y": -1387.3
   }
  ],
  "edges": [
@@ -414,6 +476,41 @@
    "count": 1,
    "time": "use",
    "inferred": true
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/emit",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/end",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/event",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/start",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
+  },
+  {
+   "source": "src/zoom.js::default",
+   "target": "src/zoom.js::default/zoom",
+   "kind": "reference",
+   "count": 1,
+   "time": "use"
   },
   {
    "source": "src/zoom.js::default",

@@ -1,8 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildGraph } from "../site/js/model.js";
+import { applyActiveKinds, buildGraph } from "../site/js/model.js";
 import { dominatorTree } from "../site/js/dominance.js";
-import { computeMetrics, convergentOperations, linkLift, naturalScope, topSharedNodes, unreferencedDeclarations } from "../site/js/metrics.js";
+import { elevationGaps, entryPoints, independence, islands, linkLift, naturalScope, unreferencedDeclarations } from "../site/js/metrics.js";
 
 const decl = (id) => ({ id, name: id, kind: "function", file: "src/a.js" });
 const edge = (source, target, kind = "call") => ({ source, target, kind });
@@ -13,18 +13,24 @@ test("a chain is its own dominator tree", () => {
   const g = graph(["a", "b", "c"], [edge("a", "b"), edge("b", "c")]);
   const dom = dominatorTree(g.nodes, g.activeLinks);
   assert.deepEqual([...dom.lifts], [0, 0]);
-  assert.equal(dom.locality, 1);
-  assert.equal(dom.treeEdges, 2);
+  const gaps = elevationGaps(g);
+  assert.equal(gaps.total, 0); // every call reaches exactly the layer below it
+  assert.equal(gaps.flat, 2);
+  assert.equal(independence(g).overall, 1);
 });
 
 test("two unrelated callers of one declaration are not a tree", () => {
   // The whole point: A -> S <- B is a spanning forest when direction is
   // ignored, so the old (n - components) / m scored it 1.
   const g = graph(["a", "b", "s"], [edge("a", "s"), edge("b", "s")]);
-  const m = computeMetrics(g);
-  assert.equal(m.treeScore, 0.5); // (3 nodes - 2 roots) / 2 edges
-  assert.equal(m.locality, 0.5); // both callers sit one scope below the natural one
-  assert.equal(m.surplusEdges, 1);
+  // elevationGaps reads a different axis than the dominator tree: both
+  // callers sit at the same call height, so `s` lands exactly one layer
+  // below each of them — no cliff, even though (see the lift below) it is
+  // shared and not nested in either caller's own scope.
+  const gaps = elevationGaps(g);
+  assert.equal(gaps.total, 0);
+  assert.equal(gaps.flat, 2);
+  assert.equal(independence(g).overall, 0.5); // both callers sit one scope below the natural one
   assert.equal(lift(g, "a", "s"), 1);
   const scope = naturalScope(g, g.byId.get("s"));
   assert.equal(scope.topLevel, true); // s has to live above both callers
@@ -39,8 +45,21 @@ test("sharing between siblings costs less than sharing across the program", () =
   );
   assert.equal(lift(near, "a", "s"), 1);
   assert.equal(lift(far, "a2", "s"), 3);
-  assert.equal(computeMetrics(near).maxLift, 1);
-  assert.equal(computeMetrics(far).maxLift, 3);
+  // elevationGaps measures a different thing again: both branches are the
+  // same length in each graph, so `s` sits exactly one layer below both of
+  // its callers either way — sibling sharing and distant sharing look
+  // identical on this axis, unlike on the dominator tree above.
+  assert.equal(elevationGaps(near).total, 0);
+  assert.equal(elevationGaps(far).total, 0);
+  // The same one shared declaration, reached from three scopes further out:
+  // the caller that shares it scores as markedly less independent. Compared
+  // per node, not through `overall` — that is an edge-weighted mean, so the
+  // longer graph's six extra well-nested edges would dilute its two bad ones
+  // and make the worse graph look better.
+  const nearScore = new Map(independence(near).nodes.map((s) => [s.node.id, s.score]));
+  const farScore = new Map(independence(far).nodes.map((s) => [s.node.id, s.score]));
+  assert.equal(nearScore.get("a"), 0.5);
+  assert.equal(farScore.get("a2"), 0.25);
   // s could still be nested inside r in both graphs, but the second one has to
   // reach three scopes further out for it.
   assert.deepEqual(
@@ -65,69 +84,89 @@ test("members of a cycle share one tree position", () => {
   );
 });
 
-test("the most costly sharing is ranked by lift, not by caller count", () => {
-  // "near" has three callers one scope away, "far" only two but from the roots
-  // of two unrelated chains.
+test("independence weights sharing by distance, not by how many others share it", () => {
+  // "near" reaches a helper shared with two siblings; "far" reaches one
+  // hoisted three scopes up and shared with nobody else at that distance. A
+  // count of outside users would rank near as worse; the lift says otherwise.
   const g = graph(
-    ["r", "x", "y", "z", "near", "p", "p1", "q", "q1", "far"],
+    ["r", "x", "y", "near", "p", "p1", "p2", "far"],
     [
       edge("r", "x"),
       edge("r", "y"),
-      edge("r", "z"),
       edge("x", "near"),
       edge("y", "near"),
-      edge("z", "near"),
       edge("r", "p"),
       edge("p", "p1"),
-      edge("p1", "far"),
-      edge("r", "q"),
-      edge("q", "q1"),
-      edge("q1", "far"),
+      edge("p1", "p2"),
+      edge("p2", "far"),
+      edge("r", "far"),
     ],
   );
-  const top = topSharedNodes(g);
-  assert.deepEqual(
-    top.map((s) => s.node.id),
-    ["far", "near"],
-  );
-  assert.equal(top[0].cost, 4); // two callers, two scopes out each
-  assert.equal(top[1].cost, 3); // three callers, one scope out each
+  const score = new Map(independence(g).nodes.map((s) => [s.node.id, s.score]));
+  assert.equal(score.get("x"), 0.5); // one callee, lift 1
+  assert.equal(score.get("p2"), 0.25); // one callee, lift 3 — further out, so worse
+  assert.ok(score.get("p2") < score.get("x"));
 });
 
-test("convergentOperations finds an operation decomposed into several steps that all reach the same node", () => {
-  // installGraph()-shaped: one caller directly invokes three different
-  // declarations, every one of which separately calls the same shared node.
+test("independence is 1 for a node that owns everything it calls, and absent for one that calls nothing", () => {
+  const g = graph(["r", "a", "b"], [edge("r", "a"), edge("r", "b")]);
+  const scores = independence(g).nodes;
+  assert.deepEqual(
+    scores.map((s) => s.node.id),
+    ["r"], // a and b call nothing, so they have nothing to own and get no score
+  );
+  assert.equal(scores[0].score, 1);
+  assert.equal(scores[0].callees, 2);
+});
+
+test("independence ranks by how much is given up in total, not by the score", () => {
+  // "tiny" delegates to one widely shared helper and can do nothing about it;
+  // "tangled" owns half of six dependencies. Both average badly, but only one
+  // of them is a thing anyone can act on — running this metric on its own
+  // repository turned up a list whose top was almost entirely the first kind.
   const g = graph(
-    ["install", "setGraph", "setLabels", "setColor", "unrelated", "draw"],
+    ["r", "tiny", "tangled", "helper", "a", "b", "c", "d", "e", "f"],
     [
-      edge("install", "setGraph"),
-      edge("install", "setLabels"),
-      edge("install", "setColor"),
-      edge("install", "unrelated"), // does not itself reach draw: not part of the convergence
-      edge("setGraph", "draw"),
-      edge("setLabels", "draw"),
-      edge("setColor", "draw"),
+      edge("r", "tiny"),
+      edge("r", "tangled"),
+      edge("r", "helper"),
+      edge("tiny", "helper"), // its one dependency is shared with r: lift 1
+      edge("tangled", "a"),
+      edge("tangled", "b"),
+      edge("tangled", "c"),
+      edge("tangled", "helper"),
+      edge("r", "a"),
+      edge("r", "b"),
+      edge("r", "c"),
     ],
   );
-  const found = convergentOperations(g);
-  assert.equal(found.length, 1);
-  assert.equal(found[0].x.id, "install");
-  assert.equal(found[0].y.id, "draw");
+  const ranked = independence(g).nodes;
+  const tiny = ranked.find((s) => s.node.id === "tiny");
+  const tangled = ranked.find((s) => s.node.id === "tangled");
+  assert.equal(tiny.score, 0.5); // one dependency, one scope out
+  assert.equal(tangled.score, 0.5); // four dependencies, every one of them one scope out
+  assert.equal(tiny.shared, 0.5);
+  assert.equal(tangled.shared, 2);
+  assert.ok(ranked.indexOf(tangled) < ranked.indexOf(tiny), "the one with more to give up ranks first");
+});
+
+test("entryPoints are the declarations nothing calls", () => {
+  const g = graph(["main", "other", "shared"], [edge("main", "shared"), edge("other", "shared")]);
   assert.deepEqual(
-    found[0].via.map((n) => n.id).sort(),
-    ["setColor", "setGraph", "setLabels"],
+    entryPoints(g).map((n) => n.id),
+    ["main", "other"],
   );
 });
 
-test("convergentOperations requires at least minWidth converging steps", () => {
-  // Only two of the three paths converge; default minWidth (2) still finds
-  // it, but raising it to 3 should not.
-  const g = graph(
-    ["x", "a", "b", "c", "y"],
-    [edge("x", "a"), edge("x", "b"), edge("x", "c"), edge("a", "y"), edge("b", "y")],
+test("a cycle's own edges have no elevation gap and are not counted against independence", () => {
+  const g = graph(["r", "a", "b"], [edge("r", "a"), edge("a", "b"), edge("b", "a")]);
+  const gaps = elevationGaps(g);
+  assert.equal(gaps.total, 0);
+  assert.equal(gaps.flat, 1); // only r -> a; a <-> b shares one call height, with no direction to measure a drop across
+  assert.deepEqual(
+    independence(g).nodes.map((s) => s.node.id),
+    ["r"],
   );
-  assert.equal(convergentOperations(g).length, 1);
-  assert.equal(convergentOperations(g, 3).length, 0);
 });
 
 test("unreferencedDeclarations finds a declaration with no incoming edge, ignoring module nodes and local declarations", () => {
@@ -158,5 +197,89 @@ test("unreferencedDeclarations counts every edge kind, not just the currently ac
   assert.deepEqual(
     unreferencedDeclarations(g).map((n) => n.id),
     ["a"],
+  );
+});
+
+test("islands are the connected pieces standing apart from the largest one", () => {
+  // A mainland of four, a group of three adrift, and one declaration alone.
+  const g = graph(
+    ["main", "a", "b", "c", "x", "y", "z", "lonely"],
+    [edge("main", "a"), edge("main", "b"), edge("b", "c"), edge("x", "y"), edge("y", "z")],
+  );
+  const { mainland, groups, singles, adrift } = islands(g);
+  assert.equal(mainland, 4, "main, a, b, c");
+  assert.equal(groups.length, 1, "only the x/y/z group is a listed island");
+  assert.deepEqual(
+    groups[0].nodes.map((n) => n.name),
+    ["x", "y", "z"],
+    "members come back name-ordered so a report reads the same way twice",
+  );
+  assert.equal(groups[0].links.length, 2, "and the island carries its own edges, for the highlight");
+  assert.deepEqual(
+    singles.map((n) => n.name),
+    ["lonely"],
+    "an island of one is reported apart from the groups",
+  );
+  assert.equal(adrift, 4, "x, y, z and lonely are all off the mainland");
+});
+
+test("an island is undirected: a piece nothing calls is still one piece", () => {
+  // y and z both call x and nothing calls any of them. Reachability would
+  // split this into three; the group is what is actually adrift together.
+  const g = graph(["main", "a", "b", "x", "y", "z"], [edge("main", "a"), edge("main", "b"), edge("y", "x"), edge("z", "x")]);
+  const { groups } = islands(g);
+  assert.equal(groups.length, 1);
+  assert.deepEqual(
+    groups[0].nodes.map((n) => n.name),
+    ["x", "y", "z"],
+  );
+});
+
+test("islands follow the enabled edge kinds, so the panel never disagrees with the view", () => {
+  // The only thing joining the pair to the rest is a `reference`, which the
+  // default control graph leaves out — so with it hidden they really are
+  // adrift on screen, and the diagnostic has to say so.
+  const doc = {
+    declarations: ["main", "a", "x", "y"].map((id) => ({ id, name: id, kind: "function", file: "src/a.js" })),
+    edges: [
+      { source: "main", target: "a", kind: "call" },
+      { source: "x", target: "y", kind: "call" },
+      { source: "main", target: "x", kind: "reference" },
+    ],
+  };
+  const control = islands(buildGraph(doc));
+  assert.equal(control.groups.length, 1, "with only call/create active the pair is an island");
+
+  const all = buildGraph(doc);
+  applyActiveKinds(all, new Set(["call", "create", "reference"]));
+  assert.equal(islands(all).groups.length, 0, "turning the reference on connects them to the main body");
+});
+
+test("a module node alone is not an island: nothing is ever expected to point at one", () => {
+  // A file whose top-level code calls nothing is structurally isolated, not
+  // adrift -- the same reason unreferencedDeclarations skips module nodes.
+  // Inside a *group* it stays, because a file whose top-level code reaches
+  // only declarations nothing else reaches is exactly the finding.
+  const g = buildGraph({
+    declarations: [
+      { id: "m", name: "main", kind: "function", file: "src/a.js" },
+      { id: "n", name: "next", kind: "function", file: "src/a.js" },
+      { id: "p", name: "prev", kind: "function", file: "src/a.js" },
+      { id: "quiet", name: "<module>", kind: "module", file: "src/quiet.js" },
+      { id: "boot", name: "<module>", kind: "module", file: "src/boot.js" },
+      { id: "only", name: "only", kind: "function", file: "src/boot.js" },
+    ],
+    edges: [
+      { source: "m", target: "n", kind: "call" },
+      { source: "n", target: "p", kind: "call" },
+      { source: "boot", target: "only", kind: "call" },
+    ],
+  });
+  const { groups, singles } = islands(g);
+  assert.deepEqual(singles.map((n) => n.id), [], "the inert module node is not reported");
+  assert.deepEqual(
+    groups.map((c) => c.nodes.map((n) => n.id)),
+    [["boot", "only"]],
+    "but a module node adrift together with what it reaches is a finding",
   );
 });

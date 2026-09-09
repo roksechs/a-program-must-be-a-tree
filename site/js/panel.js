@@ -7,16 +7,48 @@ import { EDGE_KINDS, edgeColor, kindColor } from "./colors.js";
 import { POPULAR_REPOS } from "./githubAnalyzer.js";
 import { kindLabel, t } from "./i18n.js";
 import { localFolderSupported } from "./localAnalyzer.js";
-import { computeMetrics, linkLift, naturalScope, topSharedNodes } from "./metrics.js";
-import { MOTIF_COLORS, MOTIF_KINDS } from "./motifs.js";
+import { elevationGaps, entryPoints, independence, islands, linkLift, naturalScope } from "./metrics.js";
+import { allReports, elevationGapsReport, entryPointsReport, independenceReport, islandsReport } from "./reports.js";
 
 const GITHUB_SEARCH_DEBOUNCE_MS = 400;
+
+// Which sections start expanded on a browser that has never been here. The
+// panel has more sections than fit a screen at once, so most start collapsed
+// and the two anyone needs to get a graph on screen at all start open;
+// Selection also opens itself the moment a node is actually selected (see
+// setSelection), since that is the one section whose content arrives in
+// response to something the user just did.
+const DEFAULT_OPEN_SECTIONS = ["data", "view"];
+const SECTIONS_STORAGE_KEY = "panelSections";
+
+// Sentinel values in the one dropdown that is every way of choosing what to
+// look at: an example, something opened before, or something new. None of
+// FOLDER_OPTION/JSON_OPTION/GITHUB_OPTION is a dataset id — picking one is a
+// command, not a selection, so the handler that fires it puts the visible
+// value straight back (see currentValue()) rather than leaving the dropdown
+// parked on an action. GITHUB_OPTION is the one exception: it reveals the
+// repo field instead of firing anything by itself (setGithubMode), so it
+// stays selected while that field is showing. CUSTOM_OPTION is the disabled
+// entry shown whenever what is loaded did not come from data/index.json and
+// has nowhere else in the dropdown to be selected — a JSON file opened from
+// disk (never remembered, see analysisCache.js) or a `?data=<url>`; a folder
+// or a GitHub repo has a real "Recently opened" entry to show as selected
+// instead, once analysisCache.js has saved it (see recentOptionValue).
+const FOLDER_OPTION = "__folder__";
+const JSON_OPTION = "__json__";
+const GITHUB_OPTION = "__github__";
+export const CUSTOM_OPTION = "__custom__";
+
+/** The dropdown value standing for one "Recently opened" entry (setRecent). */
+export function recentOptionValue(entry) {
+  return `recent:${entry.kind}:${entry.key}`;
+}
 
 export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onShowLayers, onLayerFade, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onMotifs }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onExportJson, onPhysics, onReheat, onReset, onFit, onFitNodes, onTop, onZones, onLabels, onColorBy, onLayerGap, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onHighlight, onExportReport }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -27,8 +59,23 @@ export class Panel {
     this.currentDataset = null;
     this.dataInfo = null;
     this.recent = [];
+    // recentOptionValue(entry) -> entry, so the dropdown's onchange can turn
+    // the <option> it just got back into the entry onLoadRecent needs.
+    this.recentByValue = new Map();
     this.graph = null;
     this.selected = null;
+    // Whether the GitHub repo field is showing. Panel state rather than
+    // something derived from the dropdown's value: loading a repo re-selects
+    // the dropdown's "(local file)" sentinel, which would otherwise hide the
+    // field the moment it had been used, and render() would lose it on a
+    // language change.
+    this.githubMode = false;
+    // Which sections are expanded, by the stable id section() is given (never
+    // the translated title). Kept on the instance because render() rebuilds
+    // every section from scratch — on a language change, say — and a freshly
+    // built <details> would otherwise come back at its default state and
+    // silently discard what the user had opened.
+    this.openSections = new Set(loadOpenSections());
     this.render();
   }
 
@@ -43,8 +90,47 @@ export class Panel {
     return e;
   }
 
-  section(title, ...children) {
-    return this.el("section", { class: "panel-section" }, this.el("h2", {}, title), ...children);
+  /**
+   * One collapsible section. `id` is a stable key (not the translated title)
+   * so the expanded/collapsed state survives both a language change and a
+   * reload. A native <details>/<summary> rather than a hand-rolled toggle:
+   * the keyboard behaviour, the ARIA semantics and the open state all come
+   * for free, and `hidden` on the body would have had to reimplement each.
+   */
+  section(id, title, ...children) {
+    const box = this.el(
+      "details",
+      { class: "panel-section", open: this.openSections.has(id) ? "" : null },
+      this.el("summary", {}, this.el("h2", {}, title)),
+      this.el("div", { class: "panel-body" }, ...children),
+    );
+    box.dataset.section = id;
+    box.addEventListener("toggle", () => {
+      if (box.open) this.openSections.add(id);
+      else this.openSections.delete(id);
+      saveOpenSections(this.openSections);
+    });
+    return box;
+  }
+
+  /**
+   * Show or hide the GitHub repo field. Selecting "GitHub repo…" in the
+   * dataset dropdown turns it on; anything that starts a load from somewhere
+   * else turns it back off, so the panel never offers two sources at once.
+   */
+  setGithubMode(on) {
+    this.githubMode = on;
+    this.githubRow.hidden = !on;
+    if (on) this.githubInput.focus();
+    else this.githubResults.hidden = true;
+  }
+
+  /** Expand a section from code (Selection, when a node is selected). */
+  openSection(id) {
+    this.openSections.add(id);
+    const box = this.host.querySelector(`[data-section="${id}"]`);
+    if (box) box.open = true;
+    saveOpenSections(this.openSections);
   }
 
   slider(label, key, min, max, step, onChange, format = (v) => v) {
@@ -135,16 +221,80 @@ export class Panel {
     this.host.replaceChildren();
 
     // Data
-    this.datasetSelect = this.el("select", { onchange: (e) => h.onDataset(e.target.value) });
-    const fileInput = this.el("input", { type: "file", accept: ".json,application/json", onchange: (e) => e.target.files[0] && h.onFile(e.target.files[0]) });
-    // The local-folder and GitHub-repo features analyze source in the
-    // browser (no bundled JSON, no server): see site/js/localAnalyzer.js and
-    // site/js/githubAnalyzer.js. showDirectoryPicker() is Chromium-only, so
-    // that button is disabled with an explanatory title elsewhere.
+    // One dropdown is every way of choosing what to look at: examples,
+    // something opened before, and something new, as three optgroups in a
+    // fixed order — a returning visitor's most likely destinations (an
+    // example, then their own history) before the actions that leave the
+    // page to go get something (see the sentinel comment above). A native
+    // <select> rather than a custom listbox: keyboard navigation and
+    // type-ahead come for free, and every entry is exactly one line, which
+    // is all any of them need.
+    //
+    // Picking Folder…/JSON file…/GitHub repo… is a command, not a selection
+    // — nothing about what is loaded has changed yet, and for the first two
+    // it may never (the picker can be cancelled) — so the handler puts the
+    // select's value straight back with currentValue() rather than leaving
+    // it parked on the command. GitHub repo… is the one that stays selected:
+    // it reveals a field the user is about to type into, not fire-and-forget.
+    const currentValue = () => (this.githubMode ? GITHUB_OPTION : this.currentDataset);
+    this.examplesGroup = this.el("optgroup", { label: t("data.examples") });
+    this.recentGroup = this.el("optgroup", { label: t("data.recent") });
     const folderSupported = localFolderSupported();
-    const folderBtn = this.el("button", { type: "button", disabled: folderSupported ? null : "", title: folderSupported ? null : t("data.folderUnsupported"), onclick: () => h.onOpenFolder() }, t("data.openFolder"));
-    const githubInput = this.el("input", { type: "text", placeholder: t("data.githubPlaceholder"), autocomplete: "off" });
-    const githubResults = this.el("div", { class: "github-results", hidden: "" });
+    const loadNewGroup = this.el(
+      "optgroup",
+      { label: t("data.loadNew") },
+      this.el("option", { value: FOLDER_OPTION, disabled: folderSupported ? null : "", title: folderSupported ? null : t("data.folderUnsupported") }, t("data.openFolder")),
+      this.el("option", { value: JSON_OPTION }, t("data.openJson")),
+      this.el("option", { value: GITHUB_OPTION }, t("data.githubOption")),
+    );
+    this.datasetSelect = this.el(
+      "select",
+      {
+        onchange: (e) => {
+          const value = e.target.value;
+          if (value === FOLDER_OPTION) {
+            this.setGithubMode(false);
+            e.target.value = currentValue();
+            h.onOpenFolder();
+            return;
+          }
+          if (value === JSON_OPTION) {
+            this.setGithubMode(false);
+            e.target.value = currentValue();
+            fileInput.click();
+            return;
+          }
+          if (value === GITHUB_OPTION) {
+            this.setGithubMode(true);
+            return;
+          }
+          this.setGithubMode(false);
+          const entry = this.recentByValue.get(value);
+          if (entry) h.onLoadRecent(entry);
+          else h.onDataset(value);
+        },
+      },
+      this.examplesGroup,
+      this.recentGroup,
+      loadNewGroup,
+    );
+    // Hidden: nothing to render, since the option that triggers it
+    // (JSON_OPTION, above) already is one. .click() from that onchange
+    // handler keeps the user gesture the picker needs.
+    const fileInput = this.el("input", {
+      type: "file",
+      accept: ".json,application/json",
+      hidden: "",
+      onchange: (e) => {
+        if (!e.target.files[0]) return;
+        h.onFile(e.target.files[0]);
+        e.target.value = ""; // so re-picking the same file fires change again
+      },
+    });
+    this.githubInput = this.el("input", { type: "text", placeholder: t("data.githubPlaceholder"), autocomplete: "off" });
+    const githubInput = this.githubInput;
+    this.githubResults = this.el("div", { class: "github-results", hidden: "" });
+    const githubResults = this.githubResults;
     const hideResults = () => (githubResults.hidden = true);
     const loadGithub = (spec) => {
       hideResults();
@@ -194,23 +344,29 @@ export class Panel {
       if (e.key === "Enter") submitGithub();
       else if (e.key === "Escape") hideResults();
     });
+    this.githubRow = this.el("div", { hidden: this.githubMode ? null : "" }, this.el("label", { class: "control" }, this.el("span", {}, t("data.github")), githubInput, githubBtn), githubResults);
     this.dataInfoEl = this.el("p", { class: "muted small" });
-    // Analyses the browser itself ran (local folder / GitHub repo), not the
-    // bundled example datasets already in the Dataset dropdown above: see
-    // site/js/analysisCache.js. Populated by setRecent(), not render() —
-    // reading it back from IndexedDB is async.
-    this.recentEl = this.el("div", { class: "recent-list" });
+    // Re-analyze / remove only apply to a "Recently opened" entry, and only
+    // the one currently loaded — there is nowhere left in the dropdown for a
+    // per-entry button now that entries are plain <option>s, so this shows
+    // instead of one, right where the loaded entry's own name is (see
+    // updateRecentActions, called whenever setDatasets/setRecent might have
+    // changed which one that is).
+    this.recentActionsEl = this.el("div", { class: "buttons", hidden: "" });
+    // Downloads the raw analyzer document exactly as installed — see
+    // app.js's exportJson() — so a graph that looks wrong can be inspected
+    // or handed off without reproducing the analysis that produced it.
+    const exportBtn = this.el("button", { type: "button", onclick: () => h.onExportJson() }, t("data.exportJson"));
     this.host.append(
       this.section(
+        "data",
         t("section.data"),
-        this.el("label", { class: "control" }, this.el("span", {}, t("data.dataset")), this.datasetSelect),
-        this.el("label", { class: "control" }, this.el("span", {}, t("data.openJson")), fileInput),
-        this.el("label", { class: "control" }, this.el("span", {}, t("data.openFolder")), folderBtn),
-        this.el("label", { class: "control" }, this.el("span", {}, t("data.github")), githubInput, githubBtn),
-        githubResults,
+        this.el("label", { class: "control" }, this.el("span", {}, t("data.open")), this.datasetSelect),
+        fileInput,
+        this.githubRow,
         this.dataInfoEl,
-        this.el("h3", {}, t("data.recent")),
-        this.recentEl,
+        this.recentActionsEl,
+        this.el("div", { class: "buttons" }, exportBtn),
       ),
     );
 
@@ -228,17 +384,14 @@ export class Panel {
       h.onColorBy,
     );
     this.layerGap = this.slider(t("view.layerGap"), "layerGap", 10, 300, 5, h.onLayerGap);
-    const layers = this.el("input", { type: "checkbox", checked: s.showLayers ? "" : null, onchange: (e) => h.onShowLayers(e.target.checked) });
-    const layerFade = this.el("input", { type: "checkbox", checked: s.layerFade ? "" : null, onchange: (e) => h.onLayerFade(e.target.checked) });
     const rotate = this.el("input", { type: "checkbox", checked: s.autoRotate ? "" : null, onchange: (e) => h.onAutoRotate(e.target.checked) });
     this.host.append(
       this.section(
+        "view",
         t("section.view"),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.labels")), labelSelect),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.colourBy")), colorSelect),
         this.layerGap,
-        this.el("label", { class: "control" }, this.el("span", {}, t("view.layerPlanes")), layers),
-        this.el("label", { class: "control" }, this.el("span", {}, t("view.layerFade")), layerFade),
         this.el("label", { class: "control" }, this.el("span", {}, t("view.autoRotate")), rotate),
         this.el(
           "div",
@@ -267,39 +420,28 @@ export class Panel {
       const box = this.el("input", { type: "checkbox", checked: s.kinds.has(kind) ? "" : null, onchange: (e) => h.onKinds(kind, e.target.checked) });
       kindList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
     }
-    this.host.append(this.section(t("section.edges"), kindList, this.el("p", { class: "muted small" }, t("edges.help"))));
+    this.host.append(this.section("edges", t("section.edges"), kindList, this.el("p", { class: "muted small" }, t("edges.help"))));
 
     // Zones
     this.depthSlider = this.rangeSlider(t("zones.depth"), s.zoneMinDepth, s.zoneMaxDepth, 0, Math.max(0, s.maxDepth), 1, h.onZones, (v) => v);
-    this.host.append(this.section(t("section.zones"), this.depthSlider, this.el("p", { class: "muted small" }, t("zones.help"))));
+    this.host.append(this.section("zones", t("section.zones"), this.depthSlider, this.el("p", { class: "muted small" }, t("zones.help"))));
 
-    // Patterns: structural motifs, spotted within the whole graph rather
-    // than isolating one relationship (contrast the path highlight above,
-    // in Selection) — off by default, any number can be on at once.
-    const motifList = this.el("div", { class: "kind-list" });
-    for (const kind of MOTIF_KINDS) {
-      const box = this.el("input", { type: "checkbox", checked: s.motifs.has(kind) ? "" : null, onchange: (e) => h.onMotifs(kind, e.target.checked) });
-      motifList.append(this.el("label", { class: "kind-item" }, box, this.el("i", { class: "edge-swatch", style: `background:${MOTIF_COLORS[kind]}` }), t(`motif.${kind}`)));
-    }
-    this.host.append(this.section(t("section.patterns"), motifList, this.el("p", { class: "muted small" }, t("patterns.help"))));
-
-    // Diagnostics
+    // Diagnostics: three questions, each with the declarations or
+    // dependencies behind its number (see setMetrics).
     this.metricsBody = this.el("div", { class: "metrics" });
-    this.sharedList = this.el("ol", { class: "shared" });
     this.host.append(
       this.section(
+        "diagnostics",
         t("section.diagnostics"),
         this.el("p", { class: "muted small", style: "margin:0 0 6px" }, t("metric.scope")),
         this.metricsBody,
-        this.el("h3", {}, t("metric.shared")),
-        this.sharedList,
       ),
     );
 
     // Selection
     this.selectionBody = this.el("div", { class: "selection muted small" }, t("selection.empty"));
     this.pathResultEl = this.el("div", { class: "path-result", hidden: "" });
-    this.host.append(this.section(t("section.selection"), this.selectionBody, this.pathResultEl));
+    this.host.append(this.section("selection", t("section.selection"), this.selectionBody, this.pathResultEl));
 
     // Legend
     const legend = this.el("div", { class: "legend" });
@@ -310,17 +452,22 @@ export class Panel {
     const edgeLegend = this.el("div", { class: "legend" });
     for (const kind of EDGE_KINDS) edgeLegend.append(this.el("span", { class: "legend-item" }, this.el("i", { class: "edge", style: `background:${edgeColor(kind)}` }), t(`edge.${kind}`)));
     edgeLegend.append(this.el("span", { class: "legend-item muted" }, t("legend.inferred")));
-    this.host.append(this.section(t("section.legend"), legend, this.el("h3", {}, t("legend.edges")), edgeLegend));
+    this.host.append(this.section("legend", t("section.legend"), legend, this.el("h3", {}, t("legend.edges")), edgeLegend));
   }
 
   setDatasets(datasets, current) {
     this.datasets = datasets;
     this.currentDataset = current;
-    this.datasetSelect.replaceChildren();
-    for (const d of datasets) {
-      this.datasetSelect.append(this.el("option", { value: d.id, selected: d.id === current ? "" : null }, d.name));
-    }
-    this.datasetSelect.append(this.el("option", { value: "__custom__", disabled: "", selected: current === "__custom__" ? "" : null }, t("data.localFile")));
+    this.examplesGroup.replaceChildren(...datasets.map((d) => this.el("option", { value: d.id }, d.name)));
+    // CUSTOM_OPTION has no <option> of its own in either optgroup — it is
+    // only ever reached from a JSON file opened from disk or a ?data=<url>,
+    // neither of which is a "Recently opened" entry — so it is appended
+    // bare, disabled, and only while actually current: a JSON file has
+    // nowhere else in the dropdown to show as selected.
+    const customOption = current === CUSTOM_OPTION ? this.el("option", { value: CUSTOM_OPTION, disabled: "" }, t("data.localFile")) : null;
+    this.datasetSelect.querySelector(`option[value="${CUSTOM_OPTION}"]`)?.remove();
+    if (customOption) this.datasetSelect.append(customOption);
+    this.applySelectValue();
   }
 
   /** @param {object} info { label, nodes, edges, files } */
@@ -332,22 +479,31 @@ export class Panel {
   /** @param {object[]} entries analysisCache.js rows, newest first */
   setRecent(entries) {
     this.recent = entries;
-    this.recentEl.replaceChildren();
-    if (entries.length === 0) {
-      this.recentEl.append(this.el("p", { class: "muted small" }, t("data.recentEmpty")));
-      return;
-    }
+    this.recentByValue = new Map(entries.map((entry) => [recentOptionValue(entry), entry]));
     const when = new Intl.DateTimeFormat(undefined, { dateStyle: "short", timeStyle: "short" });
-    for (const entry of entries) {
-      this.recentEl.append(
-        this.el(
-          "div",
-          { class: "recent-item" },
-          this.el("button", { type: "button", class: "recent-label", title: entry.label, onclick: () => this.h.onLoadRecent(entry) }, entry.label),
-          this.el("span", { class: "muted small" }, when.format(entry.analyzedAt)),
-          this.el("button", { type: "button", class: "icon-button", title: t("data.reanalyze"), onclick: () => this.h.onReanalyzeRecent(entry) }, "↻"),
-          this.el("button", { type: "button", class: "icon-button", title: t("data.remove"), onclick: () => this.h.onDeleteRecent(entry) }, "×"),
-        ),
+    this.recentGroup.replaceChildren(
+      ...entries.map((entry) => this.el("option", { value: recentOptionValue(entry) }, `${entry.label} — ${when.format(entry.analyzedAt)}`)),
+    );
+    this.applySelectValue();
+  }
+
+  /**
+   * Rebuilding an optgroup's <option>s (setDatasets/setRecent, a language
+   * change) resets what the <select> shows as chosen even when the value
+   * that should be selected is untouched, so both call this afterwards
+   * instead of setting `selected` per option themselves. Re-derives the
+   * re-analyze/remove row at the same time: they track the same thing,
+   * "which entry is current", so a value never has one updated without the
+   * other.
+   */
+  applySelectValue() {
+    this.datasetSelect.value = this.githubMode ? GITHUB_OPTION : this.currentDataset;
+    const entry = this.recentByValue.get(this.currentDataset);
+    this.recentActionsEl.hidden = !entry;
+    if (entry) {
+      this.recentActionsEl.replaceChildren(
+        this.el("button", { type: "button", onclick: () => this.h.onReanalyzeRecent(entry) }, t("data.reanalyze")),
+        this.el("button", { type: "button", onclick: () => this.h.onDeleteRecent(entry) }, t("data.remove")),
       );
     }
   }
@@ -362,62 +518,173 @@ export class Panel {
     this.depthSlider.refresh();
   }
 
+  /**
+   * Render the four diagnostics. Each is a heading with its own figure, a
+   * short reading of what that figure means, the declarations or dependencies
+   * it is actually pointing at, and a button that downloads exactly those as
+   * a report (app.js's exportReport). A number alone says a program is not a
+   * tree; the list is what makes it something to act on.
+   */
   setMetrics(graph) {
     this.graph = graph;
-    const m = computeMetrics(graph);
-    const pct = (v) => `${(v * 100).toFixed(1)}%`;
-    const bar = (key, v) =>
+    const entries = entryPoints(graph);
+    const gaps = elevationGaps(graph);
+    const owned = independence(graph);
+    const adrift = islands(graph);
+
+    const heading = (key, figure) => this.el("h3", { class: "metric-head" }, this.el("span", {}, t(key)), this.el("b", {}, figure));
+    const hint = (key) => this.el("p", { class: "muted small metric-hint" }, t(key));
+    const nodeLink = (node, trailing) =>
       this.el(
-        "div",
-        { class: "metric-bar", title: t(`${key}.hint`) },
-        this.el("span", { class: "metric-label" }, t(key)),
-        this.el("span", { class: "bar" }, this.el("i", { style: `width:${Math.max(0, Math.min(1, v)) * 100}%` })),
-        this.el("span", { class: "metric-value" }, pct(v)),
-      );
-    const kv = (key, v, hint = true) => this.el("div", { class: "metric-kv", title: hint ? t(`${key}.hint`) : null }, this.el("span", {}, t(key)), this.el("b", {}, String(v)));
-    this.metricsBody.replaceChildren(
-      bar("metric.treeScore", m.overall),
-      bar("metric.spanning", m.treeScore),
-      bar("metric.acyclicity", m.acyclicity),
-      bar("metric.singleCaller", m.singleCallerRatio),
-      bar("metric.dagness", m.dagness),
-      bar("metric.locality", m.locality),
-      this.el(
-        "div",
-        { class: "metric-grid" },
-        kv("metric.declarations", m.nodes, false),
-        kv("metric.edges", m.edges, false),
-        kv("metric.activeEdges", m.activeEdges),
-        kv("metric.initCycles", m.initCycles),
-        kv("metric.components", m.components),
-        kv("metric.roots", m.roots),
-        kv("metric.leaves", m.leaves),
-        kv("metric.maxHeight", m.maxHeight),
-        kv("metric.surplus", m.surplusEdges),
-        kv("metric.cycles", m.nontrivialSccs),
-        kv("metric.selfLoops", m.selfLoops),
-        kv("metric.multiCallers", m.multiCallers),
-        kv("metric.nestingEdges", m.nestingEdges),
-        kv("metric.maxLift", m.maxLift),
-        kv("metric.dropped", m.dropped),
-      ),
-    );
-    this.sharedList.replaceChildren();
-    for (const { node, cost } of topSharedNodes(graph)) {
-      const li = this.el(
         "li",
         {},
         this.el("a", { href: "#", onclick: (e) => (e.preventDefault(), this.h.onSelectNode(node)) }, node.name),
-        this.el("span", { class: "muted" }, ` ${t("metric.shared.callers", { count: node.inDegree, lift: cost })}`),
+        trailing ? this.el("span", { class: "muted" }, ` ${trailing}`) : "",
       );
-      this.sharedList.append(li);
+    const exportButton = (metric, build) =>
+      this.el("div", { class: "buttons" }, this.el("button", { type: "button", onclick: () => this.h.onExportReport(metric, build()) }, t("metric.export")));
+    // One file with all four, each keyed by the same metric id its own
+    // export uses — for handing the whole diagnosis to someone at once
+    // rather than four separate downloads. The shapes themselves live in
+    // reports.js, because the agent tools serve the same ones (agentTools.js)
+    // and the two must never disagree about a number.
+    const exportAllButton = this.el(
+      "div",
+      { class: "buttons" },
+      this.el(
+        "button",
+        { type: "button", class: "primary", onclick: () => this.h.onExportReport("all", { metrics: allReports(graph) }) },
+        t("metric.exportAll"),
+      ),
+    );
+    // A list long enough to read, with the rest reachable through the export
+    // — a panel that printed every one of several hundred entry points would
+    // be a worse way to look at them than the file it can hand over.
+    const LIST_LIMIT = 12;
+    const more = (shown, total) => (total > shown ? this.el("li", { class: "muted" }, t("metric.more", { count: total - shown })) : "");
+
+    // 1. Entry points.
+    const entryList = this.el("ol", { class: "shared" });
+    for (const node of entries.slice(0, LIST_LIMIT)) entryList.append(nodeLink(node, `${node.kind} · ${node.file}`));
+    if (entries.length === 0) entryList.append(this.el("li", { class: "muted" }, t("metric.entryPoints.none")));
+    else entryList.append(more(Math.min(LIST_LIMIT, entries.length), entries.length));
+
+    // 2. Elevation gaps: a two-handled range over the gap axis, rather than
+    // one button per distinct gap value a graph happens to have — a graph
+    // with gaps up to 40 would need 40 rows to click through to ask "show me
+    // 30 and up". Dragging either handle re-highlights the union of every
+    // bucket the span now covers (see app.js's onHighlight: both endpoints
+    // of every edge, so the edges have something to be drawn between) and
+    // updates the count beside it; nothing highlights until a handle moves.
+    const gapValues = gaps.buckets.map((b) => b.gap);
+    const edgesInRange = (lo, hi) => gaps.buckets.filter((b) => b.gap >= lo && b.gap <= hi).flatMap((b) => b.edges);
+    const gapCountEl = this.el("p", { class: "muted small metric-hint" });
+    let gapRange = null;
+    if (gapValues.length > 0) {
+      const minGap = Math.min(...gapValues);
+      const maxGap = Math.max(...gapValues);
+      gapCountEl.textContent = t("metric.elevationGaps.rangeCount", { count: edgesInRange(minGap, maxGap).length });
+      gapRange = this.rangeSlider(t("metric.elevationGaps.range"), minGap, maxGap, minGap, maxGap, 1, (lo, hi) => {
+        const edges = edgesInRange(lo, hi);
+        gapCountEl.textContent = t("metric.elevationGaps.rangeCount", { count: edges.length });
+        this.h.onHighlight(new Set(edges.flatMap((l) => [l.source, l.target])), new Set(edges));
+      });
+    } else {
+      gapCountEl.textContent = t("metric.elevationGaps.none");
     }
-    if (this.sharedList.children.length === 0) this.sharedList.append(this.el("li", { class: "muted" }, t("metric.shared.none")));
+
+    // 3. Independence, least first.
+    const ownedList = this.el("ol", { class: "shared" });
+    for (const { node, score, callees } of owned.nodes.slice(0, LIST_LIMIT)) {
+      ownedList.append(nodeLink(node, t("metric.independence.of", { score: score.toFixed(2), count: callees })));
+    }
+    if (owned.nodes.length === 0) ownedList.append(this.el("li", { class: "muted" }, t("metric.independence.none")));
+    else ownedList.append(more(Math.min(LIST_LIMIT, owned.nodes.length), owned.nodes.length));
+
+    // 4. Islands, largest first, each a button that both highlights it and
+    // frames it in the view (onFitNodes) — "which piece is this" and "let me
+    // look at just that piece" are the same click. Islands of one are only
+    // counted (see metrics.js's islands), since they would bury the groups.
+    const focusGroup = (nodes, links) => {
+      this.h.onHighlight(new Set(nodes), new Set(links));
+      this.h.onFitNodes(nodes);
+    };
+    const islandList = this.el("div", { class: "lift-list" });
+    // The mainland itself is a row too, and the first one: the one place to
+    // get back to "the connected majority, framed" after looking at an
+    // island — the default view already fits it (see app.js's
+    // fitToMainland), so this is a way back to that, not a new destination.
+    islandList.append(
+      this.el(
+        "button",
+        {
+          type: "button",
+          class: "lift-row island-row",
+          title: t("metric.islands.mainlandShow"),
+          onclick: () => focusGroup(adrift.mainlandGroup.nodes, adrift.mainlandGroup.links),
+        },
+        this.el("span", { class: "lift-label" }, t("metric.islands.mainland")),
+        this.el("span", { class: "metric-value" }, String(adrift.mainland)),
+      ),
+    );
+    for (const group of adrift.groups.slice(0, LIST_LIMIT)) {
+      const names = group.nodes.slice(0, 4).map((n) => n.name).join(", ");
+      islandList.append(
+        this.el(
+          "button",
+          {
+            type: "button",
+            class: "lift-row island-row",
+            title: t("metric.islands.show"),
+            onclick: () => focusGroup(group.nodes, group.links),
+          },
+          this.el("span", { class: "lift-label" }, group.nodes.length > 4 ? t("metric.islands.andMore", { names, count: group.nodes.length - 4 }) : names),
+          this.el("span", { class: "metric-value" }, String(group.nodes.length)),
+        ),
+      );
+    }
+    if (adrift.groups.length === 0) islandList.append(this.el("p", { class: "muted small" }, t("metric.islands.none")));
+    else if (adrift.groups.length > LIST_LIMIT) {
+      islandList.append(this.el("p", { class: "muted small" }, t("metric.more", { count: adrift.groups.length - LIST_LIMIT })));
+    }
+
+    this.metricsBody.replaceChildren(
+      exportAllButton,
+
+      heading("metric.entryPoints", String(entries.length)),
+      hint("metric.entryPoints.hint"),
+      entryList,
+      exportButton("entry-points", () => entryPointsReport(graph)),
+
+      heading("metric.elevationGaps", String(gaps.total)),
+      hint("metric.elevationGaps.hint"),
+      this.el("p", { class: "muted small metric-hint" }, t("metric.elevationGaps.summary", { flat: gaps.flat, gapSum: gaps.gapSum })),
+      ...(gapRange ? [gapRange] : []),
+      gapCountEl,
+      exportButton("elevation-gaps", () => elevationGapsReport(graph)),
+
+      heading("metric.independence", owned.overall.toFixed(2)),
+      hint("metric.independence.hint"),
+      ownedList,
+      exportButton("independence", () => independenceReport(graph)),
+
+      heading("metric.islands", String(adrift.groups.length)),
+      hint("metric.islands.hint"),
+      this.el("p", { class: "muted small metric-hint" }, t("metric.islands.summary", { mainland: adrift.mainland, singles: adrift.singles.length })),
+      islandList,
+      exportButton("islands", () => islandsReport(graph)),
+    );
   }
 
   setSelection(node, graph) {
     this.selected = node;
     this.pathResultEl.hidden = true;
+    // Clicking a node in the view is a request to see what it is, so the
+    // section that answers that opens itself rather than making the click a
+    // two-step affair. Only on the way in: a deselect leaves it as it is,
+    // since collapsing a section the user is reading would be worse than an
+    // empty one they can close themselves.
+    if (node) this.openSection("selection");
     if (!node) {
       this.selectionBody.className = "selection muted small";
       this.selectionBody.replaceChildren(t("selection.empty"));
@@ -488,5 +755,31 @@ export class Panel {
       this.el("div", { class: "small mono path-route" }, names),
       clearButton,
     );
+  }
+}
+
+/**
+ * The expanded sections remembered from a previous visit, falling back to
+ * DEFAULT_OPEN_SECTIONS. Storage can throw outright (a browser set to block
+ * site data), so every access is guarded and a failure just means the
+ * defaults — a panel that opens at its default shape is a far smaller
+ * problem than one that fails to render.
+ */
+function loadOpenSections() {
+  try {
+    const raw = localStorage.getItem(SECTIONS_STORAGE_KEY);
+    if (raw === null) return DEFAULT_OPEN_SECTIONS;
+    const ids = JSON.parse(raw);
+    return Array.isArray(ids) ? ids.filter((id) => typeof id === "string") : DEFAULT_OPEN_SECTIONS;
+  } catch {
+    return DEFAULT_OPEN_SECTIONS;
+  }
+}
+
+function saveOpenSections(ids) {
+  try {
+    localStorage.setItem(SECTIONS_STORAGE_KEY, JSON.stringify([...ids]));
+  } catch {
+    // Not being able to remember the layout is not worth interrupting anything for.
   }
 }

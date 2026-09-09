@@ -26,9 +26,7 @@ import { stronglyConnectedComponents } from "./model.js";
  * edges, which makes every component reachable because a condensation is a DAG.
  *
  * @returns {{comp: Int32Array, compCount: number, root: number,
- *            idom: Int32Array, depth: Int32Array, size: Int32Array,
- *            lifts: number[], crossLinks: number, treeEdges: number,
- *            maxLift: number, locality: number}}
+ *            idom: Int32Array, lifts: number[]}}
  *          `lifts[i]` is the lift of `links[i]`, or -1 for a link inside a
  *          component (those are not edges of the condensation).
  */
@@ -36,9 +34,6 @@ export function dominatorTree(nodes, links) {
   const { comp, compCount } = stronglyConnectedComponents(nodes, links);
   const root = compCount;
   const total = compCount + 1;
-  const size = new Int32Array(compCount);
-  for (const n of nodes) size[comp[n.index]]++;
-
   const succ = Array.from({ length: total }, () => []);
   const preds = Array.from({ length: total }, () => []);
   const seen = new Set();
@@ -111,34 +106,16 @@ export function dominatorTree(nodes, links) {
   const depth = new Int32Array(total);
   for (const b of rpo) if (b !== root) depth[b] = depth[idom[b]] + 1;
 
+  // Lift per link, -1 for a link inside a component (not an edge of the
+  // condensation, so it has no lift). Everything the diagnostics report is
+  // derived from this one array — see metrics.js.
   const lifts = new Array(links.length).fill(-1);
-  let crossLinks = 0;
-  let treeEdges = 0;
-  let maxLift = 0;
-  let localitySum = 0;
   for (let i = 0; i < links.length; i++) {
     const a = comp[links[i].source.index];
     const b = comp[links[i].target.index];
     if (a === b) continue;
-    const lift = depth[a] - depth[idom[b]];
-    lifts[i] = lift;
-    crossLinks++;
-    if (lift === 0) treeEdges++;
-    if (lift > maxLift) maxLift = lift;
-    localitySum += 1 / (1 + lift);
+    lifts[i] = depth[a] - depth[idom[b]];
   }
 
-  return {
-    comp,
-    compCount,
-    root,
-    idom,
-    depth,
-    size,
-    lifts,
-    crossLinks,
-    treeEdges,
-    maxLift,
-    locality: crossLinks === 0 ? 1 : localitySum / crossLinks,
-  };
+  return { comp, compCount, root, idom, lifts };
 }

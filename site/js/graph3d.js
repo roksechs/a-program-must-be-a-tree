@@ -35,24 +35,13 @@ export class Graph3D {
     // Both null together, or both set together; never one without the other.
     this.pathNodes = null;
     this.pathEdges = null;
-    // Motif highlighting (motifs.js): `Map<kind, {nodes, edges}>`, drawn as
-    // an overlay — a coloured ring per matching node, a thicker stroke per
-    // matching edge — on top of the ordinary drawing rather than replacing
-    // it, since (unlike a path) a motif is a category to spot within the
-    // whole graph, not a single relationship to isolate from everything
-    // else; a node can belong to more than one at once (e.g. a hub that is
-    // also in a cycle), each getting its own ring rather than one winning.
-    this.motifs = null;
     this.labelMode = "auto";
     this.colorBy = "height";
     this.visibleKinds = new Set(EDGE_KINDS);
+    // Vertical world-space distance between two consecutive call heights.
+    // Only spaces the height axis out; nothing is drawn at a height of its
+    // own (the layer planes that used to be were removed — see zOf()).
     this.layerGap = 80;
-    this.showLayers = false;
-    // Whether a layer plane's fill/stroke fades out away from the camera's
-    // own focus (see draw()) rather than a single flat colour everywhere —
-    // needed once a plane always draws in full (projectClamped()) instead of
-    // disappearing the moment any one corner would have clipped.
-    this.layerFade = true;
     this.autoRotate = false;
 
     this.yaw = -0.6;
@@ -199,7 +188,14 @@ export class Graph3D {
       (e) => {
         e.preventDefault();
         const f = Math.exp(-e.deltaY * 0.0015);
-        this.zoomK = Math.max(0.05, Math.min(8, this.zoomK * f));
+        // Only an upper bound: nothing in project() divides by zoomK, so an
+        // arbitrarily small one is just an arbitrarily wide view, never a
+        // numerical problem. A floor here used to independently reintroduce
+        // the bug just fixed in fit() -- "Fit to view" on a very large graph
+        // sets zoomK below 0.05, and the very next wheel tick would have
+        // snapped it back up to 0.05, an unrequested 16x zoom-in on nothing
+        // the user asked to zoom into.
+        this.zoomK = Math.min(8, this.zoomK * f);
         this.draw();
       },
       { passive: false },
@@ -419,16 +415,6 @@ export class Graph3D {
     this.draw();
   }
 
-  setLayerFade(fade) {
-    this.layerFade = fade;
-    this.draw();
-  }
-
-  setShowLayers(show) {
-    this.showLayers = show;
-    this.draw();
-  }
-
   select(node) {
     this.selected = node;
     // A path highlight is only meaningful relative to the selection it was
@@ -448,11 +434,6 @@ export class Graph3D {
     this.draw();
   }
 
-  /** `motifs` is a Map<kind, {nodes, edges, color}> (see app.js), or null to clear every motif overlay at once. */
-  setMotifs(motifs) {
-    this.motifs = motifs;
-    this.draw();
-  }
 
   /**
    * Project a world point (x, y horizontal plane; z up) to screen space.
@@ -464,7 +445,7 @@ export class Graph3D {
    * target, target itself always projects to screen centre (X = Y = 0)
    * regardless of yaw/pitch — orbiting never drifts it away from centre.
    */
-  /** The rotation (yaw, then pitch, then roll) project() and projectClamped() share, before either decides how to turn depth into scale. */
+  /** The rotation (yaw, then pitch, then roll) project() applies, before it decides how to turn depth into scale. */
   viewSpace(x, y, z) {
     const rx = x - this.targetX;
     const ry = y - this.targetY;
@@ -508,24 +489,6 @@ export class Graph3D {
       depth,
       clipped: false,
     };
-  }
-
-  /**
-   * Like project(), but a point past the near plane is drawn at the
-   * boundary's own scale instead of being left out — appropriate for a large
-   * background shape (a layer plane's corner) where "very stretched" still
-   * reads fine, unlike a node or an edge, which really should just fall out
-   * of frame (see project() and MAX_MAGNIFICATION). Never returns `clipped`.
-   */
-  projectClamped(x, y, z) {
-    const { X, screenUp, depth } = this.viewSpace(x, y, z);
-    if (this.orthographic) {
-      const scale = this.zoomK;
-      return { x: this.width / 2 + X * scale, y: this.height / 2 - screenUp * scale, scale, depth };
-    }
-    const focalDepth = Math.max(this.focal + depth, this.focal / MAX_MAGNIFICATION);
-    const scale = (this.focal / focalDepth) * this.zoomK;
-    return { x: this.width / 2 + X * scale, y: this.height / 2 - screenUp * scale, scale, depth };
   }
 
   zOf(node) {
@@ -587,68 +550,6 @@ export class Graph3D {
     const projected = nodes.map((n) => ({ node: n, ...this.project(n.x, n.y, this.zOf(n)) })).filter((p) => !p.clipped);
     this.projected = projected;
     const byIndex = new Map(projected.map((p) => [p.node.index, p]));
-
-    // Layer planes: a translucent rectangle per call height. Meaningless in
-    // Top view — looking straight down the height axis, every layer's
-    // rectangle projects to the exact same screen quad, so they would only
-    // stack into a single smear instead of showing anything.
-    if (this.showLayers && !this.orthographic && nodes.length > 0) {
-      let x0 = Infinity;
-      let x1 = -Infinity;
-      let y0 = Infinity;
-      let y1 = -Infinity;
-      for (const n of nodes) {
-        if (n.x < x0) x0 = n.x;
-        if (n.x > x1) x1 = n.x;
-        if (n.y < y0) y0 = n.y;
-        if (n.y > y1) y1 = n.y;
-      }
-      const pad = 40;
-      x0 -= pad;
-      x1 += pad;
-      y0 -= pad;
-      y1 += pad;
-      for (let h = 0; h <= this.maxHeight; h++) {
-        const z = h * this.layerGap;
-        // projectClamped(), not project(): a plane corner past the near
-        // plane is still drawn, at the boundary's own scale, rather than
-        // making the whole plane disappear just because one corner would
-        // have been clipped as a node or edge would be (see MAX_MAGNIFICATION).
-        const corners = [
-          this.projectClamped(x0, y0, z),
-          this.projectClamped(x1, y0, z),
-          this.projectClamped(x1, y1, z),
-          this.projectClamped(x0, y1, z),
-        ];
-        ctx.beginPath();
-        ctx.moveTo(corners[0].x, corners[0].y);
-        for (let i = 1; i < 4; i++) ctx.lineTo(corners[i].x, corners[i].y);
-        ctx.closePath();
-        if (this.layerFade) {
-          // Always drawing the full plane (above) means it can now cover
-          // most of the screen at a steep angle or close up — a flat fill
-          // over that much area reads as a wash of solid colour instead of
-          // a frame. Fading outward from the camera's own focus (`target`,
-          // projected onto this same height) keeps what the camera is
-          // actually looking at crisp while the rest recedes, the way
-          // distance fog does, instead of every pixel competing at the same
-          // strength regardless of how far off-focus it is.
-          const focus = this.projectClamped(this.targetX, this.targetY, z);
-          const radius = Math.max(1, ...corners.map((c) => Math.hypot(c.x - focus.x, c.y - focus.y)));
-          ctx.fillStyle = fadeGradient(ctx, focus, radius, 100, 116, 139, 0.06);
-          ctx.strokeStyle = fadeGradient(ctx, focus, radius, 100, 116, 139, 0.35);
-        } else {
-          ctx.fillStyle = "rgba(100, 116, 139, 0.04)";
-          ctx.strokeStyle = "rgba(100, 116, 139, 0.25)";
-        }
-        ctx.lineWidth = 1;
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = "rgba(71, 85, 105, 0.7)";
-        ctx.font = "11px system-ui, sans-serif";
-        ctx.fillText(t("graph3d.height", { height: h }), corners[0].x + 4, corners[0].y - 3);
-      }
-    }
 
     // Zones: hull of the projected member positions.
     for (const c of this.zones) {
@@ -750,42 +651,17 @@ export class Graph3D {
     }
     ctx.globalAlpha = 1;
     ctx.textAlign = "start";
-
-    // Motif overlay (see setMotifs()): drawn last, on top of everything
-    // above, since it is a category to spot within the whole graph rather
-    // than a relationship that dims the rest of it away.
-    if (this.motifs) {
-      for (const { edges, color } of this.motifs.values()) {
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 3;
-        ctx.globalAlpha = 0.6;
-        for (const l of edges) {
-          const s = byIndex.get(l.source.index);
-          const t = byIndex.get(l.target.index);
-          if (!s || !t) continue;
-          ctx.beginPath();
-          ctx.moveTo(s.x, s.y);
-          ctx.lineTo(t.x, t.y);
-          ctx.stroke();
-        }
-      }
-      ctx.globalAlpha = 1;
-      ctx.lineWidth = 2;
-      for (const p of sorted) {
-        let ring = 0;
-        for (const { nodes: motifNodes, color } of this.motifs.values()) {
-          if (!motifNodes.has(p.node)) continue;
-          ctx.strokeStyle = color;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.node.radius * p.scale + 3 + ring * 4, 0, Math.PI * 2);
-          ctx.stroke();
-          ring++;
-        }
-      }
-    }
   }
 
-  fit() {
+  /**
+   * Zoom and centre the camera so `nodes` fills the view — the whole graph by
+   * default, or a subset (an island, the mainland: see panel.js's Islands
+   * section) when a caller wants the camera on just that piece of it. The
+   * bounding box is all that changes; a subset is framed exactly as the
+   * whole graph would be, just tighter, since nothing else about the camera
+   * cares which nodes it was asked to fit.
+   */
+  fit(nodes = this.graph?.nodes) {
     this.zoomK = 1;
     this.focusedNode = null;
     // The general "get me unstuck" reset, so it returns to the normal
@@ -794,15 +670,25 @@ export class Graph3D {
     this.targetX = 0;
     this.targetY = 0;
     this.targetZ = 0;
-    if (!this.graph || this.graph.nodes.length === 0) return;
-    const xs = this.graph.nodes.map((n) => n.x);
-    const ys = this.graph.nodes.map((n) => n.y);
+    if (!nodes || nodes.length === 0) return;
+    const xs = nodes.map((n) => n.x);
+    const ys = nodes.map((n) => n.y);
     const minX = Math.min(...xs);
     const maxX = Math.max(...xs);
     const minY = Math.min(...ys);
     const maxY = Math.max(...ys);
     const extent = Math.max(maxX - minX, maxY - minY, this.maxHeight * this.layerGap, 1);
-    this.zoomK = Math.max(0.05, Math.min(2, (Math.min(this.width, this.height) * 0.8) / extent));
+    // Only an upper bound (2): a small graph should not be blown up past a
+    // sane scale. No lower bound, unlike the wheel's zoomK clamp just above
+    // -- that 0.05 is a limit on how far a *relative* zoom-out gesture may
+    // go, not on how small a fit can require. A settled layout the physics
+    // is free to inflate without limit (islands drift outward forever, see
+    // simulation.js) can need far less: a 2,139-node project measured at
+    // 236,714 units across needed 0.003, sixteen times past that floor. With
+    // it, "Fit to view" clamped to 0.05, projected the whole graph to roughly
+    // 11,800px across, and the canvas painted nothing at all -- not "small
+    // and hard to read", literally zero pixels of it inside the viewport.
+    this.zoomK = Math.min(2, (Math.min(this.width, this.height) * 0.8) / extent);
     this.focal = extent * FOCAL_EXTENT_RATIO;
     // Repulsion has no range limit and nothing pulls nodes toward a centre
     // (by design, see docs/DESIGN.md), so the layout's own bounding box can
@@ -851,13 +737,6 @@ export class Graph3D {
   }
 }
 
-/** A radial gradient of `rgba(r,g,b,maxAlpha)` at `center` fading to fully transparent at `radius`. */
-function fadeGradient(ctx, center, radius, r, g, b, maxAlpha) {
-  const gradient = ctx.createRadialGradient(center.x, center.y, 0, center.x, center.y, radius);
-  gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${maxAlpha})`);
-  gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
-  return gradient;
-}
 
 /**
  * `control`, when given, is a projected point the line bows through (a

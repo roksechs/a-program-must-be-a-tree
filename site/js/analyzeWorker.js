@@ -27,7 +27,28 @@ self.onmessage = async (event) => {
     } else {
       throw new Error(`unknown analysis kind: ${kind}`);
     }
-    self.postMessage({ type: "done", doc });
+    // Lay the result out before handing it back. The alternative is for the
+    // page to do it on the main thread, which is ~22ms a tick at 2,100 nodes
+    // for the ~1,200 the layout needs — half a minute of a page that cannot
+    // be scrolled, every time a folder is opened. Here it is off the main
+    // thread, behind the progress the analysis was already reporting, and
+    // stored with the analysis, so it happens once and never again for this
+    // folder (site/js/layout.js).
+    //
+    // `d3.min.js` is a classic script defining the `d3` global that
+    // simulation.js reads; importScripts is how a classic worker loads one,
+    // and `self.location` is this script's own URL — `import.meta` is not
+    // available here, and a bare relative path would resolve against the
+    // page.
+    importScripts(new URL("../vendor/d3.min.js", self.location.href).href);
+    // Imported as a namespace rather than destructured, like localAnalyzer
+    // above: the analyzer resolves a member read off a dynamic import's
+    // namespace but not a binding destructured out of one, so the
+    // destructured form makes `layOutDocument` look uncalled in this
+    // project's own graph (test/dead-code.test.mjs finds it).
+    const layout = await import("./layout.js");
+    const laidOut = layout.layOutDocument(doc, { onProgress: ({ ticks }) => onPhase("layout", ticks) });
+    self.postMessage({ type: "done", doc, layout: laidOut });
   } catch (err) {
     self.postMessage({ type: "error", message: err.message });
   }

@@ -21,15 +21,28 @@ force-directed graph, and measure how close that graph is to a tree.
   leaf ending the graph's own single longest call chain is guaranteed to sit
   at the bottom. A Top view preset looks straight down that axis with no
   perspective — the same x/y layout a 2D-only rendering would show.
-* **Diagnostics** quantify tree-likeness on the enabled edge kinds: spanning
-  ratio, acyclicity, single-caller ratio, DAG-ness and locality. They are
-  directed: `A -> S <- B` is not a tree, and sharing a declaration between two
-  siblings costs less than calling it from an unrelated part of the program.
-  The distance is measured in the dominator tree — the deepest nesting the
-  program admits — which also gives every declaration a *natural scope*: where
-  it could live if the program were a tree. Plus the usual counts (components,
-  cycles, roots, leaves, longest call chain, initialisation cycles) and a list
-  of the declarations whose sharing costs the most.
+* **Diagnostics** are four questions, on the enabled edge kinds, each read off
+  whichever quantity actually answers it. **Entry points** and
+  **independence** share one: every dependency's *lift* in the dominator
+  tree — the deepest nesting the program admits — how many scopes its target
+  had to be hoisted out of its caller to stay reachable from everything else
+  that uses it. That makes them directed and distance-aware: `A -> S <- B` is
+  not a tree, and sharing a declaration between two siblings costs less than
+  calling it from an unrelated part of the program. Entry points counts what
+  nothing calls (how many separate trees the program actually is, and in an
+  application what startup and events run); independence scores each
+  declaration by how much of what it depends on is its alone. **Elevation
+  gaps** reads a different axis — call height, the same quantity the 3D
+  view's vertical position already draws — bucketing calls by how many layers
+  they skip past the one right below them: a declaration near the top of the
+  graph reaching straight down past everything in between to one near the
+  bottom. **Islands** reads neither: it is read off the connected components,
+  because a piece of the program that shares no dependency at all with the
+  rest has no edge for either quantity to describe — a family reached only
+  from outside, or code nothing reaches any more. Each one highlights what it
+  points at in the view and exports it as a JSON report; entry points,
+  independence and islands list it directly, elevation gaps through a
+  two-handled range instead of one row per distinct value.
 * **Edge kinds** follow a small theory (`docs/THEORY.md`): calls, constructions,
   references (callbacks and other value flows), writes (a variable's edge to
   whoever assigns it, reversed since the variable's next value depends on the
@@ -38,9 +51,18 @@ force-directed graph, and measure how close that graph is to a tree.
   runs, dispatches method calls to overriding implementations, and lifts
   callbacks into calls at the declaration that invokes them with a bounded
   control-flow analysis.
+* **An agent can read the diagnosis without downloading it.** The page
+  exposes its four diagnostics as callable tools — over WebMCP where the
+  browser has it, and on `window.programTree` always — so an AI acting on
+  the analysis the browser just ran does not have to be handed an exported
+  file or re-run it elsewhere. It can look a finding up (`get_declaration`
+  gives the file and line, every caller and callee), edit the source *with
+  its own tools*, then call `reanalyze` and see whether the number moved.
+  The page itself can never write a file; see "Tools for an agent" in
+  `docs/DESIGN.md` for why that split is deliberate.
 
-The viewer is a static page (D3.js, no build step) served from GitHub Pages or
-Cloudflare Pages, see Deployment. Analyzers turn a codebase into a small JSON document
+The viewer is a static page (D3.js, no build step) served from Cloudflare, see
+Deployment. Analyzers turn a codebase into a small JSON document
 (see [docs/DATA_FORMAT.md](docs/DATA_FORMAT.md)) that the viewer loads.
 
 ## Quick start
@@ -64,12 +86,12 @@ in the header switches it at any time. Translations live in `site/js/i18n.js`.
 
 Three ways, no server involved in any of them:
 
-* **From the panel, live.** "Open folder…" picks a local directory with the
-  File System Access API (Chrome or Edge) and analyzes it in the browser; the
-  "GitHub repo" field takes `owner/repo`, `owner/repo@ref` or a `github.com`
-  URL — or searches GitHub as you type, showing a few popular JS/TS repos to
-  try when it's empty — and fetches the repository's files client-side to
-  analyze the same way. Both run the real TypeScript-compiler-based analyzer
+* **From the panel, live.** "Folder…" picks a local directory with the File
+  System Access API (Chrome or Edge) and analyzes it in the browser;
+  choosing "GitHub repo…" in the dataset dropdown reveals a field that takes
+  `owner/repo`, `owner/repo@ref` or a `github.com` URL — or searches GitHub
+  as you type, showing a few popular JS/TS repos to try when it's empty — and
+  fetches the repository's files client-side to analyze the same way. Both run the real TypeScript-compiler-based analyzer
   entirely in the page (`site/js/localAnalyzer.js`, `site/js/githubAnalyzer.js`),
   `.svelte` files included (a component's script *and* template, transformed
   through `svelte2tsx` — `docs/DESIGN.md`'s "Analyzing Svelte components") —
@@ -94,15 +116,20 @@ Three ways, no server involved in any of them:
 
 ## Property panel
 
+Every section is collapsible, and which ones are open is remembered between
+visits (Data and View & Physics start open; Selection opens itself when you
+click a node). The panel's width is set by dragging its left edge — the same
+strip that separates it from the graph — or with the arrow keys once that
+handle has keyboard focus, and is likewise remembered.
+
 | Section     | Controls |
 |-------------|----------|
-| Data        | bundled datasets, open a local JSON file, open a local folder, load a GitHub repo, "Recently opened" (folders/repos the browser has already analyzed, reopened instantly from IndexedDB — see below) |
+| Data        | one "Open" dropdown for everything to look at: bundled examples, "Recently opened" (folders/repos the browser has already analyzed, reopened instantly from IndexedDB — see below), and — grouped separately, since picking one is a command rather than a selection — "Folder…", "JSON file…" and "GitHub repo…" (the last reveals the repo field instead of loading anything). Picking a "Recently opened" entry also shows its own re-analyze / remove buttons; Export JSON is always there |
 | Header      | language selector (English / Japanese) |
-| View & Physics | label mode, colour by kind or call height, layer gap and planes (off by default, with a focus-distance fade), auto-rotate, fit, top view (perspective-free, straight down the height axis); orbit around the selected subject by dragging, pan with shift-drag, zoom with the wheel, or turn and move like a flight camera with the keyboard — W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ forward/back; recompute (reheat) when the layout got stuck, reset positions, repulsion, spring stiffness, rest length |
+| View & Physics | label mode, colour by kind or call height, layer gap (how far apart two consecutive call heights sit), auto-rotate, fit, top view (perspective-free, straight down the height axis); orbit around the selected subject by dragging, pan with shift-drag, zoom with the wheel, or turn and move like a flight camera with the keyboard — W/S pitch, A/D roll (auto-levels when released), Q/E yaw, ↑/↓ forward/back; recompute (reheat), reset positions, repulsion, spring stiffness, rest length. The physics runs only when asked: the published datasets carry a settled layout (`npm run build:data` computes it), so a graph opens laid out having run nothing, and recompute is the one thing that starts a run. A document with no stored layout opens on the seed and says so. Fit frames the mainland (see Islands below), not every node — an island can drift arbitrarily far away, and a fit that had to include one would leave the connected majority tiny in the view |
 | Edges       | one switch per edge kind; an enabled kind is drawn, acts as a spring and counts in the diagnostics — every kind starts enabled |
 | Zones       | directory / file depth *range* (a two-handled slider): both ends start at 0 (nothing shown); the high handle reveals outward from the top like a single depth slider always did, down to the files at the maximum, while the low handle can raise the outer edge to show an inner band on its own |
-| Patterns    | structural motifs — cycles, hubs, diamonds, chains — highlighted anywhere they occur in the graph, any number on at once, each its own colour |
-| Diagnostics | tree score and its five components, counts, costliest sharing |
+| Diagnostics | entry points, elevation gaps (calls grouped by how many call-height layers they skip, selected by dragging a two-handled range rather than one row per value), independence, and islands (the groups standing apart from the main body, plus the main body itself) — each with the declarations or dependencies behind it, selectable/highlightable/exportable as a JSON report (which opens with the same sentence the panel gives for what the number means), and (an island or the main body) frameable in the view; a fifth button exports all four as one report |
 | Selection   | callers and callees of the clicked node, with the lift of each edge, the declaration's natural scope, a Focus button that centres the camera on it, and (ctrl/cmd+click a second node) the path between the two, highlighted in the view |
 
 ## Repository layout
@@ -116,7 +143,6 @@ site/            static site (the root a static host publishes)
   vendor/        d3 and TypeScript (copied by `npm run vendor`; TypeScript is regenerated on every build, not committed — see .gitignore)
 analyzers/ts/    JavaScript / TypeScript / Svelte analyzer
 samples/         small source programs analyzed into the bundled `sample-*` datasets
-site/content/    the article's chapters, one Markdown file per chapter per language (`article.html`)
 scripts/         data generation, vendoring, dev server
 test/            node:test unit tests
 docs/            design notes, the data format and the theory behind the edge kinds
@@ -129,17 +155,12 @@ CHANGELOG.md     release notes, one section per version
 npm test
 ```
 
-The GitHub Pages workflow (`.github/workflows/pages.yml`) runs the tests,
-vendors d3, regenerates the datasets and publishes `site/` on every push to
-the repository's default branch. Enable Pages with "GitHub Actions" as the
-source in the repository settings.
-
 ### Cloudflare Pages
 
 Cloudflare Pages builds every branch and gives each pull request a preview
-URL, which GitHub Pages cannot. Connect the repository in the Cloudflare
-dashboard (Workers & Pages → Create → Pages → Connect to Git; the GitHub
-integration means no tokens live in this repository) with these settings:
+URL. Connect the repository in the Cloudflare dashboard (Workers & Pages →
+Create → Pages → Connect to Git; the GitHub integration means no tokens live
+in this repository) with these settings:
 
 | setting | value |
 |---|---|
@@ -148,11 +169,10 @@ integration means no tokens live in this repository) with these settings:
 | Build output directory | `site` |
 | Node version | read from `.node-version` (22); or set the `NODE_VERSION` variable |
 
-That is the same sequence as the GitHub workflow (`npm run build:site` is its
-shorthand, but the build command is spelled out so it also works on branches
-that predate the script). Preview deployments are on by default for every
-other branch; the Cloudflare GitHub app comments the preview URL on each pull
-request. The article lives at `/article.html` on either host.
+`npm run build:site` is a shorthand for the same sequence, but the build
+command above is spelled out so it also works on branches that predate the
+script. Preview deployments are on by default for every other branch; the
+Cloudflare GitHub app comments the preview URL on each pull request.
 
 If the project was created as a **Workers** project instead (Workers & Pages →
 Create → Workers → Import a repository), the same build command applies and
@@ -177,11 +197,7 @@ carries that tag yet, creates the tag and the GitHub release from the matching
 npm version minor --no-git-tag-version   # write the CHANGELOG section too
 ```
 
-and merge. It uses only the built-in `GITHUB_TOKEN`; no secrets are involved. GitHub creates a `github-pages` environment
-on the first deployment whose allowed deployment branch is pinned to the
-default branch *at that time*; if you rename or switch the default branch
-later, add the new branch under Settings → Environments → github-pages →
-Deployment branches, otherwise the deploy job is rejected without running.
+and merge. It uses only the built-in `GITHUB_TOKEN`; no secrets are involved.
 
 ## License
 

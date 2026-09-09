@@ -192,15 +192,61 @@ edge is in `⇝̂` because `λ_{D'} ∈ Ĉ(ℓ)` whenever `D'` occurs syntactica
 So the three relations nest: `syntactic calls ⊆ ⇝̂ ⊇ ⇝`. The syntactic
 graph is the cheapest sound *lower* description of control transfer plus an
 exact description of value flow (`reference`); a CFA pass turns each
-`reference` edge into zero or more `call` edges originating elsewhere.
+`reference` edge into zero or more further `call` or `reference` edges
+originating elsewhere.
 
 The TypeScript analyzer runs a bounded 0-CFA after the syntactic pass:
 abstract values are sets of declared functions, methods and classes, and
 they flow through local bindings, through the parameters of declared callees
-(including dispatched method targets) and through the return values of
-declared functions, to a fixed point. A call whose callee evaluates to a
+(including dispatched method targets), through the return values of declared
+functions, and through object properties, to a fixed point.
+
+A property read is answered in three steps, by how much is actually known
+about the receiver.
+
+1. **The receiver is an object the analysis identified** — an object literal
+   it saw, or `this` in a class. The read is answered from that object's own
+   properties and stops there; an empty answer is a real answer, not a reason
+   to guess.
+2. **The receiver is unknown and the name belongs to the standard library.**
+   Nothing is said. The set of such names is collected from the `lib.*.d.ts`
+   files the program already loads, so it states "the language owns this
+   name" rather than a hand-picked list of names that looked risky. Which
+   files those are is asked of the program itself, never inferred from the
+   shape of a file name: the Node CLI resolves them to absolute paths inside
+   the TypeScript package, while the in-browser host holds the very same
+   files under bare names (`lib.es2022.d.ts`), and a rule written for one
+   silently matches nothing in the other — turning this step off wherever it
+   is needed most without failing anywhere visible.
+3. **The receiver is unknown and the name is the codebase's own.** The read is
+   answered by name: one abstract location per property name, shared by every
+   object having a property so called.
+
+Step 3 is field-insensitive and over-approximates, which is the direction
+Fact 4 asks for; steps 1 and 2 are what keep that from swallowing the graph.
+Both are needed. Identity alone loses real edges whenever there is no
+identity to follow — a callback spread into a new object (`{ ...base }`), or
+hung on an object some library handed over (`host.resolveModuleNames = …`) —
+and both shapes are common. Name alone is worse in the other direction: a
+codebase declaring a function `map` collected an edge from every `xs.map(…)`
+whose receiver the checker could not pin down, which in a Svelte project
+(where `any` is everywhere) meant the majority of its edges were invented.
+Modelling no properties at all, which is what this did previously, errs the
+other way and is unsound: a dependency that is *injected* rather than named
+directly then leaves no edge, so a codebase looks more tree-like the more of
+it is wired that way — a diagnostic built on the result would reward hiding
+a dependency over removing one. A declaration only reachable from outside
+the analyzed code (a DOM event handler, a `ts.CompilerHost` method, a build
+plugin's hook) is a different matter: its caller genuinely is not there to
+find, and it stays a `reference`. A call whose callee evaluates to a
 declared function produces a `call` edge marked `inferred` from the
-declaration that contains the operator position. Property stores (§4.1,
+declaration that contains the operator position; a plain (non-call)
+occurrence that merely reads a variable produces a further `reference` edge
+the same way, to whatever the variable's own value was traced to — the
+difference between the two is only whether the operator position calls the
+value or hands it somewhere else (a callback prop, an event handler, a
+stored reference), not whether the flow analysis can see through it.
+Property stores (§4.1,
 Definition 9a) and external callees are not modelled, so a callback stored
 into an object that escapes, or handed to a function this analyzer never
 sees the body of, keeps its `reference` edge and nothing else. A
@@ -388,6 +434,19 @@ can be the target of an edge. Hence:
   simplification, would misattribute every call the handler itself makes to
   whoever merely constructed it.
 
+  The declaration doing the handing over gets a `reference` to it. Earlier
+  releases emitted nothing here, and that was an inconsistency rather than a
+  decision: writing the handler as a name (`f({ m })`, `oncommit={bump}`)
+  has always produced a `reference` from resolving that identifier, so the
+  two spellings of one thing disagreed about whether the caller depends on
+  its own handler. Nothing else could supply the edge, either — a local
+  declaration exists precisely because the literal has no path of its own,
+  so the declaration that built it is the only holder there is, which makes
+  the edge exact rather than a guess. The edge is a `reference` and not a
+  `call`: the caller hands the value over, and whoever invokes it — the DOM,
+  a framework, a callee — is a separate matter, so a graph restricted to the
+  control kinds still shows such a handler as an entry point.
+
 Treating the late case as a declaration rather than a store is a design
 decision, not a consequence of the calculus; the flag keeps it visible. The
 same is true of local declarations: nothing forces the choice, but leaving a
@@ -464,7 +523,7 @@ an object is a fixed point `fix(gen_C)`. Under this reading:
 | `d3.scale.linear = …`, `d3` undeclared     | binding on a global             | none        | declares `d3.scale.linear`, parent `d3.scale` once that is bound |
 | `app.h = function () {…}` inside a body    | late binding (Definition 9a)    | `reference` | member `h` flagged `late`; installer → `h` |
 | `el.cb = function () {…}`, `el` a value    | store: the closure escapes      | none        | no declaration; the body belongs to the enclosing declaration |
-| `f({ m: function () {…} })`, argument      | local declaration (Definition 9a) | none      | declares `m`, parent = the declaration calling `f` |
+| `f({ m: function () {…} })`, argument      | local declaration (Definition 9a) | `reference` | declares `m`, parent = the declaration calling `f`; the caller evaluates the function and hands it over, which is what a `reference` is |
 | `o.m(a)`, `o` untyped                      | `(o.m) a`                       | `call`      | `m` by name path or `this`, else every instance member `m` (inferred) |
 
 `f.bind(o)` deserves a note: `f` is the receiver of a projection whose result

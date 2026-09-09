@@ -3,8 +3,8 @@
   "name": "sample-bindings",
   "root": "samples/bindings",
   "language": "javascript",
-  "generatedAt": "2026-09-07T07:09:30.099Z",
-  "analyzer": "analyzers/ts@0.4.0",
+  "generatedAt": "2026-09-09T07:35:39.430Z",
+  "analyzer": "analyzers/ts@0.8.0",
   "files": 7
  },
  "declarations": [
@@ -18,7 +18,9 @@
    "exported": true,
    "aliases": [
     "helper"
-   ]
+   ],
+   "x": -13120.9,
+   "y": -4472
   },
   {
    "id": "cjs.js::run",
@@ -27,7 +29,9 @@
    "file": "cjs.js",
    "line": 7,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -13066.8,
+   "y": -4417.5
   },
   {
    "id": "late.js::app",
@@ -36,7 +40,9 @@
    "file": "late.js",
    "line": 6,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -1478.3,
+   "y": 4579.3
   },
   {
    "id": "late.js::app.handler",
@@ -46,7 +52,9 @@
    "line": 9,
    "parent": "late.js::app",
    "exported": false,
-   "late": true
+   "late": true,
+   "x": -1521.6,
+   "y": 4490.5
   },
   {
    "id": "late.js::init",
@@ -55,7 +63,9 @@
    "file": "late.js",
    "line": 8,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -1549.8,
+   "y": 4624.9
   },
   {
    "id": "late.js::route",
@@ -64,7 +74,9 @@
    "file": "late.js",
    "line": 14,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -1592.6,
+   "y": 4579
   },
   {
    "id": "main.js::main",
@@ -73,7 +85,9 @@
    "file": "main.js",
    "line": 6,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -1671.6,
+   "y": 4717
   },
   {
    "id": "namespace.js::chart.scale",
@@ -82,7 +96,9 @@
    "file": "namespace.js",
    "line": 5,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -1754.8,
+   "y": 4742.9
   },
   {
    "id": "namespace.js::chart.scale.linear",
@@ -91,7 +107,9 @@
    "file": "namespace.js",
    "line": 7,
    "parent": "namespace.js::chart.scale",
-   "exported": true
+   "exported": true,
+   "x": -1717.2,
+   "y": 4863.6
   },
   {
    "id": "namespace.js::interpolate",
@@ -100,7 +118,9 @@
    "file": "namespace.js",
    "line": 11,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -1749.8,
+   "y": 4999.5
   },
   {
    "id": "prototype.js::add",
@@ -112,7 +132,9 @@
    "exported": true,
    "aliases": [
     "Moment.add"
-   ]
+   ],
+   "x": -1868.6,
+   "y": 4532.4
   },
   {
    "id": "prototype.js::Moment",
@@ -121,7 +143,9 @@
    "file": "prototype.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -1563.6,
+   "y": 4831.3
   },
   {
    "id": "prototype.js::Moment.isValid",
@@ -130,7 +154,9 @@
    "file": "prototype.js",
    "line": 17,
    "parent": "prototype.js::Moment",
-   "exported": false
+   "exported": false,
+   "x": -1772.6,
+   "y": 4622.4
   },
   {
    "id": "prototype.js::Moment.utc",
@@ -139,7 +165,9 @@
    "file": "prototype.js",
    "line": 22,
    "parent": "prototype.js::Moment",
-   "exported": true
+   "exported": true,
+   "x": -1608.3,
+   "y": 4786.3
   },
   {
    "id": "prototype.js::proto",
@@ -148,7 +176,9 @@
    "file": "prototype.js",
    "line": 7,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -1473.2,
+   "y": 4929.5
   },
   {
    "id": "store.js::<module>",
@@ -157,7 +187,9 @@
    "file": "store.js",
    "line": 15,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -2408.4,
+   "y": 4907.3
   },
   {
    "id": "store.js::build",
@@ -166,7 +198,9 @@
    "file": "store.js",
    "line": 19,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -2671.3,
+   "y": 4966.9
   },
   {
    "id": "store.js::list",
@@ -175,7 +209,9 @@
    "file": "store.js",
    "line": 14,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -2559.6,
+   "y": 4942.5
   },
   {
    "id": "store.js::setup",
@@ -184,7 +220,9 @@
    "file": "store.js",
    "line": 7,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -1925.3,
+   "y": 4785.8
   },
   {
    "id": "util.js::save",
@@ -193,7 +231,9 @@
    "file": "util.js",
    "line": 5,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -2200.9,
+   "y": 4856.4
   },
   {
    "id": "util.js::tick",
@@ -202,7 +242,9 @@
    "file": "util.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -1461.3,
+   "y": 4381.2
   }
  ],
  "edges": [

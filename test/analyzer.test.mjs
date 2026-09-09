@@ -388,6 +388,35 @@ test("local functions become declarations behind the nested option", () => {
   assert.equal(edge("n.js::outer", "n.js::helper"), undefined);
 });
 
+test("a reference to a captor variable also reaches the nested declaration a factory function returned into it", () => {
+  // `handler` is a module-level variable (its own declaration, since every
+  // top-level `const`/`let` is one — see the sf.statements loop above), but
+  // its own value is opaque without the flow analysis in Pass 3: `wire(handler)`
+  // already got a "reference" edge to `handler` itself (ordinary Pass 2
+  // resolution), same as any other variable read. This is the same shape a
+  // template prop binding takes in a framework component (bind a handler
+  // prop to a variable whose value came from a factory elsewhere) — the
+  // fix generalizes past call sites, which already got this treatment.
+  const root = fixture({
+    "n.js": `
+      function createHandler() {
+        function onKeydown(e) { return e; }
+        return onKeydown;
+      }
+      const handler = createHandler();
+      export function wire(cb) { return cb; }
+      wire(handler);
+    `,
+  });
+  const doc = analyze({ name: "js", root, nested: true });
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  assert.equal(edge("n.js::<module>", "n.js::handler")?.kind, "reference"); // the existing, direct edge
+  const inferred = edge("n.js::<module>", "n.js::createHandler/onKeydown");
+  assert.ok(inferred, "module code should also reach the nested onKeydown through the captor variable");
+  assert.equal(inferred.kind, "reference");
+  assert.equal(inferred.inferred, true);
+});
+
 test("a function-valued object literal property is a declaration even without the nested option", () => {
   const root = fixture({
     "h.js": `
@@ -475,6 +504,103 @@ test("a call through a union type or a record index reaches every candidate", ()
   }
 });
 
+test("a call through an injected dependency reaches it: property store, object literal, and the two-hop shape", () => {
+  const root = fixture({
+    "n.js": `
+      export function t(key) { return key; }
+
+      // constructor injection: the value is stored on \`this\` and called off it
+      export class Panel {
+        constructor(deps) { this.t = deps.t; }
+        render() { return this.t("x"); }
+      }
+
+      // the two-hop shape: an object of callbacks is injected whole, and one
+      // of its properties is called off the stored object
+      export class Renderer {
+        constructor(callbacks) { this.callbacks = callbacks; }
+        select(n) { return this.callbacks.onSelect?.(n); }
+      }
+      export function wire() {
+        new Panel({ t });
+        new Renderer({ onSelect: (n) => t(n) });
+      }
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+
+  // Injecting a dependency must not hide it. Before the flow analysis
+  // modelled property stores these edges were simply absent, which made a
+  // codebase look more tree-like the more of it was wired by injection.
+  const stored = edge("n.js::Panel.render", "n.js::t");
+  assert.ok(stored, "a call off a this-stored dependency should reach it");
+  assert.equal(stored.kind, "call");
+  assert.equal(stored.inferred, true);
+
+  const twoHop = edge("n.js::Renderer.select", "n.js::wire/onSelect");
+  assert.ok(twoHop, "a call off a property of an injected object should reach that property");
+  assert.equal(twoHop.kind, "call");
+  assert.equal(twoHop.inferred, true);
+});
+
+test("a dependency passed as a parameter is traced too, and an unrelated declaration of the same name is not dragged in", () => {
+  const root = fixture({
+    "n.js": `
+      export function t(key) { return key; }
+      export function render(translate) { return translate("x"); }
+      export function wire() { return render(t); }
+      // never stored on any property, so nothing may resolve to it by name
+      export function onSelect() { return 1; }
+      export class R {
+        constructor(cb) { this.cb = cb; }
+        go() { return this.cb.onSelect(); }
+      }
+      export function wireR() { return new R({ onSelect: () => t("y") }); }
+    `,
+  });
+  const doc = analyze({ name: "js", root });
+  const edge = (s, t) => doc.edges.find((e) => e.source === s && e.target === t);
+  assert.equal(edge("n.js::render", "n.js::t")?.inferred, true);
+  // Property values are keyed by name, so the one that was actually stored is
+  // reached — but a top-level function that merely shares the name is not a
+  // property value and stays out of it.
+  assert.ok(edge("n.js::R.go", "n.js::wireR/onSelect"), "should reach the stored property");
+  assert.equal(edge("n.js::R.go", "n.js::onSelect"), undefined, "should not reach an unrelated same-named function");
+});
+
+test("a property read is answered by the object when one is known, by name when none is, and never by a standard-library name", () => {
+  const root = fixture({
+    "n.ts": `
+      export function target() { return 1; }
+      export function map<T>(g: T[]): T[] { return g; }
+      // the namespace-object shape: \`map\` is now a value stored under that name
+      export const NodeGraph = { map };
+
+      // the receiver cannot be identified and \`map\` is a name the standard
+      // library owns: answering by name here linked every array in a codebase
+      // to whatever function happened to be called map
+      export function loose(x: any) { return x.map((v: number) => v); }
+
+      // the receiver IS identifiable — literal, constructor argument, \`this\`
+      export class A { d: any; constructor(d: any) { this.d = d; } run() { return this.d.hit(); } }
+      export function wireA() { return new A({ hit: () => target() }); }
+
+      // a spread of an object built elsewhere leaves no identity to follow, so
+      // only the name can answer — and must, or the callback goes missing
+      function build() { return { spun: () => target() }; }
+      export function spread() { return { ...build() }.spun(); }
+    `,
+  });
+  const doc = analyze({ name: "ts", root });
+  const has = (from, to) => doc.edges.some((e) => e.source === from && e.target === to);
+
+  assert.equal(has("n.ts::loose", "n.ts::map"), false, "an any-typed receiver must not reach a function named map");
+  assert.ok(has("n.ts::NodeGraph", "n.ts::map"), "storing it is still a reference");
+  assert.ok(has("n.ts::A.run", "n.ts::wireA/hit"), "a known receiver is answered from its own object");
+  assert.ok(has("n.ts::spread", "n.ts::build/spun"), "a spread has no identity to follow, so the name answers");
+});
+
 test("assignment targets record a reversed write edge (docs/THEORY.md §3.5)", () => {
   const root = fixture({
     "g.js": `
@@ -502,4 +628,58 @@ test("assignment targets record a reversed write edge (docs/THEORY.md §3.5)", (
   // Read only: no write edge at all.
   assert.equal(edges("g.js::total", "g.js::checkout").length, 0);
   assert.equal(edges("g.js::checkout", "g.js::total")[0].kind, "reference");
+});
+
+test("two object literals in one declaration each carrying the same key get distinct ids", () => {
+  // Before this, both `fn`s were `render/fn`. The viewer keys nodes by id, so
+  // the last one absorbed every edge naming it and the first became a node no
+  // edge could ever reach: in- and out-degree 0, indistinguishable from dead
+  // code. This repository had 12 such nodes and svelte/src 46.
+  const root = fixture({
+    "src/a.ts": `
+      export function helper(n: number) { return n + 1; }
+      export function el(tag: string, props: object) { return { tag, props }; }
+      export function render() {
+        el("button", { onclick: () => helper(1) });
+        el("input", { onclick: () => helper(2) });
+        el("a", { onclick: () => helper(3) });
+      }
+    `,
+  });
+  const doc = analyze({ name: "fixture", root, include: ["src"], language: "typescript" });
+  const ids = doc.declarations.map((d) => d.id);
+  assert.equal(new Set(ids).size, ids.length, "no id is emitted twice");
+  assert.deepEqual(
+    ids.filter((id) => id.includes("render/onclick")).sort(),
+    ["src/a.ts::render/onclick", "src/a.ts::render/onclick#2", "src/a.ts::render/onclick#3"],
+    "repeats are numbered in source order, and the first keeps the plain id",
+  );
+  // Each really does carry its own edge now, so `helper` hears from all three.
+  assert.equal(doc.edges.filter((e) => e.target === "src/a.ts::helper" && e.kind === "call").length, 3);
+});
+
+test("a function handed over inside an object literal is referenced by the declaration handing it over", () => {
+  // `f({ m })` has always produced a reference by resolving the identifier.
+  // `f({ m: () => {} })` produced nothing, so the two spellings of one thing
+  // disagreed about whether the caller depends on its own handler -- and the
+  // inline one, plus whatever only it called, floated off as an island.
+  const root = fixture({
+    "src/a.ts": `
+      export function reset() { return 0; }
+      export function mount(props: object) { return props; }
+      export function setup() {
+        return mount({ onclick: () => reset() });
+      }
+      export function named() { return mount({ onclick: reset }); }
+    `,
+  });
+  const doc = analyze({ name: "fixture", root, include: ["src"], language: "typescript" });
+  const has = (from, to, kind) => doc.edges.some((e) => e.source === from && e.target === to && e.kind === kind);
+  assert.ok(has("src/a.ts::setup", "src/a.ts::setup/onclick", "reference"), "the inline handler is referenced by its holder");
+  assert.ok(has("src/a.ts::setup/onclick", "src/a.ts::reset", "call"), "and still makes its own call");
+  assert.ok(has("src/a.ts::named", "src/a.ts::reset", "reference"), "the named spelling is unchanged");
+  // A `reference`, not a `call`: whoever invokes the handler -- the DOM, a
+  // framework -- is a separate matter, so the control graph still shows it
+  // as an entry point.
+  assert.equal(has("src/a.ts::setup", "src/a.ts::setup/onclick", "call"), false);
 });

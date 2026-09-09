@@ -3,8 +3,8 @@
   "name": "d3-shape",
   "root": "node_modules/d3-shape",
   "language": "javascript",
-  "generatedAt": "2026-09-07T07:09:29.284Z",
-  "analyzer": "analyzers/ts@0.4.0",
+  "generatedAt": "2026-09-09T07:35:22.893Z",
+  "analyzer": "analyzers/ts@0.8.0",
   "files": 60
  },
  "declarations": [
@@ -15,7 +15,9 @@
    "file": "src/arc.js",
    "line": 17,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27960.2,
+   "y": 3790.6
   },
   {
    "id": "src/arc.js::arcInnerRadius",
@@ -24,7 +26,9 @@
    "file": "src/arc.js",
    "line": 5,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 28009.9,
+   "y": 3732.6
   },
   {
    "id": "src/arc.js::arcOuterRadius",
@@ -33,7 +37,9 @@
    "file": "src/arc.js",
    "line": 9,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27813.5,
+   "y": 3680.4
   },
   {
    "id": "src/arc.js::arcPadAngle",
@@ -42,7 +48,9 @@
    "file": "src/arc.js",
    "line": 21,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27880,
+   "y": 3671.4
   },
   {
    "id": "src/arc.js::arcStartAngle",
@@ -51,7 +59,9 @@
    "file": "src/arc.js",
    "line": 13,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27935.7,
+   "y": 3709.7
   },
   {
    "id": "src/arc.js::cornerTangents",
@@ -60,7 +70,9 @@
    "file": "src/arc.js",
    "line": 36,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27763.7,
+   "y": 3782.2
   },
   {
    "id": "src/arc.js::default",
@@ -69,7 +81,9 @@
    "file": "src/arc.js",
    "line": 77,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27725.1,
+   "y": 4090.9
   },
   {
    "id": "src/arc.js::intersect",
@@ -78,7 +92,9 @@
    "file": "src/arc.js",
    "line": 25,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27697.9,
+   "y": 3806.3
   },
   {
    "id": "src/area.js::default",
@@ -87,7 +103,9 @@
    "file": "src/area.js",
    "line": 8,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27434.9,
+   "y": 4739.7
   },
   {
    "id": "src/areaRadial.js::default",
@@ -96,7 +114,9 @@
    "file": "src/areaRadial.js",
    "line": 5,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 26876.2,
+   "y": 4993.2
   },
   {
    "id": "src/array.js::default",
@@ -105,7 +125,9 @@
    "file": "src/array.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27683.7,
+   "y": 4197.3
   },
   {
    "id": "src/array.js::slice",
@@ -114,7 +136,9 @@
    "file": "src/array.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 26961.9,
+   "y": 4780.1
   },
   {
    "id": "src/constant.js::default",
@@ -123,7 +147,9 @@
    "file": "src/constant.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27600.5,
+   "y": 4276.1
   },
   {
    "id": "src/curve/basis.js::Basis",
@@ -132,7 +158,9 @@
    "file": "src/curve/basis.js",
    "line": 12,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -35220.3,
+   "y": 18662.2
   },
   {
    "id": "src/curve/basis.js::Basis.areaEnd",
@@ -141,7 +169,9 @@
    "file": "src/curve/basis.js",
    "line": 20,
    "parent": "src/curve/basis.js::Basis",
-   "exported": false
+   "exported": false,
+   "x": 27851,
+   "y": 4818.5
   },
   {
    "id": "src/curve/basis.js::Basis.areaStart",
@@ -150,7 +180,9 @@
    "file": "src/curve/basis.js",
    "line": 17,
    "parent": "src/curve/basis.js::Basis",
-   "exported": false
+   "exported": false,
+   "x": 27654.3,
+   "y": 5075.5
   },
   {
    "id": "src/curve/basis.js::Basis.lineEnd",
@@ -159,7 +191,9 @@
    "file": "src/curve/basis.js",
    "line": 28,
    "parent": "src/curve/basis.js::Basis",
-   "exported": false
+   "exported": false,
+   "x": 27430.9,
+   "y": 4579.1
   },
   {
    "id": "src/curve/basis.js::Basis.lineStart",
@@ -168,7 +202,9 @@
    "file": "src/curve/basis.js",
    "line": 23,
    "parent": "src/curve/basis.js::Basis",
-   "exported": false
+   "exported": false,
+   "x": 27366.9,
+   "y": 4913.7
   },
   {
    "id": "src/curve/basis.js::Basis.point",
@@ -177,7 +213,9 @@
    "file": "src/curve/basis.js",
    "line": 36,
    "parent": "src/curve/basis.js::Basis",
-   "exported": false
+   "exported": false,
+   "x": 27340.5,
+   "y": 4539.1
   },
   {
    "id": "src/curve/basis.js::default",
@@ -186,7 +224,9 @@
    "file": "src/curve/basis.js",
    "line": 49,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -35292.8,
+   "y": 18610.7
   },
   {
    "id": "src/curve/basis.js::point",
@@ -195,7 +235,9 @@
    "file": "src/curve/basis.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27152.7,
+   "y": 4491.6
   },
   {
    "id": "src/curve/basisClosed.js::BasisClosed",
@@ -204,7 +246,9 @@
    "file": "src/curve/basisClosed.js",
    "line": 4,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 18023.3,
+   "y": 41458.9
   },
   {
    "id": "src/curve/basisClosed.js::BasisClosed.lineEnd",
@@ -213,7 +257,9 @@
    "file": "src/curve/basisClosed.js",
    "line": 16,
    "parent": "src/curve/basisClosed.js::BasisClosed",
-   "exported": false
+   "exported": false,
+   "x": 27475.8,
+   "y": 4520.9
   },
   {
    "id": "src/curve/basisClosed.js::BasisClosed.lineStart",
@@ -222,7 +268,9 @@
    "file": "src/curve/basisClosed.js",
    "line": 11,
    "parent": "src/curve/basisClosed.js::BasisClosed",
-   "exported": false
+   "exported": false,
+   "x": 27285.9,
+   "y": 4853.1
   },
   {
    "id": "src/curve/basisClosed.js::BasisClosed.point",
@@ -231,7 +279,9 @@
    "file": "src/curve/basisClosed.js",
    "line": 37,
    "parent": "src/curve/basisClosed.js::BasisClosed",
-   "exported": false
+   "exported": false,
+   "x": 27321.9,
+   "y": 4613.3
   },
   {
    "id": "src/curve/basisClosed.js::default",
@@ -240,7 +290,9 @@
    "file": "src/curve/basisClosed.js",
    "line": 50,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 17959.4,
+   "y": 41501.5
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen",
@@ -249,7 +301,9 @@
    "file": "src/curve/basisOpen.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 42850.6,
+   "y": 21258.1
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen.areaEnd",
@@ -258,7 +312,9 @@
    "file": "src/curve/basisOpen.js",
    "line": 11,
    "parent": "src/curve/basisOpen.js::BasisOpen",
-   "exported": false
+   "exported": false,
+   "x": 27871.8,
+   "y": 4865.3
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen.areaStart",
@@ -267,7 +323,9 @@
    "file": "src/curve/basisOpen.js",
    "line": 8,
    "parent": "src/curve/basisOpen.js::BasisOpen",
-   "exported": false
+   "exported": false,
+   "x": 27596.8,
+   "y": 5091.5
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen.lineEnd",
@@ -276,7 +334,9 @@
    "file": "src/curve/basisOpen.js",
    "line": 19,
    "parent": "src/curve/basisOpen.js::BasisOpen",
-   "exported": false
+   "exported": false,
+   "x": 27501.5,
+   "y": 4674.6
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen.lineStart",
@@ -285,7 +345,9 @@
    "file": "src/curve/basisOpen.js",
    "line": 14,
    "parent": "src/curve/basisOpen.js::BasisOpen",
-   "exported": false
+   "exported": false,
+   "x": 27405.2,
+   "y": 4895.3
   },
   {
    "id": "src/curve/basisOpen.js::BasisOpen.point",
@@ -294,7 +356,9 @@
    "file": "src/curve/basisOpen.js",
    "line": 23,
    "parent": "src/curve/basisOpen.js::BasisOpen",
-   "exported": false
+   "exported": false,
+   "x": 27316,
+   "y": 4554.7
   },
   {
    "id": "src/curve/basisOpen.js::default",
@@ -303,7 +367,9 @@
    "file": "src/curve/basisOpen.js",
    "line": 37,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 42813,
+   "y": 21325.1
   },
   {
    "id": "src/curve/bump.js::Bump",
@@ -312,7 +378,9 @@
    "file": "src/curve/bump.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 26832.9,
+   "y": 5273.1
   },
   {
    "id": "src/curve/bump.js::Bump.areaEnd",
@@ -321,7 +389,9 @@
    "file": "src/curve/bump.js",
    "line": 11,
    "parent": "src/curve/bump.js::Bump",
-   "exported": false
+   "exported": false,
+   "x": 27885,
+   "y": 4917.6
   },
   {
    "id": "src/curve/bump.js::Bump.areaStart",
@@ -330,7 +400,9 @@
    "file": "src/curve/bump.js",
    "line": 8,
    "parent": "src/curve/bump.js::Bump",
-   "exported": false
+   "exported": false,
+   "x": 27696.8,
+   "y": 5115
   },
   {
    "id": "src/curve/bump.js::Bump.constructor",
@@ -339,7 +411,9 @@
    "file": "src/curve/bump.js",
    "line": 4,
    "parent": "src/curve/bump.js::Bump",
-   "exported": false
+   "exported": false,
+   "x": 26782.9,
+   "y": 5233.2
   },
   {
    "id": "src/curve/bump.js::Bump.lineEnd",
@@ -348,7 +422,9 @@
    "file": "src/curve/bump.js",
    "line": 17,
    "parent": "src/curve/bump.js::Bump",
-   "exported": false
+   "exported": false,
+   "x": 27527.5,
+   "y": 4649.4
   },
   {
    "id": "src/curve/bump.js::Bump.lineStart",
@@ -357,7 +433,9 @@
    "file": "src/curve/bump.js",
    "line": 14,
    "parent": "src/curve/bump.js::Bump",
-   "exported": false
+   "exported": false,
+   "x": 27415.8,
+   "y": 4839.3
   },
   {
    "id": "src/curve/bump.js::Bump.point",
@@ -366,7 +444,9 @@
    "file": "src/curve/bump.js",
    "line": 21,
    "parent": "src/curve/bump.js::Bump",
-   "exported": false
+   "exported": false,
+   "x": 27292.5,
+   "y": 4496.4
   },
   {
    "id": "src/curve/bump.js::bumpRadial",
@@ -375,7 +455,9 @@
    "file": "src/curve/bump.js",
    "line": 73,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27149.2,
+   "y": 5189.1
   },
   {
    "id": "src/curve/bump.js::BumpRadial",
@@ -384,7 +466,9 @@
    "file": "src/curve/bump.js",
    "line": 41,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27083.7,
+   "y": 5552.3
   },
   {
    "id": "src/curve/bump.js::BumpRadial.constructor",
@@ -393,7 +477,9 @@
    "file": "src/curve/bump.js",
    "line": 42,
    "parent": "src/curve/bump.js::BumpRadial",
-   "exported": false
+   "exported": false,
+   "x": 27001.8,
+   "y": 5527.7
   },
   {
    "id": "src/curve/bump.js::BumpRadial.lineEnd",
@@ -402,7 +488,9 @@
    "file": "src/curve/bump.js",
    "line": 48,
    "parent": "src/curve/bump.js::BumpRadial",
-   "exported": false
+   "exported": false,
+   "x": 27472.8,
+   "y": 4731.6
   },
   {
    "id": "src/curve/bump.js::BumpRadial.lineStart",
@@ -411,7 +499,9 @@
    "file": "src/curve/bump.js",
    "line": 45,
    "parent": "src/curve/bump.js::BumpRadial",
-   "exported": false
+   "exported": false,
+   "x": 27432.3,
+   "y": 4867.2
   },
   {
    "id": "src/curve/bump.js::BumpRadial.point",
@@ -420,7 +510,9 @@
    "file": "src/curve/bump.js",
    "line": 49,
    "parent": "src/curve/bump.js::BumpRadial",
-   "exported": false
+   "exported": false,
+   "x": 27230.8,
+   "y": 4577.4
   },
   {
    "id": "src/curve/bump.js::bumpX",
@@ -429,7 +521,9 @@
    "file": "src/curve/bump.js",
    "line": 65,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 26996.7,
+   "y": 5085.3
   },
   {
    "id": "src/curve/bump.js::bumpY",
@@ -438,7 +532,9 @@
    "file": "src/curve/bump.js",
    "line": 69,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 26954.1,
+   "y": 5031.9
   },
   {
    "id": "src/curve/bundle.js::<module>",
@@ -447,7 +543,9 @@
    "file": "src/curve/bundle.js",
    "line": 45,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -35139.8,
+   "y": 18674.3
   },
   {
    "id": "src/curve/bundle.js::Bundle",
@@ -456,7 +554,9 @@
    "file": "src/curve/bundle.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -35183.7,
+   "y": 18734.9
   },
   {
    "id": "src/curve/bundle.js::Bundle.lineEnd",
@@ -465,7 +565,9 @@
    "file": "src/curve/bundle.js",
    "line": 14,
    "parent": "src/curve/bundle.js::Bundle",
-   "exported": false
+   "exported": false,
+   "x": 27371.8,
+   "y": 4624.4
   },
   {
    "id": "src/curve/bundle.js::Bundle.lineStart",
@@ -474,7 +576,9 @@
    "file": "src/curve/bundle.js",
    "line": 9,
    "parent": "src/curve/bundle.js::Bundle",
-   "exported": false
+   "exported": false,
+   "x": 27323.1,
+   "y": 4910
   },
   {
    "id": "src/curve/bundle.js::Bundle.point",
@@ -483,7 +587,9 @@
    "file": "src/curve/bundle.js",
    "line": 39,
    "parent": "src/curve/bundle.js::Bundle",
-   "exported": false
+   "exported": false,
+   "x": 27263.9,
+   "y": 4710.9
   },
   {
    "id": "src/curve/cardinal.js::<module>",
@@ -492,7 +598,9 @@
    "file": "src/curve/cardinal.js",
    "line": 50,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 22095.7,
+   "y": -38514.1
   },
   {
    "id": "src/curve/cardinal.js::Cardinal",
@@ -501,7 +609,9 @@
    "file": "src/curve/cardinal.js",
    "line": 12,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 22161.3,
+   "y": -38458
   },
   {
    "id": "src/curve/cardinal.js::Cardinal.areaEnd",
@@ -510,7 +620,9 @@
    "file": "src/curve/cardinal.js",
    "line": 21,
    "parent": "src/curve/cardinal.js::Cardinal",
-   "exported": false
+   "exported": false,
+   "x": 27853.8,
+   "y": 4994.5
   },
   {
    "id": "src/curve/cardinal.js::Cardinal.areaStart",
@@ -519,7 +631,9 @@
    "file": "src/curve/cardinal.js",
    "line": 18,
    "parent": "src/curve/cardinal.js::Cardinal",
-   "exported": false
+   "exported": false,
+   "x": 27676.5,
+   "y": 5168.3
   },
   {
    "id": "src/curve/cardinal.js::Cardinal.lineEnd",
@@ -528,7 +642,9 @@
    "file": "src/curve/cardinal.js",
    "line": 29,
    "parent": "src/curve/cardinal.js::Cardinal",
-   "exported": false
+   "exported": false,
+   "x": 27444.2,
+   "y": 4551.6
   },
   {
    "id": "src/curve/cardinal.js::Cardinal.lineStart",
@@ -537,7 +653,9 @@
    "file": "src/curve/cardinal.js",
    "line": 24,
    "parent": "src/curve/cardinal.js::Cardinal",
-   "exported": false
+   "exported": false,
+   "x": 27279.1,
+   "y": 4901.7
   },
   {
    "id": "src/curve/cardinal.js::Cardinal.point",
@@ -546,7 +664,9 @@
    "file": "src/curve/cardinal.js",
    "line": 37,
    "parent": "src/curve/cardinal.js::Cardinal",
-   "exported": false
+   "exported": false,
+   "x": 27335.6,
+   "y": 4507.9
   },
   {
    "id": "src/curve/cardinal.js::point",
@@ -555,7 +675,9 @@
    "file": "src/curve/cardinal.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27183.9,
+   "y": 4426.3
   },
   {
    "id": "src/curve/cardinalClosed.js::<module>",
@@ -564,7 +686,9 @@
    "file": "src/curve/cardinalClosed.js",
    "line": 50,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 39943,
+   "y": -25377.7
   },
   {
    "id": "src/curve/cardinalClosed.js::CardinalClosed",
@@ -573,7 +697,9 @@
    "file": "src/curve/cardinalClosed.js",
    "line": 4,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 39979.5,
+   "y": -25299.1
   },
   {
    "id": "src/curve/cardinalClosed.js::CardinalClosed.lineEnd",
@@ -582,7 +708,9 @@
    "file": "src/curve/cardinalClosed.js",
    "line": 17,
    "parent": "src/curve/cardinalClosed.js::CardinalClosed",
-   "exported": false
+   "exported": false,
+   "x": 27450.9,
+   "y": 4513.8
   },
   {
    "id": "src/curve/cardinalClosed.js::CardinalClosed.lineStart",
@@ -591,7 +719,9 @@
    "file": "src/curve/cardinalClosed.js",
    "line": 12,
    "parent": "src/curve/cardinalClosed.js::CardinalClosed",
-   "exported": false
+   "exported": false,
+   "x": 27377.1,
+   "y": 4873.9
   },
   {
    "id": "src/curve/cardinalClosed.js::CardinalClosed.point",
@@ -600,7 +730,9 @@
    "file": "src/curve/cardinalClosed.js",
    "line": 37,
    "parent": "src/curve/cardinalClosed.js::CardinalClosed",
-   "exported": false
+   "exported": false,
+   "x": 27297.1,
+   "y": 4593.1
   },
   {
    "id": "src/curve/cardinalOpen.js::<module>",
@@ -609,7 +741,9 @@
    "file": "src/curve/cardinalOpen.js",
    "line": 38,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 5156.5,
+   "y": -40240.6
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen",
@@ -618,7 +752,9 @@
    "file": "src/curve/cardinalOpen.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 5235.9,
+   "y": -40275.8
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen.areaEnd",
@@ -627,7 +763,9 @@
    "file": "src/curve/cardinalOpen.js",
    "line": 12,
    "parent": "src/curve/cardinalOpen.js::CardinalOpen",
-   "exported": false
+   "exported": false,
+   "x": 27797.7,
+   "y": 5013
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen.areaStart",
@@ -636,7 +774,9 @@
    "file": "src/curve/cardinalOpen.js",
    "line": 9,
    "parent": "src/curve/cardinalOpen.js::CardinalOpen",
-   "exported": false
+   "exported": false,
+   "x": 27588.1,
+   "y": 5204
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen.lineEnd",
@@ -645,7 +785,9 @@
    "file": "src/curve/cardinalOpen.js",
    "line": 20,
    "parent": "src/curve/cardinalOpen.js::CardinalOpen",
-   "exported": false
+   "exported": false,
+   "x": 27459.8,
+   "y": 4668.3
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen.lineStart",
@@ -654,7 +796,9 @@
    "file": "src/curve/cardinalOpen.js",
    "line": 15,
    "parent": "src/curve/cardinalOpen.js::CardinalOpen",
-   "exported": false
+   "exported": false,
+   "x": 27252.4,
+   "y": 4874.4
   },
   {
    "id": "src/curve/cardinalOpen.js::CardinalOpen.point",
@@ -663,7 +807,9 @@
    "file": "src/curve/cardinalOpen.js",
    "line": 24,
    "parent": "src/curve/cardinalOpen.js::CardinalOpen",
-   "exported": false
+   "exported": false,
+   "x": 27305.9,
+   "y": 4522.3
   },
   {
    "id": "src/curve/catmullRom.js::<module>",
@@ -672,7 +818,9 @@
    "file": "src/curve/catmullRom.js",
    "line": 77,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 22228,
+   "y": -38400.9
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom",
@@ -681,7 +829,9 @@
    "file": "src/curve/catmullRom.js",
    "line": 27,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 22293.9,
+   "y": -38344.5
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom.areaEnd",
@@ -690,7 +840,9 @@
    "file": "src/curve/catmullRom.js",
    "line": 36,
    "parent": "src/curve/catmullRom.js::CatmullRom",
-   "exported": false
+   "exported": false,
+   "x": 27761.7,
+   "y": 4964
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom.areaStart",
@@ -699,7 +851,9 @@
    "file": "src/curve/catmullRom.js",
    "line": 33,
    "parent": "src/curve/catmullRom.js::CatmullRom",
-   "exported": false
+   "exported": false,
+   "x": 27529.4,
+   "y": 5195.5
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom.lineEnd",
@@ -708,7 +862,9 @@
    "file": "src/curve/catmullRom.js",
    "line": 46,
    "parent": "src/curve/catmullRom.js::CatmullRom",
-   "exported": false
+   "exported": false,
+   "x": 27478.4,
+   "y": 4562.8
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom.lineStart",
@@ -717,7 +873,9 @@
    "file": "src/curve/catmullRom.js",
    "line": 39,
    "parent": "src/curve/catmullRom.js::CatmullRom",
-   "exported": false
+   "exported": false,
+   "x": 27350.5,
+   "y": 4848.5
   },
   {
    "id": "src/curve/catmullRom.js::CatmullRom.point",
@@ -726,7 +884,9 @@
    "file": "src/curve/catmullRom.js",
    "line": 54,
    "parent": "src/curve/catmullRom.js::CatmullRom",
-   "exported": false
+   "exported": false,
+   "x": 27373.4,
+   "y": 4499.3
   },
   {
    "id": "src/curve/catmullRom.js::point",
@@ -735,7 +895,9 @@
    "file": "src/curve/catmullRom.js",
    "line": 4,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27219.9,
+   "y": 4299.3
   },
   {
    "id": "src/curve/catmullRomClosed.js::<module>",
@@ -744,7 +906,9 @@
    "file": "src/curve/catmullRomClosed.js",
    "line": 63,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 40016.5,
+   "y": -25219.5
   },
   {
    "id": "src/curve/catmullRomClosed.js::CatmullRomClosed",
@@ -753,7 +917,9 @@
    "file": "src/curve/catmullRomClosed.js",
    "line": 5,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 40052.8,
+   "y": -25141.3
   },
   {
    "id": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineEnd",
@@ -762,7 +928,9 @@
    "file": "src/curve/catmullRomClosed.js",
    "line": 20,
    "parent": "src/curve/catmullRomClosed.js::CatmullRomClosed",
-   "exported": false
+   "exported": false,
+   "x": 27435,
+   "y": 4493.4
   },
   {
    "id": "src/curve/catmullRomClosed.js::CatmullRomClosed.lineStart",
@@ -771,7 +939,9 @@
    "file": "src/curve/catmullRomClosed.js",
    "line": 13,
    "parent": "src/curve/catmullRomClosed.js::CatmullRomClosed",
-   "exported": false
+   "exported": false,
+   "x": 27272.6,
+   "y": 4817.3
   },
   {
    "id": "src/curve/catmullRomClosed.js::CatmullRomClosed.point",
@@ -780,7 +950,9 @@
    "file": "src/curve/catmullRomClosed.js",
    "line": 40,
    "parent": "src/curve/catmullRomClosed.js::CatmullRomClosed",
-   "exported": false
+   "exported": false,
+   "x": 27278.8,
+   "y": 4559
   },
   {
    "id": "src/curve/catmullRomOpen.js::<module>",
@@ -789,7 +961,9 @@
    "file": "src/curve/catmullRomOpen.js",
    "line": 51,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 5316.3,
+   "y": -40311.4
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen",
@@ -798,7 +972,9 @@
    "file": "src/curve/catmullRomOpen.js",
    "line": 4,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 5395.7,
+   "y": -40346.6
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.areaEnd",
@@ -807,7 +983,9 @@
    "file": "src/curve/catmullRomOpen.js",
    "line": 13,
    "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
-   "exported": false
+   "exported": false,
+   "x": 27711.1,
+   "y": 4939.1
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.areaStart",
@@ -816,7 +994,9 @@
    "file": "src/curve/catmullRomOpen.js",
    "line": 10,
    "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
-   "exported": false
+   "exported": false,
+   "x": 27550.5,
+   "y": 5136.7
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineEnd",
@@ -825,7 +1005,9 @@
    "file": "src/curve/catmullRomOpen.js",
    "line": 23,
    "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
-   "exported": false
+   "exported": false,
+   "x": 27473,
+   "y": 4620
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.lineStart",
@@ -834,7 +1016,9 @@
    "file": "src/curve/catmullRomOpen.js",
    "line": 16,
    "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
-   "exported": false
+   "exported": false,
+   "x": 27382.8,
+   "y": 4828.4
   },
   {
    "id": "src/curve/catmullRomOpen.js::CatmullRomOpen.point",
@@ -843,7 +1027,9 @@
    "file": "src/curve/catmullRomOpen.js",
    "line": 27,
    "parent": "src/curve/catmullRomOpen.js::CatmullRomOpen",
-   "exported": false
+   "exported": false,
+   "x": 27337.7,
+   "y": 4477.7
   },
   {
    "id": "src/curve/linear.js::default",
@@ -852,7 +1038,9 @@
    "file": "src/curve/linear.js",
    "line": 29,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27166.8,
+   "y": 4828.1
   },
   {
    "id": "src/curve/linear.js::Linear",
@@ -861,7 +1049,9 @@
    "file": "src/curve/linear.js",
    "line": 1,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 26903.4,
+   "y": 5133
   },
   {
    "id": "src/curve/linear.js::Linear.areaEnd",
@@ -870,7 +1060,9 @@
    "file": "src/curve/linear.js",
    "line": 9,
    "parent": "src/curve/linear.js::Linear",
-   "exported": false
+   "exported": false,
+   "x": 27742.7,
+   "y": 4898.2
   },
   {
    "id": "src/curve/linear.js::Linear.areaStart",
@@ -879,7 +1071,9 @@
    "file": "src/curve/linear.js",
    "line": 6,
    "parent": "src/curve/linear.js::Linear",
-   "exported": false
+   "exported": false,
+   "x": 27481.3,
+   "y": 5169.1
   },
   {
    "id": "src/curve/linear.js::Linear.lineEnd",
@@ -888,7 +1082,9 @@
    "file": "src/curve/linear.js",
    "line": 15,
    "parent": "src/curve/linear.js::Linear",
-   "exported": false
+   "exported": false,
+   "x": 27490.3,
+   "y": 4644.5
   },
   {
    "id": "src/curve/linear.js::Linear.lineStart",
@@ -897,7 +1093,9 @@
    "file": "src/curve/linear.js",
    "line": 12,
    "parent": "src/curve/linear.js::Linear",
-   "exported": false
+   "exported": false,
+   "x": 27316.6,
+   "y": 4825.1
   },
   {
    "id": "src/curve/linear.js::Linear.point",
@@ -906,7 +1104,9 @@
    "file": "src/curve/linear.js",
    "line": 19,
    "parent": "src/curve/linear.js::Linear",
-   "exported": false
+   "exported": false,
+   "x": 27392.1,
+   "y": 4571.2
   },
   {
    "id": "src/curve/linearClosed.js::default",
@@ -915,7 +1115,9 @@
    "file": "src/curve/linearClosed.js",
    "line": 23,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -33479.7,
+   "y": 26986.1
   },
   {
    "id": "src/curve/linearClosed.js::LinearClosed",
@@ -924,7 +1126,9 @@
    "file": "src/curve/linearClosed.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -33542.8,
+   "y": 27029.9
   },
   {
    "id": "src/curve/linearClosed.js::LinearClosed.lineEnd",
@@ -933,7 +1137,9 @@
    "file": "src/curve/linearClosed.js",
    "line": 13,
    "parent": "src/curve/linearClosed.js::LinearClosed",
-   "exported": false
+   "exported": false,
+   "x": 27520.1,
+   "y": 4616.1
   },
   {
    "id": "src/curve/linearClosed.js::LinearClosed.lineStart",
@@ -942,7 +1148,9 @@
    "file": "src/curve/linearClosed.js",
    "line": 10,
    "parent": "src/curve/linearClosed.js::LinearClosed",
-   "exported": false
+   "exported": false,
+   "x": 27238.8,
+   "y": 4839.2
   },
   {
    "id": "src/curve/linearClosed.js::LinearClosed.point",
@@ -951,7 +1159,9 @@
    "file": "src/curve/linearClosed.js",
    "line": 16,
    "parent": "src/curve/linearClosed.js::LinearClosed",
-   "exported": false
+   "exported": false,
+   "x": 27360.1,
+   "y": 4571.3
   },
   {
    "id": "src/curve/monotone.js::<module>",
@@ -960,7 +1170,9 @@
    "file": "src/curve/monotone.js",
    "line": 83,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 26343.5,
+   "y": 4084.6
   },
   {
    "id": "src/curve/monotone.js::monotoneX",
@@ -969,7 +1181,9 @@
    "file": "src/curve/monotone.js",
    "line": 98,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 25814,
+   "y": 3905.2
   },
   {
    "id": "src/curve/monotone.js::MonotoneX",
@@ -978,7 +1192,9 @@
    "file": "src/curve/monotone.js",
    "line": 36,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 26088.3,
+   "y": 3983.8
   },
   {
    "id": "src/curve/monotone.js::MonotoneX.areaEnd",
@@ -987,7 +1203,9 @@
    "file": "src/curve/monotone.js",
    "line": 44,
    "parent": "src/curve/monotone.js::MonotoneX",
-   "exported": false
+   "exported": false,
+   "x": 27806,
+   "y": 4881.7
   },
   {
    "id": "src/curve/monotone.js::MonotoneX.areaStart",
@@ -996,7 +1214,9 @@
    "file": "src/curve/monotone.js",
    "line": 41,
    "parent": "src/curve/monotone.js::MonotoneX",
-   "exported": false
+   "exported": false,
+   "x": 27544.9,
+   "y": 5074.8
   },
   {
    "id": "src/curve/monotone.js::MonotoneX.lineEnd",
@@ -1005,7 +1225,9 @@
    "file": "src/curve/monotone.js",
    "line": 53,
    "parent": "src/curve/monotone.js::MonotoneX",
-   "exported": false
+   "exported": false,
+   "x": 27409.9,
+   "y": 4529.7
   },
   {
    "id": "src/curve/monotone.js::MonotoneX.lineStart",
@@ -1014,7 +1236,9 @@
    "file": "src/curve/monotone.js",
    "line": 47,
    "parent": "src/curve/monotone.js::MonotoneX",
-   "exported": false
+   "exported": false,
+   "x": 27346.9,
+   "y": 4805.9
   },
   {
    "id": "src/curve/monotone.js::MonotoneX.point",
@@ -1023,7 +1247,9 @@
    "file": "src/curve/monotone.js",
    "line": 61,
    "parent": "src/curve/monotone.js::MonotoneX",
-   "exported": false
+   "exported": false,
+   "x": 27228.9,
+   "y": 4500.8
   },
   {
    "id": "src/curve/monotone.js::monotoneY",
@@ -1032,7 +1258,9 @@
    "file": "src/curve/monotone.js",
    "line": 102,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 25584.4,
+   "y": 3641.4
   },
   {
    "id": "src/curve/monotone.js::MonotoneY",
@@ -1041,7 +1269,9 @@
    "file": "src/curve/monotone.js",
    "line": 79,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 25820.9,
+   "y": 3800.9
   },
   {
    "id": "src/curve/monotone.js::point",
@@ -1050,7 +1280,9 @@
    "file": "src/curve/monotone.js",
    "line": 27,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27046.6,
+   "y": 4411.3
   },
   {
    "id": "src/curve/monotone.js::ReflectContext",
@@ -1059,7 +1291,9 @@
    "file": "src/curve/monotone.js",
    "line": 87,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 25551.2,
+   "y": 3714.4
   },
   {
    "id": "src/curve/monotone.js::ReflectContext.bezierCurveTo",
@@ -1068,7 +1302,9 @@
    "file": "src/curve/monotone.js",
    "line": 95,
    "parent": "src/curve/monotone.js::ReflectContext",
-   "exported": false
+   "exported": false,
+   "x": 27099.4,
+   "y": 4388.4
   },
   {
    "id": "src/curve/monotone.js::ReflectContext.closePath",
@@ -1077,7 +1313,9 @@
    "file": "src/curve/monotone.js",
    "line": 93,
    "parent": "src/curve/monotone.js::ReflectContext",
-   "exported": false
+   "exported": false,
+   "x": 27562,
+   "y": 4363.1
   },
   {
    "id": "src/curve/monotone.js::ReflectContext.lineTo",
@@ -1086,7 +1324,9 @@
    "file": "src/curve/monotone.js",
    "line": 94,
    "parent": "src/curve/monotone.js::ReflectContext",
-   "exported": false
+   "exported": false,
+   "x": 27471.1,
+   "y": 4334.5
   },
   {
    "id": "src/curve/monotone.js::ReflectContext.moveTo",
@@ -1095,7 +1335,9 @@
    "file": "src/curve/monotone.js",
    "line": 92,
    "parent": "src/curve/monotone.js::ReflectContext",
-   "exported": false
+   "exported": false,
+   "x": 27433.1,
+   "y": 4315.6
   },
   {
    "id": "src/curve/monotone.js::sign",
@@ -1104,7 +1346,9 @@
    "file": "src/curve/monotone.js",
    "line": 1,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 26316.2,
+   "y": 4250.3
   },
   {
    "id": "src/curve/monotone.js::slope2",
@@ -1113,7 +1357,9 @@
    "file": "src/curve/monotone.js",
    "line": 19,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27115.9,
+   "y": 4341.5
   },
   {
    "id": "src/curve/monotone.js::slope3",
@@ -1122,7 +1368,9 @@
    "file": "src/curve/monotone.js",
    "line": 9,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 26706.6,
+   "y": 4332.4
   },
   {
    "id": "src/curve/natural.js::controlPoints",
@@ -1131,7 +1379,9 @@
    "file": "src/curve/natural.js",
    "line": 45,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27059.7,
+   "y": 4201.5
   },
   {
    "id": "src/curve/natural.js::default",
@@ -1140,7 +1390,9 @@
    "file": "src/curve/natural.js",
    "line": 63,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 46919.7,
+   "y": -18072.2
   },
   {
    "id": "src/curve/natural.js::Natural",
@@ -1149,7 +1401,9 @@
    "file": "src/curve/natural.js",
    "line": 1,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 46880.8,
+   "y": -18138.5
   },
   {
    "id": "src/curve/natural.js::Natural.areaEnd",
@@ -1158,7 +1412,9 @@
    "file": "src/curve/natural.js",
    "line": 9,
    "parent": "src/curve/natural.js::Natural",
-   "exported": false
+   "exported": false,
+   "x": 27754.1,
+   "y": 4847.8
   },
   {
    "id": "src/curve/natural.js::Natural.areaStart",
@@ -1167,7 +1423,9 @@
    "file": "src/curve/natural.js",
    "line": 6,
    "parent": "src/curve/natural.js::Natural",
-   "exported": false
+   "exported": false,
+   "x": 27494.5,
+   "y": 5115.3
   },
   {
    "id": "src/curve/natural.js::Natural.lineEnd",
@@ -1176,7 +1434,9 @@
    "file": "src/curve/natural.js",
    "line": 16,
    "parent": "src/curve/natural.js::Natural",
-   "exported": false
+   "exported": false,
+   "x": 27395.9,
+   "y": 4470.6
   },
   {
    "id": "src/curve/natural.js::Natural.lineStart",
@@ -1185,7 +1445,9 @@
    "file": "src/curve/natural.js",
    "line": 12,
    "parent": "src/curve/natural.js::Natural",
-   "exported": false
+   "exported": false,
+   "x": 27242.2,
+   "y": 4798.9
   },
   {
    "id": "src/curve/natural.js::Natural.point",
@@ -1194,7 +1456,9 @@
    "file": "src/curve/natural.js",
    "line": 38,
    "parent": "src/curve/natural.js::Natural",
-   "exported": false
+   "exported": false,
+   "x": 27232.8,
+   "y": 4695.4
   },
   {
    "id": "src/curve/radial.js::curveRadial",
@@ -1203,7 +1467,9 @@
    "file": "src/curve/radial.js",
    "line": 27,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 26706.1,
+   "y": 5069.3
   },
   {
    "id": "src/curve/radial.js::curveRadialLinear",
@@ -1212,7 +1478,9 @@
    "file": "src/curve/radial.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 26764.8,
+   "y": 5005.1
   },
   {
    "id": "src/curve/radial.js::Radial",
@@ -1221,7 +1489,9 @@
    "file": "src/curve/radial.js",
    "line": 5,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 26421.9,
+   "y": 5240.2
   },
   {
    "id": "src/curve/radial.js::Radial.areaEnd",
@@ -1230,7 +1500,9 @@
    "file": "src/curve/radial.js",
    "line": 13,
    "parent": "src/curve/radial.js::Radial",
-   "exported": false
+   "exported": false,
+   "x": 27827.6,
+   "y": 4940.8
   },
   {
    "id": "src/curve/radial.js::Radial.areaStart",
@@ -1239,7 +1511,9 @@
    "file": "src/curve/radial.js",
    "line": 10,
    "parent": "src/curve/radial.js::Radial",
-   "exported": false
+   "exported": false,
+   "x": 27619.4,
+   "y": 5156.4
   },
   {
    "id": "src/curve/radial.js::Radial.lineEnd",
@@ -1248,7 +1522,9 @@
    "file": "src/curve/radial.js",
    "line": 19,
    "parent": "src/curve/radial.js::Radial",
-   "exported": false
+   "exported": false,
+   "x": 27432,
+   "y": 4641.8
   },
   {
    "id": "src/curve/radial.js::Radial.lineStart",
@@ -1257,7 +1533,9 @@
    "file": "src/curve/radial.js",
    "line": 16,
    "parent": "src/curve/radial.js::Radial",
-   "exported": false
+   "exported": false,
+   "x": 27319.6,
+   "y": 4878.2
   },
   {
    "id": "src/curve/radial.js::Radial.point",
@@ -1266,7 +1544,9 @@
    "file": "src/curve/radial.js",
    "line": 22,
    "parent": "src/curve/radial.js::Radial",
-   "exported": false
+   "exported": false,
+   "x": 27263.6,
+   "y": 4622.6
   },
   {
    "id": "src/curve/step.js::default",
@@ -1275,7 +1555,9 @@
    "file": "src/curve/step.js",
    "line": 43,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -5096.5,
+   "y": -42556.6
   },
   {
    "id": "src/curve/step.js::Step",
@@ -1284,7 +1566,9 @@
    "file": "src/curve/step.js",
    "line": 1,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": -5067.9,
+   "y": -42475.6
   },
   {
    "id": "src/curve/step.js::Step.areaEnd",
@@ -1293,7 +1577,9 @@
    "file": "src/curve/step.js",
    "line": 10,
    "parent": "src/curve/step.js::Step",
-   "exported": false
+   "exported": false,
+   "x": 27798.8,
+   "y": 4815.4
   },
   {
    "id": "src/curve/step.js::Step.areaStart",
@@ -1302,7 +1588,9 @@
    "file": "src/curve/step.js",
    "line": 7,
    "parent": "src/curve/step.js::Step",
-   "exported": false
+   "exported": false,
+   "x": 27608.5,
+   "y": 5036.8
   },
   {
    "id": "src/curve/step.js::Step.lineEnd",
@@ -1311,7 +1599,9 @@
    "file": "src/curve/step.js",
    "line": 17,
    "parent": "src/curve/step.js::Step",
-   "exported": false
+   "exported": false,
+   "x": 27510.7,
+   "y": 4564.3
   },
   {
    "id": "src/curve/step.js::Step.lineStart",
@@ -1320,7 +1610,9 @@
    "file": "src/curve/step.js",
    "line": 13,
    "parent": "src/curve/step.js::Step",
-   "exported": false
+   "exported": false,
+   "x": 27295.3,
+   "y": 4790.4
   },
   {
    "id": "src/curve/step.js::Step.point",
@@ -1329,7 +1621,9 @@
    "file": "src/curve/step.js",
    "line": 22,
    "parent": "src/curve/step.js::Step",
-   "exported": false
+   "exported": false,
+   "x": 27378.3,
+   "y": 4538.3
   },
   {
    "id": "src/curve/step.js::stepAfter",
@@ -1338,7 +1632,9 @@
    "file": "src/curve/step.js",
    "line": 51,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -4983.5,
+   "y": -42460.3
   },
   {
    "id": "src/curve/step.js::stepBefore",
@@ -1347,7 +1643,9 @@
    "file": "src/curve/step.js",
    "line": 47,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -5123.6,
+   "y": -42410.3
   },
   {
    "id": "src/descending.js::default",
@@ -1356,7 +1654,9 @@
    "file": "src/descending.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 28416.6,
+   "y": 4032.8
   },
   {
    "id": "src/identity.js::default",
@@ -1365,7 +1665,9 @@
    "file": "src/identity.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 28410.1,
+   "y": 3975.5
   },
   {
    "id": "src/line.js::default",
@@ -1374,7 +1676,9 @@
    "file": "src/line.js",
    "line": 7,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27359.8,
+   "y": 4685.5
   },
   {
    "id": "src/lineRadial.js::default",
@@ -1383,7 +1687,9 @@
    "file": "src/lineRadial.js",
    "line": 17,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 26846.8,
+   "y": 4909
   },
   {
    "id": "src/lineRadial.js::lineRadial",
@@ -1392,7 +1698,9 @@
    "file": "src/lineRadial.js",
    "line": 4,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 26612.4,
+   "y": 5082.6
   },
   {
    "id": "src/link.js::link",
@@ -1401,7 +1709,9 @@
    "file": "src/link.js",
    "line": 15,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27317.6,
+   "y": 4691.7
   },
   {
    "id": "src/link.js::linkHorizontal",
@@ -1410,7 +1720,9 @@
    "file": "src/link.js",
    "line": 60,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27050.8,
+   "y": 4991.1
   },
   {
    "id": "src/link.js::linkRadial",
@@ -1419,7 +1731,9 @@
    "file": "src/link.js",
    "line": 68,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27159.4,
+   "y": 5091.4
   },
   {
    "id": "src/link.js::linkSource",
@@ -1428,7 +1742,9 @@
    "file": "src/link.js",
    "line": 7,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 26928.5,
+   "y": 4656.3
   },
   {
    "id": "src/link.js::linkTarget",
@@ -1437,7 +1753,9 @@
    "file": "src/link.js",
    "line": 11,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 26921.2,
+   "y": 4725.6
   },
   {
    "id": "src/link.js::linkVertical",
@@ -1446,7 +1764,9 @@
    "file": "src/link.js",
    "line": 64,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 26986.8,
+   "y": 4911.5
   },
   {
    "id": "src/math.js::abs",
@@ -1455,7 +1775,9 @@
    "file": "src/math.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27917.4,
+   "y": 3852.8
   },
   {
    "id": "src/math.js::acos",
@@ -1464,7 +1786,9 @@
    "file": "src/math.js",
    "line": 14,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 28009.5,
+   "y": 3860.7
   },
   {
    "id": "src/math.js::asin",
@@ -1473,7 +1797,9 @@
    "file": "src/math.js",
    "line": 18,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 28078.4,
+   "y": 3785.8
   },
   {
    "id": "src/math.js::atan2",
@@ -1482,7 +1808,9 @@
    "file": "src/math.js",
    "line": 2,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27873.6,
+   "y": 3769.2
   },
   {
    "id": "src/math.js::cos",
@@ -1491,7 +1819,9 @@
    "file": "src/math.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27947.5,
+   "y": 4063.3
   },
   {
    "id": "src/math.js::epsilon",
@@ -1500,7 +1830,9 @@
    "file": "src/math.js",
    "line": 9,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27505.9,
+   "y": 3946.8
   },
   {
    "id": "src/math.js::halfPi",
@@ -1509,7 +1841,9 @@
    "file": "src/math.js",
    "line": 11,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 28081.4,
+   "y": 3849.4
   },
   {
    "id": "src/math.js::max",
@@ -1518,7 +1852,9 @@
    "file": "src/math.js",
    "line": 4,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27915.3,
+   "y": 3348.7
   },
   {
    "id": "src/math.js::min",
@@ -1527,7 +1863,9 @@
    "file": "src/math.js",
    "line": 5,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27591.7,
+   "y": 3943.9
   },
   {
    "id": "src/math.js::pi",
@@ -1536,7 +1874,9 @@
    "file": "src/math.js",
    "line": 10,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 28025.7,
+   "y": 3918.7
   },
   {
    "id": "src/math.js::sin",
@@ -1545,7 +1885,9 @@
    "file": "src/math.js",
    "line": 6,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 28023.8,
+   "y": 3983
   },
   {
    "id": "src/math.js::sqrt",
@@ -1554,7 +1896,9 @@
    "file": "src/math.js",
    "line": 7,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27610.3,
+   "y": 3995.6
   },
   {
    "id": "src/math.js::tau",
@@ -1563,7 +1907,9 @@
    "file": "src/math.js",
    "line": 12,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27993,
+   "y": 4022.4
   },
   {
    "id": "src/noop.js::default",
@@ -1582,7 +1928,9 @@
     "CatmullRomClosed.areaEnd",
     "LinearClosed.areaStart",
     "LinearClosed.areaEnd"
-   ]
+   ],
+   "x": 27723.6,
+   "y": 5043.4
   },
   {
    "id": "src/offset/diverging.js::default",
@@ -1591,7 +1939,9 @@
    "file": "src/offset/diverging.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -40632.4,
+   "y": -387.6
   },
   {
    "id": "src/offset/expand.js::default",
@@ -1600,7 +1950,9 @@
    "file": "src/offset/expand.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27720.4,
+   "y": 2468.9
   },
   {
    "id": "src/offset/none.js::default",
@@ -1609,7 +1961,9 @@
    "file": "src/offset/none.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27709.8,
+   "y": 2723.9
   },
   {
    "id": "src/offset/silhouette.js::default",
@@ -1618,7 +1972,9 @@
    "file": "src/offset/silhouette.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27814,
+   "y": 2454.9
   },
   {
    "id": "src/offset/wiggle.js::default",
@@ -1627,7 +1983,9 @@
    "file": "src/offset/wiggle.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27744.1,
+   "y": 2401.1
   },
   {
    "id": "src/order/appearance.js::default",
@@ -1636,7 +1994,9 @@
    "file": "src/order/appearance.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27594.5,
+   "y": 1856.6
   },
   {
    "id": "src/order/appearance.js::peak",
@@ -1645,7 +2005,9 @@
    "file": "src/order/appearance.js",
    "line": 8,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27625.4,
+   "y": 1596.8
   },
   {
    "id": "src/order/ascending.js::default",
@@ -1654,7 +2016,9 @@
    "file": "src/order/ascending.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27485.3,
+   "y": 1867.5
   },
   {
    "id": "src/order/ascending.js::sum",
@@ -1663,7 +2027,9 @@
    "file": "src/order/ascending.js",
    "line": 8,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27459.5,
+   "y": 1508.5
   },
   {
    "id": "src/order/descending.js::default",
@@ -1672,7 +2038,9 @@
    "file": "src/order/descending.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27410.5,
+   "y": 1619.4
   },
   {
    "id": "src/order/insideOut.js::default",
@@ -1681,7 +2049,9 @@
    "file": "src/order/insideOut.js",
    "line": 4,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27548.4,
+   "y": 1500.4
   },
   {
    "id": "src/order/none.js::default",
@@ -1690,7 +2060,9 @@
    "file": "src/order/none.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27591.1,
+   "y": 2467.4
   },
   {
    "id": "src/order/reverse.js::default",
@@ -1699,7 +2071,9 @@
    "file": "src/order/reverse.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27570.3,
+   "y": 2196.5
   },
   {
    "id": "src/path.js::withPath",
@@ -1708,7 +2082,9 @@
    "file": "src/path.js",
    "line": 3,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27550.3,
+   "y": 4441.8
   },
   {
    "id": "src/pie.js::default",
@@ -1717,7 +2093,9 @@
    "file": "src/pie.js",
    "line": 7,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 28185,
+   "y": 4077.8
   },
   {
    "id": "src/point.js::x",
@@ -1726,7 +2104,9 @@
    "file": "src/point.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27454.7,
+   "y": 4781
   },
   {
    "id": "src/point.js::y",
@@ -1735,7 +2115,9 @@
    "file": "src/point.js",
    "line": 5,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27381.9,
+   "y": 4756.6
   },
   {
    "id": "src/pointRadial.js::default",
@@ -1744,7 +2126,9 @@
    "file": "src/pointRadial.js",
    "line": 1,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 26819.6,
+   "y": 4496.4
   },
   {
    "id": "src/stack.js::default",
@@ -1753,7 +2137,9 @@
    "file": "src/stack.js",
    "line": 16,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27651.7,
+   "y": 3024.9
   },
   {
    "id": "src/stack.js::stackSeries",
@@ -1762,7 +2148,9 @@
    "file": "src/stack.js",
    "line": 10,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27625.9,
+   "y": 2749.1
   },
   {
    "id": "src/stack.js::stackValue",
@@ -1771,7 +2159,9 @@
    "file": "src/stack.js",
    "line": 6,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27666.3,
+   "y": 2864.5
   },
   {
    "id": "src/symbol.js::Symbol",
@@ -1780,7 +2170,9 @@
    "file": "src/symbol.js",
    "line": 39,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 27607.7,
+   "y": 4078.3
   },
   {
    "id": "src/symbol.js::symbolsFill",
@@ -1789,7 +2181,9 @@
    "file": "src/symbol.js",
    "line": 18,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": 24054.3,
+   "y": -42450.6
   },
   {
    "id": "src/symbol.js::symbolsStroke",
@@ -1798,7 +2192,9 @@
    "file": "src/symbol.js",
    "line": 29,
    "parent": null,
-   "exported": true
+   "exported": true,
+   "x": -2348.7,
+   "y": 44285.1
   },
   {
    "id": "src/symbol/asterisk.js::<module>",
@@ -1807,7 +2203,9 @@
    "file": "src/symbol/asterisk.js",
    "line": 5,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27366.4,
+   "y": 3582.5
   },
   {
    "id": "src/symbol/asterisk.js::<module>/draw",
@@ -1816,7 +2214,9 @@
    "file": "src/symbol/asterisk.js",
    "line": 6,
    "parent": "src/symbol/asterisk.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27502.2,
+   "y": 4036
   },
   {
    "id": "src/symbol/asterisk.js::sqrt3",
@@ -1825,7 +2225,9 @@
    "file": "src/symbol/asterisk.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27562.1,
+   "y": 3783.1
   },
   {
    "id": "src/symbol/circle.js::<module>",
@@ -1834,7 +2236,9 @@
    "file": "src/symbol/circle.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 28019.2,
+   "y": 3597
   },
   {
    "id": "src/symbol/circle.js::<module>/draw",
@@ -1843,7 +2247,9 @@
    "file": "src/symbol/circle.js",
    "line": 4,
    "parent": "src/symbol/circle.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27762.9,
+   "y": 4016.7
   },
   {
    "id": "src/symbol/cross.js::<module>",
@@ -1852,7 +2258,9 @@
    "file": "src/symbol/cross.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27779.3,
+   "y": 3912.2
   },
   {
    "id": "src/symbol/cross.js::<module>/draw",
@@ -1861,7 +2269,9 @@
    "file": "src/symbol/cross.js",
    "line": 4,
    "parent": "src/symbol/cross.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27575.3,
+   "y": 4195
   },
   {
    "id": "src/symbol/diamond.js::<module>",
@@ -1870,7 +2280,9 @@
    "file": "src/symbol/diamond.js",
    "line": 6,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27320.6,
+   "y": 3711
   },
   {
    "id": "src/symbol/diamond.js::<module>/draw",
@@ -1879,7 +2291,9 @@
    "file": "src/symbol/diamond.js",
    "line": 7,
    "parent": "src/symbol/diamond.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27497.5,
+   "y": 4112.5
   },
   {
    "id": "src/symbol/diamond.js::tan30",
@@ -1888,7 +2302,9 @@
    "file": "src/symbol/diamond.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27496,
+   "y": 3797.2
   },
   {
    "id": "src/symbol/diamond.js::tan30_2",
@@ -1897,7 +2313,9 @@
    "file": "src/symbol/diamond.js",
    "line": 4,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27420.4,
+   "y": 3701.4
   },
   {
    "id": "src/symbol/diamond2.js::<module>",
@@ -1906,7 +2324,9 @@
    "file": "src/symbol/diamond2.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27297.3,
+   "y": 3887.4
   },
   {
    "id": "src/symbol/diamond2.js::<module>/draw",
@@ -1915,7 +2335,9 @@
    "file": "src/symbol/diamond2.js",
    "line": 4,
    "parent": "src/symbol/diamond2.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27526.1,
+   "y": 4184
   },
   {
    "id": "src/symbol/plus.js::<module>",
@@ -1924,7 +2346,9 @@
    "file": "src/symbol/plus.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27231.8,
+   "y": 3643.1
   },
   {
    "id": "src/symbol/plus.js::<module>/draw",
@@ -1933,7 +2357,9 @@
    "file": "src/symbol/plus.js",
    "line": 4,
    "parent": "src/symbol/plus.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27467,
+   "y": 4063.6
   },
   {
    "id": "src/symbol/square.js::<module>",
@@ -1942,7 +2368,9 @@
    "file": "src/symbol/square.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27653.7,
+   "y": 3289.1
   },
   {
    "id": "src/symbol/square.js::<module>/draw",
@@ -1951,7 +2379,9 @@
    "file": "src/symbol/square.js",
    "line": 4,
    "parent": "src/symbol/square.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27639.6,
+   "y": 3727
   },
   {
    "id": "src/symbol/square2.js::<module>",
@@ -1960,7 +2390,9 @@
    "file": "src/symbol/square2.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27199.5,
+   "y": 3900.3
   },
   {
    "id": "src/symbol/square2.js::<module>/draw",
@@ -1969,7 +2401,9 @@
    "file": "src/symbol/square2.js",
    "line": 4,
    "parent": "src/symbol/square2.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27488.2,
+   "y": 4172.6
   },
   {
    "id": "src/symbol/star.js::<module>",
@@ -1978,7 +2412,9 @@
    "file": "src/symbol/star.js",
    "line": 8,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 28101.2,
+   "y": 4098.7
   },
   {
    "id": "src/symbol/star.js::<module>/draw",
@@ -1987,7 +2423,9 @@
    "file": "src/symbol/star.js",
    "line": 9,
    "parent": "src/symbol/star.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27751.6,
+   "y": 4149.3
   },
   {
    "id": "src/symbol/star.js::ka",
@@ -1996,7 +2434,9 @@
    "file": "src/symbol/star.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 28106.5,
+   "y": 4165.6
   },
   {
    "id": "src/symbol/star.js::kr",
@@ -2005,7 +2445,9 @@
    "file": "src/symbol/star.js",
    "line": 4,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 28251.8,
+   "y": 3845
   },
   {
    "id": "src/symbol/star.js::kx",
@@ -2014,7 +2456,9 @@
    "file": "src/symbol/star.js",
    "line": 5,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 28141.4,
+   "y": 3939.5
   },
   {
    "id": "src/symbol/star.js::ky",
@@ -2023,7 +2467,9 @@
    "file": "src/symbol/star.js",
    "line": 6,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 28117.5,
+   "y": 3988.5
   },
   {
    "id": "src/symbol/times.js::<module>",
@@ -2032,7 +2478,9 @@
    "file": "src/symbol/times.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27486.6,
+   "y": 3590
   },
   {
    "id": "src/symbol/times.js::<module>/draw",
@@ -2041,7 +2489,9 @@
    "file": "src/symbol/times.js",
    "line": 4,
    "parent": "src/symbol/times.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27533.1,
+   "y": 4072.3
   },
   {
    "id": "src/symbol/triangle.js::<module>",
@@ -2050,7 +2500,9 @@
    "file": "src/symbol/triangle.js",
    "line": 5,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27861,
+   "y": 3979.1
   },
   {
    "id": "src/symbol/triangle.js::<module>/draw",
@@ -2059,7 +2511,9 @@
    "file": "src/symbol/triangle.js",
    "line": 6,
    "parent": "src/symbol/triangle.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27603.2,
+   "y": 4166.9
   },
   {
    "id": "src/symbol/triangle.js::sqrt3",
@@ -2068,7 +2522,9 @@
    "file": "src/symbol/triangle.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27684.6,
+   "y": 3902.8
   },
   {
    "id": "src/symbol/triangle2.js::<module>",
@@ -2077,7 +2533,9 @@
    "file": "src/symbol/triangle2.js",
    "line": 5,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27542.3,
+   "y": 3676.8
   },
   {
    "id": "src/symbol/triangle2.js::<module>/draw",
@@ -2086,7 +2544,9 @@
    "file": "src/symbol/triangle2.js",
    "line": 6,
    "parent": "src/symbol/triangle2.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27551.7,
+   "y": 4141.7
   },
   {
    "id": "src/symbol/triangle2.js::sqrt3",
@@ -2095,7 +2555,9 @@
    "file": "src/symbol/triangle2.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27603.3,
+   "y": 3857.8
   },
   {
    "id": "src/symbol/wye.js::<module>",
@@ -2104,7 +2566,9 @@
    "file": "src/symbol/wye.js",
    "line": 8,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27168.1,
+   "y": 3758.6
   },
   {
    "id": "src/symbol/wye.js::<module>/draw",
@@ -2113,7 +2577,9 @@
    "file": "src/symbol/wye.js",
    "line": 9,
    "parent": "src/symbol/wye.js::<module>",
-   "exported": false
+   "exported": false,
+   "x": 27439.6,
+   "y": 4103.8
   },
   {
    "id": "src/symbol/wye.js::a",
@@ -2122,7 +2588,9 @@
    "file": "src/symbol/wye.js",
    "line": 6,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27279.7,
+   "y": 3775
   },
   {
    "id": "src/symbol/wye.js::c",
@@ -2131,7 +2599,9 @@
    "file": "src/symbol/wye.js",
    "line": 3,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27129.5,
+   "y": 3823
   },
   {
    "id": "src/symbol/wye.js::k",
@@ -2140,7 +2610,9 @@
    "file": "src/symbol/wye.js",
    "line": 5,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27404.7,
+   "y": 3838.6
   },
   {
    "id": "src/symbol/wye.js::s",
@@ -2149,7 +2621,9 @@
    "file": "src/symbol/wye.js",
    "line": 4,
    "parent": null,
-   "exported": false
+   "exported": false,
+   "x": 27468.6,
+   "y": 3867.9
   }
  ],
  "edges": [
@@ -6415,6 +6889,117 @@
    "time": "use"
   },
   {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/asterisk.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/circle.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/cross.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/diamond.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/diamond2.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/plus.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/square.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/square2.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/star.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/times.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/triangle.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/triangle2.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol.js::Symbol",
+   "target": "src/symbol/wye.js::<module>/draw",
+   "kind": "call",
+   "count": 1,
+   "time": "use",
+   "inferred": true
+  },
+  {
+   "source": "src/symbol/asterisk.js::<module>",
+   "target": "src/symbol/asterisk.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/asterisk.js::<module>/draw",
    "target": "src/curve/monotone.js::ReflectContext.lineTo",
    "kind": "call",
@@ -6459,6 +7044,13 @@
    "time": "definition"
   },
   {
+   "source": "src/symbol/circle.js::<module>",
+   "target": "src/symbol/circle.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/circle.js::<module>/draw",
    "target": "src/curve/monotone.js::ReflectContext.moveTo",
    "kind": "call",
@@ -6486,6 +7078,13 @@
    "kind": "reference",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/cross.js::<module>",
+   "target": "src/symbol/cross.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/cross.js::<module>/draw",
@@ -6517,6 +7116,13 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/diamond.js::<module>",
+   "target": "src/symbol/diamond.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/diamond.js::<module>/draw",
@@ -6578,6 +7184,13 @@
    "time": "definition"
   },
   {
+   "source": "src/symbol/diamond2.js::<module>",
+   "target": "src/symbol/diamond2.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/diamond2.js::<module>/draw",
    "target": "src/curve/monotone.js::ReflectContext.closePath",
    "kind": "call",
@@ -6607,6 +7220,13 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/plus.js::<module>",
+   "target": "src/symbol/plus.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/plus.js::<module>/draw",
@@ -6639,11 +7259,25 @@
    "time": "use"
   },
   {
+   "source": "src/symbol/square.js::<module>",
+   "target": "src/symbol/square.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/square.js::<module>/draw",
    "target": "src/math.js::sqrt",
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/square2.js::<module>",
+   "target": "src/symbol/square2.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/square2.js::<module>/draw",
@@ -6675,6 +7309,13 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/star.js::<module>",
+   "target": "src/symbol/star.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/star.js::<module>/draw",
@@ -6806,6 +7447,13 @@
    "time": "definition"
   },
   {
+   "source": "src/symbol/times.js::<module>",
+   "target": "src/symbol/times.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/times.js::<module>/draw",
    "target": "src/curve/monotone.js::ReflectContext.lineTo",
    "kind": "call",
@@ -6834,6 +7482,13 @@
    "kind": "call",
    "count": 1,
    "time": "use"
+  },
+  {
+   "source": "src/symbol/triangle.js::<module>",
+   "target": "src/symbol/triangle.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
   },
   {
    "source": "src/symbol/triangle.js::<module>/draw",
@@ -6881,6 +7536,13 @@
    "time": "definition"
   },
   {
+   "source": "src/symbol/triangle2.js::<module>",
+   "target": "src/symbol/triangle2.js::<module>/draw",
+   "kind": "reference",
+   "count": 1,
+   "time": "definition"
+  },
+  {
    "source": "src/symbol/triangle2.js::<module>/draw",
    "target": "src/curve/monotone.js::ReflectContext.closePath",
    "kind": "call",
@@ -6922,6 +7584,13 @@
    "source": "src/symbol/triangle2.js::sqrt3",
    "target": "src/math.js::sqrt",
    "kind": "call",
+   "count": 1,
+   "time": "definition"
+  },
+  {
+   "source": "src/symbol/wye.js::<module>",
+   "target": "src/symbol/wye.js::<module>/draw",
+   "kind": "reference",
    "count": 1,
    "time": "definition"
   },

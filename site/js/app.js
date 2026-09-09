@@ -2,23 +2,22 @@
 // renderer to the property panel.
 /* global d3 */
 import { deleteAnalysis, listRecentAnalyses, saveAnalysis } from "./analysisCache.js";
+import { installAgentTools } from "./agentTools.js";
 import { searchGithubRepos } from "./githubAnalyzer.js";
 import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
-import { MOTIF_COLORS, MOTIF_DETECTORS } from "./motifs.js";
-import { Panel } from "./panel.js";
+import { islands } from "./metrics.js";
+import { CUSTOM_OPTION, Panel, recentOptionValue } from "./panel.js";
 import { pathBetween } from "./paths.js";
-import { DEFAULT_PHYSICS, applyPhysics, createSimulation, seedPositions } from "./simulation.js";
+import { DEFAULT_PHYSICS, applyPhysics, applyStoredLayout, createSimulation, layoutOf, seedPositions } from "./simulation.js";
 import { visibleContainers } from "./zones.js";
 
 const state = {
   labelMode: "auto",
   colorBy: "kind",
   layerGap: 80,
-  showLayers: false,
-  layerFade: true,
   autoRotate: false,
   // No container has depth 0 (1 = top-level directory, model.js's
   // buildContainers), so this range starts as empty on purpose: nothing
@@ -31,14 +30,24 @@ const state = {
   // direction (THEORY.md §7) is the one worth turning back off if it confuses
   // a dominator-tree-based reading of the diagnostics.
   kinds: new Set(EDGE_KINDS.filter((k) => !DEFAULT_OFF_KINDS.has(k))),
-  // Which motif kinds (motifs.js) are currently highlighted; none by default.
-  motifs: new Set(),
   maxDepth: 0,
   physics: { ...DEFAULT_PHYSICS },
   datasets: [],
   datasetId: null,
   graph: null,
   sim: null,
+  // The raw analyzer document currently installed (docs/DATA_FORMAT.md),
+  // before buildGraph() turns it into `graph` above — kept only so
+  // "Export JSON" can hand back exactly what was analyzed, for debugging an
+  // analysis that looks wrong without having to reproduce it.
+  doc: null,
+  docLabel: null,
+  // The "Recently opened" entry the current document came from, when it came
+  // from one. A layout is expensive enough that settling it once and keeping
+  // it is the difference between reopening a folder instantly and paying the
+  // whole cooling curve again, so a run that reaches its end writes the
+  // positions back here (see installGraph).
+  cacheEntry: null,
 };
 
 const stage = document.getElementById("stage");
@@ -67,6 +76,10 @@ languageSelect.addEventListener("change", () => setLanguage(languageSelect.value
 function applyStaticTranslations() {
   document.documentElement.lang = getLanguage();
   for (const el of document.querySelectorAll("[data-i18n]")) el.textContent = t(el.dataset.i18n);
+  // The panel's resize handle is focusable and has no text of its own, so its
+  // only accessible name is this label; data-i18n above sets textContent,
+  // which would be wrong for an element that must stay empty.
+  document.getElementById("panel-resize").setAttribute("aria-label", t("panel.resize"));
   languageSelect.value = getLanguage();
 }
 applyStaticTranslations();
@@ -82,8 +95,6 @@ function rendererCallbacks() {
       renderer.setPath(result.reachable ? result.nodes : null, result.reachable ? result.edges : null);
       panel.setPathResult(result, from, to);
     },
-    onDragStart: () => state.sim?.alphaTarget(0.3).restart(),
-    onDragEnd: () => state.sim?.alphaTarget(0),
     onHover: (node, event) => {
       if (!node) {
         tooltip.hidden = true;
@@ -110,17 +121,18 @@ const panel = new Panel(document.getElementById("panel"), state, {
   onFile: (file) => loadFile(file),
   onOpenFolder: () => loadLocalFolder(),
   onGithub: (spec) => loadGithubRepo(spec),
+  onExportJson: () => exportJson(),
   onGithubSearch: (query) => searchGithubRepos(query).catch(() => []),
   onLoadRecent: (entry) => loadFromCache(entry),
   onReanalyzeRecent: (entry) => reanalyzeRecent(entry),
   onDeleteRecent: (entry) => deleteRecent(entry),
   onPhysics: (key, value) => {
     state.physics[key] = value;
-    // Apply the new parameter without forcing a reheat: a settled layout the
+    // Apply the new parameter without starting anything: a settled layout the
     // user has been looking at should not be flung back into motion just for
-    // touching a slider. If the simulation is still warm the new value takes
-    // effect on its very next tick either way; "Recompute (reheat)" is the
-    // explicit way to ask for a fresh layout.
+    // touching a slider. The physics is idle unless it was reheated, so the
+    // value is stored and takes effect on the next run; "Recompute (reheat)"
+    // is the one thing that asks for one.
     if (state.sim) applyPhysics(state.sim, state.physics);
   },
   onReheat: () => state.sim?.alpha(1).restart(),
@@ -129,8 +141,11 @@ const panel = new Panel(document.getElementById("panel"), state, {
     seedPositions(state.graph);
     state.sim.alpha(1).restart();
   },
-  onFit: () => renderer.fit(),
+  onFit: () => fitToMainland(),
   onTop: () => renderer.viewTop(),
+  // An island's or the mainland's own "fit to view" (panel.js's Islands
+  // section): frame exactly the nodes clicked, not the graph as a whole.
+  onFitNodes: (nodes) => renderer.fit(nodes),
   onZones: (minDepth, maxDepth) => {
     state.zoneMinDepth = minDepth;
     state.zoneMaxDepth = maxDepth;
@@ -153,14 +168,6 @@ const panel = new Panel(document.getElementById("panel"), state, {
     state.layerGap = gap;
     renderer.setLayerGap(gap);
   },
-  onShowLayers: (show) => {
-    state.showLayers = show;
-    renderer.setShowLayers(show);
-  },
-  onLayerFade: (fade) => {
-    state.layerFade = fade;
-    renderer.setLayerFade(fade);
-  },
   onAutoRotate: (on) => {
     state.autoRotate = on;
     renderer.autoRotate = on;
@@ -172,29 +179,72 @@ const panel = new Panel(document.getElementById("panel"), state, {
     renderer.setPath(null, null);
     panel.setPathResult(null);
   },
-  onMotifs: (kind, enabled) => {
-    if (enabled) state.motifs.add(kind);
-    else state.motifs.delete(kind);
-    updateMotifs();
+  // Highlighting a diagnostic's edges reuses the path overlay rather than
+  // adding a second "show me this set" mechanism: what it has to do — draw
+  // these edges and their endpoints, dim everything else — is exactly what
+  // the overlay already does, and the Selection section's existing "clear"
+  // button then clears this too.
+  onHighlight: (nodes, edges) => renderer.setPath(nodes, edges),
+  onExportReport: (metric, payload) => exportReport(metric, payload),
+});
+
+// Tools an agent can call against whatever is on screen, over WebMCP where
+// the browser has it and on `window.programTree` always (agentTools.js).
+// Everything they can reach, the panel can already do; the point is that the
+// analysis the page is holding does not have to be exported to a file and
+// re-read somewhere else to be acted on.
+installAgentTools({
+  getGraph: () => state.graph,
+  getLabel: () => state.docLabel ?? null,
+  getEdgeKinds: () => [...state.kinds].sort(),
+  setEdgeKinds: (kinds) => {
+    state.kinds = new Set(EDGE_KINDS.filter((k) => kinds.includes(k)));
+    applyKinds();
+    panel.refresh();
+  },
+  highlight: (nodes) => {
+    const set = new Set(nodes);
+    const links = (state.graph?.activeLinks ?? []).filter((l) => set.has(l.source) && set.has(l.target));
+    renderer.setPath(set.size > 0 ? set : null, set.size > 0 ? new Set(links) : null);
+  },
+  // The one thing the page can do that an agent's own file access cannot:
+  // re-read the folder or repo through the handle it already holds, with the
+  // vendored compiler, in the worker. Only a document that came from an
+  // analysis has something to re-run (see installAndRemember).
+  reanalyze: async () => {
+    if (!state.cacheEntry) return { error: "Nothing re-analyzable is open: this document came from a bundled dataset or a JSON file, not from a folder or repository the viewer analyzed." };
+    await reanalyzeRecent(state.cacheEntry);
+    return {};
   },
 });
+
+/**
+ * Re-derive everything a graph's *active* edge kinds decide: the degrees,
+ * heights and cycles on the model, and the two panel sections read off them.
+ * One switch has to drive drawing, springs and diagnostics together and they
+ * must never disagree (CLAUDE.md), which is a good deal easier to keep true
+ * with the sequence written once than with it spelled out at each caller —
+ * installing a graph and toggling a kind both arrive here.
+ */
+function applyKindsTo(graph, selected) {
+  applyActiveKinds(graph, state.kinds);
+  panel.setMetrics(graph);
+  panel.setSelection(selected, graph);
+}
 
 /** Apply the enabled edge kinds to drawing, springs and diagnostics at once. */
 function applyKinds() {
   renderer.setVisibleKinds(state.kinds);
   state.physics.springKinds = new Set(state.kinds);
   if (state.graph) {
-    applyActiveKinds(state.graph, state.kinds);
-    panel.setMetrics(state.graph);
-    panel.setSelection(renderer.selected, state.graph);
+    applyKindsTo(state.graph, renderer.selected);
     renderer.restyle();
-    updateMotifs(); // a motif's own edges/nodes depend on which kinds are active, same as the diagnostics above
   }
   // Drawing, degrees and diagnostics above already reflect the new kinds
-  // immediately; the spring set (below) takes effect on the simulation's own
-  // schedule instead of being forced with a reheat, so switching a kind on or
-  // off while exploring a graph never flings a layout the user just settled
-  // back into motion (see onPhysics for the same reasoning).
+  // immediately; the spring set (below) is stored for the next run rather
+  // than forced with a reheat, so switching a kind on or off while exploring
+  // a graph never flings a settled layout back into motion (see onPhysics for
+  // the same reasoning).
   if (state.sim) applyPhysics(state.sim, state.physics);
 }
 
@@ -204,19 +254,67 @@ function updateZones() {
   renderer.setZones(containers);
 }
 
-/** Recompute every enabled motif (motifs.js) over the graph's current active edges and hand the result to the renderer. */
-function updateMotifs() {
+/**
+ * "Fit to view", by default, means the mainland (the largest connected
+ * piece: metrics.js's islands()) rather than every node. An island drifts
+ * outward without limit under this physics (simulation.js), so including it
+ * in the box a plain full-graph fit would compute can leave the part of the
+ * graph anyone opened it to look at — the connected majority — tiny in a
+ * corner of the view. A graph with no islands has one component, so this is
+ * exactly the old behaviour there.
+ */
+function fitToMainland() {
+  renderer.fit(state.graph ? islands(state.graph).mainlandGroup.nodes : undefined);
+}
+
+
+/** The dataset's own name, reduced to something safe to put in a filename. */
+function exportBaseName() {
+  return (state.doc?.meta?.name ?? state.docLabel ?? "graph").replace(/[^A-Za-z0-9._-]+/g, "-");
+}
+
+/** Hand `value` to the browser as a downloaded JSON file. */
+function downloadJson(filename, value) {
+  const blob = new Blob([JSON.stringify(value, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+/**
+ * Download the raw analyzer document currently installed (docs/DATA_FORMAT.md),
+ * exactly as analyzed — before buildGraph() merges/drops edges or derives
+ * anything — so a graph that looks wrong (a reference that should have
+ * connected two declarations but didn't, say) can be inspected or handed
+ * off without having to reproduce the analysis that produced it.
+ */
+function exportJson() {
+  if (!state.doc) return;
+  downloadJson(`${exportBaseName()}.json`, state.doc);
+}
+
+/**
+ * Download what one diagnostic is actually pointing at, as a report: the
+ * figure on screen plus every declaration or dependency behind it. A number
+ * in the panel says a program is not a tree; this says which parts of it are
+ * not, in a form that can be worked through away from the viewer. `payload`
+ * is whatever that metric has to say for itself (see panel.js's Diagnostics
+ * section, which builds it).
+ */
+function exportReport(metric, payload) {
   if (!state.graph) return;
-  if (state.motifs.size === 0) {
-    renderer.setMotifs(null);
-    return;
-  }
-  const result = new Map();
-  for (const kind of state.motifs) {
-    const { nodes, edges } = MOTIF_DETECTORS[kind](state.graph);
-    result.set(kind, { nodes, edges, color: MOTIF_COLORS[kind] });
-  }
-  renderer.setMotifs(result);
+  downloadJson(`${exportBaseName()}-${metric}.json`, {
+    dataset: state.docLabel ?? null,
+    generatedAt: new Date().toISOString(),
+    // Every diagnostic is computed on the enabled edge kinds only, so a
+    // report that did not say which they were could not be reproduced.
+    edgeKinds: [...state.kinds].sort(),
+    metric,
+    ...payload,
+  });
 }
 
 let statusMessage = { key: "app.loading", params: {} };
@@ -259,33 +357,81 @@ function ensureTicking() {
 
 function installGraph(doc, label) {
   state.sim?.stop();
+  // Set again by the two paths that have one (installAndRemember,
+  // loadFromCache); every other way of loading a document has nowhere to
+  // write a settled layout back to.
+  state.cacheEntry = null;
   const graph = buildGraph(doc);
-  applyActiveKinds(graph, state.kinds);
+  // Before seedPositions() and the renderer below: applyKindsTo() is what
+  // recomputes degrees, cycles and call heights for the kinds actually
+  // enabled, and setGraph() reads the heights straight back out to size its
+  // vertical axis. buildGraph() only ever derives them for the control kinds.
+  applyKindsTo(graph, null);
   state.physics.springKinds = new Set(state.kinds);
   state.graph = graph;
+  state.doc = doc;
+  state.docLabel = label;
   state.maxDepth = graph.maxDepth;
   state.zoneMinDepth = Math.min(state.zoneMinDepth, graph.maxDepth);
   state.zoneMaxDepth = Math.min(state.zoneMaxDepth, graph.maxDepth);
-  seedPositions(graph);
+  // A layout that came with the document if there is one, the phyllotaxis
+  // seed otherwise. Either way nothing runs until asked: see createSimulation.
+  const settled = applyStoredLayout(graph);
+  if (!settled) seedPositions(graph);
 
   renderer.setGraph(graph);
   renderer.setLabelMode(state.labelMode);
   renderer.setColorBy(state.colorBy);
   renderer.setVisibleKinds(state.kinds);
   panel.setMaxDepth(graph.maxDepth, state.zoneMinDepth, state.zoneMaxDepth);
-  panel.setMetrics(graph);
-  panel.setSelection(null, graph);
   panel.setDataInfo({ label, nodes: graph.nodes.length, edges: graph.links.length, files: graph.containers.filter((c) => c.isFile).length });
   updateZones();
-  updateMotifs();
 
-  // The camera is never moved on its own — not on load, not while the
-  // simulation is running, not once it settles. "Fit to view" is the only
-  // way the view reframes; the user asks for it, or does not.
+  // Frame the graph that just arrived, and only then. The camera is still
+  // never moved on its own while the simulation is running or once it
+  // settles: those are the moments the user may already have framed a view
+  // by hand, and overriding it would take the view away from them. A
+  // document being installed is not one of them — nobody can have framed a
+  // graph that did not exist a moment ago.
+  //
+  // It is also no longer optional. A graph used to arrive on the phyllotaxis
+  // seed, a compact disc around the origin that the default camera happened
+  // to show, and to grow into its real extent while the user watched. Now it
+  // arrives at that extent: tens of thousands of units across and centred
+  // wherever the physics left it, since nothing pulls it toward the origin.
+  // Measured on the datasets in this repository, opening one without this
+  // painted between "almost nothing" and, for d3-shape, literally nothing.
+  //
+  // Framed on the mainland (fitToMainland), not every node: an island can
+  // sit arbitrarily far from it (nothing bounds how far the physics lets one
+  // drift), and a fit that had to include one would zoom out far enough to
+  // leave the connected majority — what opening a graph is usually for —
+  // tiny in the middle of the view.
+  fitToMainland();
+
   const sim = createSimulation(graph, state.physics);
   sim.on("tick", () => renderer.tick());
+  // A run that reaches its end is worth keeping: settling this graph again
+  // would cost the same tens of seconds, and the document is the one place
+  // the result survives a reload. Cached analyses get it written back to
+  // IndexedDB so reopening the folder is instant and already settled; a
+  // dataset loaded from a file keeps it in memory, which is enough for
+  // "Export JSON" to hand it on.
+  sim.on("end", () => {
+    if (!state.doc || state.graph !== graph) return;
+    const byId = new Map(layoutOf(graph).map((p) => [p.id, p]));
+    for (const d of state.doc.declarations ?? []) {
+      const p = byId.get(d.id);
+      if (p) {
+        d.x = p.x;
+        d.y = p.y;
+      }
+    }
+    setStatus("app.statusSettled", { nodes: graph.nodes.length, edges: graph.links.length });
+    if (state.cacheEntry) saveAnalysis({ ...state.cacheEntry, doc: state.doc }).catch(() => {});
+  });
   state.sim = sim;
-  setStatus("app.status", { nodes: graph.nodes.length, edges: graph.links.length });
+  setStatus(settled ? "app.status" : "app.statusUnsettled", { nodes: graph.nodes.length, edges: graph.links.length });
 }
 
 async function loadDataset(id) {
@@ -311,10 +457,7 @@ function loadFile(file) {
   const reader = new FileReader();
   reader.onload = () => {
     try {
-      const doc = JSON.parse(reader.result);
-      state.datasetId = "__custom__";
-      panel.setDatasets(state.datasets, "__custom__");
-      installGraph(doc, file.name);
+      installCustomGraph(JSON.parse(reader.result), file.name);
     } catch (err) {
       setStatus("app.parseFailed", { file: file.name, message: err.message });
     }
@@ -355,17 +498,80 @@ function reportPhase(phase, detail, fileCount) {
   if (phase === "compiler") setStatus("app.loadingCompiler");
   else if (phase === "types") setStatus("app.loadingTypes", { count: detail });
   else if (phase === "analyzing") setStatus("app.analyzingFiles", { count: fileCount });
+  // The worker lays the result out before handing it back (analyzeWorker.js),
+  // so this stage is the physics, not the analysis.
+  else if (phase === "layout") setStatus("app.layingOut", { ticks: detail });
 }
 
 async function refreshRecent() {
   panel.setRecent(await listRecentAnalyses());
 }
 
+/**
+ * Install a document that did not come from `data/index.json` — a JSON file,
+ * a folder, a repo, a cached analysis, a `?data=<url>`. All of those have to
+ * say so in the dropdown as well as install the graph, and every one of them
+ * used to spell the pair out; the diagnostics ranked the load paths among
+ * the least independent declarations in this codebase for exactly that.
+ *
+ * `activeValue` is what the dropdown should show as selected: the custom
+ * sentinel by default (a JSON file opened from disk has nowhere else to be
+ * selected, see panel.js), or a "Recently opened" entry's own option value
+ * when there is one to point at instead (loadFromCache, installAndRemember).
+ */
+function installCustomGraph(doc, label, activeValue = CUSTOM_OPTION) {
+  state.datasetId = activeValue;
+  panel.setDatasets(state.datasets, activeValue);
+  installGraph(doc, label);
+}
+
+/**
+ * A fresh analysis finished: show it, remember it, and put it at the top of
+ * "Recently opened". Every analysis ends this way — a folder picked, a folder
+ * re-analyzed, a repo fetched — and each of them used to spell the three
+ * steps out.
+ */
+async function installAndRemember(doc, entry) {
+  installCustomGraph(doc, entry.label, recentOptionValue(entry));
+  state.cacheEntry = entry;
+  await saveAnalysis({ ...entry, doc });
+  await refreshRecent();
+}
+
+/**
+ * Analyze a directory and install what comes out. "Folder…" and "re-analyze"
+ * differ only in where the handle came from, which cache key the result is
+ * filed under, and what to call it — not in any of this.
+ */
+async function analyzeFolder(dirHandle, key, label) {
+  await installAndRemember(await runLocalAnalysis(dirHandle), { kind: "local", key, label, dirHandle });
+}
+
+/**
+ * Read and analyze a directory, reporting the file count as it goes and then
+ * the analyzer's own phases. Shared by "Folder…" and by "re-analyze" on a
+ * remembered folder, which differ only in where the permission comes from
+ * and which cache key the result is filed under.
+ */
+function runLocalAnalysis(dirHandle) {
+  let fileCount = 0;
+  setStatus("app.readingFiles", { count: 0 });
+  return runAnalysisInWorker(
+    "local",
+    { dirHandle },
+    {},
+    (count) => {
+      fileCount = count;
+      setStatus("app.readingFiles", { count });
+    },
+    (phase, detail) => reportPhase(phase, detail, fileCount),
+  );
+}
+
 /** A "Recently opened" entry, clicked: show its cached graph, no re-reading. */
 function loadFromCache(entry) {
-  state.datasetId = "__custom__";
-  panel.setDatasets(state.datasets, "__custom__");
-  installGraph(entry.doc, entry.label);
+  installCustomGraph(entry.doc, entry.label, recentOptionValue(entry));
+  state.cacheEntry = entry;
 }
 
 async function deleteRecent(entry) {
@@ -379,26 +585,12 @@ async function reanalyzeRecent(entry) {
     await loadGithubRepo(entry.key);
     return;
   }
-  let fileCount = 0;
-  setStatus("app.readingFiles", { count: 0 });
   try {
     const granted = await entry.dirHandle.requestPermission({ mode: "read" });
     if (granted !== "granted") throw new Error("permission was not granted");
-    const doc = await runAnalysisInWorker(
-      "local",
-      { dirHandle: entry.dirHandle },
-      {},
-      (count) => {
-        fileCount = count;
-        setStatus("app.readingFiles", { count });
-      },
-      (phase, detail) => reportPhase(phase, detail, fileCount),
-    );
-    await saveAnalysis({ kind: "local", key: entry.key, label: entry.label, doc, dirHandle: entry.dirHandle });
-    await refreshRecent();
-    state.datasetId = "__custom__";
-    panel.setDatasets(state.datasets, "__custom__");
-    installGraph(doc, entry.label);
+    // Keyed by the entry's own key, so re-analyzing updates that row rather
+    // than adding a second one for the same folder.
+    await analyzeFolder(entry.dirHandle, entry.key, entry.label);
   } catch (err) {
     setStatus("app.analyzeFailed", { name: entry.label, message: err.message });
   }
@@ -411,24 +603,8 @@ async function loadLocalFolder() {
   } catch {
     return; // the user cancelled the picker
   }
-  let fileCount = 0;
-  setStatus("app.readingFiles", { count: 0 });
   try {
-    const doc = await runAnalysisInWorker(
-      "local",
-      { dirHandle },
-      {},
-      (count) => {
-        fileCount = count;
-        setStatus("app.readingFiles", { count });
-      },
-      (phase, detail) => reportPhase(phase, detail, fileCount),
-    );
-    state.datasetId = "__custom__";
-    panel.setDatasets(state.datasets, "__custom__");
-    installGraph(doc, dirHandle.name);
-    await saveAnalysis({ kind: "local", key: crypto.randomUUID(), label: dirHandle.name, doc, dirHandle });
-    await refreshRecent();
+    await analyzeFolder(dirHandle, crypto.randomUUID(), dirHandle.name);
   } catch (err) {
     setStatus("app.analyzeFailed", { name: dirHandle.name, message: err.message });
   }
@@ -448,14 +624,10 @@ async function loadGithubRepo(spec) {
       },
       (phase, detail) => reportPhase(phase, detail, fileCount),
     );
-    state.datasetId = "__custom__";
-    panel.setDatasets(state.datasets, "__custom__");
-    installGraph(doc, spec);
     // Keyed by the resolved "owner/repo@ref" (doc.meta.root), not the raw
     // input: typing "owner/repo" and "owner/repo@main" for the same default
     // branch collapse to one cache entry once the ref is resolved.
-    await saveAnalysis({ kind: "github", key: doc.meta.root, label: doc.meta.root, doc });
-    await refreshRecent();
+    await installAndRemember(doc, { kind: "github", key: doc.meta.root, label: doc.meta.root });
   } catch (err) {
     setStatus("app.analyzeFailed", { name: spec, message: err.message });
   }
@@ -466,10 +638,7 @@ async function loadRemote(url) {
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-    const doc = await res.json();
-    state.datasetId = "__custom__";
-    panel.setDatasets(state.datasets, "__custom__");
-    installGraph(doc, url);
+    installCustomGraph(await res.json(), url);
   } catch (err) {
     setStatus("app.loadFailed", { file: url, message: err.message });
   }
@@ -482,7 +651,7 @@ async function main() {
   const params = new URLSearchParams(location.search);
   const wanted = params.get("data");
   if (wanted && /^https?:\/\//.test(wanted)) {
-    panel.setDatasets(state.datasets, "__custom__");
+    panel.setDatasets(state.datasets, CUSTOM_OPTION);
     await loadRemote(wanted);
   } else if (wanted && state.datasets.some((d) => d.id === wanted)) {
     await loadDataset(wanted);
@@ -494,6 +663,62 @@ async function main() {
 }
 
 window.addEventListener("resize", () => renderer.resize());
+
+// Panel width: a drag handle on the panel's own left edge, writing the width
+// straight to the `--panel-width` custom property the stylesheet already
+// reads. The stage is the flex item that absorbs the difference, so the
+// canvas has to be told its box changed — nothing else does that, since the
+// window itself never resized.
+const PANEL_MIN_WIDTH = 260;
+const panelResizer = document.getElementById("panel-resize");
+const panelWidthLimit = () => Math.max(PANEL_MIN_WIDTH, Math.min(720, window.innerWidth - 320));
+const setPanelWidth = (px) => {
+  const width = Math.round(Math.max(PANEL_MIN_WIDTH, Math.min(panelWidthLimit(), px)));
+  document.documentElement.style.setProperty("--panel-width", `${width}px`);
+  renderer.resize();
+  return width;
+};
+
+try {
+  const saved = Number(localStorage.getItem("panelWidth"));
+  if (Number.isFinite(saved) && saved > 0) setPanelWidth(saved);
+} catch {
+  // A browser that refuses storage just gets the stylesheet's default width.
+}
+
+panelResizer.addEventListener("pointerdown", (e) => {
+  e.preventDefault(); // otherwise the drag selects the panel's text as it passes over it
+  panelResizer.setPointerCapture(e.pointerId);
+  panelResizer.classList.add("dragging");
+});
+panelResizer.addEventListener("pointermove", (e) => {
+  if (!panelResizer.hasPointerCapture(e.pointerId)) return;
+  // Width from the window's right edge rather than a delta, so a fast drag
+  // that outruns the pointermove stream still lands where the cursor is
+  // instead of drifting by whatever the missed events were worth.
+  setPanelWidth(window.innerWidth - e.clientX);
+});
+const endPanelResize = (e) => {
+  if (!panelResizer.hasPointerCapture(e.pointerId)) return;
+  panelResizer.releasePointerCapture(e.pointerId);
+  panelResizer.classList.remove("dragging");
+  try {
+    localStorage.setItem("panelWidth", String(document.getElementById("panel").getBoundingClientRect().width));
+  } catch {
+    // See above: not remembering the width is not worth interrupting for.
+  }
+};
+panelResizer.addEventListener("pointerup", endPanelResize);
+panelResizer.addEventListener("pointercancel", endPanelResize);
+// Keyboard equivalent, since the handle is focusable and a pointer drag is
+// not something every input device can do.
+panelResizer.addEventListener("keydown", (e) => {
+  const step = e.shiftKey ? 64 : 16;
+  if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+  e.preventDefault();
+  const current = document.getElementById("panel").getBoundingClientRect().width;
+  setPanelWidth(current + (e.key === "ArrowLeft" ? step : -step));
+});
 
 d3.select(window).on("keydown", (event) => {
   if (event.key === "Escape") renderer.select(null);

@@ -253,3 +253,29 @@ test("the browser's in-memory host analyzes a Svelte project identically to the 
   assert.deepEqual(virtualDoc.declarations, nodeDoc.declarations);
   assert.deepEqual(virtualDoc.edges, nodeDoc.edges);
 });
+
+test("the standard-library guard fires under the browser's host too, where lib files carry bare names", () => {
+  // The CLI sees the lib files as absolute paths inside the TypeScript
+  // package; this host holds the very same files as `lib.es2022.d.ts` and
+  // nothing more (browserAnalyzer.js's loadLibClosure). A guard keyed on the
+  // path shape passes from the CLI and silently matches nothing here, which
+  // is exactly what happened: every `x.map(...)` in a browser analysis went
+  // on collecting an edge to whatever function the codebase called `map`.
+  const files = new Map([
+    [
+      "src/a.ts",
+      `
+        export function target() { return 1; }
+        export function map<T>(g: T[]): T[] { return g; }
+        export const NodeGraph = { map };
+        export function loose(x: any) { return x.map((v: number) => v); }
+        export class A { d: any; constructor(d: any) { this.d = d; } run() { return this.d.hit(); } }
+        export function wireA() { return new A({ hit: () => target() }); }
+      `,
+    ],
+  ]);
+  const doc = analyzeVirtual(files, { name: "fixture", language: "typescript" });
+  const has = (from, to) => doc.edges.some((e) => e.source === from && e.target === to);
+  assert.equal(has("src/a.ts::loose", "src/a.ts::map"), false, "an any-typed receiver must not reach a function named map");
+  assert.ok(has("src/a.ts::A.run", "src/a.ts::wireA/hit"), "and the object-identified read still resolves");
+});

@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { applyActiveKinds, buildGraph, computeHeights, connectedComponentCount, stronglyConnectedComponents } from "../site/js/model.js";
-import { computeMetrics, topSharedNodes } from "../site/js/metrics.js";
+import { applyActiveKinds, buildGraph, computeHeights, connectedComponents, stronglyConnectedComponents } from "../site/js/model.js";
+import { elevationGaps, entryPoints, independence } from "../site/js/metrics.js";
 
 const decl = (id, file = "src/a.js", kind = "function") => ({ id, name: id, kind, file });
 const edge = (source, target, kind = "call") => ({ source, target, kind });
@@ -99,64 +99,65 @@ test("strongly connected components", () => {
   assert.equal(id("a"), id("b"));
   assert.equal(id("b"), id("c"));
   assert.notEqual(id("c"), id("d"));
-  assert.equal(connectedComponentCount(g.nodes, g.links), 1);
+  assert.equal(connectedComponents(g.nodes, g.links).length, 1);
   assert.equal(computeHeights(g.nodes, g.links).maxHeight, 1);
 });
 
-test("metrics of a perfect tree are all 1", () => {
+test("a perfect tree needs no hoisting and every node owns what it calls", () => {
   const g = buildGraph({
     declarations: ["r", "a", "b", "c", "d"].map((id) => decl(id)),
     edges: [edge("r", "a"), edge("r", "b"), edge("a", "c"), edge("a", "d")],
   });
-  const m = computeMetrics(g);
-  assert.equal(m.treeScore, 1);
-  assert.equal(m.acyclicity, 1);
-  assert.equal(m.singleCallerRatio, 1);
-  assert.equal(m.dagness, 1);
-  assert.equal(m.locality, 1);
-  assert.equal(m.overall, 1);
-  assert.equal(m.roots, 1);
-  assert.equal(m.leaves, 3);
-  assert.equal(m.maxHeight, 2);
-  assert.equal(m.surplusEdges, 0);
-  assert.deepEqual(topSharedNodes(g), []);
+  const gaps = elevationGaps(g);
+  assert.equal(gaps.total, 0);
+  assert.equal(gaps.flat, 4);
+  assert.equal(gaps.gapSum, 0);
+  assert.equal(independence(g).overall, 1);
+  assert.deepEqual(
+    entryPoints(g).map((n) => n.id),
+    ["r"],
+  );
 });
 
-test("metrics degrade with shared callees and cycles", () => {
+test("sharing and cycles show up as hoisting and lost independence", () => {
   const g = buildGraph({
     declarations: ["r", "a", "b", "shared"].map((id) => decl(id)),
     edges: [edge("r", "a"), edge("r", "b"), edge("a", "shared"), edge("b", "shared"), edge("shared", "a")],
   });
-  const m = computeMetrics(g);
-  assert.equal(m.nodes, 4);
-  assert.equal(m.edges, 5);
-  assert.equal(m.components, 1);
-  assert.equal(m.surplusEdges, 2);
-  assert.ok(m.treeScore < 1);
-  assert.equal(m.treeScore, 3 / 5);
-  assert.equal(m.nontrivialSccs, 1);
-  assert.equal(m.nodesInCycles, 2);
-  assert.equal(m.acyclicity, 0.5);
-  // Both "a" (called by r and shared) and "shared" (called by a and b) have two callers.
-  assert.equal(m.multiCallers, 2);
-  assert.equal(m.singleCallerRatio, 0.5);
-  assert.equal(m.dagness, 1 - 2 / 5);
-  // "shared" is reached from b, one scope below where it has to live; "a" is
-  // reached from its natural parent only, so it costs nothing.
-  assert.equal(m.locality, (1 + 1 + 1 / 2) / 3);
+  // "a" and "shared" are mutually reachable, so they share one tree position
+  // and the edges between them have no lift at all. What is left is r's two
+  // dependencies (lift 0) and b -> shared, one scope below where it must live.
+  //
+  // On the height axis it plays out differently: the {a, shared} cycle calls
+  // nothing outside itself, so as a unit it sits at the very bottom — while
+  // r, two calls above it, reaches straight down to `a` in one hop. That is
+  // a real gap of 1, even though r->b and b->shared are each a clean single
+  // layer.
+  const gaps = elevationGaps(g);
   assert.deepEqual(
-    topSharedNodes(g).map((s) => s.node.id),
-    ["shared", "a"],
+    gaps.buckets.map((bucket) => [bucket.gap, bucket.edges.length]),
+    [[1, 1]],
+  );
+  assert.equal(gaps.flat, 2);
+  assert.equal(independence(g).overall, (1 + 1 + 1 / 2) / 3);
+  const score = new Map(independence(g).nodes.map((entry) => [entry.node.id, entry.score]));
+  assert.equal(score.get("r"), 1); // owns both of its dependencies outright
+  assert.equal(score.get("b"), 0.5); // its one dependency is shared with a sibling
+  assert.deepEqual(
+    entryPoints(g).map((n) => n.id),
+    ["r"],
   );
 });
 
 test("empty graph does not divide by zero", () => {
-  const m = computeMetrics(buildGraph({ declarations: [], edges: [] }));
-  assert.equal(m.overall, 1);
-  assert.equal(m.components, 0);
+  const g = buildGraph({ declarations: [], edges: [] });
+  assert.equal(independence(g).overall, 1);
+  assert.deepEqual(independence(g).nodes, []);
+  assert.equal(elevationGaps(g).total, 0);
+  assert.deepEqual(entryPoints(g), []);
 });
 
-test("heights, degrees and metrics use the control graph only", () => {
+test("heights, degrees and diagnostics use the control graph only", () => {
   const g = buildGraph({
     declarations: ["main", "helper", "T", "Base", "Impl"].map((id) => decl(id)),
     edges: [
@@ -174,43 +175,49 @@ test("heights, degrees and metrics use the control graph only", () => {
   assert.equal(g.byId.get("main").height, 1);
   assert.equal(g.byId.get("Base").height, 0);
   assert.equal(g.byId.get("main").inCycle, false);
-  const m = computeMetrics(g);
-  assert.equal(m.edges, 5);
-  assert.equal(m.activeEdges, 2);
-  assert.equal(m.treeScore, 1);
-  assert.equal(m.nontrivialSccs, 0);
+  assert.equal(elevationGaps(g).flat, 2); // both active edges reach exactly the layer below main
+  // A type-only target nothing calls is still an entry point of the control
+  // graph, which is what the diagnostics are computed on. Sorted by name the
+  // way the panel lists them, so the order is a collation, not the id order.
+  assert.deepEqual(
+    entryPoints(g).map((n) => n.id),
+    ["Base", "main", "T"],
+  );
   // Switching the diagnosed kinds recomputes degrees, heights and cycles.
   applyActiveKinds(g, new Set(["call", "reference"]));
   assert.equal(g.activeLinks.length, 2);
   assert.equal(g.byId.get("main").inCycle, true);
   assert.equal(g.byId.get("main").inDegree, 1);
   assert.equal(g.byId.get("Impl").inDegree, 0);
-  // main and helper now form a cycle: still one caller each, so the spanning
-  // ratio stays 1 and the cyclicity metrics carry the penalty.
-  const cyclic = computeMetrics(g);
-  assert.equal(cyclic.treeScore, 1);
-  assert.ok(cyclic.acyclicity < 1);
-  assert.ok(cyclic.dagness < 1);
-  assert.ok(cyclic.overall < 1);
+  // main and helper are now one cycle, so they share one call height: both
+  // edges between them have no direction to measure a drop across, and
+  // neither counts even as flat.
+  const cyclic = elevationGaps(g);
+  assert.equal(cyclic.total, 0);
+  assert.equal(cyclic.flat, 0);
+  assert.deepEqual(independence(g).nodes, []);
   applyActiveKinds(g, new Set(["call", "create"]));
   assert.equal(g.byId.get("main").inCycle, false);
 });
 
-test("initialisation cycles count definition-time dependencies only", () => {
-  const time = (e, t) => ({ ...e, time: t });
+test("connectedComponents returns the pieces themselves, largest first, with their own links", () => {
   const g = buildGraph({
-    declarations: ["a", "b", "f", "g", "T"].map((id) => decl(id)),
-    edges: [
-      time(edge("a", "b", "call"), "definition"),
-      time(edge("b", "a", "reference"), "definition"),
-      time(edge("f", "g", "call"), "use"),
-      time(edge("g", "f", "call"), "use"),
-      time(edge("T", "T", "type"), "definition"),
-    ],
+    declarations: ["m", "a", "b", "x", "y", "alone"].map((id) => decl(id)),
+    edges: [edge("m", "a"), edge("a", "b"), edge("x", "y")],
   });
-  const m = computeMetrics(g);
-  assert.equal(m.initCycles, 2); // a and b are read before they are initialised
-  assert.equal(m.nontrivialSccs, 1); // f and g: ordinary mutual recursion on the control graph
-  assert.equal(g.links.find((l) => l.source.id === "a").time, "definition");
-  assert.equal(g.links.find((l) => l.source.id === "f").time, "use");
+  const comps = connectedComponents(g.nodes, g.links);
+  assert.deepEqual(
+    comps.map((c) => c.nodes.map((n) => n.name)),
+    [
+      ["a", "b", "m"],
+      ["x", "y"],
+      ["alone"],
+    ],
+    "largest first, members name-ordered inside each",
+  );
+  assert.deepEqual(
+    comps.map((c) => c.links.length),
+    [2, 1, 0],
+    "every link lands in the component holding both its endpoints",
+  );
 });

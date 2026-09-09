@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { buildGraph } from "../site/js/model.js";
 import { visibleContainers } from "../site/js/zones.js";
-import { DEFAULT_PHYSICS, seedPositions } from "../site/js/simulation.js";
+import { DEFAULT_PHYSICS, applyStoredLayout, layoutOf, seedPositions } from "../site/js/simulation.js";
 
 const decl = (id, file) => ({ id, name: id, kind: "function", file });
 
@@ -57,4 +57,74 @@ test("physics has no container-dependent parameters and seeding ignores files", 
     a.nodes.map((n) => [n.x, n.y]),
     b.nodes.map((n) => [n.x, n.y]),
   );
+});
+
+test("a document's stored layout is used when it is complete, and ignored when it is not", () => {
+  const doc = (positions) => ({
+    declarations: [
+      { id: "a", name: "a", kind: "function", file: "src/a.js", ...(positions[0] ?? {}) },
+      { id: "b", name: "b", kind: "function", file: "src/a.js", ...(positions[1] ?? {}) },
+    ],
+    edges: [{ source: "a", target: "b", kind: "call" }],
+  });
+
+  const full = buildGraph(doc([{ x: 10, y: -20 }, { x: 30, y: 40 }]));
+  assert.equal(applyStoredLayout(full), true);
+  assert.deepEqual(
+    full.nodes.map((n) => [n.x, n.y]),
+    [
+      [10, -20],
+      [30, 40],
+    ],
+  );
+
+  // Half a layout is worse than none: settled nodes beside nodes at the
+  // origin read as a bug, so the caller falls back to the seed instead.
+  const partial = buildGraph(doc([{ x: 10, y: -20 }]));
+  assert.equal(applyStoredLayout(partial), false);
+  const none = buildGraph(doc([]));
+  assert.equal(applyStoredLayout(none), false);
+
+  // And what it hands back is what the format stores.
+  seedPositions(none);
+  assert.deepEqual(
+    layoutOf(none).map((p) => p.id),
+    ["a", "b"],
+  );
+  assert.ok(layoutOf(none).every((p) => Number.isFinite(p.x) && Number.isFinite(p.y)));
+});
+
+test("laying a document out fills in every position, and anneals until the runs stop improving", async () => {
+  // The layout is what the build step writes into a dataset and what the
+  // worker computes after an in-browser analysis (site/js/layout.js is the
+  // single copy both run). d3 is a global there, the way the browser loads it.
+  const d3 = await import("d3");
+  Object.defineProperty(globalThis, "d3", { value: d3, configurable: true });
+  const { layOutDocument } = await import("../site/js/layout.js");
+
+  const doc = {
+    declarations: ["a", "b", "c", "d", "e"].map((id) => ({ id, name: id, kind: "function", file: "src/a.js" })),
+    edges: [
+      { source: "a", target: "b", kind: "call" },
+      { source: "b", target: "c", kind: "call" },
+      { source: "a", target: "d", kind: "call" },
+      { source: "d", target: "e", kind: "call" },
+    ],
+  };
+  const result = layOutDocument(doc);
+  assert.equal(result.nodes, 5);
+  assert.ok(doc.declarations.every((d) => Number.isFinite(d.x) && Number.isFinite(d.y)), "every declaration gets a position");
+  // "settled" = successive annealing runs agreed; "floor" = they stopped
+  // improving. Either is a measured stop; "capped"/"runs" would mean it gave
+  // up against a backstop, which on a graph this small would be a bug.
+  assert.ok(["settled", "floor"].includes(result.reason), `stopped on a measured criterion, not a backstop (got ${result.reason})`);
+  assert.ok(result.runs >= 1, "it anneals at least once");
+  assert.ok(result.ticks > 0 && result.ticks < 40000);
+
+  // And what it wrote is what the viewer opens on.
+  const laid = buildGraph(doc);
+  assert.equal(applyStoredLayout(laid), true);
+
+  // An empty document is not an error.
+  assert.deepEqual(layOutDocument({ declarations: [], edges: [] }), { ticks: 0, runs: 0, reason: "empty", nodes: 0 });
 });

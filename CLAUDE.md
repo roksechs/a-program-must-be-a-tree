@@ -8,24 +8,21 @@ Guidance for AI assistants and contributors working in this repository.
    publishable as-is.
 2. **No credentials, ever.** No API keys, tokens, passwords, private URLs or
    personal data in code, data files, workflows, docs or commit history. The
-   GitHub Pages deployment uses only the built-in `GITHUB_TOKEN` / OIDC
-   permissions of GitHub Actions; never add secrets to workflows.
+   release workflow uses only the built-in `GITHUB_TOKEN` permissions of
+   GitHub Actions; never add secrets to workflows.
 3. **Code and documentation are written in English.** This includes comments,
    commit messages, README, docs, data files and the English source strings of
    the UI. Conversation with the owner may happen in Japanese, but nothing
-   committed is, except translations inside `site/js/i18n.js` and the
-   per-language article content under `site/content/<lang>/`, where the
-   Japanese text is content in its own right (drafted first, for review by
-   the owner) and every chapter must exist in every language.
+   committed is, except the translations inside `site/js/i18n.js`.
 4. **The UI is internationalised.** Every user-visible string goes through
    `t()` from `site/js/i18n.js`; never hard-code UI text in components. When
    adding a string, add it to every language (English and Japanese today); the
    unit tests fail when a language misses a key.
-5. **The product is a GitHub Pages site** that visualizes declaration graphs
-   with D3.js. It must work as a static site without a server or build step;
-   d3 and TypeScript (for the local-folder feature, which runs the analyzer
-   in-browser) are vendored into `site/vendor` so the page has no runtime CDN
-   dependency.
+5. **The product is a static site** that visualizes declaration graphs with
+   D3.js, hosted on Cloudflare (see Deployment). It must work without a
+   server or build step; d3 and TypeScript (for the local-folder feature,
+   which runs the analyzer in-browser) are vendored into `site/vendor` so
+   the page has no runtime CDN dependency.
 6. **The viewer must be able to analyze this project itself** as well as
    well-known open-source projects. Keep `npm run build:data` producing the
    `self` dataset and keep example datasets working.
@@ -60,12 +57,12 @@ edges. Required features, all of which must keep working:
 ## Repository layout
 
 ```
-site/            static site (GitHub Pages root)
+site/            static site (deployment root)
   js/            ES modules: model, metrics, dominance, simulation, zones, graph3d, panel, app, i18n,
                  browserAnalyzer/localAnalyzer/githubAnalyzer/analyzeWorker (analyzer running in-browser),
-                 analysisCache ("Recently opened", IndexedDB)
+                 analysisCache ("Recently opened", IndexedDB),
+                 reports (the four diagnostics as data) and agentTools (those tools over WebMCP / window.programTree)
   data/          generated datasets, listed in index.json
-  content/       article chapters: chapters.json, then <lang>/<chapter>.md per language
   vendor/        d3 and TypeScript (copied by `npm run vendor`, do not edit; TypeScript is regenerated on every build, not committed)
 analyzers/ts/    JavaScript / TypeScript / Svelte analyzer (TypeScript compiler API, svelte2tsx for `.svelte`); core.mjs is the portable half shared with the browser's local-folder feature
 samples/         small source programs analyzed into the bundled sample datasets
@@ -108,24 +105,17 @@ node selection) after changing anything under `site/js`.
 
 ## Deployment
 
-`.github/workflows/pages.yml` runs on every push but only deploys from the
-repository's default branch: tests, vendoring, data generation, then publishes
-`site/` with `actions/deploy-pages`. Pages must be
-configured with "GitHub Actions" as the source in the repository settings, and
-the `github-pages` environment must allow deployments from the default branch
-(its allowed-branch list is pinned when the environment is first created).
-
-The site can equally be served by **Cloudflare Pages** connected to this
-repository through its GitHub integration (no tokens in the repository): build
-command `npm test && npm run vendor && npm run build:data` (spelled out so it
-works on every branch; `npm run build:site` is its shorthand), output
-directory `site`, Node version from `.node-version`. Cloudflare then builds
-every branch and gives each pull request its own preview URL, which GitHub
-Pages cannot do. Nothing in the site depends on which host serves it.
+The site is served by **Cloudflare** (Pages or Workers) connected to this
+repository through its GitHub integration (no tokens in the repository):
+build command `npm test && npm run vendor && npm run build:data` (spelled
+out so it works on every branch; `npm run build:site` is its shorthand),
+output directory `site`, Node version from `.node-version`. Cloudflare
+builds every branch and gives each pull request its own preview URL. If the
+project is set up as a Workers project instead of Pages, `wrangler.jsonc`
+serves `site/` as static assets with the same build.
 
 `.github/workflows/release.yml` cuts the tag and the GitHub release for the
 version in `package.json` when it reaches the default branch, taking the notes
 from the matching `CHANGELOG.md` section. Bumping the version and writing that
-section is therefore the whole release procedure. Like the Pages workflow it
-uses only the built-in `GITHUB_TOKEN` (`contents: write`) and no third-party
-actions.
+section is therefore the whole release procedure. It uses only the built-in
+`GITHUB_TOKEN` (`contents: write`) and no third-party actions.
