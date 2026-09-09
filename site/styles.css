@@ -8,13 +8,11 @@
   --md-primary: #2f5fd8;
   --md-primary-rgb: 47, 95, 216;
   --md-on-primary: #ffffff;
-  --md-secondary: #575e71;
   --md-secondary-container: #dbe2f9;
   --md-error: #ba1a1a;
 
   --md-surface-container-lowest: #ffffff;
   --md-surface-container-low: #f4f3f9;
-  --md-surface-container-highest: #e2e2e9;
   --md-on-surface: #1b1b21;
   --md-on-surface-variant: #46464f;
   --md-outline: #767680;
@@ -54,13 +52,11 @@
     --md-primary: #b0c6ff;
     --md-primary-rgb: 176, 198, 255;
     --md-on-primary: #002c71;
-    --md-secondary: #bfc6dc;
     --md-secondary-container: #3f4759;
     --md-error: #ffb4ab;
 
     --md-surface-container-lowest: #0e0e13;
     --md-surface-container-low: #1b1b21;
-    --md-surface-container-highest: #34343a;
     --md-on-surface: #e4e2e9;
     --md-on-surface-variant: #c7c5d0;
     --md-outline: #91909a;
@@ -637,10 +633,6 @@ p.small {
   line-height: 1.4;
 }
 
-.metric-bar:first-child .bar i {
-  background: var(--md-primary);
-}
-
 /* Diagnostics: three headings, each with its figure, a reading of it, the
    declarations or dependencies behind it, and a button that exports those. */
 .metric-head {
@@ -668,8 +660,11 @@ p.small {
   margin: 0 0 6px;
 }
 
-/* One row per lift: a button, because clicking it highlights that bucket's
-   edges in the view. */
+/* One row per group (panel.js's Islands diagnostic): a button, because
+   clicking it highlights that group's nodes in the view and frames the
+   camera on them. Named for the diagnostic this list first shipped for
+   (lift buckets, since replaced by Elevation gaps' range slider); Islands
+   is the remaining user. */
 .lift-list {
   display: flex;
   flex-direction: column;
@@ -720,22 +715,6 @@ p.small {
 .metric-value {
   text-align: right;
   font-variant-numeric: tabular-nums;
-}
-
-.metric-bar .bar,
-.lift-row .bar {
-  height: 6px;
-  background: var(--md-surface-container-highest);
-  border-radius: var(--shape-full);
-  overflow: hidden;
-}
-
-.metric-bar .bar i,
-.lift-row .bar i {
-  display: block;
-  height: 100%;
-  border-radius: var(--shape-full);
-  background: var(--md-secondary);
 }
 
 ol.shared,

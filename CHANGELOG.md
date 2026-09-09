@@ -33,6 +33,15 @@ The section for a version becomes the notes of its GitHub release
   and the Selection panel's own per-edge lift readout is unchanged too;
   `elevationGaps` is a new, additional lens, not a change to what `lift`
   means anywhere else in the codebase.
+* Its panel row is a two-handled range over the gap axis (`Panel.rangeSlider`,
+  the same control Zones uses for depth) rather than one button per distinct
+  gap value: a real codebase's gaps run into the dozens, and a row each would
+  be exactly the wall of numbers the diagnostics were rebuilt to avoid.
+  Dragging either handle re-highlights the union of every bucket the span now
+  covers and updates a live count beside it; nothing highlights until a
+  handle moves. The now-unused per-bucket bar chart and its CSS
+  (`.bar`/`.metric-bar`, and the two custom properties only they referenced)
+  are gone with it.
 
 ### One dropdown for everything the Data section used to spread across four widgets
 

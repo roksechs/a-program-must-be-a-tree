@@ -554,28 +554,29 @@ export class Panel {
     if (entries.length === 0) entryList.append(this.el("li", { class: "muted" }, t("metric.entryPoints.none")));
     else entryList.append(more(Math.min(LIST_LIMIT, entries.length), entries.length));
 
-    // 2. Elevation gaps, one row per gap size.
-    const gapList = this.el("div", { class: "lift-list" });
-    for (const { gap, edges } of gaps.buckets) {
-      gapList.append(
-        this.el(
-          "button",
-          {
-            type: "button",
-            class: "lift-row",
-            title: t("metric.elevationGaps.show"),
-            // Highlighting the bucket goes through the path overlay (see
-            // app.js's onHighlight): both endpoints of every edge, so the
-            // edges have something to be drawn between.
-            onclick: () => this.h.onHighlight(new Set(edges.flatMap((l) => [l.source, l.target])), new Set(edges)),
-          },
-          this.el("span", { class: "lift-label" }, t("metric.elevationGaps.gap", { gap })),
-          this.el("span", { class: "bar" }, this.el("i", { style: `width:${gaps.total === 0 ? 0 : (edges.length / gaps.total) * 100}%` })),
-          this.el("span", { class: "metric-value" }, String(edges.length)),
-        ),
-      );
+    // 2. Elevation gaps: a two-handled range over the gap axis, rather than
+    // one button per distinct gap value a graph happens to have — a graph
+    // with gaps up to 40 would need 40 rows to click through to ask "show me
+    // 30 and up". Dragging either handle re-highlights the union of every
+    // bucket the span now covers (see app.js's onHighlight: both endpoints
+    // of every edge, so the edges have something to be drawn between) and
+    // updates the count beside it; nothing highlights until a handle moves.
+    const gapValues = gaps.buckets.map((b) => b.gap);
+    const edgesInRange = (lo, hi) => gaps.buckets.filter((b) => b.gap >= lo && b.gap <= hi).flatMap((b) => b.edges);
+    const gapCountEl = this.el("p", { class: "muted small metric-hint" });
+    let gapRange = null;
+    if (gapValues.length > 0) {
+      const minGap = Math.min(...gapValues);
+      const maxGap = Math.max(...gapValues);
+      gapCountEl.textContent = t("metric.elevationGaps.rangeCount", { count: edgesInRange(minGap, maxGap).length });
+      gapRange = this.rangeSlider(t("metric.elevationGaps.range"), minGap, maxGap, minGap, maxGap, 1, (lo, hi) => {
+        const edges = edgesInRange(lo, hi);
+        gapCountEl.textContent = t("metric.elevationGaps.rangeCount", { count: edges.length });
+        this.h.onHighlight(new Set(edges.flatMap((l) => [l.source, l.target])), new Set(edges));
+      });
+    } else {
+      gapCountEl.textContent = t("metric.elevationGaps.none");
     }
-    if (gaps.buckets.length === 0) gapList.append(this.el("p", { class: "muted small" }, t("metric.elevationGaps.none")));
 
     // 3. Independence, least first.
     const ownedList = this.el("ol", { class: "shared" });
@@ -641,7 +642,8 @@ export class Panel {
       heading("metric.elevationGaps", String(gaps.total)),
       hint("metric.elevationGaps.hint"),
       this.el("p", { class: "muted small metric-hint" }, t("metric.elevationGaps.summary", { flat: gaps.flat, gapSum: gaps.gapSum })),
-      gapList,
+      ...(gapRange ? [gapRange] : []),
+      gapCountEl,
       exportButton("elevation-gaps", () => ({
         total: gaps.total,
         flatEdges: gaps.flat,

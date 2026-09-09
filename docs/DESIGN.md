@@ -819,6 +819,16 @@ two diagnostics can and do disagree about the very same edge; each is
 answering a different question, one about the tree of scopes, the other
 about the terrain the 3D view already draws.
 
+The panel does not give elevation gaps one row per distinct value the way
+Scope escapes (its predecessor) or the Islands groups get one each — a large
+codebase can have gaps into the dozens, and a row per value would be exactly
+the wall of numbers `THEORY.md`'s own diagnostics were rebuilt to avoid.
+Instead it is a two-handled range (`Panel.rangeSlider`, the same control
+Zones uses for depth) over the smallest and largest gap actually present:
+moving either handle re-highlights the union of every bucket the span now
+covers and updates the count beside it. Nothing is highlighted until a
+handle moves, the same as every other diagnostic here.
+
 Two figures here are not read off the lift at all, for two different
 reasons. Elevation gaps, just above, deliberately reads a different axis.
 Islands reads neither axis: the lift describes an edge, and the pieces of a
@@ -851,12 +861,16 @@ Entry points and independence are deliberately one quantity (the lift) at two
 granularities; elevation gaps and islands each read an axis of their own.
 None of the four collapses into a single averaged score, and that is
 deliberate: a score compresses away the thing worth acting on — "0.62" does
-not say which dependencies to look at,
-and a five-way average lets a good ratio hide a bad one. A bucketed
-histogram and a ranked list do, and every row in either is clickable
-(selecting the node, or highlighting the bucket's edges through the path
-overlay — see below) and exportable as a report, so what the number is
-pointing at can be worked through outside the viewer.
+not say which dependencies to look at, and a five-way average lets a good
+ratio hide a bad one. A ranked list keeps the number attached to what it
+points at (entry points, independence); a two-handled range over the
+buckets does the same for a quantity with too many distinct values to give
+each its own row (elevation gaps, below); one button per group does it for
+islands. Selecting a node, or highlighting a range's or a group's edges
+through the path overlay (see below), and exporting the underlying set as a
+report, are all still there regardless of which shape the diagnostic takes,
+so what the number is pointing at can be worked through outside the viewer
+too.
 
 Two properties are worth stating because they are easy to misread:
 
