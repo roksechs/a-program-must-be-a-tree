@@ -8,7 +8,7 @@ import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
 import { islands } from "./metrics.js";
-import { CUSTOM_OPTION, Panel } from "./panel.js";
+import { CUSTOM_OPTION, Panel, recentOptionValue } from "./panel.js";
 import { pathBetween } from "./paths.js";
 import { DEFAULT_PHYSICS, applyPhysics, applyStoredLayout, createSimulation, layoutOf, seedPositions } from "./simulation.js";
 import { visibleContainers } from "./zones.js";
@@ -482,10 +482,15 @@ async function refreshRecent() {
  * say so in the dropdown as well as install the graph, and every one of them
  * used to spell the pair out; the diagnostics ranked the load paths among
  * the least independent declarations in this codebase for exactly that.
+ *
+ * `activeValue` is what the dropdown should show as selected: the custom
+ * sentinel by default (a JSON file opened from disk has nowhere else to be
+ * selected, see panel.js), or a "Recently opened" entry's own option value
+ * when there is one to point at instead (loadFromCache, installAndRemember).
  */
-function installCustomGraph(doc, label) {
-  state.datasetId = CUSTOM_OPTION;
-  panel.setDatasets(state.datasets, CUSTOM_OPTION);
+function installCustomGraph(doc, label, activeValue = CUSTOM_OPTION) {
+  state.datasetId = activeValue;
+  panel.setDatasets(state.datasets, activeValue);
   installGraph(doc, label);
 }
 
@@ -496,7 +501,7 @@ function installCustomGraph(doc, label) {
  * steps out.
  */
 async function installAndRemember(doc, entry) {
-  installCustomGraph(doc, entry.label);
+  installCustomGraph(doc, entry.label, recentOptionValue(entry));
   state.cacheEntry = entry;
   await saveAnalysis({ ...entry, doc });
   await refreshRecent();
@@ -534,7 +539,7 @@ function runLocalAnalysis(dirHandle) {
 
 /** A "Recently opened" entry, clicked: show its cached graph, no re-reading. */
 function loadFromCache(entry) {
-  installCustomGraph(entry.doc, entry.label);
+  installCustomGraph(entry.doc, entry.label, recentOptionValue(entry));
   state.cacheEntry = entry;
 }
 

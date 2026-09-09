@@ -40,8 +40,9 @@ const STRINGS = {
     "section.selection": "Selection",
     "section.legend": "Legend",
 
-    "data.dataset": "Dataset",
     "data.open": "Open",
+    "data.examples": "Examples",
+    "data.loadNew": "Load new",
     "data.openJson": "JSON file…",
     "data.localFile": "(local file)",
     "data.openFolder": "Folder…",
@@ -52,7 +53,6 @@ const STRINGS = {
     "data.githubLoad": "Load",
     "data.exportJson": "Export JSON",
     "data.recent": "Recently opened",
-    "data.recentEmpty": "Analyses you run (Open folder / GitHub repo) are remembered here, so reopening one skips reading and analyzing it again.",
     "data.reanalyze": "Re-analyze",
     "data.remove": "Remove",
 
@@ -177,8 +177,9 @@ const STRINGS = {
     "section.selection": "選択",
     "section.legend": "凡例",
 
-    "data.dataset": "データセット",
     "data.open": "開く",
+    "data.examples": "サンプル",
+    "data.loadNew": "新しく読み込む",
     "data.openJson": "JSONファイル…",
     "data.localFile": "(ローカルファイル)",
     "data.openFolder": "フォルダ…",
@@ -189,7 +190,6 @@ const STRINGS = {
     "data.githubLoad": "読み込む",
     "data.exportJson": "JSON をエクスポート",
     "data.recent": "最近開いた項目",
-    "data.recentEmpty": "「フォルダを開く」/「GitHub リポジトリ」で解析した項目がここに残るので、次回はもう一度読み込み直さずに開けます。",
     "data.reanalyze": "再解析",
     "data.remove": "削除",
 

@@ -485,6 +485,14 @@ input[type="range"]::-moz-range-thumb {
   flex-wrap: wrap;
 }
 
+/* An author rule setting `display` always wins over the UA stylesheet's
+   `[hidden] { display: none }` (same specificity, later in the cascade), so
+   `display: flex` above needs its own override here — panel.js's re-analyze
+   / remove row (Data section) is the one `.buttons` toggled by `hidden`. */
+.buttons[hidden] {
+  display: none;
+}
+
 .buttons button,
 .live .bar button {
   font: inherit;
@@ -591,40 +599,6 @@ input[type="range"]::-moz-range-thumb {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
-}
-
-/* Recently opened local folders / GitHub repos (site/js/analysisCache.js). */
-.recent-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.recent-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.recent-label {
-  font: inherit;
-  font-size: 12.5px;
-  color: var(--text);
-  background: transparent;
-  border: none;
-  padding: 4px 0;
-  cursor: pointer;
-  text-align: left;
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.recent-label:hover {
-  color: var(--md-primary);
-  text-decoration: underline;
 }
 
 .icon-button {

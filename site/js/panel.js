@@ -20,14 +20,28 @@ const GITHUB_SEARCH_DEBOUNCE_MS = 400;
 const DEFAULT_OPEN_SECTIONS = ["data", "view"];
 const SECTIONS_STORAGE_KEY = "panelSections";
 
-// Sentinel values in the dataset dropdown, which is the one place a source is
-// chosen. Neither is a dataset id: GITHUB_OPTION reveals the repo field
-// instead of loading anything (setGithubMode), and CUSTOM_OPTION is the
-// disabled entry shown whenever what is loaded did not come from
-// data/index.json at all — a folder, a JSON file, a repo, a cached analysis
-// or a ?data=<url>.
+// Sentinel values in the one dropdown that is every way of choosing what to
+// look at: an example, something opened before, or something new. None of
+// FOLDER_OPTION/JSON_OPTION/GITHUB_OPTION is a dataset id — picking one is a
+// command, not a selection, so the handler that fires it puts the visible
+// value straight back (see currentValue()) rather than leaving the dropdown
+// parked on an action. GITHUB_OPTION is the one exception: it reveals the
+// repo field instead of firing anything by itself (setGithubMode), so it
+// stays selected while that field is showing. CUSTOM_OPTION is the disabled
+// entry shown whenever what is loaded did not come from data/index.json and
+// has nowhere else in the dropdown to be selected — a JSON file opened from
+// disk (never remembered, see analysisCache.js) or a `?data=<url>`; a folder
+// or a GitHub repo has a real "Recently opened" entry to show as selected
+// instead, once analysisCache.js has saved it (see recentOptionValue).
+const FOLDER_OPTION = "__folder__";
+const JSON_OPTION = "__json__";
 const GITHUB_OPTION = "__github__";
 export const CUSTOM_OPTION = "__custom__";
+
+/** The dropdown value standing for one "Recently opened" entry (setRecent). */
+export function recentOptionValue(entry) {
+  return `recent:${entry.kind}:${entry.key}`;
+}
 
 export class Panel {
   /**
@@ -44,6 +58,9 @@ export class Panel {
     this.currentDataset = null;
     this.dataInfo = null;
     this.recent = [];
+    // recentOptionValue(entry) -> entry, so the dropdown's onchange can turn
+    // the <option> it just got back into the entry onLoadRecent needs.
+    this.recentByValue = new Map();
     this.graph = null;
     this.selected = null;
     // Whether the GitHub repo field is showing. Panel state rather than
@@ -203,57 +220,76 @@ export class Panel {
     this.host.replaceChildren();
 
     // Data
-    // The dataset dropdown is the one place a source is chosen: the bundled
-    // datasets, plus a "GitHub repo…" entry that reveals the repo field
-    // below rather than loading anything itself (see setGithubMode). Opening
-    // something off this machine is the other entry, one row with the two
-    // things a browser can actually pick — a folder or a single JSON file,
-    // which no one native dialog can offer together.
-    this.datasetSelect = this.el("select", {
-      onchange: (e) => {
-        const value = e.target.value;
-        if (value === GITHUB_OPTION) {
-          this.setGithubMode(true);
-          return;
-        }
-        this.setGithubMode(false);
-        h.onDataset(value);
+    // One dropdown is every way of choosing what to look at: examples,
+    // something opened before, and something new, as three optgroups in a
+    // fixed order — a returning visitor's most likely destinations (an
+    // example, then their own history) before the actions that leave the
+    // page to go get something (see the sentinel comment above). A native
+    // <select> rather than a custom listbox: keyboard navigation and
+    // type-ahead come for free, and every entry is exactly one line, which
+    // is all any of them need.
+    //
+    // Picking Folder…/JSON file…/GitHub repo… is a command, not a selection
+    // — nothing about what is loaded has changed yet, and for the first two
+    // it may never (the picker can be cancelled) — so the handler puts the
+    // select's value straight back with currentValue() rather than leaving
+    // it parked on the command. GitHub repo… is the one that stays selected:
+    // it reveals a field the user is about to type into, not fire-and-forget.
+    const currentValue = () => (this.githubMode ? GITHUB_OPTION : this.currentDataset);
+    this.examplesGroup = this.el("optgroup", { label: t("data.examples") });
+    this.recentGroup = this.el("optgroup", { label: t("data.recent") });
+    const folderSupported = localFolderSupported();
+    const loadNewGroup = this.el(
+      "optgroup",
+      { label: t("data.loadNew") },
+      this.el("option", { value: FOLDER_OPTION, disabled: folderSupported ? null : "", title: folderSupported ? null : t("data.folderUnsupported") }, t("data.openFolder")),
+      this.el("option", { value: JSON_OPTION }, t("data.openJson")),
+      this.el("option", { value: GITHUB_OPTION }, t("data.githubOption")),
+    );
+    this.datasetSelect = this.el(
+      "select",
+      {
+        onchange: (e) => {
+          const value = e.target.value;
+          if (value === FOLDER_OPTION) {
+            this.setGithubMode(false);
+            e.target.value = currentValue();
+            h.onOpenFolder();
+            return;
+          }
+          if (value === JSON_OPTION) {
+            this.setGithubMode(false);
+            e.target.value = currentValue();
+            fileInput.click();
+            return;
+          }
+          if (value === GITHUB_OPTION) {
+            this.setGithubMode(true);
+            return;
+          }
+          this.setGithubMode(false);
+          const entry = this.recentByValue.get(value);
+          if (entry) h.onLoadRecent(entry);
+          else h.onDataset(value);
+        },
       },
-    });
-    // Hidden, and clicked by the button beside it: a bare file input renders
-    // as native chrome ("Choose File / no file selected") that neither
-    // matches the buttons around it nor fits a narrow panel, and .click()
-    // from a button handler keeps the user gesture the picker needs.
+      this.examplesGroup,
+      this.recentGroup,
+      loadNewGroup,
+    );
+    // Hidden: nothing to render, since the option that triggers it
+    // (JSON_OPTION, above) already is one. .click() from that onchange
+    // handler keeps the user gesture the picker needs.
     const fileInput = this.el("input", {
       type: "file",
       accept: ".json,application/json",
       hidden: "",
       onchange: (e) => {
         if (!e.target.files[0]) return;
-        this.setGithubMode(false);
         h.onFile(e.target.files[0]);
         e.target.value = ""; // so re-picking the same file fires change again
       },
     });
-    const jsonBtn = this.el("button", { type: "button", onclick: () => fileInput.click() }, t("data.openJson"));
-    // The local-folder and GitHub-repo features analyze source in the
-    // browser (no bundled JSON, no server): see site/js/localAnalyzer.js and
-    // site/js/githubAnalyzer.js. showDirectoryPicker() is Chromium-only, so
-    // that button is disabled with an explanatory title elsewhere.
-    const folderSupported = localFolderSupported();
-    const folderBtn = this.el(
-      "button",
-      {
-        type: "button",
-        disabled: folderSupported ? null : "",
-        title: folderSupported ? null : t("data.folderUnsupported"),
-        onclick: () => {
-          this.setGithubMode(false);
-          h.onOpenFolder();
-        },
-      },
-      t("data.openFolder"),
-    );
     this.githubInput = this.el("input", { type: "text", placeholder: t("data.githubPlaceholder"), autocomplete: "off" });
     const githubInput = this.githubInput;
     this.githubResults = this.el("div", { class: "github-results", hidden: "" });
@@ -309,31 +345,27 @@ export class Panel {
     });
     this.githubRow = this.el("div", { hidden: this.githubMode ? null : "" }, this.el("label", { class: "control" }, this.el("span", {}, t("data.github")), githubInput, githubBtn), githubResults);
     this.dataInfoEl = this.el("p", { class: "muted small" });
+    // Re-analyze / remove only apply to a "Recently opened" entry, and only
+    // the one currently loaded — there is nowhere left in the dropdown for a
+    // per-entry button now that entries are plain <option>s, so this shows
+    // instead of one, right where the loaded entry's own name is (see
+    // updateRecentActions, called whenever setDatasets/setRecent might have
+    // changed which one that is).
+    this.recentActionsEl = this.el("div", { class: "buttons", hidden: "" });
     // Downloads the raw analyzer document exactly as installed — see
     // app.js's exportJson() — so a graph that looks wrong can be inspected
     // or handed off without reproducing the analysis that produced it.
     const exportBtn = this.el("button", { type: "button", onclick: () => h.onExportJson() }, t("data.exportJson"));
-    // Analyses the browser itself ran (local folder / GitHub repo), not the
-    // bundled example datasets already in the Dataset dropdown above: see
-    // site/js/analysisCache.js. Populated by setRecent(), not render() —
-    // reading it back from IndexedDB is async.
-    this.recentEl = this.el("div", { class: "recent-list" });
     this.host.append(
       this.section(
         "data",
         t("section.data"),
-        this.el("label", { class: "control" }, this.el("span", {}, t("data.dataset")), this.datasetSelect),
+        this.el("label", { class: "control" }, this.el("span", {}, t("data.open")), this.datasetSelect),
+        fileInput,
         this.githubRow,
-        // One row, the two things a browser can actually be asked to open.
-        // No visible label: a .control's label column is 110px, a third of a
-        // narrow panel, and would push these two onto separate lines for a
-        // word that adds nothing next to "Folder…" and "JSON file…". The
-        // group keeps its name for anything reading the page aloud.
-        this.el("div", { class: "buttons", role: "group", "aria-label": t("data.open") }, folderBtn, jsonBtn, fileInput),
         this.dataInfoEl,
+        this.recentActionsEl,
         this.el("div", { class: "buttons" }, exportBtn),
-        this.el("h3", {}, t("data.recent")),
-        this.recentEl,
       ),
     );
 
@@ -425,16 +457,16 @@ export class Panel {
   setDatasets(datasets, current) {
     this.datasets = datasets;
     this.currentDataset = current;
-    this.datasetSelect.replaceChildren();
-    for (const d of datasets) {
-      this.datasetSelect.append(this.el("option", { value: d.id, selected: d.id === current ? "" : null }, d.name));
-    }
-    // While the repo field is showing, its own entry stays selected even
-    // though loading a repo sets `current` to the custom sentinel: the
-    // dropdown should say where the data on screen came from, and leave the
-    // field open for another repo.
-    this.datasetSelect.append(this.el("option", { value: GITHUB_OPTION, selected: this.githubMode ? "" : null }, t("data.githubOption")));
-    this.datasetSelect.append(this.el("option", { value: CUSTOM_OPTION, disabled: "", selected: !this.githubMode && current === CUSTOM_OPTION ? "" : null }, t("data.localFile")));
+    this.examplesGroup.replaceChildren(...datasets.map((d) => this.el("option", { value: d.id }, d.name)));
+    // CUSTOM_OPTION has no <option> of its own in either optgroup — it is
+    // only ever reached from a JSON file opened from disk or a ?data=<url>,
+    // neither of which is a "Recently opened" entry — so it is appended
+    // bare, disabled, and only while actually current: a JSON file has
+    // nowhere else in the dropdown to show as selected.
+    const customOption = current === CUSTOM_OPTION ? this.el("option", { value: CUSTOM_OPTION, disabled: "" }, t("data.localFile")) : null;
+    this.datasetSelect.querySelector(`option[value="${CUSTOM_OPTION}"]`)?.remove();
+    if (customOption) this.datasetSelect.append(customOption);
+    this.applySelectValue();
   }
 
   /** @param {object} info { label, nodes, edges, files } */
@@ -446,22 +478,31 @@ export class Panel {
   /** @param {object[]} entries analysisCache.js rows, newest first */
   setRecent(entries) {
     this.recent = entries;
-    this.recentEl.replaceChildren();
-    if (entries.length === 0) {
-      this.recentEl.append(this.el("p", { class: "muted small" }, t("data.recentEmpty")));
-      return;
-    }
+    this.recentByValue = new Map(entries.map((entry) => [recentOptionValue(entry), entry]));
     const when = new Intl.DateTimeFormat(undefined, { dateStyle: "short", timeStyle: "short" });
-    for (const entry of entries) {
-      this.recentEl.append(
-        this.el(
-          "div",
-          { class: "recent-item" },
-          this.el("button", { type: "button", class: "recent-label", title: entry.label, onclick: () => (this.setGithubMode(false), this.h.onLoadRecent(entry)) }, entry.label),
-          this.el("span", { class: "muted small" }, when.format(entry.analyzedAt)),
-          this.el("button", { type: "button", class: "icon-button", title: t("data.reanalyze"), onclick: () => this.h.onReanalyzeRecent(entry) }, "↻"),
-          this.el("button", { type: "button", class: "icon-button", title: t("data.remove"), onclick: () => this.h.onDeleteRecent(entry) }, "×"),
-        ),
+    this.recentGroup.replaceChildren(
+      ...entries.map((entry) => this.el("option", { value: recentOptionValue(entry) }, `${entry.label} — ${when.format(entry.analyzedAt)}`)),
+    );
+    this.applySelectValue();
+  }
+
+  /**
+   * Rebuilding an optgroup's <option>s (setDatasets/setRecent, a language
+   * change) resets what the <select> shows as chosen even when the value
+   * that should be selected is untouched, so both call this afterwards
+   * instead of setting `selected` per option themselves. Re-derives the
+   * re-analyze/remove row at the same time: they track the same thing,
+   * "which entry is current", so a value never has one updated without the
+   * other.
+   */
+  applySelectValue() {
+    this.datasetSelect.value = this.githubMode ? GITHUB_OPTION : this.currentDataset;
+    const entry = this.recentByValue.get(this.currentDataset);
+    this.recentActionsEl.hidden = !entry;
+    if (entry) {
+      this.recentActionsEl.replaceChildren(
+        this.el("button", { type: "button", onclick: () => this.h.onReanalyzeRecent(entry) }, t("data.reanalyze")),
+        this.el("button", { type: "button", onclick: () => this.h.onDeleteRecent(entry) }, t("data.remove")),
       );
     }
   }

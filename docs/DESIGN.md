@@ -101,16 +101,30 @@ Because only the flex sizes change and the window never resizes, the drag
 has to call `renderer.resize()` itself — nothing else would tell the canvas
 its box moved.
 
-The Data section keeps one place to choose a source: the dataset dropdown,
-whose entries are the bundled datasets plus a "GitHub repo…" sentinel that
-reveals the repo field rather than loading anything, and a disabled "(local
-file)" sentinel selected whenever what is on screen came from somewhere that
-is not `data/index.json` at all. Whether the repo field is showing is Panel
-state (`githubMode`), not something read back off the dropdown: loading a
-repo re-selects the "(local file)" sentinel, which would otherwise hide the
-field the instant it had been used, and `render()` would lose it on a
-language change. Anything that starts a load from elsewhere clears it, so
-two sources are never offered at once.
+The Data section keeps one place to choose what to look at: a single
+`<select>`, in three `<optgroup>`s — bundled datasets, "Recently opened"
+entries (`recentOptionValue()` turns an `analysisCache.js` row into an
+option value; `Panel.recentByValue` turns it back), and "Load new" for
+"Folder…"/"JSON file…"/"GitHub repo…". Those three are commands, not
+selections: nothing about what is loaded has changed by picking one (a
+native picker can be cancelled, and the repo field is not itself a load), so
+Folder…/JSON file… put the select's value straight back with `currentValue()`
+the moment they fire their picker, and only GitHub repo… stays selected
+while its field is showing (Panel state, `githubMode`, not read off the
+dropdown — `render()` would lose which sentinel to reselect on a language
+change otherwise). A disabled `CUSTOM_OPTION`, outside every optgroup, is
+selected whenever what is on screen came from somewhere with no option of
+its own to point at — a JSON file opened from disk, which
+`analysisCache.js` never remembers, or a `?data=<url>`; a folder or GitHub
+repo has its own "Recently opened" entry to select instead once the analysis
+finishes and gets saved. Anything that starts a load from elsewhere clears
+`githubMode`, so two sources are never offered at once. `applySelectValue()`
+is the one place that reconciles the select's displayed value (and the
+re-analyze/remove row beneath it) with this state; `setDatasets()` and
+`setRecent()` both end by calling it; because rebuilding one optgroup's
+`<option>`s resets what the whole `<select>` shows as chosen, calling
+either without it would visibly deselect whatever the other optgroup holds
+current.
 
 Opening something off this machine is one row of two buttons, because no one
 native dialog can offer both — `showDirectoryPicker()` takes a directory,

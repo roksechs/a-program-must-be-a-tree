@@ -6,6 +6,26 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### One dropdown for everything the Data section used to spread across four widgets
+
+* The dataset `<select>`, the "Folder…"/"JSON file…" buttons and the
+  "Recently opened" list were three separate pieces of UI for what is, to
+  whoever is looking at the panel, one decision: what to look at. They are
+  now one `<select>`, grouped into "Examples", "Recently opened" and "Load
+  new" — the last holds "Folder…", "JSON file…" and "GitHub repo…", since
+  picking one of those is a command (open a picker, reveal a field), not a
+  selection, and the dropdown puts its value straight back rather than
+  parking on the command once it has fired one.
+* Re-analyze and remove, previously an icon button beside every row in
+  "Recently opened", are now a row of two buttons that appears under the
+  dropdown only for whichever "Recently opened" entry is actually loaded —
+  a plain `<option>` has nowhere to put a button of its own.
+* Fixed in passing: the row's `hidden` attribute did nothing, because
+  `.buttons { display: flex }` and the browser's own `[hidden] { display:
+  none }` have equal specificity and the author rule is later in the
+  cascade, so it always won — the same gotcha `.github-results[hidden]`
+  already had its own override for. `.buttons[hidden]` now has one too.
+
 ### "Fit to view" frames the mainland, and any island can be framed on its own
 
 * `fit()`'s default target used to be every node, so a graph with an island
