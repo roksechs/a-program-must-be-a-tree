@@ -7,6 +7,7 @@ import { DEFAULT_OFF_KINDS, EDGE_KINDS } from "./kinds.js";
 import { Graph3D } from "./graph3d.js";
 import { LANGUAGES, detectLanguage, getLanguage, onLanguageChange, setLanguage, t } from "./i18n.js";
 import { applyActiveKinds, buildGraph } from "./model.js";
+import { islands } from "./metrics.js";
 import { CUSTOM_OPTION, Panel } from "./panel.js";
 import { pathBetween } from "./paths.js";
 import { DEFAULT_PHYSICS, applyPhysics, applyStoredLayout, createSimulation, layoutOf, seedPositions } from "./simulation.js";
@@ -139,8 +140,11 @@ const panel = new Panel(document.getElementById("panel"), state, {
     seedPositions(state.graph);
     state.sim.alpha(1).restart();
   },
-  onFit: () => renderer.fit(),
+  onFit: () => fitToMainland(),
   onTop: () => renderer.viewTop(),
+  // An island's or the mainland's own "fit to view" (panel.js's Islands
+  // section): frame exactly the nodes clicked, not the graph as a whole.
+  onFitNodes: (nodes) => renderer.fit(nodes),
   onZones: (minDepth, maxDepth) => {
     state.zoneMinDepth = minDepth;
     state.zoneMaxDepth = maxDepth;
@@ -217,6 +221,19 @@ function updateZones() {
   if (!state.graph) return;
   const containers = visibleContainers(state.graph, state.zoneMinDepth, state.zoneMaxDepth);
   renderer.setZones(containers);
+}
+
+/**
+ * "Fit to view", by default, means the mainland (the largest connected
+ * piece: metrics.js's islands()) rather than every node. An island drifts
+ * outward without limit under this physics (simulation.js), so including it
+ * in the box a plain full-graph fit would compute can leave the part of the
+ * graph anyone opened it to look at — the connected majority — tiny in a
+ * corner of the view. A graph with no islands has one component, so this is
+ * exactly the old behaviour there.
+ */
+function fitToMainland() {
+  renderer.fit(state.graph ? islands(state.graph).mainlandGroup.nodes : undefined);
 }
 
 
@@ -353,7 +370,13 @@ function installGraph(doc, label) {
   // wherever the physics left it, since nothing pulls it toward the origin.
   // Measured on the datasets in this repository, opening one without this
   // painted between "almost nothing" and, for d3-shape, literally nothing.
-  renderer.fit();
+  //
+  // Framed on the mainland (fitToMainland), not every node: an island can
+  // sit arbitrarily far from it (nothing bounds how far the physics lets one
+  // drift), and a fit that had to include one would zoom out far enough to
+  // leave the connected majority — what opening a graph is usually for —
+  // tiny in the middle of the view.
+  fitToMainland();
 
   const sim = createSimulation(graph, state.physics);
   sim.on("tick", () => renderer.tick());

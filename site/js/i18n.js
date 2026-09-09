@@ -107,7 +107,9 @@ const STRINGS = {
     "metric.islands.hint": "Groups of declarations that depend on each other and on nothing else in the program, and that nothing else depends on. Every connected piece but the largest counts as one, so an island is what you can already see drifting away from the rest of the graph. Usually a family kept together on purpose and reached only from outside — an exported API, handlers a framework calls — or code nothing reaches any more.",
     "metric.islands.summary": "{mainland} declarations are connected to the main body. {singles} more stand entirely alone (listed in the exported report).",
     "metric.islands.andMore": "{names} +{count}",
-    "metric.islands.show": "Highlight this island in the view",
+    "metric.islands.mainland": "Main body",
+    "metric.islands.mainlandShow": "Highlight and frame the main body in the view",
+    "metric.islands.show": "Highlight and frame this island in the view",
     "metric.islands.none": "No group stands apart: every declaration with a dependency is connected to the main body.",
 
     "selection.empty": "Click a node to see its callers and callees.",
@@ -242,7 +244,9 @@ const STRINGS = {
     "metric.islands.hint": "互いに依存し合っているだけで、プログラムの他のどこにも依存せず、どこからも依存されていない宣言の組です。連結した塊のうち最大のもの以外がこれにあたるので、グラフ上で本体から離れて漂っている塊がそのまま該当します。多くは意図してまとめられた一族が外からしか呼ばれていない場合(公開API、フレームワークが呼ぶハンドラなど)か、もう誰も到達しなくなったコードです。",
     "metric.islands.summary": "本体につながっている宣言は {mainland} 件。ほかに {singles} 件が単独で孤立しています(書き出したレポートに一覧があります)。",
     "metric.islands.andMore": "{names} 他{count}件",
-    "metric.islands.show": "この浮島をビューで強調表示する",
+    "metric.islands.mainland": "本体",
+    "metric.islands.mainlandShow": "本体を強調表示してビューに収める",
+    "metric.islands.show": "この浮島を強調表示してビューに収める",
     "metric.islands.none": "離れている組はありません。依存を持つ宣言はすべて本体につながっています。",
 
     "selection.empty": "ノードをクリックすると呼び出し元と呼び出し先を表示します。",

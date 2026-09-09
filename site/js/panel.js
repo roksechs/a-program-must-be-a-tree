@@ -33,7 +33,7 @@ export class Panel {
   /**
    * @param {HTMLElement} host
    * @param {object} state shared mutable state (see app.js)
-   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onExportJson, onPhysics, onReheat, onReset, onFit, onTop, onZones, onLabels, onColorBy, onLayerGap, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onHighlight, onExportReport }
+   * @param {object} handlers { onDataset, onFile, onOpenFolder, onGithub, onGithubSearch, onLoadRecent, onReanalyzeRecent, onDeleteRecent, onExportJson, onPhysics, onReheat, onReset, onFit, onFitNodes, onTop, onZones, onLabels, onColorBy, onLayerGap, onAutoRotate, onSelectNode, onFocusNode, onClearPath, onHighlight, onExportReport }
    */
   constructor(host, state, handlers) {
     this.host = host;
@@ -544,9 +544,32 @@ export class Panel {
     if (owned.nodes.length === 0) ownedList.append(this.el("li", { class: "muted" }, t("metric.independence.none")));
     else ownedList.append(more(Math.min(LIST_LIMIT, owned.nodes.length), owned.nodes.length));
 
-    // 4. Islands, largest first. One row per group; islands of one are only
+    // 4. Islands, largest first, each a button that both highlights it and
+    // frames it in the view (onFitNodes) — "which piece is this" and "let me
+    // look at just that piece" are the same click. Islands of one are only
     // counted (see metrics.js's islands), since they would bury the groups.
+    const focusGroup = (nodes, links) => {
+      this.h.onHighlight(new Set(nodes), new Set(links));
+      this.h.onFitNodes(nodes);
+    };
     const islandList = this.el("div", { class: "lift-list" });
+    // The mainland itself is a row too, and the first one: the one place to
+    // get back to "the connected majority, framed" after looking at an
+    // island — the default view already fits it (see app.js's
+    // fitToMainland), so this is a way back to that, not a new destination.
+    islandList.append(
+      this.el(
+        "button",
+        {
+          type: "button",
+          class: "lift-row island-row",
+          title: t("metric.islands.mainlandShow"),
+          onclick: () => focusGroup(adrift.mainlandGroup.nodes, adrift.mainlandGroup.links),
+        },
+        this.el("span", { class: "lift-label" }, t("metric.islands.mainland")),
+        this.el("span", { class: "metric-value" }, String(adrift.mainland)),
+      ),
+    );
     for (const group of adrift.groups.slice(0, LIST_LIMIT)) {
       const names = group.nodes.slice(0, 4).map((n) => n.name).join(", ");
       islandList.append(
@@ -556,7 +579,7 @@ export class Panel {
             type: "button",
             class: "lift-row island-row",
             title: t("metric.islands.show"),
-            onclick: () => this.h.onHighlight(new Set(group.nodes), new Set(group.links)),
+            onclick: () => focusGroup(group.nodes, group.links),
           },
           this.el("span", { class: "lift-label" }, group.nodes.length > 4 ? t("metric.islands.andMore", { names, count: group.nodes.length - 4 }) : names),
           this.el("span", { class: "metric-value" }, String(group.nodes.length)),

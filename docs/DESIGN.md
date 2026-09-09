@@ -384,6 +384,19 @@ arbitrarily wide view and never a numerical problem; the only real ceiling
 on how far a layout's extent can grow is the physics itself (above), which
 already has none.
 
+`fit()` takes an optional node subset (`this.graph.nodes` by default) and
+frames just that subset's bounding box — the mechanism panel.js's Islands
+section uses to jump the camera to one island, or back to the mainland,
+without a second way of computing an extent. The install-time fit and the
+"Fit to view" button both call it with the mainland (the largest connected
+component of the enabled edge kinds, `metrics.js`'s `islands()`) rather than
+every node, for the same reason the zoom floor above had to go: an island
+can sit arbitrarily far from the mainland, since nothing bounds how far the
+physics lets one drift, and a fit that had to include one would zoom out far
+enough to leave the connected majority — what opening a graph is usually
+for — tiny in the middle of the view. A graph with no islands has a single
+component, so this is exactly the old behaviour there.
+
 Directories and files have no influence on the physics: no force reads the
 containers, and the initial positions are seeded on a spiral in declaration
 order without looking at file paths. The layout therefore reflects the call
@@ -791,6 +804,11 @@ kinds, so the panel counts what the view draws. That matters more here than
 elsewhere: an island is usually *visible* as a clump drifting away on its
 own, and a figure that disagreed with what is on screen would be worse than
 no figure.
+
+Each row the panel lists for it — the mainland included — is also a button:
+clicking one highlights that piece and points the camera's `fit()` (above)
+at just its nodes, so "which piece is this" and "let me look at only that
+piece" are the same click.
 
 The first three are deliberately one quantity at three granularities rather
 than five independent ratios averaged into a score. A score compresses away the

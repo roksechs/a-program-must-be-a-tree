@@ -241,6 +241,11 @@ export function islands(graph) {
   const singles = adrift.filter((c) => c.nodes.length === 1).map((c) => c.nodes[0]);
   return {
     mainland: mainland?.nodes.length ?? 0,
+    // The mainland component itself, not just its size: framing a single
+    // island in the view (panel.js) needs the same {nodes, links} shape the
+    // camera's fit() takes for a group, and the mainland is one too — just
+    // the one nothing else stands apart from.
+    mainlandGroup: mainland ?? { nodes: [], links: [] },
     groups,
     singles,
     // Everything reported adrift, groups and singles alike.

@@ -6,6 +6,20 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### "Fit to view" frames the mainland, and any island can be framed on its own
+
+* `fit()`'s default target used to be every node, so a graph with an island
+  far from the rest — nothing bounds how far one can drift under this
+  physics — fit to a box that included it, leaving the connected majority
+  tiny in the middle of the view. It now takes an optional node subset and
+  defaults to the mainland (the largest connected component of the enabled
+  edge kinds), both on install and from the "Fit to view" button; a graph
+  with no islands has one component, so this changes nothing there.
+* The Islands diagnostic's rows (including a new one for the mainland
+  itself) now do two things on click instead of one: highlight that piece,
+  as before, and point the camera at just its nodes. Selecting which island
+  to look at and fitting the view to it are the same action.
+
 ### Fix: a large graph could "Fit to view" to nothing at all
 
 * `fit()`'s zoom-to-extent had a floor of 0.05, shared with the mouse

@@ -653,7 +653,15 @@ export class Graph3D {
     ctx.textAlign = "start";
   }
 
-  fit() {
+  /**
+   * Zoom and centre the camera so `nodes` fills the view — the whole graph by
+   * default, or a subset (an island, the mainland: see panel.js's Islands
+   * section) when a caller wants the camera on just that piece of it. The
+   * bounding box is all that changes; a subset is framed exactly as the
+   * whole graph would be, just tighter, since nothing else about the camera
+   * cares which nodes it was asked to fit.
+   */
+  fit(nodes = this.graph?.nodes) {
     this.zoomK = 1;
     this.focusedNode = null;
     // The general "get me unstuck" reset, so it returns to the normal
@@ -662,9 +670,9 @@ export class Graph3D {
     this.targetX = 0;
     this.targetY = 0;
     this.targetZ = 0;
-    if (!this.graph || this.graph.nodes.length === 0) return;
-    const xs = this.graph.nodes.map((n) => n.x);
-    const ys = this.graph.nodes.map((n) => n.y);
+    if (!nodes || nodes.length === 0) return;
+    const xs = nodes.map((n) => n.x);
+    const ys = nodes.map((n) => n.y);
     const minX = Math.min(...xs);
     const maxX = Math.max(...xs);
     const minY = Math.min(...ys);
