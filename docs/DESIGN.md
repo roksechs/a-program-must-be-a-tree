@@ -870,7 +870,12 @@ islands. Selecting a node, or highlighting a range's or a group's edges
 through the path overlay (see below), and exporting the underlying set as a
 report, are all still there regardless of which shape the diagnostic takes,
 so what the number is pointing at can be worked through outside the viewer
-too.
+too. Every report opens with `description`, the same sentence the panel
+gives for what the figure means — a report is read away from the viewer, so
+the number alone would not say what it was measuring — and a fifth button
+above all four exports them together as one file, `metrics` keyed by the
+same id (`entry-points`, `elevation-gaps`, `independence`, `islands`) each
+report's own filename uses.
 
 Two properties are worth stating because they are easy to misread:
 

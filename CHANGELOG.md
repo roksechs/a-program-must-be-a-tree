@@ -6,6 +6,18 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Every diagnostic report explains itself, and one button exports all four
+
+* Each of the four exported reports (entry points, elevation gaps,
+  independence, islands) now leads with `description`: the same sentence
+  the panel gives for what the figure means. A report is read away from the
+  viewer — the point of exporting one — so the number by itself did not say
+  what it was measuring.
+* A new "Export all four as one report" button, above the four individual
+  ones, downloads a single file with all four under `metrics`, keyed by the
+  same id (`entry-points`, `elevation-gaps`, `independence`, `islands`) each
+  one's own filename already uses.
+
 ### "Scope escapes" replaced by "Elevation gaps", read off call height instead of the dominator tree
 
 * Scope escapes bucketed edges by *lift* — how many scopes a dependency had

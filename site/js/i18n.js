@@ -89,6 +89,7 @@ const STRINGS = {
 
     "metric.scope": "Computed on the edge kinds enabled in the Edges section.",
     "metric.export": "Export report",
+    "metric.exportAll": "Export all four as one report",
     "metric.more": "+{count} more (in the exported report)",
     "metric.entryPoints": "Entry points",
     "metric.entryPoints.hint": "Declarations nothing calls: where control enters the program. In a forest these are the roots, so this is how many separate trees the program actually is — and in an application they are what startup and events run, which makes the list a rough inventory of the states the UI can reach.",
@@ -226,6 +227,7 @@ const STRINGS = {
 
     "metric.scope": "エッジ セクションで有効な種別で計算しています。",
     "metric.export": "レポートを書き出す",
+    "metric.exportAll": "4つまとめて1つのレポートに書き出す",
     "metric.more": "他 {count} 件(書き出したレポートに含まれます)",
     "metric.entryPoints": "エントリポイント",
     "metric.entryPoints.hint": "どこからも呼ばれない宣言、つまり制御がプログラムに入ってくる場所です。森であればこれが根なので、この数はプログラムが実際にいくつの木でできているかを表します。アプリケーションでは起動処理とイベント処理がここに来るため、この一覧はUIが取りうる状態のおおまかな棚卸しになります。",

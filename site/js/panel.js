@@ -542,6 +542,64 @@ export class Panel {
       );
     const exportButton = (metric, build) =>
       this.el("div", { class: "buttons" }, this.el("button", { type: "button", onclick: () => this.h.onExportReport(metric, build()) }, t("metric.export")));
+    // Every report — this one included — leads with `description`: the same
+    // text as the section's own hint, so a report opened away from the
+    // viewer (the whole point of exporting one) still says what the number
+    // meant, not just what it was.
+    const entryPointsReport = () => ({ description: t("metric.entryPoints.hint"), count: entries.length, nodes: entries.map(reportNodeShape) });
+    const elevationGapsReport = () => ({
+      description: t("metric.elevationGaps.hint"),
+      total: gaps.total,
+      flatEdges: gaps.flat,
+      gapSum: gaps.gapSum,
+      byGap: gaps.buckets.map(({ gap, edges }) => ({
+        gap,
+        count: edges.length,
+        edges: edges.map((l) => ({ source: l.source.id, target: l.target.id, kind: l.kind, gap })),
+      })),
+    });
+    const independenceReport = () => ({
+      description: t("metric.independence.hint"),
+      overall: owned.overall,
+      nodes: owned.nodes.map(({ node, score, callees, shared }) => ({ ...reportNodeShape(node), independence: score, callees, shared })),
+    });
+    const islandsReport = () => ({
+      description: t("metric.islands.hint"),
+      mainland: adrift.mainland,
+      adrift: adrift.adrift,
+      groups: adrift.groups.map((g) => ({
+        size: g.nodes.length,
+        nodes: g.nodes.map(reportNodeShape),
+        edges: g.links.map((l) => ({ source: l.source.id, target: l.target.id, kind: l.kind })),
+      })),
+      // Listed here even though the panel only counts them: a report is
+      // read at leisure, and a lone declaration adrift is still a finding.
+      alone: adrift.singles.map(reportNodeShape),
+    });
+    // One file with all four, each keyed by the same metric id its own
+    // export uses — for handing the whole diagnosis to someone at once
+    // rather than four separate downloads.
+    const exportAllButton = this.el(
+      "div",
+      { class: "buttons" },
+      this.el(
+        "button",
+        {
+          type: "button",
+          class: "primary",
+          onclick: () =>
+            this.h.onExportReport("all", {
+              metrics: {
+                "entry-points": entryPointsReport(),
+                "elevation-gaps": elevationGapsReport(),
+                independence: independenceReport(),
+                islands: islandsReport(),
+              },
+            }),
+        },
+        t("metric.exportAll"),
+      ),
+    );
     // A list long enough to read, with the rest reachable through the export
     // — a panel that printed every one of several hundred entry points would
     // be a worse way to look at them than the file it can hand over.
@@ -634,51 +692,30 @@ export class Panel {
     }
 
     this.metricsBody.replaceChildren(
+      exportAllButton,
+
       heading("metric.entryPoints", String(entries.length)),
       hint("metric.entryPoints.hint"),
       entryList,
-      exportButton("entry-points", () => ({ count: entries.length, nodes: entries.map(reportNodeShape) })),
+      exportButton("entry-points", entryPointsReport),
 
       heading("metric.elevationGaps", String(gaps.total)),
       hint("metric.elevationGaps.hint"),
       this.el("p", { class: "muted small metric-hint" }, t("metric.elevationGaps.summary", { flat: gaps.flat, gapSum: gaps.gapSum })),
       ...(gapRange ? [gapRange] : []),
       gapCountEl,
-      exportButton("elevation-gaps", () => ({
-        total: gaps.total,
-        flatEdges: gaps.flat,
-        gapSum: gaps.gapSum,
-        byGap: gaps.buckets.map(({ gap, edges }) => ({
-          gap,
-          count: edges.length,
-          edges: edges.map((l) => ({ source: l.source.id, target: l.target.id, kind: l.kind, gap })),
-        })),
-      })),
+      exportButton("elevation-gaps", elevationGapsReport),
 
       heading("metric.independence", owned.overall.toFixed(2)),
       hint("metric.independence.hint"),
       ownedList,
-      exportButton("independence", () => ({
-        overall: owned.overall,
-        nodes: owned.nodes.map(({ node, score, callees, shared }) => ({ ...reportNodeShape(node), independence: score, callees, shared })),
-      })),
+      exportButton("independence", independenceReport),
 
       heading("metric.islands", String(adrift.groups.length)),
       hint("metric.islands.hint"),
       this.el("p", { class: "muted small metric-hint" }, t("metric.islands.summary", { mainland: adrift.mainland, singles: adrift.singles.length })),
       islandList,
-      exportButton("islands", () => ({
-        mainland: adrift.mainland,
-        adrift: adrift.adrift,
-        groups: adrift.groups.map((g) => ({
-          size: g.nodes.length,
-          nodes: g.nodes.map(reportNodeShape),
-          edges: g.links.map((l) => ({ source: l.source.id, target: l.target.id, kind: l.kind })),
-        })),
-        // Listed here even though the panel only counts them: a report is
-        // read at leisure, and a lone declaration adrift is still a finding.
-        alone: adrift.singles.map(reportNodeShape),
-      })),
+      exportButton("islands", islandsReport),
     );
   }
 
