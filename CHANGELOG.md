@@ -6,6 +6,22 @@ The section for a version becomes the notes of its GitHub release
 
 ## Unreleased
 
+### Fix: a large graph could "Fit to view" to nothing at all
+
+* `fit()`'s zoom-to-extent had a floor of 0.05, shared with the mouse
+  wheel's own zoom gesture. A graph whose settled layout spans more than
+  ~14,000 units at the default viewport needs less than that to fit — a
+  2,139-declaration project measured at 236,714 units across needed 0.003 —
+  and with the floor in the way, "Fit to view" (which now runs on every
+  install, see below) projected the whole graph to roughly 11,800px across:
+  not small, entirely off-screen, the canvas blank.
+* `fit()`'s zoom now has only an upper bound (2, so a small graph is not
+  blown up past a sane scale); the wheel's zoom lost its floor too, since
+  the same 0.05 would otherwise have snapped a fitted view straight back to
+  it on the very first scroll. Nothing in `project()` divides by `zoomK`, so
+  an arbitrarily small one is just an arbitrarily wide view, never a
+  numerical problem.
+
 ### The physics runs only when asked, and datasets carry their layout
 
 * **Each annealing run starts at an alpha of 16, not 1.** Alpha is d3's

@@ -371,6 +371,19 @@ since nothing pulls it toward the origin. Measured across the datasets in
 this repository, opening one without the fit painted between almost nothing
 and, for `d3-shape`, nothing at all.
 
+`fit()`'s zoom has an upper bound (2, so a small graph is not blown up past a
+sane scale) but no lower one, and the wheel's own zoom gesture — a relative
+`zoomK *= f` per tick, clamped to `[?, 8]` — must not reintroduce one either.
+A floor here used to be shared with the wheel's `0.05`, on the assumption
+that no real graph would need less; a 2,139-declaration project measured at
+236,714 units across needed 0.003, sixteen times past that floor, and with
+it "Fit to view" projected the whole graph to roughly 11,800px across —
+painting nothing at all inside the viewport, not merely small. Nothing in
+`project()` divides by `zoomK`, so an arbitrarily small one is just an
+arbitrarily wide view and never a numerical problem; the only real ceiling
+on how far a layout's extent can grow is the physics itself (above), which
+already has none.
+
 Directories and files have no influence on the physics: no force reads the
 containers, and the initial positions are seeded on a spiral in declaration
 order without looking at file paths. The layout therefore reflects the call

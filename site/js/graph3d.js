@@ -188,7 +188,14 @@ export class Graph3D {
       (e) => {
         e.preventDefault();
         const f = Math.exp(-e.deltaY * 0.0015);
-        this.zoomK = Math.max(0.05, Math.min(8, this.zoomK * f));
+        // Only an upper bound: nothing in project() divides by zoomK, so an
+        // arbitrarily small one is just an arbitrarily wide view, never a
+        // numerical problem. A floor here used to independently reintroduce
+        // the bug just fixed in fit() -- "Fit to view" on a very large graph
+        // sets zoomK below 0.05, and the very next wheel tick would have
+        // snapped it back up to 0.05, an unrequested 16x zoom-in on nothing
+        // the user asked to zoom into.
+        this.zoomK = Math.min(8, this.zoomK * f);
         this.draw();
       },
       { passive: false },
@@ -663,7 +670,17 @@ export class Graph3D {
     const minY = Math.min(...ys);
     const maxY = Math.max(...ys);
     const extent = Math.max(maxX - minX, maxY - minY, this.maxHeight * this.layerGap, 1);
-    this.zoomK = Math.max(0.05, Math.min(2, (Math.min(this.width, this.height) * 0.8) / extent));
+    // Only an upper bound (2): a small graph should not be blown up past a
+    // sane scale. No lower bound, unlike the wheel's zoomK clamp just above
+    // -- that 0.05 is a limit on how far a *relative* zoom-out gesture may
+    // go, not on how small a fit can require. A settled layout the physics
+    // is free to inflate without limit (islands drift outward forever, see
+    // simulation.js) can need far less: a 2,139-node project measured at
+    // 236,714 units across needed 0.003, sixteen times past that floor. With
+    // it, "Fit to view" clamped to 0.05, projected the whole graph to roughly
+    // 11,800px across, and the canvas painted nothing at all -- not "small
+    // and hard to read", literally zero pixels of it inside the viewport.
+    this.zoomK = Math.min(2, (Math.min(this.width, this.height) * 0.8) / extent);
     this.focal = extent * FOCAL_EXTENT_RATIO;
     // Repulsion has no range limit and nothing pulls nodes toward a centre
     // (by design, see docs/DESIGN.md), so the layout's own bounding box can
