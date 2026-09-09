@@ -3,7 +3,7 @@
   "name": "a-program-must-be-a-tree",
   "root": ".",
   "language": "javascript",
-  "generatedAt": "2026-09-09T06:59:59.085Z",
+  "generatedAt": "2026-09-09T07:11:45.831Z",
   "analyzer": "analyzers/ts@0.8.0",
   "files": 35
  },
